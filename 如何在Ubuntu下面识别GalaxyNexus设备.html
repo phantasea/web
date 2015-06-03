@@ -1,0 +1,481 @@
+<!DOCTYPE html PUBliC "-//W3C//dtD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/dtD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<link rel="stylesheet" href="http://www.2cto.com/statics/css/article.css" type="text/css" />
+
+<link href="http://www.2cto.com/statics/css/dialog.css" rel="stylesheet" type="text/css" />
+<title>如何在Ubuntu下面识别Galaxy Nexus设备 - Linux操作系统：Ubuntu_Centos_Debian - 红黑联盟</title>
+<meta name="keywords" content="如何在,Ubuntu,下面,识别" />
+<meta name="description" content="如何在Ubuntu下面识别Galaxy Nexus设备最近入手了Galaxy Nexus手机，但是由于一直在Ubuntu下面开发，而Ubuntu不能直接识别GalaxyNexus的MTP设备，导致了16G的Rom在Ubuntu下面完全无法识别，只能通过adb push和..." />
+<script type="text/javascript" src="http://www.2cto.com/statics/js/jquery.min.js"></script>
+<script type="text/javascript" src="http://www.2cto.com/statics/js/jquery.sgallery.js"></script>
+<script type="text/javascript" src="http://www.2cto.com/statics/js/search_common.js"></script>
+<script type="text/javascript" src="http://cbjs.baidu.com/js/m.js"></script>
+<script type="text/javascript" src="http://www.2cto.com/statics/js/json.js"></script>
+<script language="javascript" type="text/javascript" src="http://www.2cto.com/statics/js/dialog.js"></script>
+
+
+</head>
+
+<body>
+<div class="line_top_box">
+	<dl class="top_box_left">
+		<dd class="left_logo"><a href="http://www.2cto.com"></a></dd>
+		<dd class="left_menu_link">
+																<a class='Channel' href='/News/'>资讯</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/Article/'>安全</a>&nbsp;|&nbsp;
+													<a class='Channel' href='http://bbs.2cto.com'>论坛</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/Soft/'>下载</a>&nbsp;|&nbsp;
+													<a class='Channel' href='http://book.2cto.com'>读书</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/kf/'>程序开发</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/database/'>数据库</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/os/'>系统</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/net/'>网络</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/ebook/'>电子书</a>&nbsp;|&nbsp;
+													<a class='Channel' href='http://zz.2cto.com/'>站长学院</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/ym/'>源码</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/QQ/'>QQ</a>&nbsp;|&nbsp;
+													<a class='Channel' href='http://space.2cto.com'>专栏</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/px/'>考试</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/shouce/'>手册</a>&nbsp;|&nbsp;
+														</dd>
+	</dl>
+</div>
+<div class="line_top_lmbox">
+	<dl class="lmpic"></dl>
+	<dl class="lmlinkbox"><dd>
+										<a class='Channel' href='http://www.2cto.com/os/linux/'>Linux</a>|
+							<a class='Channel' href='http://www.2cto.com/os/windows/'>Windows</a>|
+							<a class='Channel' href='http://www.2cto.com/os/dos/'>Dos命令行</a>|
+							<a class='Channel' href='http://www.2cto.com/os/liulanqi/'>浏览器</a>|
+							<a class='Channel' href='http://www.2cto.com/os/xuniji/'>虚拟机</a>|
+							<a class='Channel' href='http://www.2cto.com/os/qita/'>其他</a>|
+								</dd></dl>
+	<dl class="LoginBox"><dd><script type="text/javascript">document.write('<iframe src="http://www.2cto.com/index.php?m=member&c=index&a=mini&forward='+encodeURIComponent(location.href)+'&siteid=1" allowTransparency="true"  width="150" height="32" frameborder="0" scrolling="no"></iframe>')</script></dd></dl>
+</div>
+<div class="divline8"></div>
+<div class="tadv">
+
+<a target="_blank" href="http://vip.2cto.com/"><img src="http://www.2cto.com/adv/980-80.gif" width="980" height="90" /></a>
+<!-- 广告位：顶部banner -->
+<script type="text/javascript">BAIDU_CLB_fillSlot("298612");</script>
+
+</div>
+
+
+<div class="divline8"></div>
+<div class="it165_box">
+	<div class="box_left">
+		
+		<dl class="box_p">
+			<dd class="pRight"><a href="http://www.2cto.com">首页</a><span> > </span><a href="http://www.2cto.com/os/">系统</a> > <a href="http://www.2cto.com/os/linux/">Linux</a> >  正文</dd>
+			<script type="text/javascript">BAIDU_CLB_fillSlot("703722");</script>
+			</dl>
+		<dl class="box_t"><dd>如何在Ubuntu下面识别Galaxy Nexus设备</dd></dl>
+																										<dl class="box_INFO">
+			<dd class="frinfo line_blue">2012-05-10 11:38:28  &nbsp;&nbsp;&nbsp;&nbsp;<a style="font-weight:bold;padding:5px 0px 5px 20px;background:url('http://www.2cto.com/statics/images/icon/user_comment.png') left center no-repeat" href="#comment_iframe">我来说两句&nbsp;</a>&nbsp;&nbsp;  &nbsp;&nbsp;  </dd>
+			<dd class="frsize line_blue">
+			<span id='favorite'>
+				<a href="javascript:;" onclick="add_favorite('如何在Ubuntu下面识别Galaxy Nexus设备');" class="t6">收藏</a>
+			</span>&nbsp;&nbsp;
+				<a target="_blank" href="http://www.2cto.com/index.php?m=member&c=content&a=publish&modid=1&siteid=1"><img border="0" src="http://www.2cto.com/statics/images/dl.jpg" />我要投稿</a>
+			</dd>
+			
+		</dl>
+		<dl class="box_body" id="fontzoom"><dd id="Article">
+		<div>如何在Ubuntu下面识别Galaxy Nexus设备</div>
+<div>&nbsp;</div>
+<div>最近入手了Galaxy Nexus手机，但是由于一直在Ubuntu下面开发，<br />
+而Ubuntu不能直接识别GalaxyNexus的MTP设备，导致了16G的Rom在Ubuntu下面完全无法识别，<br />
+只能通过adb push和adb install的方法来安装程序，没有充分发挥磁盘存储器的作用。<br />
+因此，上网搜索了几种办法，折腾了挺久终于解决了。 &nbsp;www.2cto.com &nbsp;</div>
+<div>&nbsp;</div>
+<div>解决办法如下：<br />
+&nbsp;</div>
+<div>1. 安装必要的MTP工具集：sudo apt-get install mtp-tools mtpfs<br />
+&nbsp;</div>
+<div>2. &nbsp;打开Galaxy Nexus，选择MTP设别的存储方式，而不是PTP。如图示。</div>
+<div><br />
+<img src="http://up.2cto.com/2012/0510/20120510114631762.png" /><br />
+&nbsp;</div>
+<div>3. &nbsp;检测你的设备的idVendor和idProduct号。</div>
+<div>mtp-detect | grep idVendor （获取的号码就是输出的红色字段，idVendor: 04e8）</div>
+<div>&nbsp;</div>
+<div>mtp-detect | grep idProduct(获取的号码就是输出红色字段，idProduct: 685c)</div>
+<div>4. &nbsp;编辑设备文件，没有就添加。gksu gedit /etc/udev/rules.d/51-android.rules</div>
+<div>在其中加入：SUBSYSTEM==&rdquo;usb&rdquo;, ATTR{idVendor}==&rdquo;VENDORID&rdquo;, ATTR{idProduct}==&rdquo;PRODUCTID&rdquo;, MODE=&rdquo;0666&Prime;</div>
+<div>其中，VENDORID替换位你签名的idVendor的值，即04e8，后面的PRODUCTID同理。<br />
+注意，引号一定注意全角和半角，不放心手动输入一遍。</div>
+<div>5. 启动相关服务和规则，设置挂载点，并赋予读写可执行权限。</div>
+<div>&nbsp;</div>
+<div>sudo service udev restart</div>
+<div>&nbsp;</div>
+<div>sudo mkdir /media/GalaxyNexus</div>
+<div>&nbsp;</div>
+<div>sudo chmod a+rwx /media/GalaxyNexus</div>
+<div>&nbsp;</div>
+<div>sudo adduser YOURUSERNAME fuse（将你的用户名替换这里的YOURUSERNAME）</div>
+<div>然后编辑文件，gksu gedit /etc/fuse.conf，将最后一行签名的#去掉，<br />
+即将原来的&ldquo;#user_allow_other&rdquo;变为&ldquo;user_allow_other&rdquo;。 &nbsp;www.2cto.com &nbsp;</div>
+<div>&nbsp;</div>
+<div>6. &nbsp;然后，利用别名机制，实现挂载和弹出。</div>
+<div>&nbsp;</div>
+<div>echo &ldquo;alias android-connect=\&rdquo;mtpfs -o allow_other /media/GalaxyNexus\&rdquo;&quot; &gt;&gt; ~/.bashrc</div>
+<div>echo &ldquo;alias android-disconnect=\&rdquo;fusermount -u /media/GalaxyNexus\&rdquo;&quot; &gt;&gt; ~/.bashrc</div>
+<div>source ~/.bashrc（再次注意签名的全角和半角符号，手动输入一遍避免出错）</div>
+<div>7. &nbsp;然后，此时运行android-connect可能还不能识别设备，注销之后登录进去，<br />
+再次运行android-connect，即可成功。不过，挂载的过程有点慢，需要等上1分钟左右，<br />
+开始可能误以为没有挂载，不过后来会弹出相应的文件<a href="http://www.2cto.com/os/liulanqi/" target="_blank" class="keylink">浏览器</a>，并可以完整的看到文件，拷贝，编辑。</div>
+<div>&nbsp;</div>
+<div>至此，整个过程成功，经过测试完全可用。</div>
+<div>&nbsp;</div>
+<div>附记：如果严格按照上面的步骤，并且注意了全角和半角符号，仍然出现了问题，<br />
+可以检测是否是libmtp这个库运行不正常，可能在最新的Ubuntu下面，较久版本的不能正常运行，<br />
+此时，可以按照下面的步骤来更新到最新的libmtp库，然后即可成功。<br />
+经过测试，也没问题（此步骤可以在前面所有步骤之前进行）</div>
+<div>&nbsp;</div>
+<div>sudo apt-get install libusb-dev</div>
+<div>wget http://downloads.sourceforge.net/project/libmtp/libmtp/1.1.1/libmtp-1.1.1.tar.gz</div>
+<div>tar -xvf libmtp-1.1.1.tar.gz</div>
+<div>cd libmtp-1.1.1</div>
+<div>./configure --prefix=/usr</div>
+<div>make &nbsp;www.2cto.com &nbsp;</div>
+<div>sudo make install</div>
+<div>sudo cp 69-libmtp.rules /etc/udev/rules.d (mayby not needed)</div>
+<div>sudo service udev restart</div>
+<div>实际上，经过上面这9个步骤之后，就可以使用mtp设备了，因为已经可以使用mtp-dectect，<br />
+mtp-files等命令来查看设备以及相关的文件了，还可以操作其中的文件，<br />
+但是，使用命令行的方式比较麻烦，所以才需要mtp-tools mtpfs这些工作实现MTP设备的挂载，<br />
+拷贝，从而像磁盘那样操作。</div>
+<div>&nbsp;</div>
+<div>最后，感谢Ubuntu社区那些无私奉献的人们，为我们的生活带来更多美好的东西，<br />
+<br />
+本文参考资料如下：</div>
+<div>1. Getting MTP to work with a Galaxy Nexus?<br />
+http://askubuntu.com/questions/87667/getting-mtp-to-work-with-a-galaxy-nexus/88481#88481</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>作者 deercoder</div>
+						</dd></dl>
+		<script type="text/javascript">
+		<!--
+		$(function(){
+		  $('#Article img').LoadImage(true, 630, 560,'http://www.2cto.com/statics/images/s_nopic.gif');    
+		})
+		
+		//-->
+		</script>
+	<div id="pages" class="box_body" id="fontzoom">	</div>
+	<dl style="width:650px;height:100px;padding-top:10px;float:left;padding-left:10px">
+		<dd><script type="text/javascript">BAIDU_CLB_fillSlot("771048");</script></dd>
+	</dl>
+	<dl class="box_Nsc">
+		<dd class="lcopy"><a class="ckcopy" onclick="copyToClipBoard()">点击复制链接 与好友分享!</a><a class="ckhome" href="http://www.2cto.com/">回本站首页</a></dd>
+		<script> 
+		function copyToClipBoard(){ 
+		var clipBoardContent=document.title + '\r\n' + document.location; 
+		clipBoardContent+='\r\n'; 
+		window.clipboardData.setData("Text",clipBoardContent); 
+		alert("恭喜您！复制成功"); 
+		} 
+		</script>
+
+		<div class="Article-Tool">
+                               	  <!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare"> <span style="float:left">分享到：</span>
+
+<a class="bds_qzone"></a>
+<a class="bds_tsina"></a>
+<a class="bds_tqq"></a>
+<a class="bds_baidu"></a>
+<a class="bds_renren"></a>
+<a class="bds_kaixin001"></a>
+<a class="bds_tieba"></a>
+<span class="bds_more">更多</span>
+</div>
+<script type="text/javascript" id="bdshare_js" data="type=tools&uid=12732" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+var bds_config = {'snsKey':{'tsina':'2386826374','tqq':'5e544a8fdea646c5a5f3967871346eb8'}};
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+                                
+	  </div>
+
+		
+		</dd>
+		<dd class="bbstt">您对本文章有什么意见或着疑问吗？请到<a href="http://bbs.2cto.com/">论坛讨论</a>您的关注和建议是我们前行的参考和动力&nbsp;&nbsp; </dd>
+	</dl>
+	<dl class="box_NPre">
+		<dd class="TLineX"><strong>上一篇：</strong><a href="http://www.2cto.com/os/201205/130973.html">CentOS 6.2上安装使用私钥认证的Git服务器</a></dd>
+		<dd><strong>下一篇：</strong><a href="http://www.2cto.com/os/201205/131077.html">一天一条linux命令之history</a></dd>
+	</dl>
+	<dl class="linetb"></dl>
+
+	<dl class="about"><dd>相关文章</dd></dl>
+				<div class="alistline"><a href="http://www.2cto.com/os/201006/50444.html" target=blank>Linux系统下实现SCSI硬盘热插拔及在线</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/os/201204/126889.html" target=blank>redhat6.0无法识别ntfs分区的解决方法</a></div>
+			<dl class="linetb"></dl>
+	<dl style="width:650px;height:70px;padding-top:10px;float:left;padding-left:10px">
+		<dd><script type="text/javascript">BAIDU_CLB_fillSlot("182716");</script></dd>
+	</dl>
+
+	<dl style="width:650px;float:left;padding-left:10px">
+		<dd><script type="text/javascript">BAIDU_CLB_fillSlot("517916");</script></dd>
+	</dl>
+	<dl class="linetb"></dl>
+	<dl class="about"><dd>图文推荐</dd></dl>
+	<div class="picbox">
+						<dl class="wbox">
+			<dd class="npicbox"><a target="_blank" href="http://www.2cto.com/os/201311/255721.html"><img src='http://www.2cto.com/uploadfile/2013/1106/thumb_126_90_20131106025346380.png'  width='126' height='90' border='0' /></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/os/201311/255721.html">ubuntu连接vpn失败的</a></dd>
+		</dl>
+				<dl class="wbox">
+			<dd class="npicbox"><a target="_blank" href="http://www.2cto.com/os/201311/255602.html"><img src='http://www.2cto.com/uploadfile/2013/1106/thumb_126_90_20131106091415826.jpeg'  width='126' height='90' border='0' /></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/os/201311/255602.html">Ubuntu上的几个音频工</a></dd>
+		</dl>
+				<dl class="wbox">
+			<dd class="npicbox"><a target="_blank" href="http://www.2cto.com/os/201311/255349.html"><img src='http://www.2cto.com/uploadfile/2013/1105/thumb_126_90_20131105015221264.jpg'  width='126' height='90' border='0' /></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/os/201311/255349.html">Linux的shell小脚本的</a></dd>
+		</dl>
+				<dl class="wbox">
+			<dd class="npicbox"><a target="_blank" href="http://www.2cto.com/os/201311/254963.html"><img src='http://www.2cto.com/uploadfile/2013/1104/thumb_126_90_20131104084028213.jpeg'  width='126' height='90' border='0' /></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/os/201311/254963.html">Linux菜鸟学习笔记(一</a></dd>
+		</dl>
+					</div>
+		<dl class="linetb"></dl>
+		<div id="pl" style="float:left;width:650px;padding:10px 10px 0px 10px;overflow:hidden;background-color:white">
+		<iframe src="http://www.2cto.com/uapi.php?tid=130976&catid=268&title=yOe6ztTaVWJ1bnR1z8LD5sq2sfBHYWxheHkgTmV4dXPJ6LG4&forward=http://www.2cto.com/os/201205/130976.html" width="100%" height="100%" id="comment_iframe" name="comment_iframe" frameborder="0" scrolling="no"></iframe>
+	</div>
+			<dl style="width:650px;float:left;padding-left:10px">
+		<dd><script type="text/javascript">BAIDU_CLB_fillSlot("771057");</script></dd>
+	</dl>
+	</div>
+	<div class="box_right">
+		<div style="float:left;width:300px;background:white;padding-left:10px;height:250px">
+			<a target="_blank" href="http://vip.2cto.com/"><img src="http://www.2cto.com/adv/300-250.gif" width="300" height="250" /></a></div>
+		<div class="box_right_line"><div class="xline"></div></div>
+		<div class="box_right_box">
+			<dl class="bTitle"><dd onmousemove="m_tab(1)" id="indexW" class="tablinkschecked">排行</dd><dd onmousemove="m_tab(2)" id="hotW" class="tablinkscheck">热门</dd></dl>
+		</div>
+		<div class="box_right_box">
+			<div class="paddingbox">
+				<dl class="index" id="index">
+					<dd class="picline"></dd>
+															<dd class="list">4,597 | <a target="_blank" title="Ubuntu 12.04中文输入法的安装" href="http://www.2cto.com/os/201207/144189.html">Ubuntu 12.04中文输入法的安装</a></dd>
+										<dd class="list">1,913 | <a target="_blank" title="linux系统时间修改及同步" href="http://www.2cto.com/os/201109/103909.html">linux系统时间修改及同步</a></dd>
+										<dd class="list">1,847 | <a target="_blank" title="linux下查看磁盘空间" href="http://www.2cto.com/os/201207/142116.html">linux下查看磁盘空间</a></dd>
+										<dd class="list">1,658 | <a target="_blank" title="Linux tar打包命令" href="http://www.2cto.com/os/201109/103833.html">Linux tar打包命令</a></dd>
+										<dd class="list">1,350 | <a target="_blank" title="linux 的date命令及系统时间设置" href="http://www.2cto.com/os/201108/102154.html">linux 的date命令及系统时间设置</a></dd>
+										<dd class="list">1,299 | <a target="_blank" title="Ubuntu 12.04下安装QQ 2012 Beta3" href="http://www.2cto.com/os/201207/144253.html">Ubuntu 12.04下安装QQ 2012 Beta3</a></dd>
+										<dd class="list">1,298 | <a target="_blank" title="LINUX下搭建FTP服务器" href="http://www.2cto.com/os/201107/98311.html">LINUX下搭建FTP服务器</a></dd>
+										<dd class="list">1,104 | <a target="_blank" title="Grub Rescue修复方法" href="http://www.2cto.com/os/201111/112327.html">Grub Rescue修复方法</a></dd>
+														</dl>
+				<dl class="index" id="hot" style="display:none">
+					<dd class="picline"></dd>
+															<dd class="list"><a target="_blank" title="Ubuntu 12.04中文输入法的安装" href="http://www.2cto.com/os/201207/144189.html">Ubuntu 12.04中文输入法的安装</a></dd>
+										<dd class="list"><a target="_blank" title="linux系统时间修改及同步" href="http://www.2cto.com/os/201109/103909.html">linux系统时间修改及同步</a></dd>
+										<dd class="list"><a target="_blank" title="Linux tar打包命令" href="http://www.2cto.com/os/201109/103833.html">Linux tar打包命令</a></dd>
+										<dd class="list"><a target="_blank" title="Ubuntu 12.04下安装QQ 2012 Beta3" href="http://www.2cto.com/os/201207/144253.html">Ubuntu 12.04下安装QQ 2012 Beta3</a></dd>
+										<dd class="list"><a target="_blank" title="linux下查看磁盘空间" href="http://www.2cto.com/os/201207/142116.html">linux下查看磁盘空间</a></dd>
+										<dd class="list"><a target="_blank" title="linux 的date命令及系统时间设置" href="http://www.2cto.com/os/201108/102154.html">linux 的date命令及系统时间设置</a></dd>
+										<dd class="list"><a target="_blank" title="Grub Rescue修复方法" href="http://www.2cto.com/os/201111/112327.html">Grub Rescue修复方法</a></dd>
+										<dd class="list"><a target="_blank" title="Linux tail 命令详解" href="http://www.2cto.com/os/201111/110143.html">Linux tail 命令详解</a></dd>
+														</dl>
+			</div>
+			<script type="text/javascript">
+			<!--
+				function m_tab(index)
+				{
+					if (index == 1){
+						document.getElementById("indexW").className = "tablinkschecked";
+						document.getElementById("hotW").className = "tablinkscheck";
+						document.getElementById("index").style.display = "block";
+						document.getElementById("hot").style.display = "none";
+					}
+					else{
+						document.getElementById("hotW").className = "tablinkschecked";
+						document.getElementById("indexW").className = "tablinkscheck";
+						document.getElementById("index").style.display = "none";
+						document.getElementById("hot").style.display = "block";
+					}
+				}
+			//-->
+			</script>
+		</div>
+		<div class="rightlineT"><div class="rxline"></div></div>
+		<div style="float:left;width:300px;background:white;padding-left:10px;height:60px">
+				<!-- 广告位：内容页右侧小广告位 -->
+			<script type="text/javascript">BAIDU_CLB_fillSlot("406189");</script>
+		</div>
+		<div class="rightlineT"><div class="rxline"></div></div>
+		<div style="float:left;width:300px;background:white;padding-left:10px;height:80px">
+				<!-- 广告位：内容页右侧小广告位 -->
+			<script type="text/javascript">BAIDU_CLB_fillSlot("703749");</script>
+		</div>
+		<div class="rightlineNo"></div>
+		<div class="box_right_box">
+			<dl class="bTitle borT"><dd class="newarc"></dd></dl>
+		</div>
+		<div class="box_right_box">
+			<div class="paddingbox">
+				<dl class="index">
+									<iframe frameborder="0" name="Iframe1" src="http://www.2cto.com/bbsdy/index.html" width="100%" height="200">	
+				您的浏览器不支持嵌入式框架，或者当前配置为不显示嵌入式框架。
+			</iframe>
+								</dl>
+			</div>
+		</div>
+                                <div class="rightlineT"><div class="rxline"></div></div>
+
+		<div style="float:left;width:300px;background:white;padding-left:10px;height:250px"><script type="text/javascript">BAIDU_CLB_fillSlot("182692");</script> </div>
+		<div class="box_right_line"><div class="xline"></div></div>
+		<div class="box_right_box">
+			<dl class="bTitle">
+				<dd onmousemove="m_tabs(1)" id="ArticlesW" class="tablinkschecked">文章</dd>
+				<dd onmousemove="m_tabs(2)" id="DownW" class="tablinkscheck">下载</dd>
+				<dd onmousemove="m_tabs(3)" id="BookW" class="tablinkscheck">读书</dd>
+			</dl>
+		</div>
+		<div class="box_right_box">
+			<div class="paddingbox">
+				<dl class="index" id="Articles">
+					<dd class="picline"></dd>
+															<dd class="list">·&nbsp;<a target="_blank" title="Win2000下关闭无用端口" href="http://www.2cto.com/Article/200410/1.html">Win2000下关闭无用端口</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="禁止非法用户登录综合设置 [win9x篇]" href="http://www.2cto.com/Article/200410/2.html">禁止非法用户登录综合设置 [win9x篇]</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="关上可恶的后门——消除NetBIOS隐患" href="http://www.2cto.com/Article/200410/3.html">关上可恶的后门——消除NetBIOS隐患</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="网络入侵检测系统" href="http://www.2cto.com/Article/200410/4.html">网络入侵检测系统</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="潜伏在Windows默认设置中的陷井" href="http://www.2cto.com/Article/200410/5.html">潜伏在Windows默认设置中的陷井</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="调制解调器的不安全" href="http://www.2cto.com/Article/200410/6.html">调制解调器的不安全</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="构建Windows 2000服务器的安全防护林" href="http://www.2cto.com/Article/200410/7.html">构建Windows 2000服务器的安全防护林</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="SQL Server 2000的安全配置" href="http://www.2cto.com/Article/200410/8.html">SQL Server 2000的安全配置</a></dd>
+														</dl>
+				<dl class="index" id="Down" style="display:none">
+					<dd class="picline"></dd>
+															<dd class="list">·&nbsp;<a target="_blank" title="Windows优化大师注册机源码" href="http://www.2cto.com/soft/200409/53.html">Windows优化大师注册机源码</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="Process Viewer 汉化版" href="http://www.2cto.com/soft/200409/62.html">Process Viewer 汉化版</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="Aspcode动画教程" href="http://www.2cto.com/soft/200409/79.html">Aspcode动画教程</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="WIN 2000服务器防止ICMP数据包攻击教程" href="http://www.2cto.com/soft/200409/128.html">WIN 2000服务器防止ICMP数据包攻击教程</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="实现网络隐身的简单方法" href="http://www.2cto.com/soft/200409/129.html">实现网络隐身的简单方法</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="手工进行克隆帐号" href="http://www.2cto.com/soft/200409/130.html">手工进行克隆帐号</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="用W32DASM破解网页合并器的密码" href="http://www.2cto.com/soft/200409/134.html">用W32DASM破解网页合并器的密码</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="注册表操作动画教程" href="http://www.2cto.com/soft/200409/138.html">注册表操作动画教程</a></dd>
+														</dl>
+				<dl class="index" id="Book" style="display:none">
+					<dd class="picline"></dd>
+															<dd class="list">·&nbsp;<a target="_blank" title="黑客攻防技术宝典：Web实战篇（第2版）" href="http://book.2cto.com/201206/20.html">黑客攻防技术宝典：Web实战篇（第2版）</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="超级网管员——网络安全" href="http://book.2cto.com/201207/43.html">超级网管员——网络安全</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="代码大全（第二版）" href="http://book.2cto.com/201207/64.html">代码大全（第二版）</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="软件之道:软件开发争议问题剖析" href="http://book.2cto.com/201207/68.html">软件之道:软件开发争议问题剖析</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="CSS插件工具箱" href="http://book.2cto.com/201207/78.html">CSS插件工具箱</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="CSS入门经典(第3版)" href="http://book.2cto.com/201207/139.html">CSS入门经典(第3版)</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="C#并行编程高级教程：精通.NET 4 Parallel Extension" href="http://book.2cto.com/201207/169.html">C#并行编程高级教程：精通.NET 4 Pa</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="CMMI+敏捷整合开发" href="http://book.2cto.com/201207/190.html">CMMI+敏捷整合开发</a></dd>
+														</dl>
+			</div>
+			<script type="text/javascript">
+			<!--
+				function m_tabs(index)
+				{
+					if (index == 1){
+						document.getElementById("ArticlesW").className = "tablinkschecked";
+						document.getElementById("DownW").className = "tablinkscheck";
+						document.getElementById("BookW").className = "tablinkscheck";
+						document.getElementById("Articles").style.display = "block";
+						document.getElementById("Down").style.display = "none";
+						document.getElementById("Book").style.display = "none";
+					}
+					else if (index == 2){
+						document.getElementById("ArticlesW").className = "tablinkscheck";
+						document.getElementById("DownW").className = "tablinkschecked";
+						document.getElementById("BookW").className = "tablinkscheck";
+						document.getElementById("Articles").style.display = "none";
+						document.getElementById("Down").style.display = "block";
+						document.getElementById("Book").style.display = "none";
+					}
+					else{
+						document.getElementById("ArticlesW").className = "tablinkscheck";
+						document.getElementById("DownW").className = "tablinkscheck";
+						document.getElementById("BookW").className = "tablinkschecked";
+						document.getElementById("Articles").style.display = "none";
+						document.getElementById("Down").style.display = "none";
+						document.getElementById("Book").style.display = "block";
+					}
+				}
+			//-->
+			</script>
+		</div>
+		<div class="rightlineNo"></div>
+		<div class="box_right_box">
+			<dl class="bTitle borT"><dd class="newdown"></dd></dl>
+		</div>
+		<div class="box_right_box">
+			<div class="paddingbox">
+				<dl class="index">
+															<dd class="picbox"><a target="_blank" class="plink" href="http://www.2cto.com/os/201110/109294.html"><img class='pic1' src='http://up.2cto.com/2011/1028/20111028121517768.png'  width='126' height='90' border='0' /></a><span><a href="http://www.2cto.com/os/201110/109294.html">Linux开启VNC桌面及加</a></span></dd>
+										<dd class="picbox"><a target="_blank" class="plink" href="http://www.2cto.com/os/201207/143614.html"><img class='pic1' src='http://up.2cto.com/2012/0726/20120726102655137.png'  width='126' height='90' border='0' /></a><span><a href="http://www.2cto.com/os/201207/143614.html">在U盘上安装Linux系统</a></span></dd>
+															<dd class="picline"></dd>
+															<dd class="list">&#9642;&nbsp;<a target="_blank" href="http://www.2cto.com/os/201110/109294.html">Linux开启VNC桌面及加密连接</a></dd>
+										<dd class="list">&#9642;&nbsp;<a target="_blank" href="http://www.2cto.com/os/201203/123708.html">BackTrack5完全配置</a></dd>
+										<dd class="list">&#9642;&nbsp;<a target="_blank" href="http://www.2cto.com/os/201207/141873.html">linux下开机启动DB2,WAS,TDS服务</a></dd>
+										<dd class="list">&#9642;&nbsp;<a target="_blank" href="http://www.2cto.com/os/201207/143614.html">在U盘上安装Linux系统解决方案</a></dd>
+										<dd class="list">&#9642;&nbsp;<a target="_blank" href="http://www.2cto.com/os/201207/144253.html">Ubuntu 12.04下安装QQ 2012 Beta3</a></dd>
+										<dd class="list">&#9642;&nbsp;<a target="_blank" href="http://www.2cto.com/os/201208/146522.html">CentOS 6.3安装nginx操作指南</a></dd>
+										<dd class="list">&#9642;&nbsp;<a target="_blank" href="http://www.2cto.com/os/201208/146986.html">CentOS 5.5安装图解</a></dd>
+										<dd class="list">&#9642;&nbsp;<a target="_blank" href="http://www.2cto.com/os/201210/163194.html">Ubuntu Server 12.04 LTS安装指引</a></dd>
+														</dl>
+			</div>
+			<div class="xline"></div>
+		</div>
+		<div class="box_right_line"><div class="xline"></div></div>
+		<div style="float:left;width:300px;background:white;padding-left:10px;height:250px">
+			<script type="text/javascript">BAIDU_CLB_fillSlot("771043");</script></div>
+		<div class="box_right_line"><div class="xline"></div></div>
+	</div>
+</div>
+<script type="text/javascript">
+<!--
+function showLogin(){
+	window.art.dialog({id:'Login',iframe:'http://www.2cto.com/index.php?m=member&c=index&a=login&tupe=mini', title:'快捷登陆', width:'450', height:'310', lock:true}, function(){var d = window.art.dialog({id:'Login'}).data.iframe;var form = d.document.getElementById('dosubmit');form.click();return false;}, function(){window.art.dialog({id:'Login'}).close()});void(0);
+}
+function add_favorite(title) {
+		$.getJSON('http://www.2cto.com/api.php?op=add_favorite&title='+encodeURIComponent(title)+'&url='+encodeURIComponent(location.href)+'&'+Math.random()+'&callback=?', function(data){
+			if(data.status==1)	{
+				$("#favorite").html('收藏成功');
+			} else {
+				alert('请登陆');
+				window.location.href='http://home.2cto.com/?forward='+encodeURIComponent(location.href);
+			}
+		});
+	}
+//-->
+</script>
+<script language="JavaScript" src="http://www.2cto.com/api.php?op=count&id=130976&modelid=1"></script>
+<!-- 广告位：右侧漂浮 -->
+<script type="text/javascript">BAIDU_CLB_fillSlot("137946");</script>
+
+<div style="width:980px;padding:8px 0px 8px 0px;margin:auto"><script type="text/javascript">BAIDU_CLB_fillSlot("333829");</script></div>
+<div class="foot">
+<p>
+<a target="_blank" href="http://www.2cto.com/about">关于我们</a> |
+<a target="_blank" href="http://www.2cto.com/about/contact.html">联系我们</a> |
+<a target="_blank" href="http://www.2cto.com/about/ads.html">广告服务</a> |
+<a target="_blank" href="http://www.2cto.com/about/touzi.html">投资合作</a> |
+<a target="_blank" href="http://www.2cto.com/about/Copyright.html">版权申明</a> |
+<a target="_blank" href="http://www.2cto.com/about/faq.html">在线帮助</a> |
+<a target="_blank" href="http://www.2cto.com/about/map.html">网站地图</a> |
+<a target="_blank" href="http://www.2cto.com/about/tg.html">作品发布</a> |
+<a target="_blank" href="http://vip.2cto.com/"><span style="COLOR: red">Vip技术培训</span></a>
+<br />
+<span class="style4">版权所有: <a href="http://www.2cto.com" target="_blank">红黑联盟</a>--致力于做最好的IT技术学习网站<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F1898984a3d796e86ad73ad1f4bc9f240' type='text/javascript'%3E%3C/script%3E"));
+</script>    
+</span>
+</div></body>
+
+</html>

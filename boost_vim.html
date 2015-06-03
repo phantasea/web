@@ -1,0 +1,537 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<title>How I boosted my Vim &raquo; nvie.com</title>
+		<link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'/>
+		<link rel="stylesheet" type="text/css" href="/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+		<link rel="stylesheet" type="text/css" href="/css/fontface.css" />
+		<meta name="viewport" content="width=700, user-scalable=yes, maximum-scale=1.5" />
+		<link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="/css/mobile.css" type="text/css" /> 
+		<link rel="stylesheet" media="only screen and (max-device-width: 1024px)" href="/css/mobile.css" type="text/css" /> 
+		<link rel="stylesheet" media="print" type="text/css" href="/css/print.css" />
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+		<script type="text/javascript" src="/js/relatize_date.js"></script>
+		
+		<script type="text/javascript" src="/js/site.js"></script>
+		<script type="text/javascript" src="/js/defeatthefout.js"></script>
+		<meta name="generator" content="nanoc"/>
+		<meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1"/>
+		<link href="/img/favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
+		<link href="/img/icon.png" rel="apple-touch-icon" /> 
+		<link rel="alternate" type="application/atom+xml" href="http://feeds.feedburner.com/nvie" />
+
+        <script type="text/javascript" src="//use.typekit.net/nge1fhs.js"></script>
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script></script></script>
+	</head>
+	<body>
+		<div id="header">
+			<h1><a href="/"><span id="nvie">nvie</span><span id="dot">.</span><span id="ext">com</span></a></h1>
+			<ul>
+                <li id="home" ><a href="/">Home</a></li>
+                <li id="posts"  class='current'><a href="/posts/">Posts</a></li>
+                
+                <li id="about" ><a href="/about/">About me</a></li>
+			</ul>
+        </div>
+		<div id="actionbox" style="display: none">
+            <div id="rss"><a href="http://feeds.feedburner.com/nvie"><img src="/img/rss.png" alt="Subscribe" title="Subscribe" width="16" height="16" /></a></div>
+            <div id="tweet"><a href="http://twitter.com/share?url=http://nvie.com/posts/how-i-boosted-my-vim/&via=nvie&text=How%20I%20boosted%20my%20Vim"><img src='/img/twitter.png' width="16" height="16" alt="Tweet this!" title="Tweet this!" /></a></div>
+
+            <!-- Ad -->
+            <div id="influads_block" class="influads_block"> </div>
+            <script type="text/javascript">(function(){ var acc =   "acc_535d576_pub";var st ="css";var or= "130";var e=document.getElementsByTagName("script")[0];var d=document.createElement("script");d.src=('https:' == document.location.protocol ?'https://' : 'http://') +"engine.influads.com/show/"+or+"/"+st+"/"+acc;d.type="text/javascript"; d.async=true; d.defer=true; e.parentNode.insertBefore(d,e);})();</script>
+		</div>
+		<div id="main">
+			<div id="post">
+    
+<div class="flattr-quick no-print"><a class="FlattrButton" style="display:none;" href="http://nvie.com/posts/how-i-boosted-my-vim/"></a></div>
+<h1 style="clear: left">How I boosted my Vim</h1>
+
+<p id="permalink" class="print-only">http://nvie.com/posts/how-i-boosted-my-vim/</p>
+<p class="no-print created_at dateline">Published: <span class="reldate">September 14, 2010</span></p><p class="print-only created_at dateline">Published: <span>September 14, 2010</span></p><p class="no-print updated_at dateline">Last updated: <span class="reldate">September 23, 2010</span> <a id="toggle-edits" href="#">(highlight updates)</a></p><p class="print-only updated_at dateline">Last updated: <span>September 23, 2010</span></p>
+<p>A few weeks ago, I felt inspired by articles from <a href="http://jeffkreeftmeijer.com/2010/stumbling-into-vim/">Jeff
+Kreeftmeijer</a> and <a href="http://lucumr.pocoo.org/2010/7/29/sharing-vim-tricks">Armin
+Ronacher</a>.  I took some
+time to configure and fine-tune my Vim environment.  A lot of new stuff made it
+into my <code>.vimrc</code> file and my <code>.vim</code> directory.  This blog post is a summary
+describing what I’ve added and how I use it in my daily work.</p>
+<p>Before doing anything else, make sure you have the following line in your
+<code>.vimrc</code> file:</p>
+<pre><code class="language-vim"><span class="c">" This must be first, because it changes other options as side effect</span>
+<span class="k">set</span> <span class="nb">nocompatible</span></code></pre>
+<h2 id="pathogen">Step 0: make the customization process easier</h2>
+<p>Before starting configuring, it’s useful to install
+<a href="http://www.vim.org/scripts/script.php?script_id=2332">pathogen</a>.  Plugins in
+Vim are files that you drop in subdirectories of your <code>.vim/</code> directory.  Many
+plugins exist of only a single file that should be dropped in <code>.vim/plugin</code>,
+but some exist of multiple files.  For example, they come with documentation,
+or ship syntax files.  In those cases, files need to be dropped into
+<code>.vim/doc</code> and <code>.vim/syntax</code>.  This makes it difficult to remove the plugin
+afterwards.  After installing pathogen, you can simply unzip a plugin
+distribution into <code>.vim/bundle/myplugin</code>, under which the required
+subdirectories are created.  Removing the plugin, then, is as simple as
+removing the <code>myplugin</code> directory.</p>
+<p>So, download <code>pathogen.vim</code>, move it into the <code>.vim/autoload</code> directory (create
+it if necessary) and add the following lines to your <code>.vimrc</code>, to activate it:</p>
+<pre><code class="language-vim"><span class="c">" Use pathogen to easily modify the runtime path to include all</span>
+<span class="c">" plugins under the ~/.vim/bundle directory</span>
+<span class="k">call</span> pathogen#<span class="k">helptags</span><span class="p">()</span>
+<span class="k">call</span> pathogen#runtime_append_all_bundles<span class="p">()</span></code></pre>
+<p>Next, I’ve remapped the leader key to <code>,</code> (comma) instead of the default <code>\</code>
+(backslash), just because I like it better.  Since in Vim’s default
+configuration, almost every key is already mapped to a command, there needs to
+be some sort of standard “free” key where you can place custom mappings under.
+This is called the “mapleader”, and can be defined like this:</p>
+<pre><code class="language-vim"><span class="c">" change the mapleader from \ to ,</span>
+<span class="k">let</span> mapleader<span class="p">=</span><span class="s2">","</span></code></pre>
+<p>Once that is done, this is a little tweak that is a time-saver while you’re
+building up your <code>.vimrc</code>.  Here, we start using the leader key:</p>
+<pre><code class="language-vim"><span class="c">" Quickly edit/reload the vimrc file</span>
+nmap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span>ev :<span class="k">e</span> $MYVIMRC<span class="p">&lt;</span>CR<span class="p">&gt;</span>
+nmap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">sv</span> :<span class="k">so</span> $MYVIMRC<span class="p">&lt;</span>CR<span class="p">&gt;</span></code></pre>
+<p>This effectively maps the <code>,ev</code> and <code>,sv</code> keys to edit/reload <code>.vimrc</code>.  (I got
+this from <a href="http://derekwyatt.org/">Derek Wyatt</a>’s <code>.vimrc</code> file.)</p>
+<h2>Change Vim behaviour</h2>
+<p>One particularly useful setting is <code>hidden</code>.  Its name isn’t too descriptive,
+though.  It <em>hides</em> buffers instead of <em>closing</em> them.  This means that you can
+have unwritten changes to a file and open a new file using <code>:e</code>, without being
+forced to write or undo your changes first.  Also, undo buffers and marks are
+preserved while the buffer is open.  This is an absolute must-have.</p>
+<pre><code class="language-vim"><span class="k">set</span> <span class="nb">hidden</span></code></pre>
+<p>These are some of the most basic settings that you probably want to enable,
+too:</p>
+<pre><code class="language-vim"><span class="k">set</span> <span class="nb">nowrap</span>        <span class="c">" don't wrap lines</span>
+<span class="k">set</span> <span class="nb">tabstop</span><span class="p">=</span><span class="m">4</span>     <span class="c">" a tab is four spaces</span>
+<span class="k">set</span> <span class="nb">backspace</span><span class="p">=</span>indent<span class="p">,</span><span class="nb">eol</span><span class="p">,</span><span class="k">start</span>
+<span class="c">                  " allow backspacing over everything in insert mode</span>
+<span class="k">set</span> <span class="nb">autoindent</span>    <span class="c">" always set autoindenting on</span>
+<span class="k">set</span> <span class="nb">copyindent</span>    <span class="c">" copy the previous indentation on autoindenting</span>
+<span class="k">set</span> <span class="k">number</span>        <span class="c">" always show line numbers</span>
+<span class="k">set</span> <span class="nb">shiftwidth</span><span class="p">=</span><span class="m">4</span>  <span class="c">" number of spaces to use for autoindenting</span>
+<span class="k">set</span> <span class="nb">shiftround</span>    <span class="c">" use multiple of shiftwidth when indenting with '&lt;' and '&gt;'</span>
+<span class="k">set</span> <span class="nb">showmatch</span>     <span class="c">" set show matching parenthesis</span>
+<span class="k">set</span> <span class="nb">ignorecase</span>    <span class="c">" ignore case when searching</span>
+<span class="k">set</span> <span class="nb">smartcase</span>     <span class="c">" ignore case if search pattern is all lowercase,</span>
+<span class="c">                  "    case-sensitive otherwise</span>
+<span class="k">set</span> <span class="nb">smarttab</span>      <span class="c">" insert tabs on the start of a line according to</span>
+<span class="c">                  "    shiftwidth, not tabstop</span>
+<span class="k">set</span> <span class="nb">hlsearch</span>      <span class="c">" highlight search terms</span>
+<span class="k">set</span> <span class="nb">incsearch</span>     <span class="c">" show search matches as you type</span></code></pre>
+<p>There is a lot more goodness in my
+<a href="http://github.com/nvie/vimrc/raw/master/vimrc"><code>.vimrc</code></a> file, which is put in
+there with a lot of love.  I’ve commented most of it, too.  Feel free to poke
+around in it.</p>
+<p>Also, I like Vim to have a large undo buffer, a large history of commands,
+ignore some file extensions when completing names by pressing Tab, and be
+silent about invalid cursor moves and other errors.</p>
+<pre><code class="language-vim"><span class="k">set</span> <span class="k">history</span><span class="p">=</span><span class="m">1000</span>         <span class="c">" remember more commands and search history</span>
+<span class="k">set</span> <span class="nb">undolevels</span><span class="p">=</span><span class="m">1000</span>      <span class="c">" use many muchos levels of undo</span>
+<span class="k">set</span> <span class="nb">wildignore</span><span class="p">=</span>*.swp<span class="p">,</span>*.bak<span class="p">,</span>*.pyc<span class="p">,</span>*.class
+<span class="k">set</span> <span class="nb">title</span>                <span class="c">" change the terminal's title</span>
+<span class="k">set</span> <span class="nb">visualbell</span>           <span class="c">" don't beep</span>
+<span class="k">set</span> <span class="nb">noerrorbells</span>         <span class="c">" don't beep</span></code></pre>
+<p>Oh, and man… never ever let Vim write a backup file!  They did that in the
+70’s.  Use <a href="http://git-scm.com/">modern</a> ways for tracking your changes, for
+God’s sake.</p>
+<pre><code class="language-vim"><span class="k">set</span> <span class="nb">nobackup</span>
+<span class="k">set</span> <span class="nb">noswapfile</span></code></pre>
+<p><ins>There have been some passionate responses about this in comments, so a warning
+may be appropriate here.  If you care about recovering after a Vim or terminal
+emulator crash, or you often load huge files into memory, do <strong>not</strong> disable the
+swapfile.  I personally save/commit so
+<a href="http://jeffkreeftmeijer.com/2010/git-your-act-together/#commit-all-the-fucking-time">often</a>
+that the swap file adds nothing.  Sometimes I conciously kill a terminal
+forcefully, and I only find the swap file recovery process annoying.</ins></p>
+<h2>Use file type plugins</h2>
+<p>Vim can detect file types (by their extension, or by peeking inside the file).
+This enabled Vim to load plugins, settings or key mappings that are only useful
+in the context of specific file types.  For example, a Python syntax checker
+plugin only makes sense in a Python file.  Finally, indenting intelligence is
+enabled based on the syntax rules for the file type.</p>
+<pre><code class="language-vim"><span class="k">filetype</span> plugin indent <span class="k">on</span></code></pre>
+<p>To set some file type specific settings, you can now use the following:</p>
+<pre><code class="language-vim">autocmd <span class="k">filetype</span> python <span class="k">set</span> <span class="nb">expandtab</span></code></pre>
+<p>To remain compatible with older versions of Vim that do not have the <code>autocmd</code>
+functions, always wrap those functions inside a block like this:</p>
+<pre><code class="language-vim"><span class="k">if</span> has<span class="p">(</span><span class="s1">'autocmd'</span><span class="p">)</span>
+    ...
+<span class="k">endif</span></code></pre>
+<h2>Enable syntax highlighting</h2>
+<p>Somewhat related to the file type plugins is the syntax highlighting of
+different types of source files.  Vim uses syntax definitions to highlight
+source code.  Syntax definitions simply declare where a function name starts,
+which pieces are commented out and what are keywords.  To color them, Vim uses
+colorschemes.  You can load custom color schemes by placing them in
+<code>.vim/colors</code>, then load them using the <code>colorscheme</code> command.  You have to try
+what you like most.  I like
+<a href="http://hcalves.deviantart.com/art/Mustang-Vim-Colorscheme-98974484">mustang</a> a
+lot.</p>
+<pre><code class="language-vim"><span class="k">if</span> &amp;<span class="nb">t_Co</span> <span class="p">&gt;=</span> <span class="m">256</span> <span class="p">||</span> has<span class="p">(</span><span class="s2">"gui_running"</span><span class="p">)</span>
+   <span class="k">colorscheme</span> mustang
+<span class="k">endif</span>
+
+<span class="k">if</span> &amp;<span class="nb">t_Co</span> <span class="p">&gt;</span> <span class="m">2</span> <span class="p">||</span> has<span class="p">(</span><span class="s2">"gui_running"</span><span class="p">)</span>
+<span class="c">   " switch syntax highlighting on, when the terminal has colors</span>
+   <span class="nb">syntax</span> <span class="k">on</span>
+<span class="k">endif</span></code></pre>
+<p>In this case, mustang is only loaded if the terminal emulator Vim runs in
+supports at least 256 colors (or if you use the <span class="caps">GUI</span> version of Vim).</p>
+<p><strong>Hint</strong>: if you’re using a terminal emulator that can show 256 colors, try
+setting <code>TERM=xterm-256color</code> in your terminal configuration or in your shell’s
+.rc file.</p>
+<h2>Change editing behaviour</h2>
+<p>When you write a lot of code, you probably want to obey certain style rules.
+In some programming languages (like Python), whitespace is important, so you
+may not just swap tabs for spaces and even the number of spaces is important.</p>
+<p>Vim can highlight whitespaces for you in a convenient way:</p>
+<pre><code class="language-vim"><span class="k">set</span> <span class="nb">list</span>
+<span class="k">set</span> <span class="nb">listchars</span><span class="p">=</span><span class="k">tab</span>:<span class="p">&gt;</span>.<span class="p">,</span>trail:.<span class="p">,</span>extends:#<span class="p">,</span>nbsp:.</code></pre>
+<p>This line will make Vim set out tab characters, trailing whitespace and
+invisible spaces visually, and additionally use the <code>#</code> sign at the end of
+lines to mark lines that extend off-screen.  For more info, see <code>:h listchars</code>.</p>
+<p>In some files, like <span class="caps">HTML</span> and <span class="caps">XML</span> files, tabs are fine and showing them is
+really annoying, you can disable them easily using an <code>autocmd</code> declaration:</p>
+<pre><code class="language-vim">autocmd <span class="k">filetype</span> html<span class="p">,</span>xml <span class="k">set</span> <span class="nb">listchars</span><span class="p">-=</span><span class="k">tab</span>:<span class="p">&gt;</span>.</code></pre>
+<p>One caveat when setting <code>listchars</code>: if nothing happens, you have probably not
+enabled <code>list</code>, so try <code>:set list</code>, too.</p>
+<h3>Pasting large amounts of text into Vim</h3>
+<p>Every Vim user likes to enable auto-indenting of source code, so Vim can
+intelligently position you cursor on the next line as you type.  This has one
+big ugly consequence however: when you paste text into your terminal-based Vim
+with a right mouse click, Vim cannot know it is coming from a paste.  To Vim,
+it looks like text entered by someone who can type incredibly fast :)  Since
+Vim thinks this is regular key strokes, it applies all auto-indenting and
+auto-expansion of defined abbreviations to the input, resulting in often
+cascading indents of paragraphs.</p>
+<p>There is an easy option to prevent this, however.  You can temporarily switch
+to “paste mode”, simply by setting the following option:</p>
+<pre><code class="language-vim"><span class="k">set</span> <span class="nb">pastetoggle</span><span class="p">=&lt;</span>F2<span class="p">&gt;</span></code></pre>
+<p>Then, when in insert mode, ready to paste, if you press <code>&lt;F2&gt;</code>, Vim will switch
+to paste mode, disabling all kinds of smartness and just pasting a whole buffer
+of text.  Then, you can disable paste mode again with another press of <code>&lt;F2&gt;</code>.
+Nice and simple.  Compare paste mode disabled vs enabled:</p>
+<p class="autoalign"><img src="/img/2010/08/ugly-paste.png" alt=""><img src="/img/2010/08/better-paste.png" alt=""></p>
+<p><ins>Another great trick I read in a <a href="http://www.reddit.com/r/programming/comments/ddbuc/how_i_boosted_my_vim/c0zelsm">reddit
+comment</a>
+is to use <code>&lt;C-r&gt;+</code> to paste right from the OS paste board.  Of course, this
+only works when running Vim locally (i.e. not over an <span class="caps">SSH</span> connection).</ins></p>
+<h3>Enable the mouse</h3>
+<p>While using the mouse is considered a deadly sin among Vim users, there <em>are</em> a
+few features about the mouse that can really come to your advantage.  Most
+notably—scrolling.  In fact, it’s the only thing I use it for.</p>
+<p>Also, if you are a rookie Vim user, setting this value will make your Vim
+experience definitively feel more natural.</p>
+<p>To enable the mouse, use:</p>
+<pre><code class="language-vim"><span class="k">set</span> <span class="nb">mouse</span><span class="p">=</span><span class="k">a</span></code></pre>
+<p>However, this comes at one big disadvantage: when you run Vim inside a
+terminal, the terminal itself cannot control your mouse anymore.  Therefore,
+you cannot select text anymore with the terminal (to copy it to the system
+clipboard, for example).</p>
+<p>To be able to have the best of both worlds, I wrote this simple Vim plugin:
+<a href="http://github.com/nvie/vim-togglemouse">vim-togglemouse</a>.  It maps <code>&lt;F12&gt;</code> to
+toggle your mouse “focus” between Vim and the terminal.</p>
+<p>Small plugins like these are really useful, yet have the additional benefit of
+lowering the barrier of learning the Vim scripting language.  At the core, this
+plugin exists of only one simple function:</p>
+<pre><code class="language-vim"><span class="k">fun</span><span class="p">!</span> <span class="k">s</span>:ToggleMouse<span class="p">()</span>
+    <span class="k">if</span> <span class="p">!</span>exists<span class="p">(</span><span class="s2">"s:old_mouse"</span><span class="p">)</span>
+        <span class="k">let</span> <span class="k">s</span>:old_mouse <span class="p">=</span> <span class="s2">"a"</span>
+    <span class="k">endif</span>
+
+    <span class="k">if</span> &amp;<span class="nb">mouse</span> <span class="p">==</span> <span class="s2">""</span>
+        <span class="k">let</span> &amp;<span class="nb">mouse</span> <span class="p">=</span> <span class="k">s</span>:old_mouse
+        echo <span class="s2">"Mouse is for Vim ("</span> . &amp;<span class="nb">mouse</span> . <span class="s2">")"</span>
+    <span class="k">else</span>
+        <span class="k">let</span> <span class="k">s</span>:old_mouse <span class="p">=</span> &amp;<span class="nb">mouse</span>
+        <span class="k">let</span> &amp;<span class="nb">mouse</span><span class="p">=</span><span class="s2">""</span>
+        echo <span class="s2">"Mouse is for terminal"</span>
+    <span class="k">endif</span>
+<span class="k">endfunction</span></code></pre>
+<h3>Get efficient: shortcut mappings</h3>
+<p>The following trick is a really small one, but a super-efficient one, since it
+strips off two full keystrokes from almost every Vim command:</p>
+<pre><code class="language-vim"><span class="nb">nnoremap</span> ; :</code></pre>
+<p>For example, to save a file, you type <code>:w</code> normally, which means:</p>
+<ol>
+<li>Press and hold Shift</li>
+	<li>Press <code>;</code>
+</li>
+	<li>Release the Shift key</li>
+	<li>Press <code>w</code>
+</li>
+	<li>Press Return</li>
+</ol><p>This trick strips off steps 1 and 3 for <strong>each</strong> Vim command.  It takes some
+times for your muscle memory to get used to this new <code>;w</code> command, but once you
+use it, you don’t want to go back!</p>
+<p>I also find this key binding very useful, since I like to reformat paragraph
+text often.  Just set your cursor inside a paragraph and press <code>Q</code> (or select a
+visual block and press <code>Q</code>).</p>
+<pre><code class="language-vim"><span class="c">" Use Q for formatting the current paragraph (or selection)</span>
+vmap Q gq
+nmap Q gqap</code></pre>
+<p>If you are still getting used to Vim and want to force yourself to stop using
+the arrow keys, add this:</p>
+<pre><code class="language-vim">map <span class="p">&lt;</span><span class="k">up</span><span class="p">&gt;</span> <span class="p">&lt;</span>nop<span class="p">&gt;</span>
+map <span class="p">&lt;</span>down<span class="p">&gt;</span> <span class="p">&lt;</span>nop<span class="p">&gt;</span>
+map <span class="p">&lt;</span><span class="k">left</span><span class="p">&gt;</span> <span class="p">&lt;</span>nop<span class="p">&gt;</span>
+map <span class="p">&lt;</span><span class="k">right</span><span class="p">&gt;</span> <span class="p">&lt;</span>nop<span class="p">&gt;</span></code></pre>
+<p>If you like long lines with line wrapping enabled, this solves the problem that
+pressing down jumpes your cursor “over” the current line to the next line.  It
+changes behaviour so that it jumps to the next row in the editor (much more
+natural):</p>
+<pre><code class="language-vim"><span class="nb">nnoremap</span> <span class="k">j</span> gj
+<span class="nb">nnoremap</span> <span class="k">k</span> gk</code></pre>
+<p>When you start to use Vim more professionally, you want to work with multiple
+windows open.  Navigating requires you to press <code>C-w</code> first, then a navigation
+command (h, j, k, l).  This makes it easier to navigate focus through windows:</p>
+<pre><code class="language-vim"><span class="c">" Easy window navigation</span>
+map <span class="p">&lt;</span>C<span class="p">-</span><span class="k">h</span><span class="p">&gt;</span> <span class="p">&lt;</span>C<span class="p">-</span><span class="k">w</span><span class="p">&gt;</span><span class="k">h</span>
+map <span class="p">&lt;</span>C<span class="p">-</span><span class="k">j</span><span class="p">&gt;</span> <span class="p">&lt;</span>C<span class="p">-</span><span class="k">w</span><span class="p">&gt;</span><span class="k">j</span>
+map <span class="p">&lt;</span>C<span class="p">-</span><span class="k">k</span><span class="p">&gt;</span> <span class="p">&lt;</span>C<span class="p">-</span><span class="k">w</span><span class="p">&gt;</span><span class="k">k</span>
+map <span class="p">&lt;</span>C<span class="p">-</span><span class="k">l</span><span class="p">&gt;</span> <span class="p">&lt;</span>C<span class="p">-</span><span class="k">w</span><span class="p">&gt;</span><span class="k">l</span></code></pre>
+<p>Tired of clearing highlighted searches by searching for “ldsfhjkhgakjks”?  Use
+this:</p>
+<pre><code class="language-vim">nmap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">,</span>/ :<span class="k">nohlsearch</span><span class="p">&lt;</span>CR<span class="p">&gt;</span></code></pre>
+<p><ins>I used to have it mapped to <code>:let @/=""&lt;CR&gt;</code>, but some users kindly pointed
+out that it is better to use <code>:nohlsearch</code>, because it keeps the search history
+intact.</ins></p>
+<p>It clears the search buffer when you press <code>,/</code></p>
+<p>Finally, a trick by <a href="http://forrst.com/posts/Use_w_to_sudo_write_a_file_with_Vim-uAN">Steve
+Losh</a> for when
+you forgot to <code>sudo</code> before editing a file that requires root privileges
+(typically <code>/etc/hosts</code>).  This lets you use <code>w!!</code> to do that <strong>after</strong> you
+opened the file already:</p>
+<pre><code class="language-vim">cmap <span class="k">w</span><span class="p">!!</span> <span class="k">w</span> <span class="p">!</span>sudo tee % <span class="p">&gt;</span><span class="sr">/dev/</span>null</code></pre>
+<h2>Use plugins</h2>
+<p>Ah, finally.  Arrived at the magical stuff that is Vim plugins.  This is a
+listing of the Vim plugins I depend on most and that really offer added value
+when you work with Vim every day.</p>
+<p><img src="/img/2010/08/textmate.png" class="right" alt=""></p>
+<p>Almost any person I know who owns a Mac has at least tried or purchased the
+<a href="http://macromates.com/">TextMate</a> editor.  It is a great programmer’s editor
+that has a lot of nice features, but of course, lacks Vim-style navigation :)</p>
+<p><ins>Some of its features have inspired Vim plugin developers to clone the
+awesomeness.  TextMate’s best two features (super-quick file opening and
+snippets) have been “ported” to Vim plugins.</ins></p>
+<h3 id="command-t">
+<ins>Command-T: TextMate-style file opening</ins> <del>NERDTree explorer</del>
+</h3>
+<p><!-- Old NERDTree explorer stuff {{{ -->
+</p><div class="del">
+<p>The NERDTree plugin is an absolute must for almost any Vim user.  For those
+who don’t know it yet, NERDTree is a visual file browser that allows you to
+quickly open files by navigating onto it and pressing Return.</p>
+<p>You can open the NERDTree using the <code>:NERDTree</code> command, or by using
+<code>:NERDTreeToggle</code>.  To close the tree window, use <code>:NERDTreeClose</code>.</p>
+<p><img src="/img/2010/08/nerdtree.png" alt=""></p>
+<p>I have I’ve mapped some shortcuts to these commands, for quick access to the list:</p>
+<pre><code class="language-vim">nmap <span class="p">,</span><span class="k">n</span> :NERDTreeClose<span class="p">&lt;</span>CR<span class="p">&gt;</span>:NERDTreeToggle<span class="p">&lt;</span>CR<span class="p">&gt;</span>
+nmap <span class="p">,</span><span class="k">m</span> :NERDTreeClose<span class="p">&lt;</span>CR<span class="p">&gt;</span>:NERDTreeFind<span class="p">&lt;</span>CR<span class="p">&gt;</span>
+nmap <span class="p">,</span><span class="k">N</span> :NERDTreeClose<span class="p">&lt;</span>CR<span class="p">&gt;</span></code></pre>
+<p>You can add quick bookmarks to directories that you often visit (like project
+directories), which works really well.  I have configured the following
+settings, which tells the plugin where the bookmark file is, which extensions
+to ignore, to show hidden files and to quit on open (which I like to have on,
+to have screen real estate for my code):</p>
+<pre><code class="language-vim"><span class="c">" Store the bookmarks file</span>
+<span class="k">let</span> NERDTreeBookmarksFile<span class="p">=</span>expand<span class="p">(</span><span class="s2">"$HOME/.vim/NERDTreeBookmarks"</span><span class="p">)</span>
+
+<span class="c">" Don't display these kinds of files</span>
+<span class="k">let</span> NERDTreeIgnore<span class="p">=</span>[ <span class="s1">'\.pyc$'</span><span class="p">,</span> <span class="s1">'\.pyo$'</span><span class="p">,</span> <span class="s1">'\.py\$class$'</span><span class="p">,</span> <span class="s1">'\.obj$'</span><span class="p">,</span>
+            \ <span class="s1">'\.o$'</span><span class="p">,</span> <span class="s1">'\.so$'</span><span class="p">,</span> <span class="s1">'\.egg$'</span><span class="p">,</span> <span class="s1">'^\.git$'</span> ]
+
+<span class="k">let</span> NERDTreeShowBookmarks<span class="p">=</span><span class="m">1</span>       <span class="c">" Show the bookmarks table on startup</span>
+<span class="k">let</span> NERDTreeShowFiles<span class="p">=</span><span class="m">1</span>           <span class="c">" Show hidden files, too</span>
+<span class="k">let</span> NERDTreeShowHidden<span class="p">=</span><span class="m">1</span>
+<span class="k">let</span> NERDTreeQuitOnOpen<span class="p">=</span><span class="m">1</span>          <span class="c">" Quit on opening files from the tree</span>
+<span class="k">let</span> NERDTreeHighlightCursorline<span class="p">=</span><span class="m">1</span> <span class="c">" Highlight the selected entry in the tree</span>
+<span class="k">let</span> NERDTreeMouseMode<span class="p">=</span><span class="m">2</span>           <span class="c">" Use a single click to fold/unfold directories</span>
+<span class="c">                                  " and a double click to open files</span></code></pre>
+<p>You can add quick bookmarks to directories that you often visit (like project
+directories), which works really well, too.</p>
+<p>More documentation available at: the <a href="http://www.vim.org/scripts/script.php?script_id=1658">plugin
+page</a>.</p>
+</div>
+<p><!-- }}} -->
+</p><div class="ins">
+<p>I used to have a whole discussion on the <a href="http://www.vim.org/scripts/script.php?script_id=1658">NERDTree
+explorer</a> plugin here, but
+I was pointed towards <a href="https://wincent.com/products/command-t">Command-T</a> by a
+few readers.  Once I tried that plugin for a few minutes, it became clear that
+there would be no need for NERDTree anymore.</p>
+<p>The name Command-T is a reference to the original shortcut for “Go to File” in
+TextMate, which opens the quick file opener.  Setting up this plugin is a bit
+more tricky than usual, because some files need to be compiled, but the
+instructions on the website are very clear and simple.  There’s even a
+screencast for Windows users.</p>
+<p>The plugin registers itself under <code>&lt;leader&gt;t</code> (in my case that’s <code>,t</code>).  And if
+it does, it shows a list of all the files from the current directory and a
+search box in which you can type any character progression.  By typing more
+characters, the list of files is narrowed down to contain only files that have
+that string as a subset.  But here’s the real added value: you can type any
+sequence of characters that are in the file’s path, they don’t have to be
+subsequent characters.  For example, if you have the following list of files:</p>
+<pre><code>foo/bar.py
+foo/qux.py
+tests/test_foo/test_bar.py
+tests/test_foo/test_qux.py</code></pre>
+<p>You could type the sequence <strong>fb</strong> to select the file <code>foo/bar.py</code>, or <strong>tfb</strong> to
+select <code>tests/test_foo/test_bar.py</code>.  As you can imagine, this is a huge time
+saver.  There is much more goodness in there.  For that, please refer to
+Wincent’s screencasts, or his website.</p>
+<p>You can download the plugin at
+<a href="http://www.vim.org/scripts/script.php?script_id=3025">vim.org</a>.</p>
+<p><strong>Note</strong>: On Vim instances that don’t have Ruby support enabled (type <code>:version</code>
+to check this), the Commant-T plugin won’t work.  If it isn’t an option to
+recompile Vim to add Ruby support, the <a href="http://www.vim.org/scripts/script.php?script_id=1658">NERDTree
+explorer</a> still is a good
+alternative.</p>
+</div>
+<h3>Snipmate: TextMate-style snippets for Vim</h3>
+<p>Another killer feature of TextMate are the intelligent snippets: you
+type some text, press Tab and TextMate creates a snippet for you, with
+placeholders at key positions within the snippet.  The first placeholder is
+selected, your overwrite it with the text you want, then press Tab to select
+the second placeholder, etc.  This lets you enter code super fast.</p>
+<p>Now it’s available to us Vim users, too, in the form of the <a href="http://www.vim.org/scripts/script.php?script_id=2540">snipMate
+plugin</a> (dubbed after
+TextMate).  There’s a great <a href="http://vimeo.com/3535418">introductory screencast</a>
+to get you excited about it.</p>
+<h4>Writing your own snippets</h4>
+<p>There are already lots of specific language <del>plugins</del>
+<ins><a href="http://github.com/scrooloose/snipmate-snippets">snippets</a></ins> for snipMate
+available, but writing your own is simple in case you ever miss functionality.
+Just create a file called <code>~/.vim/snippets/foo.snippet</code>, where <code>foo</code> is the
+filetype you want to load the snippets for.</p>
+<p>Then, declare your snippets.  That’s really as easy as this:</p>
+<pre><code>snippet def
+    def ${1:fname}(${2:arg}):
+        ${3:pass}</code></pre>
+<p>If you declare this, you can simply use <code>def&lt;Tab&gt;</code> and it will expand to a
+Python function definition.  The <code>${1:fname}</code> means "put the first placeholder
+at this position, and fill it with a default value of “fname”.</p>
+<h3>Other cool plugins</h3>
+<p>In order to make the article not any more longer than it already is, here’s a
+list of other plugins that are really worth checking out (I use each of them
+regularly):</p>
+<ul>
+<li>
+<a href="http://www.vim.org/scripts/script.php?script_id=1408">localrc</a>: lets you load
+  specific Vim settings for any file in the same directory (or a subdirectory
+  thereof).  Comes in super handy for project-wide settings.</li>
+	<li><ins><a href="http://github.com/rstacruz/sparkup">Sparkup</a>: write <span class="caps">HTML</span> lightning fast by
+  jotting down a “<span class="caps">CSS</span> selector”-like line and pressing a shortcut.  Super time
+  saver when you edit <span class="caps">HTML</span> manually. Go see <a href="http://www.youtube.com/watch?v=Jw3jipcenKc">the demo
+  video</a>.</ins></li>
+	<li><ins><a href="http://www.vim.org/scripts/script.php?script_id=1234">YankRing</a>: quickly
+  cycle through your registers when pasting, to select the appropriate paste.
+  How often have you “cut” a line, then “deleted” a line, only to find the
+  “deleted” line in your last paste register?</ins></li>
+	<li>
+<a href="http://www.vim.org/scripts/script.php?script_id=1624">Pastie</a>: lets you
+  visually select a piece of code and submit it to
+  <a href="http://pastie.org">pastie.org</a>.  It even has automatic filetype recognition.</li>
+	<li>
+<a href="http://www.vim.org/scripts/script.php?script_id=1697">surround</a>: quickly
+  change surroundings of a piece of code. For example, to change <code>dict(mykey)</code>
+  into <code>dict[mykey]</code>, put the cursor on <code>mykey</code>, then type <code>cs(]</code> (change
+  surroundings from <code>()</code> to <code>[]</code>).</li>
+	<li>
+<a href="http://www.vim.org/scripts/script.php?script_id=2136">repeat</a>: lets you
+  repeat the changing of surroundings using the default Vim repeat operator <code>.</code>
+  (dot).</li>
+	<li>
+<a href="http://www.vim.org/scripts/script.php?script_id=1545">abolish</a>: bulk-define
+  autocorrections (abbreviations) for many conjugations of words and smart
+  conversion of words from snake_case (<code>crs</code>) to camelCase (<code>cr_</code>) or MixedCase
+  (<code>crm</code>) to UPPER_CASE (<code>cru</code>) and vice versa.</li>
+	<li><ins><a href="http://www.vim.org/scripts/script.php?script_id=2050">LustyJuggler</a>: a quick
+  buffer switcher and a great companion to Command-T. See <a href="http://lococast.net/archives/185">this
+  screencast</a> (Lococast) to get excited.</ins></li>
+</ul><div class="ins">
+<h3>Other resources</h3>
+<p>Some of the resources from where I have collected inspiration for my <code>.vimrc</code>
+file, plugins, and tricks:</p>
+<ul>
+<li><a href="http://vimcasts.org/">Vimcasts</a></li>
+	<li><a href="http://lococast.net/">Lococast</a></li>
+	<li>
+<a href="http://vimeo.com/user1690209/videos">Derek Wyatt’s videos</a> (on Vimeo)</li>
+	<li><ins>Steve Losh blogged about <a href="http://stevelosh.com/blog/2010/09/coming-home-to-vim/">moving back to
+  Vim</a> and has some great
+  tips and tricks.</ins></li>
+</ul>
+</div>
+<p>I hope you like these tips.  Please add your comments below if you do, or if
+you have any Vim improvements or tips you’d like to bring on yourself.  <ins>You can
+have a look at my full Vim configuration in my
+<a href="http://github.com/nvie/vimrc">Github repo</a>.</ins></p>
+</div>
+
+
+<div class="flattr-quick no-print">
+<a class="FlattrButton" style="display:none;" rev="flattr;button:compact;" href="http://nvie.com/posts/how-i-boosted-my-vim/"></a>
+</div>
+
+
+<p>If you want to get in touch, I'm <a
+    href="http://twitter.com/nvie">@nvie</a> on Twitter.</p>
+
+		</div>
+		<div id="footer">
+            <p>Vincent Driessen is an independent Python software engineer and
+            consultant from the Netherlands. You may <a
+                href="http://www.3rdcloud.com">hire him</a>.
+
+            </p>
+		</div>
+
+		
+		
+		<script type="text/javascript"> 
+		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+		document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script> 
+		<script type="text/javascript"> 
+		var pageTracker = _gat._getTracker("UA-7780973-1");
+		pageTracker._initData();
+		pageTracker._trackPageview();
+		</script>
+		
+
+		
+		
+        <script type="text/javascript">
+        var _gauges = _gauges || [];
+        (function() {
+            var t   = document.createElement('script');
+            t.type  = 'text/javascript';
+            t.async = true;
+            t.id    = 'gauges-tracker';
+            t.setAttribute('data-site-id', '50693215613f5d378200002c');
+            t.src = '//secure.gaug.es/track.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(t, s);
+        })();
+        </script>
+		
+
+        <script type="text/javascript">
+        /* <![CDATA[ */
+            (function() {
+                var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+                s.type = 'text/javascript';
+                s.async = true;
+                s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+                t.parentNode.insertBefore(s, t);
+            })();
+        /* ]]> */</script>
+
+		
+		
+	</body>
+</html>

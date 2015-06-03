@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>在mutt里直接看doc、xls、ppt、pdf附件文件--LS工作室</title>
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache"> 
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache"> 
+<META HTTP-EQUIV="Expires" CONTENT="0"> 
+<META CONTENT="MPlayer的安装在mutt里直接看doc、xls、ppt、pdf附件文件Enlightenment的中文显示问题  博客 博客中国 博客动力 blog blogdriver blogger 中国" NAME="description"> 
+<META NAME="keywords" CONTENT="LS工作室 MPlayer的安装在mutt里直接看doc、xls、ppt、pdf附件文件Enlightenment的中文显示问题 博客 博客中国 博客动力 blog blogdriver blogger 中国"> 
+<link href="diary.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" src="/jsp/js/UBB.js"></script>
+<script type="text/javascript" src="/jsp/js/blog.js"></script>	
+</head>
+<body>
+  <div id="container">
+    <div id="header"><h1 class="title"><a href="index.html">LS工作室</a></h1></div>
+	<div id="category">	<a href="2700757.html" title="上一篇">MPlayer的安装</a>- -|
+		<a href="index.html">回首页</a> | <a href="catalog_2005.html">2005年索引</a>
+	| - -<a href="2851557.html" title="下一篇">Enlightenment的中文显示问题</a></div>
+ <div class="entity">
+			    <h2 class="diaryTitle">在mutt里直接看doc、xls、ppt、pdf附件文件- -</h2>				 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				 
+				 <p>
+mutt的强大是其他任一图形界面邮件客户端的忠实用户所无法想象的，就比如有很多人都用doc、xsl、ppt、pdf作为附件发送，要看这些附件很简单，因为windows上的Office和Acrobat系列就行，而Linux上有OpenOffice和Acrobatread也能看。但问题是，要是我不愿意以打开附件的方式，而是直接在邮件里看这些文件呢？用mutt很容易就能做到这点。<br /><br />首先要装上以下包，一般在发行版里都有，要是没有的话就去找相关站点的源码包编译。<br /><br />1、wvware－－doc以html或txt显示<br />   有wv和wv2两种，只要wv就行。<br />2、xlhtml－－excel以html显示，一起装上的ppthtml能让powerpoint以html显示，不过&#160; 如果是源码安装的话可能会在make时遇到depcomp找不到的错误，这时可以用下面的方法：<br />$ tar -xzvf xlhtml-0.5.tgz<br />$ cd xlhtml-0.5<br />$ aclocal; autoconf; automake --add-missing<br />这下ls看一下，depcomp出来了吧？然后照常法就行：<br />$ configure --prefix=/usr<br />$ make<br /># make install<br />3、pdftotext－－装上xpdf后就已经有了，pdf文件以txt格式显示<br />4、w3m或lynx－－文本界面的浏览器，推荐w3m<br /><br />然后修改.muttrc和.mailcap文件如下：<br />.muttrc:<br />......<br />auto_view application/msword application/excel application/powerpoint<br />application/pdf<br />......<br /><br />.mailcap:<br />......<br /># Word<br />application/msword; wvHtml %s - | w3m -dump -T text/html; copiousoutput; nametemplate=%s.html<br /># PDF<br />application/pdf; pdftotext %s - | w3m -dump; copiousoutput; nametemplate=%s.txt<br /># Excel<br />application/excel; xlhtml %s | w3m -dump -T text/html; copiousoutput; nametemplate=%s.html<br /># PowerPoint<br />application/powerpoint; ppthtml %s | w3m -dump -T text/html; copiousoutput; nametemplate=%s.html<br />......<br /><br />这里要注意powerpoint这一行，一般都是以pptHtml而不是上面的ppthtml，但我在SuSE里遇到下面的问题，可笑但无奈-_-：<br />mlsong@linux:~&gt; pptHtml<br />bash: pptHtml: command not found<br />mlsong@linux:~&gt; ppthtml<br />pptHtml - Outputs Power Point files as Html.<br />Usage: pptHtml <file><br /><br />最后一行的显示是让我用pptHtml为命令，但打pptHtml却没有这命令，而敲ppthtml显示的格式却是pptHtml <file>...当然为ppthtml建个链接为pptHtml就可以统一起来，只是SuSE安装文件里的rpm居然会有这种错误真让人不能理解（harmless bug？），这也就是为什么我一再提倡下载源码包自己编译常用软件而不是找rpm的原因。<br /><br /><br />然后再打开你的mutt看邮件就可以直接在邮件内容里看doc、xls、ppt、pdf里的内容。<br /><br />以下是一张截图，附件是TIPatterns.doc，邮件内容是空的，下文绿色的Thinking一行开始就是doc文件的内容，可以看到附件是内嵌在邮件中显示的。当然其中的收件人和发件人信息都用gimp去掉了 :-)<br /><img src="http://mlsong.bokee.com/inc/mutt%26doc.png" /><br />
+</file></file></p>
+             <p class="diaryFoot">- 作者： <a href="javascript:void(0);" onClick="window.open('http://publishblog.blogchina.com/blog/postMessage.b?receiver=80849','发送短消息','width=520, height=455')">mlsong</a> 访问统计：<script language="JavaScript" src="http://counter.blogchina.com/PageServlet?pageid=2822314&blogid=77945"></script>　2005年09月5日, 星期一 19:01  
+             <a href="javascript:void(keyit=window.open('http://blogmark.blogchina.com/jsp/key/quickaddkey.jsp?k='+encodeURI('在mutt里直接看doc、xls、ppt、pdf附件文件')+'&u='+encodeURI('http://mlsong.bokee.com/mlsong/2822314.html')+'&c='+encodeURI(''),'keyit','scrollbars=no,width=500,height=430,status=no,resizable=yes'));keyit.focus();">加入博采</a>
+             </p>
+				</div>
+ <div class="operation"> 
+    <a name="trackback"><H3>Trackback</H3></a>
+      <p class="trackback">你可以使用这个链接引用该篇文章 http://publishblog.blogchina.com/blog/tb.b?diaryID=2822314
+ </p>
+ </div>
+ 				
+<div class="operation">
+     <a name="comment"><H3>回复</H3></a>
+	 <table width="700" border="0" cellpadding="0" cellspacing="0">     
+<tr align="left">
+<td rowspan="2" align="center">
+<img src="http://blog.blogchina.com/img/unknowman.gif">
+
+</td>
+<td colspan="4"><H4><a name="comment$(remark.remarkID)"> - 评论人：啊呀</a>
+<span>&nbsp;&nbsp;2005-09-23 08:09:58&nbsp;<a  > <img src="http://blog.blogchina.com/img/linkblog.jpg" border="0" > </a>　 
+</span></H4>
+ </td>
+</tr>    
+<tr align="left">
+<td colspan="4" valign="top"><P class="comment">好<br>
+</P></td>
+</tr>
+<tr align="left">
+<td rowspan="2" align="center">
+<img src="http://blog.blogchina.com/img/unknowman.gif">
+
+</td>
+<td colspan="4"><H4><a name="comment$(remark.remarkID)"> - 评论人：金</a>
+<span>&nbsp;&nbsp;2005-09-23 08:08:31&nbsp;<a  > <img src="http://blog.blogchina.com/img/linkblog.jpg" border="0" > </a>　 
+</span></H4>
+ </td>
+</tr>    
+<tr align="left">
+<td colspan="4" valign="top"><P class="comment">好<br>
+</P></td>
+</tr>
+</table>
+ </div>
+  <div class="operation"> 
+    <table width="700" border="0" cellpadding="0" cellspacing="0" class="comment">
+      <form id="replyForm" method="POST">
+        <input type="hidden" name="blogID" value="77945">
+        <input type="hidden" name="diaryID" value="2822314">
+        <input type="hidden" name="blogDomino" value="mlsong">
+<script>
+if(getCookie('userID') == null){        
+document.write('<tr><td width="70">发布人：</td>');
+document.write('<td width="150"> <input name="remark.authorNameFUI" type="text" size="20" class="inputStyle" maxlength="20"></td>');
+document.write('<td width="70">邮箱：</td>');
+document.write('<td width="435"> <input name="remark.authorEmail" type="text" size="20" class="inputStyle" maxlength="40"></td>');
+document.write('</tr><tr><td>主　页：</td>');
+document.write('<td colspan="3"> <input name="remark.authorURL" type="text" class="inputStyle" value="HTTP://" size="63" maxlength="100"></td></tr>');
+}else{
+document.write('<input type="hidden" name="remark.authorNameFUI" value="Blogchina网友">');
+}
+</script>        
+        <tr align="left"> 
+          <td colspan="4">评论内容：<br/> <textarea name="remark.remarkFUI" id="remark" cols="60" rows="8" class="textStyle" >
+          </textarea> 
+          </td> 
+        </tr>
+        <tr align="left"> 
+          <td colspan="4"> 　　　　　　 　　　　　　 
+            <input type="button" value="提交" onClick="reply()" >
+            　 
+            <input type="reset" value="重置" > </td>
+        </tr>
+      </form>
+    </table>
+  </div>
+</div>	
+<script type="text/javascript" src="http://mlsong.bokee.com/extend3.js"></script> 
+<div id="footer"><a href="http://blog.blogchina.com/">2003-2004 BlogChina.COM All rights reserved</a><br/>
+<a href="http://www.blogdriver.com/">Powered by BlogDriver 2.1</a>
+</div>
+</body>
+</html>

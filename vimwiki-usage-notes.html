@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+        <head>
+            <meta charset="utf-8" />
+            <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+            <meta http-equiv="X-UA-Compatible" content="IE=7" />
+            <title>VimWiki 使用笔记 - 無標題文檔</title>
+            <meta name="keywords" 
+                content="php,linux,javascript,android,gracecode,vim,tracker,blog,feelinglucky,明城,博客,生活,编程,代码,程序员" />
+            <meta name="description" 
+                content="" />
+            <link rel="icon" href="/assets/untitled/media/images/wu@64x64.png" type="image/x-icon"/>
+            <link rel="shortcut icon" href="/assets/untitled/media/images/wu@64x64.png" type="image/png" />
+            <link rel="stylesheet" type="text/css" href="/assets/untitled/stylesheets/styles.css" />
+            <link rel="stylesheet" type="text/css" href="/assets/untitled/stylesheets/font-awesome.css" />
+            <link href="http://rss.gracecode.com" rel="alternate" title="RSS" type="application/rss+xml" />
+            <!--
+            <link href="http://www.gracecode.com/rss.xml" rel="alternate" title="RSS" type="application/rss+xml" />
+            -->
+            <meta name="author" content="明城" />
+            <meta name="application-name" content="無標題文檔" />
+            <meta name="generator" content="VIM Editor - Mac OS X 10.8.2" />
+            <meta name="verify-v1" content="4BJs16VTJDDsu9Ngl8AOdXkxG0MgCB92r/CgcHOROpA=" />
+            <!--[if IE 7]>
+                <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+                <link rel="stylesheet" type="text/css" href="/assets/untitled/stylesheets/font-awesome-ie7.css" />
+            <![endif]-->
+        </head>
+    <body class="bg">
+        <header>
+            <h1 id="logo"><a href="http://www.gracecode.com">無標題文檔</a></h1>
+        </header>
+        <div id="body">
+            <div class="content">
+                <div class="article">
+    <h1>VimWiki 使用笔记</h1>
+    <h2 id="toc_0">更新记录</h2>
+
+<ul>
+<li><em>2012-10-11</em> 重新使用 Markdown 格式编辑</li>
+<li><em>2010-04-13</em> 增加使用“时间戳”章节</li>
+<li><em>2010-03-20</em> 基本完成此篇文档</li>
+<li><em>2010-03-19</em> 增加“配置”章节</li>
+<li><em>2010-03-18</em> 初始化版本，增加“安装”章节</li>
+</ul>
+
+<h2 id="toc_1">前言</h2>
+
+<p>如果你在使用 Vim，那么我敢保证你绝对不会错过这款名为<a href="http://vimwiki.googlecode.com">VimWiki</a> 的插件。 您使用 VimWiki 可以</p>
+
+<ul>
+<li>组织笔记和想法</li>
+<li>组织行动列表（TODO List）</li>
+<li>编写文档</li>
+</ul>
+
+<h2 id="toc_2">安装</h2>
+
+<p>VimWiki 的项目主页为 <a href="http://vimwiki.googlecode.com">http://vimwiki.googlecode.com </a> ，下载压缩文件解压缩后用 Vim 打开，然后</p>
+
+<pre><code>:source %
+</code></pre>
+
+<p>即可安装完成。</p>
+
+<p>同时建议 Vim 配置文件中有下面的选项：</p>
+
+<pre><code>set nocompatible
+filetype plugin on
+syntax on
+</code></pre>
+
+<p>上述配置的具体解释详细解释看 help 文档。</p>
+
+<h2 id="toc_3">配置</h2>
+
+<h3 id="toc_4">配置路径</h3>
+
+<h3 id="toc_5">我的 VimWiki 配置</h3>
+
+<pre><code>&quot; VimWiki 配置
+let g:vimwiki_list = [{&quot;path&quot;: &quot;~/Wiki/&quot;, &quot;path_html&quot;: &quot;~/Sites/wiki/&quot;, &quot;auto_export&quot;: 1}]
+</code></pre>
+
+<p>其中，path 为 保存 wiki 的文件路径，path<em>html 为输出 html 的路径，auto</em>export
+设置为自动导出。</p>
+
+<h3 id="toc_6">管理多个 Wiki</h3>
+
+<p>管理多个 VimWiki 即在 <code>g:vimwiki_list</code> 中增加对应的数组选项即可，如</p>
+
+<pre><code>let g:vimwiki_list = [{&quot;path&quot;: &quot;...&quot;, &quot;path_html&quot;: &quot;...&quot;},
+                    \ {...}, ... ]
+</code></pre>
+
+<h3 id="toc_7">其他配置</h3>
+
+<pre><code>let g:vimwiki_auto_checkbox = 0
+</code></pre>
+
+<p>设置列表不自动添加 checkbox 框</p>
+
+<pre><code>let g:vimwiki_w32_dir_enc = &#39;cp936&#39;
+</code></pre>
+
+<p>如果在中文版的 Windows 下，目录名称如果为中文，则应用此选项（否则默认使用 Vim
+encoding 指定的编码）。</p>
+
+<h2 id="toc_8">使用</h2>
+
+<h3 id="toc_9">命令</h3>
+
+<h3 id="toc_10">Golbal 命令</h3>
+
+<ul>
+<li>:VimwikiGoHome</li>
+<li>:VimwikiTabGoHome</li>
+<li>:VimwikiUISelect</li>
+</ul>
+
+<h3 id="toc_11">Buffer 命令</h3>
+
+<ul>
+<li>:Vimwiki2HTML</li>
+<li>:VimwikiAll2HTML</li>
+<li>:VimwikiDeleteWord</li>
+<li>:VimwikiDeleteWord</li>
+<li>:VimwikiFollowWord</li>
+<li>:VimwikiGoBackWord</li>
+<li>:VimwikiNextWord</li>
+<li>:VimwikiPrevWord</li>
+<li>:VimwikiRenameWord</li>
+<li>:VimwikiSplitWord</li>
+<li>:VimwikiToggleListItem</li>
+<li>:VimwikiVsplitWord</li>
+</ul>
+
+<h3 id="toc_12">快捷键</h3>
+
+<pre><code>[n]\ww :: 打开第 N 个 Wiki，如果没指定，则打开默认 Wiki
+[n]\wt :: 新标签页打开第 N 个Wiki
+\ws :: 打开 Wiki 列表并选择打开
+&lt;Enter&gt; :: 打开、创建 !WikiWord
+&lt;Shift + Enter&gt; :: 水平分隔并打开、创建 !WikiWord
+&lt;Ctrl + Enter&gt; :: 垂直分割打开、创建 !WikiWord
+&lt;Backspace&gt; :: 回到上一个 !WikiWord
+&lt;Tab&gt; :: 找到下个 !WikiWord
+&lt;Shift-Tab&gt; :: 找到上个 !WikiWord
+\wd :: 删除当前 !WikiWord
+\wr :: 重命名 !WikiWord
+&lt;Ctrl-Space&gt; :: 打开、关闭列表
+= :: 增加、创见标题
+- :: 删除、减少标题
+</code></pre>
+
+<h3 id="toc_13">语法</h3>
+
+<h4 id="toc_14">章节</h4>
+
+<pre><code>*text* :: 粗体
+_text_ :: 斜体
+~~text~~ :: 删除线
+^text^ :: 上标
+,,text,, :: 下标
+`code` :: 代码、不解析
+&lt;!- - text - -&gt; :: 注释，同时布显示于 HTML 输出
+</code></pre>
+
+<h4 id="toc_15">标题</h4>
+
+<pre><code>= header = :: 标题一
+== header == :: 标题二
+=== header === :: 标题三
+==== header ==== :: 标题四
+===== header ===== :: 标题五
+====== header ====== :: 标题六
+</code></pre>
+
+<h4 id="toc_16">链接</h4>
+
+<pre><code>TextText :: !WikiWord
+!TextText :: 不要链接指定的 !WikiWord
+[[Text text]] :: 强制指定某个 !WikiWord，注意中文等字符
+[[Text text | Text]] :: 使用某个描述到 !WikiWord
+</code></pre>
+
+<p>下述链接格式可多项组合</p>
+
+<pre><code>http://site/ :: 自动连接
+[http://site/ home page] :: 带描述的连接
+http://site/pic.jpg :: 解析为图片
+[[images/pic.jpg]] :: 链接到本地图片
+</code></pre>
+
+<h4 id="toc_17">列表</h4>
+
+<h5 id="toc_18">无序列表</h5>
+
+<pre><code>* items
+* items
+* items
+* items
+</code></pre>
+
+<h5 id="toc_19">有序列表</h5>
+
+<pre><code># items
+# items
+# items
+# items
+</code></pre>
+
+<h5 id="toc_20">定义列表</h5>
+
+<pre><code>define :: desption
+define :: desption
+define :: desption
+define :: desption
+</code></pre>
+
+<h4 id="toc_21">表格</h4>
+
+<pre><code>| 表格 | 表格 | 表格 |
+| 表格 | 表格 | 表格 |
+| 表格 | 表格 | 表格 |
+</code></pre>
+
+<h2 id="toc_22">技巧</h2>
+
+<h3 id="toc_23">同步 Vimwiki</h3>
+
+<p>可以考虑使用 Dropbox &amp; rsync 同步 Wiki 文件以及脚本，架构图如下</p>
+
+<p><img src="http://files.gracecode.com/2010_03_20/1269096655.png" alt="同步图例"></p>
+
+<h3 id="toc_24">生成所有的 HTML</h3>
+
+<p>重新生成所有的 HTML 页面（不包括样式）</p>
+
+<pre><code>:VimwikiAll2HTML
+</code></pre>
+
+<h2 id="toc_25">附</h2>
+
+<ul>
+<li><a href="http://vimwiki.googlecode.com/hg/misc/vimwikiqrc.pdf">Vimwiki 参考小抄（pdf 格式）</a></li>
+<li><a href="http://xbeta.info/vimwiki.htm">http://xbeta.info/vimwiki.htm</a></li>
+</ul>
+
+<h3 id="toc_26">Windows 下路径变错的问题</h3>
+
+<p>1、检查 HTML 输出的路径是否正确</p>
+
+<pre><code>: shellescape(expand(&#39;%:p:h&#39;))
+</code></pre>
+
+<p>2、配置文件文件中，盘符路径必须大写而且最后最好加上目录分隔符，例如</p>
+
+<pre><code>&quot; 注意！
+&quot; 1、如果在 Windows 下，盘符必须大写
+&quot; 2、路径末尾最好加上目录分隔符
+let s:vimwiki_root = &quot;C:/.../Vimwiki&quot;
+let g:vimwiki_list = [
+            \{&quot;path&quot;: s:vimwiki_root.&quot;/Default/&quot;,
+            \&quot;path_html&quot;: s:vimwiki_root.&quot;/Default/html/&quot;, &quot;auto_export&quot;: 1}
+            \]
+</code></pre>
+
+<h3 id="toc_27">增加 HTML 输出时间戳标记</h3>
+
+<p>给 <code>$VIM_FILES/autoload/vimwiki_html.vim</code> 打<a href="http://gracecode.googlecode.com/files/vimwiki_html_vim.patch">补丁</a>。</p>
+
+<p>然后再设置的自定义 footer.tpl 的合适位置中，加入</p>
+
+<pre><code>%time_stamp%
+</code></pre>
+
+<p>即可在每份输出的 HTML 中加入时间戳（导出 HTML 的时间）。如果想更改时间戳的格式，更改变量</p>
+
+<pre><code>g:vimwiki_timestamp_format
+</code></pre>
+
+<p>即可，例如</p>
+
+<pre><code>let g:vimwiki_timestamp_format = &#39;%Y-%m-%d %H:%M:%S&#39;
+</code></pre>
+
+<p><code>-- EOF--</code></p>
+
+</div>
+
+            </div>
+        </div>
+        
+        <footer>
+            <div id="copyright">
+                <p>
+                    Proudly powered by
+                    <a href="http://ruhoh.com/" title="Ruhoh Offical Homepage">Ruhoh</a>!
+                    <br />
+                    <!--
+                    <a href="http://www.gracecode.com/rss.xml">
+                        <img src="http://feeds.feedburner.com/~fc/gracecode" alt="rss count" />
+                    </a> 
+                    -->
+                    <a href="http://www.apple.com/getamac/" title="Get a Mac" ref="nofollow"> 
+                        <img src="http://files.gracecode.com/2012_10_15/1350272062.png" 
+                            alt="Get a Mac" /> 
+                    </a>
+                </p>
+            </div> 
+        
+            <div id="footnote"> 
+                <p>
+                    &copy; 2012 無標題文檔 
+                    <!-- <a href="http://www.gracecode.com/rss.xml">rss</a> -->
+                    <a href="http://rss.gracecode.com" />RSS</a>
+                    <a href="http://www.gracecode.com/archive.html">Archive</a>
+                </p>
+                <p>
+                    <a href="http://www.miibeian.gov.cn" 
+                        ref="nofollow" title="和谐地备了案">浙ICP备 07002356 号</a> 
+                </p>
+            </div>
+        </footer>
+        
+        <script type="text/javascript">
+        var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb1e52d326dc18ed8966806622d49d892' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script>
+  var _gaq=[['_setAccount','UA-2634498-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+        
+    </body>
+</html>
+

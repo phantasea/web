@@ -1,0 +1,3524 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="generator" content=
+"HTML Tidy for FreeBSD (vers 1 September 2005), see www.w3.org">
+<style type="text/css">
+
+{
+
+        font-size : small;
+
+        font-family : Arial;
+
+        font-weight : normal;
+
+        font-style : normal;
+
+        color : #000000;
+
+}
+
+
+
+
+
+
+
+
+
+</style>
+<title></title>
+</head>
+<body>
+<a href="index.html"> Main page</a>
+<center>
+<h2>A Quick Guide to Mutt</h2>
+</center>
+<p>
+
+<h3><a name="Contents">Contents</a></h3>
+<a href="#Basics">Basics</a><br> 
+<a href="#getmail">Installing and configuring getmail</a><br>
+<a href="#configuration">Simple mutt configuration</a><br>
+<a href="#IMAP">IMAP</a><br>
+<a href="#Sending"> Sending mail</a><br>
+<a href="#headers"> Mail headers</a><br>
+<a href="#Documents"> Documents and other attachments</a><br>
+<a href="#HTML"> HTML mail, following URL's and sending mail from a browser</a><br>
+<a href="#Macros"> Macros</a><br>
+<a href="#filtering"> Simple filtering</a><br>
+<a href="#Reading"> Reading mail</a><br>
+<a href="#Keeping">Keeping addresses</a><br>
+<a href="#Replying">Replying to mailing lists</a><br>
+<a href="#LDAP"> Using mutt with an LDAP address book</a><br>
+<a href="#More"> More details on multiple accounts</a><br>
+<a href="#colors"> A brief guide to colors in mutt<br></a>
+<a href="#Spell"> Spell checking</a><br>
+<a href="#GPG"> Mutt and GPG</a><br>
+<a href="#Stupid"> Stupid mutt tricks</a><br>
+<a href="#Odds"> Odds and ends</a><br>
+<a href="#Newer"> Newer (and some older) odds and ends</a>
+
+
+
+<p>Mutt is not that difficult to get up and running, however,
+sometimes finding the proper information can be a bit difficult. It
+is hoped that this will get you started, and show you some nice
+enhancements that help to make mutt the favorite of many Unix
+gurus.</p>
+
+<b>A quick but important note on paths:</b><br>
+
+FreeBSD puts 3rd party 
+software in /usr/local.  I may remind the reader of this from 
+time to time, but your distribution might do things differently.<p>
+Most Linux distros will put mutt, maildrop, msmtp and getmail in
+/usr/bin, and systemwide configuration files in /etc.
+NetBSD uses /usr/pkg.  OpenBSD puts mutt in /usr/local but puts its
+systemwide configuration files in /etc. I may write /usr/local/ but on
+your system, the path may be different.  <p>
+
+<p>No doubt there are errors on this page. If you find something,
+feel free to drop me a line at scottro11[at]gmail.com.</p>
+
+<p>Mutt is a very lightweight email client, and most people use other
+programs to send, fetch and sort mail.  There are many choices, and 
+although later versions of mutt have their own simple pop 
+and smtp utilities this article will cover using mutt in conjunction 
+with getmail to errm, get the mail, msmtp to send it and 
+maildrop to filter it.  They give far more flexibility.
+<p>
+
+<h3><a name="Basics">Basics</a></h3>
+I'm going to assume you already have mutt installed.  I think that
+almost every distribution has a package for it.  If not, you can get the
+tarball from <a href="ftp://ftp.mutt.org/mutt/devel/">mutt's site.</a>
+That link goes to the development directory.  There have been some
+changes between mutt-1.4.x and 1.5.x, and this article covers 1.5.x. I
+would suggest getting the latest development version, 1.5.17, at time of
+writing.  It's configured in the usual way.  Download the tarball,
+uncompress and untar it and do configure, make and make install.  If you
+had downloaded mutt-1.5.17.tar.gz
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+tar zxvf mutt-1.5.17.tar.gz
+</pre>
+</td>
+</tr>
+</table>
+<p>
+Various things are written to your screen
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+cd mutt-1.5.17
+./configure && make && make install
+</pre>
+</td>
+</tr>
+</table>
+<p>
+<p>We're going to assume that your main email account is john@example.com.
+Your password on that account is 1234. Your POP server is
+pop.example.com and your smtp server is smtp.example.com. Your account on
+the box is john. The first step is to set up getmail. (Note that
+while this next section seems a bit involved, it's actually quite
+easy.)<br>
+(If you want to use fetchmail, I have a quick and dirty guide to it
+which can be viewed <a href=
+"http://www.scottro.net/qnd/qnd-fetchmail.html">here.</a> However,
+that page hasn't been updated in years.  If the reader feels they'd
+rather use fetchmail, then they'd be better off finding a different
+tutorial.<p>
+
+<a href="#Contents">(Back to Contents)</a><p>
+<h3><a name="getmail">Installing and configuring getmail</a></h3>
+Getmail is available as a package for most distributions.  However, the
+RedHat based distributions, such as CentOS, might have to rely on third
+party repos.  (There is a version that was accepted in early December of
+2007.  The RPM can be found on<a
+href="https://bugzilla.redhat.com/show_bug.cgi?id=365931"> RedHat's
+bugzilla</a>.
+<p>This guide is for getmail 4.x, which has some major differences from
+3.x.  For version 3.x see my <a href="getmail3.html">getmail 3
+page.</a> (I don't know if any distros are still using 3.x, and the
+program's author strongly recommends upgrading.)</p>
+
+If your distribution doesn't have a package, you will still be able to
+install it as long as you have python on your system. 
+<p>Download it from <a href="http://pyropus.ca/software/getmail/">getmail's
+site.</a>  There is a script included in the tarball 
+
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+tar xzf getmail-4.2.2.tar.gz
+cd getmail-4.2.2
+python setup.py build
+python setup.py install
+</pre></td>
+</tr>
+</table>
+<p>You should have an example getmailrc.  It will probably
+be someplace like /usr/share/examples/getmail or /usr/share/getmail.
+In FreeBSD, it's in /usr/local/share/examples/getmail.  If you use the
+tarball, it's probably in /usr/share/doc/getmail or
+/usr/local/share/doc/getmail. 
+
+<p>I cover the configuration in more depth on my <a href=
+"getmail.html">getmail page.</a> However, in brief, we'll create a
+.getmail directory and put our getmailrc in there.  We'll give our
+$HOME/.getmail directory full permissions to the owner and nothing to
+anyone else.
+So, if you were using FreeBSD, as user john, and in your /home/john 
+directory</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+mkdir -m 700 .getmail
+cp /usr/local/share/examples/getmail/getmailrc-examples .getmail/getmailrc
+</pre></td>
+</tr>
+</table>
+<p>Next we have to edit the getmailrc. 
+<p>One can go through the examples and delete the lines they don't
+want. In the end, we want it to be like this</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+[options]
+verbose = 0
+delete = True
+
+[retriever]
+type = SimplePOP3Retriever
+server = pop.example.com
+username = john
+password = 1234
+
+[destination]
+type = Mboxrd
+path = ~/Mail/IN-personal
+unixfrom = True
+</pre></td>
+</tr>
+</table>
+<p>(The unixfrom line is necessary for both procmail and maildrop, which
+we'll be using later. I don't know about other MDA's.).</p>
+The above will work for mbox format.  If you have maildir format, then
+you would change the type from Mboxrd to Maildir and the path to
+~/Maildir/IN-personal.  You might have to do ~/Maildir/IN-personal/ with
+the trailing slash, I haven't worked with maildir format for awhile. <p>
+
+
+Note that the path has to exist--getmail won't create it for you. As
+mentioned in the next section, mutt will, depending upon the system's
+defaults, offer to create your Mail or Maildir directory.  You can then
+create a mailbox (or subdirectory in Maildir format) called IN-personal.
+(You can call it whatever you wish of course, IN-personal is an
+example.)<p>
+
+If you start <a href="#filtering">filtering email</a> you will change
+the destination parameter from a mailbox or mail directory to an
+external program. Using maildrop on a Linux box, where
+maildrop's path is /usr/bin/maildrop, I have 
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+[destination]
+type = MDA_external
+path = /usr/bin/maildrop
+unixfrom = True
+</pre>
+</td>
+</tr>
+</table>
+<p>
+As gmail becomes more and more popular, folks are often making
+use of its pop download feature, enabling you to receive your gmail
+email on your normal client (in this case, of course, mutt.) As
+gmail uses SSL the above configuration would work save for the
+SimplePop3Retriever line. For a gmail account, you want, assuming
+your gmail account is john@gmail.com with a password of 1234</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+[options]
+verbose = 0
+delete = True
+
+[retriever]
+type = SimplePOP3SSLRetriever
+server = pop.gmail.com
+username = john@gmail.com
+password = 1234
+
+[destination]
+type = Mboxrd
+path = ~/IN-personal
+unixfrom = True
+</pre></td>
+</tr>
+</table>
+Save that one as a second file in your .getmail directory, e.g.,
+gmailrc.  (Each account requires a separate rc file.) 
+
+<p>If you're on a box that others use, this means that your email
+password is visible to the super user. So, you can leave out the
+password line. However, this will mean that you have to enter it in
+each time getmail polls your server.</p>
+
+<p>In general, I like to have getmail running in the background,
+checking for mail every ten minutes. With fetchmail, one does this
+with the -d option, making it run as daemon. However, getmail
+doesn't have this option--while some people write a script to do
+it, I follow the getmail author's advice, and run it as cronjob. For the
+newcomer unfamiliar with cron, it's used to run a job at regular
+intervals. There are six fields, minutes, hour, day of month,
+month, day of week and the actual job itself. In this case, I want
+getmail to run every ten minutes, regardless of the hour, day, etc.
+Therefore, the only fields specified are minutes and the actual
+job. This isn't a page about cron, so I'll simply give the
+procedure to have getmail poll the pop server every ten
+minutes.</p>
+<p>Again, we'll have a user named john. We'll assume that you're
+new to this (otherwise, you probably wouldn't be reading this section) and
+haven't given john a crontab or any specific jobs. 
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>crontab -e</td>
+</tr>
+</table>
+<p>The e means you're going to edit the crontab. You'll probably
+get an empty editor. In my case, vi is my default editor, so vi
+opens. For getmail to check for mail every 10 minutes, I would
+put</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>*/10 * * * * /usr/local/bin/getmail</td>
+</tr>
+</table>
+<p>The numbers refer to minutes, the 4 *'s refer to the fields I'm
+not specifying, hours, day of month, etc and the last field is the
+command.</p>
+If you wanted to stop the cronjob for some reason--for example, if you
+were going to work and get mail there during the day, you just do
+crontab -e again and comment out the line by putting a # in front of
+it.  Then it would look like
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+#*/10 * * * * /usr/local/bin/getmail
+</pre>
+</td>
+</tr>
+</table>
+<p>One quick note of warning. If you wanted the job to run every
+two hours and made a crontab like this</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+* */2 * * * 
+</pre></td>
+</tr>
+</table>
+<p>it would be running every minute. The correct way to specify the
+job to run every two hours would be</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+0 */2 * * *
+</pre></td>
+</tr>
+</table>
+
+If you have more than one getmailrc file--as in our example above, when
+you have your example.com account and gmail account, they both have to
+be specified in your cronjob.  -r is used as short for -rcfile, and you
+don't need a space after the -r.
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+*/10 * * * * /usr/local/bin/getmail -rgetmailrc -rgmailrc
+</pre>
+</td>
+</tr>
+</table>
+<p>
+<p>If you've set up getmail this way, as a cron job, you can either
+leave mutt open all the time and check your various mailboxes
+periodically, or, at least in X, use <a href="xbuffy.html" target=
+"top">xbuffy</a> to keep track of your emails.</p>
+If just watching one mailbox, xbiff, part of xorg-x11-apps, at least in
+RH based systems, will work.  You can set its geometry, color, and so
+on, either at the command line or by putting entries in your
+$HOME/.Xdefaults.  By default, its size is 48x48 and it watches your
+default mail, usually /var/spool/mail or something similar.  If you make
+an .Xdefaults entry of 
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+xbiff*file:/home/john/Mail/IN-personal
+</pre>
+</td>
+</tr>
+</table>
+<p>
+it will watch that mailbox. <p>
+In <a href="fluxopen.html">fluxbox and openbox</a> one can set its
+position--in fluxbox in your $HOME/.fluxbox/apps and in openbox in
+$HOME/.config/openbox/rc.xml.  That's explained a little more in the
+link above.  <p>
+To set geometry and configuration in .Xdefaults, one would use
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+xbiff*geometry:48x25
+</pre>
+</td>
+</tr>
+</table>
+<p>
+to just set the size.  To set it to always show up in the bottom right of your window you
+can use -0-0, with no spaces, in other words
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+xbiff*geometry:48x25-0-0
+</pre>
+</td>
+</tr>
+</table>
+<p>
+To set a corner in
+.Xdefaults, one uses +0+0 for upper left, -0+0 for upper right, -0-0 for lower right and
+	+0-0 for lower left.  To get other locations, you have to play around--for example, on a screen with a resolution of
+1920x1080, to get it approximately in the upper middle, I would use 48x25+960+0 and +960-0 to get it on the bottom. To start with +0 puts it at the far
+left and -0 at the far right.  The second number is top or bottom, +0 being the top and -0 being the bottom.  (Note that with dwm the top will be below
+the dwm status bar.)  There's a <a
+href="http://www.glue.umd.edu/afs/glue.umd.edu/system/info/olh/Utilities/X-windows/Using_window">nice
+page</a> at umd.edu that explains the X Y coordinates in more detail.<p>
+
+
+<a href="#Contents">(Back to Contents)</a><p>
+
+<h3><a name="configuration">Simple mutt configuration</a></h3>
+<p>Now to set up mutt. Open up your favorite text editor and make a
+.muttrc file (note the dot before it). This is where the
+documentation for Mutt is overly complex for the single user with
+one account. All that is necessary is:</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>set folder=~/Mail<br>
+folder-hook . "my_hdr From: &lt;john@example.com&gt;"</td>
+</tr>
+</table>
+<p>The ~ refers to the home directory--when you first use mutt it
+will say something like ~/Mail doesn't exist, create it now?   If your
+system defaults to maildir format (Gentoo did this back when I used it)
+it will say something like Maildir or maildir instead of Mail.
+The folder-hook . (a period) means you're setting it for all folders,
+that is, no matter where you are in mutt when you compose an email.
+
+<p>Usually, there is a system wide muttrc in /etc, /usr/local/etc
+or someplace similar. Therefore, you can often leave the set
+folder=~/Mail line out unless you wish to place your default Mail or
+Maildir somewhere else.  </p>
+(The system wide file can be in various places.  On FreeBSD and
+Solaris, it's /usr/local/etc/Muttrc.  In NetBSD, it's 
+/usr/pkg/etc/Muttrc.  OpenBSD has it in /etc/mutt/Muttrc.  Mac OSX uses
+/sw/etc/Muttrc if you install it with <a
+href="http://fink.sourceforge.net">fink.</a> <p>
+Some, if not most,
+Linux distributions put it in /etc.  In almost all cases and operating
+systems, it is called Muttrc, with an upper case M.<p>
+Many thanks to several members of <a
+href="http://forums.bsdnexus.com">bsdnexus.com's forums</a> who were
+kind enough to take the trouble to tell me where their various O/S's put
+the system wide Muttrc.)<p>
+
+<p>A common problem for those using Maildir
+format is that when they open mutt they'll get a message like</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+/home/john/Maildir is not a mailbox
+</pre></td>
+</tr>
+</table>
+<p>The Maildir format requires 3 subdirectories in there, cur new
+and tmp. With the maildrop program there's a maildirmake command
+which will properly create the directory. <p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+maildirmake ~/Maildir
+</pre></td>
+</tr>
+</table>
+<p>If you've already made your Maildir without the subdirectories 
+you can make them yourself.</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+cd ~/Maildir
+mkdir -m 700 cur new tmp
+</pre></td>
+</tr>
+</table>
+<p>While on Maildir format, although the mbox
+format will show the size of each mailbox, letting you know
+approximately how much new mail you have, Maildir will just show
+everything as having a size of 512.</p>
+<p>However, if you have a mail directory in your Maildir folder,
+called, for example, IN-personal, you can add the following to your
+.muttrc</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+mailboxes ~/Maildir/IN-personal
+</pre></td>
+</tr>
+</table>
+<p>Then, when you receive new mail an N will appear in front of any
+mailboxes specified in .muttrc that have new mail.</p>
+<p>I haven't looked deeply into this. Sometimes, it doesn't seem to
+work the way I expected, but these days, as I use mbox format, I never 
+researched it.</p>
+<p>When using Maildir format, I've found that you have to create
+all directories before applying filtering rules. That is, if I have a
+maildrop or procmail rule to send mail to IN-personal, I have to
+create the Maildir/IN-personal directory first. This can be done
+with maildirmake as mentioned above.  Again, we'll be dealing with
+filtering later in this article.  Additionally, even a getmailrc that
+delivers directly to your Maildir directory needs to have the mailboxs
+created in advance.  Again, we'll be dealing with filtering later in this
+article.  Additionally, remember that even a getmailrc that delivers 
+directly to your Maildir directory needs to have the mailboxes created 
+in advance</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+cd ~/Maildir
+maildirmake IN-personal
+</pre></td>
+</tr>
+</table>
+<p>Otherwise, the directory and subdirectories can 
+once again be created manually.</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+cd ~/Maildir
+mkdir -m 700 IN-personal
+cd IN-personal
+mkdir -m  700 cur new tmp
+</pre></td>
+</tr>
+</table>
+<p>If you start getmail, and receive some mail, you'll now be able 
+to read messages in mutt.<br>
+The menu is at the top of the display. However, you won't be able
+to send yet.</p>
+<p>One thing to note with a .muttrc--if there are two conflicting
+rules in it, it will almost always process the last one. However,
+as noted below, fcc-hooks are an exception. There are other
+exceptions as well, such as colors.</p>
+
+<a href="#Contents">(Back to Contents)</a><p>
+
+<h3><a name="IMAP">IMAP</a></h3>
+Generally, I prefer to pull in my mail, using getmail as described 
+above.  However, mutt also works with an IMAP server.  If only using one
+IMAP server with one mailbox, one can add the following to ~/.muttrc.
+Assuming the user name is john, the password, 1234, and the server name
+is imap.example.com
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+set imap_user="john"
+set imap_pass="1234"
+</pre>
+</td>
+</tr>
+</table>
+<p>
+to send from that server
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+set smtp_url="smtp://john@imap.server.com"
+set smtp_pass="1234"
+</pre>
+</td>
+</tr>
+</table>
+<p>
+In my particular, possibly unusual case, although I usually pull in mail
+from my IMAP server, on occasion, I want to just log into it.  Rather
+than have something set in my .muttrc, I temporarily set the MAIL
+environment variable.  This is generally set to /var/spool/$USERNAME or
+/var/spool/mail/$USERNAME--in other words, with our user of john, it 
+would be set to /var/spool/mail/john.  Resetting it completely might (or
+might not) affect other things that depend upon the variable, so I just
+made a little script, checkimap.sh
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+#!/bin/sh
+MAIL=imap://john@imap.example.com
+mutt
+</pre>
+</td>
+</tr>
+</table>
+<p>
+Make it executable with chmod 700 checkimap.sh.  It will then
+temporarily change your MAIL environment variable to the IMAP server and
+check your inbox there. <p>
+As I don't use this much, I haven't investigated doing much more than
+that, such as handling multiple imap mailboxes.  You might want to add<p>    
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+set folder="imap://john@imap.example.com/"
+</pre>
+</td>
+</tr>
+</table>
+<p>
+This should put you in the imap directory, enabling you to see all subfolders.  If you just
+want to be in the inbox, you could use imap://john@imap.example.com/INBOX, assuming that
+INBOX is the directory you want.  If you have all your subdirectories under that, it will work.  If your
+various subdirectories are on the same level as your inbox, then use the first example, that doesn't
+include "INBOX" (or whatever you call your inbox).  By same level, I mean that if using thunderbird, for
+example, you logged into your imap account, and see INBOX, MYGROUPS, SALES and so on, then all those
+mailboxes would be on the same level.  Other people have one INBOX, and then, inside the INBOX, make
+their subdirectories.  <a href="http://wiki.mutt.org/?MuttGuide/UseIMAP">This mutt wiki page</a> goes
+over using imap with mutt.<p>
+Using IMAP can be surprisingly slow.  One easy way to speed it up is to
+create a .mutt_cache in your home directory.  
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+mkdir ~/.mutt_cache
+</pre>
+</td>
+</tr>
+</table>
+<p>
+(Note the dot in front of the
+name, making it a hidden directory).  Then, add to your ~/.muttrc
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+set header_cache="~/.mutt_cache"
+</pre>
+</td>
+</tr>
+</table>
+<p>
+
+Then mutt will cache the IMAP headers in your $HOME/.mutt_cache.  This will
+greatly increase speed with IMAP directories.<p>
+
+
+<a href="#Contents">(Back to Contents)</a><p>
+<h3><a name="Sending">Sending mail</a></h3>
+If you're really impatient, and just want to send mail through a basic
+pop3 account that doesn't require authorization, you can add the
+followiong to your .muttrc.  Our user John at example.com, 
+doesn't have to provide a username and password to send, only
+to receive.  So, he could add
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+set smtp_url="smtp://smtp.example.com"
+</pre>
+</td>
+</tr>
+</table>
+<p>
+Now, if you hit y to send your mail, it will use your ISP's server.<p>
+
+If your ISP uses a secure server, then it would read something like
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+set smtp_url="smtps://john:1234@smtp.example.com:465
+</pre>
+</td>
+</tr>
+</table>
+<p>
+465 is the standard port for smtps.
+However, always check with your ISP, or read their setup information for
+sending mail.  Gmail uses authentication and TSL, I believe, and for
+sending, you need to use port 587.  The last time I looked, their help
+site said that you could either one, but thanks to a post in their
+forums by K. Frazier, I found that 587 seems to be necessary.<p>
+Gmail's smtp_url setting uses smtp, not smtps.  <p>
+If setting smtp_url to work with gmail, with the username of
+john@gmail.com and the password of 1234 you would use
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+set smtp_url="smtp://john@gmail.com@smtp.gmail.com:587"
+set smtp_pass="1234"
+</pre>
+</td>
+</tr>
+</table>
+<p>
+I haven't used that method with gmail in years, and the last time I
+tried, I got a message no authenticators available.  Googling found some
+solutions for Debian and Ubuntu users (install libsasl2-modules), and in
+Fedora and CentOS I got it by installing some cyrus-sasl packages.  I
+think the only one I really needed was cyrus-sasl-plain.  The others
+I had were cyrus-sasl, cyrus-sasl-gssapi and cyrus-sasl-lib.<p>
+In Arch, it worked without specifically installing anything besides
+mutt.
+In my individual case, it was more
+curiosity, as I have a few different accounts, which leads nicely to
+my next point.  
+<p>
+The smtp_url line is handy if you only have one account, but these
+days, many people use multiple accounts.  Therefore, I recommend msmtp.<p>
+
+The msmtp program has a very simple syntax
+and the configurations given in the man page are straightforward. <p>
+
+Create a $HOME/.msmtprc file, giving it permissions
+of 0600 (otherwise, you get an error message.) Again, we'll assume
+the username of john@example.com with an smtp server of smtp.example.com
+The file should read
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+account examplecom
+host smtp.example.com
+from john@example.com
+account default : examplecom
+</pre>
+</td>
+</tr>
+</table>
+<p>
+Those are the four absolutely necessary entries.  The line account
+is your own name for the account.  You can call it what you wish.  The
+host line is the address of your ISP's smtp server.   The from line is
+the address that appears in the From: part of your email.  The account
+default line is necessary, even if you only have one account, otherwise
+msmtp exits with an error.  <p>
+
+One then adds the following line to .muttrc
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+set sendmail="/usr/local/bin/msmtp"
+</pre>
+</td>
+</tr>
+</table>
+<p>
+(A reminder that I am using /usr/local/bin because that's where it is
+with FreeBSD.  Your system may have it in a different place--one can
+always check with the command
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+whereis msmtp
+</pre>
+</td>
+</tr>
+</table>
+<p>
+For gmail, it's somewhat different. 
+If the user name is john@gmail.com and he has a gmail password of
+1234.</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+
+#Gmail 
+
+account gmail
+host smtp.gmail.com
+from john@gmail.com
+auth on
+tls on
+tls_trust_file /etc/ssl/cert.pem
+user john@gmail.com
+password 1234
+port 587
+account default : gmail
+</pre></td>
+</tr>
+</table>
+The man page also gives clear instructions on using msmtp with
+mutt, including key bindings to quickly switch between say, a gmail
+account and another account. The following is more or less a recap
+of the man page.</p>
+The msmtp man page advises against the tls_certcheck off.  Most
+distributions have a package that will include it.  On Debian (and
+perhaps Debian based systems) one installs the ca-certificates package
+and your tls_trust_file would point to
+/etc/ssl/certs/ca-certificates.crt.  On FreeBSD, it's included in the
+/usr/ports/security/ca-root_nss port and the file is in
+/usr/local/share/certs/ca-root-nss.crt.  (FreeBSD installs the
+ca-root_nss port
+as a dependency if you install msmtp with openssl or gnutls support.
+There is also the option to symlink to /etc/ssl/cert.pem.<p> 
+With ArchLinux, if you install curl, it can be found in
+/usr/share/curl/curl-ca-bundle.crt.  In Fedora and CentOS, I found it in
+/etc/pki/tls/cert.pem.  So adjust your .msmtprc tls_trust_file 
+line accordingly. <p>
+
+In CentOS, I had to compile msmtp from source.  It's relatively trivial,
+but make sure that you have gnutls and possibly gnutls-devel installed,
+otherwise, you won't be able to use tls check.  For the beginner,
+unfamiliar with compiling from source, note that with RedHat based
+distributions, the necessary tools aren't installed by default. So,
+first make sure you have them.
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+yum install gcc gcc-c++ make automake kernel-devel
+</pre>
+</td>
+</tr>
+</table>
+<p>
+This will pull in several other things, such as kernel-headers, as
+dependencies.  Once this is done, download the tarball from <a
+href="http://msmtp.sourceforge.net"> msmtp's site.</a>  Get the bz2 file,
+untar and decompress it, then run configure and make.  For example
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+tar jxvf msmtp-&lt;version&gt;.tar.bz2
+cd msmtp-&lt;version&gt;
+./configure
+make 
+make install
+</pre>
+</td>
+</tr>
+</table>
+<p>
+After running configure, it will show you the options that it has
+chosen.  Make sure, especially if you're planning to use it with gmail,
+that it has either tls or SSL.  (Again in CentOS and Fedora, you might
+have to install gnutls and gnutls-devel with yum install gnutls-devel
+which will pull in gnutls as a dependency.)<p>
+
+<p>As mentioned, msmtp works with multiple accounts.  Suppose our 
+user john has the gmail account, john@gmail.com and
+his account at example.com. He wishes to use both of them, and be able
+to switch between them at will. The isp account is john@example.com and
+also has a password of 1234. Unlike gmail, it doesn't require
+authentication. He wants the normal account to be his default. 
+<p>He then edits his .msmtprc to read</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+
+#Gmail 
+
+account gmail
+host smtp.gmail.com
+from john@gmail.com
+auth on
+tls on
+tls_trust_file /etc/ssl/cert.pem
+user john@gmail.com
+password 1234
+port 587
+
+account examplecom
+host smtp.example.com
+from john@example.com
+
+account default : examplecom 
+</pre></td>
+</tr>
+</table>
+<p>
+<p>To switch back and forth between accounts, he adds to .muttrc</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+macro generic "&lt;esc&gt;1" ":set from='John &lt;john@gmail.com&gt;'"
+macro generic "&lt;esc&gt;2" ":set from='John &lt;john@example.com&gt;'"
+</pre></td>
+</tr>
+</table>
+<p>Now, if he wishes to send an email from from gmail, first he
+hits the escape key and the 1 key. (In this case, this is the
+numeral one, not a lower case L). If he then hits m to compose
+mail, it will be sent from the gmail account. If he then wishes to
+send another email from his isp.com account, he hits the escape key
+and 2 before hitting m to compose his mail, and the new email will
+come from john@isp.com</p>
+The easiest way to do this is to use the send2-hook. 
+This was lifted almost verbatim
+from the <a
+href="http://wiki.mutt.org/?LightSMTPagents/Msmtp">msmtp
+section<a/> of the <a href="http://wiki.mutt.org/">the mutt wiki</a>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+send2-hook '~f john@gmail.com' 'set sendmail="/usr/local/bin/msmtp -a gmail"'
+send2-hook '~f john@example.com' 'set sendmail="/usr/local/bin/msmtp "'
+</pre></td>
+</tr>
+</table>
+He doesn't need the -a for account for his examplecom account,
+because it's defined as his default in his .msmtprc.
+
+<p>The man page goes into more detail.</p>
+<p>With FreeBSD, to get it working properly with gmail, during
+installation, I had to specify openssl as an option.
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+cd /usr/ports/mail/msmtp
+make -DWITH_OPENSSL install clean
+</pre></td>
+</tr>
+</table>
+Note that if you later use portupgrade to upgrade msmtp, you would have
+to use that with the -m flag, e.g.
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+portupgrade -m -DWITH_OPENSSL msmtp
+</pre>
+</td>
+</tr>
+</table>
+<p>
+<p>There is another even smaller and simpler utility
+called nbsmtp, which I cover briefly on <a href=
+"nbsmtp.html">another page.</a> I'm not sure that it's still
+around.  I also have <a href="http://www.scottro.net/qnd/qnd-ssmtp.html">
+a page</a> on ssmtp, but ssmtp has been abandoned by its maintainers, 
+so I no longer use it. <p>
+
+<a href="#Contents">(Back to Contents)</a><p>
+<h3><a name="headers">Mail headers</a></h3>
+Depending upon your computer's systemwide muttrc, mutt might give
+complete headers for every email. For the average user, unless
+trying to track a spammer or troubleshoot a mail server's
+configuration, this can be too much information. Therefore, if one
+only wants to know the standard info, this hack to the .muttrc file
+will work. Add the lines
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>ignore *<br>
+unignore date from to cc subject resent-from reply-to x-mailer</td>
+</tr>
+</table>
+<p>(You can change these according to personal taste) The above
+will just show the from, to, etc rather than the path, etc.</p>
+
+<a href="#Contents">(Back to Contents)</a><p>
+<h3><a name="Documents">Documents </a>and other attachments</h3>
+With catdoc or antiword, one can actually view a document
+in mutt.  Install one or the other.  They both do similar things.  Their
+main purpose is to take a word document and output it as text. <p>
+In .muttrc add the following.
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+auto_view application/msword
+</pre>
+</td>
+</tr>
+</table>
+<p>
+In /etc/mailcap or your home directory .mailcap, add the following.  (In
+the example, we'll use antiword but either catdoc or antiword will
+work.)
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+application/msword; antiword %s ; copiousoutput
+</pre>
+</td>
+</tr>
+</table>
+<p>
+This should, in most cases, enable you to open the document in line.  If
+you leave the auto_view line out of your .muttrc, the mailcap entry
+should still enable you to hit v as in view on the attachment, and see
+it as a text document.  <p>
+
+One can do the same with Excel sheets and the xls2csv program.  Some
+systems create default mailcaps, assuming that you're using X, that is,
+running mutt in an xterminal.  They might have
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+application/msword;  ooffice %s
+</pre>
+</td>
+</tr>
+</table>
+<p>
+If that is how you plan to use it, in X, then you probably want to
+remove the autoview line from your .muttrc.  Then, when you receive a
+.doc attachment, use v to view the attachment, hit enter, and it will
+open in OpenOffice.  I prefer using catdoc as it enables me to view
+documents without having to run an X session.<p>
+
+If using X and running mutt in terminal, the same method can be used to
+easily view images and pdfs.  Add the following to your $HOME/.mailcap.
+In this case, we'll assume you use xpdf to view pdf files and feh to
+view images.  You can change these to your preferred applications.  For
+example, Gnome users might want to use eog, Eye of Gnome, for images.
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+image/*;   feh %s
+application/pdf; xpdf %s
+</pre>
+</td>
+</tr>
+</table>
+<p>
+Now, if you receive an attached image or pdf and are in X, you can hit
+v for view  and when the file is selected, just hit enter.  The feh
+program will open and display the image.  <p>
+If you're in console, however, rather than xterm, you can view it later
+while in X, or hit s for save.  It will save the file, by default, to
+your home directory, and you can then, when in X, view it with your
+image viewer of choice. One can also, if using framebuffer in terminal,
+use fbi to view the image, but I haven't done this very much. I think
+the trick would be to change ~/.mailcap to use fbi for image/* files.  <p>
+
+
+
+
+<a href="#Contents">(Back to Contents)</a><p>
+
+<h3><a name="HTML">HTML</a> mail, following URL's and sending mail from a browser</h3>
+
+<p>In many cases, the default viewer for an html attachment (vs a url) 
+is lynx. If you only have
+w3m installed as a text browser, and you go to view an html
+attachment you'll first get a message like sh /usr/bin/lynx not
+found. This can be fixed by editing /etc/mailcap. You'll see a
+couple of lines that begin</p>
+<p>text/html; /usr/bin/lynx</p>
+<p>and then various things after those words. Just changing the
+word lynx to the word w3m didn't seem to work correctly. A bit of
+searching indicated that adding the line (or modifying the existing
+one) to</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>text/html; /usr/bin/w3m -dump -T text/html %s</td>
+</tr>
+</table>
+<p>will enable you to view those somewhat annoying html formatted
+messages. 
+
+<p>In FreeBSD, I do the following. First in .muttrc</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>auto_view text/html</td>
+</tr>
+</table>
+<p>Then in .mailcap</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>text/html; w3m -T text/html -dump %s; copiousoutput</td>
+</tr>
+</table>
+If this doesn't work, I've also had success with 
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+text/html; w3m %s; needsterminal; description=HTML Text; nametemplate=%s.html
+</pre>
+</td>
+</tr>
+</table>
+<p>
+Then, underneath it put
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+text/html; w3m -dump %s; copiousoutput; description=HTML Text; nametemplate=%s.html
+</pre>
+</td>
+</tr>
+</table>
+<p>
+I found that one in a <a
+href="http://ezine.daemonnews.org/200309/mutt-enhanced.html">daemonnews.org</a>
+article.  
+
+<p>If using lynx then change the w3m -t text/html to</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+text/html lynx -dump %s;  copiousoutput
+</pre></td>
+</tr>
+</table>
+
+Fedora figures its users will be in X.  This can make it difficult to
+use w3m if in console or connected via ssh.  They have an /etc/mailcap
+file that seemed to override $HOME/.mailcap.  I am not sure if I'd made
+typos in my $HOME/.mailcap, or if /etc/mailcap simply took precedence
+(which it shouldn't--so it's far more likely I had typos in my home
+.mailcap file.)
+
+Anyway, $HOME/.mailcap should have
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+<td>text/html; w3m -T text/html -dump %s; copiousoutput</td>
+</pre>
+</td>
+</tr>
+</table>
+<p>
+
+Often, if all else fails, (or even if it doesn't), much of the time,
+html mail will have a text attachment.  If you hit v as in view, when
+looking at an html mail, you might see a text/html and a text/plain.
+Mac's Mail.app, among others, seems to do it this way.  You can always
+just arrow down to the text/plain and see if it's readable that way.<p>
+
+<p>To follow url's in an email, I use urlview. I've
+only done it in FreeBSD and Fedora, but hopefully the reader will be 
+able to modify it for his system. FreeBSD has it in /usr/ports/textproc
+and I believe Fedora installs it as a dependency of mutt.<br>
+Add the following to your .muttrc
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>macro pager \cb |urlview\n<br>
+macro index \cb |urlview\n</td>
+</tr>
+</table>
+<p>Now if I hit ctrl b I simply see a list of urls. I can navigate
+to the link I wish to follow (with arrow keys or vi commands) and
+hit enter. The url is shown at the bottom of the screen, hit enter
+again, and the link opens up.</p>
+<p>In FreeBSD, there is, when urlview is installed, a script called
+/usr/local/bin/url_handler.sh that comes with it. By default, it
+will open up lynx in console and netscape in X. You will see the
+line</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>http_prgs="/usr/local/bin/netscape:XW /usr/local/bin/lynx:XT
+/usr/local/bin/w3m:XT /usr/local/bin/links:XT"</td>
+</tr>
+</table>
+<p>I change this to suit my needs--in FreeBSD I change it to</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>http_prgs="/usr/local/bin/opera:XW
+/usr/local/bin/w3m:XT"</td>
+</tr>
+</table>
+<p>You'll also see the line</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>XTERM=/usr/X11R6/bin/xterm</td>
+</tr>
+</table>
+<p>If you prefer another terminal change it. (Of course, if you're in X,
+the chances are that you use firefox, opera or the like, so that's
+probably irrelevant.)<p>
+<p>If I am in X, it will open up opera.  The above was written some
+time ago, and firefox might be the current default.  It is in Fedora.<p>
+
+Fedora makes it a bit harder to customize.  One can change firefox to
+opera in /usr/bin/url_handler.sh and it will be ignored.  The trick
+turns out to be that one must first create a file in their home
+directory, .urlview.  This should read
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+COMMAND url_handler.sh %s
+</pre>
+</td>
+</tr>
+</table>
+<p>
+Otherwise, it tries to override.  I found that I also had to remove
+htmlview, I am not quite sure why.   If one removes htmlview it will
+also remove system-config-network, a text interface tool to configure,
+oddly enough, the network.   One can remove it, however, with 
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+rpm -e --nodeps htmlview
+</pre>
+</td>
+</tr>
+</table>
+<p>
+Renaming /usr/bin/htmlview to something like /usr/bin/htmlview.old has
+the same effect, it removes it from the equation.<p>
+Lastly, one may also have to change default programs in
+/usr/bin/xdg-open. <p> 
+
+Sometimes, as mentioned in this <a
+href="http://jasonwryan.com/blog/2012/05/12/mutt/">blog post</a> (where I got most of the
+following), some emails have the links hidden in HTML, and it becomes
+necessary to open a browser to actually view an email.  The blogger uses
+vimprobable, but any browser will do.  (I've had trouble building
+vimprobable or surf, another lightweight browser, on CentOS 6.x
+for example, so one can use firefox, or dillo which is available on CentOS.)  Whether or not you have autoview
+set, in mailcap, above the w3m lines we've mentioned, one can add
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+text/html; firefox -new-tab %s; test=test -n "$DISPLAY"
+</pre>
+</td>
+</tr>
+</table>
+<p>
+If using dillo, don't use -new-tab.
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+text/html; dillo %s; test=test -n "$DISPLAY"
+</pre>
+</td>
+</tr>
+</table>
+<p>
+The blog post mentions keybindings, but as I find I only have to use this
+on very rare occasions, if I get such an email, I first hit v for view, and
+then m which will send it to mailcap.  This opens up a browser and shows me
+the mail.   (I should add that one should take care with this, as there can
+be security issues with automatically displaying images, but in my case,
+the emails I've had to do this with were from known sources.<p>
+Dillo may not display the images.  In my own case, I seldom want them
+anyway, I would just want the necessary links.  <p>
+
+Sometimes, hitting v will just show one line, something like no
+description text/html.  Othertimes, there may be a few lines, such
+multipart/alternative, text/plain and text/html.  In such cases, if you hit
+m while highlighting multipart or text plain, you may get an error.  You
+have to navigate down, with arrow key or (in vi at least) j to get to the
+text/html line.<p>
+
+
+<p>One last, somewhat related topic. If you wish to use mutt with a
+graphic browser, it's not difficult. In opera one just goes to
+Tools =&gt; Preferences =&gt;Programs and paths =&gt;E-mail. The
+default is to use opera's email, but below that you are given the
+option to open it with another application.  I use the following--this will
+give me a To: as specified in the mailto and also a subject if the
+subject is coded in the mailto link.  I use mlterm as my terminal.  You
+can substitute this with the xterm of your choice. 
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+mlterm -e mutt [-s %s] "%t"
+</pre>
+</td>
+</tr>
+</table>
+<p>
+Quote only the %t as shown in the example.  That represents the To: line.
+The %s for the subject has to be in brackets, or it will be passed as
+one argument--in other words, if the code on the web page was something
+like mailto:john@example.com?subject=hello, if the %s is not in brackets
+and you click the link it will come out as something like
+To:john@example.comhello.<p>
+With opera 9.50 beta, on Fedora, it was slightly different.  I had to
+use mutt as the program name.  Then, I put the [-s %s] "%t" part
+in the textbox marked Parameter.  Lastly, I checked the box that says
+Open in terminal.
+
+
+<p>For Mozilla and firefox, it's a bit more complex. My friend
+Godwin has a <a href=
+"http://linux.sgms-centre.com/howto/mozilla.php">page about it</a>
+that explains the various steps quite well. I will give a very
+quick recap here. Go to about:config (if you're not familiar with
+firefox, just type</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+about:config
+</pre></td>
+</tr>
+</table>
+<p>in the address bar. Then, look for the setting</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+network.protocol-handler.external.mailto
+</pre></td>
+</tr>
+</table>
+<p>It is probably set to true by default--if not, right click and
+choose the toggle option. Then, right click any setting, choose New
+and String. For the string put</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+network.protocol-handler.app.mailto
+</pre></td>
+</tr>
+</table>
+<p>For string value put</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+mailto.sh
+</pre></td>
+</tr>
+</table>
+<p>Create a script called mailto.sh and put it in /usr/local/bin/ 
+or $HOME/bin or wherever you put your custom scripts, as long as it's in 
+your $PATH. In this example, I am using mlterm, my usual terminal, 
+but use xterm, kterm or whatever you usually prefer</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+#!/bin/sh
+mlterm -e mutt "$1"
+</pre></td>
+</tr>
+</table>
+<p>Make it executable--if you put it in /usr/local/bin</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+chmod 755 /usr/local/bin/mailto.sh
+</pre></td>
+</tr>
+</table>
+<p>For more details, including screenshots, see Godwin's page.
+(Although he doesn't cover mutt)</p>
+<p>One can edit their prefs.js file instead. This is found in
+$HOME/.mozilla/firefox/something.default directory--the something
+being a random string of letters and/or numbers. If one chooses
+this method, the two lines would read</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+user_pref("network.protocol-handler.app.mailto", "mailto.sh");
+user_pref("network.protocol-handler.external.mailto", true);
+</pre></td>
+</tr>
+</table>
+<p>(The external.mailto line should be unnecessary as it is
+probably set to true by default.)</p>
+A recent upgrade to firefox 3 beta seemed to break this.  A bit of
+googling found the answer at <a
+href="http://shallowsky.com/blog/tech/web/mailto-links.html"> the
+shallowsky.com site</a>.  The solution is to find one more setting in
+firefox's about:config, network.protocol-handler.warn-external.mailto 
+which will probably be set to false.  Set it to true. <p>
+Fear not, it only asks you once.  After that you can choose to always
+use this app, or remember my answer or something similar.  This fixed
+the problem for me with firefox 3.  (By the way, even the beta seems
+much improved, at least in Linux, over firefox 2.)<p>
+
+I haven't yet figured out to do this with chromium.  I don't think it
+has a mailto option yet. <p>
+
+<a href="#Contents">(Back to Contents)</a><p>
+<h3><a name="Macros">Macros </a></h3>
+Macros are handy, but the average user finds the mutt handbook's
+explanation somewhat terse.  FreeBSD has some sample macros in
+/usr/local/share/examples/mutt/sample.muttrc.  <p>
+The pattern is macro menu key_sequence [description].  That was clear
+right?  Ok, maybe not.  
+This very simple macro will save an email to a mailbox called spam.
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+macro pager S "s+spam"
+macro index S "s+spam"
+</pre>
+</td>
+</tr>
+</table>
+<p>
+First, one writes the word macro.  This indicates that what follows 
+will be a macro.  That was easy, right?<p>
+Next, the menu part.  This refers to where you are in mutt.  The word
+pager means that you're reading the email, so you could move around in
+the particular email the same way you would with any pager.  The second
+line of this simple macro also binds the macro to the index--that is,
+while looking at the list of messages.  For example, if I open my
+FreeBSD-CURRENT mailbox and I have one message highlighted, hitting
+shift+S (note that these macros are case-sensitive) will affect that
+message, because I have used the index keyword.   So, this macro will
+work if I am reading a piece of email, or if I'm looking at my list of
+mail. <p>
+Next the capital S.  That is the key that I am binding to the macro.
+You can use the control key, escape key, etc. as well.  Had I wanted to
+use ctl+s (that is, a lower case s) I would use \cs.  A backslash and c
+indicates the ctrl key.  A backslash and e (\e) would be the escape key. 
+However, you can also use &lt;esc&gt; to indicate the escape key. <p>
+The samples provided with mutt will have things like
+&lt;save-message&gt;+spam&lt;Enter&gt;.  However, I haven't found all
+that to be necessary.  Sometimes the end of line \n seems to be needed
+and sometimes not.  I haven't investigated macros too deeply, but it
+seems that if, in general, if a one letter command would do something in
+mutt, it will work in a macro.  For instance, in my example, I just have
+s for save rather than the save-message thing.  You'll note, if in mutt
+that hitting s will bring up a dialog to save a message.  So I can use
+it in my macro.  The +spam indicates that it will be saved to my
+$HOME/Mail/spam mailbox.  (By default, mutt looks to save a message in
+$HOME/Mail/.)<p>
+As for key bindings, although the mutt manual refers you to the
+keybinding section, that seems to have omissions.  For example, they
+do show that both \e and &lt;escape&gt; can represent the escape key,
+but they don't show the control key, nor does it say you can use
+&lt;esc&gt; rather than the full word "escape". <p>
+It can sometimes be a bit tricky.  In general, you attempt to duplicate
+what you would type while mutt is open.  The following is what I would
+type if I wanted to, while mutt is open, have the sa-learn program
+examine my spam mailbox and learn that everything in there is spam.
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+!sa-learn --spam --mbox ~/Mail/spam
+</pre>
+</td>
+</tr>
+</table>
+<p>
+(A shell command typed while in mutt needs an exclamation point typed
+before the command).  If I want to bind this command to a macro, let's
+say escape and s I need
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+macro index \es "!sa-learn --mbox --spam ~/Mail/spam&lt;Enter&gt;"
+</pre>
+</td>
+</tr>
+</table>
+<p>
+(I could also use macro pager but I tend to only use that particular
+command while looking at the index of messages.  There is also 
+macro generic which seems to work anywhere in mutt.)<p>
+The command is double-quoted and ends with the word Enter in brackets.
+In this case, using \n for a newline doesn't work. Also note that I
+typed an exclamation point within the double quotes.  The important
+thing here is that I am duplicating what I would type while mutt is
+open.  I usually try to get away with \n and if that doesn't work, then try
+again with Enter in brackets. <p>
+Sometimes, a macro might conflict with a default mutt macro or default
+terminal keybinding.  You can see your default keyboard shortcuts in
+mutt by typing ? while in most menus.  For example, I wanted to use
+ctl+s for something.  It didn't work.  However using &lt;esc&gt;s
+worked. <p>
+Some googling indicated that this was because ctl+s stops sending data
+to the terminal.  Most Unix and Unix-like terminals still support this.
+So, if a macro doesn't work, sometimes trying a different keyboard
+combination might help--at least it should let you know if the problem
+is your syntax or your chosen combination.<p>
+To use the alt key, you can set the following in your .muttrc
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+set meta_key=yes
+</pre>
+</td>
+</tr>
+</table>
+<p>
+If you do this, then using a keyboard macro beginning with \e will work
+with either the escape or the alt key.  It's usually turned off by
+default.  As usual, you can check your system-wide Muttrc.  If you leave
+that set meta_key option at its default of no, then using \e will work
+with the escape key, but not the alt key.<p>
+Another simple macro can be used to invoke getmail for those times when
+I don't feel like waiting for the cronjob to run.  
+
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>macro index G "!getmail\n" "Invoke getmail"</td><tr>
+<td>macro pager G "!getmail\n" "Invoke getmail"</td>
+</tr>
+</table>
+Now, hitting shift G will run getmail though I've never been able to
+make this work with any rc file besides the default getmailrc.  That is,
+adding things like -rgmailrc to the macro didn't work. <p> 
+I'm no expert on macros, but hopefully,
+this gives you enough of an idea of the syntax so that you can begin 
+using them for yourself<p>
+
+<a href="#Contents">(Back to Contents)</a><p>
+
+<h3><a name="filtering">Simple</a> filtering</h3>
+<p>Mutt depends upon an MDA (Mail Delivery Agent) to deliver the
+mail. Both sendmail and postfix will do the job on most Linux or BSD
+installations, however, they could be considered overkill for the
+single user. Therefore, we're using maildrop. The other reason for
+using maildrop is to filter your email. For example, on one box,
+although I have postfix to send mail, when it receives mail, that
+mail is then sent to maildrop to be filtered.</p>
+<p>If you get a reasonable amount of email, eventually you'll want
+to start filtering it.</p>
+<p>(For those who prefer procmail, I have a page on it, that is
+basically an even quicker start than the procmail quickstart guide
+<a href="procmail.html">here</a>)  However, it hasn't been maintained
+for years.  </p>
+<p>I use maildrop as my mail delivery agent. Its man pages and even
+its example pages make it seem more complex than it is for our
+purposes, yet it is really quite simple.</p>
+<b>Note for RedHat based distribution users</b> (Fedora, CentOS,
+etc.  Not applicable to Fedora 10 and later.)<br>
+
+Prior to Fedora 10, RedHat based systems didn't have a package for 
+maildrop.  (In Fedora 10, just do yum -y install maildrop.)  
+I've built it from source without problems.  However, 
+Falko Timme has an rpm, at least for Fedora 8, that can be gotten 
+from one of his excellent tutorials
+at <a href="http://www.howtoforge.com">howtoforge.com</a>.  The
+tutorial is <a
+href="http://www.howtoforge.com/installing-courier-imap-courier-authlib-maildrop-fedora-redhat-centos">here</a>
+and includes a link to the rpm he created for Fedora 8. He also explains
+quite clearly how one can simply compile the source rpm on their own
+machine as the maildrop people are nice enough to include a specfile in
+the tarball.  <p>
+
+
+<p>I want to give my thanks to Tillman Hodgeson for his help with
+this. All mistakes are, of course, my own, but at any rate, Tillman
+(whose web page can be found <a href=
+"http://www.seekingfire.com">here</a>) showed me how simple it is
+to use.</p>
+<p>First we're going to set up, in the home directory, a
+.mailfilter file, and only give permissions to the owner. Open your
+favorite text editor. Let's start with a very simple rule. I belong
+to a busy mailing list called nylug and I want all mail sent to it
+to go into its own mailbox in my $HOME/Mail directory.</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+if (/^To: .*nylug/)
+        to Mail/IN-nylug
+</pre></td>
+</tr>
+</table>
+<p>If using the Maildir format rather than Mail, you may have to
+add a trailing slash to the mailbox name.</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+if (/^To: .*nylug/)
+        to Maildir/IN-nylug/
+</pre></td>
+</tr>
+</table>
+Don't put a blank or commented line between the if and to lines.  If the to
+line is not on the line following the if line, it will act as a filter
+in itself.  For example:
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+if (/^To .*oldaddress/)
+#	to Oldmail
+	to Newmail
+</pre>
+</td>
+</tr>
+</table>
+<p>
+You see I used to send something to Oldmail and now want to send it to
+Newmail.  Instead of deleting the to Oldmail line, I've just commented
+it out.  This won't work properly.  Instead, everything that hasn't
+yet been filtered will be affected by the "to Newmail" line and will go into
+the Newmail box.  If you want to leave the old line for reference then
+put it underneath the current rule, e.g., 
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+if (/^To .*oldaddress/)
+	to Newmail
+#	to Oldmail
+</pre>
+</td>
+</tr>
+</table>
+<p>
+
+
+
+<p>Some mailing lists, such as nycbug and freebsd-questions, do
+things a bit differently. If one replies to a nycbug post, the
+reply only goes to the original poster unless one cc's the mailing
+list.</p>
+<p>In such a case, poster A sends his message to nycbug. A rule
+like the one above will catch it (obviously, we change nylug to
+nycbug) However, replies to this post will have a To: line reading
+to poster A, so the rule above would miss that post. A slightly
+more complex rule, however, will catch it.</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+if (/^(From|To|cc|bcc): .*nycbug/)
+        to Mail/IN-nycbug
+</pre></td>
+</tr>
+</table>
+<p>These rules are case insensitive which is a Good Thing (TM) if
+you are a careless typist.</p>
+<p>One can also use Subject, From, or other header lines. The
+syntax is basically the same. If you are just using one thing in
+the header, such as From, To, Subject, etc, then it would be</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+if (/^Subject: .*linux/)
+        to Mail/IN-linux
+</pre></td>
+</tr>
+</table>
+<p>If you're using a slightly more complicated rule, trying to
+catch various parts of a header, like To, cc subject, etc then use
+the various keywords inside a second set of parentheses separated
+by pipes as in the nycbug example given above.  </p>
+First the if, then the first parenthesis. 
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+if (/^
+</pre>
+</td>
+</tr>
+</table>
+<p>
+Then the inner set of parentheses with the different conditions, 
+separated by pipes.
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+if (/^(From|To|cc|bcc)
+</pre>
+</td>
+</tr>
+</table>
+<p>
+Then, finish the expression with the usual : .*whatever, close the
+expression--that is, type the final / and close the parentheses
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+if (/^(From|To|cc|bcc): .*nycbug/)
+</pre>
+</td>
+</tr>
+</table>
+<p>
+<p>Aside from multiple header possibilities, such as including To,
+cc and the like, you can have other multiple conditions. If my
+friend John Paul Jones has three email accounts, all of which I
+want to go in a mailbox named IN-jones, I could have a rule
+like</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+if (/^From: (.*john|.*jpjones|.*jjones)/)
+        to Mail/IN-jones
+</pre></td>
+</tr>
+</table>
+<p>
+It's the same pattern.  When there is more than one condition, put
+those multiple conditions in their own set of parentheses,
+separated by pipes.</p>
+<p>Although it's sometimes simpler and less prone to error to make
+a few separate entries, one can combine various conditions. Like
+the nycbug rule given above, with FreeBSD-questions I want to catch
+multiple header possibilities. Also, some people send mail to
+questions@freebsd.org and others send it to freebsd-questions. So,
+the various multiple header possibilities go in one set of
+parentheses and the other conditions in another set of parentheses, all
+ surrounded by the usual (/^ /).</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+if (/^(From|To|cc|bcc): (.*questions@freebsd|.*freebsd-questions)/)
+        to Mail/IN-fbsd-questions
+</pre></td>
+</tr>
+</table>
+<p>You might want to have a default personal inbox. In that case,
+after all the other rules put</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+if (/^To: john/)
+        to Mail/IN-personal
+</pre></td>
+</tr>
+</table>
+<p>I like to have a default box to catch anything else so at the
+bottom of my .mailfilter file I have</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+DEFAULT="Mail/IN-Misc"
+</pre></td>
+</tr>
+</table>
+<p>Note that in this case, one quotes the path to the IN-Misc
+folder.</p>
+Note that maildrop stops when it hits a match, so put your most
+frequently used rules first, and the low traffic mailing lists
+towards the end.   
+
+<p>If we want to run a command in our .mailfilter file, we can use
+xfilter. Say we want to send everything through spamassassin first.
+The top line of our .mailfilter would read</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+xfilter "/usr/local/bin/spamassassin"
+</pre></td>
+</tr>
+</table>
+Actually, the SpamAssassin docs recommend using spamc for filtering mail
+so the line would read
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+xfilter "/usr/local/bin/spamc"
+</pre>
+</td>
+</tr>
+</table>
+(spamc is included with SpamAssassin--see man(1) spamc for more
+information.)
+<p>I sometimes use a despammed.com address--the only drawback to it
+is that they set [despammed] (in brackets as shown) in the subject
+line. This can be a nuisance, so again, I use xfilter to send a
+command to sed</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+xfilter "sed -e '/^Subject:.*\[despammed\]/s/\[despammed\]//g'"
+</pre></td>
+</tr>
+</table>
+<p>Note that mailfilter should not have group or world permissions,
+so I set it read write for the owner.</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+chmod 600 .mailfilter
+</pre></td>
+</tr>
+</table>
+<p>(One can also set it read only). For those who use SpamAssassin,
+you might want to put this rule at the top.</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+#Run everything through SpamAssassin first
+xfilter "/usr/local/bin/spamc"
+if (/^X-Spam-Level: \*\*\*\*\*/)
+        to Mail/In-Spam
+</pre></td>
+</tr>
+</table>
+<p>(This particular example is going to take anything with a score
+of 5 or higher and put it into a spam mailbox).</p>
+<p>I find that after making a new .mailfilter file (or editing an
+existing one) it's a good idea to run getmail once with the -v (for
+verbose) flag. It will catch some (though not all) syntax errors in
+.mailfilter and also complain about some careless mistakes, such as
+allowing group or world permissions on the file. Sometimes, mailfilter
+won't work if the permissions aren't set to 500 or 600, though I haven't
+tested that enough to be sure.
+</p>
+The last thing we have to do is edit our .getmail/getmailrc file (or
+files if we have multiple accounts.  At present the [destination]
+section reads
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+[destination]
+type = Mboxrd
+path = ~/Mail/IN-personal
+unixfrom = True
+</pre>
+</td>
+</tr>
+</table>
+<p>
+We will change that to use an external program, in this case
+maildrop--in FreeBSD, it's in /usr/local/bin so my revised [destination]
+section will read
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+[destination]
+type = MDA_external
+path = /usr/local/bin/maildrop
+unixfrom = True
+</pre>
+</td>
+</tr>
+</table>
+<p>
+(If you used procmail instead, change maildrop to procmail.  Also, once
+again take note of maildrop's path on your system.)<p>
+
+<a href="#Contents">(Back to Contents)</a><p>
+<h3><a name="Reading">Reading </a>mail</h3>
+<p>After you see that some mail has arrived open mutt by typing the
+command</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+mutt
+</pre></td>
+</tr>
+</table>
+<p>Let's assume that I ran getmail with the -v flag and it indicated
+I received 7 messages. I'll open mutt and see a menu at the top.
+The messages, if no other rule
+covered them, went into my IN-Misc box. I then hit</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>c</td>
+</tr>
+</table>
+<p>(That's correct, just the letter c, to change directory)</p>
+<p>I'll see a message</p>
+<p>Open mailbox ('?' for list):</p>
+<p>If I hit ? I will then see a list of my mailboxes. (The tab key
+also works) Although it doesn't tell me how many messages in each
+one, it will show a 0 in front of any empty ones. Then, I just use
+the arrow key (or vi commands, such as j and k) to highlight the
+mailbox that I want to examine.</p>
+<p>If you set up mutt with mailfilter (or another filtering
+program) as mentioned above, everything will go into one mailbox or
+another. This does, on some distros and O/S's cause mutt to give an
+error message when opened, saying /var/mail/john: No such file or
+directory (errno = 2). This message is harmless, but annoying. (It
+may, depending upon distro and/or O/S say /var/spool/mail/john). To
+get rid of it, as root or with root privilege (in this case, we'll
+assume the message said /var/mail/john)</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+touch /var/mail/john
+chown john:john /var/mail/john
+chmod 600 /var/mail/john
+</pre></td>
+</tr>
+</table>
+<p>You may also want to keep your sent mail in its own directory.
+In Gentoo, it automatically went to .maildir-sent, where it was
+listed by numbers. Finding a sent message in there was difficult.
+So, I would save all my messages to a directory in my .maildir
+called, obviously enough, SENT. To do this, I added the following
+to my .muttrc file</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>fcc-hook .*. ~/.maildir/SENT</td>
+</tr>
+</table>
+<p>In RH or FreeBSD it would be ~/Mail/SENT</p>
+<p>This is sufficient for my needs. Some people prefer to divide
+their sent mail into different directories. If you wanted to do
+this you could insert a line like</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>fcc-hook "gentoo-user" "~/.maildir/gentoo-sent"</td>
+</tr>
+</table>
+<p>(Note that line would have to be added above the fcc-hook .*.
+which would catch anything not previously specified. With fcc-hooks
+it seems that the first rule, rather than the last is
+followed.)</p>
+One can also other things as the hook.  For example, if I'm mailing a
+user that their mailbox is approaching quota, I want to save those
+emails in their own mbox.  I have an fcc-hook of
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+fcc-hook "~s 'mail quota warning'" ~/Mail/quotamessages
+</pre>
+</td>
+</tr>
+</table>
+<p>
+As the reader probably guessed, the ~s refers to the subject.  As the
+subject line has two words in this case, I put it within single quotes
+and the whole hook rule in double quotes.  There are a variety of
+patterns like this which mutt understands, listed in man(5) muttrc.  <p>
+
+<a href="#Contents">(Back to Contents)</a><p>
+
+<h3><a name="Keeping">Keeping addresses</a></h3>
+<p>To keep a list of addresses in mutt is pretty easy. Once again,
+open up your .muttrc file and add these two lines</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>set alias_file=~/.mutt_aliases<br>
+source ~/.mutt_aliases</td>
+</tr>
+</table>
+<p>This tells mutt where to look for your aliases. This will serve
+as an address book. Now we create our .mutt_aliases file. Open your
+favorite text editor. Suppose that you want to have
+freebsd-questions@freebsd.org and gentoo-user@gentoo.org in your
+address book. You also have a friend John Smith who has the email
+of john@isp.com. You've been spoiled by Outlook Express, so you
+don't want to type the whole address--you want to be able to type
+free for freebsd-questions, gen for gentoo-user and John for your
+friend. We're going to put these three in our address book.</p>
+<p>So, in our .mutt_aliases file we enter the lines</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+alias free       &lt;freebsd-questions@freebsd.org&gt;
+alias gen       &lt;gentoo-user@gentoo.org&gt;
+alias john  John Smith  &lt;john@isp.com&gt;
+</pre></td>
+</tr>
+</table>
+<p>Now, if you open up mutt, and type m to send an email, if you
+type the alias in the the To: section, mutt will send it to the
+desired address. (You won't see this until after you've edited the
+message--at first, you would only see the alias that you entered).
+With the alias we did for John, if you type john in the To:
+section, it will expand to the John Smith that you have in the
+center. If you need to simply view your addresses, when you hit m
+and are given the To: line you can simply hit tab which will show
+your alias list--you can scroll down to the name you want and hit
+enter.</p>
+Also, if you're looking at an email and want to add the person to your
+address book, you can just hit a and mutt will take you through a dialog
+of creating an alias.  Often, however, the last question will be save to
+file /.mutt_aliases?  You will have to change that from /.mutt_aliases
+to ~/.mutt_aliases.  The ~ refers to your home directory.<p>
+Recently, on a Fedora 15 installation, for whatever resaon, the a key
+wasn't mapped to the create-alias function.  This can be fixed permantly
+by adding it to your ~/.muttrc or on the fly by first hitting a colon, :
+and then typing 
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+bind a create-alias
+</pre>
+</td>
+</tr>
+</table>
+<p>
+The same line, if added to your ~/.muttrc, will then be in effect the
+next time you start mutt.  You can also specify index and pager, as
+mentioned in the macro section, e.g., bind index a create-alias<p>
+Default keybindings can be seen by hitting ? while in mutt.  For
+example, in this particular Fedora installation the term create-alias
+was there (which was how I reminded myself of the correct syntax) but no
+letter was visible.  The <a
+href="http://www.mutt.org/doc/manual/manual-6.html#functions">mutt.org
+docs</a> give a list of default functions.<p>
+
+<a href="#Contents">(Back to Contents)</a><p>
+
+<h3><a name="Replying">Replying to mailing lists</a></h3>
+Some lists, such as most of the Gentoo linux and FreeBSD lists, are
+set so that if you simply hit reply, it only replies to the
+original poster, not the list itself. There are two solutions to
+this. Both have their advantages and disadvantages.
+
+<p>If replying to a post on, say, freebsd-questions, you hit g (for
+group) rather than r for reply, it will reply to the original
+poster and the mailing list.</p>
+
+<p>As more people join the thread, this can result in a rather long
+list of addresses. Also, each person who has joined the thread will
+get a second, private copy of the email. This can be a Good Thing
+(TM) or a Bad Thing (TM). The good part is that many people,
+especially on a list as busy as FreeBSD-questions won't read every
+post on the list. They may not see a reply that is not personally
+addressed to them. Also, one will often see on such a list a note
+such as, "Please reply to me personally, as I am not subscribed to
+this list." The bad part is that some people might consider this
+extra private email a nuisance. However, as those who subscribe to
+such lists are usually quite aware of their format (and if not,
+quickly learn) its advantages can certainly outweigh the
+disadvantages.</p>
+
+Another disadvantage is that you might simply hit r for reply out of
+habit, and the email will only go to the people in the To: section
+rather than the list.  Using g for group will solve this, if you
+remember, but again, this can wind up in a long list of addresses.<p>
+
+A simpler solution is to just hit L (in upper case) as in List.  This
+will reply to the mailing list rather than any individuals. 
+This works in mutt 1.5.19, and has probably been around for awhile.  
+Prior to someone telling me about it, I always used the subscribe
+method, which I detail next.  I first wrote this article in the early
+2000's when it was necessary to use subscribe--I have no idea when it changed. 
+
+<p>If just hitting L doesn't work on your version of mutt, add such lists 
+to your .muttrc file. For
+example, I belong to a few FreeBSD mailing lists. They all end with
+FreeBSD.org. In my .muttrc I have the line</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>subscribe *freebsd.org</td>
+</tr>
+</table>
+<p>Now, if I reply to a posting on any of those lists and see no need for
+a separate, private reply to the poster, I simply hit</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>L</td>
+</tr>
+</table>
+<p>(Note that it's capitalized). This will now post my reply to the
+mailing list, rather than the individual.</p>
+
+
+<a href="#Contents">(Back to Contents)</a><p>
+<h3><a name="LDAP">Using mutt with an LDAP </a>address book</h3>
+
+There are <a href="http://wiki.mutt.org/?QueryCommand">several
+methods</a> that can be used to have mutt query an LDAP database.  One
+very popular one seems to be <a
+href="http://linsec.ca/Using_OpenLDAP_as_an_Address_Book">lbdb.</a>
+(Little Brother Data Base).  Fedora supplies, in
+/usr/share/doc/mutt-&lt;version&gt;, a mutt_ldap_query script.  There is
+also a mutt_ldap_query.pl perl script.  (The Fedora one is a shell
+script, not perl.) <p>
+
+My personal favorite is <a
+href="http://www.bsdconsulting.no/tools/">bsdconsulting's</a>
+mutt-ldap.pl.  Unlike some of the others, it requires little editing to
+work with your LDAP server.  It is designed to work with Exchange and/or
+Active Directory, but can easily be modified to work with any LDAp
+server.  There are only a few lines that need editing. <p>
+
+Get the script from the above link (or use wget
+http://www.bsdconsulting.no/tools/mutt-ldap.pl from the command line.)
+Open the script in your favorite text editor and look for the lines
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+# --- configuration ---
+$ldapserver = "domaincontroller.yourdomain.com";
+$domain = "YOURDOMAIN";
+$username = "myuser";
+$password = "mypassword";
+$basedn = "ou=companyxy,dc=companyxy,dc=tld";
+# --- end configuration ---
+</pre>
+</td>
+</tr>
+</table>
+<p>
+Most of it should be self explanatory.  As usual, we'll say the mail
+server is mail.example.com, the username is john and the password is
+1234.  Assuming that the LDAP schema for the company uses the ou of
+ourcompany, edit the lines above so that they read
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+$ldapserver = "mail.example.com";
+$domain = "example.com";
+$username = "john";
+$password = "1234";
+$basedn = "ou=ourcompany,dc=example,dc=com";
+</pre>
+</td>
+</tr>
+</table>
+<p>
+Note that the above assumes you have a more or less typical AD or
+Exchange LDAP setup.  Other mail servers or LDAP schema may differ in
+which case you will have to edit according.  For example, the
+CommuniGate Pro server has a simplified builtin LDAP schema where 
+the base dn is simply cn=example.com.   Hopefully, someone at your
+company knows the LDAP schema and can tell you what to use. 
+
+For binding to the directory, (that is, authenticating the username to
+the LDAP server), mutt-ldap.pl uses the MS format.  There is a line
+further down in the script which reads
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+$ldap->bind("$domain\\$username", password=>$password);
+</pre>
+</td>
+</tr>
+</table>
+<p>
+If your LDAP server uses a different form of bind (for example, many
+simply need username and password) you may have to edit that line as
+well.  If it just needed the username and password, then that line would
+be changed to simply eliminate the "$domain\\ part, e.g., it would be
+changed to read
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+$ldap->bind($username", password=>$password);
+</pre>
+</td>
+</tr>
+</table>
+<p>
+
+In some cases, one has an LDAP server that doesn't require
+authentication to access the directory.  In that case, just fill in the
+ldapserver and basedn fields and comment out the others.  Also comment
+out the ldap bind line.  Otherwise, though it will work, it will also
+give a message about an uninitialized value in the file.<p>
+In addition, one can edit the output.  As it is written, it will say
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+1 entries found
+jsmith@example.com	John Smith From Exchange LDAP database
+</pre>
+</td>
+</tr>
+</table>
+<p>
+You will see the following in the script towards the end
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+print($entry->get_value('mail'),"\t",
+                      decode("UTF-8", $entry->get_value('cn')),"\tFrom
+Exchange LDAP database\n");
+</pre>
+</td>
+</tr>
+</table>
+<p>
+The string From "Exchange LDAP database" can be edited or removed with
+no ill effects.  I prefer to remove it entirely so that I just see the
+email address and name.<p>
+
+One could even edit it, reversing the decode("UTF-8) and ('mail') lines
+so that the name appears first.  (Though I can't really see a reason to
+do that.)
+
+You can test that the script is working properly by running a query with
+it.
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+mutt-ldap.pl smith
+</pre>
+</td>
+</tr>
+</table>
+<p>
+It should give back John Smith's name and email. <p>
+Once you have edited and tested mutt-ldap.pl to your liking,  move it to
+somewhere in your path. I prefer $HOME/bin--that is, the bin directory 
+in my home directory, especially as it has information that I don't want 
+to be world readable. Do a chmod on it to make it executable.  For example
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+chmod 700 mutt-ldap.pl
+mv mutt-ldap.pl /home/john/bin
+</pre>
+</td>
+</tr>
+</table>
+<p>
+
+
+Now, edit your .muttrc file.  Add the line
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+set query_command="/home/john/bin/mutt-ldap.pl %s"
+</pre>
+</td>
+</tr>
+</table>
+<p>
+The %s at the end refers to a query string.  This means that you will
+run the mutt-ldap.pl script, asking it to search for a string belonging
+to the name and/or email address that you request. <br>
+(For the complete beginner, a string refers to any group of
+characters).<p>
+If you haven't bound shift+Q to anything, it is the default macro for a
+query.  In mutt, when you want to check the ldap database for an address
+hit shift+Q and you will see Query:<p>
+Type in part of the name and mutt will show you a list of matching
+addresses.  Use the arrow key to highlight the desired address and mutt
+will use it. <p>
+
+If one wants to keep the address in their own ~/.mutt_aliases file, the
+following, admittedly very kludgy script will do it.
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+#!/bin/sh
+mutt-ldap.pl $1 |sed -n '2p' |awk '{print "alias","\""  $2,$3 "\"""\t" $1}'
+</pre>
+</td>
+</tr>
+</table>
+<p>
+For newcomers it runs the mutt-ldap.pl command.  The $1 refers to a
+variable, in this case, the name, for example, smith.  As we've seen in
+mutt, this would return
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+1 entries found
+jsmith@example.com	John Smith From Exchange LDAP database
+</pre>
+</td>
+</tr>
+</table>
+<p>
+The sed -n '2p' will print the second line.  We then pipe it to awk,
+which will do the editing we want. We want "John Smith" in quotes here,
+hence the various "" with some escaped by \ to show awk that yes, we
+want these quotes printed in the output, they aren't being used in the
+command.<p>
+By default awk uses spaces as field separators, so we want the entry to
+read  
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+alias "John Smith"	jsmith@example.com
+</pre>
+</td>
+</tr>
+</table>
+<p>
+This isn't an article on awk (for a very good one see Daniel Robbins' <a
+href="http://www.ibm.com/developerworks/library/l-awk1.html"> 
+article </a> on Developer Works) but basically we're inserting the word alias,
+swapping around what's printed out so that the name goes before the
+email, then putting in a tab between the name (in quotes) and the email
+address.  <p>
+
+To put it directory into your .mutt_alias file you could add &gt;&gt;
+~/.mutt_aliases to the end of the script so that it reads 
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+mutt-ldap.pl $1 |sed -n '2p' |awk '{print "alias","\""  $2,$3 "\"""\t" $1}'&gt;&gt; ~/.mutt_aliases
+</pre>
+</td>
+</tr>
+</table>
+<p>
+(Be sure to use &gt;&gt;, not just &gt;, otherwise you will overwrite
+your entire .mutt_aliases file.  2 &gt;'s will add it to the end.  A
+single one will echo it to the existing file, completely overwriting the
+file.)<p>
+Until you're sure it's giving correct output, 
+run it once as shown in the first example, without a &gt;&gt; at
+the end, just to see what it will produce. Once you're happy with the
+output, you can start using it to add the addresses directly to your
+.mutt_aliases by adding the &gt;&gt; ~/.mutt_aliases at the end.  Note
+that if your browser broke the lines, the entire line, beginning with
+mutt-ldap.pl and ending with ~/.mutt_aliases must be on one line. <p>
+
+It's certainly not necessary to do this if you trust your LDAP server,
+but it can save a few keystrokes if you have frequently used addresses
+in your .mutt_aliases.<p>
+Experienced shell scripters or perl programmers can no doubt come up
+with better solutions, the above is simply something I did in a hurry
+after deciding it would be useful. <p>
+
+<a href="#Contents">(Back to Contents)</a><p>
+
+<h3><a name="More"> More </a>details on multiple accounts</h3>
+<p>Let's say that our sample user john has a second isp. In this
+case, his user name is also john, with a password of 1234. The pop
+server is pop.example1.com and the smtp server is smtp.example1.com. His
+new email address there is john@example1.com John has one mailing list,
+mail@example1.com to which he has subscribed with the new
+acount.</p>
+<p>In getmail-4.x he will have to create a separate rc file and
+specify both in the cronjob. So, his crontab would now read</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+*/5 * * * * /usr/local/bin/getmail -rgetmailrc -rgetmailrc2
+</pre></td>
+</tr>
+</table>
+<p>My <a href="getmail.html">getmail page</a> goes into more
+detail.  He creates a second rcfile in his ~/.getmail
+directory, called getmailrc2. (In this case, it would be identical
+to the example given above, save that he would change the server
+line to read pop.server.example1.com.</p>
+<p>In other words, he's getting his example1.com account sent to the
+same place on his machine--he's just telling getmail to poll a
+second server. Now, when getmail runs, it will poll both example.com's
+pop server and example1.com's server.</p>
+<p>John wants everything going to a particular domain to use one
+header. For example, he belongs to mail@example1.com,
+mai12@example1.com and mail3@example1.com. He wants everything going
+to all these mailing lists to be sent through example1.com rather than
+his default of example.com He could make separate send-hooks for each
+list, however, he can also do it this way.</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>send-hook ".*.example1.com" "my_hdr From: John
+&lt;john@example1.com&gt;"</td>
+</tr>
+</table>
+<p>Now, all email going to example1.com, regardless of whatever is
+to the left of the @ sign will use the example1.com header.</p>
+<p>The quick and dirty way is to simply hit</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>&lt;esc&gt;f</td>
+</tr>
+</table>
+<p>before sending the mail. That is, hit the escape key and f. This
+will allow you to edit the header and change the From: section of
+it.</p>
+<p>There is another solution that will work better for individual
+emails rather than mailing lists. Say john sends some emails as
+john@example.com and others as john@example1.com Most of them are from
+example.com but on occasion, he wants to use the example1.com address. When
+he gets a response, he wants to respond with the same example1.address
+to which the email was sent.</p>
+<p>He will add the following to his .muttrc</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>set reverse_name=yes<br>
+set alternates="john@example1.com"</td>
+</tr>
+</table>
+<p>Now, if he receives an email addressed to john@example1.com when he
+replies to it the From: portion of his header will read
+john@example1.com rather than john@example.com. If you have multiple
+addresses to use, they can separated by pipes such as</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>set alternates="john@example1.com|john@example2.com"</td>
+</tr>
+</table>
+<p>(I find that this only works if I write it as above, with no
+white space between word and pipe)</p>
+<p><b>NOTE:</b> As of mutt-1.5.6 alternates syntax has changed.
+Now, rather than the above it is</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>alternates "john@example1.com|john@example2.com"</td>
+</tr>
+</table>
+<p>In other words, remove the word "set" and remove the = sign.</p>
+<p>Although I found, when setting it up, that it didn't seem to
+work with white space, since then, someone has written to say that</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+alternates ".*@domain1| \
+            addr@domain2| \
+            (a|b)@fake.domain1 \
+            "
+</pre></td>
+</tr>
+</table>
+<p>works perfectly for him in mutt-1.5.6i, which is, at time of
+writing, the development version.</p>
+The mutt wiki's <a
+href="http://wiki.mutt.org/?UserStory/MultiAccounts">section on multiple
+accounts</a> gives a different syntax.  Its version would read
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+alternates ^john@isp1\\.com$ ^johnisp2\\.com$
+</pre>
+</td>
+</tr>
+</table>
+<p>
+For those unfamiliar with regular expressions, also called regex, the ^
+in front of john means that the address begins with john.  The $ at the
+end indicates that the expression ends with com.  The \\ before the .com
+is to escape the period in .com.  (In most regexes, one only uses one
+backslash to escape special characters, but for some reason that I've
+forgotten, mutt requires two here.)<p>
+
+I've found that reverse_name can be iffy.  If there are any send-hooks
+with my_hdr lines, it will override reverse_name.  For example, if I
+open mutt, and the first email I send is to one of the FreeBSD mailing
+lists, I have a send-hook that uses example1.com.  Now, I go to my personal
+mail and there's a letter from a friend that was sent to example2.com.  
+Even though the send-hook with the my_hdr line shouldn't affect this second
+email, it will still use the return address of example1.com.  The
+send-hook's my_hdr will remain in effect for any emails that I send
+until overridden by a different send-hook with a different my_hdr.<p>
+
+However, if I have two emails from two friends, neither of which have
+send-hook rules, reverse_names will work as expected.  It's a bit odd
+and I am not yet positive that I haven't overlooked something in the man
+pages, but this rule seems to hold.<p> 
+
+The my_hdr option itself is quite flexible.  For example, if John wants
+to send mail from different addresses but have everything come back to
+john@example.com he could add the following to his .muttrc
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+my_hdr Reply-To: &lt;john@example.com&gt;
+</pre>
+</td>
+</tr>
+</table>
+<p>
+Now, unless over ridden by a particular send or folder hook, all emails
+will have the Reply-To: of john@example.com  The same can be done for
+any field in the header, cc, fcc, and all the rest.
+<p>As mentioned early in this article, If you have two conflicting
+rules in .muttrc, it will often follow the last one. For example,
+on my work machine, I want everyone on the job to get emails from
+my work address so I have the following</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>send-hook "workdomain" "my_hdr From: Scott
+&lt;workemailaddie&gt;"</td>
+</tr>
+</table>
+<p>However, there are a few users with whom I exchange emails in
+the evening. While I can boot up my MS box and use our company's
+VPN, it's a nuisance. So, I wanted these users to reply to my home
+email addie, which can also be used at work. However, I put these
+rules above the previous rule, and it didn't work--I would have to
+set the reply-to manually. In other words if I have</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>send-hook "workuser" "my_hdr From: Scott
+&lt;homemailaddie&gt;"<br>
+send-hook "workdomain" "my_hdr From: Scott
+&lt;workemailaddie&gt;"</td>
+</tr>
+</table>
+<p>it won't work. The user will still get email from my work
+address. If I reverse it however</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>send-hook "workdomain" "my_hdr From: Scott
+&lt;workemailaddie&gt;"<br>
+send-hook "workuser" "my_hdr From: Scott
+&lt;homemailaddie&gt;"</td>
+</tr>
+</table>
+<p>it works the way I want it to work. The man page explains this,
+saying that if there are multiple matches for send-hooks, they will
+be processed in order. In other words, the final match will be the
+one that is used. As mentioned above, fcc-hooks seem to work in the
+opposite manner, the first one matched is used. There are also
+folder-hooks--like send-hooks, they are processed in order, so the
+last matching folder-hook is used.</p>
+
+You can also have multiple conditions in a hook.  For example, if I want
+all email to example.com and example1.com to use a particular signature
+that I call SIG, I would do it this way.
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+send-hook "example.com|example1.com" "set signature="~/SIG"
+</pre>
+</td>
+</tr>
+</table>
+<p>
+I've seen posts where people say you can use ( example.com | example1.com )
+however, in my experience, using parentheses gives me an
+error.  Also, if I leave a space after the pipe (the | symbol) it
+doesn't work.  In other words, if I do "example.com| example1.com" it
+won't work.  I can do example.com |example1.com, and it will work.  The
+important thing seems to be to have no space <b>after</b> the pipe
+character.<p>
+Don't forget that if you're using multiple accounts, you will have to
+add them to your .msmtprc.  If we use the .msmtprc that we described in
+the first section
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+account examplecom
+host smtp.example.com
+from john@example.com
+
+account default : examplecom
+</pre>
+</td>
+</tr>
+</table>
+<p>
+we would change it to
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+account examplecom
+host smtp.example.com
+from john@example.com
+
+account example1com
+host smtp.example.com
+from john@example1.com
+
+account default : examplecom
+</pre>
+</td>
+</tr>
+</table>
+<p>
+Then, we would add a send2-hook in mutt.
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+send2-hook '~f john@example1.com' 'set sendmail="/usr/local/bin/msmtp -a example1com"'
+</pre>
+</td>
+</tr>
+</table>
+<p>
+
+<a href="#Contents">(Back to Contents)</a><p>
+
+<h3>A brief guide to <a name="colors">colors</a> in mutt</h3>
+<p>Assuming your terminal (whether console or xterm) supports it,
+you can put various colors into mutt. While there are a variety of
+things you can do, I'm just going to scratch the surface, and tell
+you how to color code your headers. So, once again, open up your
+.muttrc file. Add the following lines</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>color header brightred black ^from<br>
+color header brightblue black ^to<br>
+color header brightcyan black ^subject<br>
+color header brightgreen black ^date</td>
+</tr>
+</table>
+<p>This is probably self-explanatory, but in case it isn't<br></p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>color header<br></td>
+</tr>
+</table>
+<p>this means that we're putting colors into the header.<br></p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>brightred black<br></td>
+</tr>
+</table>
+<p>These are the foreground and background colors--obviously, you
+can change these to suit your taste<br></p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>^from<br></td>
+</tr>
+</table>
+<p>shows what part of the header that you're looking to change.
+This is case insensitive.</p>
+<p>If you do a bit of searching on google with the search terms
+colors muttrc you'll find far more that you can do with this, but
+the above should get you started. I'll just add a couple more. This
+one is from the RedHat default Muttrc file.</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>color status yellow blue</td>
+</tr>
+</table>
+<p>That will give you yellow text on a blue background when you
+first open mutt</p>
+<p>This next one can be handy--it will put quoted text, from a
+previous message in blue</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>color quoted brightblue black</td>
+</tr>
+</table>
+<p>If you find that you see colors in console, but not in an xterm,
+then this can often be fixed with</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>export TERM=xterm-color</td>
+</tr>
+</table>
+<p>then calling mutt from that xterm.</p>
+<p>A brief note on NetBSD. In FreeBSD, I use, rather than the word
+"black" the word "default." This won't work in NetBSD. Also,
+NetBSD's default console is vt100 while FreeBSD's is cons25. Doing
+in a sh shell or one of its derivatives (zsh, ksh, bash)</p>
+<table border="0" witdth="4%" bgcolor="#E8E8E8">
+<tr>
+<td>export TERM=cons25</td>
+</tr>
+</table>
+<p>in console will enable the colors. I've also found the oddity
+that in X, using rxvt, mutt won't use colors. However, if I do the
+same exporting of the Xterm to cons25 it works without problem.</p>
+<p>With a recent (September 2004, I think) FreeBSD ports revision
+of mutt, I ran into another issue. As mentioned above, I would set
+the background to default. Suddenly, in console, rather than just
+the lines of text appearing in the desired color, on a black
+background, the text would appear to be more or less gray on a band
+of the indicated color. For example, if I have the From: line with
+red and default, there would be a red band running across the
+screen with the text in a grayish sort of color.</p>
+<p>However, if I changed default to black, that caused a problem in
+X, where my rxvt terminal has a gray background. A minor annoyance,
+but an annoyance all the same. I solved it by making a silly script
+that will swap two .muttrc files back and forth, one with a black
+background and one with a default background. I only mention it
+here in case you run into a similar situation. (The silliness about
+it is in the prompts, such as "Change it?" If I type no then it
+echoes, "Ok fool, fix it yourself." I was in a bit of a whimsical
+mood when I wrote it.)</p>
+<p>(This seems to be fixed as Feb. 2004, when upgrading to the
+latest FreeBSD port for mutt-devel. Using "default" for background
+now gives me expected output in console.)</p>
+
+<a href="#Contents">(Back to Contents)</a><p>
+<h3><a name="Spell">Spell </a>checking</h3>
+
+<p>While this is not specific to mutt, it's handy to be able to
+check your spelling before sending an email. I use ispell--in RH,
+it's available as an rpm, in FreeBSD from the ports and in Gentoo
+from portage. So, after it's installed add this line to your
+.muttrc</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>set ispell="/usr/bin/hunspell"</td>
+</tr>
+</table>
+<p>
+This used to be a program called ispell, but now the RH based
+distributions, at least, use hunspell.
+CentOS' default /etc/Muttrc shows that hunspell is being used for ispell.
+If it is set to what you want in the default /etc/Muttrc, you don't need to
+add it to your $HOME/.muttrc
+
+<p>Next, we're going to bind the F6 key to run it. So, open up
+.exrc or .vimrc, whichever you use and add</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>map &lt;F6&gt; : !hunspell %&lt;CR&gt;: e %&lt;CR&gt;</td>
+</tr>
+</table>
+<p>One thing to note here--that is exactly what you type, a less
+than sign, &lt;, CR, then a greater than sign &gt;. I didn't
+realize that would work (many thanks to Ian P. for letting me know,
+after seeing this page), and used to use ^M, for the carriage
+return.</p>
+This is assuming that you have hunspell installed. 
+<p>The ^M is actually a return character--in vi the way this would
+be done would be to hit ctrl+v and then the return key--you'll see
+a ^M in the file. Either method works, but Ian's is far easier to
+remember.</p>
+<p>Now, when you want to check spelling, from command mode just hit
+F6 and ispell will run.</p>
+
+<a href="#Contents">(Back to Contents)</a><p>
+<h3><a name="GPG">Mutt</a> and GPG</h3>
+
+Rather than reinvent the wheel here, I'm going to send you to
+<a href="http://codesorcery.net/old/mutt/mutt-gnupg-howto" target=
+"top">Justin R. Miller's excellent guide.</a>  He has moved it from time 
+to time, so I will include an example of what should be added to your 
+.muttrc.   Substitute OxXXXXXXXX with 0x(your public key).  For example,
+if your public key is C9A4B311 substitute 0xXXXXXXXX with 0xC9A4B311.
+(The 0x--that is the numeral zero, not an upper case letter o--is a
+common prefix for hex numbers.)<p>
+If you cut and paste, be sure to turn off wrapmargin if you're using vi.
+The example below is for mutt-1.5.  Your version of mutt may have slightly
+different syntax, depending upon whether you're using 1.4x, 1.5x.
+If the syntax is off, when you start mutt, you'll get a
+message, which will usually give the suggested replacement.  (You can
+always check the system wide Muttrc for syntax.  It will
+have a section on encrypting and signing that is usually commented out.)
+For example with mutt-1.4 I believe that the lines
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+<p>
+set crypt_autosign=yes
+set crypt_replyencrypt=yes
+</pre>
+</td>
+</tr>
+</table>
+were
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+set pgp_autosign=yes
+set pgp_autoencrypt=yes
+</pre>
+</td>
+</tr>
+</table>
+When I first upgraded from mutt-1.4x I would get a message that this was
+deprecated, and it gave the suggested replacement of crypt_autosign and
+crypt_replyencrypt.<p>
+Here are the lines from my .muttrc dealing with pgp, taken from Mr.
+Miller's example.
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+set pgp_decode_command="gpg %?p?--passphrase-fd 0? --no-verbose --batch --output - %f"
+set pgp_verify_command="gpg --no-verbose --batch --output - --verify %s %f"
+set pgp_decrypt_command="gpg --passphrase-fd 0 --no-verbose --batch --output - %f"
+set pgp_sign_command="gpg --no-verbose --batch --output - --passphrase-fd 0 --armor --detach-sign --textmode %?a?-u %a? %f"
+set pgp_clearsign_command="gpg --no-verbose --batch --output - --passphrase-fd 0 --armor --textmode --clearsign %?a?-u %a? %f"
+set pgp_encrypt_only_command="pgpewrapng gpg --batch --quiet --no-verbose --output - --encrypt --textmode --armor --always-trust --encrypt-to 0xXXXXXXXX -- -r %r -- %f"
+set pgp_encrypt_sign_command="pgpewrapng gpg --passphrase-fd 0 --batch --quiet --no-verbose --textmode --output - --encrypt --sign %?a?-u %a? --armor --always-trust --encrypt-to 0xXXXXXXXX -- -r %r -- %f"
+set pgp_import_command="gpg --no-verbose --import -v %f"
+set pgp_export_command="gpg --no-verbose --export --armor %r"
+set pgp_verify_key_command="gpg --no-verbose --batch --fingerprint --check-sigs %r"
+set pgp_list_pubring_command="gpg --no-verbose --batch --with-colons --list-keys %r"
+set pgp_list_secring_command="gpg --no-verbose --batch --with-colons --list-secret-keys %r"
+set crypt_autosign=yes
+set pgp_sign_as=0xXXXXXXXX
+set crypt_replyencrypt=yes
+set pgp_timeout=1800
+set pgp_good_sign="^gpg: Good signature from"
+</pre>
+</td>
+</tr>
+</table>
+<p>
+
+<p>If you mistype your passphrase then</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+ctl+F
+</pre>
+</td>
+</tr>
+</table>
+<p>
+will clear it, enabling you to retype it. <p>
+Outlook Express (and some other MS and Mac mail clients) may 
+receive your GPG signed email as a text attachment. The mutt 
+faq mentions this with the solution of tell them to get a 
+non-broken email client, as it has to do with non-adherence to 
+standards. There is a workaround with a patch and reconfiguration,
+ but the one time I tried it, though it worked, it messed up 
+some things with RFC compliant email clients.</p>
+<p>Before sending, if you hit</p>
+<table border="0" width="5%" bgcolor="#E8E8E8">
+<tr>
+<td>p</td>
+</tr>
+</table>
+<p>then you will be given a gpg menu, allowing you to sign, (the
+default if one uses my example) encrypt,
+encrypt and sign, sign as or to forget it. If one hits</p>
+<table border="0" width="2%" bgcolor="#E8E8E8">
+<tr>
+<td>f</td>
+</tr>
+</table>
+<p>to forget it, it will be sent clear and unsigned. If sending to
+folks using Outlook Express or to mailing lists that strip non text
+attachments, one can hit</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+i
+</pre></td>
+</tr>
+</table>
+<p>This will send the signature inline and is received as such by
+most mailing lists and Outlook Express.</p>
+<p>Also, you'll find that if simply install gnupg when sending
+mail, you'll get a warning message that you're using insecure
+memory. This has to do with setting suid. (It's covered in the
+<a href="http://www.gnupg.org/(en)/documentation/faqs.html">gnupg
+faq</a>).<br>
+To fix it first find out where gpg lives.</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+which gpg
+</pre></td>
+</tr>
+</table>
+<p>In FreeBSD it will be in /usr/local/bin, it may be elsewhere on
+your system. Assuming it is in /usr/local/bin</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+chmod 4755 /usr/local/bin/gpg
+</pre></td>
+</tr>
+</table>
+<p>If you prefer the symbolic mode (using letters is the symbolic
+mode, using the octal numbers such as 4755 is the absolute mode),
+then the command is</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+chmod u+s /usr/local/bin/gpg
+</pre></td>
+</tr>
+</table>
+<p>
+<a href="#Contents">(Back to Contents)</a><p>
+<h3><a name="Stupid">Stupid </a>mutt tricks</h3>
+<p>Many people like to have a random signature, using fortune or
+another program. (I use my own <a href="buffquote.html" target=
+"top">Buffy the Vampire Quote Generator</a> but to each their
+own)</p>
+<p>This is quite easy to do, but as the question comes up from time
+to time, it's probably worth including. One simply adds the
+following to their .muttrc</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>set signature="/usr/bin/fortune |"</td>
+</tr>
+</table>
+<p>Of course, one can substitute another program. If you need to
+combine it with a send-hook--for example, you only want it when you
+send emails to a particular friend, then the syntax would be (we'll
+assume your friend's email is jane@example.com)</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>send-hook "jane@example.com" "set signature='/usr/bin/fortune
+|'"</td>
+</tr>
+</table>
+<p>By default if nothing about a sig is mentioned in your .muttrc
+it will look for a file in your home directory called .signature.
+So, if you just wanted your signature to say Scott (which really
+only makes sense if it's your name, but you get the idea) you could
+simply do</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+echo Scott &gt; ~/.signature
+</pre></td>
+</tr>
+</table>
+<p>Then, without making any changes to your .muttrc all emails
+would end with</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+--
+Scott
+</pre></td>
+</tr>
+</table>
+<p>(The -- is the standard signature delineator)</p>
+
+Some folks like to have fun with my_hdr.  For instance, by default, mutt
+has a User-Agent string that appears in the header.  (In muttrc it's
+called user_agent.  To hide it, you would put set user_agent=no in your
+muttrc.)  To put something silly in there you would use
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+folder-hook . "my_hdr User-Agent:Jason Bourne"
+</pre>
+</td>
+</tr>
+</table>
+Keep in mind that not everyone might have your sense of humor, so you
+might, rather than use the folder-hook . use send-hooks to your friends
+instead lest such silliness go to your boss, or a potential employer.
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+send-hook "my_friend" "my_hdr User-Agent: Austin Powers, man of mystery"
+</pre>
+</td>
+</tr>
+</table>
+<p>
+
+<p>
+
+<a href="#Contents">(Back to Contents)</a><p>
+<h3><a name="Odds">Odds and ends</a></h3>
+An error that I sometimes get is that a message can't be sent,
+exiting with error 127. This is usually because mutt can't find the
+smtp program that I have listed in my .muttrc. For instance, If
+I've installed msmtp in FreeBSD, it's in /usr/local/bin/msmtp. If
+I then copy my .muttrc over to a Linux box that has msmtp in
+/usr/bin/msmtp I'll get that error, the child 127.
+<p>Another one that happens if I forget to make changes in my
+.muttrc is with the editor. In FreeBSD, I have my editor set to
+/usr/local/bin/vim. (I need vim for it in order to do Japanese. For
+more info on that see <a href="jpninpt.html">my Japanese in Linux,
+FreeBSD and NetBSD page.</a>).</p>
+<p>If I then copy my .muttrc to a Linux box that has vim in
+/usr/bin, this will give me an error, as the Linux box won't have
+/usr/local/bin/vim. The error comes after I put in the subject
+line. It will say aborted unmodified message. If you get that
+message, chances are that somewhere your editor isn't specified
+correctly.</p>
+By default, if someone has formatted their mail differently than yours,
+a continued line will have a + sign in front of it, for example
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+  if I set my vi preferences to a shorter column width than
++someone else
+it will have a plus sign on a continued line.
+</pre>
+</td>
+</tr>
+</table>
+<p>
+Some people find this annoying.  To turn it off, add 
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+set markers=no
+</pre>
+</td>
+</tr>
+</table>
+<p>
+to ~/.muttrc.
+<p>Another thing I picked up recently had to do with searching the
+SENT folder I have. The default seems to be searching the From
+rather than To field. In SENT, if I was searching for something, I
+wanted to look for the person to whom I'd sent the email. This
+required the following addition to my .muttrc</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+folder-hook SENT  'set simple_search="~t %s | ~s %s"'
+</pre></td>
+</tr>
+</table>
+<p>Speaking of searching, if I want to search a folder for key
+words in a message, it's done this way. (This can be found by
+simply hitting a ? to get mutt's help)</p>
+<p>Suppose I want to search my SENT directory for emails about
+samba. I open mutt, go to the sent folder then hit &lt;ESC&gt;b.
+I'll then see a tilde and b (~b) and be asked for the search term.
+I can then search the messages in that mailbox for the term.</p>
+<p>Every so often, I like to clean out my sent folder. Let's say I
+have a thousand messages there, ranging from January 2004 through
+July 2004. Suppose I want to get rid of the first 500 of them. I
+can use tags. Note that in all the examples below, upper and lower
+case are important--if it's an upper case letter than type it as
+such.<br>
+First I hit</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+T
+</pre></td>
+</tr>
+</table>
+<p>A message appears saying</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+Tag messages matching:
+</pre></td>
+</tr>
+</table>
+<p>To choose by index number, that is, the number of the messages,
+and to select the first 500 I then type</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+~m 1-500
+</pre></td>
+</tr>
+</table>
+<p>Now I hit</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+D
+</pre></td>
+</tr>
+</table>
+<p>I then get a message</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+Delete messages matching:
+</pre></td>
+</tr>
+</table>
+<p>I then hit</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+~T
+</pre></td>
+</tr>
+</table>
+<p>for tagged messages and when I exit mutt, they will be deleted.
+Doing it by date is similar. Note that dates must be in the format
+DD/MM/YY, European style. If the month or year is left out, the
+current month or year is assumed. So, suppose I want to delete
+everything from January through June.</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+~T
+</pre></td>
+</tr>
+</table>
+<p>Again I'm asked which messages I wish to tag</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+~d
+</pre></td>
+</tr>
+</table>
+<p>I'm asked, surprisingly enough, which dates I wish to select</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+01/01/04-30/06/04
+</pre></td>
+</tr>
+</table>
+<p>Then, as before, an upper case D for delete and all messages
+from January 1st, 2004 (01/01/04) to June 30th, 2004 (30/06/04)
+will be deleted. There are some variations on this--this page is
+aimed at the beginner so I'm only giving the most basic ideas. If
+you look at the mutt manual, usually available in html format in
+/usr/share/doc or /usr/local/share/doc and look at the tags section
+and searching by date, you can see a few shortcuts. As I mentioned,
+month and year, if not specified, default to the current month and
+year. One can, rather than giving the entire range of dates, simply
+indicate that everything up to a certain date or after a certain
+date should be selected. For example</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+-01/07/04
+</pre></td>
+</tr>
+</table>
+<p>selects all items before July 1st, 2004. Doing</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+01/01/04-
+</pre></td>
+</tr>
+</table>
+<p>selects all items after January 1st, 2004.</p>
+<p>So, if I were really deleting all messages through June, my
+actual keystrokes would be (I'm leaving out the mutt prompt
+messages here</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+T
+~d -01/07/04
+D
+~T
+</pre></td>
+</tr>
+</table>
+<p>This would first tag all messages sent before July 1st, 2004,
+then delete them.</p>
+A ; (semicolon) will also indicate that you want to do something to all
+tagged messages.  Suppose I have 3,000 messages in my SENT mbox.  Now I
+wish to move the oldest 2,000 to a new mbox called ARCHIVE. 
+I go into my SENT mbox and tag the first 2,000 as shown above, with T
+and then typing ~m 1-2000. Now, I type
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+;
+</pre>
+</td>
+</tr>
+</table>
+<p>
+I see
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+tag-
+</pre>
+</td>
+</tr>
+</table>
+<p>
+I type s for save.  I will see 
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+Save tagged to mailbox ('?' for list): =robert
+</pre>
+</td>
+</tr>
+</table>
+<p>
+(The =&lt;name&gt; will be the name of the first of the tagged messages,
+so if message number one was to robert, it would say =robert)<p>
+I backspace over the =&lt;name&gt; and type 
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+~/Mail/ARCHIVE
+</pre>
+</td>
+</tr>
+</table>
+<p>
+(If I just type ARCHIVE, it will create a mbox ~/ARCHIVE rather than
+~/Mail/ARCHIVE.  In this case, 
+I want to save it in my ~/Mail directory.)  It will ask
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+Create /home/&lt;username&gt;/Mail/ARCHIVE (yes/no)
+</pre>
+</td>
+</tr>
+</table>
+<p>
+The username being, obviously, my user name.  If we stay with our
+example of john, it would say /home/john/Mail/ARCHIVE.
+I hit y for yes, it will copy the messages. When I exit, mutt will
+ask if I should delete the 1000 messages.  If I hit yes, it will 
+remove them from the SENT mbox. <p>
+As you can see, tags are quite handy. <p>
+
+Much of this can also be done without tags.  For example, rather than
+tagging and then deleting, one can just do 
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+D 
+</pre>
+</td>
+</tr>
+</table>
+<p>
+and will then get a prompt 
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+Delete messages matching
+</pre>
+</td>
+</tr>
+</table>
+<p>
+At that point one can use ~d -01/09/10 to specify deletion of all messages
+older than September 1st, 2010, or any other pattern such as ~m for
+messages, a date range, or almost any of the patterns that we've already
+discussed.   Note that you use an upper case D to
+signify deleting a match---a lower case d will just delete the current
+message. <p>
+
+
+
+
+<p>Sometimes, one wants to resend a message, either to edit it, or
+send to someone you forgot to cc or whatever. If you open a
+message, say from the SENT mailbox, and wish to resend it as a new
+message hit ESC e. This will resend it as a new message.</p>
+<p>The folder and send hooks are incredibly flexible. For instance,
+suppose that you wish, whenever you are in the freebsd-stable
+mailbox, that any message you send while browsing that mailbox goes
+to the freebsd-stable mailing list. (Hopefully, you know that one
+does not thread-hijack--that is, you don't take an email sent to a
+mailing list, simply change the subject line and hit reply. That
+messes up anyone who views messages in a threaded format, as it
+doesn't really change the header information. For a quick
+explanation of this, see a <a href="linfaq.html#netiquette">Faq</a>
+I have for *nix newcomers.).</p>
+<p>You can create a folder-hook entry in your .muttrc</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+folder-hook freebsd-stable "my_hdr To: freebsd-stable@freebsd.org"
+</pre></td>
+</tr>
+</table>
+<p>Now, if you are browsing messages in your FreeBSD-STABLE
+mailbox, and hit m to create a new message, it will automatically
+be addressed to freebsd-stable@freebsd.org.</p>
+
+<a href="#Contents">(Back to Contents)</a><p>
+<h3><a name="Newer">Newer (and some older) odds and ends</a></h3> 
+For awhile, there was a fork of mutt called muttng.  As far as I know,
+it's been discontinued, but I believe all the features mentioned below
+are available in mutt 1.5.x.
+<p>The side bar is a fun little thing, but I got tired of it
+quickly. There are some default settings, a bit of googling gave me
+what I considered a useful set of defaults.</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+# set up the sidebar, default not visible
+# The width of the mailbox list pane (left sidebar like in GUIs).
+   set sidebar_width=12
+# This specifies whether or not to show the mailbox list panel.
+  set sidebar_visible=no
+# which mailboxes to list in the sidebar
+  mailboxes =IN-personal IN-misc
+# color of folders with new mail
+  color sidebar_new yellow default 
+# ctrl-n, ctrl-p to select next, prev folder ctrl-o to open selected
+# folder
+  bind index \CP sidebar-prev
+  bind index \CN sidebar-next
+  bind index \CO sidebar-open
+  bind pager \CP sidebar-prev
+  bind pager \CN sidebar-next
+  bind pager \CO sidebar-open
+# I don't need these.  just for documentation purposes.  See below. 
+  # sidebar-scroll-up
+  # sidebar-scroll-down
+# b toggles sidebar visibility
+  macro index b ':toggle sidebar_visible^M'
+  macro pager b ':toggle sidebar_visible^M'  
+</pre></td>
+</tr>
+</table>
+<p>This starts off with the sidebar not being visible. Hitting the
+b key when you open muttng makes it visible. You would have to add
+your mailboxes to the mailboxes line. (I just put in two, to
+demonstrate the syntax). Ctrl+n highlights the next mailbox, Ctl+p
+the previous one. To open the highlighted mailbox, you hit
+Ctl+o.</p>
+<p>In one installation, this didn't work as I expected. Although I
+was using mbox rather than Maildir format, I would sometimes, with
+a new mailbox get the error message, for example, IN-FBSD-current
+is not a mailbox. Specifying the PATH as ~/Mail/IN-FBSD-current in
+the sidebar section fixed this.</p>
+<p>Also, in one case, the Ctl+0 wouldn't open the Mailbox. Nothing
+happened. I just changed it from \CO to \CL and it worked. I assume
+there is some other setting somewhere in the defaults or my
+.muttrc.   I didn't find it worth troubleshooting so when
+2 minutes of googling didn't bring me a quick answer, I just
+changed CO to CL. Ctl+L would open the mailbox as expected.</p>
+
+<p>For example, say I have 3 mailboxes, Personal, Misc and FreeBSD.
+Suppose I only have two of them listed in the mailboxes = line,
+Personal and Misc.</p>
+<p>Now, I start mutt. I have the sidebar off by default, and hit
+c to view my mailboxes. I then get the message hit ? for list. If I
+do so, then it shows me my ~/Mail directory
+and all the mailboxes. However, if I hit tab, and there is a new
+message in Misc, it will first want to open Misc. If there are no
+new messages in Misc or Personal, the two mailboxes listed in the
+mailbox line, then, even if there is a new message in the FreeBSD
+mailbox, it will act as mutt does, and again just show me the
+entire ~/Mail directory.</p>
+<p>This is the behavior that I actually prefer, so, I set my
+mailboxes = line to null, in other words, my .muttrc has the
+line</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+mailboxes =""
+</pre></td>
+</tr>
+</table>
+<p>This means that no mailboxes will show up if I use the sidebar,
+but as mentioned above, I found it an interesting toy but quickly
+tired of it. If I went back to using the sidebar, then I would have
+to add all mailboxes to the mailboxes line.</p>
+<p>I'm making this sound more complex than it actually is--also,
+we're talking about one or two keystrokes. At any rate, if you wish
+to use the sidebar from time to time, add all mailboxes in your
+~/Mail or ~/Maildir to the mailboxes = line. If you just wish to
+open up your Mail or Maildir directory when you hit c, then tab,
+set it to null, by using the mailboxes ="" line shown above. If you
+don't, at least in FreeBSD as of June 2005, rather than opening
+your ~/Mail directory, it will go to /var/spool/mail. (This has
+also been covered above--until you start setting up various
+filtering rules, that's the default location for any mail you
+receive.)</p>
+<p>
+
+In mutt 1.5.x lines in the .muttrc file dealing with pgp have to be changed. If
+not, you'll get error messages, (although it should still work, if
+I remember correctly, these lines are just deprecated, not yet
+removed).</p>
+<p>I have suggested above that the reader use Justin Miller's file.
+It has the lines</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+set pgp_autosign=yes
+set pgp_replyencrypt=yes
+</pre></td>
+</tr>
+</table>
+<p>These two lines should be replaced with</p>
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+set crypt_autosign=yes
+set crypt_replyencrypt=yes
+</pre></td>
+</tr>
+</table>
+Another handy mutt trick is if you need to send an attachment from, for
+example, a shell script.  The mail command can do this of course, but
+it's rather non-trivial. With mutt, suppose you had to send
+john@example.com a document called file.doc.  If you are going to send
+that without any message, and the subject line of "attached docs" the 
+command would be
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+mutt -a file.doc -s "attached docs" john@example.com
+</pre>
+</td>
+</tr>
+</table>
+<p>
+If you wanted to send the message, message.txt to john as well, the
+command would be
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+mutt -a file.doc -s "attached docs" john@example.com < message.txt
+</pre>
+</td>
+</tr>
+</table>
+<p>
+
+If you get an error like unable to attach file separate the recepient's
+address with double dashes and a space for example
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+mutt -a file.doc -s "test" -- john@example.com
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+Another way is to just make sure the attachment is at the end of the
+line, for example
+<table border="0" bgcolor="#E8E8E8">
+<tr>
+<td>
+<pre>
+mutt -s "test" john@example.com -a file.doc
+</pre>
+</td>
+</tr>
+</table>
+<p>
+This doesn't seem to work completely non-interactively--it will open a
+window with the address you specified, and require some keyboard input,
+going to the compose window (even if you have already specified a
+textfile for input) and requiring :x or :wq before getting to the send
+screen, where you manually have to send.  I haven't yet found a way to
+completely automate it.<p>
+
+
+To attach a file when using mutt normally (as opposed to the method
+above with a script) simply hit the "a" key (without the quotes.)  You
+will then be asked for the name of the file you want to attach.  If you
+change your mind about the attachment before sending the email,
+highlight the attachment and hit D for detach.  As always in Unix, case
+is important and this has to be an upper case D. <p>
+Sometimes, for example, at a job where everyone else uses Outlook, and
+includes images inline, you may want to do this with mutt.  The world is
+changing and most people use html mail.  I'll avoid my rants on this,
+and simply mention that if you want your attachment in line, rather than
+showing as an attachment, you can do this.  After having hit a for
+attach, and seeing the file name (with an A to its left, to indicate
+that it's an attachment, hit ctl+d.  This, in composing mode, will
+"toggle disposition" meaning it will change a mime type from attached to
+inline.  You will see the A change to an I, and the attachment will now
+appear to the viewer as part of the email, rather than an attached
+file.  I haven't figured out a way to get it to appear above the
+signature, however--it will appear below your signature.<p>  
+
+
+
+<p>That's about it. The above only serves as an introduction, but
+gives you an idea of how to get started with mutt.</p>
+<p>The <a href="http://www.mutt.org/doc/manual/" target="top">Mutt
+online manual</a> is an excellent next step. It's also usually
+available in /usr/doc/.</p>
+I also have a few brief guides to maildrop, getmail and fetchmail
+(though the fetchmail one is quite dated) at our <a
+href="http://www.scottro.net/qnd/">qnd-guides site.
+<center><script language="JavaScript" type="text/javascript">
+if (Date.parse(document.lastModified) > 0) {
+document.write ('<b>last modified: <\/b>' + document.lastModified +'<p>');
+}
+document.write('<b> url:<\/b>' + document.location.href + '<\/font><p>');
+</script>
+<hr width="60%" align="center"></center>
+</body>
+</html>

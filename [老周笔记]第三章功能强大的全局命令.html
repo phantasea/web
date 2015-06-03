@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <title>第三章 功能强大的全局命令 - 老周笔记</title>
+                <meta name="description" content="vi/ex 教程第三章">
+                <link rel="icon" href="http://b.soont.com/themes/soon/favicon.ico" type="image/x-icon" />
+        <link href="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
+        <link href="http://b-soont-com.u.qiniudn.com/themes/soon/css/style_bsoont.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="http://cdn.staticfile.org/html5shiv/3.7/html5shiv.min.js"></script>
+      <script src="http://cdn.staticfile.org/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+        <script src="http://cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+        <script src="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+        <header role="banner" class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button data-target=".bs-navbar-collapse" data-toggle="collapse" type="button" class="navbar-toggle collapsed">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://b.soont.com">老周笔记</a>
+            </div>
+            <nav role="navigation" class="navbar-collapse bs-navbar-collapse collapse" style="height: 1px;">
+            <ul class="nav navbar-nav">
+                <li> <a href="http://b.soont.com/about">关于</a> </li>
+                <li> <a href="http://b.soont.com/weibo">微博</a> </li>
+                <li> <a href="http://b.soont.com/disqus">留言</a> </li>
+                <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">链接<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+  <li class="dropdown-header" >特别感谢</li>
+  <li><a href="http://www.vim.org">VIM</a></li>
+  <li><a href="http://pico.dev7studios.com">Pico</a></li>
+  <li class="divider"></li>
+  <li class="dropdown-header" >网站编辑</li>
+  <li><a href="https://stackedit.io">MD编辑器</a></li>
+  <li class="divider"></li>
+  <li class="dropdown-header" >友情链接</li>
+  <li class="disabled"><a href="#">期待加入</a></li>
+</ul>
+
+                </li>
+            </ul>
+            <p class="navbar-text navbar-right">求知若饥 虚心若愚</p>
+            </nav>
+        </div>
+        </header>
+                
+        <div class="container">
+            <div class="row">
+
+    <!--[if lt IE 9]>
+                        <![endif]-->
+                <div class="col-md-9">
+                                            <article>
+                        <div class="page-header">
+                        <h2>第三章 功能强大的全局命令</h2>
+                        <em><span class="glyphicon glyphicon-calendar"></span>2013/02/13</em>   <em><span class="glyphicon glyphicon-user"></span>Walter Alan Zintz[原作] hq零零e[译]</em>  
+                        </div>
+                        <p>你可能会因为我在上一篇的教程中没提到“:global”而觉得奇怪，不过“:global”其实不是一个地址。这事实上是一个行模式命令――全局命令，并且它的作用比大多数用户想像的要大得多。</p>
+
+<p>就算是有经验的用户在想到全局命令时也会与下面的这些话联系在一起：“如果你输入了:global接着输入搜索式样，然后是行模式命令，把它们放在同一行。那么编辑器会对逐一对文件中包含匹配式样的行运行行模式命令”。也就是，在输入：</p>
+
+<pre><code> global /^Chapter [1-9]/ delete
+</code></pre>
+
+<p>后，用户想到的是编辑器会查找并删除文件中所有以“Chapter ”1到9开头的行。没错上面的例子干的正是这事，这个命令的这种用法随处可见。但还是不时地出现误用，以下命令：</p>
+
+<pre><code> global /^Chapter [1-9]/ write &gt;&gt; t.of.contents
+</code></pre>
+
+<p>就算是有一定经验的用户也可能会以为上面命令的作用是将匹配式样的行添加到名为“t.of.contents”文件中去，这当然是错的。（上面的命令更像是用来消耗磁盘空间的）</p>
+
+<h2>全局命令的操作细节</h2>
+
+<p>更重要的是，对全局命令的不了解让用户只能发掘到该命令一小部分的潜力，无法发挥它真正的作用。庆幸地是你再也不用受这种不了解的束缚了――在本文里我们会完整地呈现这个命令的方方面面。</p>
+
+<p><strong>在指定的位置搜索：</strong></p>
+
+<p>与其他的行模式命令一样，全局命令之前也可以放一至两个地址。它的默认搜索范围是整篇文档，但如果你使用命令<code>257 , 382 global ….</code>时搜索会从257行开始一直搜索到382行（包括382行）。全局命令前可以放置所有类型的行模式地址，因此以<code>?^Exercises? +++ , $ global</code>开始一个命令时编辑器会回搜到的第一个以“Exercises”开头的行并以该行之下的第3行为全局命令作用范围的开端，这个范围一直到文件的最后一行结束。</p>
+
+<p><strong>标识匹配或不匹配的行：</strong></p>
+
+<p>输入全局命令<code>global</code>或<code>g</code>会使之对搜索范围内的每一行包含要搜索的式样的行进行标识。但输入<code>global!</code>、<code>g!</code>或<code>v</code>的作用则相反：现在它只标识未包含搜索式样的行了。如果你正编辑一个记录错误信息的日志文件，你需要的只是以“Error 3b:”开始行，那可以用以下命令将其他行删除：</p>
+
+<pre><code> global! /^Error 3b:/ delete
+</code></pre>
+
+<p><strong>选择你自己的搜索式样分隔符：</strong></p>
+
+<p>因为这个命令总是由上至下对整篇文档（或是你选择的范围）进行搜索，几乎所有的标点符号都能用来表示搜索式样的开始与结束。也不需要用“?”或“/”来选择搜索方向。如果你想要删除所有包含三个斜杠的行，这些命令：</p>
+
+<pre><code>global +///+ delete
+global ;///; delete
+global ]///] delete
+</code></pre>
+
+<p>都比使用斜杠作为分隔符然后为欲搜索的三个斜杠前分别加上反斜杠要来得简单。（但是使用“!”作为分隔符要当心，因为全局命令“:global”会把命令后的“!”当成指示全局命令搜索不含指定式样的行的一个开关符号。）</p>
+
+<p>当然这只对紧跟在全局命令后的搜索式样有效，这个搜索式样用来指定要标识的行。如果是在全局命令前的用来指定全局命令的作用范围的搜索式样，那么还得像往常一样使用“?”和“/”作为分隔符。</p>
+
+<p><strong>看似无用的一些全局命令：</strong></p>
+
+<p>有些时候，虽然只在文件中找一行，使用<code>:global</code>或<code>:global !</code>也是明智之选。当选择性的对行执行行模式命令时这是一种基本的技能。举个简单的例子，当你想要删除最后一行当且仅当最后一行是空白行时。你可以选择每次都自己移动到文件末尾然后看一下有没有附加的空行，但让编辑器去检查并删除（如果需要删除的话）会轻松一点，这时你可以输入：</p>
+
+<pre><code>$ global /^$/ delete
+</code></pre>
+
+<p>让全局命令标识你自己限定的范围内的所有行也是有实用价值的技巧！我们说过的程序员――小何（Hal，在这系列教程的第一章中出场过的）在倒置文件中的所有行时就使用过这一技巧。他所用的命令以完整的形式写出来就是：</p>
+
+<pre><code>global /^/ move 0
+</code></pre>
+
+<p>标识所有有“开端”的行，其实就是标识所有行（包括空行）。接下来该命令从第一行开始并将第一行移到虚构的行――零行之下。然后它再到第二行并同样把第二行移到零行之下，原来的第一行这时成了第二行。它对第三行做同样的动作，然后第四行，第五……。就这样它逐渐地将行的次序颠倒了。</p>
+
+<p><strong>一个全局命令后能使用多个命令：</strong></p>
+
+<p>可以在<code>:global</code>命令后使用多个命令和命令所用的搜索式样。在标识了特定行后，全局命令接着逐个对标识行依次（依照你输入它们的次序）运行所有命令。这些命令通过竖线（“|”）分隔。如果你输入了：</p>
+
+<pre><code>global /^CHAPTER/ substitute /APTER/apter/ | copy $
+</code></pre>
+
+<p>编辑器会对以章名（CHAPTER）开头的每一行执行替换，将“CHAPTER”换成“Chapter”，然后复制该行（现在是以“Chapter”而非“CHAPTER”开头了）到文件末尾。这两条命令（替换substitute和复制copy）的次序很重要，替换的命令必须在前，不然复制到文件末尾的就成了原来的全部大写的“CHAPTER”了。</p>
+
+<p>并没有限制说只能在全局命令后使用两条命令。对命令数目的上限并没有规定。对整条命令序列（与全局命令一起使用的多个行模式命令组成的序列）的长度的限制则依Vi版本的不同而有所不同。话说回来我从没遇到过这一长度上限小于256个字符的。但对于命令序列的使用方式有些规定：</p>
+
+<ul>
+<li>关键字“global”和后面命令序列必须在同一行中。（指的是“物理行”，中间没有回车符分隔的行，如果该行长度超过了显示设备的宽度的话，可以折行显示――当然这没关系。）</li>
+<li>命令序列不能包括“undo”（撤消）命令和另一个“:global”命令</li>
+<li>如果序列中包括一条在shell（命令解释器）运行的命令，那它必须是序列中的最后一个命令（在同一命令序列中使用两个或以上的sell命令是无意义的）。这样该命令才能在它的shell命令行中使用管道操作（“|”，与命令序列的分隔符是一样的），而不至于让编辑器分不清那是一个全局命令的分隔符还是一个命令行下的管道操作符。</li>
+</ul>
+
+<p><strong>命令并非一定要在所有全局命令标识的行上运行：</strong></p>
+
+<p>使用全局命令就如同用手工移至标识行上再运行命令一般。正如同有时你运行命令并不是对输入命令时所在行进行操作一般，全局命令中的命令序列也不一定要对所有标识过的行进行操作。这里有三点要强调的：</p>
+
+<ol>
+<li><p>在全局命令后的任何命令都可以有自己的地址，与那些命令在单独使用时一样。因此这一命令串：</p>
+
+<pre><code>global /^XX/ - copy $ | /ZZ$/ , +5 delete
+</code></pre>
+
+<p>是完全合法的。它逐个地找到以两个大写X开头的行，上移一行，复制该行到文件末尾，然后向下搜索以“ZZ”结尾的行，并将该行及其下的五行删除。</p></li>
+<li><p>在全局命令的命令串中即使你没有给出命令的地址，这些命令命令还是可能不会对全局命令标识的行进行操作因为它有默认的地址。这就是在本章的介绍部分中说的所说的全局命令的错误用法。因为写入（write）命令的默认地址范围是整篇文档，所以那条命令的作用是当每遇到一条全局命令标识的行就将整篇文档写进（添加到）另一个文件的末尾一次。要将全局命令标识的行写进另一个文档的正确做法是：</p>
+
+<pre><code>global /^Chapter [1-9]/ . write &gt;&gt; t.of.contents
+</code></pre>
+
+<p>在写入命令前面的“点”（半角句号）告诉写入命令只对它所在的行进行操作。</p></li>
+<li><p>但全局命令后的命令序列中使用有默认地址的命令时，如果该命令不是序列中的第一个命令（即跟在“:global之后的命令”）的地址即使它有默认的地址，在没有给它自己的地址的情况下它也可能并不是用全局命令标识的行作为它的地址。原因：在全局命令的命令序列中每一条命令都以上一条命令结束时的所在行为当前行。</p></li>
+</ol>
+
+<p>在我的之前的一个例子中，讲了如何将以“CHAPTER”开头的行改为“Chapter”并复制到文件末尾。那个任务本身很简单因为被复制的行都是已经被更改了大小写的行。那么如果希望文件中间的“CHAPTER”改为“Chapter”，而复制到文件末尾的仍是全部大写字母的形式时要怎么做呢？这看上去似乎只要对调一下命令序列中的两个命令的位置就行了，这样就可以先执行复制命令然后再执行用来更改大小写的替换命令，就像这样：</p>
+
+<pre><code>global /^CHAPTER/ copy $ | substitute /APTER/apter/
+</code></pre>
+
+<p>出乎很多人意料的是，这命令运行的结果与预想正好相反。这条命令会将复制到文件末尾的行的大小写更改而文件中的那些行的却仍然是全部大写的。究其原因，复制操作将行复制到文件末尾并在那里――而不是原来由全局命令标识的行结束复制操作。而替换命令以上一命令结束时所在的行（最后一行）为当前行。在没有明确给出地址的情况下替换命令的默认地址便是当前行，因而它会对文件末尾的行（复制的行）而不是原来的行（全局命令标识的行）进行大小写更改的操作。</p>
+
+<p>但有一件事是无论在命令序列中的“当前行”怎样地变化也不能改变的。当全局命令从一标识行开始运行命令时，不管命令序列最后在哪一行结束运行（这一行成了新的当前行），全局命令总是到下一标识行（而不是当前行）重新开始运行命令序列。要阻止全局命令从下一标识行开始运行，只能让命令序列中的命令删除下一标识行――但那样的话，全局命令就会移到下一未被删除的行开始命令。</p>
+
+<p>假设你想要对文件进行一些删减――每隔一行就删除一行。你可以用下面的命令：</p>
+
+<pre><code>global /^/ + delete
+</code></pre>
+
+<p>全局命令首先对每一行进行标识。当它来到行1时，它就执行命令删除行2。然后移到下一未删除行――行3，并删除行4，依此类推。或者如果你想要删除每三行中的后两行，输入：</p>
+
+<pre><code>global /^/ + , ++ delete
+</code></pre>
+
+<h2>全局命令的例子</h2>
+
+<p>上面的那些例子除了用来说明全局命令的工作原理外，还展现了它较鲜为人知的一些技巧。但上面的例子无法涵盖它所有的重要技巧。这而补充一些有价值的技巧。</p>
+
+<p><strong>计数</strong>。有时全局命令后面的命令序列与全局命令标识的行根本毫无关连，这些命令并不对全局命令标识的行进行操作。这种情况通常出现在我们需要重复运行一个行模式命令一定的次数时。</p>
+
+<p>我经常受邀到一些展会上测试系统，就在展台上测试。我不能总带着一份有着10000行的测试文件，因为我事先不知那个系统对存储介质、格式有什么样的要求。我的做法当场新建一个文件并在其中输入10行，然后让编辑器复制全部并贴到文件末尾，如此反复十次。（每次复制都使文件的大小翻倍，所以最后文件中就有10240行了。）</p>
+
+<p>但那要求精确计算操作次数。如果我输入命令的次数出现的错误（就算是在前后一次的误差范围内）那我要么要得到一个只有我预想的一半大小的文件，要么有两倍大――这将毁了整个测试结果。但我不打算自己数操作次数，我让编辑器来替我数。在输完开始的十行后，我给编辑器一条命令：</p>
+
+<pre><code> global /^/ % copy $
+</code></pre>
+
+<p>这条命令让编辑器通搜整篇文档，标识所有有“开端”的行（也就是所有行），然后对标识的十行逐一运行通篇拷贝的命令。这确保了命令会精确地运行十次。</p>
+
+<p>注意这个技巧仅限于文件中的行数与要命令重复运行的次数一致时使用。如果我在文件中输入了20行，要将之通篇拷贝10次可以这样使用全局命令：</p>
+
+<pre><code> 1 , 10 global /^/ % copy $
+</code></pre>
+
+<p><strong>自动移动</strong>。你可能不时地会需要应付文件中一系列的编辑问题，在没使用全局命令时你得一个一个地解决这些问题。但在这进行操作的点之间移动是件烦琐的事。如果有一个式样来找到这些需要编辑的点，或者你能写出一个脚本来将式样插入到这些地方的话――就你第一章中小何做的那样，那全局命令能自动带你到这些点。</p>
+
+<p>你可能还记得小何用了一个脚本来对源代码进行标识，他将每行lint警告放在源文件中相应的行后，中间用“XXX”分隔以利于定位这些行。假如这个“无恶不做”的信息系统副主管又回过头来要小何仔细看一下这些行，看是否能通过重写这些行来消除“警告”作为补救的一种手段。</p>
+
+<p>小何应该怎么做呢？要快速的翻阅这些代码，然后逐个找出那些用来识别问题行的“XXX”式样吗？小何知道他所面对是意大利面条式的代码，实际出现问题的地方与lint所指示的那些行可能会有的出入。在查找问题点的过程中他可能已经跳过了几个“XXX”式样，因而在文件中查找下一个“XXX”可能会将他带回他已经处理过的点，或者是漏掉了那些他在查找实际的问题点时跳过的几个“XXX”式样。此外，他在修复一个问题时频繁地使用式样搜索，这使得他无法在可视模式中使用“n”命令来快速地定位下一个“XXX”式样――他必须每次都重新输入式样。</p>
+
+<p>但是小何知道怎么应付这些问题――回到行模式（在可视模式下输入大写的“Q”）然后使用一条简单的全局命令：</p>
+
+<pre><code> global /XXX/ visual | write
+</code></pre>
+
+<p>这条命令让小何先回到“XXX”在文件中第一次出现时的所在的行，然后切换到可视模式等待小何编辑。在小何做完修改后，只要再输入大写的“Q”编辑器就会带他到第二个包含“XXX”的行，并回到可视模式。不论在前一次编辑中小何怎样地移动或进行何种操作，编辑器都能将他带到第二个包含“XXX的行”。然后小何只要在每次进行完修改后按“Q”就能到下一个包含“XXX”的行中。在每完成一次编辑后write命令会自动地将修改过的文件保存到磁盘上。</p>
+
+<h2>现在换你了</h2>
+
+<p>在你将全局命令的进阶技巧在实际工作中运用前，这儿有一些练习来让你练练手。我已经为每个练习提供了至少一种参考答案（见附录），还有一个提示是针对最后一个问题（也是最难的一个）的。</p>
+
+<p><strong>复制后改为小写</strong>。回想一下那个想把文中所有以“CHAPTER”开头的行复制到文件末尾的用户。除了复制外他还想把文中原来的那些行中的“CHAPTER”改为“Chapter”――但复制到文件末尾的那些行仍保留大写的状态。</p>
+
+<p>现在我们已经知道下面的两条命令都不能完成这项任务了：</p>
+
+<pre><code> global /^CHAPTER/ substitute /APTER/apter/ | copy $
+ global /^CHAPTER/ copy $ | substitute /APTER/apter/
+</code></pre>
+
+<p>怎样才能用全局命令（:global）完成这项任务呢？有许多种办法，要找到一条不算太难。</p>
+
+<p><strong>准确的字串长度</strong>。一位老友在用troff<a href="#1"><sup>1</sup></a>时做一些特殊的工作时需要在一行中插入连续的64个反斜杠。反斜杠的数目必须准确的为64个，不然troff不能正常地完成工作。在不费力数数的前提下，他怎样才能准确地输入64个反斜杠呢？</p>
+
+<p>假设他要在第217行的字串“n(PDu”前面插入16个反斜杠。使用什么命令才能完成这一任务而免于手工数数的尴尬呢？如果知道要用哪些命令的话那答案就呼之欲出了。</p>
+
+<p><strong>为段落编号</strong>。一位文档的作者将每个章节又分成了多个段落。他是一个troff的用户所以他用将宏“.pp”单独置于一行作为段落的标记。所以段落间的是以这种方式分隔的：</p>
+
+<pre><code> which is the only way that argon gas can be dissolved
+ in this liquid.
+
+ .pp
+ The problem of energizing the
+  argon to fluorescence while
+ it is dissolved was first approached by applying a strong
+</code></pre>
+
+<p>这个技术作家要怎样用vi编辑器来为章节中的每一个段落编号呢？（你可能觉得这个问题有些“扯”，但就曾有一个Unix专家在电话中问我这个问题。）为了简化问题我们假设每个章节中的段落数不超过35，并且编号用罗马数字来表示。</p>
+
+<p>这个问题还是有一定难度的，所以我要提供两个提示。第一个当然是使用全局命令了。在你已经准备放弃或要看答案时，可以先看一下第二个提示。</p>
+
+<h2>下一篇</h2>
+
+<p>在这篇教程的下一部分中，我会讲一些其他用来处理文本和文件的行模式命令，并会涉及到这些命令较不为人知的一面。如果你被本文中的全局命令的内容压得透不过气来的话，那告诉你一个好消息：替换命令要简单得多，事实上其他的命令都要比全局命令来得简单得多。</p>
+
+<p>而在讲完了那些个命令后，这篇教程的后面的部分将会集中在可视模式上――比行模式要简单也更有趣。</p>
+
+<p><strong>Appendix A 答案和提示</strong></p>
+
+<p>答案用uuencode编码过。</p>
+
+<pre><code>begin 644 viex3_ans
+M5FDO17BQX+RMQO&lt;*"K7:R/W5PL&amp;WS["RSK^\M/"PN`K7]]7?H[I786QT97(@
+M06QA;B!::6YT&gt;@K2Z]7?H[IH&lt;3`P92`*"@JAL+BTUL:Z\[C$SJK0H="TH;'.
+MRLSB"@J]S\ZJUK&amp;PU[7$L.RWJ,K'H[H*"F=L;V)A;"`O7D-(05!415(O(&amp;UA
+M&lt;FL@82!\(&amp;-O&lt;'D@)"!\("=A('-U8G-T:71U=&amp;4@+T%05$52+V%P=&amp;5R+PH*
+MS\BVU-2MRKRUQ-#0O?C0T-?WO,&gt;ZQ:.HT\-M87)KP_S![J.IHZS(N[KSO:O6
+MKKBTUL:UO&lt;[$O/[$J&lt;ZRHZS7[KKSN/F^W=?VM&lt;2QZKS'U=*UO=2MP+2UQ-#0
+MLJ*]^-#0S.:[N[+9U_&gt;]J[3ST+37UL2XN,3.JM"AT+37UL2XH:,*"KNYT]#2
+MN];6LKO$Q\.TUK&amp;]V,'+M;&amp;UJ\VLT?G3T-"GM&lt;2WO;&gt;HOLW*Q\_(O:NAL$-(
+M05!415*AL&lt;BKLK_,YKN[SJK0H="THZS(N[KSN+36QM"AT+2AL+#FL;ZAL;7$
+MU&gt;+0J=#0M;W.Q+S^Q*G.LJ.LU^ZZ\]/#S.:[N\/\P&gt;Z]J[VKM;''L-#0M&lt;2A
+ML$-H87!T97*AL=39M,[,YKN[SJJT\]"TM&lt;2AL$-(05!415*AL:&amp;C"@H*"G1R
+M;V9FSLK,X@H*P_S![M#0H[H*"C$@+"`Q-B!G;&amp;]B86P@+UXO(#(Q-R!S=6)S
+M=&amp;ET=71E("]N*%!$=2]&lt;7&amp;XH4$1U+PH*S:BY_=3+T-`Q-K3.M&lt;3,YKN[P_S!
+M[L"TS&gt;JSR;C#R,[.\:&amp;CP[_2N[3.S.:[N[:\U-JAL&amp;XH4$1UH;''L++ER.O2
+MN[CVM[30L;C&lt;H:.CJ,SFN[O*O='YUM#6KLOYTM32JL&amp;]N/:WM-"QN-S*Q]+R
+MSJJWM-"QN-RQOLGMU-K,YKN[RKW1^=;0TK+*Q]*[N/;,V,KBU]:W^Z&amp;CHZD*
+M"@H*"J&amp;PML["Y+'@NL6AL&lt;[*S.*UQ,SARKX*"L[2M&lt;2P[+&gt;HT.C2JM*[N/;6
+MT+SDLKW6Z*&amp;JH:K4VL._N/:ZZK7$NO/#YLSMO-.T\]"TU];$N*&amp;P2:&amp;QH:.V
+M^-3:P[^X]KKJNO/7UL2XH;!)H;&amp;UQ+CVROV^S&lt;K'Q,&gt;X]K;.PN2UQ+'@NL6A
+MH]*ROLW*Q]3:RK7*J&lt;'+U&gt;*X]M;0O.2RO=;HNO.VSL+DO[3)S\BEOLW/\=7B
+MT?FCN@H*+G!P24E)24D*"@H*L&gt;"ZQ&lt;[*S.*UQ++.O[RT\+"X"@J_R=+4T\/!
+MO&lt;SUR*N^UL/\P&gt;[`M,WJL\G5XM*[LMG7]Z&amp;CM=K2N\SUH[H*"F=L;V)A;"`O
+M7EPN&lt;'`O("X@+"`D('-U8G-T:71U=&amp;4@+R\N&lt;'!)+PH*MM32U+KJH;`N&lt;'"A
+ML;^JRKRUQ,._TKO0T*.LU,O0T,SFN[O#_,'NO:NT\]"TU];$N*&amp;P2:&amp;QUL/3
+MVKKJNO.AH\SFN[O#_,'NM-.UVM*[N/:QZLJVT-"_JLJ\U-K+^=/0M&lt;2ZZKKS
+MO-/)SZ&amp;P2:&amp;QH[O4VK7:MOZX]K'JRK;0T-;0MM2S_;7:TKNX]K'JRK;0T,WB
+MM&lt;3+^=/0NNJZ\[S3R&lt;^AL$FAL:.[R+NZ\]3:M=K(_;CVL&gt;K*MM#0HZRVU+/]
+MM=K2NZ&amp;BMOZX]K'JRK;0T,WBM&lt;3+^=/0H;`N&lt;'"AL;KJNO.\T\G/H;!)H;&amp;C
+MK-+`M,O`X,W&amp;H:/5XM'YU-K(J[[6P_S![M3+T-#-ZKKSHZS#O[CVNNJZ\[:\
+MT]#7UL2XH;!)H;'7Z;/)M&lt;37UK2NP&lt;NAH]?6M*ZUQ+.DMLC3Z[;.PN2UQ+'@
+MNL7*Q]*[T?FUQ*&amp;CTK*^S&lt;K'U-K#_,'NU,O0T,WJNO.CK-3:M=K(_;CVH;`N
+M&lt;'"AL;KJNO/3T-?6M*ZAL$E)2:&amp;QH:/4VK7:SN6X]K;.PN33T-?6M*ZAL$E)
+M24E)H;&amp;CK+7(M&lt;BAH[3+RK'$X]+1OJW3P\+&gt;PNVCJ+ORR[72N];6NMRAL-2M
+MRKRAL;7$HZG*_=?6SJJVSL+DL&gt;"ZQ&lt;'+H:,*"K7:MO[,]&lt;BKOM;#_,'NO:O"
+MWL+MROW7UM&gt;JN[O.JKC\SJJYYK&gt;VM&lt;30SLJ]H[H*"F=L;V)A;"`O7EPN&lt;'`O
+M('-U8G-T:71U=&amp;4@+TE)24E)+U8O(&amp;&lt;@7`I\('-U8G-T:71U=&amp;4@+U96+U@O
+M(&amp;&lt;@?"!S=6)S=&amp;ET=71E("])24E)+TE6+PH*HZC4VL_"TKO5PM;0Q..[X=&amp;G
+MM;W4VLSFN[O#_,'NNO.\T\G/M&lt;30H="TU];$N*&amp;P9Z&amp;QHZS*Q]/#P+36N,J^
+ML&gt;"\K&lt;;WMM3#O]*[T-"]^-#0OJ&amp;_R&lt;3&lt;MN"TSK7$S.:[NZ&amp;CMOC)S\/FP_S!
+M[K7$M=K2N[*_M];0T,2IM&lt;30L;C&lt;L&gt;W*OL_"TKO0T+7$P_S![LK'O=/0^-3:
+MU&gt;+2N]#0NO.AHZ.I"@K2JM:JM&lt;"UVK;^S/7(J[[6P_S![LK'U/71^;FDU_&gt;U
+MQ*.LO\F_M-*[S\*AL+7:,3FVSJ&amp;QM&lt;3'Z;_VH://PL/FM&lt;3+Q-#0L&gt;W*OK7$
+MM]:Q\,K'NNK4VLSFN[O#_,'NU,O0T,&gt;PHZRZS;W3S\+`M+7$R/VX]LSFN[O#
+M_,'NUO"X]M:TT-"Z\[7$L&gt;2[K\?IO_:CN@H*+G!P24E)24E)24E)24E)24E)
+M24E)20HN&lt;'!65E9)24E)"BYP&lt;%A624E)20HN&lt;'!85DE6"@K/N-#$M&lt;2VP=7?
+MO\G$W-&gt;BTN*UO&lt;'+UKO0Z-/#TKO,]&lt;BKOM;#_,'NOLW$W+;4U&gt;+0J;;.PN2]
+M^-#0L&gt;"ZQ&lt;'+H:/4VLBKOM;#_,'NTL:UO&lt;_"TKO0T,&gt;PHZRZZLOYU-JUQ+6Q
+MQ[#0T+KSTM&amp;^K&lt;SMO-/!RZ&amp;P2:&amp;QP&lt;NAH\OYTM3.TL/'O\G2U-3:P_S![K^J
+MRKS'L+;4R*N^UL/\P&gt;ZUQ+'JRK;0T-?WO,&gt;ZQ:.HO[32N\_"M=K2N[CVSLK,
+MXK7$LLZ_O+3PL+BCJ:.LR+NZ\\K'S.V\TZ&amp;P2:&amp;QM&lt;3,YKN[P_S![J.LU^ZZ
+L\[O8M;W7]\'+O,&gt;ZQ;7$T-"RHM3+T-#7[KKSM&lt;3(_;CVS.:[N\/\P&gt;ZAHPH`
+`
+end
+</code></pre>
+
+<p>脚注</p>
+
+<p><a id ="1"></a>&#91;1&#93; Unix下的老牌排版软件</p>
+
+                        </article>
+                        <hr class="soften">
+                                                <ul class="pager">
+                            <li class="previous"><a href="http://b.soont.com/vim/part2" title="第二章 行模式地址">上一篇</a></li>
+                            <li class="next"><a href="http://b.soont.com/vim/part4" title="第四章 替换命令">下一篇</a></li>
+                        </ul>
+                                                        
+                        </div>
+
+                        <div class="col-md-3">
+                            <!--
+                            <div id="googlesearch">
+                                <script>
+                                  (function() {
+                                    var cx = '015053503464820548847:d8u_zcpmbhq';
+                                    var gcse = document.createElement('script');
+                                    gcse.type = 'text/javascript';
+                                    gcse.async = true;
+                                    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                                        '//www.google.com/cse/cse.js?cx=' + cx;
+                                    var s = document.getElementsByTagName('script')[0];
+                                    s.parentNode.insertBefore(gcse, s);
+                                  })();
+                                </script>
+                                <gcse:search></gcse:search>
+                                </div>
+                                -->
+                            <div class="nav-group">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <ul class="nav nav-pills nav-stacked" id="navv">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <li><a data-toggle="collapse" data-parent="#navv" href="#category1" class="collapsed"><span id="folder1" class="glyphicon glyphicon-folder-close"></span> LINUX<span class="badge pull-right">8</span></a></li>
+                                    <li>
+                                    <ul id="category1"  class="nav nav-pills nav-stacked collapse">
+                                                                                                                                                                                                        <li><a href="http://b.soont.com/linux/linux-tar"><small>Linux下归档与压缩<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                <li><a href="http://b.soont.com/linux/tmux"><small>tmux终端复用<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li><a href="http://b.soont.com/linux/vim-tabnew"><small>Ubuntu下Gvim自动在新标签页打开文件<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                <li><a href="http://b.soont.com/linux/date"><small>date日期命令<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                <li><a href="http://b.soont.com/linux/shell-shortcuts"><small>Shell快捷键<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li><a href="http://b.soont.com/linux/shell-tips"><small>Shell小技巧<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li><a href="http://b.soont.com/linux/git"><small>GIT笔记<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li><a href="http://b.soont.com/linux/rsync"><small>rsync同步命令<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+                                    </li>
+                        <script type="text/javascript">
+                            $('#category1').on('show.bs.collapse', function () {
+                                $("#folder1").attr("class","glyphicon glyphicon-folder-open");});
+                            $('#category1').on('hidden.bs.collapse', function () {
+                                $("#folder1").attr("class","glyphicon glyphicon-folder-close");
+});</script>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <li><a data-toggle="collapse" data-parent="#navv" href="#category2" class="collapsed"><span id="folder2" class="glyphicon glyphicon-folder-open"></span> VIM<span class="badge pull-right">15</span></a></li>
+                                    <li>
+                                    <ul id="category2"  class="nav nav-pills nav-stacked collapse in">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <li><a href="http://b.soont.com/vim/vim-tips"><small>VIM小技巧<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li><a href="http://b.soont.com/vim/zencoding"><small>ZenCoding(emmet)前端利器<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li><a href="http://b.soont.com/vim/tut_indent"><small>缩进-Vim进阶[8]<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                <li><a href="http://b.soont.com/vim/tut_tags"><small>Tags-Vim进阶[7]<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                <li><a href="http://b.soont.com/vim/tut_bang"><small>外部程序-Vim进阶[6]<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                <li><a href="http://b.soont.com/vim/tut_hl"><small>高亮-Vim进阶[5]<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                <li><a href="http://b.soont.com/vim/tut_register"><small>寄存器-Vim进阶[4]<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                <li><a href="http://b.soont.com/vim/tut_script"><small>脚本-Vim进阶[3]<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                <li><a href="http://b.soont.com/vim/tut_folding"><small>折叠-Vim进阶[2]<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                <li><a href="http://b.soont.com/vim/tut_modeline"><small>模式行-Vim进阶[1]<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                <li><a href="http://b.soont.com/vim/part4"><small>第四章 替换命令<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                <li class="active"><a href="http://b.soont.com/vim/part3"><small><em>第三章 功能强大的全局命令 <span class="glyphicon glyphicon-eye-open"></span></em></small></a></li>
+                                                                                                                                                                                                                                                                                                                                <li><a href="http://b.soont.com/vim/part2"><small>第二章 行模式地址<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                <li><a href="http://b.soont.com/vim/part1"><small>第一章 Vi基础<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li><a href="http://b.soont.com/vim/vundle"><small>Vundle插件管理<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+                                    </li>
+                        <script type="text/javascript">
+                            $('#category2').on('show.bs.collapse', function () {
+                                $("#folder2").attr("class","glyphicon glyphicon-folder-open");});
+                            $('#category2').on('hidden.bs.collapse', function () {
+                                $("#folder2").attr("class","glyphicon glyphicon-folder-close");
+});</script>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li><a data-toggle="collapse" data-parent="#navv" href="#category3" class="collapsed"><span id="folder3" class="glyphicon glyphicon-folder-close"></span> 计算机<span class="badge pull-right">3</span></a></li>
+                                    <li>
+                                    <ul id="category3"  class="nav nav-pills nav-stacked collapse">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <li><a href="http://b.soont.com/md/php-markdown"><small>PHP Markdown Extra 中文使用说明<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li><a href="http://b.soont.com/classic/smart-questions-zh"><small>提问的智慧<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li><a href="http://b.soont.com/md/syntax_cn"><small>Markdown 语法<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+                                    </li>
+                        <script type="text/javascript">
+                            $('#category3').on('show.bs.collapse', function () {
+                                $("#folder3").attr("class","glyphicon glyphicon-folder-open");});
+                            $('#category3').on('hidden.bs.collapse', function () {
+                                $("#folder3").attr("class","glyphicon glyphicon-folder-close");
+});</script>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <li><a data-toggle="collapse" data-parent="#navv" href="#category4" class="collapsed"><span id="folder4" class="glyphicon glyphicon-folder-close"></span> RUBY<span class="badge pull-right">1</span></a></li>
+                                    <li>
+                                    <ul id="category4"  class="nav nav-pills nav-stacked collapse">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <li><a href="http://b.soont.com/ruby/requre-load-include"><small>requre load include 区别<span class="glyphicon glyphicon-file"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+                                    </li>
+                        <script type="text/javascript">
+                            $('#category4').on('show.bs.collapse', function () {
+                                $("#folder4").attr("class","glyphicon glyphicon-folder-open");});
+                            $('#category4').on('hidden.bs.collapse', function () {
+                                $("#folder4").attr("class","glyphicon glyphicon-folder-close");
+});</script>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li><a data-parent="#navv" data-toggle="collapse" href="#nocategory" class="collapsed"><span class="glyphicon glyphicon-tags"></span> 未分类<span class="badge pull-right">1</span></a></li>
+                                <li>
+                                <ul id="nocategory" class="nav nav-pills nav-stacked collapse">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <li><a href="http://b.soont.com/diary/2013.11.04"><small>V <span class="glyphicon glyphicon-tag"></span></small></a></li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+                                </li>
+                            </ul>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div><!--container-->
+
+                <footer role="contentinfo" class="bs-footer">
+                <hr>
+                <div class="container">
+                    <p class="text-center"><a href="http://www.vim.org" title="用VIM进行创作"><img alt="用VIM进行创作" src="http://dn-bsoont.qbox.me/themes/soon/vim_powered.png" /></a></p>
+                    <p class="text-center"><small>作品采用</small><a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh"><img alt="知识共享许可" src="http://dn-bsoont.qbox.me/themes/soon/cc.png" /></a><small>进行许可</small></p>
+                    <p class="text-center"> <small>&copy; 2012 - 2013 Designed by <a href="http://www.soont.com">Maucat <span class="glyphicon glyphicon-leaf"></span></a></small></p>
+                </div>
+                </footer>
+
+        <script src="http://cdn.staticfile.org/jquery-scrollUp/2.1.0/jquery.scrollUp.min.js"></script>
+        <script src="http://cdn.staticfile.org/mathjax/2.2/MathJax.js"></script>
+        <script src="http://cdn.staticfile.org/mathjax/2.2/config/TeX-AMS_HTML.js"></script>
+        <script src="http://dn-bsoont.qbox.me/themes/soon/js/bootstrap-paginator.min.js"></script>
+<script>
+        // 动态效果完成后更改心心与下拉的箭头，以及点击后给li加上active的class
+            $(document).ready(function(){
+                $("#desc1").hide();
+                $("#xinxin1").attr("class","glyphicon glyphicon-heart pull-right");
+                $("#jiantou1").attr("class","glyphicon glyphicon-chevron-up");
+                $(".nav-group li").click(function(){
+                    $(".nav-group li").removeClass("active");
+                    $(this).addClass("active");
+                    });
+                //为文章内的表格添加table class
+                $("article>table").addClass("table");
+                //给不是内部链接的链接加上target属性，_blank值
+                $("a[href*='http://']:not([href*='"+location.hostname+"']),[href*='https://']:not([href*='"+location.hostname+"'])").attr("target","_blank");
+                //锚点偏移
+
+                $("article a, .panel-body a").click(function() {
+                        $("html, body").animate({
+                            scrollTop: $($(this).attr("href")).offset().top - 70 + "px"
+                        }, 0);
+                        return false;
+                    });
+                });
+
+
+                // 分页插件                     
+var options = {
+    currentPage: 1,
+    totalPages: 6,
+    bootstrapMajorVersion: 1,
+    pageUrl: function(type, page, current){
+
+        return "http://b.soont.com/page/"+page;
+
+    },
+tooltipTitles: function (type, page, current) {
+                    switch (type) {
+                    case "first":
+                        return "第一页";
+                    case "prev":
+                        return "上一页";
+                    case "next":
+                        return "下一页";
+                    case "last":
+                        return "最后一页";
+                    case "page":
+                        return null;
+                    }
+                }
+    }
+    $('#pagin').bootstrapPaginator(options);
+
+//滚动到页顶设置
+		$(function () {
+			$.scrollUp({
+		        scrollName: 'scrollUp', // Element ID
+		        scrollDistance: 300, // Distance from top/bottom before showing element (px)
+		        scrollFrom: 'top', // 'top' or 'bottom'
+		        scrollSpeed: 1300, // Speed back to top (ms)
+		        easingType: 'linear', // Scroll to top easing (see http://easings.net/)
+		        animation: 'slide', // Fade, slide, none
+		        animationInSpeed: 500, // Animation in speed (ms)
+		        animationOutSpeed: 500, // Animation out speed (ms)
+		        scrollText: '回到页首', // Text for element, can contain HTML
+		        scrollTitle: false, // Set a custom <a> title if required. Defaults to scrollText
+		        scrollImg: false, // Set true to use image
+		        zIndex: 10000 // Z-Index for the overlay
+			});
+		});
+</script>
+            </body>
+        </html>

@@ -1,0 +1,431 @@
+﻿<!DOCTYPE html><html class=" -webkit-"><head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
+<meta content="telephone=no" name="format-detection">
+<meta name="apple-mobile-web-app-capable">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="keywords" content="[转载]Vim&nbsp;Script&nbsp;-&nbsp;列表篇_meisme的博客_meisme_新浪博客,meisme,转载">
+<meta name="description" content="[转载]Vim&nbsp;Script&nbsp;-&nbsp;列表篇_meisme的博客_meisme_新浪博客,meisme,cool原文地址：Vim Script - 列表篇作者：马理猴Vim Script List   列表和数组的概念 Vim Script 的...">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://blog.sina.cn/dpool/blog/s/blog_64a1add30101dj5b.html">
+<meta property="og:title" content="[转载]Vim&nbsp;Script&nbsp;-&nbsp;列表篇_meisme的博客">
+<meta property="og:description" content="[转载]Vim&nbsp;Script&nbsp;-&nbsp;列表篇_meisme的博客_meisme_新浪博客,meisme,cool原文地址：Vim Script - 列表篇作者：马理猴Vim Script List   列表和数组的概念 Vim Script 的...">
+<title>[转载]Vim&nbsp;Script&nbsp;-&nbsp;列表篇_meisme的博客 </title>
+<script>
+var globalConfig = {
+    startTime : new Date().getTime(),
+    isLogin : false
+}
+var __sinaSudaConfig__ = {
+    uid : "",
+    url : "http://blog.sina.com.cn/s/blog_64a1add30101dj5b.html",
+    startTime : new Date().getTime()
+};
+var __sinacnCollectConfig__ = {
+    uid:'',
+    url:'http://blog.sina.com.cn/s/blog_64a1add30101dj5b.html',
+    cateid:'',
+    guid:'__221.11.61.150_1418217234_0.73611900'
+};
+var __sinacnPerformance__ = {
+    collect : function(name){
+        this[name] = new Date() - __sinaSudaConfig__.startTime;
+    }
+};
+</script>
+<link rel="apple-touch-icon-precomposed" href="./[转载]Vim Script - 列表篇_meisme的博客_html/4880616.png">
+<script>__sinacnPerformance__.collect('icon');</script>
+<link href="./[转载]Vim Script - 列表篇_meisme的博客_html/15730822.css" type="text/css" rel="stylesheet">
+<script>__sinacnPerformance__.collect('css');</script>
+</head>
+<body style="overflow-x: hidden; ">
+<div id="layout-root" style="width: 100%; min-height: 640px; overflow-x: hidden; overflow-y: hidden; ">
+<div id="layout-root-pllist"><div class="f-wraper" id="layout-base" style="position: relative; width: 100%; z-index: 20; ">
+<div class="f-wrap" id="layout-base-pllist" data-box="init-view" style="min-height: 634px; "><div id="layout-base-mask" style="position: absolute; top: 0px; display: none; opacity: 0; width: 100%; z-index: 99; background-color: rgba(0, 0, 0, 0.296875); height: 100%; overflow-x: hidden; overflow-y: hidden; "></div><div id="pl-appdownload-bar" style="display: block; "><div data-role="promo-box" class="bl-app-download" style="" data-type="prompt-xinyue"><a data-role="link" href="javascript:;" data-url="http://www.sinaimg.cn/lf/xytx/SinaReader_6.apk" data-protocol="sinaread://read.sina.com.cn?from=way3_1&amp;ver=1" trace-code="23_01_02_android"><span class="app-down-img d-app-down-img"></span></a><span data-role="close" class="app-down-close3"><i class="b-ft-icon">#</i></span></div><div data-role="weixin-promo-box" class="bl-weimsg-app" style="display: none; "><a data-role="link" href="javascript:;"><dl class="weimsg-add"><dt class="head"><img src="./[转载]Vim Script - 列表篇_meisme的博客_html/4942863.png" width="36" height="36"></dt><dd class="info"><h3>新阅天下</h3><p class="desc">提供海量博客的深度阅读</p></dd><dd class="down"><span class="download">免费下载 <i class="b-ft-icon dw-arw-icn">G</i></span></dd></dl></a></div></div><header class="bl-header" id="pl-navigation" style="z-index: 60; position: absolute; left: 0px; top: 0px; "><div class="menu clearfix"><a><span class="dashbd" data-role="menu" trace-code="38_01_57"><span class="b-dashbd-icn"><span class="a"></span><span class="b"></span><span class="c"></span><span class="d"></span></span></span></a><a><span class="usercnt b-ft-icon" data-role="user" trace-code="38_01_56">.</span><span style="display: none; " class="b-redtips" data-role="redtips">...</span></a><a href="javascript:;"><span data-role="night-mode" class="night b-ft-icon" trace-code="19_01_27">i</span></a><div class="blog-logo" data-role="logo" style="display: none; "></div><div class="user-sort" data-role="info" style=""><a class="b-txt2" data-role="list-button" trace-code="38_01_71"><span class="blog-nm b-ellipsis" data-role="title">meisme</span><i class="b-ft-icon dw-arw-icn" data-role="title-icon">"</i></a></div></div><div data-role="link-mask" style="display: none; position: absolute; z-index: 4; background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgba(0, 0, 0, 0); background-size: initial; width: 360px; height: 640px; top: 0px; left: 0px; background-position: initial initial; background-repeat: initial initial; "></div><div class="l-blg-sort" data-role="link-box" style="display:none;"><div data-role="link-panel" class="blg-sort" style="overflow-y: auto; "><ul class="sort-ls"><li><a href="http://blog.sina.cn/dpool/blog/u/1688317395#type=-1" data-title="" class="lk"><span class="cont"></span><span class="b-ft-icon all-icn">:</span><span class="h b-ellipsis">个人首页</span></a></li><li><a href="http://blog.sina.cn/dpool/blog/u/1688317395#type=-1" data-title="全部博文" class="lk"><span class="cont">8</span><span class="b-ft-icon all-icn">^</span><span class="h b-ellipsis">全部博文</span></a></li><li><a href="http://blog.sina.cn/dpool/blog/u/1688317395#type=-3" data-title="收藏博文" class="lk"><span class="cont">4</span><span class="b-ft-icon fav-icn">8</span><span class="h b-ellipsis">收藏博文</span></a></li></ul></div></div></header>
+<!--第一列start-->
+    <div id="layout-content">
+<div id="layout-content-pllist" style="overflow-y: hidden; height: auto; padding-bottom: 52px; "><div id="pl-blog-article" class="bl-article" style="min-height: 300px; ">
+            
+        	<article class="article" pagecount="9" data-blogid="64a1add30101dj5b" data-pubdate="2012-11-07 02:13:57" data-role="article">
+            	<h1>[转载]Vim&nbsp;Script&nbsp;-&nbsp;列表篇</h1>
+                <div class="b-txt3 read-time"><span class="reads">阅读：<span data-role="read-num">61</span></span><span class="time">2012-11-07 02:13</span></div>
+                                <div class="tag b-txt3 clearfix"><span class="tg">标签：</span><a class="b-txt3" target="_blank" href="http://site.proc.sina.cn/search/blog_search.php?keyword=%E8%BD%AC%E8%BD%BD&amp;type=%E5%8D%9A%E6%96%87&amp;vt=4&amp;vt=4&amp;by=title">转载</a>				</div>
+                									<div class="propagation">
+					                    	<h2 class="b-txt2">cool<br></h2>
+					                        <div class="arc-link b-txt2">原文地址：<a href="http://blog.sina.cn/dpool/blog/s/blog_87edb138010102a7.html" title="Vim&nbsp;wbrScript&nbsp;wbr-&nbsp;wbr列表篇">Vim&nbsp;Script&nbsp;-&nbsp;列表篇</a></div>
+                        <div class="b-txt2 arc-author">原文作者：<a href="http://blog.sina.cn/dpool/blog/u/2280501560" title="马理猴">马理猴</a></div>
+                    </div>
+				                <div class="content b-txt1">
+				Vim Script List<br>
+列表和数组的概念<br>
+Vim Script 的列表是元素（这里的元素可以是数值、字符串、函数引用、列表）的有序集合，而数组则是存储列表的变量。在 Vim
+Script
+里，这两个术语是常常混用的。不过更精确的来说，列表指的是数据，而数组指的是变量。列表的值不一定要放在数组里，但每个数组变量一定会包含一个列表（该列表可能是空的）。<br>
+
+1 列表中的元素是有序的，也就是说，从起始元素到终止元素的先后次序是固定的。<br>
+2 列表可以包含任意多个不同数据类型的元素。<br>
+3 列表中的每个元素都有相应的整数作为索引，从数字 0 开始递增，每次加 1。<br>
+列表的创建<br>
+列表使用方括号（[]）作为分隔符，里面的元素使用逗号（,）进行分隔。元素可以是数值、字符串、函数引用、列表。<br>
+列表忽略末尾额外的逗号。<br>
+空列表是直接使用方括号表示 []。<br>
+列表的语法形式：<br>
+let list = [element, element, ..., element]<br>
+例1：<br>
+let empty_list = []<br>
+let name_list = ['nana', 'nene', 'nini', 'nono', 'nunu']<br>
+let array_list = [1, '1', [1, 2, 3],]<br>
+列表的索引<br>
+列表中的每个元素都有相应的整数作为索引。我们正是通过这个索引来访问列表中的元素。<br>
+列表的第一个元素的索引为 0，向后则增加 1。列表的最后一个元素的索引为 -1，向前则减去 1。如倒数第二个元素的索引为
+-2。<br>
+在列表之后的方括号中使用索引可以访问列表元素。如果元素本身是列表，则需要使用多重索引进行访问。<br>
+例1：<br>
+let family_member = [1, ['father', '28'], 2, ['mather',
+'28']]<br>
+echo 'index =' family_member[0]<br>
+echo 'age =' family_member[1][1]<br>
+echo 'index =' family_member[-2]<br>
+echo 'age =' family_member[-1][-1]<br>
+当使用非法的索引访问列表时，将出现错误。为了避免这种错误，可以使用 get() 函数。get()
+函数在遇到非法索引时，返回指定的缺省值，如果没有缺省值，则返回 0。遇到合法的索引时，则返回索引所在的元素。<br>
+例2：<br>
+let scripts = ['perl', 'shell', 'python', 'ruby']<br>
+echo get(scripts, 3)<br>
+echo get(scripts, 5)<br>
+echo get(scripts, 5, 'none')<br>
+列表的访问<br>
+如果直接使用列表变量名称本身，则表示使用整个列表。<br>
+上一小节已经提到，需要通过索引来访问列表的元素。在列表变量之后的方括号中使用索引即可访问列表的元素。索引可以是整数，也可以是得到整数的表达式（表达式的结果不能是浮点数）。<br>
+
+列表访问的语法形式：<br>
+list[index_exp][index_exp]...[index_exp]<br>
+例1：<br>
+let numbers = [11, 10, 12, 9, 13, 8]<br>
+let i = 1<br>
+let j = 2<br>
+echo numbers[i + j]<br>
+echo numbers[i - j]<br>
+for 循环依次取列表中的元素赋值给指定的变量（可以是标量、也可以是列表）。<br>
+例2：<br>
+let numbers = [11, 10, 12, 9, 13, 8]<br>
+echo numbers<br>
+for element in numbers<br>
+echo element<br>
+endfor<br>
+for index in range(len(numbers))<br>
+echo numbers[index]<br>
+endfor<br>
+while 循环可以通过索引循环的方式来访问列表中的元素。<br>
+例3：<br>
+let numbers = [11, 10, 12, 9, 13, 8]<br>
+echo numbers<br>
+let index = 0<br>
+while index &lt; len(numbers)<br>
+echo numbers[index] + 1<br>
+let index += 1<br>
+endwhile<br>
+map 函数是 for 循环的简化版，通过提供复杂的表达式来对列表进行计算（map 函数修改的是列表本身）。<br>
+例4：<br>
+let numbers = [11, 10, 12, 9, 13, 8]<br>
+echo numbers<br>
+call map(numbers, '(v:val &gt; 10) ? v:val-2 : v:val+2')<br>
+echo numbers<br>
+子列表<br>
+Vim Script
+的子列表是列表部分元素的集合。方法是在方括号内指定开始索引和结束索引，并使用冒号（:）分割首末索引。开始索引和结束索引可以是整数、表达式（结果必须是整数）、缺省。<br>
+
+子列表的语法形式：<br>
+let sub_list = list[s_index_exp : e_index_exp]<br>
+例1：<br>
+let numbers = [11, 10, 12, 9, 13, 8]<br>
+let sub_numbers = numbers[-2 : -1]<br>
+echo sub_numbers<br>
+let sub_numbers = numbers[2 : len(numbers)-1]<br>
+echo sub_numbers<br>
+开始索引如果省略等同于使用 0；结束索引省略等同于使用 -1。[ : ] 则表示取整个列表。<br>
+例2：<br>
+let numbers = [11, 10, 12, 9, 13, 8]<br>
+let sub_numbers = numbers[ : 4]<br>
+echo sub_numbers<br>
+let sub_numbers = numbers[2 : ]<br>
+echo sub_numbers<br>
+let sub_numbers = numbers[ : ]<br>
+echo sub_numbers<br>
+如果开始索引大于列表的最大长度或结束索引小于开始索引，则返回空列表。<br>
+例3：<br>
+let numbers = [11, 10, 12, 9, 13,8]<br>
+let sub_numbers = numbers[len(numbers) : 4]<br>
+echo sub_numbers<br>
+列表的赋值<br>
+就像标量值可以赋值给标量变量一样，列表也可以赋值给变量（通常是标量变量、列表变量）。<br>
+列表可以赋值给列表，也可以分别赋值给单独的变量，这相当于做了独立的赋值操作。<br>
+列表赋值的语法形式：<br>
+let list = o_list<br>
+let [var1, var2, ...; remain_var] = list<br>
+直接将一个列表赋值给另外一个列表，这两个列表实际上指的是同一列表（也可以这样说，在赋值的时候是使用列表的引用）。对其中一个列表的元素进行操作都会影响到另一个列表。但是如果对其中一个列表赋予新的列表值则不会影响到另一个列表。<br>
+
+例1：<br>
+let alist = [11, 10, 12, 9, 13, 8]<br>
+let blist = alist<br>
+echo alist blist<br>
+let blist[3] = 33<br>
+echo alist blist<br>
+let blist = [alist[0], alist[1]]<br>
+echo alist blist<br>
+可以使用操作符 is 检查两个变量是否指向同一个列表，如果相同返回真值。操作符 isnot 的功能刚好相反。操作符 ==
+比较两个列表的值是否相同。<br>
+两个列表使用操作符 is 得到的是真值，则两个列表使用操作符 == 得到的也必定是真值。<br>
+两个列表使用操作符 == 得到的是真值，则两个列表使用操作符 is 得到的不一定是真值。<br>
+例2：<br>
+let alist = [11, 10, 12, 9, 13, 8]<br>
+let blist = alist<br>
+let clist = [11, 10, 12, 9, 13, 8]<br>
+echo alist is blist<br>
+echo alist is clist<br>
+echo alist == clist<br>
+列表赋值给单个变量时，如果变量和列表的数量不一致，则会出错。要处理列表中所有额外的元素，可以加上分号（;）和一个列表变量。<br>
+例3：<br>
+let alist = [11, 10, 12, 9, 13, 8]<br>
+let [num1, num2; rest] = alist<br>
+echo num1<br>
+echo num2<br>
+echo rest<br>
+因为列表是在赋值运算开始之前建立的，所有在 Vim Script 里互换列表中的两个元素很容易。<br>
+例4：<br>
+let alist = [11, 10, 12, 9, 13, 8]<br>
+echo alist<br>
+let [alist[2], alist[3]] = [alist[3], alist[2]]<br>
+echo alist<br>
+列表的复制<br>
+Vim Script 支持把一个列表的值复制给另一个列表（不是指向同一个列表）。列表的复制可以分为浅复制和深复制。<br>
+浅复制和深复制的区别在于前者在复制列表的列表的时候，是复制的列表的引用，而后者采用递归的方式复制列表的值。<br>
+可以使用 [:] 和 copy 函数的方式进行浅复制。因此如果改变列表的列表的元素的值，则依然会改变另一个列表的值。<br>
+例1：<br>
+let alist = [[1, 2, 3], 1, 2, 3]<br>
+let blist = alist[ : ]<br>
+let clist = copy(alist)<br>
+let alist[0][0] = 11<br>
+let blist[0][1] = 12<br>
+let clist[0][2] = 13<br>
+echo alist is blist blist is clist<br>
+echo alist == blist blist == clist<br>
+echo alist[0] is blist[0] blist[0] is clist[0]<br>
+echo alist[0] == blist[0] blist[0] == clist[0]<br>
+可以这样理解，浅复制在复制列表的列表的时候实际上是复制列表的引用。因此改变列表的引用所指向的数据，两个列表都会有变化。但是如果将列表中的列表用另外一个列表赋值，则实际上赋值的是引用。这时两个引用指向不同的列表。<br>
+
+例2：<br>
+let alist = [[1, 2, 3], 1, 2, 3]<br>
+let blist = alist[ : ]<br>
+let blist[0] = [11, 22, 33]<br>
+echo alist blist<br>
+深复制是以递归的方式复制列表的值。可以使用 deepcopy 函数进行深复制。<br>
+例3：<br>
+let alist = [[1, 2, 3], 1, 2, 3]<br>
+let blist = deepcopy(alist)<br>
+let alist[0][1] = 11<br>
+echo alist blist<br>
+echo alist == blist<br>
+大部分操作列表的内置函数都会改变原来的列表，但我们的本意可能并不是这样，只是想得到操作后的结果。我们常使用 copy 函数或
+deepcopy 函数创建原列表的拷贝，这样就不会改变原来的列表。<br>
+例4：<br>
+let alist = [[1, 2, 3], 1, 2, 3]<br>
+echo sort(deepcopy(alist))<br>
+echo alist<br>
+连接列表<br>
+两个列表可以使用列表连接操作符（+）连接成一个列表。<br>
+例1：<br>
+let alist = [[1, 2, 3]]<br>
+let blist = [1, 2, 3]<br>
+let clist = alist + blist<br>
+echo clist<br>
+let blist += [[4, 5]]<br>
+echo blist<br>
+修改列表<br>
+修改列表是对列表的某一个元素或部分元素进行修改（实际上是对列表的元素进行赋值）。<br>
+修改列表的语法形式：<br>
+let list[index_exp][index_exp]...[index_exp] = scalar or list<br>
+let list[s_index_exp : e_index_exp] = o_list<br>
+例1：<br>
+let alist = [[1, 2, 3], 1, 2, 3]<br>
+let alist[-1] += 10<br>
+let alist[0] = [11, 12, 13]r /&gt; let alist[1 : 2] = [11, 12]<br>
+echo alist<br>
+增加和删除列表元素<br>
+增加和删除列表元素需要通过内置函数完成。元素可以是标量也可以是列表。<br>
+insert(list, element) 在列表的前面增加一个元素<br>
+insert(list, element, index_exp) 在列表中指定索引位置前增加一个元素<br>
+add(list, element) 在列表的最后增加一个元素<br>
+extend(list, o_list) 在列表的最后扩展一个列表<br>
+extend(list, o_list, index_exp) 在列表的指定索引位置扩展一个列表<br>
+remove(list, index_exp) 删除列表中指定索引位置的元素<br>
+remove(list, s_index_exp, e_index_exp) 删除列表中指定起始索引之间的所有元素<br>
+unlet list[index_exp] 删除列表中指定索引位置的元素<br>
+unlet list[s_index_exp : e_index_exp] 删除列表中指定起始索引之间的所有元素<br>
+例1：<br>
+let numbers = [11, 10, 12, 9, 13, 8]<br>
+call insert(numbers, 0)<br>
+call insert(numbers, [-1, -2])<br>
+call insert(numbers, 11, 3)<br>
+call add(numbers, [-11, -12])<br>
+call extend(numbers, [-21, -22])<br>
+echo numbers<br>
+call extend(numbers, [-23, -24], 3)<br>
+echo numbers<br>
+call remove(numbers, -1)<br>
+call remove(numbers, -2, -1)<br>
+unlet numbers[0 : 1]<br>
+unlet numbers[1]<br>
+echo numbers<br>
+其它操作列表的函数<br>
+Vim Script
+的大部分列表操作都是通过内置函数来提供的，以实现排序、反转、范围、索引等操作。这些函数通常接受一个列表并返回列表的某些属性。<br>
+
+sort(list) 按 ASCII 码序给列表元素排序<br>
+reverse(list) 反转列表<br>
+len(list) 列表元素的个数，列表索引的最大值为 len(list) - 1<br>
+max(list) 列表元素的最大值<br>
+min(list) 列表元素的最小值<br>
+empty(list) 判断列表是否为空列表<br>
+count(list, element) 计算列表中元素出现的次数<br>
+index(list, element) 列表元素首次出现的索引<br>
+split(string) 按空白分离字符串保存到列表中<br>
+join(list, glue) 使用指定的内容连接列表的元素保存到字符串<br>
+string(list) 列表用字符串表示<br>
+map(list, exp) 对列表进行指定的表达式操作，列表中的元素依次赋值给 v:val<br>
+range(s_value, e_value, step) 自动产生数字列表，步进值可以为正负整数<br>
+range(e_value) 自动产生数字列表，默认从 0 开始，步进值为 1，最大值为 e_value - 1<br>
+例1：<br>
+let numbers = [11, 10, 12, 9, 13, 8]<br>
+echo 'sort=' sort(numbers)<br>
+echo 'reverse =' reverse(numbers)<br>
+echo 'len =' len(numbers)<br>
+echo 'max =' max(numbers)<br>
+echo 'min =' min(numbers)<br>
+echo 'empty =' empty(numbers)<br>
+echo 'count =' count(numbers, 2)<br>
+echo 'index =' index(numbers, 4)<br>
+echo 'join =' join(numbers, '&lt;--&gt;')<br>
+echo 'split =' split('hello world')<br>
+echo 'string =' string(numbers)<br>
+echo 'map =' map(numbers, 'v:val+3')<br>
+echo 'range =' range(4)<br>
+echo 'range =' range(8, 1, -2)<br>
+总结<br>
+列表篇出现的关键字（命令、操作符、函数名）有：<br>
+命令 ：let、unlet、call<br>
+操作符：is、isnot、==、+<br>
+函数名：get、copy、deepcopy、insert、add、extend、remove、sort、reverse、len<br>
+
+max、min、empty、count、index、split、string、join、map、range<br></div>
+            </article><div data-role="article-loadding" class="b-loading b-txt4" style="display: none; "><span class="b-ft-icon b-load-icn">4<span class="a"></span></span><i>加载中...</i></div><div data-role="article-reloadding" class="b-loading b-txt4" style="display: none; "><i>内容加载失败，点击此处重试</i></div><a data-role="article-loadmore" class="b-loading2 b-txt2" style="display: none; " trace-code="19_01_07">加载余下文章</a>
+            <div class="bl-operation"><div data-role="more-article" style="display: block; "><div class="bl-art-yy b-ellipsis"><span class="b-ft-icon b-txt2">\</span><a trace-code="19_01_17" class="b-txt2" href="http://sax.sina.com.cn/mfp/click?type=3&amp;t=MjAxNC0xMi0xMyAxMjowMDo0MgkxMTguMTkxLjI0OS45NwlfXzIyMS4xMS42MS4xNTBfMTQxODIxNzIzNF8wLjczNjExOTAwCWh0dHA6Ly9ibG9nLnNpbmEuY24vZHBvb2wvYmxvZy9zL2Jsb2dfNjRhMWFkZDMwMTAxZGo1Yi5odG1sCVBEUFMwMDAwMDAwNTQ3ODMJYmZiNTFlZjItNThmYi00OTE4LWE5MTEtZWViYmNiYzU0NTJhCUIyNzdFRkQ0OTBGRglCMjc3RUZENDkwRkYJLQktCTMwMjAwMHwzMDIwMDAJQjI3N0VGRDQ5MEZGCU5CMTQxMDA1NDAJUERQUzAwMDAwMDA1NDc4MwlCMjc3RUZENDkwRkYJV0FQCS0JNDgJLQktCS0JLQktCS0JLQktCTI%3D&amp;url=http%3A%2F%2Fwww.ytpczl.com%2Fyym1031%2Findex.html&amp;captcha=-3588862831846488463" target="_blank">40岁男人吃什么精力旺盛?</a></div><div class="bl-related-more"><h3 class="b-txt1">我的更多文章</h3><ul class="related-ls"><li class="b-ellipsis"><a href="http://blog.sina.cn/dpool/blog/s/blog_64a1add30101ea0h.html?md=gd" trace-code="38_01_52" class="b-txt2">[转载]不同大小球让盘盘口的计算方法</a></li><li class="b-ellipsis"><a href="http://blog.sina.cn/dpool/blog/s/blog_64a1add30101c5nb.html?md=gd" trace-code="38_01_52" class="b-txt2">[转载]VC6.0中添加批量注释插件</a></li><li class="b-ellipsis"><a href="http://blog.sina.cn/dpool/blog/s/blog_64a1add30101c5mv.html?md=gd" trace-code="38_01_52" class="b-txt2">[转载]VC6.0中添加批量注释插件</a></li><li class="b-ellipsis"><a href="http://blog.sina.cn/dpool/blog/s/blog_64a1add30101c3ft.html?md=gd" trace-code="38_01_52" class="b-txt2">[转载]（转）非MFC工程使用MFC库时的问题及解决办法(如果要用CString或</a></li><li class="b-ellipsis"><a href="http://blog.sina.cn/dpool/blog/s/blog_64a1add301018n53.html?md=gd" trace-code="38_01_52" class="b-txt2">[转载]欧洲赔率的结构性问题</a></li><li class="b-ellipsis"><a href="http://blog.sina.cn/dpool/blog/s/blog_64a1add301015wxz.html?md=gd" trace-code="38_01_52" class="b-txt2">[转载]开盘基本思维体系</a></li></ul></div></div><div data-role="blogger" class="bl-head">
+                                        <a class="head-l" href="http://blog.sina.cn/dpool/blog/u/1688317395#type=-1">
+                                            <span class="sp2 b-pic-style" style="background-image:url(http://portrait4.sinaimg.cn/1688317395/blog/30)"></span>
+                                            <span class="sp1 b-txt1 b-ellipsis">meisme</span>
+                                        </a><div class="head-r"><a data-role="follow-btn" class="b-btn-b" href="javascript:;" trace-code="19_01_09_1688317395">加关注</a></div></div></div>      </div><div id="pl-blog-mutual" class="mutual-mod" style="display: none; "></div><div id="pl-blog-artad" class="bl-art-yy bttm-yy b-ellipsis baidu-yy" style="display: block; "><div style="line-height: normal; "><iframe scrolling="no" frameborder="0" style="width: 100%; height: 640px; " src="./[转载]Vim Script - 列表篇_meisme的博客_html/13369643.close();})();"></iframe></div></div><div id="pl-blog-news" class="bl-sinaapp" style="display: block; ">
+        <a data-role="link" href="javascript:;" class="b-txt2" trace-code="23_01_03_android_common" data-type="sinareader" data-protocol="sinaread://" data-url="http://www.sinaimg.cn/lf/xytx/SinaReader_5.apk">
+            <span class="appimg xinyue-app"></span>
+            <span class="b-btn-b app-download">打 开</span>
+            <h4 class="b-ellipsis">新阅天下</h4>
+            <p class="txt b-ellipsis">手机必备的阅读App</p>
+        </a>
+    </div><div id="pl-blog-xg" class="bl-related-rcmmnd" style="">
+    <h3 class="b-txt1" data-role="mod-tj">推荐博文</h3>
+    <ul class="related-list">
+        <li class="b-ellipsis"><a trace-code="38_01_25" class="b-txt2" href="http://blog.sina.cn/dpool/blog/s/blog_5f58ef660101fpdd.html?md=tj">南洋最负盛名的美味绿蛋糕----斑兰戚风蛋糕</a></li>
+        <li class="b-ellipsis"><a trace-code="38_01_25" class="b-txt2" href="http://blog.sina.cn/dpool/blog/s/blog_49c05bcf0102ecoj.html?md=tj">浓浓中国风——甜姜蛋糕</a></li>
+        <li class="b-ellipsis"><a trace-code="38_01_25" class="b-txt2" href="http://blog.sina.cn/dpool/blog/s/blog_a44caf0e0102uzic.html?md=tj">川菜中的开胃菜【蚂蚁上树】</a></li>
+        <li class="b-ellipsis"><a trace-code="38_01_25" class="b-txt2" href="http://blog.sina.cn/dpool/blog/s/blog_c3fbee7b0102uxfk.html?md=tj">俄罗斯如此评价解放军DF41洲际导弹威力</a></li>
+        <li class="b-ellipsis"><a trace-code="38_01_25" class="b-txt2" href="http://blog.sina.cn/dpool/blog/s/blog_50b65e040102uy9z.html?md=tj">全球震惊不已：中国又一种空中神秘幽灵战机曝光</a></li>
+        <li class="b-ellipsis"><a trace-code="38_01_25" class="b-txt2" href="http://blog.sina.cn/dpool/blog/s/blog_4dacb4240102uyxf.html?md=tj">中国上海18万吨航母露真容：超大甲板全球罕见</a></li>
+        </ul>
+</div><div id="pl-blog-tbyy" class="bl-tb-yy" style="display: none; "></div><div id="pl-news-today" class="bl-hot-rcmmnd" style="display: none; "></div><div id="pl-xinyue-recommend" class="bl-hot-rcmmnd" style="display: none; "></div>
+
+
+      
+    
+
+
+
+
+  
+  
+<div class="bl-broadcast-rcmmnd" id="pl-hot-rcmmnd">
+<ul class="broadcast-list">
+        <li class="b-ellipsis" trace-code="38_01_99"><span class="b-ft-icon b-txt2 icon25">h</span><a class="b-txt2" href="http://blog.sina.cn/?from=a">[头条]贪官们高速升迁靠的是什么？</a></li>
+        
+</ul>
+</div><div id="pl-foot-channel" class="bl-channel-nav" style="display: none; "></div><div class="bl-blog-foot" id="pl-foot-opin">
+    <span class="back" data-role="foot-back"></span>
+    <a href="http://www.sina.cn/" class="b-txt1">手机新浪网</a>
+    <a href="http://news.sina.cn/?sa=t124d8889597v84&amp;pos=99&amp;vt=4" class="b-txt1">导航</a>
+    <a href="http://site.proc.sina.cn/search/index.php?search_kind=blog&amp;vt=4" class="b-txt1">搜索</a>
+    <a href="http://dp.sina.cn/dpool/messagev2/index.php?boardid=36" class="b-txt1">意见反馈</a>
+    <span class="home-up" data-role="gotop-btn"><em>回顶部</em></span>
+</div>
+
+
+</div>
+</div><div id="pl-float-bar" class="bl-bar" style="position: fixed; bottom: -30px; -webkit-transform: translateY(52px); "><div class="bl-bar-l"><a data-role="share-btn" trace-code="19_01_01"><span class="b-ft-icon">,</span></a><a data-role="like-btn" trace-code="19_01_02"><span class="b-ft-icon">)</span></a><a data-role="fav-btn" trace-code="19_01_03"><span class="b-ft-icon">&amp;</span></a><a data-role="comment-btn" trace-code="19_01_04" style="position: relative; display: none; "><span class="b-ft-icon">$</span><span data-role="comment-num" class="b-redtips-a" style="display:none;">0</span></a><a data-role="godreply-btn" trace-code="17_01_03" style="display: none; "><span class="b-ft-icon">l</span></a></div></div>
+<!--第二列start-->
+
+</div>
+</div>
+
+
+<div data-role="backtop" style="right:1em;top:50%;display:none" class="b-backtop"><span class="b-ft-icon">"</span></div>
+</div>
+</div>
+<div style="display:none">
+<script>__sinacnPerformance__.collect('html');</script>
+<script> 
+var scope = {
+	"pageid" : "article",
+    "serverRender":6422,
+	"blogerUid" : "1688317395",
+	"blogerNick" : "meisme",
+	"blogerHost" : "", 
+	"loginUid" : "",
+	"loginNick" : "",
+        "shareData" : {"title":"\u5206\u4eab\u81eameisme\u300a[\u8f6c\u8f7d]Vim&nbsp;Script&nbsp;-&nbsp;\u5217\u8868\u7bc7\u300b","content":"cool\u539f\u6587\u5730\u5740\uff1aVim Script - \u5217\u8868\u7bc7\u4f5c\u8005\uff1a\u9a6c\u7406\u7334Vim Script List   \u5217\u8868\u548c\u6570\u7ec4\u7684\u6982\u5ff5 Vim Script \u7684...  (\u6765\u81ea @\u5934\u6761\u535a\u5ba2)","url":"http:\/\/blog.sina.com.cn\/s\/blog_64a1add30101dj5b.html","pic":""},
+    	"loginHost" : "",
+	"url" : "http://blog.sina.com.cn/s/blog_64a1add30101dj5b.html",
+	"cateid" : "" ,
+	            "advType":0,
+	"guid" : "__221.11.61.150_1418217234_0.73611900"
+};
+</script>
+<script>
+(function(){
+    var winHeight = window.innerHeight;
+    var boxHeight = winHeight - 6;
+    var bannerHeight = window.outerWidth < window.outerHeight ? boxHeight - 80 : boxHeight;
+    var each = function(selector, fn){
+        [].slice.call(document.querySelectorAll(selector)).forEach(fn);
+    };
+    each('[data-box="init-view"]', function(node){
+        node.style.minHeight = boxHeight + 'px';
+    });
+    each('#pl-blog-home [data-role="banner"]', function(node){
+        node.style.height = bannerHeight + 'px';
+    });
+})();
+</script>
+<script>__sinacnPerformance__.collect('script');</script>
+<script src="./[转载]Vim Script - 列表篇_meisme的博客_html/9494949.js" data-config="/config.js" data-main="conf/page/main.js">
+</script>
+<script>__sinacnPerformance__.collect('js');</script>
+<script type="text/javascript">
+var sudaLogConfig = {
+    uId : '',
+    url : 'http://blog.sina.com.cn/s/blog_64a1add30101dj5b.html'
+}
+</script>
+<script src="./[转载]Vim Script - 列表篇_meisme的博客_html/4044469.min.js"></script>
+<script src="./[转载]Vim Script - 列表篇_meisme的博客_html/5197786.min.js"></script>
+<script>__sinacnPerformance__.collect('stat');</script>
+</div>
+
+
+<div style="display: none; position: absolute; top: -9999px; left: -9999px; "><iframe style="display: none; "></iframe></div></body></html>

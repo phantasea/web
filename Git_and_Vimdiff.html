@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Git and Vimdiff</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="/javascripts/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/javascripts/site.js"></script>
+<link href="/stylesheets/screen.css" media="screen" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://feeds.feedburner.com/usevim">
+<link rel="alternate" type="application/atom+xml" title="Atom Feed" href="http://feeds.feedburner.com/usevim">
+<link rel="shortcut icon" href="/favicon.ico">
+</head>
+<body>
+<header id="header">
+<hgroup>
+<h1><a href="/">usevim</a></h1>
+<h2>Vim links, plugins, screenshots, tutorials, and themes</h2>
+</hgroup>
+</header>
+<div class="subnav">
+<ul class="nav nav-pills">
+<li><a href="/" class="active">Home</a></li>
+<li><a href="/contact.html">Contact</a></li>
+<li><a target="_blank" href="http://feeds.feedburner.com/usevim">Subscribe</a></li>
+</ul>
+</div>
+<nav id="breadcrumb"><a href="/" class="read-more">&larr; Back</a></nav>
+<section id="container" class="content">
+<div id="content">
+<article class="hentry">
+<header>
+<h1 class="entry-title"><a href="/2012/03/21/git-and-vimdiff">Git and Vimdiff</a></h1>
+<time datetime="2012-03-21T00:03:00Z" pubdate="pubdate" class="updated">21 March 2012</time>
+<p class="byline author vcard">by <span class="fn">Alex Young</span></p>
+<div class="tags"><a href="/tags.html#git">git</a>, <a href="/tags.html#vimdiff">vimdiff</a></div>
+</header><p><img src="/images/posts/vimdiff.png" alt="Vimdiff screenshot" title=""/></p>
+<p>Vimdiff is my favourite diff tool. I've used many others, but I always come back to good old <code>vimdiff</code>. Git comes with <code>git diff</code> (man page: <code>man git-diff</code>) which shows the changes between various things Git knows about -- it's possible to show the changes between the working tree and the index, changes between two trees, and changes between two files.</p>
+<h3>More on <code>git diff</code></h3>
+<p>The most commonly used form is simply <code>git diff</code> -- this shows the changes that are not currently staged for the next commit. If you've already staged changes, <code>git diff --cached</code> will show the difference between the index and the last commit.</p>
+<p>Typing <code>git diff branch</code> will show a diff between the current working directory and the named branch.</p>
+<p>I also use <code>git diff --stat</code> to see an overview of changes. A related command that I like to alias is <code>git log --pretty=format:"[%h] %ae, %ar: %s" --stat</code> which shows commit history with the files that were changed.</p>
+<h3>Vimdiff</h3>
+<p>Vimdiff can be run from the command-line with <code>vimdiff file1 file2 [file3 [file4]]</code>. This actually starts Vim in <em>diff mode</em> -- the previous command is actually equivalent to <code>vim -d file1 file2 [file3 [file4]]</code>. Vim requires a <code>diff</code> command to be available for this to work. Vim's documentation on this is available in <code>:help diff</code>.</p>
+<h3>Git Settings</h3>
+<p>Fortunately for us Vim fanatics, it's fairly easy to get Vimdiff working with Git. Git has a lot of options for working with diffs, and one is <code>diff.tool</code> (man page: <code>man git-config</code>). Also related is the <code>merge.tool</code> setting which can be set to allow Vimdiff to be used as the merge resolution program.</p>
+<p>These settings can be passed to Git without changing any configuration files:</p>
+<pre class="prettyprint lang-text">
+git difftool --tool=vimdiff --no-prompt
+</pre>
+<p>To tell Git to always use Vimdiff, issue the following commands:</p>
+<pre class="prettyprint lang-text">
+git config --global diff.tool vimdiff
+git config --global merge.tool vimdiff
+</pre>
+<p>Omit <code>--global</code> if you just want to set these for the repository in the working directory. Now typing <code>git difftool</code> should bring up Vimdiff.</p>
+<p>Another useful option is <code>difftool.prompt</code> -- this will stop Vim prompting about launching <code>vimdiff</code>:</p>
+<pre class="prettyprint lang-text">
+git config --global difftool.prompt false
+</pre>
+<p>If you're just trying these commands out, then the prompt will seem annoying, but there are cases where you might want to ignore a few files so it can be useful.</p>
+<h3>Editing Changed Files</h3>
+<p>I find myself combining Git's output with <code>vim -p</code> on certain occasions when I want to edit each changed file:</p>
+<pre class="prettyprint lang-text">
+vim -p `git diff --name-only`
+</pre>
+<h3>References and Links</h3>
+<ul>
+<li><a href="http://cheat.errtheblog.com/s/vimdiff/">cheat vimdiff</a></li>
+<li><a href="http://schacon.github.com/git/git-config.html">git-config(1) Manual Page</a></li>
+<li><a href="http://schacon.github.com/git/git-diff.html">git-diff(1) Manual Page</a></li>
+<li><a href="http://vimdoc.sourceforge.net/htmldoc/diff.html">:help diff</a></li>
+</ul>
+</article>
+<script type="text/javascript">var disqus_developer = 0;</script><script type="text/javascript">var disqus_shortname = 'usevim';(function () {var s = document.createElement('script'); s.async = true;s.src = 'http://disqus.com/forums/usevim/count.js';(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);}());</script><div id="disqus_thread"></div><script type="text/javascript">    var disqus_url = 'http://usevim.com/2012/03/21/git-and-vimdiff/';    (function() {        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);    })();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+<div id="sidebar">
+<ul>
+<li>
+<div id="carbonads-container">
+<div class="carbonad">
+<div id="carbon"></div>
+<script>
+            var z = document.createElement("script");
+            z.type = "text/javascript";
+            z.async = true;
+            z.src = "http://engine.carbonads.com/z/15515/carbon_2_1_0_VERT";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(z, s);
+          </script>
+</div>
+</div>
+</li>
+<li class="itemlist">
+<h3>Search</h3>
+<form action="http://www.google.com/search" method="get" class="navbar-search">
+<input name="sitesearch" type="hidden" value="usevim.com"/>
+<input type="text" name="q" placeholder="Search" class="search-query"/>
+</form>
+</li>
+<li class="itemlist">
+<h3>Subscribe</h3>
+<ul class="subscribe">
+<li class="links"><a href="http://twitter.com/vimnews" class="social-button"><img src="/images/icons/twitter.png" alt="Twitter"/></a><a href="https://google.com/+Usevim" class="social-button"><img src="/images/icons/google.png" alt="Google+"/></a><a href="https://www.facebook.com/vimnews" class="social-button"><img src="/images/icons/facebook.png" alt="Facebook"/></a><a href="http://feeds.feedburner.com/usevim" class="social-button"><img src="/images/icons/feed.png" alt="Feed"/></a><a href="http://feedburner.google.com/fb/a/mailverify?uri=usevim&amp;amp;loc=en_US" class="social-button"><img src="/images/icons/mail.png" alt="Email"/></a></li>
+</ul>
+</li>
+<li class="itemlist staff">
+<h3>Staff</h3>
+<ul>
+<li>
+<h4>Editor-in-Chief</h4>
+<div class="twitter"><a href="http://twitter.com/#!/alex_young"><img width="48" height="48" src="/images/twitter/alex_young.png" alt="Alex R. Young"/><span class="meta"><strong class="fullname">Alex R. Young</strong><br/><s>@</s>alex_young</span></a></div>
+<h4>Proof-Reading</h4>
+<div class="twitter"><a href="http://twitter.com/#!/YukaYoung"><img width="48" height="48" src="/images/twitter/YukaYoung.png" alt="Alex R. Young"/><span class="meta"><strong class="fullname">Yuka Young</strong><br/><s>@</s>YukaYoung</span></a></div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<footer>
+<p class="copyright">Content &copy; <strong>usevim</strong> | By the creators of <a href="http://dailyjs.com/">DailyJS</a> | Site source: <a href="https://github.com/alexyoung/usevim">GitHub: alexyoung / usevim</a> | <a href="http://glyphicons.com/">Glyphicons</a> | <a href="/cookies.html">Cookies and Privacy</a></p>
+</footer>
+<script type="text/javascript" src="/javascripts/pretty/run_prettify.js"></script>
+</body>
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<!--[if IE 7 | IE 8]>
+<html class="ie" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9) | !(IE)]><!-->
+<html lang="en-US">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<title>
+Use ADB to bypass dog-slow MTP transfer of files from Android to Linux &mdash; vxlabs </title>
+<link rel="pingback" href="//vxlabs.com/xmlrpc.php"/>
+<script type='text/x-mathjax-config'>
+MathJax.Hub.Config({tex2jax: {inlineMath: [['\\$','\\$'], ['\\(','\\)']]}});</script>
+<link rel="alternate" type="application/rss+xml" title="vxlabs &raquo; Feed" href="//vxlabs.com/feed/"/>
+<link rel="alternate" type="application/rss+xml" title="vxlabs &raquo; Comments Feed" href="//vxlabs.com/comments/feed/"/>
+<link rel="alternate" type="application/rss+xml" title="vxlabs &raquo; Use ADB to bypass dog-slow MTP transfer of files from Android to Linux Comments Feed" href="//vxlabs.com/2014/11/06/use-adb-to-bypass-dog-slow-mtp-transfer-of-files-from-android-to-linux/feed/"/>
+<link rel='stylesheet' id='yarppWidgetCss-css' href='//vxlabs.com/wp-content/plugins/yet-another-related-posts-plugin/style/widget.css?ver=4.1.1' type='text/css' media='all'/>
+<link rel='stylesheet' id='frank_stylesheet-css' href='//vxlabs.com/wp-content/themes/frank/style.css?ver=0.9' type='text/css' media='all'/>
+<!--[if IE]>
+<link rel='stylesheet' id='frank_stylesheet_ie-css'  href='//vxlabs.com/wp-content/themes/frank/ie.css?ver=0.9' type='text/css' media='all' />
+<![endif]-->
+<link rel='stylesheet' id='jetpack-top-posts-widget-css' href='//vxlabs.com/wp-content/plugins/jetpack/modules/widgets/top-posts/style.css?ver=20141013' type='text/css' media='all'/>
+<link rel='stylesheet' id='genericons-css' href='//vxlabs.com/wp-content/plugins/jetpack/_inc/genericons/genericons/genericons.css?ver=3.1' type='text/css' media='all'/>
+<link rel='stylesheet' id='jetpack_css-css' href='//vxlabs.com/wp-content/plugins/jetpack/css/jetpack.css?ver=3.4.1' type='text/css' media='all'/>
+<link rel='stylesheet' id='slimbox2-css' href='//vxlabs.com/wp-content/plugins/wp-slimbox2/css/slimbox2.css?ver=1.1' type='text/css' media='screen'/>
+<script type='text/javascript' src='//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML%2CSafe.js&#038;ver=4.1.1'></script>
+<script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+<script type='text/javascript'>try{jQuery.noConflict();}catch(e){};</script>
+<script type='text/javascript' src='//vxlabs.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<script type='text/javascript' src='//vxlabs.com/wp-content/plugins/wp-slimbox2/javascript/slimbox2.js?ver=2.04'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var slimbox2_options = {"autoload":"1","overlayColor":"#000000","loop":"","overlayOpacity":"0.8","overlayFadeDuration":"400","resizeDuration":"400","resizeEasing":"swing","initialWidth":"250","initialHeight":"250","imageFadeDuration":"400","captionAnimationDuration":"400","caption":"el.title || el.firstChild.alt || el.firstChild.title || el.href || el.href","url":"1","selector":"div.entry-content, div.gallery, div.entry, div.post, div#page, body","counterText":"Image {x} of {y}","closeKeys":"27,88,67","previousKeys":"37,80","nextKeys":"39,78","prev":"http:\/\/vxlabs.com\/wp-content\/plugins\/wp-slimbox2\/images\/default\/prevlabel.gif","next":"http:\/\/vxlabs.com\/wp-content\/plugins\/wp-slimbox2\/images\/default\/nextlabel.gif","close":"http:\/\/vxlabs.com\/wp-content\/plugins\/wp-slimbox2\/images\/default\/closelabel.gif","picasaweb":"","flickr":"","mobile":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='//vxlabs.com/wp-content/plugins/wp-slimbox2/javascript/slimbox2_autoload.js?ver=1.0.4b'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="//vxlabs.com/xmlrpc.php?rsd"/>
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="//vxlabs.com/wp-includes/wlwmanifest.xml"/>
+<link rel='prev' title='Convert dates to different formats in LibreOffice Calc' href='//vxlabs.com/2014/10/06/convert-dates-to-other-formats-in-libreoffice-calc/'/>
+<link rel='next' title='Getting Django Rest Framework to parse docstrings as reStructuredText' href='//vxlabs.com/2014/11/12/getting-django-rest-framework-to-parse-docstrings-as-restructuredtext/'/>
+<meta name="generator" content="WordPress 4.1.1"/>
+<link rel='canonical' href='http://vxlabs.com/2014/11/06/use-adb-to-bypass-dog-slow-mtp-transfer-of-files-from-android-to-linux/'/>
+<link rel='shortlink' href='//wp.me/p1dVx9-aL'/>
+<!--[if lt IE 9]><script src="//vxlabs.com/wp-content/themes/frank/javascripts/html5.js"></script><![endif]--><!--[if lt IE 7]><script src="//vxlabs.com/wp-content/themes/frank/javascripts/ie7.js"></script><![endif]--> <style type="text/css">.recentcomments a{display:inline!important;padding:0!important;margin:0!important;}</style>
+<style type="text/css">#site-title-description{position:absolute!important;clip:rect(1px 1px 1px 1px);clip:rect(1px,1px,1px,1px);}</style>
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Use ADB to bypass dog-slow MTP transfer of files from Android to Linux"/>
+<meta property="og:url" content="http://vxlabs.com/2014/11/06/use-adb-to-bypass-dog-slow-mtp-transfer-of-files-from-android-to-linux/"/>
+<meta property="og:description" content="Last night I had to backup 2760 photos and videos, about 6.3G worth, from my Nexus 4 Android phone to my Linux laptop. The Nexus 4, like many other Android phones, only supports the Media Transfer ..."/>
+<meta property="article:published_time" content="2014-11-06T06:37:00+00:00"/>
+<meta property="article:modified_time" content="2014-11-06T06:41:06+00:00"/>
+<meta property="article:author" content="http://vxlabs.com/author/cpbotha/"/>
+<meta property="og:site_name" content="vxlabs"/>
+<meta property="og:image" content="http://vxlabs.com/wp-content/uploads/2014/11/wpid-airdroid_screenshot-300x272.png"/>
+<meta property="og:locale" content="en_US"/>
+<meta name="twitter:site" content="@jetpack"/>
+<meta name="twitter:image" content="http://vxlabs.com/wp-content/uploads/2014/11/wpid-airdroid_screenshot-300x272.png?w=240"/>
+<meta name="twitter:card" content="summary"/>
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+<style id="custom-css-css">body{color:#333}.post-content{font:17px/1.8 Georgia,serif}.row{max-width:1280px}code,kbd,pre,samp{font-size:.8em}.syntaxhighlighter{font-size:.8em!important}h1:first-child,h2:first-child,h3:first-child,h4:first-child,h5:first-child,h6:first-child{margin-top:15px}</style>
+</head>
+<body id="page" class="single single-post postid-667 single-format-standard custom-background">
+<!--[if lt IE 9]>
+		<div class="chromeframe">Your browser is out of date. Please <a href="http://browsehappy.com/">upgrade your browser </a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a>.</div>
+	<![endif]-->
+<div class="container">
+<header id="page-header" class="row">
+<hgroup id="site-title-description">
+<h1 id="site-title"><a href="http://vxlabs.com">vxlabs</a></h1>
+<h2 id="site-description">visualization, imaging &amp; software engineering</h2>
+</hgroup>
+<a href="http://vxlabs.com/">
+<img src="//vxlabs.com/wp-content/uploads/2014/05/vxlabs_logo_h_240.png" width="240" height="63" alt=""/>
+</a>
+<nav id="site-nav">
+<ul id="menu-main" class="menu"><li id="menu-item-312" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-312"><a href="/">Home</a></li>
+<li id="menu-item-311" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-311"><a href="http://vxlabs.com/about/">What are the vxlabs?</a></li>
+<li id="menu-item-419" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-419"><a href="http://vxlabs.com/expertise/">Expertise</a></li>
+<li id="menu-item-309" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-309"><a href="http://vxlabs.com/contact/">Contact</a></li>
+</ul> </nav>
+</header><div id="content" class="single">
+<div class="row">
+<main id="content-primary" role="main">
+<article itemscope itemtype="http://schema.org/BlogPosting" class="post leftaside">
+<header class="post-header">
+<h1 class="post-title">Use ADB to bypass dog-slow MTP transfer of files from Android to Linux</h1>
+</header>
+<div id='content-main' class='row'>
+<section class='post-content clearfix'>
+ 
+<p> Last night I had to backup 2760 photos and videos, about 6.3G worth, from my Nexus 4 Android phone to my Linux laptop. </p>
+<p> The Nexus 4, like many other Android phones, only supports the <a href="http://en.wikipedia.org/wiki/Media_Transfer_Protocol">Media Transfer Protocol</a>, or MTP, for transferring files via USB connection. With Ubuntu 14.04, this is a fortunately a plug and play situation: Connect the phone via USB cable, and start dragging and dropping files to and fro using the built-in file manager on the Linux side. </p>
+<p> <b><b>Unfortunately</b></b>, this turned out to be dog slow. Stabilising at about 1Mbyte/s, this was going to take more time than I had at my disposal. This looks like it could be a Linux-only problem, but I&#8217;d like to see that confirmed. Whatever the case may be, I had to find alternatives. </p>
+<div style="width: 310px" class="wp-caption alignnone"><a href="http://vxlabs.com/wp-content/uploads/2014/11/wpid-airdroid_screenshot.png"><img src="//vxlabs.com/wp-content/uploads/2014/11/wpid-airdroid_screenshot-300x272.png"></a><p class="wp-caption-text">Accessing the AirDroid web-interface on my Android telephone.</p></div>
+<p> My next stop was the <a href="https://play.google.com/store/apps/details?id=com.icecoldapps.sshserver">ssh server</a> app on the android side. I confirmed that I could ssh in to my unrooted phone (pretty cool that!), and then I confirmed, using the built in <code>ssh://</code> filesystem support in the Linux file manager, that file transfer throughput was still dog slow (also about 1Mbit/s). After some minutes, it looked like the whole transfer stalled completely. </p>
+<p> btsync was of no help in this case, because I have 1.4 on my phone, and use 1.3 on all my other devices (1.4 was completely useless in its beta phase, so I decided to stick with 1.3 until convinced otherwise). </p>
+<p> <a href="https://play.google.com/store/apps/details?id=com.sand.airdroid">AirDroid</a> is an extremely well done app that enables one to remote control one&#8217;s android phone via a super attractive web interface, over its wifi interface. One of its many functions is file transfer, up and down. Selecting to download a whole directory of files results in a huge ZIP file being streamed. This came down at between 2 and 3 Mbyte/s, staying close to 3 for most of the time. </p>
+<p> I was still curious whether we could do better via the USB cable, instead of over wifi, so I fired up <a href="http://developer.android.com/tools/help/adb.html">the Android Debug Bridge</a>, or ADB. This only works if developer mode has been activated on the android phone, and USB debugging mode has been activated. In other words, this is probably not for novice users. </p>
+<p> By using <code>adb pull</code> on the whole directory of files, it started downloading all 6.3G worth of photos and videos. At the end of this, the average throughput was 4.2Mbyte/s, the best of all methods I had tested. </p>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Conclusion</h2>
+<div class="outline-text-2" id="text-1">
+<p> If you need to transfer many files from your MTP-only Android telephone to a Linux host, either use <b><b>AirDroid</b></b> if you want this to be as easy (and as pretty!) as possible, or use <b><b>ADB</b></b> if you want the maximum throughput and don&#8217;t mind getting your hands dirty. </p>
+</div>
+</div>
+<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-official sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><div class="twitter_button"><iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url=http%3A%2F%2Fvxlabs.com%2F2014%2F11%2F06%2Fuse-adb-to-bypass-dog-slow-mtp-transfer-of-files-from-android-to-linux%2F&#038;counturl=http%3A%2F%2Fvxlabs.com%2F2014%2F11%2F06%2Fuse-adb-to-bypass-dog-slow-mtp-transfer-of-files-from-android-to-linux%2F&#038;count=horizontal&#038;text=Use%20ADB%20to%20bypass%20dog-slow%20MTP%20transfer%20of%20files%20from%20Android%20to%20Linux%3A" style="width:101px; height:20px;"></iframe></div></li><li class="share-facebook"><div class="like_button"><iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fvxlabs.com%2F2014%2F11%2F06%2Fuse-adb-to-bypass-dog-slow-mtp-transfer-of-files-from-android-to-linux%2F&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;height=21&amp;locale=en_US&amp;width=90" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:96px; height:21px;" allowTransparency="true"></iframe></div></li><li class="share-google-plus-1"><div class="googleplus1_button"><div class="g-plus" data-action="share" data-annotation="bubble" data-href="http://vxlabs.com/2014/11/06/use-adb-to-bypass-dog-slow-mtp-transfer-of-files-from-android-to-linux/"></div></div></li><li class="share-email"><a rel="nofollow" data-shared="" class="share-email sd-button" href="http://vxlabs.com/2014/11/06/use-adb-to-bypass-dog-slow-mtp-transfer-of-files-from-android-to-linux/?share=email" target="_blank" title="Click to email this to a friend"><span>Email</span></a></li><li><a href="#" class="sharing-anchor sd-button share-more"><span>More</span></a></li><li class="share-end"></li></ul><div class="sharing-hidden"><div class="inner" style="display: none;"><ul><li class="share-linkedin"><div class="linkedin_button"><script type="in/share" data-url="http://vxlabs.com/2014/11/06/use-adb-to-bypass-dog-slow-mtp-transfer-of-files-from-android-to-linux/" data-counter="right"></script></div></li><li class="share-pinterest"><div class="pinterest_button"><a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fvxlabs.com%2F2014%2F11%2F06%2Fuse-adb-to-bypass-dog-slow-mtp-transfer-of-files-from-android-to-linux%2F&#038;description=Use%20ADB%20to%20bypass%20dog-slow%20MTP%20transfer%20of%20files%20from%20Android%20to%20Linux" data-pin-do="buttonBookmark" data-pin-config="beside"><img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png"/></a></div></li><li class="share-end"></li><li class="share-tumblr"><a target="_blank" href="http://www.tumblr.com/share/link/?url=http%3A%2F%2Fvxlabs.com%2F2014%2F11%2F06%2Fuse-adb-to-bypass-dog-slow-mtp-transfer-of-files-from-android-to-linux%2F&name=Use%20ADB%20to%20bypass%20dog-slow%20MTP%20transfer%20of%20files%20from%20Android%20to%20Linux" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:62px; height:20px; background:url('//platform.tumblr.com/v1/share_2.png') top left no-repeat transparent;">Share on Tumblr</a></li><li class="share-stumbleupon"><div class="stumbleupon_button"><iframe src="http://www.stumbleupon.com/badge/embed/1/?url=http%3A%2F%2Fvxlabs.com%2F2014%2F11%2F06%2Fuse-adb-to-bypass-dog-slow-mtp-transfer-of-files-from-android-to-linux%2F&amp;title=Use%20ADB%20to%20bypass%20dog-slow%20MTP%20transfer%20of%20files%20from%20Android%20to%20Linux" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:74px; height: 18px;" allowTransparency="true"></iframe></div></li><li class="share-end"></li><li class="share-reddit"><div class="reddit_button"><iframe src="http://www.reddit.com/static/button/button1.html?width=120&amp;url=http%3A%2F%2Fvxlabs.com%2F2014%2F11%2F06%2Fuse-adb-to-bypass-dog-slow-mtp-transfer-of-files-from-android-to-linux%2F&amp;title=Use%20ADB%20to%20bypass%20dog-slow%20MTP%20transfer%20of%20files%20from%20Android%20to%20Linux" height="22" width="120" scrolling="no" frameborder="0"></iframe></div></li><li class="share-print"><a rel="nofollow" data-shared="" class="share-print sd-button" href="http://vxlabs.com/2014/11/06/use-adb-to-bypass-dog-slow-mtp-transfer-of-files-from-android-to-linux/#print" target="_blank" title="Click to print"><span>Print</span></a></li><li class="share-end"></li><li class="share-end"></li></ul></div></div></div></div></div><div class='yarpp-related'>
+<br><p>Related posts:</p><ol>
+<li><a href="http://vxlabs.com/2011/07/20/how-to-stop-accidentally-answering-or-declining-calls-when-trying-to-fish-your-htc-sense-android-phone-from-your-pocket/" rel="bookmark" title="How to stop accidentally answering or declining calls when trying to fish your HTC Sense Android phone from your pocket">How to stop accidentally answering or declining calls when trying to fish your HTC Sense Android phone from your pocket </a></li>
+<li><a href="http://vxlabs.com/2014/06/15/huawei-e3331-3g-usb-dongle-works-on-ubuntu-14-04-linux/" rel="bookmark" title="Huawei E3331 3G USB dongle works on Ubuntu 14.04 Linux">Huawei E3331 3G USB dongle works on Ubuntu 14.04 Linux </a></li>
+<li><a href="http://vxlabs.com/2012/11/18/european-motorola-atrix-4g-rooting-unlocking-and-cyanogenmod-7-2/" rel="bookmark" title="European Motorola Atrix 4G: Rooting, unlocking and CyanogenMod 7.2">European Motorola Atrix 4G: Rooting, unlocking and CyanogenMod 7.2 </a></li>
+</ol>
+</div>
+</section>
+<div class='post-info'>
+<ul class="metadata vertical">
+<li class="date"><time datetime="2014-11-06" itemprop="datePublished">November 6, 2014</time></li>
+<li class='author'>
+By <a href="http://cpbotha.net/" title="Visit cpbotha&#8217;s website" rel="author external">cpbotha</a> </li>
+<li class="categories"><a href="http://vxlabs.com/category/howto/">howto</a></li>
+<li class="tags"><a href="http://vxlabs.com/tag/adb/" rel="tag">adb</a> <a href="http://vxlabs.com/tag/airdroid/" rel="tag">airdroid</a> <a href="http://vxlabs.com/tag/android/" rel="tag">android</a> <a href="http://vxlabs.com/tag/linux/" rel="tag">linux</a> <a href="http://vxlabs.com/tag/mtp/" rel="tag">mtp</a></li>
+<li class="comments">
+<a href="http://vxlabs.com/2014/11/06/use-adb-to-bypass-dog-slow-mtp-transfer-of-files-from-android-to-linux/#comments">
+2 Comments </a>
+</li>
+</ul> <div id="prev-post" class="clearfix">
+<a href="http://vxlabs.com/2014/10/06/convert-dates-to-other-formats-in-libreoffice-calc/" rel="prev"><nav><span class="arrow">Convert dates to different formats in LibreOffice Calc</span></nav><p>Convert dates to different formats in LibreOffice Calc</p></a> </div>
+</div>
+</div>
+</article>
+<div id='comments-container'>
+<header id="comments-header">
+<h1 id="comments-title">
+2 Comments </h1>
+</header>
+<ul id="comments">
+<li id="comment-107171" class="comment">
+<div class="row">
+<div class="comment-content">
+<p>I&#8217;ve been seeing the same thing. Only my connectivity and transfer speeds are even worse on my Nexus 4 running both 4.4.x and Lollipop. I&#8217;m seeing around 5mb/hour. </p>
+<p>It used to be *really* fast. It was on the order of several MBytes/sec. It&#8217;s also almost unusable on a Windows 7 desktop I have at work. And I&#8217;ve tried about a half dozen different cables, deoxit on the phone contacts, nothing makes it better. </p>
+<p>I resorted to using &#8220;SSH Server&#8221; (Olive Tree) which is an Android app. It transfers through wireless at about 500KBytes/sec. Not great but at least I can get my images.</p>
+<p>Also of note, I tried &#8220;SSH Server&#8221; (Ice Cold Apps) which works and transfers, but the files are corrupted so it turns out to be useless.</p>
+<div class="comment-reply">
+<a class='comment-reply-link' href='/2014/11/06/use-adb-to-bypass-dog-slow-mtp-transfer-of-files-from-android-to-linux/?replytocom=107171#respond' onclick='return addComment.moveForm( "comment-107171", "107171", "respond", "667" )' aria-label='Reply to Richard Scott Smith'>Reply</a> </div>
+</div>
+<div class="comment-info">
+<ul class='metadata vertical'>
+<li class="date"><time datetime="2014-11-06"><span class="date-date">January 05, 2015</span> <span class="date-time">3:44 PM</span></time></li>
+<li class='author' id="vcard-107171">
+By <a class="url fn" href="">Richard Scott Smith</a></li>
+<li>
+</li>
+</ul>
+</div>
+</div>
+</li> 
+<li id="comment-110764" class="comment">
+<div class="row">
+<div class="comment-content">
+<p>Yes! Thank you! I&#8217;ve been searching all over Google to figure out the fastest way to transfer files from android to pc. The answer is adb. Thanks for doing these tests!</p>
+<div class="comment-reply">
+<a class='comment-reply-link' href='/2014/11/06/use-adb-to-bypass-dog-slow-mtp-transfer-of-files-from-android-to-linux/?replytocom=110764#respond' onclick='return addComment.moveForm( "comment-110764", "110764", "respond", "667" )' aria-label='Reply to GreenRaccoon23'>Reply</a> </div>
+</div>
+<div class="comment-info">
+<ul class='metadata vertical'>
+<li class="date"><time datetime="2014-11-06"><span class="date-date">March 10, 2015</span> <span class="date-time">4:59 PM</span></time></li>
+<li class='author' id="vcard-110764">
+By <a class="url fn" href="">GreenRaccoon23</a></li>
+<li>
+</li>
+</ul>
+</div>
+</div>
+</li> 
+</ul>
+<div id="respond" class="comment-respond">
+<h3 id="reply-title" class="comment-reply-title">Join the Discussion <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2014/11/06/use-adb-to-bypass-dog-slow-mtp-transfer-of-files-from-android-to-linux/#respond" style="display:none;">Cancel reply</a></small></h3>
+<form action="//vxlabs.com/wp-comments-post.php" method="post" id="comment-form" class="comment-form">
+<div id="comment-form-info"><label for="author">Name<span class="required">*</span></label> <input id="author" name="author" type="text" placeholder='Name (required)' value="" size="30" aria-required='true'/>
+<label for="email">Email<span class="required">*</span></label> <input id="email" name="email" type="text" placeholder='Email (required)' value=""" size="30" aria-required='true' />
+<label for="url">Website</label><input id="url" name="url" type="text" placeholder='Website' value=""" size="30" /></div>
+												<div id="comment-form-content"><label for="comment">Comment</label><textarea id="comment-form-textarea" placeholder="Your Comment" name="comment" aria-required="true"></textarea></div>						<div class="row"><div id="comment-form-allowed-tags"><p>You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </code></p></div></div>						<p class="form-submit">
+							<input name="submit" type="submit" id="submit" class="submit" value="Post Comment" />
+							<input type='hidden' name='comment_post_ID' value='667' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="07a3109d0c" /></p><p class="comment-subscription-form"><input type="checkbox" name="subscribe_comments" id="subscribe_comments" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" /> <label class="subscribe-label" id="subscribe-label" for="subscribe_comments">Notify me of follow-up comments by email.</label></p><p class="comment-subscription-form"><input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" /> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog">Notify me of new posts by email.</label></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="143"/></p>					</form>
+							</div><!-- #respond -->
+			
+	</div>		</main>
+		 <aside id="sidebar" role="complementary"> 
+	<div id="blog_subscription-4" class="widget-1 widget-first widget jetpack_subscription_widget"><h3 class="widget-title">Subscribe to this blog via email</h3>
+			<form action="#" method="post" accept-charset="utf-8" id="subscribe-blog-blog_subscription-4">
+				<div id="subscribe-text"><p>Enter your email address to subscribe to this blog and receive notifications of new posts by email.</p>
+</div>					<p id="subscribe-email">
+						<label id="jetpack-subscribe-label" for="subscribe-field">
+							Email Address						</label>
+						<input type="email" name="email" value="" id="subscribe-field" placeholder="Email Address" />
+					</p>
+
+					<p id="subscribe-submit">
+						<input type="hidden" name="action" value="subscribe" />
+						<input type="hidden" name="source" value="http://vxlabs.com/2014/11/06/use-adb-to-bypass-dog-slow-mtp-transfer-of-files-from-android-to-linux/" />
+						<input type="hidden" name="sub-type" value="widget" />
+						<input type="hidden" name="redirect_fragment" value="blog_subscription-4" />
+												<input type="submit" value="Subscribe" name="jetpack_subscriptions_widget" />
+					</p>
+							</form>
+
+			<script>
+				( function( d ) {
+					if ( ( 'placeholder' in d.createElement( 'input' ) ) ) {
+						var label = d.getElementById( 'jetpack-subscribe-label' );
+	 					label.style.clip 	 = 'rect(1px, 1px, 1px, 1px)';
+	 					label.style.position = 'absolute';
+	 					label.style.height   = '1px';
+	 					label.style.width    = '1px';
+	 					label.style.overflow = 'hidden';
+					}
+				} ) ( document );
+			</script>
+		 
+		
+</div><div id="text-8" class="widget-2 widget widget_text"><h3 class="widget-title">Or follow me on Twitter</h3>			<div class="textwidget"><a class="twitter-timeline" height="300" href="https://twitter.com/cpbotha" data-widget-id="478955840850763776">Tweets by @cpbotha</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
+		</div><div id="search-6" class="widget-3 widget widget_search"><h3 class="widget-title">Search</h3>
+<form method="get" id="searchform" action="//vxlabs.com/" role="search">
+	<input type="text" placeholder="Type your query, hit enter"  class='textinput' name="s" id="s" />
+</form></div><div id="top-posts-3" class="widget-4 widget-last widget widget_top-posts"><h3 class="widget-title">Top Posts &amp; Pages</h3><ul>				<li>
+										<a href="http://vxlabs.com/2015/02/05/solving-the-ubuntu-14-04-nvidia-346-nvidia-prime-black-screen-issue/" class="bump-view" data-bump-view="tp">
+						Solving the Ubuntu 14.04 - NVIDIA 346 - nvidia-prime black screen issue					</a>
+									</li>
+							<li>
+										<a href="http://vxlabs.com/2012/12/22/ssds-with-usable-built-in-hardware-based-full-disk-encryption/" class="bump-view" data-bump-view="tp">
+						SSDs with usable built-in hardware-based full disk encryption					</a>
+									</li>
+							<li>
+										<a href="http://vxlabs.com/2014/06/15/huawei-e3331-3g-usb-dongle-works-on-ubuntu-14-04-linux/" class="bump-view" data-bump-view="tp">
+						Huawei E3331 3G USB dongle works on Ubuntu 14.04 Linux					</a>
+									</li>
+							<li>
+										<a href="http://vxlabs.com/2014/11/06/use-adb-to-bypass-dog-slow-mtp-transfer-of-files-from-android-to-linux/" class="bump-view" data-bump-view="tp">
+						Use ADB to bypass dog-slow MTP transfer of files from Android to Linux					</a>
+									</li>
+							<li>
+										<a href="http://vxlabs.com/2011/03/02/dont-buy-homeplug-adapters/" class="bump-view" data-bump-view="tp">
+						Don&#039;t buy HomePlug / Powerline ethernet adapters					</a>
+									</li>
+			</ul></div></aside>	</div>
+</div>
+</div>
+	<div style="display:none">
+	</div>
+
+	<script type="text/javascript">
+		WPCOM_sharing_counts = {"http:\/\/vxlabs.com\/2014\/11\/06\/use-adb-to-bypass-dog-slow-mtp-transfer-of-files-from-android-to-linux\/":667}	</script>
+		<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+					<script type="text/javascript">
+			  (function() {
+			    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+			    po.src = 'https://apis.google.com/js/plusone.js';
+			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+			  })();
+			</script>
+				<div id="sharing_email" style="display: none;">
+		<form action="/2014/11/06/use-adb-to-bypass-dog-slow-mtp-transfer-of-files-from-android-to-linux/" method="post">
+			<label for="target_email">Send to Email Address</label>
+			<input type="email" name="target_email" id="target_email" value="" />
+
+			
+				<label for="source_name">Your Name</label>
+				<input type="text" name="source_name" id="source_name" value="" />
+
+				<label for="source_email">Your Email Address</label>
+				<input type="email" name="source_email" id="source_email" value="" />
+
+			
+			
+			<img style="float: right; display: none" class="loading" src="//vxlabs.com/wp-content/plugins/jetpack/modules/sharedaddy/images/loading.gif" alt="loading" width="16" height="16" />
+			<input type="submit" value="Send Email" class="sharing_send" />
+			<a href="#cancel" class="sharing_cancel">Cancel</a>
+
+			<div class="errors errors-1" style="display: none;">
+				Post was not sent - check your email addresses!			</div>
+
+			<div class="errors errors-2" style="display: none;">
+				Email check failed, please try again			</div>
+
+			<div class="errors errors-3" style="display: none;">
+				Sorry, your blog cannot share posts by email.			</div>
+		</form>
+	</div>
+<script type="text/javascript">
+			jQuery( document ).ready( function() {
+			    jQuery.getScript( '//platform.linkedin.com/in.js?async=true', function success() {
+			        IN.init();
+			    });
+			});
+			jQuery( document.body ).on( 'post-load', function() {
+				if ( typeof IN != 'undefined' )
+					IN.parse();
+			});
+			</script>					<script type="text/javascript">
+				// Pinterest shared resources
+				var s = document.createElement("script");
+				s.type = "text/javascript";
+				s.async = true;
+				s.src = window.location.protocol + "//assets.pinterest.com/js/pinit.js";
+				var x = document.getElementsByTagName("script")[0];
+				x.parentNode.insertBefore(s, x);
+				// if 'Pin it' button has 'counts' make container wider
+				jQuery(window).load( function(){ jQuery( 'li.share-pinterest a span:visible' ).closest( '.share-pinterest' ).width( '80px' ); } );
+			</script>
+		<script type="text/javascript" src="//platform.tumblr.com/v1/share.js"></script><script type='text/javascript' src='//vxlabs.com/wp-content/plugins/akismet/_inc/form.js?ver=3.1.1'></script>
+<link rel='stylesheet' id='yarppRelatedCss-css'  href='//vxlabs.com/wp-content/plugins/yet-another-related-posts-plugin/style/related.css?ver=4.1.1' type='text/css' media='all' />
+<script type='text/javascript' src='//vxlabs.com/wp-includes/js/comment-reply.min.js?ver=4.1.1'></script>
+<script type='text/javascript' src='//s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201514'></script>
+<script type='text/javascript' src='//s.gravatar.com/js/gprofiles.js?ver=2015Maraa'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='//vxlabs.com/wp-content/plugins/jetpack/modules/wpgroho.js?ver=4.1.1'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='//vxlabs.com/wp-content/plugins/jetpack/modules/sharedaddy/sharing.js?ver=3.4.1'></script>
+<script type='text/javascript' src='//stats.wp.com/e-201514.js' async defer></script>
+<script type='text/javascript'>
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:3.4.1',blog:'18095763',post:'667',tz:'2'} ]);
+	_stq.push([ 'clickTrackerInit', '18095763', '667' ]);
+</script>
+</body>
+</html>
+<!-- Dynamic page generated in 0.614 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2015-03-30 14:23:47 -->
+
+<!-- Compression = gzip -->

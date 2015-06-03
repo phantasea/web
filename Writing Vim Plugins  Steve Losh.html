@@ -1,0 +1,595 @@
+﻿<!DOCTYPE html><html><head>
+        <link href="./Writing Vim Plugins  Steve Losh_html/15005379" rel="stylesheet" type="text/css">
+        <link rel="profile" href="./Writing Vim Plugins  Steve Losh_html/11838978">
+        <meta charset="utf-8">
+
+        <title>Writing Vim Plugins / Steve Losh</title>
+
+        
+            <link href="./Writing Vim Plugins  Steve Losh_html/1243928" rel="alternate" title="Steve Losh" type="application/atom+xml">
+        
+
+        
+            <link rel="stylesheet" href="./Writing Vim Plugins  Steve Losh_html/1812108.css" type="text/css" media="screen" charset="utf-8">
+            <link rel="stylesheet" href="./Writing Vim Plugins  Steve Losh_html/12866842.css" type="text/css" media="screen" charset="utf-8">
+            <link rel="stylesheet" href="./Writing Vim Plugins  Steve Losh_html/984693.css" type="text/css" media="print" charset="utf-8">
+            
+    <link rel="stylesheet" href="./Writing Vim Plugins  Steve Losh_html/9487149.css" type="text/css" media="screen" charset="utf-8">
+
+        
+
+        
+            <script type="text/javascript" async="" src="./Writing Vim Plugins  Steve Losh_html/11786579.js"></script><script type="text/javascript" async="" src="./Writing Vim Plugins  Steve Losh_html/10705140.js"></script><script data-cfasync="false" src="./Writing Vim Plugins  Steve Losh_html/1751526.js" type="text/javascript"></script>
+            <script data-cfasync="false" src="./Writing Vim Plugins  Steve Losh_html/7103080.timeago.js" type="text/javascript"></script>
+            <script data-cfasync="false" src="./Writing Vim Plugins  Steve Losh_html/7634625.js" type="text/javascript"></script>
+            <script data-cfasync="false" src="./Writing Vim Plugins  Steve Losh_html/13008154.js" type="text/javascript"></script>
+
+            <script data-cfasync="false" type="text/javascript">
+                /* <![CDATA[ */
+                (function() {
+                var s = document.createElement('script');
+                var t = document.getElementsByTagName('script')[0];
+
+                s.type = 'text/javascript';
+                s.async = true;
+                s.src = '//api.flattr.com/js/0.6/load.js?mode=auto';
+
+                t.parentNode.insertBefore(s, t);
+                })();
+                /* ]]> */
+            </script>
+
+            
+        
+
+        <link rel="openid.server" href="./Writing Vim Plugins  Steve Losh_html/7568455">
+        <link rel="openid.delegate" href="./Writing Vim Plugins  Steve Losh_html/7112215">
+
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-15328874-2']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+
+    </head>
+
+    <body>
+        <div class="wrap">
+            <div class="top group">
+                <header>
+                    <a href="http://stevelosh.com/">steve losh</a>
+                </header>
+
+                <nav>
+                    <a href="http://stevelosh.com/blog/">Blog</a>
+                    <span class="sep">-</span>
+                    <a href="http://stevelosh.com/projects">Projects</a>
+                    <span class="sep">-</span>
+                    <a href="http://stevelosh.com/about/">About</a>
+                    <span class="sep">-</span>
+                    <a href="http://feeds2.feedburner.com/stevelosh">Feed</a>
+                </nav>
+            </div>
+
+            <div class="hr">&nbsp;</div>
+
+            <div class="content">
+                
+                    
+                        
+    <div id="leaf-title">
+        <h1><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/">Writing Vim&nbsp;Plugins</a></h1>
+    </div>
+
+
+    <div id="leaf-stats" class="group">
+        
+            <div class="flattr">
+                <iframe src="./Writing Vim Plugins  Steve Losh_html/10467257.htm" title="Flattr" height="20" width="110" style="border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; "></iframe><script id="flattrbtn">(function(i){var f,s=document.getElementById(i);f=document.createElement('iframe');f.src='//api.flattr.com/button/view/?uid=stevelosh&button=compact&url='+encodeURIComponent(document.URL);f.title='Flattr';f.height=20;f.width=110;f.style.borderWidth=0;s.parentNode.insertBefore(f,s);})('flattrbtn');</script>
+                <iframe style="border: 0; margin: 2px 0 -2px 0; padding: 0; margin-top: 2px;" src="./Writing Vim Plugins  Steve Losh_html/1728897.html" width="48pt" height="22pt"></iframe>
+            </div>
+
+        
+        <p>
+            Posted
+            <span class="timeago" title="2011-09-06T09:13:00-0400">3 years ago</span>
+            on September 6, 2011.
+        </p>
+    </div>
+
+    <div id="leaf-content" class="">
+        
+            <!-- Hyde::Article::Begin -->
+                
+                    <p>A while ago I wrote a <a href="http://stevelosh.com/blog/2010/09/coming-home-to-vim/">post</a> about switching back to <a href="http://www.vim.org/">Vim</a>.  Since then
+I’ve written two plugins for Vim, one of which has been&nbsp;officially&nbsp;“released”.</p><ul class="print-links"><li><a href="http://stevelosh.com/blog/2010/09/coming-home-to-vim/">post</a>: http://stevelosh.com/blog/2010/09/coming-home-to-vim/</li><li><a href="http://www.vim.org/">Vim</a>: http://www.vim.org/</li></ul>
+<p>A couple of people have asked me if I’d write a guide to creating Vim plugins.
+I don’t feel confident enough to write an official “guide”, but I do have some advice
+for Vim plugin authors that might&nbsp;be&nbsp;useful.</p>
+<div class="toc">
+<ul>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#other-people-who-know-more-than-i-do">Other People Who Know More Than I Do</a><ul>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#tim-pope">Tim&nbsp;Pope</a></li>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#scrooloose">Scrooloose</a></li>
+</ul>
+</li>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#be-pathogen-compatible">Be&nbsp;Pathogen-Compatible</a></li>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#please-for-the-love-of-god-use-normal">Please, For the Love of God,&nbsp;Use&nbsp;normal!</a></li>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#mapping-keys-the-right-way">Mapping Keys the Right Way</a><ul>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#when-to-map-keys">When to&nbsp;Map&nbsp;Keys</a></li>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#imap-and-nmap-are-pure-evil">imap and nmap are&nbsp;Pure&nbsp;Evil</a></li>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#let-me-configure-mappings">Let Me&nbsp;Configure&nbsp;Mappings</a></li>
+</ul>
+</li>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#localize-mappings-and-settings">Localize Mappings and Settings</a><ul>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#localizing-mappings">Localizing&nbsp;Mappings</a></li>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#localizing-settings">Localizing&nbsp;Settings</a></li>
+</ul>
+</li>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#autoload-is-your-friend">Autoload is&nbsp;Your&nbsp;Friend</a></li>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#backwards-compatibility-is-a-big-deal">Backwards Compatibility is a Big Deal</a><ul>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#what-matters-for-backards-compatibility">What Matters for&nbsp;Backards&nbsp;Compatibility?</a></li>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#use-semantic-versioning-so-i-can-stay-sane">Use Semantic Versioning So I Can&nbsp;Stay&nbsp;Sane</a></li>
+</ul>
+</li>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#document-everything">Document Everything</a><ul>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#pick-some-requirements-and-stick-to-them">Pick Some Requirements and Stick&nbsp;to&nbsp;Them</a></li>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#write-a-readme">Write a&nbsp;<span class="caps"><span class="caps">README</span></span></a></li>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#create-a-simple-website">Create a&nbsp;Simple&nbsp;Website</a></li>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#write-a-vim-help-document">Write a Vim&nbsp;Help&nbsp;Document</a></li>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#keep-a-changelog">Keep&nbsp;a&nbsp;Changelog</a></li>
+</ul>
+</li>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#making-vimscript-palatable">Making Vimscript Palatable</a><ul>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#wrap-everything">Wrap.&nbsp;Everything.</a></li>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#scripting-vim-with-other-languages">Scripting Vim with&nbsp;Other&nbsp;Languages</a></li>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#unit-testing-will-make-you-drink">Unit Testing Will Make&nbsp;You&nbsp;Drink</a></li>
+</ul>
+</li>
+<li><a href="http://stevelosh.com/blog/2011/09/writing-vim-plugins/#tldr"><span class="caps"><span class="caps">TL</span></span>;<span class="caps"><span class="caps">DR</span></span></a></li>
+</ul>
+</div>
+<h2 id="other-people-who-know-more-than-i-do">Other People Who Know More Than&nbsp;I&nbsp;Do</h2>
+<p>Writing two decently-sized Vim plugins has given me some experience, but there are
+a lot of people that know far more than I do.  There are two in particular that come
+to mind.  I’d love for them to write some guides (or even books) about modern-day&nbsp;Vim&nbsp;scripting.</p>
+<h3 id="tim-pope">Tim&nbsp;Pope</h3>
+<p>The first is <a href="http://tpo.pe/">Tim Pope</a>.  He’s written a ton of Vim plugins like <a href="https://github.com/tpope/vim-pathogen">Pathogen</a>,
+<a href="https://github.com/tpope/vim-surround">Surround</a>, <a href="https://github.com/tpope/vim-repeat">Repeat</a>, <a href="https://github.com/tpope/vim-speeddating">Speeddating</a> and <a href="https://github.com/tpope/vim-fugitive">Fugitive</a>.  Each of those is clear,
+focused&nbsp;and&nbsp;polished.</p><ul class="print-links"><li><a href="http://tpo.pe/">Tim Pope</a>: http://tpo.pe/</li><li><a href="https://github.com/tpope/vim-pathogen">Pathogen</a>: https://github.com/tpope/vim-pathogen</li><li><a href="https://github.com/tpope/vim-surround">Surround</a>: https://github.com/tpope/vim-surround</li><li><a href="https://github.com/tpope/vim-repeat">Repeat</a>: https://github.com/tpope/vim-repeat</li><li><a href="https://github.com/tpope/vim-speeddating">Speeddating</a>: https://github.com/tpope/vim-speeddating</li><li><a href="https://github.com/tpope/vim-fugitive">Fugitive</a>: https://github.com/tpope/vim-fugitive</li></ul>
+<p>It would be awesome to read a guide on the ins and outs of Vim scripting&nbsp;by&nbsp;him.</p>
+<h3 id="scrooloose">Scrooloose</h3>
+<p>The other person that comes to mind is <a href="http://got-ravings.blogspot.com/">Scrooloose</a>, author of <a href="https://github.com/scrooloose/nerdtree">NERDTree</a>,
+<a href="https://github.com/scrooloose/nerdcommenter">NERDCommenter</a> and <a href="https://github.com/scrooloose/syntastic">Syntastic</a>.</p><ul class="print-links"><li><a href="http://got-ravings.blogspot.com/">Scrooloose</a>: http://got-ravings.blogspot.com/</li><li><a href="https://github.com/scrooloose/nerdtree">NERDTree</a>: https://github.com/scrooloose/nerdtree</li><li><a href="https://github.com/scrooloose/nerdcommenter">NERDCommenter</a>: https://github.com/scrooloose/nerdcommenter</li><li><a href="https://github.com/scrooloose/syntastic">Syntastic</a>: https://github.com/scrooloose/syntastic</li></ul>
+<p>His plugins are large and full-featured but work incredibly well, considering how
+tricky and painful Vimscript is to work with.  I’d love to read a guide on writing
+large-scale Vim plugins&nbsp;by&nbsp;him.</p>
+<h2 id="be-pathogen-compatible">Be&nbsp;Pathogen-Compatible</h2>
+<p>It’s 2011.  When writing your plugin, <em>please</em> make its source compatible with
+<a href="https://github.com/tpope/vim-pathogen">Pathogen</a>.  It’s very easy to do this — just set up your project’s files&nbsp;like&nbsp;this:</p><ul class="print-links"><li><a href="https://github.com/tpope/vim-pathogen">Pathogen</a>: https://github.com/tpope/vim-pathogen</li></ul>
+<div class="codehilite"><pre>yourplugin/
+    doc/
+        yourplugin.txt
+    plugin/
+        yourplugin.vim
+    ...
+    README
+    LICENSE
+</pre></div>
+
+
+<p>This will let users use Pathogen (or <a href="https://github.com/gmarik/vundle">Vundle</a>) to install and use&nbsp;your&nbsp;plugin.</p><ul class="print-links"><li><a href="https://github.com/gmarik/vundle">Vundle</a>: https://github.com/gmarik/vundle</li></ul>
+<p>The days of “unzip and drag the files into the right directories” and the horror of
+Vimballs are over.  Pathogen and Vundle are the right way to manage plugins, so let
+your users&nbsp;use&nbsp;them.</p>
+<h2 id="please-for-the-love-of-god-use-normal">Please, For the Love of God,&nbsp;Use&nbsp;normal!</h2>
+<p>My first piece of actual scripting advice is something simple but important.  If
+you’re writing a Vim plugin and need to perform some actions, you might be tempted to
+use <code>normal</code>.  Don’t.  Instead, you need to use <code>normal!</code>.</p>
+<p><code>normal!</code> is like <code>normal</code>, but ignores mappings the user has set up.  If you use
+plain old <code>normal dd</code> and I’ve remapped <code>dd</code> to do something else, the call will use
+my mapping and probably not do what your plugin expects.  Using <code>normal!</code> ensures
+that the call will do what you expect no matter what the user&nbsp;has&nbsp;mapped.</p>
+<p>This is a single instance of a more general theme. Vim is very customizable and users
+will do lots of crazy things in their <code>.vimrc</code> files.  If a key can be mapped or
+a setting changed, you <em>have</em> to assume that some user of your plugin will have
+mapped or&nbsp;changed&nbsp;it.</p>
+<h2 id="mapping-keys-the-right-way">Mapping Keys the&nbsp;Right&nbsp;Way</h2>
+<p>Most plugins add key mappings to make them easier to use.  Unfortunately this can be
+tricky to get right.  You can never tell what keys your users have already mapped
+themselves, and shadowing someone’s favorite key mapping will break their muscle
+memory and annoy them to&nbsp;no&nbsp;end.</p>
+<h3 id="when-to-map-keys">When to&nbsp;Map&nbsp;Keys</h3>
+<p>The first question to ask is whether your plugin needs to map keys itself&nbsp;at&nbsp;all.</p>
+<p>My <a href="http://sjl.bitbucket.org/gundo.vim/">Gundo</a> plugin has only one feature that needs to be mapped to a key in order to
+make it useful: the “toggle&nbsp;Gundo”&nbsp;action.</p><ul class="print-links"><li><a href="http://sjl.bitbucket.org/gundo.vim/">Gundo</a>: http://sjl.bitbucket.org/gundo.vim/</li></ul>
+<p>Gundo doesn’t map this key itself, because no matter what “default” mapping I pick
+someone will have already mapped it.  Instead I added a section right in the <span class="caps"><span class="caps">README</span></span>
+file that shows how a user can map the&nbsp;key&nbsp;themselves:</p>
+<div class="codehilite"><pre><span class="nb">nnoremap</span> <span class="p">&lt;</span>F5<span class="p">&gt;</span> :GundoToggle<span class="p">&lt;</span><span class="caps"><span class="caps">CR</span></span><span class="p">&gt;</span>
+</pre></div>
+
+
+<p>By making users add this line to their <code>.vimrc</code> themselves it shows them which key is
+used to toggle Gundo (which they would have to know anyway) and also makes it obvious
+how to change it to suit&nbsp;their&nbsp;taste.</p>
+<h3 id="imap-and-nmap-are-pure-evil">imap and nmap are&nbsp;Pure&nbsp;Evil</h3>
+<p>Sometimes forcing the user to map their own keys won’t work.  Perhaps your plugin has
+many mappings that would be tedious for a user to set up manually (like my
+<a href="http://sjl.bitbucket.org/threesome.vim">Threesome</a> plugin), or its mappings are mnemonic and wouldn’t really make sense if
+mapped to&nbsp;other&nbsp;keys.</p><ul class="print-links"><li><a href="http://sjl.bitbucket.org/threesome.vim">Threesome</a>: http://sjl.bitbucket.org/threesome.vim</li></ul>
+<p>I’ll talk more about how to deal with this in a moment, but the most important thing
+to remember when mapping your own keys is that you must always, <em>always</em>,
+<strong><em>always</em></strong> use the <code>noremap</code> forms of the various <code>map</code> commands.</p>
+<p>If you map a key with <code>nmap</code> and the user has remapped a key that your mapping uses,
+your mapped key will almost certainly not do what you want.  Using <code>nnoremap</code> will
+ignore user mappings and do what&nbsp;you&nbsp;expect.</p>
+<p>This is the same principle as <code>normal</code> and <code>normal!</code>: <em>never</em> trust your&nbsp;users’&nbsp;configurations.</p>
+<h3 id="let-me-configure-mappings">Let Me&nbsp;Configure&nbsp;Mappings</h3>
+<p>If you feel that your plugin must map some keys, please make those mappings
+configurable in&nbsp;some&nbsp;way.</p>
+<p>There are a number of ways to do this.  The easiest way is to provide a configuration
+option that disables all mappings.  The user can them remap the keys as they see fit.&nbsp;For&nbsp;example:</p>
+<div class="codehilite"><pre><span class="k">if</span> <span class="p">!</span>exists<span class="p">(</span><span class="s1">'g:yourplugin_map_keys'</span><span class="p">)</span>
+    <span class="k">let</span> <span class="k">g</span>:yourplugin_map_keys <span class="p">=</span> <span class="m">1</span>
+<span class="k">endif</span>
+
+<span class="k">if</span> <span class="k">g</span>:yourplugin_map_keys
+    <span class="nb">nnoremap</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">d</span> :<span class="k">call</span> <span class="p">&lt;</span>sid<span class="p">&gt;</span>YourPluginDelete<span class="p">()&lt;</span><span class="caps"><span class="caps">CR</span></span><span class="p">&gt;</span>
+<span class="k">endif</span>
+</pre></div>
+
+
+<p>Normal users will get the mappings automatically set up for them, and power users can
+remap the keys to whatever they wish to avoid shadowing their&nbsp;own&nbsp;mappings.</p>
+<p>If your plugin’s mappings all start with a common prefix (like <code>&lt;leader&gt;</code> or
+<code>&lt;localleader&gt;</code>) you have another option: allow users to configure this prefix.  This
+is the approach I’ve used in <a href="http://sjl.bitbucket.org/threesome.vim">Threesome</a>.  It works&nbsp;like&nbsp;this:</p><ul class="print-links"><li><a href="http://sjl.bitbucket.org/threesome.vim">Threesome</a>: http://sjl.bitbucket.org/threesome.vim</li></ul>
+<div class="codehilite"><pre><span class="k">if</span> <span class="p">!</span>exists<span class="p">(</span><span class="s1">'g:yourplugin_map_prefix'</span><span class="p">)</span>
+    <span class="k">let</span> <span class="k">g</span>:yourplugin_map_prefix <span class="p">=</span> <span class="s1">'&lt;leader&gt;'</span>
+<span class="k">endif</span>
+
+execute <span class="s2">"nnoremap"</span>  <span class="k">g</span>:yourplugin_map_prefix.<span class="s2">"d"</span>  <span class="s2">":call &lt;sid&gt;YourPluginDelete()&lt;<span class="caps"><span class="caps">CR</span></span>&gt;"</span>
+</pre></div>
+
+
+<p>The <code>execute</code> command lets you build the mapping string dynamically so your users can
+change the&nbsp;mapping&nbsp;prefix.</p>
+<p>There is a third option for solving this problem: the <code>hasmapto()</code> Vim function.
+Some plugins will use this to map a command to a key <em>unless</em> the user has already
+mapped that command to something else.  I don’t personally like this option because
+it feels less clear to me, but I know other people feel differently so I wanted to&nbsp;mention&nbsp;it.</p>
+<h2 id="localize-mappings-and-settings">Localize Mappings&nbsp;and&nbsp;Settings</h2>
+<p>The next step in being a good Vim plugin author is to try to minimize the effects of
+your key mappings and setting changes.  Some plugins will need to have global
+effects but others&nbsp;will&nbsp;not.</p>
+<p>For example: if you’re writing a plugin for working with Python files it should only
+take effect for Python buffers, not&nbsp;all&nbsp;buffers.</p>
+<h3 id="localizing-mappings">Localizing&nbsp;Mappings</h3>
+<p>Key binding are easy to localize to single buffers.  All of the <code>noremap</code> commands
+can take an extra <code>&lt;buffer&gt;</code> argument that will localize the mapping to the&nbsp;current&nbsp;buffer.</p>
+<div class="codehilite"><pre><span class="c">" Remaps &lt;leader&gt;z globally</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span>z :YourPluginFoo<span class="p">&lt;</span><span class="k">cr</span><span class="p">&gt;</span>
+
+<span class="c">" Remaps &lt;leader&gt;z only in the current buffer</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>buffer<span class="p">&gt;</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span>z :YourPluginFoo<span class="p">&lt;</span><span class="k">cr</span><span class="p">&gt;</span>
+</pre></div>
+
+
+<p>However, the problem is that you need to run this command in every buffer you want
+the mapping active.  To do this your plugin can use an <code>autocommand</code>.  Here’s a full
+example, using this concept plus the previously mentioned&nbsp;configuration&nbsp;options:</p>
+<div class="codehilite"><pre><span class="k">if</span> <span class="o">!</span><span class="nb">exists</span><span class="p">(</span><span class="s1">'g:yourplugin_map_keys'</span><span class="p">)</span>
+    <span class="k">let</span> <span class="n">g</span><span class="p">:</span><span class="n">yourplugin_map_keys</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="nx">endif</span>
+
+<span class="k">if</span> <span class="o">!</span><span class="nb">exists</span><span class="p">(</span><span class="s1">'g:yourplugin_map_prefix'</span><span class="p">)</span>
+    <span class="k">let</span> <span class="n">g</span><span class="p">:</span><span class="n">yourplugin_map_prefix</span> <span class="o">=</span> <span class="s1">'&lt;leader&gt;'</span>
+<span class="nx">endif</span>
+
+<span class="k">if</span> <span class="nx">g</span><span class="p">:</span><span class="nx">yourplugin_map_keys</span>
+    <span class="nb">execute</span> <span class="s2">"autocommand FileType python"</span> <span class="s2">"nnoremap &lt;buffer&gt;"</span> <span class="nx">g</span><span class="p">:</span><span class="nx">yourplugin_map_prefix.</span><span class="s2">"d"</span>  <span class="s2">":call &lt;sid&gt;YourPluginDelete()&lt;<span class="caps"><span class="caps">CR</span></span>&gt;"</span>
+<span class="nx">endif</span>
+</pre></div>
+
+
+<p>Now your plugin will define a key mapping only for Python buffers, and your users can
+disable or customize this mapping as they&nbsp;see&nbsp;fit.</p>
+<p>This mapping command is quite ugly.  Unfortunately that’s the price of using
+Vimscript and trying to make a plugin that will work for many users.  Later I’ll talk
+about one possible solution to&nbsp;this&nbsp;ugliness.</p>
+<h3 id="localizing-settings">Localizing&nbsp;Settings</h3>
+<p>Just as you should make mappings local to buffers when appropriate, you should do the
+same with settings like <code>foldmethod</code>, <code>foldmarker</code> and <code>shiftwidth</code>.  Not all
+settings can be set locally in a buffer.  You can read <code>:help &lt;settingname&gt;</code> to see
+if&nbsp;it’s&nbsp;possible.</p>
+<p>You can use <code>setlocal</code> instead of <code>set</code> to localize settings to individual buffers.
+Like with mappings you’ll need to use an autocommand to run the <code>setlocal</code> command
+every time the users opens a&nbsp;new&nbsp;buffer.</p>
+<h2 id="autoload-is-your-friend">Autoload is&nbsp;Your&nbsp;Friend</h2>
+<p>If your plugin is something that users will be using all the time you can skip&nbsp;this&nbsp;section.</p>
+<p>If you’re writing something that will only be used in specific cases, you can help
+your users by using Vim’s <code>autoload</code> functionality to delay loading its code until
+the user actually tries to&nbsp;use&nbsp;it.</p>
+<p>The way <code>autoload</code> works is fairly simple.  Normally you would bind a key to call one of your
+plugin’s functions with something&nbsp;like&nbsp;this:</p>
+<div class="codehilite"><pre><span class="nb">nnoremap</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span>z :<span class="k">call</span> YourPluginFunction<span class="p">()&lt;</span><span class="caps"><span class="caps">CR</span></span><span class="p">&gt;</span>
+</pre></div>
+
+
+<p>You can use autoloading by prepending <code>yourplugin#</code> to the name of&nbsp;the&nbsp;function:</p>
+<div class="codehilite"><pre><span class="nb">nnoremap</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span>z :<span class="k">call</span> yourplugin#YourPluginFunction<span class="p">()&lt;</span><span class="caps"><span class="caps">CR</span></span><span class="p">&gt;</span>
+</pre></div>
+
+
+<p>When this mapping is run, Vim will do&nbsp;the&nbsp;following:</p>
+<ol>
+<li>Check to see if <code>YourPluginFunction</code> is already defined.  If so,&nbsp;call&nbsp;it.</li>
+<li>Otherwise, look in <code>~/.vim/autoload/</code> for a file named <code>yourplugin.vim</code>.</li>
+<li>If it exists, parse and load the file (which presumably defines
+  <code>YourPluginFunction</code> somewhere inside&nbsp;of&nbsp;it).</li>
+<li>Call&nbsp;the&nbsp;function.</li>
+</ol>
+<p>This means that instead of putting all of your plugin’s code in
+<code>plugin/yourplugin.vim</code> you can put just the key mapping code there and pull the rest
+out into <code>autoload/yourplugin.vim</code>.</p>
+<p>If your plugin has a decent amount of code this can reduce the startup time of Vim by
+a&nbsp;significant&nbsp;amount.</p>
+<p>Check out the full documentation of <code>autoload</code> by running <code>:help autoload</code> to learn&nbsp;much&nbsp;more.</p>
+<h2 id="backwards-compatibility-is-a-big-deal">Backwards Compatibility is a&nbsp;Big&nbsp;Deal</h2>
+<p>Once you’ve written your Vim plugin and released it into the wild, you have to
+maintain it.  Users will find bugs and ask for&nbsp;new&nbsp;features.</p>
+<p>Part of being a responsible developer of any kind, including a Vim plugin author, is
+maintaining backwards compatibility, <em>especially</em> for tools that users will use every
+day and burn into their muscle memory.  Users rely on tools to work, and tools that
+break backwards compatibility will quickly lose&nbsp;users’&nbsp;trust.</p>
+<p>Maintaining backwards compatibility will cause your plugin’s code to get crufty in
+spots, but it’s the price of maintaining your&nbsp;users’&nbsp;happiness.</p>
+<h3 id="what-matters-for-backards-compatibility">What Matters for&nbsp;Backards&nbsp;Compatibility?</h3>
+<p>For a Vim plugin the most important part of staying backwards compatible is ensuring
+that key mappings, customized or not, continue to do what&nbsp;users&nbsp;expect.</p>
+<p>If your plugin maps key <code>X</code> to do <code>Y</code>, then pressing <code>X</code> should <em>always</em> do <code>Y</code>, even
+if you change how <code>Y</code> is called by renaming <code>Y</code> to <code>Z</code>.  This may mean changing <code>Y</code>
+into a wrapper function which simply calls <code>Z</code>.</p>
+<p>There are many other aspects of backwards compatibility that you will have to
+consider, depending on the purpose of your plugin.  The rule of thumb you should
+follow is: if a user uses this plugin on a daily basis and has its usage burned into
+their muscle memory, updating the plugin should not make them&nbsp;relearn&nbsp;anything.</p>
+<h3 id="use-semantic-versioning-so-i-can-stay-sane">Use Semantic Versioning So I Can&nbsp;Stay&nbsp;Sane</h3>
+<p>A fast, simple, easy way to document your plugin’s state is to use <a href="http://semver.org/">semantic
+versioning</a>.</p><ul class="print-links"><li><a href="http://semver.org/">semantic
+versioning</a>: http://semver.org/</li></ul>
+<p>Semantic versioning is simply the idea that instead of picking arbitrary version
+numbers for releases of your project, you use version numbers that describe the
+backwards-compatible state in a&nbsp;meaningful&nbsp;way.</p>
+<p>In a nutshell, these rules describe how you should select version numbers for&nbsp;new&nbsp;releases:</p>
+<ul>
+<li>Version numbers have three components: <code>major.minor.bugfix</code>.  For example: <code>1.2.4</code>
+  or <code>2.13.0</code>.</li>
+<li>Versions with a major version of 0 (e.g. <code>0.2.3</code>) make no guarantees about
+  backwards compatibility.  You are free to break anything you want.  It’s only after
+  you release <code>1.0.0</code> that you begin&nbsp;making&nbsp;promises.</li>
+<li>If a release introduces backwards-incompatible changes, increment the major&nbsp;version&nbsp;number.</li>
+<li>If a release is backwards-compatible, but adds <em>new</em> features, increment the minor&nbsp;version&nbsp;number.</li>
+<li>If a release simply fixes bugs, refactors code, or improves performance, increment
+  the bugfix&nbsp;version&nbsp;number.</li>
+</ul>
+<p>This simple scheme makes it easy for users to tell (in a broad sense) what has
+changed when they update&nbsp;your&nbsp;project.</p>
+<p>If only the bugfix number has changed they can update without fear and continue on
+without worrying about changes unless&nbsp;they’re&nbsp;curious.</p>
+<p>If the minor version number has changed they might want to look at the changelog to
+see what new features they may want to take advantage of, but if they’re busy they
+can simply update and&nbsp;move&nbsp;on.</p>
+<p>If the major version number has changed it’s a major red flag, and they’ll want to
+read the changelog carefully to see what&nbsp;is&nbsp;different.</p>
+<p>Some people don’t like semantic versioning for the&nbsp;following&nbsp;reason:</p>
+<blockquote>
+<p>If I have to increment the major version number every time I make
+backwards-incompatible changes, I’ll quickly be at ugly versions&nbsp;like&nbsp;24.1.2!</p>
+</blockquote>
+<p>To this I say: “Yes, but if that happens you’re doing things wrong in the&nbsp;first&nbsp;place.”</p>
+<p>Keep your project in “beta” (i.e. version <code>0.*.*</code>) for as long as you need to
+experiment freely.  <em>Take your time</em> and make sure you’ve gotten things (mostly)
+right.  Once you release <code>1.0.0</code> it’s time to start being responsible and caring
+about&nbsp;backwards&nbsp;compatibility.</p>
+<p>Breaking functionality all the time harms your users by reducing their productivity
+and frustrating them.  Yes, it means adding some cruft to your code over time, but
+it’s the price of not&nbsp;being&nbsp;evil.</p>
+<h2 id="document-everything">Document&nbsp;Everything</h2>
+<p>A critical part of releasing a Vim plugin to the world is writing documentation for
+it.  Vim has fantastic documentation itself, so your plugins should follow in its
+footsteps and provide&nbsp;thorough&nbsp;docs.</p>
+<h3 id="pick-some-requirements-and-stick-to-them">Pick Some Requirements and Stick&nbsp;to&nbsp;Them</h3>
+<p>The most important part of your documentation is telling users what they need to have
+in order to use your plugin.  Vim runs on nearly every system imaginable and can be
+compiled in many different ways, so being specific about your plugin’s requirements
+will save users a lot of trial&nbsp;and&nbsp;error.</p>
+<ul>
+<li>Does your plugin only work with Vim version X.Y&nbsp;or&nbsp;later?</li>
+<li>Does it require Python/Ruby/etc support compiled in?&nbsp;Which&nbsp;version?</li>
+<li>Does it not work&nbsp;on&nbsp;Windows?</li>
+<li>Does it rely on an&nbsp;external&nbsp;tool?</li>
+</ul>
+<p>If the answer to any of those questions is “yes”, you <em>must</em> mention it in&nbsp;the&nbsp;documentation.</p>
+<h3 id="write-a-readme">Write a&nbsp;<span class="caps"><span class="caps">README</span></span></h3>
+<p>The first step to documenting your plugin is to write a <span class="caps"><span class="caps">README</span></span> file for the
+repository.  You can also use the text of this file as the description if you upload
+your plugin to the <a href="http://www.vim.org/">vim website</a>, or the content of your plugin’s website if you
+create one&nbsp;for&nbsp;it.</p><ul class="print-links"><li><a href="http://www.vim.org/">vim website</a>: http://www.vim.org/</li></ul>
+<p>Some examples of things to include in your <span class="caps"><span class="caps">README</span></span>&nbsp;are:</p>
+<ul>
+<li>An overview of what the&nbsp;plugin&nbsp;does.</li>
+<li>Screenshots,&nbsp;if&nbsp;possible.</li>
+<li>Requirements.</li>
+<li>Installation&nbsp;instructions.</li>
+<li>Common configuration options that many users will want&nbsp;to&nbsp;know.</li>
+<li>Links to:<ul>
+<li>A canonical web address to find&nbsp;the&nbsp;plugin.</li>
+<li>The bug tracker for&nbsp;the&nbsp;plugin.</li>
+<li>The source code or repository of&nbsp;the&nbsp;plugin.</li>
+</ul>
+</li>
+</ul>
+<h3 id="create-a-simple-website">Create a&nbsp;Simple&nbsp;Website</h3>
+<p>This isn’t strictly necessary, but having a simple website for your plugin is an
+extra touch that makes it seem&nbsp;more&nbsp;polished.</p>
+<p>It also gives you a canonical <span class="caps"><span class="caps">URL</span></span> that people can visit to get the latest information
+about&nbsp;your&nbsp;plugin.</p>
+<p>I’ve made simple sites for both of my plugins: <a href="http://sjl.bitbucket.org/gundo.vim/">Gundo</a> and <a href="http://sjl.bitbucket.org/threesome.vim">Threesome</a>.  Feel
+free to use them as an example or even take their code and use it for your own plugin
+sites if&nbsp;you&nbsp;like.</p><ul class="print-links"><li><a href="http://sjl.bitbucket.org/gundo.vim/">Gundo</a>: http://sjl.bitbucket.org/gundo.vim/</li><li><a href="http://sjl.bitbucket.org/threesome.vim">Threesome</a>: http://sjl.bitbucket.org/threesome.vim</li></ul>
+<h3 id="write-a-vim-help-document">Write a Vim&nbsp;Help&nbsp;Document</h3>
+<p>The bulk of your plugin’s documentation should be in the form of a Vim help document.
+Users are used to using Vim’s <code>:help</code> and they’ll expect to be able to use it to
+learn about&nbsp;your&nbsp;plugin.</p>
+<p>Creating a help document is as easy as creating a <code>doc/yourplugin.txt</code> file in your
+project.  It will be indexed automatically by <code>pathogen#helptags()</code> so your users
+will have the docs at&nbsp;their&nbsp;fingertips.</p>
+<p>Two easy ways to learn the syntax of help files are by reading <code>:help help-writing</code>
+and using an existing plugin’s help file as&nbsp;an&nbsp;example.</p>
+<p>Take your time and craft a beautiful help file you can be proud of.  Don’t be afraid
+to add a bit of personality to your docs to break the dryness.  The <a href="https://github.com/scrooloose/syntastic/blob/master/doc/syntastic.txt">syntastic help
+file</a> is a great example (especially the <code>About</code> section).</p><ul class="print-links"><li><a href="https://github.com/scrooloose/syntastic/blob/master/doc/syntastic.txt">syntastic help
+file</a>: https://github.com/scrooloose/syntastic/blob/master/doc/syntastic.txt</li></ul>
+<p>Things to include in&nbsp;your&nbsp;documentation:</p>
+<ul>
+<li>A brief overview of&nbsp;the&nbsp;plugin.</li>
+<li>A more in-depth description of how the plugin&nbsp;is&nbsp;used.</li>
+<li>Every single key mapping the&nbsp;plugin&nbsp;creates.</li>
+<li>Ways to extend the plugin,&nbsp;if&nbsp;applicable.</li>
+<li>All configuration variables (including their&nbsp;default&nbsp;values!).</li>
+<li>The&nbsp;plugin’s&nbsp;changelog.</li>
+<li>The&nbsp;plugin’s&nbsp;license.</li>
+<li>Links to the plugin’s repository and&nbsp;bug&nbsp;tracker.</li>
+</ul>
+<p>In a nutshell: your help file should contain <em>anything</em> a user would ever need to know
+about&nbsp;your&nbsp;plugin.</p>
+<h3 id="keep-a-changelog">Keep&nbsp;a&nbsp;Changelog</h3>
+<p>The last part of documenting your project is keeping a changelog.  You can skip this
+while your project is still in “beta” (i.e. less than version <code>1.0.0</code>) but once you
+officially release a real version you need to keep your users informed about what has
+changed&nbsp;between&nbsp;releases.</p>
+<p>I like to include this log in the <span class="caps"><span class="caps">README</span></span>, the plugin’s website, and the
+documentation to make it as easy as possible for users to see&nbsp;what’s&nbsp;changed.</p>
+<p>Try to keep the language of the changelog at a high enough level for your users to
+understand without knowing anything about the implementation of your plugin.  Things
+like “added feature X” and “fixed bug Y” are great, while things like “refactored the
+inner workings of utility function Z” are best left in&nbsp;commit&nbsp;messages.</p>
+<h2 id="making-vimscript-palatable">Making&nbsp;Vimscript&nbsp;Palatable</h2>
+<p>The worst part about writing Vim plugins is, without a doubt, dealing with Vimscript.
+It’s an esoteric language that’s grown organically over the years seemingly without
+any strong&nbsp;design&nbsp;direction.</p>
+<p>Features are added to Vim, then Vimscript features are added to control those
+features, then hacky workarounds are added&nbsp;for&nbsp;flexibility.</p>
+<p>The syntax is terse, ugly and inconsistent.  Is <code>" foo</code> a&nbsp;comment?&nbsp;Sometimes.</p>
+<p>Much of the time you’ll spend writing your first plugin will be learning how to do
+things in Vimscript.  The help documentation on all of its features is thorough, but
+it can be hard to find what you’re looking for if you don’t know the exact name.
+Looking through other plugins is often very helpful in pointing you toward what&nbsp;you&nbsp;need.</p>
+<p>There are a couple of ways to ease the pain of Vimscript, and I’ll briefly talk about
+two of&nbsp;them&nbsp;here.</p>
+<h3 id="wrap-everything">Wrap.&nbsp;Everything.</h3>
+<p>The first piece of advice I have is this: if you want to make your plugins readable
+and maintainable then you need to wrap up functionality even more than you would in&nbsp;other&nbsp;languages.</p>
+<p>For example, my <a href="http://sjl.bitbucket.org/gundo.vim/">Gundo</a> plugin has a few utility functions that look&nbsp;like&nbsp;this:</p><ul class="print-links"><li><a href="http://sjl.bitbucket.org/gundo.vim/">Gundo</a>: http://sjl.bitbucket.org/gundo.vim/</li></ul>
+<div class="codehilite"><pre><span class="k">function</span><span class="p">!</span> <span class="k">s</span>:GundoGoToWindowForBufferName<span class="p">(</span>name<span class="p">)</span>"{{{
+    <span class="k">if</span> bufwinnr<span class="p">(</span>bufnr<span class="p">(</span><span class="k">a</span>:name<span class="p">))</span> <span class="p">!=</span> <span class="m">-1</span>
+        exe bufwinnr<span class="p">(</span>bufnr<span class="p">(</span><span class="k">a</span>:name<span class="p">))</span> . <span class="s2">"wincmd w"</span>
+        <span class="k">return</span> <span class="m">1</span>
+    <span class="k">else</span>
+        <span class="k">return</span> <span class="m">0</span>
+    <span class="k">endif</span>
+<span class="k">endfunction</span>"}}}
+</pre></div>
+
+
+<p>This function will go to the window for the given buffer name and gracefully handle
+the case where the buffer/window does not exist.  It’s verbose but much more readable
+than the alternative of using that <code>if</code> statement in every place I need to&nbsp;switch&nbsp;windows.</p>
+<p>As you write your plugin you’ll “grow” a number of these utility functions.  Any time
+you duplicate code you should think about creating one, but you should also do so any
+time you write a particularly hairy line of Vimscript.  Pulling complex lines out
+into named functions will save you a lot of reviewing and rethinking down&nbsp;the&nbsp;line.</p>
+<h3 id="scripting-vim-with-other-languages">Scripting Vim with&nbsp;Other&nbsp;Languages</h3>
+<p>Another option for making Vimscript less painful is to simply not use it much at all.
+Vim includes support for creating plugins in a number of other languages like Python
+and Ruby.  Many plugin authors choose to move nearly all of their code into another
+language, using a small Vimscript “wrapper” to expose it to&nbsp;the&nbsp;user.</p>
+<p>I decided to try this approach with <a href="http://sjl.bitbucket.org/threesome.vim">Threesome</a> after seeing it used in the
+<a href="https://github.com/jceb/vim-orgmode">vim-orgmode</a> plugin to great effect.  Overall I consider it to be a good idea,
+with a&nbsp;few&nbsp;caveats.</p><ul class="print-links"><li><a href="http://sjl.bitbucket.org/threesome.vim">Threesome</a>: http://sjl.bitbucket.org/threesome.vim</li><li><a href="https://github.com/jceb/vim-orgmode">vim-orgmode</a>: https://github.com/jceb/vim-orgmode</li></ul>
+<p>First, using another language will requires your plugin’s users to use a version of
+Vim compiled with support for that version.  In this day and age it’s usually not
+a problem, but if you want your plugin to run everywhere then it’s not&nbsp;an&nbsp;option.</p>
+<p>Using another language adds overhead.  You need to not only learn Vimscript but also
+the interface between Vim and the language.  For small plugins this can add more
+complexity to the project than it saves, but for larger plugins it can pay for
+itself.  It’s up to you to decide whether it’s&nbsp;worth&nbsp;it.</p>
+<p>Finally, using another language does not entirely insulate you from the
+eccentricities of Vimscript.  You still need to learn how to do most things in
+Vimscript — using another language simply lets you wrap most of this up more neatly
+than you&nbsp;otherwise&nbsp;could.</p>
+<h3 id="unit-testing-will-make-you-drink">Unit Testing Will Make&nbsp;You&nbsp;Drink</h3>
+<p>Unit testing (and other types of testing) is becoming more and more popular today.
+In particular the Python and Ruby communities seem to be getting more and more
+excited about it as time&nbsp;goes&nbsp;on.</p>
+<p>Unfortunately, unit testing Vim plugins lies somewhere between “painful” and
+“<a href="http://www.amazon.com/Garden-Weasel-90206/dp/B002ECYRH4">garden-weasel</a>ing your face” on the&nbsp;difficulty&nbsp;scale.</p><ul class="print-links"><li><a href="http://www.amazon.com/Garden-Weasel-90206/dp/B002ECYRH4">garden-weasel</a>: http://www.amazon.com/Garden-Weasel-90206/dp/B002ECYRH4</li></ul>
+<p>I tried adding some unit tests to <a href="http://sjl.bitbucket.org/gundo.vim/">Gundo</a>, but even after looking at a number of
+frameworks I was spending hours simply trying to get my tests&nbsp;to&nbsp;function.</p><ul class="print-links"><li><a href="http://sjl.bitbucket.org/gundo.vim/">Gundo</a>: http://sjl.bitbucket.org/gundo.vim/</li></ul>
+<p>I didn’t even bother trying to add tests to <a href="http://sjl.bitbucket.org/threesome.vim">Threesome</a> because for every hour
+I would have spent fighting Vim to create tests I could have cleaned up the code and
+fixed&nbsp;bugs&nbsp;instead.</p><ul class="print-links"><li><a href="http://sjl.bitbucket.org/threesome.vim">Threesome</a>: http://sjl.bitbucket.org/threesome.vim</li></ul>
+<p>I’ll gladly change my opinion on the subject if someone writes a unit testing
+framework for Vim that’s as easy to use as <a href="https://bitheap.org/cram/">Cram</a>.  In fact, I’ll even buy the
+author a $100 bottle of scotch (or whatever&nbsp;they&nbsp;prefer).</p><ul class="print-links"><li><a href="https://bitheap.org/cram/">Cram</a>: https://bitheap.org/cram/</li></ul>
+<p>Until that happens I personally don’t think it’s worth your time to unit test Vim
+plugins.  Spend your extra hours reading documentation, testing things manually with
+a variety of settings, and thinking hard about your&nbsp;code&nbsp;instead.</p>
+<h2 id="tldr"><span class="caps"><span class="caps">TL</span></span>;<span class="caps"><span class="caps">DR</span></span></h2>
+<p>Writing Vim plugins is tricky.  Vimscript is a rabbit hole of sadness and despair,
+and trying to please all your users while maintaining backwards compatibility is
+a&nbsp;monumental&nbsp;task.</p>
+<p>With that said, creating something that people use every day to help them make
+beautiful software projects is extremely rewarding.  Even if your plugin doesn’t get
+many users, being able to use a tool <em>you wrote</em> is&nbsp;very&nbsp;satisfying.</p>
+<p>So if you’ve got an idea for a plugin that would make Vim better just sit down, learn
+about Vimscript, create it, and release it so we can&nbsp;all&nbsp;benefit.</p>
+<p>If you have any questions or comments feel free to hit me up <a href="http://twitter.com/stevelosh">on
+Twitter</a>.  You might also enjoy following <a href="http://twitter.com/dotvimrc">@dotvimrc</a> where I try to
+tweet random, bite-sized lines you might like to put in your <code>.vimrc</code> file.</p><ul class="print-links"><li><a href="http://twitter.com/stevelosh">on
+Twitter</a>: http://twitter.com/stevelosh</li><li><a href="http://twitter.com/dotvimrc">@dotvimrc</a>: http://twitter.com/dotvimrc</li></ul>
+                
+            <!-- Hyde::Article::End -->
+        
+    </div>
+
+                    
+                
+            </div>
+
+            <div class="hrb">&nbsp;</div>
+
+            <footer>
+                <p>
+                    I'm also on
+                    <a href="https://bitbucket.org/sjl/">Bitbucket</a>,
+                    <a href="https://github.com/sjl/">GitHub</a>,
+                    <a href="https://twitter.com/stevelosh/">Twitter</a>,
+                    and
+                    <a href="http://500px.com/stevelosh/">500px</a>.
+                </p>
+
+                <a class="rochester-made" href="http://rochestermade.com/" title="Rochester Made"><img src="./Writing Vim Plugins  Steve Losh_html/11094964.png" alt="Rochester Made" title="Rochester Made"></a>
+            </footer>
+        </div>
+    
+
+<div id="scrolling-header" style="opacity: 1; left: -211px; ">Mapping Keys the Right Way</div></body></html>

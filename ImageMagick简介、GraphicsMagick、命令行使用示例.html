@@ -1,0 +1,1388 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+     
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    
+<head>    
+    <script type="text/javascript" src="http://c.csdnimg.cn/pubfooter/js/tracking.js" charset="utf-8"></script>  
+
+    <script type="text/javascript">
+        var protocol = window.location.protocol;
+        document.write('<script type="text/javascript" src="' + protocol + '//csdnimg.cn/pubfooter/js/repoAddr2.js?v=' + Math.random() + '"></' + 'script>');
+    </script>
+
+     <script id="allmobilize" charset="utf-8" src="http://a.yunshipei.com/46aae4d1e2371e4aa769798941cef698/allmobilize.min.js"></script>
+ <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+    <title>ImageMagick简介、GraphicsMagick、命令行使用示例 - 曾健生的专栏
+        - 博客频道 - CSDN.NET</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="http://elf8848.iteye.com/blog/382528ImageMagick资料----------------------------------------------------------------------------ImageMagick官网ImageMagick Identify 命令行工具（官网）" />
+    <script src="http://static.blog.csdn.net/scripts/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://static.blog.csdn.net/scripts/ad.js?v=1.1"></script>
+        <!--new top-->
+               <link rel="stylesheet" href="http://static.csdn.net/public/common/toolbar/css/index.css">        <!--new top-->
+
+    <link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/default/css/style.css?v=1.1" />
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/newjueqi/rss/list" />
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico" />
+    <link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/default.css" />
+ 
+
+
+</head>
+<body>
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="http://static.csdn.net/public/common/toolbar/js/html.js" type="text/javascript"></script>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/newjueqi">曾健生的专栏</a></h2>
+            <h3>记录下点点滴滴</h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>
+            
+                <li id="btnContents"><a href="http://blog.csdn.net/newjueqi?viewmode=contents"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_mulu'])">
+                    <img src="http://static.blog.csdn.net/images/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/newjueqi?viewmode=list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_zhaiyao'])">
+                    <img src="http://static.blog.csdn.net/images/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/newjueqi/rss/list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_RSS'])">
+                    <img src="http://static.blog.csdn.net/images/ico_rss.gif">订阅</span></a></li>                
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "newjueqi";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/newjueqi";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod='popu_3' > 
+
+<a href="http://blog.csdn.net/csdnedu/article/details/43306129">
+<font color=blue>CSDN学院讲师招募，诚邀您加入！</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<a href="http://blog.csdn.net/csdnproduct/article/details/43561659">
+<font color=red>博客Markdown编辑器上线啦</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://edu.csdn.net/lecturer/lecturer_detail?lecturer_id=95">
+<font color=red>PMBOK第五版精讲视频教程
+</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://edu.csdn.net/course/detail/443">
+<font color=blue>火星人敏捷开发1001问
+</font></a>
+
+
+</div>                        </div>
+                        
+
+  
+<link href="http://static.blog.csdn.net/css/comment1.css" type="text/css" rel="stylesheet" />
+<link href="http://static.blog.csdn.net/css/style1.css" type="text/css" rel="stylesheet" />
+<script language='JavaScript' type='text/javascript' src='http://download.csdn.net/js/jquery.cookie.js'></script>
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/search-service/main.js"></script>
+
+
+<link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0" />
+
+<script type="text/javascript" src="http://static.blog.csdn.net/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+
+
+
+
+
+
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Repost"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="/newjueqi/article/details/41925129">
+        ImageMagick简介、GraphicsMagick、命令行使用示例
+        </a></span>
+    </h1>
+</div>
+
+    <div class="article_manage">
+        <span class="link_categories">
+        分类：
+            <a href="/newjueqi/article/category/864027" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_fenlei']);">linux</a> 
+        </span>
+    <span class="link_postdate">2014-12-14 14:55</span>
+    <span class="link_view" title="阅读次数">238人阅读</span>
+    <span class="link_comments" title="评论次数"><a href="#comments" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(0)</span>
+    <span class="link_collect"><a href="javascript:void(0);" onclick="javascript:_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shoucang']);collectArticle('ImageMagick简介、GraphicsMagick、命令行使用示例','41925129');return false;" title="收藏">收藏</a></span>
+    <span class="link_report"><a href="#report"  onclick="javascript:_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_jubao']);report(41925129,2);return false;" title="举报">举报</a></span>
+    
+</div>
+
+  
+    
+<div id="article_content" class="article_content">
+
+<p>http://elf8848.iteye.com/blog/382528</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p></p>
+<div class="iteye-blog-content-contain" style="font-family:Helvetica,Tahoma,Arial,sans-serif; font-size:14px; line-height:25.2000007629395px">
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<strong>ImageMagick资料</strong></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<span style="font-size:12px">----------------------------------------------------------------------------</span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:30px">
+<a target="_blank" href="http://www.imagemagick.org/" target="_blank" style="color:rgb(16,138,198)">ImageMagick官网</a></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:30px">
+<a target="_blank" href="http://www.imagemagick.org/script/identify.php" target="_blank" style="color:rgb(16,138,198)">ImageMagick Identify 命令行工具（官网）</a></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:30px">
+<a target="_blank" href="http://elf8848.iteye.com/admin/blogs/382528/%20http:/www.imagemagick.org/api/MagickCore/" target="_blank" style="color:rgb(16,138,198)">ImageMagick 程序接口文档</a></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:30px">
+<a target="_blank" href="http://www.netingcn.com/category/imagemagick" target="_blank" style="color:rgb(16,138,198)">ImageMagick使用示例</a>(非常好的示例)</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:30px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<strong>GraphicsMagick资料</strong></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<span style="font-size:12px">----------------------------------------------------------------------------</span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:30px">
+<a target="_blank" href="http://www.graphicsmagick.org/" target="_blank" style="color:rgb(16,138,198)">GraphicsMagick官网</a>&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:30px">
+<a target="_blank" href="http://www.graphicsmagick.org/programming.html" target="_blank" style="color:rgb(16,138,198)">GraphicsMagick编程接口</a>&nbsp;&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:30px">
+<a target="_blank" href="http://www.imagemagick.org/api/MagickCore/" target="_blank" style="color:rgb(16,138,198)">ImageMagick 程序接口 &nbsp;</a></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:30px">
+<a target="_blank" href="http://sourceforge.net/projects/im4java/files/" target="_blank" style="color:rgb(16,138,198)">Im4java 下载地址</a></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:30px">
+<a target="_blank" href="http://javantsky.iteye.com/blog/747807" target="_blank" style="color:rgb(16,138,198)">IM4JAVA&#43;GraphicsMagick处理网站图片&nbsp;&nbsp;</a></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:30px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<strong>命令行参数，说明文档</strong></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+-------------------------------------------------------------</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<a target="_blank" href="http://www.graphicsmagick.org/GraphicsMagick.html" target="_blank" style="color:rgb(16,138,198)">GraphicsMagick 命令行参数，说明文档</a><br>
+<a target="_blank" href="http://www.imagemagick.org/script/command-line-tools.php" target="_blank" style="color:rgb(16,138,198)">ImageMagick 命令行参数，说明文档</a></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<strong>ImageMagick介绍</strong></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<span style="font-size:12px">----------------------------------------------------------------------------</span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ImageMagick是一个免费的创建、编辑、合成图片的软件。它可以读取、转换、写入多种&#26684;式的图片。图片切割、颜色替换、各种效果的应用，图片的旋转、组合，文本，直线，多边形，椭圆，曲线，附加到图片伸展旋转。其全部源码开放，可以自由使用，复制，修改，发布。它遵守GPL许可协议。它可以运行于大多数的操作系统。</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:30px">
+最为重要的是，ImageMagick的大多数功能的使用都来源于命令行工具。</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:30px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<strong><strong>GraphicsMagick</strong>介绍</strong></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<span style="font-size:12px">----------------------------------------------------------------------------</span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:30px">
+<span style="font-size:12px">GraphicsMagick是从 ImageMagick 5.5.2 分支出来的，但是现在他变得更稳定和优秀，GM更小更容易安装、GM更有效率、GM的手册非常丰富</span><span style="font-size:12px">GraphicsMagick的命令与</span>ImageMagick基本是一样的。</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<strong>ImageMagick、<strong><strong>GraphicsMagick</strong></strong>的命令概览</strong></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<span style="font-size:12px">----------------------------------------------------------------------------</span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:60px">
+[ convert | identify | mogrify | composite | montage | compare | display | animate | import | conjure ]</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:60px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:60px">
+convert：转换图像&#26684;式和大小，模糊，裁剪，驱除污点，抖动，临近，图片上画图片，加入新图片，生成缩略图等。&nbsp;<br>
+identify：描述一个或较多图像文件的&#26684;式和特性。&nbsp;<br>
+mogrify：按规定尺寸***一个图像，模糊，裁剪，抖动等。Mogrify改写最初的图像文件然后写到一个不同的图像文件。&nbsp;<br>
+composite：根据一个图片或多个图片组合生成图片。&nbsp;<br>
+montage：创建一些分开的要素图像。在含有要素图像任意的装饰图片，如边框、结构、图片名称等。&nbsp;<br>
+compare：在算术上和视觉上评估不同的图片***其它的改造图片。&nbsp;<br>
+display：如果你拥有一个X server的系统，它可以按次序的显示图片&nbsp;<br>
+animate：利用X server显示动画图片&nbsp;<br>
+import：在X server或任何可见的窗口上输出图片文件。 你可以捕获单一窗口，整个的荧屏或任何荧屏的矩形部分。&nbsp;<br>
+conjure：解释执行 MSL (Magick Scripting Language) 写的脚本。</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<br>
+<strong>示例一：综合操作</strong>（ImageMagick命令行）<span style="font-size:12px">----------------------------------------------------------------------------</span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<div class="dp-highlighter" id="" style="font-family:Monaco,'DejaVu Sans Mono','Bitstream Vera Sans Mono',Consolas,'Courier New',monospace; font-size:12px; width:679px; overflow:auto; margin-left:9px; padding:1px; word-break:break-all; word-wrap:break-word; background-color:transparent">
+<div class="bar">
+<div class="tools" style="padding:3px; margin:0px; font-weight:bold">Java代码&nbsp;&nbsp;<a target="_blank" title="收藏这段代码" style="color:rgb(16,138,198); text-decoration:underline"><img class="star" src="http://elf8848.iteye.com/images/icon_star.png" alt="收藏代码" style="border:0px"></a></div>
+</div>
+<ol start="1" class="dp-j" style="font-size:1em; line-height:1.4em; margin:0px 0px 1px; padding:2px 0px; border:1px solid rgb(209,215,220); list-style-position:initial; color:rgb(43,145,175)">
+<li style="font-size:1em; margin:0px 0px 0px 38px; padding:0px 0px 0px 10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); line-height:18px; background-color:rgb(250,250,250)">
+<span style="color:black">convert&nbsp;-crop&nbsp;300x300&#43;<span class="number" style="color:rgb(192,0,0)">0</span>&#43;<span class="number" style="color:rgb(192,0,0)">0</span>&nbsp;-resize&nbsp;200x200&nbsp;-colors&nbsp;<span class="number" style="color:rgb(192,0,0)">100</span>&nbsp;&#43;profile&nbsp;<span class="string" style="color:blue">&quot;*&quot;</span>&nbsp;<span class="number" style="color:rgb(192,0,0)">1</span>.jpg&nbsp;<span class="number" style="color:rgb(192,0,0)">1</span>.png&nbsp;&nbsp;</span></li></ol>
+</div>
+&nbsp;<br>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:30px">
+<strong>处理过程解释：</strong></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:30px">
+1、把当前目录1.jpg图片文件，从左上角(0,0)坐标为起点，裁剪一块300x300像素的部分。</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:30px">
+2、然后把这部分缩小到200x200像素。</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:30px">
+3、然后把颜色缩减到100色。<br>
+4、&#43;profile &quot;*&quot; &nbsp; ， 意味着在图片文件里不存储Exif信息，以减小图片体积。</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:30px">
+5、最后生成1.png，保存在当前目录。</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:30px">
+<br>
+注意：-resize会试图保留原图的原始长宽比例，因此不一定生成的图片和你指定的尺寸一定匹配，比如，如果2.jpg大小是400x200，所以如果用命令：convert 2.jpg -resize 100x100 2.png，那么生成的图片2.png的实际大小是100x50。</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:30px">
+<strong>常用的参数用途说明：</strong><br>
+-crop 宽x高&#43;起点横坐标&#43;起点纵坐标：裁剪图&nbsp;<br>
+-resize 宽x高!：改变尺寸，<strong>如果使用惊叹号，表示不保留视觉比例，强行改变尺寸匹配给定的宽和高</strong>；如果仅给定宽或者高，如“宽x”或“x高”形式的参数(“x高”与“宽x高”的效果是一样的)，则以已知参数为基准按比例改变尺寸。<br>
+-colors 颜色数：设定图片采用的颜色数，如果是生成png或gif图片应指定这个参数&nbsp;<br>
+-quality 质量：设定jpeg图片输出质量，推荐采用80，此命令仅用于输出&#26684;式是jpg的情况，不应省略，省略的话默认质量是95，生成图片过大<br>
+&#43;profile &quot;*&quot;：图片中不存储Exif信息，必须使用，否则生成图片过大</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<strong>示例二：生成缩略图</strong>（缩小图片） （ImageMagick命令行）----------------------------------------------------------------------------</p>
+<div class="dp-highlighter" id="" style="font-family:Monaco,'DejaVu Sans Mono','Bitstream Vera Sans Mono',Consolas,'Courier New',monospace; font-size:12px; width:679px; overflow:auto; margin-left:9px; padding:1px; word-break:break-all; word-wrap:break-word; background-color:transparent">
+<div class="bar">
+<div class="tools" style="padding:3px; margin:0px; font-weight:bold">Java代码&nbsp;&nbsp;<a target="_blank" title="收藏这段代码" style="color:rgb(16,138,198); text-decoration:underline"><img class="star" src="http://elf8848.iteye.com/images/icon_star.png" alt="收藏代码" style="border:0px"></a></div>
+</div>
+<ol start="1" class="dp-j" style="font-size:1em; line-height:1.4em; margin:0px 0px 1px; padding:2px 0px; border:1px solid rgb(209,215,220); list-style-position:initial; color:rgb(43,145,175)">
+<li style="font-size:1em; margin:0px 0px 0px 38px; padding:0px 0px 0px 10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); line-height:18px; background-color:rgb(250,250,250)">
+<span style="color:black">convert&nbsp;-sample&nbsp;80x40&nbsp;input.jpg&nbsp;output.jpg&nbsp;&nbsp;&nbsp;(使用一个简单的算法生成缩略图，速度快，画质较低，适合生成100x100以下的图片)&nbsp;&nbsp;</span></li><li style="font-size:1em; margin:0px 0px 0px 38px; padding:0px 0px 0px 10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); line-height:18px; background-color:rgb(250,250,250)">
+<span style="color:black">convert&nbsp;-resize&nbsp;100x100&nbsp;foo.jpg&nbsp;thumbnail.jpg&nbsp;（画质好）&nbsp;&nbsp;</span></li><li style="font-size:1em; margin:0px 0px 0px 38px; padding:0px 0px 0px 10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); line-height:18px; background-color:rgb(250,250,250)">
+<span style="color:black">convert&nbsp;-resize&nbsp;<span class="number" style="color:rgb(192,0,0)">50</span>%x50%&nbsp;foo.jpg&nbsp;thumbnail.jpg&nbsp;&nbsp;</span></li><li style="font-size:1em; margin:0px 0px 0px 38px; padding:0px 0px 0px 10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); line-height:18px; background-color:rgb(250,250,250)">
+<span style="color:black">convert&nbsp;-resize&nbsp;100x200&nbsp;<span class="number" style="color:rgb(192,0,0)">22</span>.jpg(图片路径)&nbsp;&nbsp;&nbsp;<span class="number" style="color:rgb(192,0,0)">11</span>.jpg(缩放后存放路径)&nbsp;&nbsp;&nbsp;图片按比例缩放&nbsp;&nbsp;</span></li><li style="font-size:1em; margin:0px 0px 0px 38px; padding:0px 0px 0px 10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); line-height:18px; background-color:rgb(250,250,250)">
+<span style="color:black">convert&nbsp;-resize&nbsp;100x200\!&nbsp;<span class="number" style="color:rgb(192,0,0)">22</span>.jpg(图片路径)&nbsp;&nbsp;&nbsp;<span class="number" style="color:rgb(192,0,0)">11</span>.jpg(缩放后存放路径)&nbsp;&nbsp;&nbsp;强制按给定的宽高缩放&nbsp;&nbsp;</span></li></ol>
+</div>
+&nbsp;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<strong>示例三：裁剪图片</strong>（ImageMagick命令行）<span style="font-size:12px">----------------------------------------------------------------------------</span></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<div class="dp-highlighter" id="" style="font-family:Monaco,'DejaVu Sans Mono','Bitstream Vera Sans Mono',Consolas,'Courier New',monospace; font-size:12px; width:679px; overflow:auto; margin-left:9px; padding:1px; word-break:break-all; word-wrap:break-word; background-color:transparent">
+<div class="bar">
+<div class="tools" style="padding:3px; margin:0px; font-weight:bold">Java代码&nbsp;&nbsp;<a target="_blank" title="收藏这段代码" style="color:rgb(16,138,198); text-decoration:underline"><img class="star" src="http://elf8848.iteye.com/images/icon_star.png" alt="收藏代码" style="border:0px"></a></div>
+</div>
+<ol start="1" class="dp-j" style="font-size:1em; line-height:1.4em; margin:0px 0px 1px; padding:2px 0px; border:1px solid rgb(209,215,220); list-style-position:initial; color:rgb(43,145,175)">
+<li style="font-size:1em; margin:0px 0px 0px 38px; padding:0px 0px 0px 10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); line-height:18px; background-color:rgb(250,250,250)">
+<span style="color:black">convert&nbsp;-crop&nbsp;&nbsp;<span class="number" style="color:rgb(192,0,0)">100</span>(长)x200(高)&#43;<span class="number" style="color:rgb(192,0,0)">10</span>(x坐标)&#43;<span class="number" style="color:rgb(192,0,0)">10</span>(y坐标)&nbsp;&nbsp;&nbsp;<span class="number" style="color:rgb(192,0,0)">22</span>.jpg(源图片路径)&nbsp;&nbsp;&nbsp;<span class="number" style="color:rgb(192,0,0)">11</span>.jpg(缩放后存放路径)&nbsp;&nbsp;&nbsp;&nbsp;</span></li></ol>
+</div>
+&nbsp;&nbsp;<br>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<strong>示例四：旋转图像</strong>&nbsp; （ImageMagick命令行）<span style="font-size:12px">----------------------------------------------------------------------------</span></p>
+<div class="dp-highlighter" id="" style="font-family:Monaco,'DejaVu Sans Mono','Bitstream Vera Sans Mono',Consolas,'Courier New',monospace; font-size:12px; width:679px; overflow:auto; margin-left:9px; padding:1px; word-break:break-all; word-wrap:break-word; background-color:transparent">
+<div class="bar">
+<div class="tools" style="padding:3px; margin:0px; font-weight:bold">Java代码&nbsp;&nbsp;<a target="_blank" title="收藏这段代码" style="color:rgb(16,138,198); text-decoration:underline"><img class="star" src="http://elf8848.iteye.com/images/icon_star.png" alt="收藏代码" style="border:0px"></a></div>
+</div>
+<ol start="1" class="dp-j" style="font-size:1em; line-height:1.4em; margin:0px 0px 1px; padding:2px 0px; border:1px solid rgb(209,215,220); list-style-position:initial; color:rgb(43,145,175)">
+<li style="font-size:1em; margin:0px 0px 0px 38px; padding:0px 0px 0px 10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); line-height:18px; background-color:rgb(250,250,250)">
+<span style="color:black">convert&nbsp;-rotate&nbsp;<span class="number" style="color:rgb(192,0,0)">90</span>&nbsp;input.jpg&nbsp;output.jpg&nbsp;&nbsp;</span></li></ol>
+</div>
+&nbsp;<br>
+<strong>示例五：获取文件信息</strong>&nbsp;（ImageMagick命令行）<span style="font-size:12px">----------------------------------------------------------------------------</span><br>
+<div class="dp-highlighter" id="" style="font-family:Monaco,'DejaVu Sans Mono','Bitstream Vera Sans Mono',Consolas,'Courier New',monospace; font-size:12px; width:679px; overflow:auto; margin-left:9px; padding:1px; word-break:break-all; word-wrap:break-word; background-color:transparent">
+<div class="bar">
+<div class="tools" style="padding:3px; margin:0px; font-weight:bold">Java代码&nbsp;&nbsp;<a target="_blank" title="收藏这段代码" style="color:rgb(16,138,198); text-decoration:underline"><img class="star" src="http://elf8848.iteye.com/images/icon_star.png" alt="收藏代码" style="border:0px"></a></div>
+</div>
+<ol start="1" class="dp-j" style="font-size:1em; line-height:1.4em; margin:0px 0px 1px; padding:2px 0px; border:1px solid rgb(209,215,220); list-style-position:initial; color:rgb(43,145,175)">
+<li style="font-size:1em; margin:0px 0px 0px 38px; padding:0px 0px 0px 10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); line-height:18px; background-color:rgb(250,250,250)">
+<span style="color:black">libtiff&nbsp;tiffinfo&nbsp;filename.tiff&nbsp;&nbsp;</span></li></ol>
+</div>
+&nbsp;<strong><br>
+</strong>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<strong>示例六：把图片变为黑白颜色</strong>（ImageMagick命令行）<span style="font-size:12px">----------------------------------------------------------------------------</span></p>
+<div class="dp-highlighter" id="" style="font-family:Monaco,'DejaVu Sans Mono','Bitstream Vera Sans Mono',Consolas,'Courier New',monospace; font-size:12px; width:679px; overflow:auto; margin-left:9px; padding:1px; word-break:break-all; word-wrap:break-word; background-color:transparent">
+<div class="bar">
+<div class="tools" style="padding:3px; margin:0px; font-weight:bold">Java代码&nbsp;&nbsp;<a target="_blank" title="收藏这段代码" style="color:rgb(16,138,198); text-decoration:underline"><img class="star" src="http://elf8848.iteye.com/images/icon_star.png" alt="收藏代码" style="border:0px"></a></div>
+</div>
+<ol start="1" class="dp-j" style="font-size:1em; line-height:1.4em; margin:0px 0px 1px; padding:2px 0px; border:1px solid rgb(209,215,220); list-style-position:initial; color:rgb(43,145,175)">
+<li style="font-size:1em; margin:0px 0px 0px 38px; padding:0px 0px 0px 10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); line-height:18px; background-color:rgb(250,250,250)">
+<span style="color:black">convert&nbsp;-monochrome&nbsp;foo.png&nbsp;bar.png&nbsp;&nbsp;</span></li></ol>
+</div>
+&nbsp;</div>
+<div class="iteye-blog-content-contain" style="font-family:Helvetica,Tahoma,Arial,sans-serif; font-size:14px; line-height:25.2000007629395px">
+<strong>添加图片水印处理</strong>（ImageMagick命令行）<br>
+--------------------------------<br>
+假设把名为logo.gif的水印图标添加在原始图片（src.jpg）右下角，且水印的下边缘距原始图片10像素、右边缘距原始图片5像素。使用如下命令即可：<br>
+<div class="dp-highlighter" id="" style="font-family:Monaco,'DejaVu Sans Mono','Bitstream Vera Sans Mono',Consolas,'Courier New',monospace; font-size:12px; width:679px; overflow:auto; margin-left:9px; padding:1px; word-break:break-all; word-wrap:break-word; background-color:transparent">
+<div class="bar">
+<div class="tools" style="padding:3px; margin:0px; font-weight:bold">Java代码&nbsp;&nbsp;<a target="_blank" title="收藏这段代码" style="color:rgb(16,138,198); text-decoration:underline"><img class="star" src="http://elf8848.iteye.com/images/icon_star.png" alt="收藏代码" style="border:0px"></a></div>
+</div>
+<ol start="1" class="dp-j" style="font-size:1em; line-height:1.4em; margin:0px 0px 1px; padding:2px 0px; border:1px solid rgb(209,215,220); list-style-position:initial; color:rgb(43,145,175)">
+<li style="font-size:1em; margin:0px 0px 0px 38px; padding:0px 0px 0px 10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); line-height:18px; background-color:rgb(250,250,250)">
+<span style="color:black">convert&nbsp;src.jpg&nbsp;logo.gif&nbsp;-gravity&nbsp;southeast&nbsp;-geometry&nbsp;&#43;<span class="number" style="color:rgb(192,0,0)">5</span>&#43;<span class="number" style="color:rgb(192,0,0)">10</span>&nbsp;-composite&nbsp;dest.jpg&nbsp;&nbsp;</span></li></ol>
+</div>
+&nbsp;<br>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<strong>添加英文文字水印&nbsp;&nbsp;</strong>（ImageMagick命令行）</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+-----------------------------------------------------<br>
+convert&nbsp; -fill white -pointsize 24 -draw &quot;text 10,15 'lifesinger 2006' &quot;&nbsp; 1.png&nbsp; 2.png</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+文字坐标在：10x50的位置<br>
+可以用-font指定字体，这时需要安装Ghostscript支持。</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+如果安装IM、GM时，没有安装Ghostscript字体，会默认使用Linux系统的字体，目录是：/usr/share/fonts/default/Type1/</p>
+<br>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<strong>添加中文文字水印</strong>&nbsp;（ImageMagick命令行）</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+-----------------------------------------------------</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+高版本的ImageMagick的方法</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+-------------------</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+convert -font C:\ImageMagick\font\fangzheng.ttf&nbsp; -fill green -pointsize 40 -draw &quot;text 10,50 '文字'&quot; d:\bagImg\21.jpg d:\bagImg\22.jpg</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+参数说明： -font C:\ImageMagick\font\fangzheng.ttf&nbsp;&nbsp;&nbsp; 是指明Windows字体文件。</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+要高版本的ImageMagick同，在加中文文字水印时才不乱码。</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+低版本的ImageMagick的方法</p>
+-------------------
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+存在中文的情况：假设存有信息的文件叫t.txt，字体文件是msyh.ttf。</p>
+<div class="dp-highlighter" id="" style="font-family:Monaco,'DejaVu Sans Mono','Bitstream Vera Sans Mono',Consolas,'Courier New',monospace; font-size:12px; width:679px; overflow:auto; margin-left:9px; padding:1px; word-break:break-all; word-wrap:break-word; background-color:transparent">
+<div class="bar">
+<div class="tools" style="padding:3px; margin:0px; font-weight:bold">Java代码&nbsp;&nbsp;<a target="_blank" title="收藏这段代码" style="color:rgb(16,138,198); text-decoration:underline"><img class="star" src="http://elf8848.iteye.com/images/icon_star.png" alt="收藏代码" style="border:0px"></a></div>
+</div>
+<ol start="1" class="dp-j" style="font-size:1em; line-height:1.4em; margin:0px 0px 1px; padding:2px 0px; border:1px solid rgb(209,215,220); list-style-position:initial; color:rgb(43,145,175)">
+<li style="font-size:1em; margin:0px 0px 0px 38px; padding:0px 0px 0px 10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); line-height:18px; background-color:rgb(250,250,250)">
+<span style="color:black">方法<span class="number" style="color:rgb(192,0,0)">1</span>：&nbsp;&nbsp;</span></li><li style="font-size:1em; margin:0px 0px 0px 38px; padding:0px 0px 0px 10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); line-height:18px; background-color:rgb(250,250,250)">
+<span style="color:black"><span class="comment" style="color:rgb(0,130,0); padding:0px; margin:0px; width:auto; border:0px">//把文件t.txt中的信息生成图片txt.png,&nbsp;-transparent&nbsp;white让图片的背景透明，-size&nbsp;x30设置图片的高度</span>&nbsp;&nbsp;</span></li><li style="font-size:1em; margin:0px 0px 0px 38px; padding:0px 0px 0px 10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); line-height:18px; background-color:rgb(250,250,250)">
+<span style="color:black">convert&nbsp;-transparent&nbsp;white&nbsp;-font&nbsp;msyh.ttf&nbsp;-fill&nbsp;black&nbsp;-pointsize&nbsp;<span class="number" style="color:rgb(192,0,0)">24</span>&nbsp;label:<span class="annotation" style="color:rgb(100,100,100)">@t</span>.txt&nbsp;txt.png&nbsp;&nbsp;</span></li><li style="font-size:1em; margin:0px 0px 0px 38px; padding:0px 0px 0px 10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); line-height:18px; background-color:rgb(250,250,250)">
+<span style="color:black"><span class="comment" style="color:rgb(0,130,0); padding:0px; margin:0px; width:auto; border:0px">//把txt.png合成到src.jpg上</span>&nbsp;&nbsp;</span></li><li style="font-size:1em; margin:0px 0px 0px 38px; padding:0px 0px 0px 10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); line-height:18px; background-color:rgb(250,250,250)">
+<span style="color:black">convert&nbsp;src.jpg&nbsp;txt.png&nbsp;-gravity&nbsp;southeast&nbsp;-geometry&nbsp;&#43;<span class="number" style="color:rgb(192,0,0)">10</span>&#43;<span class="number" style="color:rgb(192,0,0)">5</span>&nbsp;-composite&nbsp;dest.jpg&nbsp;&nbsp;</span></li><li style="font-size:1em; margin:0px 0px 0px 38px; padding:0px 0px 0px 10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); line-height:18px; background-color:rgb(250,250,250)">
+<span style="color:black">&nbsp;&nbsp;</span></li><li style="font-size:1em; margin:0px 0px 0px 38px; padding:0px 0px 0px 10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); line-height:18px; background-color:rgb(250,250,250)">
+<span style="color:black">方法<span class="number" style="color:rgb(192,0,0)">2</span>：&nbsp;&nbsp;</span></li><li style="font-size:1em; margin:0px 0px 0px 38px; padding:0px 0px 0px 10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); line-height:18px; background-color:rgb(250,250,250)">
+<span style="color:black">convert&nbsp;src.jpg&nbsp;-transparent&nbsp;white&nbsp;-font&nbsp;msyh.ttf&nbsp;-fill&nbsp;black&nbsp;-pointsize&nbsp;<span class="number" style="color:rgb(192,0,0)">24</span>&nbsp;-size&nbsp;x30&nbsp;label:<span class="annotation" style="color:rgb(100,100,100)">@t</span>.txt&nbsp;-gravity&nbsp;southeast&nbsp;-geometry&nbsp;&#43;<span class="number" style="color:rgb(192,0,0)">10</span>&#43;<span class="number" style="color:rgb(192,0,0)">5</span>&nbsp;-composite&nbsp;dest.jpg&nbsp;&nbsp;</span></li><li style="font-size:1em; margin:0px 0px 0px 38px; padding:0px 0px 0px 10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); line-height:18px; background-color:rgb(250,250,250)">
+<span style="color:black">&nbsp;&nbsp;</span></li><li style="font-size:1em; margin:0px 0px 0px 38px; padding:0px 0px 0px 10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); line-height:18px; background-color:rgb(250,250,250)">
+<span style="color:black">方法<span class="number" style="color:rgb(192,0,0)">3</span>：&nbsp;&nbsp;</span></li><li style="font-size:1em; margin:0px 0px 0px 38px; padding:0px 0px 0px 10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); line-height:18px; background-color:rgb(250,250,250)">
+<span style="color:black">mogrify&nbsp;-font&nbsp;msyh.ttf&nbsp;-pointsize&nbsp;<span class="number" style="color:rgb(192,0,0)">24</span>&nbsp;-fill&nbsp;black&nbsp;-weight&nbsp;bolder&nbsp;-gravity&nbsp;southeast&nbsp;-annotate&nbsp;&#43;<span class="number" style="color:rgb(192,0,0)">20</span>&#43;<span class="number" style="color:rgb(192,0,0)">20</span>&nbsp;@<span class="string" style="color:blue">&quot;t.txt&quot;</span>&nbsp;src.jpg&nbsp;&nbsp;</span></li></ol>
+</div>
+说明：上述第一、二种方法都有瑕疵，第二种背景不能变成透明，第一种虽然生成的图片可以透明，但是合成到原始图上效果不是很理想，第三种是完全透明的，所以推进用第三种方式来操作。
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<br>
+<br>
+<strong>GraphicsMagick图像处理系统使用方法</strong><br>
+-----------------------------------------------------<br>
+0. 显示图像文件详细信息<br>
+gm identify a.jpg<br>
+&nbsp;<br>
+1.更改当前目录下*.jpg的尺寸大小，并保存于目录.thumb里面<br>
+gm mogrify -output-directory .thumbs -resize 320x200 *.jpg<br>
+&nbsp;<br>
+2. 将三幅图像和并为一副图像<br>
+gm montage -mode concatenate -tile 3x1 image1.ppm image2.ppm image3.ppm concatenated.miff<br>
+&nbsp;<br>
+3. 显示图像<br>
+gm display 'vid:*.jpg'<br>
+&nbsp;<br>
+4. &#26684;式转换<br>
+gm convert a.bmp a.jpg<br>
+gm convert a.bmp a.pdf（转换为pdf)<br>
+&nbsp;<br>
+5. 调整图像dpi和大小<br>
+gm convert -density 288 -geometry 25% image.gif image.gif<br>
+（缩小为原先的1／4，并且dpi为288）<br>
+&nbsp;<br>
+gm convert -resize 640x480 image.gif image.gif<br>
+（转换为640x480的图像)<br>
+&nbsp;<br>
+6. 在图像上添加文字<br>
+gm convert -font Arial -fill blue -pointsize 18 -draw &quot;text 10,10 'your text here'&quot; test.tif test.png<br>
+&nbsp;<br>
+7. 从gif文件中抽取第一帧<br>
+gm convert &quot;Image.gif[0]&quot; first.gif<br>
+&nbsp;<br>
+8. 建立gif图像<br>
+gm convert -delay 20 frame*.gif animation.gif<br>
+gm convert -loop 50 frame*.gif animation.gif<br>
+（让动画循环50次）<br>
+&nbsp;<br>
+gm convert -delay 20 frame1.gif -delay 10 frame2.gif -delay 5 frame3.gif animation.gif<br>
+（对每一帧手动指定延时）<br>
+&nbsp;<br>
+9. 截屏<br>
+gm import a.jpg<br>
+用鼠标点击所要截取的窗口，或者选择截屏区域，保存为a.jpg<br>
+&nbsp;<br>
+gm import -frame a.jpg<br>
+保留窗口的边框<br>
+<br>
+<strong>GraphicsMagick常用管理命令</strong><br>
+-----------------------------------------------------<br>
+查看版本后安装情况：gm identify -version<br>
+结果：：打印出信息<br>
+<br>
+识别图片：gm identify&nbsp; /Users/zhaorai/Pictures/照片/100CANON-1/IMG_4108.JPG<br>
+结果：/Users/zhaorai/Pictures/照片/100CANON-1/IMG_4108.JPG JPEG 3648x2736&#43;0&#43;0 DirectClass 8-bit 2.5M 0.000u 0:01<br>
+<br>
+识别图片(高级)：gm identify&nbsp; -verbose /Users/zhaorai/Desktop/4.png<br>
+结果：打印出很多信息。<br>
+<br>
+<br>
+<strong>GraphicsMagick缩放比例的精准控制</strong><br>
+-----------------------------------------------------<br>
+原始图片是input.jpg，尺寸：160x120<br>
+<br>
+<strong>只缩小不放大</strong><br>
+gm convert input.jpg -resize &quot;500x500&gt;&quot; output_1.jpg<br>
+加了&gt;,表示只有当图片的宽与高，大于给定的宽与高时，才进行“缩小”操作。<br>
+生成的图片大小是：160x120，未进行操作<br>
+如果不加&gt;,会导致图片被比等放大。<br>
+<br>
+<strong>等比缩图</strong>&nbsp; （缺点：产生白边）<br>
+gm convert input.jpg -thumbnail &quot;100x100&quot; output_1.jpg<br>
+生成的图片大小是：100x75<br>
+<br>
+<strong>非等比缩图</strong>，按给定的参数缩图（缺点：长宽比会变化）<br>
+gm convert input.jpg -thumbnail &quot;100x100!&quot; output_2.jpg<br>
+生成的图片大小是：100x100<br>
+<br>
+<strong>裁剪后保证等比缩图</strong>&nbsp;（缺点：裁剪了图片的一部分）<br>
+gm convert input.jpg -thumbnail &quot;100x100^&quot; -gravity center -extent 100x100 output_3.jpg<br>
+生成的图片大小是：100x100，还保证了比例。不过图片经过了裁剪，剪了图片左右两边才达到1:1<br>
+<br>
+<strong>填充后保证等比缩图</strong>&nbsp;（缺点：要填充颜色，和第一种方法基本一样）<br>
+gm convert input.jpg -thumbnail &quot;100x100&quot; -background gray -gravity center -extent 100x100 output_4.jpg<br>
+生成的图片大小是：100x100，还保证了比例，同时没有对图片进行任何裁剪，缺失的部分按指定颜色进行填充。<br>
+<br>
+<strong>裁剪、填充相结合</strong>&nbsp;（缺点：最差的方法）<br>
+gm convert input.jpg -thumbnail &quot;10000@ -background gray -gravity center -extent 100x100 output_5.jpg<br>
+生成的图片大小是：100x100，这次保证了大小和比例，其中的10000就是100x100的乘积，同时在填充和裁剪之间做了一个平衡。<br>
+<br>
+</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<strong>位深度32 转为24</strong></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+IE6,7,8不支持显示“位深度32”的图片，但IE9、火狐、谷歌浏览器就可以显示。</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+使用GM,把“位深度32”的图片转换为“位深度24”的图片</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+输入图片zzz.jpg就是“位深度32”的图片，输出图片 zzz_out.jpg就是“位深度24”的图片</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+gm convert -resize 100x100 -colorspace RGB zzz.jpg zzz_out.jpg</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+转完后，图片的颜色会有轻微变化。</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+<strong>在浏览器上选择图片裁剪的坐标</strong></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+=================================<br>
+如果想让用户手动裁剪头片的话，就是在浏览器上选择图片裁剪的坐标，<span style="color:rgb(255,0,0)">imgAreaSelect</span>是个好选择。<br>
+imgAreaSelect is a jQuery plugin for selecting a rectangular area of an image.<br>
+http://odyniec.net/projects/imgareaselect/<br>
+<br>
+<br>
+</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+======================其它内容=================================</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+Jmagick锐化图片功能</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+--------------------------------------------------<br>
+ImageInfo info = new ImageInfo(filepath&#43;&quot;pics.jpg&quot;);<br>
+MagickImage image = new MagickImage(info);<br>
+MagickImage sharpened = image.sharpenImage(1.0, 5.0);<br>
+sharpened.setFileName(filepath&#43;&quot;sharpened.jpg&quot;);<br>
+sharpened.writeImage(info);<br>
+主要是函数sharpenImage(double arg0, double arg1);<br>
+建议arg0=1.0 arg1=5.0<br>
+arg0为半径&nbsp; arg1为阙&#20540;<br>
+这样做的目的：<br>
+明显会使图片变得清晰好看。</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+JMagick 常用技巧</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+--------------------------------------------</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+ImageMagick中使用&#43;profile &quot;*&quot;&nbsp;&nbsp; 删除图片中不存储附加信息.</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:30px">
+JMagick中,使用MagickImage类上的profileImage(&quot;*&quot;, null)方法,删除图片中不存储附加信息.&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:30px">
+删除图片中的ICC,ICM, IPTC,8bim等信息</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+ImageMagick中使用-quality控制图片的品质,</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; padding-left:30px">
+JMagick中,使用ImageInfo类上的setQuality(80)方法,控制图片的品质</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+&nbsp;在Web应用(Resin,Tomcat)使用ImageMagick</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+-----------------------------------------<br>
+如果要在Web应用(Resin,Tomcat)使用ImageMagick，</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+需要再运行时加入参数： -Djmagick.systemclassloader=no</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">
+或者在程序中写入：System.setProperty(&quot;jmagick.systemclassloader&quot;, &quot;no&quot;);</p>
+</div>
+<br>
+<p></p>
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+<div class="bdsharebuttonbox" style="float: right;">
+<a href="#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"  style="background-position:0 -52px !important"></a>
+<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"style="background-position:0 -104px !important"></a>
+<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"style="background-position:0 -260px !important"></a>
+<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"style="background-position:0 -208px !important"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"style="background-position:0 -1612px !important" ></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+<!--192.168.100.35-->
+<ul class="article_next_prev">
+            <li class="prev_article"><span  onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian']);location.href='/newjueqi/article/details/41925099';">上一篇</span><a href="/newjueqi/article/details/41925099" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian'])">GraphicsMagick+im4java实现高质量大图的处理</a></li>
+            <li class="next_article"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian']);location.href='/newjueqi/article/details/41926115';">下一篇</span><a href="/newjueqi/article/details/41926115" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian'])">app后端设计(12)--图片的处理</a></li>
+</ul>
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+
+</div>
+      <dl class="blog-associat-tag">
+        <dt>主题推荐</dt>
+        <dd>
+                <a href="http://www.csdn.net/tag/imagemagick" target="_blank" class="blog-tage-red" >imagemagick</a> 
+                <a href="http://www.csdn.net/tag/web应用" target="_blank" class="blog-tage-red" >web应用</a> 
+                <a href="http://www.csdn.net/tag/图像处理" target="_blank" class="blog-tage-red" >图像处理</a> 
+                <a href="http://www.csdn.net/tag/操作系统" target="_blank" class="blog-tage-red" >操作系统</a> 
+                <a href="http://www.csdn.net/tag/浏览器" target="_blank" class="blog-tage-red" >浏览器</a> 
+        </dd>
+    </dl> 
+
+
+<dl class="blog-ass-articl tracking-ad"  data-mod="popu_36" id="res-relatived"> 
+     <dt><span>猜你在找</span></dt>    
+</dl>
+<div id="job_blog_reco">
+<script src="http://csdnimg.cn/jobreco/job_reco.js" type="text/javascript"></script>
+   
+     <script type="text/javascript">
+         csdn.position.show({
+         sourceType: "blog",
+         tplType: "blogDetail",
+         searchType: "detail",
+         searchKey: "41925129",
+             username: "",
+         containerId: "job_blog_reco"
+        }); 
+    </script>
+
+</div>
+
+<script type="text/javascript">
+    var searchtitletags = 'ImageMagick简介、GraphicsMagick、命令行使用示例' + ',' + 'imagemagick,web应用,图像处理,操作系统,浏览器';
+    searchService({
+        index: 'blog',
+        query: searchtitletags,
+        from: 10,
+        size: 10,
+        appendTo: '#res-relatived',
+        url: 'recommend',
+        his: 2,
+        client: "blog_cf_enhance",
+        tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+    });
+
+ </script>   
+
+
+
+    <div id="ad_cen">
+   
+          <script type="text/javascript">
+              new Ad(4, 'ad_cen');
+          </script>
+    </div>
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list">
+    </div>
+    <div id="comment_bar">
+    </div>
+    <div id="comment_form">
+    </div>
+
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '41925129';
+    var commentscount = 0;
+    var islock = false
+</script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/comment.js"></script>
+    <div id="ad_bot">
+    </div>
+    <script type="text/javascript">
+    new Ad(5, 'ad_bot');
+    </script>
+<div id="report_dialog">
+</div>
+
+<div id="d-top"  style="bottom:60px;">
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="http://static.blog.csdn.net/images/blog-icon-reply.png" alt="快速回复">
+        </a>    
+
+    <a id="d-top-a" class="btn btn-top backtop"  style="display: none;" title="返回顶部" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_huidaodingbu'])" style="">         
+         <img src="http://static.blog.csdn.net/images/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);
+        
+        /*
+        if($("#comment_content").length>0)
+        {
+            $("#quick-reply").show();
+
+            $("#quick-reply").click(function(){
+                setEditorFocus();
+            });
+        }       
+     
+        var d_top = $('#d-top-a');
+
+        document.onscroll = function ()
+        {
+            var scrTop = (document.body.scrollTop || document.documentElement.scrollTop);
+            if (scrTop > 500)
+            {
+                d_top.show();
+            } else
+            {
+                d_top.hide();
+            }
+        }
+        $('#d-top-a').click(function ()
+        {
+            scrollTo(0, 0);
+            this.blur();
+            return false;
+        });
+        */
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+<div class="tag_list">
+    <h5>
+        <a href="http://www.csdn.net/tag/" target="_blank">核心技术类目</a></h5>
+    <div class="classify">
+<a title="全部主题" href="http://www.csdn.net/tag" target="_blank" onclick="LogClickCount(this,336);">全部主题</a>
+<a title="Hadoop" href="http://g.csdn.net/5272865" target="_blank" onclick="LogClickCount(this,336);">Hadoop</a>
+<a title="AWS" href="http://g.csdn.net/5272866" target="_blank" onclick="LogClickCount(this,336);">AWS</a>
+<a title="移动游戏" href="http://g.csdn.net/5272870" target="_blank" onclick="LogClickCount(this,336);">移动游戏</a>
+<a title="Java" href="http://g.csdn.net/5272871" target="_blank" onclick="LogClickCount(this,336);">Java</a>
+<a title="Android" href="http://g.csdn.net/5272872" target="_blank" onclick="LogClickCount(this,336);">Android</a>
+<a title="iOS" href="http://g.csdn.net/5272873" target="_blank" onclick="LogClickCount(this,336);">iOS</a>
+<a title="Swift" href="http://g.csdn.net/5272868" target="_blank" onclick="LogClickCount(this,336);">Swift</a>
+<a title="智能硬件" href="http://g.csdn.net/5272869" target="_blank" onclick="LogClickCount(this,336);">智能硬件</a>
+<a title="Docker" href="http://g.csdn.net/5272867" target="_blank" onclick="LogClickCount(this,336);">Docker</a>
+<a title="OpenStack" href="http://g.csdn.net/5272925" target="_blank" onclick="LogClickCount(this,336);">OpenStack</a>
+<a title="VPN" href="http://www.csdn.net/tag/vpn" target="_blank" onclick="LogClickCount(this,336);">VPN</a>
+<a title="Spark" href="http://g.csdn.net/5272924" target="_blank" onclick="LogClickCount(this,336);">Spark</a>
+<a title="ERP" href="http://www.csdn.net/tag/erp" target="_blank" onclick="LogClickCount(this,336);">ERP</a>
+<a title="IE10" href="http://www.csdn.net/tag/ie10" target="_blank" onclick="LogClickCount(this,336);">IE10</a>
+<a title="Eclipse" href="http://www.csdn.net/tag/eclipse" target="_blank" onclick="LogClickCount(this,336);">Eclipse</a>
+<a title="CRM" href="http://www.csdn.net/tag/crm" target="_blank" onclick="LogClickCount(this,336);">CRM</a>
+<a title="JavaScript" href="http://www.csdn.net/tag/javascript" target="_blank" onclick="LogClickCount(this,336);">JavaScript</a>
+<a title="数据库" href="http://www.csdn.net/tag/数据库" target="_blank" onclick="LogClickCount(this,336);">数据库</a>
+<a title="Ubuntu" href="http://www.csdn.net/tag/ubuntu" target="_blank" onclick="LogClickCount(this,336);">Ubuntu</a>
+<a title="NFC" href="http://www.csdn.net/tag/nfc" target="_blank" onclick="LogClickCount(this,336);">NFC</a>
+<a title="WAP" href="http://www.csdn.net/tag/wap" target="_blank" onclick="LogClickCount(this,336);">WAP</a>
+<a title="jQuery" href="http://www.csdn.net/tag/jquery" target="_blank" onclick="LogClickCount(this,336);">jQuery</a>
+<a title="BI" href="http://www.csdn.net/tag/bi" target="_blank" onclick="LogClickCount(this,336);">BI</a>
+<a title="HTML5" href="http://www.csdn.net/tag/html5" target="_blank" onclick="LogClickCount(this,336);">HTML5</a>
+<a title="Spring" href="http://www.csdn.net/tag/spring" target="_blank" onclick="LogClickCount(this,336);">Spring</a>
+<a title="Apache" href="http://www.csdn.net/tag/apache" target="_blank" onclick="LogClickCount(this,336);">Apache</a>
+<a title=".NET" href="http://www.csdn.net/tag/.net" target="_blank" onclick="LogClickCount(this,336);">.NET</a>
+<a title="API" href="http://www.csdn.net/tag/api" target="_blank" onclick="LogClickCount(this,336);">API</a>
+<a title="HTML" href="http://www.csdn.net/tag/html" target="_blank" onclick="LogClickCount(this,336);">HTML</a>
+<a title="SDK" href="http://www.csdn.net/tag/sdk" target="_blank" onclick="LogClickCount(this,336);">SDK</a>
+<a title="IIS" href="http://www.csdn.net/tag/iis" target="_blank" onclick="LogClickCount(this,336);">IIS</a>
+<a title="Fedora" href="http://www.csdn.net/tag/fedora" target="_blank" onclick="LogClickCount(this,336);">Fedora</a>
+<a title="XML" href="http://www.csdn.net/tag/xml" target="_blank" onclick="LogClickCount(this,336);">XML</a>
+<a title="LBS" href="http://www.csdn.net/tag/lbs" target="_blank" onclick="LogClickCount(this,336);">LBS</a>
+<a title="Unity" href="http://www.csdn.net/tag/unity" target="_blank" onclick="LogClickCount(this,336);">Unity</a>
+<a title="Splashtop" href="http://www.csdn.net/tag/splashtop" target="_blank" onclick="LogClickCount(this,336);">Splashtop</a>
+<a title="UML" href="http://www.csdn.net/tag/uml" target="_blank" onclick="LogClickCount(this,336);">UML</a>
+<a title="components" href="http://www.csdn.net/tag/components" target="_blank" onclick="LogClickCount(this,336);">components</a>
+<a title="Windows Mobile" href="http://www.csdn.net/tag/windowsmobile" target="_blank" onclick="LogClickCount(this,336);">Windows Mobile</a>
+<a title="Rails" href="http://www.csdn.net/tag/rails" target="_blank" onclick="LogClickCount(this,336);">Rails</a>
+<a title="QEMU" href="http://www.csdn.net/tag/qemu" target="_blank" onclick="LogClickCount(this,336);">QEMU</a>
+<a title="KDE" href="http://www.csdn.net/tag/kde" target="_blank" onclick="LogClickCount(this,336);">KDE</a>
+<a title="Cassandra" href="http://www.csdn.net/tag/cassandra" target="_blank" onclick="LogClickCount(this,336);">Cassandra</a>
+<a title="CloudStack" href="http://www.csdn.net/tag/cloudstack" target="_blank" onclick="LogClickCount(this,336);">CloudStack</a>
+<a title="FTC" href="http://www.csdn.net/tag/ftc" target="_blank" onclick="LogClickCount(this,336);">FTC</a>
+<a title="coremail" href="http://www.csdn.net/tag/coremail" target="_blank" onclick="LogClickCount(this,336);">coremail</a>
+<a title="OPhone " href="http://www.csdn.net/tag/ophone " target="_blank" onclick="LogClickCount(this,336);">OPhone </a>
+<a title="CouchBase" href="http://www.csdn.net/tag/couchbase" target="_blank" onclick="LogClickCount(this,336);">CouchBase</a>
+<a title="云计算" href="http://www.csdn.net/tag/云计算" target="_blank" onclick="LogClickCount(this,336);">云计算</a>
+<a title="iOS6" href="http://www.csdn.net/tag/iOS6" target="_blank" onclick="LogClickCount(this,336);">iOS6</a>
+<a title="Rackspace " href="http://www.csdn.net/tag/rackspace " target="_blank" onclick="LogClickCount(this,336);">Rackspace </a>
+<a title="Web App" href="http://www.csdn.net/tag/webapp" target="_blank" onclick="LogClickCount(this,336);">Web App</a>
+<a title="SpringSide" href="http://www.csdn.net/tag/springside" target="_blank" onclick="LogClickCount(this,336);">SpringSide</a>
+<a title="Maemo" href="http://www.csdn.net/tag/maemo" target="_blank" onclick="LogClickCount(this,336);">Maemo</a>
+<a title="Compuware" href="http://www.csdn.net/tag/compuware" target="_blank" onclick="LogClickCount(this,336);">Compuware</a>
+<a title="大数据" href="http://www.csdn.net/tag/大数据" target="_blank" onclick="LogClickCount(this,336);">大数据</a>
+<a title="aptech" href="http://www.csdn.net/tag/aptech" target="_blank" onclick="LogClickCount(this,336);">aptech</a>
+<a title="Perl" href="http://www.csdn.net/tag/perl" target="_blank" onclick="LogClickCount(this,336);">Perl</a>
+<a title="Tornado" href="http://www.csdn.net/tag/tornado" target="_blank" onclick="LogClickCount(this,336);">Tornado</a>
+<a title="Ruby" href="http://www.csdn.net/tag/ruby" target="_blank" onclick="LogClickCount(this,336);">Ruby</a>
+<a title="Hibernate" href="http://www.csdn.net/hibernate" target="_blank" onclick="LogClickCount(this,336);">Hibernate</a>
+<a title="ThinkPHP" href="http://www.csdn.net/tag/thinkphp" target="_blank" onclick="LogClickCount(this,336);">ThinkPHP</a>
+<a title="HBase" href="http://www.csdn.net/tag/hbase" target="_blank" onclick="LogClickCount(this,336);">HBase</a>
+<a title="Pure" href="http://www.csdn.net/tag/pure" target="_blank" onclick="LogClickCount(this,336);">Pure</a>
+<a title="Solr" href="http://www.csdn.net/tag/solr" target="_blank" onclick="LogClickCount(this,336);">Solr</a>
+<a title="Angular" href="http://www.csdn.net/tag/angular" target="_blank" onclick="LogClickCount(this,336);">Angular</a>
+<a title="Cloud Foundry" href="http://www.csdn.net/tag/cloudfoundry" target="_blank" onclick="LogClickCount(this,336);">Cloud Foundry</a>
+<a title="Redis" href="http://www.csdn.net/tag/redis" target="_blank" onclick="LogClickCount(this,336);">Redis</a>
+<a title="Scala" href="http://www.csdn.net/tag/scala" target="_blank" onclick="LogClickCount(this,336);">Scala</a>
+<a title="Django" href="http://www.csdn.net/tag/django" target="_blank" onclick="LogClickCount(this,336);">Django</a>
+<a title="Bootstrap" href="http://www.csdn.net/tag/bootstrap" target="_blank" onclick="LogClickCount(this,336);">Bootstrap</a>
+    </div>
+</div>
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });
+        },200);  
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }    
+
+</script>
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+            <div id="side">
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/newjueqi" target="_blank">
+    <img src="http://avatar.csdn.net/7/2/8/1_newjueqi.jpg" title="访问我的空间" style="max-width:90%"/>
+    </a>
+    <br />
+    <span><a href="http://my.csdn.net/newjueqi" class="user_name" target="_blank">newjueqi</a></span>
+</div>
+<div class="interact">
+<a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_guanzhu'])"></a>
+
+ <a href="javascript:void(0);" class="letter"  title="[发私信]" onclick="window.open('http://msg.csdn.net/letters/model?receiver=newjueqi','_blank','height=350,width=700');_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_sixin'])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+                                            <a  target="_blank">
+                                                    <img src="http://c.csdnimg.cn/jifen/images/xunzhang/xunzhang/zhuanlandaren.png" onmouseover="m_over_m(this,2)" onmouseout="m_out_m()" alt="2" >
+                                            </a>
+                                            <a  target="_blank">
+                                                    <img src="http://c.csdnimg.cn/jifen/images/xunzhang/xunzhang/chizhiyiheng.png" onmouseover="m_over_m(this,4)" onmouseout="m_out_m()" alt="2" >
+                                            </a>
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>555803次</span></li>
+    <li>积分：<span>8358</span> </li>    
+    <li >等级： <span style="position:relative;display:inline-block;z-index:1" >
+            <img src="http://c.csdnimg.cn/jifen/images/xunzhang/jianzhang/blog6.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：8358 </div>
+        </span>  </li>
+    <li>排名：<span>第823名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>214篇</span></li>
+    <li>转载：<span>304篇</span></li>
+    <li>译文：<span>0篇</span></li>
+    <li>评论：<span>228条</span></li>
+</ul>
+</ul>
+</div>
+
+
+
+
+<div id="custom_column_11607386" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body">
+
+本人曾健生，目前居于广州，先后开发过社交app&quot;ekeo&quot;&quot;米信&quot;的后端，现就职于app云后端平台bmob（想了解bmob点击<a href="http://click.bmob.cn/?sid=83ca143971d86b7e1198 ">这里</a>）<br>
+<br>
+qq：190678908 <br>
+<br>
+“app后端技术” qq群：254659220 <br>
+<br>
+如果您觉得这系列的文章对你有所帮助，欢迎打赏。支付宝账号：190678908@qq.com 收款人：曾健生
+
+</ul>
+</div>
+
+<div id="custom_column_38025533" class="panel">
+<ul class="panel_head"><span>本人的微信公众号&quot;app后端&quot;</span></ul>
+<ul class="panel_body">
+
+<img border="0" src="http://img.blog.csdn.net/20150205162004526" width="180" height="180" alt="app后端">
+
+</ul>
+</div><div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字" /></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog" />
+        <input type="hidden" name="q" id="inputQ" />
+        <input type="hidden" name="t" value="blog" />
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";
+            window.location.href = url;
+        }   
+    });
+</script><div id="panel_Category" class="panel">
+    <ul class="panel_head"><span>博客专栏</span></ul>
+    <ul class="panel_body" id="sp_column">
+    <table cellpadding="0" cellspacing="0"><tr>
+    <td style="padding:10px 10px 0 0;">
+    <a href="http://blog.csdn.net/column/details/mobilebackend.html" target="_blank"><img src="http://avatar.csdn.net/blogpic/column.jpg" style="width:75px;height:75px;" /></a>
+    </td>
+    <td style="padding:10px 0; vertical-align:top;">
+    <a href="http://blog.csdn.net/column/details/mobilebackend.html" target="_blank">app后端技术架构</a>
+    <p>文章：33篇</p>
+    <span>阅读：77925</span>
+    </td>
+    </tr></table>
+    </ul>
+</div>
+<div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/601966" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Android</a><span>(5)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/540702" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">C/C++</a><span>(4)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/544880" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">html/js</a><span>(7)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/615470" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">HTTP</a><span>(11)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/530920" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Java</a><span>(17)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/545832" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">java web基础</a><span>(5)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/550658" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">JSP</a><span>(2)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/638331" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">PHP</a><span>(77)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/528289" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">python</a><span>(2)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/548432" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Spring</a><span>(1)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/616464" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">SQL</a><span>(33)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/571247" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Struts</a><span>(1)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/526388" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">保健</a><span>(2)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/617454" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">数据结构与算法</a><span>(4)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/550659" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">杂谈</a><span>(16)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/524102" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">汇编</a><span>(3)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/707661" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">瑜伽</a><span>(1)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/536663" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">设计模式</a><span>(2)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/521482" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">读书感悟</a><span>(6)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/521483" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">阅读理论</a><span>(2)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/864027" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">linux</a><span>(116)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/888394" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">magento</a><span>(34)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1063359" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">apache</a><span>(11)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1065248" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">js</a><span>(1)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1069161" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">vim</a><span>(20)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1087143" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">高性能服务器</a><span>(6)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1123902" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">转载hello_world2001博客</a><span>(17)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1175072" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">php源码</a><span>(4)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1195218" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">svn</a><span>(3)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1199345" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ci</a><span>(1)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1207609" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">OAuth</a><span>(1)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1211779" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">xmpp</a><span>(33)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1254444" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">LBS</a><span>(4)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1743543" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">app后端</a><span>(34)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1767599" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">nginx</a><span>(6)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/2127519" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">nodejs</a><span>(4)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/2141633" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">python</a><span>(0)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/2185149" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">mongodb</a><span>(2)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/2341499" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">go</a><span>(4)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/2598703" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">200多万元得到的创业教训</a><span>(19)</span>
+            </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list">
+<!--归档统计-->
+<li><a href="http://blog.csdn.net/newjueqi/article/month/2015/03">2015年03月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2015/02">2015年02月</a><span>(12)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2015/01">2015年01月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2014/12">2014年12月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2014/11">2014年11月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2014/10">2014年10月</a><span>(15)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2014/09">2014年09月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2014/08">2014年08月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2014/07">2014年07月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2014/06">2014年06月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2014/05">2014年05月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2014/04">2014年04月</a><span>(15)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2014/03">2014年03月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2014/02">2014年02月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2014/01">2014年01月</a><span>(12)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2013/12">2013年12月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2013/11">2013年11月</a><span>(12)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2013/10">2013年10月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2013/09">2013年09月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2013/08">2013年08月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2013/07">2013年07月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2013/04">2013年04月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2013/03">2013年03月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2013/02">2013年02月</a><span>(9)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2013/01">2013年01月</a><span>(9)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2012/12">2012年12月</a><span>(19)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2012/11">2012年11月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2012/10">2012年10月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2012/09">2012年09月</a><span>(10)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2012/08">2012年08月</a><span>(20)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2012/07">2012年07月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2012/06">2012年06月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2012/05">2012年05月</a><span>(43)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2012/04">2012年04月</a><span>(50)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2012/03">2012年03月</a><span>(15)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2012/02">2012年02月</a><span>(26)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2012/01">2012年01月</a><span>(36)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2011/12">2011年12月</a><span>(38)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2011/11">2011年11月</a><span>(21)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2011/10">2011年10月</a><span>(11)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2011/09">2011年09月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2011/08">2011年08月</a><span>(14)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2010/07">2010年07月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2010/06">2010年06月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2010/05">2010年05月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2009/12">2009年12月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2009/11">2009年11月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2009/10">2009年10月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2009/09">2009年09月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2009/08">2009年08月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2009/06">2009年06月</a><span>(8)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2009/05">2009年05月</a><span>(11)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2009/04">2009年04月</a><span>(8)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2009/03">2009年03月</a><span>(7)</span></li>
+</div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="/newjueqi/article/details/7054582" title="Ubuntu 查看磁盘空间大小命令">Ubuntu 查看磁盘空间大小命令</a><span>(17485)</span>
+</li>
+<li>
+<a href="/newjueqi/article/details/19114471" title="app后端设计(11)-- 系统架构(2014.12.05更新)">app后端设计(11)-- 系统架构(2014.12.05更新)</a><span>(9130)</span>
+</li>
+<li>
+<a href="/newjueqi/article/details/14053733" title="app后端设计(1)--api(2014.01.31更新)">app后端设计(1)--api(2014.01.31更新)</a><span>(8881)</span>
+</li>
+<li>
+<a href="/newjueqi/article/details/19003775" title="app后端设计--总目录">app后端设计--总目录</a><span>(8312)</span>
+</li>
+<li>
+<a href="/newjueqi/article/details/4777779" title="Android下的应用编程——用HTTP协议实现文件上传功能">Android下的应用编程——用HTTP协议实现文件上传功能</a><span>(7644)</span>
+</li>
+<li>
+<a href="/newjueqi/article/details/18887571" title="app后端设计(4)-- 通讯的安全性">app后端设计(4)-- 通讯的安全性</a><span>(6611)</span>
+</li>
+<li>
+<a href="/newjueqi/article/details/16342265" title="app后端设计(2)--xmpp的使用（2014.01.14更新）">app后端设计(2)--xmpp的使用（2014.01.14更新）</a><span>(6094)</span>
+</li>
+<li>
+<a href="/newjueqi/article/details/7845282" title="基于PHP构建OAuth 2.0 认证平台">基于PHP构建OAuth 2.0 认证平台</a><span>(5236)</span>
+</li>
+<li>
+<a href="/newjueqi/article/details/19114469" title="app后端设计(10)--数据增量更新">app后端设计(10)--数据增量更新</a><span>(4956)</span>
+</li>
+<li>
+<a href="/newjueqi/article/details/18032925" title="openfire推送离线聊天信息的插件">openfire推送离线聊天信息的插件</a><span>(4679)</span>
+</li>
+</ul>
+</div>
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="/newjueqi/article/details/19003775#comments">app后端设计--总目录</a>
+    <p style="margin:0px;"><a href="/newjueqi" class="user_name">newjueqi</a>:
+@5iasp:谢谢，欢迎多提意见
+    </p>
+    </li>
+    <li>
+   
+         <a href="/newjueqi/article/details/19003775#comments">app后端设计--总目录</a>
+    <p style="margin:0px;"><a href="/5iasp" class="user_name">5iasp</a>:
+很好，学习了。
+    </p>
+    </li>
+    <li>
+   
+         <a href="/newjueqi/article/details/43734735#comments">5.两分钟让你明白app后端有啥用</a>
+    <p style="margin:0px;"><a href="/newjueqi" class="user_name">newjueqi</a>:
+@cheyiliu:别人看了后也变“云”了
+    </p>
+    </li>
+    <li>
+   
+         <a href="/newjueqi/article/details/43734735#comments">5.两分钟让你明白app后端有啥用</a>
+    <p style="margin:0px;"><a href="/cheyiliu" class="user_name">cheyiliu</a>:
+有个时髦的词，云
+    </p>
+    </li>
+    <li>
+   
+         <a href="/newjueqi/article/details/43734735#comments">app后端设计--总目录</a>
+    <p style="margin:0px;"><a href="/x359981514" class="user_name">x359981514</a>:
+bmob
+    </p>
+    </li>
+    <li>
+   
+         <a href="/newjueqi/article/details/43701941#comments">4.app是怎么炼成的</a>
+    <p style="margin:0px;"><a href="/qq_25547109" class="user_name">qq_25547109</a>:
+赞
+    </p>
+    </li>
+    <li>
+   
+         <a href="/newjueqi/article/details/18227501#comments">app后端设计(3)--短信，邮件，推送服务（2014.12.05更新）</a>
+    <p style="margin:0px;"><a href="/xinchen0618" class="user_name">xinchen0618</a>:
+踩的那一下，我真不是故意的，纯属误操作，对不住！！！内容真心非常受用！！！
+    </p>
+    </li>
+    <li>
+   
+         <a href="/newjueqi/article/details/18227501#comments">app后端设计--总目录</a>
+    <p style="margin:0px;"><a href="/newjueqi" class="user_name">newjueqi</a>:
+@kittykan:很多问题都是app后台共有的，现在正打算把app后端的开发系统地讲述一次，在微信...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/newjueqi/article/details/18227501#comments">app后端设计--总目录</a>
+    <p style="margin:0px;"><a href="/newjueqi" class="user_name">newjueqi</a>:
+@yoho025:谢谢支持
+    </p>
+    </li>
+    <li>
+   
+         <a href="/newjueqi/article/details/18227501#comments">4.app是怎么炼成的</a>
+    <p style="margin:0px;"><a href="/newjueqi" class="user_name">newjueqi</a>:
+@cheyiliu:谢谢支持
+    </p>
+    </li>
+</ul>
+</div>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+
+            <div class="clear">
+            </div>
+        </div>
+        
+
+<script type="text/javascript" src="http://csdnimg.cn/rabbit/cnick/cnick.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="http://medal.blog.csdn.net/showblogmedal.ashx?blogid=75243"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/JavaScript1.js"></script>
+
+    <script type="text/javascript" src="http://passport.csdn.net/content/loginbox/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script>
+<script type="text/javascript" src="http://www.csdn.net/ui/scripts/Csdn/counter.js"></script>
+<script type="text/javascript" src="http://ad.csdn.net/scripts/ad-blog.js"></script>
+<script type="text/javascript" src="http://zz.csdn.net/js/count.js"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a>"
+                    + "<a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+    });
+</script>
+
+    </div>
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnId="header_notice_num" wrapId="note1" count="5" subCount="5" type="text/javascript" src="http://static.csdn.net/public/common/toolbar/js/toolbar.js"></script>     <!--new top-->
+   
+    <link href="http://c.csdnimg.cn/comm_ask/css/ask_float_block.css" type="text/css" rel="stylesheet" />
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/wmd.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/showdown.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/prettify.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/apps/ask_float_block.js'></script>
+
+</body>
+</html>

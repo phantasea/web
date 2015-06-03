@@ -1,0 +1,2966 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <title>Working Productively in Bash&#39;s Vi Command Line Editing Mode (with Cheat Sheet) - good coders code, great reuse</title>
+
+    <meta name="description" content="Bash provides two modes for command line editing - emacs and vi. Emacs editing mode is the default and I already wrote an article and created a cheat sheet for this mode. This time I am going to introduce you to bash&#39;s vi editing mode and give out a detailed ...">
+
+    <link rel="stylesheet" type="text/css" href="/static/css/reset.css?v=1" media="screen, projection">
+    <link rel="stylesheet" type="text/css" href="/static/css/catonmat.css?v=20" media="screen, projection">
+    <!--[if lte IE 7]>
+    <style type="text/css">
+      #wrapper { margin-top: -1px; }
+    </style>
+    <![endif]-->
+
+    <script type="text/javascript" src="/static/js/jquery-1.3.2.js"></script>
+    <script type="text/javascript" src="/static/js/catonmat.js?v=3"></script>
+
+    <link rel="alternate" type="application/atom+xml" title="catonmat feed" href="http://www.catonmat.net/feed/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" /> 
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" /> 
+
+    <meta name="google-site-verification" content="aXAUFOiWFF_OiqrmlUrhZN1sqJf5tnuYdMDpuXc1w8w" />
+  </head>
+  <body>
+    <div id="container">
+      <div id="header">
+        
+  <div id="tabs">
+  <ul>
+    <li><a href="/" title="Return to homepage/blog">Home</a></li>
+    <li><a href="/books/" title="Books that Peteris krumins has written">Books</a></li>
+    <li><a href="/projects/" title="Projects that Peteris Krumins has done">Projects</a></li>
+    <li><a href="/sitemap/" title="Catonmat sitemap">Sitemap</a></li>
+    <li><a href="/feedback/" title="Contact Peteris Krumins/Leave feedback">Feedback</a></li>
+    <li><a href="/about/" title="About Peteris Krumins">About Me</a></li>
+    <li><a class="advertise" href="/advertise/" title="Advertise on catonmat.net">Advertise</a></li>
+  </ul>
+  <div id="tab-ad">
+  </div>
+</div>
+<div class="clear"></div>
+<div id="hspace">
+  <div id="first">
+    <a href="/" class="wide" title="Return to good coders code, great reuse">
+    <img src="/static/img/good-coders-code-great-reuse.gif" alt="good coders code, great reuse">
+    </a>
+    <div id="first-real">
+      <table width="100%" height="145" valign="middle">
+        <tr>
+          <td>
+            <p class="quote">Those who cannot remember the past are condemned to repeat it.</p>
+            <!-- <span class="quotes"><a href="/quotes/" title="more programming related quotes">more quotes</a></span>-->
+            <p class="author">George Santayana</p>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div id="second">
+    <div id="second-real">
+      <div id="announcements">
+        <div id="browserling">
+          <p class="title"><a href="http://www.catonmat.net/blog/launching-browserling/" title="I am doing a startup!">I am doing a startup!</a></p>
+          <p class="browserling-logo"><a href="http://www.browserling.com" title="Browserling"><img src="/static/img/browserling-logo-180px.png" alt="Browserling"></a></p>
+          <p>Cross-browser testing from your browser</p>
+        </div>
+        <div id="books">
+          <p class="title"><a href="http://www.catonmat.net/blog/perl-book/">I have written my third book!</a>
+          <p class="awk-logo"><a href="http://www.catonmat.net/blog/perl-book/" title="Perl One-Liners Explained"><img src="/static/img/sed-book-logo-180x61.gif" alt="Perl Book"></a></p>
+          <p>Perl one-liners explained</p>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>
+
+
+
+      </div>
+      <div id="wrapper">
+        <div id="content">
+          
+
+
+
+
+
+
+
+
+<div class="welcome">
+  <div class="twitter">
+    <p><a href="http://twitter.com/pkrumins" title="Peteris Krumins on Twitter"><img src="/static/img/twitter-16x16.gif">Follow me on Twitter</a> for my latest adventures!</p>
+  </div>
+</div>
+
+
+
+<div class="page">
+  <div class="header">
+    <span class="category next"><a href="/category/cheat-sheets" title="See all posts in category &quot;Cheat Sheets&quot;">Cheat Sheets</a></span>
+
+    <span class="commentsc">
+        <a href="/blog/bash-vi-editing-mode-cheat-sheet/#comments" title="64 people have commented on &quot;Working Productively in Bash&#39;s Vi Command Line Editing Mode (with Cheat Sheet)&quot;"><strong>64</strong> Comments</a>
+    </span>
+
+    <span class="date right">January 08, 2008</span>
+
+    <div class="clear"></div>
+    <div class="hrb"></div>
+    <h1><a href="/blog/bash-vi-editing-mode-cheat-sheet/" title="Working Productively in Bash&#39;s Vi Command Line Editing Mode (with Cheat Sheet)">Working Productively in Bash&#39;s Vi Command Line Editing Mode (with Cheat Sheet)</a></h1>
+    <!--
+    <div class="hr lighter"></div>
+    -->
+  </div>
+
+
+  <div class="content">
+    
+
+    
+
+    
+
+    
+      <div style="margin-bottom: 10px"><img src='http://www.catonmat.net/blog/wp-content/uploads/2007/10/post-icon-bash-readline-emacs-editing-mode.jpg' alt='bash readline vi editing mode default keyboard shortcut cheat sheet' class='post-icon' align='left' /><div style="float: right; margin-right:20px">
+<script type="text/javascript"><!--
+  google_ad_client = "pub-0433925538517663";
+  /* catonmat before article (blue) 336x280, created 1/23/10 */
+  google_ad_slot = "8733420369";
+  google_ad_width = 336;
+  google_ad_height = 280;
+  //-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+    </div>
+<div class="clear"></div>
+</div>
+<p> Bash provides two modes for command line editing - <strong>emacs</strong> and <strong>vi</strong>. Emacs editing mode is the default and I already wrote an <a href="http://www.catonmat.net/blog/bash-emacs-editing-mode-cheat-sheet/">article and created a cheat sheet for this mode</a>.</p>
+<p>This time I am going to introduce you to bash's <strong>vi editing mode</strong> and give out a detailed cheat sheet with the default keyboard mappings for this mode.</p>
+<p>The difference between the two modes is what command each key combination (or key) gets bound to. You may inspect your current keyboard mappings with bash's built in <strong>bind</strong> command:</p>
+<pre >
+$ bind -P
+
+abort can be found on "\C-g", "\C-x\C-g", "\M-\C-g".
+accept-line can be found on "\C-j", "\C-m".
+alias-expand-line is not bound to any keys
+...
+</pre>
+<p>To get into the <strong>vi editing mode</strong> type</p>
+<pre > 
+$ set -o vi
+</pre>
+<p>in your bash shell (to switch back to emacs editing mode, type <strong>set -o emacs</strong>).</p>
+<p>If you are used to a vi text editor you will feel yourself at home. </p>
+<p>The editing happens in two modes - <strong>command mode</strong> and <strong>insert mode</strong>. In insert mode everything you type gets output to the terminal, but in the command mode the keys are used for various commands.</p>
+<p>Here are a few examples with screenshots to illustrate the <strong>vi editing mode</strong>.</p>
+<p>Let '<strong>[i]</strong>' be the position of cursor in insert mode in all the examples and '<strong>[c]</strong>' be the position of cursor in command mode.</p>
+<p><strong>Examples</strong>:</p>
+<p>Once you have changed the readline editing mode to vi (by typing <strong>set -o vi</strong>), you will be working in <strong>insert mode</strong>.</p>
+<p>The example will be performed on this command:</p>
+<pre >
+$ echo arg1 arg2 arg3 arg4<strong>[i]</strong>
+</pre>
+<p><strong>Example 1:</strong></p>
+<p>Suppose you have typed a command with a few arguments and want to insert another argument before an argument which is three words backward.</p>
+<pre >
+$ echo arg1 <em>(want to insert arg5 here)</em> arg2 arg3 arg4<strong>[i]</strong>
+</pre>
+<p>Hit '<strong>ESC</strong>' to switch to <strong>command mode</strong> and press '<strong>3</strong>' followed by '<strong>B</strong>':</p>
+<pre >
+$ echo arg1 <strong>[c]</strong>arg2 arg3 arg4
+</pre>
+<p>Alternatively you could have hit '<strong>B</strong>' three times: '<strong>BBB</strong>'.</p>
+<p>Now, enter <strong>insert mode</strong> by hitting '<strong>i</strong>' and type '<strong>arg5 </strong>'</p>
+<pre >
+$ echo arg1 arg5 <strong>[i]</strong>arg2 arg3 arg4
+</pre>
+<p><strong>Example 2:</strong></p>
+<p>Suppose you wanted to change <strong>arg2</strong> to <strong>arg5</strong>:</p>
+<pre >
+$ echo arg1 <strong>[c]</strong>arg2 arg3 arg4
+</pre>
+<p>To do this, you can type '<strong>cw</strong>' which means 'change word' and just type out '<strong>arg5</strong>':</p>
+<pre >
+$ echo arg1 arg5<strong>[c]</strong> arg3 arg4
+</pre>
+<p>Or even quicker, you can type '<strong>f2r5</strong>', where '<strong>f2</strong>' moves the cursor right to next occurrence of character '<strong>2</strong>' and '<strong>r5</strong>' replaces the character under the cursor with character '<strong>5</strong>'.</p>
+<p><strong>Example 3:</strong></p>
+<p>Suppose you typed a longer command and you noticed that you had made several mistakes, and wanted to do the correction in the vi editor itself. You can type '<strong>v</strong>' to edit the command in the editor and not on the command line!</p>
+<p><strong>Example 4:</strong></p>
+<p>Suppose you typed a long command and remembered that you had to execute another one before it. No need to erase the current command! You can switch to <strong>command mode</strong> by hitting <strong>ESC</strong> and then type '<strong>#</strong>' which will send the current command as a comment in the command history. After you type the command you had forgotten, you may go two commands back in history by typing '<strong>kk</strong>' (or '<strong>2k</strong>'), erase the '<strong>#</strong>' character which was appended as a comment and execute the command, this makes the whole command look like '<strong>ESC 2k0x ENTER</strong>'.</p>
+<p>These are really basic examples, and it doesn't get much more complex than this. You should check out the cheat sheet for other tips and examples, and try them out!</p>
+<p>To create the cheat sheet, I downloaded <a href="http://ftp.gnu.org/gnu/bash/bash-2.05b.tar.gz">bash-2.05b source code</a> and scanned through <a href="/download/vi_keymap.c">lib/readline/vi_keymap.c</a> source code file and <a href="/download/vi_mode.c">lib/readline/vi_mode.c</a> to find all the default key bindings.</p>
+<p>It turned out that the commands documented in <strong>vi_keymap.c</strong> were all documented in <a href="http://linux.die.net/man/3/readline">man 3 readline</a> and I didn't find anything new.</p>
+<p>After that I checked <a href="/download/bashline.c">bashline.c</a> source file function <strong>initialize_readline</strong> to find how the default keyboard shortcuts were changed. I found that '<strong>CTRL-e</strong>' (which switched from <strong>vi</strong> mode to <strong>emacs</strong>) got undefined, '<strong>v</strong>' got defined which opens the existing command in the editor, and '<strong>@</strong>' which replaces a macro key (char) with the corresponding string.</p>
+<p>The cheat sheet includes:</p>
+<ul><li>Commands for entering input mode,</li>
+<li>Basic movement commands,</li>
+<li>Character finding commands,</li>
+<li>Character finding commands,</li>
+<li>Deletion commands,</li>
+<li>Undo, redo and copy/paste commands,</li>
+<li>Commands for history manipulation,</li>
+<li>Completion commands,</li>
+<li>A few misc. commands, and</li>
+<li>Tips and examples</li>
+</ul>
+<div class="download"><div class="download-title"><p>Download Vi Editing Mode Cheat Sheet</p>
+</div>
+<p><strong>PDF format (.pdf):</strong><br>
+Download link: <a href="/download/bash-vi-editing-mode-cheat-sheet.pdf" title="Download &quot;bash vi editing mode cheat sheet (.pdf)&quot;">bash vi editing mode cheat sheet (.pdf)</a><br>
+Downloaded: 94035 times</p>
+<p><strong>ASCII .txt format:</strong><br>
+Download link: <a href="/download/bash-vi-editing-mode-cheat-sheet.txt" title="Download &quot;bash vi editing mode cheat sheet (.txt)&quot;">bash vi editing mode cheat sheet (.txt)</a><br>
+Downloaded: 17790 times</p>
+<p><strong>LaTeX format (.tex):</strong><br>
+Download link: <a href="/download/bash-vi-editing-mode-cheat-sheet.tex" title="Download &quot;bash vi editing mode cheat sheet (latex .tex)&quot;">bash vi editing mode cheat sheet (latex .tex)</a><br>
+Downloaded: 4843 times</p>
+<p>This cheat sheet is released under GNU Free Document License.</p>
+<div class='center-aligner'><p><strong>Do you want to have a broader discussion on this topic?</strong><br>
+Discuss it on <a href="http://forums.zigzap.com/showthread.php?p=14567">catonmat forums</a>!</p>
+</div>
+</div>
+<div class="ads-aad"><!--adsense#aad--></div>
+
+  </div>
+
+
+  <div class="social">
+    <div class="twitter">
+      <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+    <div class="facebook">
+      
+      <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.catonmat.net%2Fblog%2Fbash-vi-editing-mode-cheat-sheet&amp;layout=button_count&amp;show_faces=true&amp;width=110&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>
+    </div>
+    <div class="googleplus">
+      <g:plusone size="small"></g:plusone>
+    </div>
+    <div class="clear"></div>
+  </div>
+
+  <div class="footer">
+      <div class="tags"><a href="/tags" title="All catonmat tags" class="tags_link">Tags</a>:
+        
+        <a href="/tag/bash" title="See all pages tagged &quot;bash&quot;">bash</a>, 
+        <a href="/tag/cheat-sheet" title="See all pages tagged &quot;cheat sheet&quot;">cheat sheet</a>, 
+        <a href="/tag/linux" title="See all pages tagged &quot;linux&quot;">linux</a>, 
+        <a href="/tag/readline" title="See all pages tagged &quot;readline&quot;">readline</a>, 
+        <a href="/tag/unix" title="See all pages tagged &quot;unix&quot;">unix</a>, 
+        <a href="/tag/vi" title="See all pages tagged &quot;vi&quot;">vi</a>
+      </div>
+
+    <span class="comment_url">
+        <a href="/blog/bash-vi-editing-mode-cheat-sheet/#comments" title="Comment on &quot;Working Productively in Bash&#39;s Vi Command Line Editing Mode (with Cheat Sheet)&quot;"><strong>64</strong> Comments</a>
+    </span>
+
+    <span class="views">
+       <strong>476,409</strong> Views
+    </span>
+
+    <span class="short_url">
+      Short URL <input type="text" size="25" value="http://catonmat.net/p/38" onclick="this.select()" readonly>
+    </span>
+  </div>
+
+
+  <div class="related-posts">
+    <h3>Related Posts</h3>
+    <ul>
+      <li><a href="/blog/bash-emacs-editing-mode-cheat-sheet/" title="Bash Emacs Editing Mode Cheat Sheet">Bash Emacs Editing Mode Cheat Sheet</a></li>
+      <li><a href="/blog/the-definitive-guide-to-bash-command-line-history/" title="The Definitive Guide to Bash Command Line History">The Definitive Guide to Bash Command Line History</a></li>
+      <li><a href="/blog/sed-stream-editor-cheat-sheet/" title="Sed - UNIX Stream Editor - Cheat Sheet">Sed - UNIX Stream Editor - Cheat Sheet</a></li>
+      <li><a href="/blog/ed-unix-text-editor-cheat-sheet/" title="Ed - Unix Text Editor - Cheat Sheet">Ed - Unix Text Editor - Cheat Sheet</a></li>
+      <li><a href="/blog/plain-text-versions-of-sed-ed-and-awk-cheat-sheets/" title="Plain Text Versions of Sed, ed and AWK Cheat Sheets">Plain Text Versions of Sed, ed and AWK Cheat Sheets</a></li>
+      <li><a href="/blog/unix-utilities-netcat/" title="A Unix Utility You Should Know About: Netcat">A Unix Utility You Should Know About: Netcat</a></li>
+      <li><a href="/blog/sed-book/" title="Announcing my second e-book &#34;Sed One-Liners Explained&#34;">Announcing my second e-book &#34;Sed One-Liners Explained&#34;</a></li>
+      <li><a href="/blog/screen-terminal-emulator-cheat-sheet/" title="Screen VT100/ANSI Terminal Emulator Cheat Sheet">Screen VT100/ANSI Terminal Emulator Cheat Sheet</a></li>
+      <li><a href="/blog/unix-utilities-pipe-viewer/" title="A Unix Utility You Should Know About: Pipe Viewer">A Unix Utility You Should Know About: Pipe Viewer</a></li>
+      <li><a href="/blog/awk-book/" title="Announcing my first e-book &#34;Awk One-Liners Explained&#34;">Announcing my first e-book &#34;Awk One-Liners Explained&#34;</a></li>
+      <li>
+    </ul>
+  </div>
+
+  <a name="comments"></a>
+  <div class="comments">
+    <div id="comment_list"><!-- TODO: change id to class -->
+      <h3>Comments</h3>
+        
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/36db0756da44f54c57e623dd991a1da7.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://www.freewebs.com/ankushag" title="http://www.freewebs.com/ankushag" rel="nofollow">Ankush Agarwal</a></span>
+
+
+        <span class="permalink"><a href="/c/762" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">January 08, 2008, 23:40</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Thanks! It's finally here after a long wait :)<br>
+It works equally well on ksh too.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/762?reply" class="reply" id="reply_a_762" title="Reply to comment by Ankush Agarwal">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/9055b6c1d07708555ec584d03c387f15.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://www.catonmat.net" title="http://www.catonmat.net">Peteris Krumins</a></span>
+
+      
+      <span class="twitter"><a href="http://twitter.com/pkrumins" title="pkrumins on Twitter">pkrumins</a></span>
+
+        <span class="permalink"><a href="/c/763" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">January 09, 2008, 00:00</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Ankush, yeah, it's finally here :) Great to hear that it works well on ksh, as well!</p>
+<p>Next cheat sheets are going to be on Linux IPTables packet flow (which I created some 4 years ago), and I'll have another one on bash's history expansion.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/763?reply" class="reply" id="reply_a_763" title="Reply to comment by Peteris Krumins">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/5e3009e39e3b693b96a502bfa4261dd6.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">Johannes</span>
+
+
+        <span class="permalink"><a href="/c/764" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">January 09, 2008, 02:07</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>I had no idea this was possible! Thanks a lot!</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/764?reply" class="reply" id="reply_a_764" title="Reply to comment by Johannes">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/43739b33ee2faf9d3224c8e7d57db831.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://www.abuzant.com/" title="http://www.abuzant.com/" rel="nofollow">Ruslan Abuzant</a></span>
+
+
+        <span class="permalink"><a href="/c/765" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">January 09, 2008, 21:11</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Same loyal readers, great articles everytime. <br>
+No, u slona vse ravno ... <br>
+Thanks, will test tonight</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/765?reply" class="reply" id="reply_a_765" title="Reply to comment by Ruslan Abuzant">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/6db1f7bc1e16c75cf20bb62820763ac9.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://www.thehnoeic.wordpress.com" title="http://www.thehnoeic.wordpress.com" rel="nofollow">Shaj</a></span>
+
+
+        <span class="permalink"><a href="/c/766" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">January 11, 2008, 22:54</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Hello Peteris,</p>
+<p>Thanks for visiting and commenting on our blog!  We are plesantly surprised that you came upon our blog.</p>
+<p>Your video lectures are quite impressive!  And we, at the EIC (www.thehnoeic.wordpress.com)in Maryland, hope you get into MIT :)</p>
+<p>Thanks,<br>
+Shaj Mathew</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/766?reply" class="reply" id="reply_a_766" title="Reply to comment by Shaj">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/f6017876734614e42377fe6a59ae8409.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">Brian Doyle</span>
+
+
+        <span class="permalink"><a href="/c/767" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">January 18, 2008, 17:40</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Is there a way to tell visually if you are in command mode or insert mode from the terminal in a visual way?   Like in vim you can setup the INSERT to display when you are in insert mode.  Thanks.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/767?reply" class="reply" id="reply_a_767" title="Reply to comment by Brian Doyle">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/9055b6c1d07708555ec584d03c387f15.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://www.catonmat.net" title="http://www.catonmat.net">Peteris Krumins</a></span>
+
+      
+      <span class="twitter"><a href="http://twitter.com/pkrumins" title="pkrumins on Twitter">pkrumins</a></span>
+
+        <span class="permalink"><a href="/c/768" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">January 18, 2008, 17:55</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Brian, as far as I know it is not possible to visually tell whether you are in insert mode or command mode.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/768?reply" class="reply" id="reply_a_768" title="Reply to comment by Peteris Krumins">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/be13d49ea40add75e564bef96b323caf.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://thno.lv" title="http://thno.lv" rel="nofollow">Martins Grunskis</a></span>
+
+
+        <span class="permalink"><a href="/c/769" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">January 19, 2008, 12:40</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>In the 1st example you don't need to use capital B, it's enough with just b.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/769?reply" class="reply" id="reply_a_769" title="Reply to comment by Martins Grunskis">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/9055b6c1d07708555ec584d03c387f15.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://www.catonmat.net" title="http://www.catonmat.net">Peteris Krumins</a></span>
+
+      
+      <span class="twitter"><a href="http://twitter.com/pkrumins" title="pkrumins on Twitter">pkrumins</a></span>
+
+        <span class="permalink"><a href="/c/770" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">January 20, 2008, 04:57</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Martins, yup, I don't need a capital B in this particular example but if argN, where N = 1, 2, ..., was a more complex one like "(foo)", then the the lowercase 'b' would treat ')' and '(' as separate words...</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/770?reply" class="reply" id="reply_a_770" title="Reply to comment by Peteris Krumins">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/d7a31f22c11776898826f7c1ed0ff80a.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">mischa</span>
+
+
+        <span class="permalink"><a href="/c/771" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">January 25, 2008, 12:14</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>nice cheat sheet Peteris :),</p>
+<p>i was wondering if it was possible to get visual feedback in what mode you currently are.</p>
+<p>do you have any idea's on that?</p>
+<p>grtz</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/771?reply" class="reply" id="reply_a_771" title="Reply to comment by mischa">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/9055b6c1d07708555ec584d03c387f15.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://www.catonmat.net" title="http://www.catonmat.net">Peteris Krumins</a></span>
+
+      
+      <span class="twitter"><a href="http://twitter.com/pkrumins" title="pkrumins on Twitter">pkrumins</a></span>
+
+        <span class="permalink"><a href="/c/772" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">January 26, 2008, 03:47</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Mischa, as far as I know that is not possible. But it's not that confusing. I am mostly working in vi mode, and now have bound the most useful of emacs bindings to vi mode, so I got a mixed vi/emacs mode.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/772?reply" class="reply" id="reply_a_772" title="Reply to comment by Peteris Krumins">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/7b76f13677dc554dca81898937c36daf.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://unstableme.blogspot.com" title="http://unstableme.blogspot.com" rel="nofollow">Jadu</a></span>
+
+
+        <span class="permalink"><a href="/c/773" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">February 01, 2008, 20:13</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Really Helpful :-)</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/773?reply" class="reply" id="reply_a_773" title="Reply to comment by Jadu">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/ecf88158488a2b0aae81bae3c6d7d92d.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">Erik Wognsen</span>
+
+
+        <span class="permalink"><a href="/c/774" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">February 23, 2008, 03:00</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Thanks for the guide :-)</p>
+<p>"... have bound the most useful of emacs bindings to vi mode, so I got a mixed vi/emacs mode."</p>
+<p>Can you give some tips on how to do this? Did you edit the readline source? I'd really love to have ^P in insert mode go up just as in normal mode.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/774?reply" class="reply" id="reply_a_774" title="Reply to comment by Erik Wognsen">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/9e2a9dc68112e2c5913dbe23b92e6cd6.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">Tyler  King</span>
+
+
+        <span class="permalink"><a href="/c/775" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">May 05, 2008, 07:20</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>thanks for the cheats got them in time for a exam and was very helpful in remembering those syntax .... i bow to the great ones thanks a bunch keep 'em coming see ya</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/775?reply" class="reply" id="reply_a_775" title="Reply to comment by Tyler  King">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/f3ada405ce890b6f8204094deb12d8a8.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">soday</span>
+
+
+        <span class="permalink"><a href="/c/776" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">June 11, 2008, 21:16</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Peteris,<br>
+  Just what I needed.  Thanks!</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/776?reply" class="reply" id="reply_a_776" title="Reply to comment by soday">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/b27ea51c6c130a1c27ff3c188bd592c5.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://www.lamnk.com" title="http://www.lamnk.com" rel="nofollow">Lamnk</a></span>
+
+
+        <span class="permalink"><a href="/c/777" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">June 14, 2008, 00:54</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>This is killer !!!</p>
+<p>I haven't read anywhere about this bash's feature</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/777?reply" class="reply" id="reply_a_777" title="Reply to comment by Lamnk">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/fbcc4f3f06375171903d24f44fa6e825.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://nutation.net/blog" title="http://nutation.net/blog" rel="nofollow">Rich</a></span>
+
+
+        <span class="permalink"><a href="/c/778" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">June 14, 2008, 20:55</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>I toyed around with bash edit modes years ago and for some reason although I prefer vim wholeheartedly over emacs I have gotten to prefer the emacs edit mode at the commandline.  I think it's because, gnu readline is a widely used library, so therefore I can do ctrl-a to get to the front of the line in bash and in firefox text boxes and in etc etc.</p>
+<p>The vi edit mode for bash would be nice, but like many people say it's not really great for general computing.  Since I log into over 10 different boxes for different things and get csh, bash or whatever depending, I'd rather have something that just works.  On the systems I use a lot, I will customize my environment a bit, especially if my home is exported across different machines, but in general I go plain vanilla.</p>
+<p>As long as I have a long merging history set, I'll use whatever shell pops up by default.</p>
+<p>:-)</p>
+<p>Just my $0.08 or so... judging by the length.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/778?reply" class="reply" id="reply_a_778" title="Reply to comment by Rich">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/fbcc4f3f06375171903d24f44fa6e825.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://nutation.net/blog" title="http://nutation.net/blog" rel="nofollow">Rich</a></span>
+
+
+        <span class="permalink"><a href="/c/779" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">June 14, 2008, 21:10</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Actually, where I said 'vi edit mode for bash would be nice' I meant, it would be nice with the following improvements.<br>
+1) easy way to switch between vi and emacs mode with a single keystroke<br>
+2) a way to see what mode I was in when in vi mode</p>
+<p>I know there I times I would really like to be bouncing around the command line with /'s and n and hjkl and all those goodies, but I meant to say I just never have the time to switch to it and generally don't need it.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/779?reply" class="reply" id="reply_a_779" title="Reply to comment by Rich">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/f23f00c8271b1d23a968779edeadc10b.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">John thomas</span>
+
+
+        <span class="permalink"><a href="/c/780" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">June 14, 2008, 21:15</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Sweetness!</p>
+<p>JT<br>
+<a href="http://www.Ultimate-Anonymity.com">Ultimate Anonymity</a></p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/780?reply" class="reply" id="reply_a_780" title="Reply to comment by John thomas">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/dbe358e75d3fd766f0de81cf3e97815b.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://ooyes.net" title="http://ooyes.net" rel="nofollow">website design</a></span>
+
+
+        <span class="permalink"><a href="/c/781" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">June 14, 2008, 22:14</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>There is a link to the <a href="http://www.catonmat.net/blog/bash-emacs-editing-mode-cheat-sheet/">Emacs mode</a> in the article, too. Both are very cool!</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/781?reply" class="reply" id="reply_a_781" title="Reply to comment by website design">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/8533bba8b17c4305fa07b8f5ba3376b7.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://twosecondmemory.org" title="http://twosecondmemory.org" rel="nofollow">rgh</a></span>
+
+
+        <span class="permalink"><a href="/c/782" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">June 15, 2008, 05:00</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Instead of using set -o vi you add 'set editing-mode vi' to you $HOME/.inputrc file you have vi-keybinding-loveless in all applications that support readline. You can also set this to system wide by added this to /etc/inputrc.</p>
+<p>Ummmmmmmm.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/782?reply" class="reply" id="reply_a_782" title="Reply to comment by rgh">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/edc4947b6f0f2644c7cd191233f3f940.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">mike</span>
+
+
+        <span class="permalink"><a href="/c/783" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">June 16, 2008, 21:33</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Hey - <br>
+Very interesting stuff. Is there any way to get this to support text objects like in vim? For example <b>ciw</b> for "change inner word." This would also be great to edit command args in quotes, i.e. <b>ci"</b> or <b>ci'</b>.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/783?reply" class="reply" id="reply_a_783" title="Reply to comment by mike">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/772b830e328055b8863132f61e866255.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://www.answers.com" title="http://www.answers.com" rel="nofollow">englandhead</a></span>
+
+
+        <span class="permalink"><a href="/c/784" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">June 22, 2008, 06:23</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>pets head deliver frog tom university</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/784?reply" class="reply" id="reply_a_784" title="Reply to comment by englandhead">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/fe2c2d4dff69af5504ebbd173304ff2d.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://www.arcadepub.com" title="http://www.arcadepub.com" rel="nofollow">juicystevena</a></span>
+
+
+        <span class="permalink"><a href="/c/785" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">June 22, 2008, 06:24</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>look green australia me head deliver night we juicy we woman all night girl german</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/785?reply" class="reply" id="reply_a_785" title="Reply to comment by juicystevena">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/611daa2d88d101438e9632e5703ccb3c.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://www.lonelyplanet.com" title="http://www.lonelyplanet.com" rel="nofollow">keywoman</a></span>
+
+
+        <span class="permalink"><a href="/c/786" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">July 13, 2008, 05:46</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>australia english jhon bag bag red joke steven green</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/786?reply" class="reply" id="reply_a_786" title="Reply to comment by keywoman">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/47df2d1e859056611c792810c32d02e4.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://i24m.wordpress.com" title="http://i24m.wordpress.com" rel="nofollow">reedmb</a></span>
+
+
+        <span class="permalink"><a href="/c/787" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">July 16, 2008, 17:18</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Looked at vi mode cheat sheet, text version. Is there an error under Basic Movement? Then, "h" s/b left and "l" s/b right. Thanks for well laid out easy to read cheat sheet. <br>
+cheers</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/787?reply" class="reply" id="reply_a_787" title="Reply to comment by reedmb">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/5a8923b2250830b3b383d27f7a5adec6.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">cygwin user</span>
+
+
+        <span class="permalink"><a href="/c/788" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">July 23, 2008, 14:38</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>it works perfectly in cygwin !</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/788?reply" class="reply" id="reply_a_788" title="Reply to comment by cygwin user">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/5dd5e13d789023adebbe661eef8bcebc.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">javaroast</span>
+
+
+        <span class="permalink"><a href="/c/789" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">July 28, 2008, 08:29</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Thank you for your work on the cheat sheets.  I'll definitely be adding your blog to the read list.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/789?reply" class="reply" id="reply_a_789" title="Reply to comment by javaroast">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/bc5332775568de64cff1322b44788583.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">Wolf</span>
+
+
+        <span class="permalink"><a href="/c/790" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">August 15, 2008, 21:27</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Thank you very much!</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/790?reply" class="reply" id="reply_a_790" title="Reply to comment by Wolf">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/9cc181d895005121bbb1b285c33d5d4f.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">Tim</span>
+
+
+        <span class="permalink"><a href="/c/791" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">January 06, 2009, 04:37</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>thx dude, great article</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/791?reply" class="reply" id="reply_a_791" title="Reply to comment by Tim">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/5bc9ad5f502f34409f9e4aea1035c84b.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">Sun Yu</span>
+
+
+        <span class="permalink"><a href="/c/792" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">March 26, 2009, 14:14</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>becauese M-k == ESC k, you can just use M-k to switch into command mode; also M-h M-l M-j M-w ...</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/792?reply" class="reply" id="reply_a_792" title="Reply to comment by Sun Yu">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/f8c4f0e9b786d47eb4c027ac6946ebd3.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">Adriano</span>
+
+
+        <span class="permalink"><a href="/c/793" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">April 26, 2009, 06:17</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>hi Peter, thanks very much for pointing out that ‘v‘  is defined to open the command itself in an editor (which will be $VISUAL, not $FCEDIT, by the looks of bashline.c). </p>
+<p>Since 'v' is used a lot in vim for visual highlighting, it is easy by habit to accidently hit the v-key at the bash commandline while editing in the vi-mode. Plus calling in $VISUAL is probably overkill in most situations...</p>
+<p>It seems extremely difficult to remap v for other purposes, unlike the other keys. Maybe it's impossible, but I would appreciate hearing from you first ;-) Thanks very much.</p>
+<p>PS- (set keymap vi-insert) is probably the closest to vim among four other vi-choices.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/793?reply" class="reply" id="reply_a_793" title="Reply to comment by Adriano">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/d219af79b45e5891507fda4c4c2139a0.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">anonymous</span>
+
+
+        <span class="permalink"><a href="/c/794" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">June 06, 2009, 19:29</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>vi mode where it pops in like an (arg: 3) just sucks.</p>
+<p>Very distracting and fucked up.  Those asshole kind of solutions looking for problems need to be options, not the default action.</p>
+<p>Some jerk doesn't have enough to do so they fuck up perfectly good software.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/794?reply" class="reply" id="reply_a_794" title="Reply to comment by anonymous">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/a35b0c06e122645aca9182709d3f3398.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://www.ncoded.com" title="http://www.ncoded.com" rel="nofollow">Chris Kirk</a></span>
+
+
+        <span class="permalink"><a href="/c/795" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">September 09, 2009, 14:08</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>You should ban the person above, and delete their comment. How rude! </p>
+<p>Although I do agree that having to learn UNIX just so I can edit a file E.G. 'edit file.ext' is a bit anoying! :)</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/795?reply" class="reply" id="reply_a_795" title="Reply to comment by Chris Kirk">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/486ba41abaf81aefe5bfe12488d74573.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://google.com/uzkbs" title="http://google.com/uzkbs" rel="nofollow">sandrar</a></span>
+
+
+        <span class="permalink"><a href="/c/796" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">September 10, 2009, 13:20</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Hi! I was surfing and found your blog post... nice! I love your blog.  :) Cheers! Sandra. R.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/796?reply" class="reply" id="reply_a_796" title="Reply to comment by sandrar">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/7ae6043a704f7627533f6edee3879e5a.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">vivaldi@tux.us.to</span>
+
+
+        <span class="permalink"><a href="/c/797" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">December 12, 2009, 18:37</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Chris, actually he's right. Wholeheartedly, I really like Bash with its Vi-mode but this (arg: 1) thing is plain confusing. Is it possible to disable it somehow?</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/797?reply" class="reply" id="reply_a_797" title="Reply to comment by vivaldi@tux.us.to">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/dc5bc6c55dcb9824eea15e1d055bef75.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://twitter.com/pythonone" title="http://twitter.com/pythonone" rel="nofollow">Abottleinfrontofme Frontallobotomy</a></span>
+
+
+        <span class="permalink"><a href="/c/798" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">December 27, 2009, 07:46</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Once again, Peteris, you are shedding lots of light in some dark corners of the Unix world. I have subscribed to your feed and look forward to not only updates, but reading your older stuff, which is new to me.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/798?reply" class="reply" id="reply_a_798" title="Reply to comment by Abottleinfrontofme Frontallobotomy">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/21fad00a5ab48e8ac96bcc3b6ec9dd8b.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">argv</span>
+
+
+        <span class="permalink"><a href="/c/799" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">January 16, 2010, 22:11</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>one thing that is awkward about vi is having to reach for the esc to switch modes key, which nowadays is usually located in a corner of the keyboard</p>
+<p>there's another way to switch.  ctrl-[<br>
+this might be on the other side of your keyboard so it gives you a way to switch modes from the opposite side</p>
+<p>also, hitting v to jump into your editor seems like a "annoyance" until you begin creating user-defined functions in your interactive shell.  or maybe you like saving short scripts.</p>
+<p>e.g. you are typing up a good one-liner and then you decide to make it a function and save it for later use.  you add give it a name() and brackets { ;} and then hit v.  :w name :q and you're done.  this is the essence of quick and dirty.</p>
+<p>you can load these functions on the fly in other one-liners too, using sed.  like this:<br>
+commands | sed '1i\<br>
+. nameoffunction<br>
+' | sh<br>
+i don't use bash.  i use a very basic bourne-like shell that's stripped of "features" but close to being POSIX compliant.  but with vi mode, tabcomplete and functions it's more than enough.  vi mode is a good thing. and there are alternatives to readline if you look around.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/799?reply" class="reply" id="reply_a_799" title="Reply to comment by argv">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/21fad00a5ab48e8ac96bcc3b6ec9dd8b.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">argv</span>
+
+
+        <span class="permalink"><a href="/c/800" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">January 16, 2010, 23:15</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>i just noticed the ctrl-[ shortcut is mentioned in the post about command line history.  well done.</p>
+<p>one more thought: someone above mentioned the ubiquity of readline and emacs bindings.  and the desirability of one standard set of bindings that works "everywhere".  but if we are focusing on unix and the command line (cf, e.g., gui apps), i wonder if /bin/sh is not even more ubiquitous than readline.  every system that runs scripts is likely have sh. </p>
+<p>so from any shell one could type /bin/sh and then set -o vi.  and then one is in familiar territory.</p>
+<p>and according to the open standards group, if it's a terminal that supports command line editing, it should have vi mode.  </p>
+<p>i like both types of bindings, but i wonder which is really more ubiquitous.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/800?reply" class="reply" id="reply_a_800" title="Reply to comment by argv">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/71687ddd4ab18580cffe84b32538e089.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://none.com" title="http://none.com" rel="nofollow">mll</a></span>
+
+
+        <span class="permalink"><a href="/c/801" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">January 29, 2010, 00:27</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>new to the bourne shell...any goo tutorials? anything will b appreciated</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/801?reply" class="reply" id="reply_a_801" title="Reply to comment by mll">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/d8cf61ad4c89ec2ecb825e9ca08435c6.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">Jay</span>
+
+
+        <span class="permalink"><a href="/c/802" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">March 24, 2010, 19:32</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>on ksh (perhaps on bash, who knows), you might consider also adding one of <br>
+set -o vi-esccomplete <br>
+or <br>
+set -o vi-tabcomplete<br>
+to change the file and command completion behaviour.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/802?reply" class="reply" id="reply_a_802" title="Reply to comment by Jay">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/ad7fdba68c64118191e1ad6b2c609d5d.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">Jon</span>
+
+
+        <span class="permalink"><a href="/c/803" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">March 24, 2010, 20:25</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>This was an excellent post. I saw some things I didn't know about. Btw, you can also search your history with '/' while in edit mode. So, if you know you've ssh'd into a machine but don't remember how long ago you did it, you can do a '/ssh' and find it (use 'n' for next find 'N' for previous).</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/803?reply" class="reply" id="reply_a_803" title="Reply to comment by Jon">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/05e4e83c87a5700958fcb3efa8951a06.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://www.dancingbison.com" title="http://www.dancingbison.com" rel="nofollow">Vasudev Ram</a></span>
+
+
+        <span class="permalink"><a href="/c/804" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">March 24, 2010, 23:27</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Nice post, Peteris.</p>
+<p>Just a couple of remarks:</p>
+<p>In your Examples 1 and 2, for completeness and to be precise, you could mention that the user should hit the Enter key at the end, to actually execute the modified commands.</p>
+<p>And likewise, in Example 3, that they should hit    and then Enter, to exit the temporary file brought up by vi for the v command, and that the command gets executed immediately (IIRC) when they type that key sequence - you don't get a chance to edit it more, as I recall.</p>
+<p>Other than those two minor nits, useful article, and it's cool that you dug through the source to find info for it ...</p>
+<p>- Vasudev</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/804?reply" class="reply" id="reply_a_804" title="Reply to comment by Vasudev Ram">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/05e4e83c87a5700958fcb3efa8951a06.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://www.dancingbison.com" title="http://www.dancingbison.com" rel="nofollow">Vasudev Ram</a></span>
+
+
+        <span class="permalink"><a href="/c/805" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">March 24, 2010, 23:30</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Aargh! due to use of angle brackets to indicate colon, etc., my above comment got garbled. Here is what I really meant:</p>
+<p>For this:</p>
+<p>"they should hit and then Enter"</p>
+<p>substitute this:</p>
+<p>"they should hit colon w q and then Enter"</p>
+<p>- Vasudev</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/805?reply" class="reply" id="reply_a_805" title="Reply to comment by Vasudev Ram">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/05e4e83c87a5700958fcb3efa8951a06.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://www.dancingbison.com" title="http://www.dancingbison.com" rel="nofollow">Vasudev Ram</a></span>
+
+
+        <span class="permalink"><a href="/c/806" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">March 25, 2010, 02:37</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Didn't notice the message about using "&lt;" to insert a "less than" sign, before posting.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/806?reply" class="reply" id="reply_a_806" title="Reply to comment by Vasudev Ram">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/05e4e83c87a5700958fcb3efa8951a06.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://www.dancingbison.com" title="http://www.dancingbison.com" rel="nofollow">Vasudev Ram</a></span>
+
+
+        <span class="permalink"><a href="/c/807" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">March 25, 2010, 02:40</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Ok, you !%$# blog software: I meant "and lt semicolon" - finally ! :-) I hope ...</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/807?reply" class="reply" id="reply_a_807" title="Reply to comment by Vasudev Ram">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/0f6e813a0f9af3bf6f98d4dfcd7c0820.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">Raj</span>
+
+
+        <span class="permalink"><a href="/c/2791" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">April 16, 2010, 12:46</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Two things that keep me using tcsh are:<br>
+ &nbsp; * automatically switches to command mode on history or arrow key<br>
+ &nbsp; * uses tab-completion by default<br>
+That said I would like to use bash's loop-rollup and function aliasing,<br>
+but since I use command mode more than anything the ROI isn't there.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/2791?reply" class="reply" id="reply_a_2791" title="Reply to comment by Raj">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="/static/img/nogravatar.gif" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">Tweezak</span>
+
+
+        <span class="permalink"><a href="/c/6206" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">November 19, 2010, 04:42</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>FINALLY!!<br>
+I'm an old HPUX user and KSH and default vi mode command line editing are seemingly hard wired into my digits. BASH was really getting tiresome. This find will save my sanity (or what's left of it). Thanks for writing this!</p>
+<p>Now if I could only remap the escape key to the spot God intended it to be...where the caps lock is. Anyone who used to use old HP workstations knows exactly what I'm talking about.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/6206?reply" class="reply" id="reply_a_6206" title="Reply to comment by Tweezak">Reply to this comment</a>
+    </div>
+</div>
+
+
+    
+
+  
+
+
+<div class="icomment" style="margin-left: 20px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/f59b60e23936656a13df8dc36b5fa675.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">ndf</span>
+
+
+        <span class="permalink"><a href="/c/8416" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">December 18, 2010, 01:12</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Tweezak,</p>
+<p>Not sure if you'll see this, but if you'll create a file (I call mine .xmodmap-esc) with these lines:</p>
+<p>clear Lock<br>
+keycode 0x42 = Escape</p>
+<p>And then load it with:<br>
+xmodmap $FILENAME</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/8416?reply" class="reply" id="reply_a_8416" title="Reply to comment by ndf">Reply to this comment</a>
+    </div>
+</div>
+
+
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/4fb557ada252cfa2eff1a6058d7f4fe7.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://www.hotcoachoutlet.com/" title="http://www.hotcoachoutlet.com/" rel="nofollow">coach outlet</a></span>
+
+
+        <span class="permalink"><a href="/c/7672" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">December 02, 2010, 01:24</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Nice article, great!I like it, thanks for sharing it with us. its worth reading!</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/7672?reply" class="reply" id="reply_a_7672" title="Reply to comment by coach outlet">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/a1fd1fa4e0e37619833485567ab6f767.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">foobar</span>
+
+
+        <span class="permalink"><a href="/c/13821" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">March 05, 2011, 02:30</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>this is incredible.. i can't believe i didn't know about this before. thanks!</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/13821?reply" class="reply" id="reply_a_13821" title="Reply to comment by foobar">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/d536d55d0165621695c7bcdd5fceb73d.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://mikbe.tk" title="http://mikbe.tk" rel="nofollow">Mike Bethany</a></span>
+
+      
+      <span class="twitter"><a href="http://twitter.com/mikbetk" title="mikbetk on Twitter" rel="nofollow">mikbetk</a></span>
+
+        <span class="permalink"><a href="/c/26516" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">June 25, 2011, 22:30</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Fantastic! Now I just wonder if anyone has written a script to automatically match your bash vi mode key maps to your existing Vim key maps. That would save me a whole lot of grief and appease the DRY gods.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/26516?reply" class="reply" id="reply_a_26516" title="Reply to comment by Mike Bethany">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/d178a6201be696c466c41c355c671707.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">Florian</span>
+
+
+        <span class="permalink"><a href="/c/29831" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">July 27, 2011, 19:10</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Thanks to your guide, the vi mode has become even more useful!</p>
+<p>However, I found one downside which is due to a "feature" introduced in bash 4.2: http://lists.gnu.org/archive/html/bug-bash/2011-02/msg00274.html</p>
+<p>This broke my path completion completely and I didn't find a way to get the 4.1 behaviour back. Also the workaround suggested in above mentioned thread seems to be available only in emacs mode (afaics vi mode doesn't support the 'shell-expand-line' command.</p>
+<p>Any hint is greatly appreciated!</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/29831?reply" class="reply" id="reply_a_29831" title="Reply to comment by Florian">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/c58f96c2a4f8ef3908f922853b1c3ce7.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">saurav shrestha</span>
+
+      
+      <span class="twitter"><a href="http://twitter.com/zaurav" title="zaurav on Twitter" rel="nofollow">zaurav</a></span>
+
+        <span class="permalink"><a href="/c/31620" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">August 09, 2011, 22:34</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Firstly thanks for the wonderful cli-experience-changing tutorial!</p>
+<p>I have but one gripe that I'm trying to sort out. Whenever I try to edit the command in 'vi' itself by pressing the 'v' key, it opens up in nano!</p>
+<p>If someone would be willing to show how to fix this, it'd be much appreciated.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/31620?reply" class="reply" id="reply_a_31620" title="Reply to comment by saurav shrestha">Reply to this comment</a>
+    </div>
+</div>
+
+
+    
+
+  
+
+
+<div class="icomment" style="margin-left: 20px">
+  <div class="gravatar">
+    <img src="/static/img/nogravatar.gif" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">Angus Warren</span>
+
+
+        <span class="permalink"><a href="/c/33141" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">September 08, 2011, 04:43</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>You need to update your $EDITOR variable to reflect the editor that you prefer. </p>
+<p>Add this line to your .bashrc:</p>
+<p>export EDITOR=vim</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/33141?reply" class="reply" id="reply_a_33141" title="Reply to comment by Angus Warren">Reply to this comment</a>
+    </div>
+</div>
+
+
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/8d98b3ee0f14a8d7c5e0ab3486a5cc05.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      
+      <span class="name"><a href="http://www.vertstudios.com/" title="http://www.vertstudios.com/" rel="nofollow">Joseph McCullough</a></span>
+
+      
+      <span class="twitter"><a href="http://twitter.com/joe_query" title="joe_query on Twitter" rel="nofollow">joe_query</a></span>
+
+        <span class="permalink"><a href="/c/33484" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">September 14, 2011, 15:47</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Oh my god, how the hell did I not know about this? This seriously makes my life so much better, thank you so much! I was sick and tired of having to hold down the arrow keys to get to the beginning of the line!</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/33484?reply" class="reply" id="reply_a_33484" title="Reply to comment by Joseph McCullough">Reply to this comment</a>
+    </div>
+</div>
+
+
+    
+
+  
+
+
+<div class="icomment" style="margin-left: 20px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/c1b4eb8751a973da835b8fb6588586aa.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">Agnes</span>
+
+
+        <span class="permalink"><a href="/c/38223" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">April 04, 2012, 07:55</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>You can use CTRL-A and CTRL-E in emacs mode (default) to jump to the beginning and end of a line. Works in any textbox in OSX, actually.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/38223?reply" class="reply" id="reply_a_38223" title="Reply to comment by Agnes">Reply to this comment</a>
+    </div>
+</div>
+
+
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/fa86fbfa646649f2c96ec0136c697020.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">unixrefresher</span>
+
+
+        <span class="permalink"><a href="/c/39110" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">June 05, 2012, 00:43</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>thanks... this works for me. I though the vi functionality in command line won't work in bash. :-)</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/39110?reply" class="reply" id="reply_a_39110" title="Reply to comment by unixrefresher">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/312b4b2dd653bb19e845642a069a8a63.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">Wesley Steinbrink</span>
+
+
+        <span class="permalink"><a href="/c/40255" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">August 22, 2012, 03:48</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Thanks for explaining the vi at the bash line. Didn't know about the "v" editing - nice. Also, at the bash line, Alt-l can be substituted for Esc. It is much easier. Further Alt-l can be used in most vims. Where it can't, I like :imap </p>
+&lt;M&gt;&lt;Esc&gt;
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/40255?reply" class="reply" id="reply_a_40255" title="Reply to comment by Wesley Steinbrink">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/312b4b2dd653bb19e845642a069a8a63.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">Wesley Steinbrink</span>
+
+
+        <span class="permalink"><a href="/c/40257" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">August 22, 2012, 03:51</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>The editor got me. The previous comment was to be Alt - lower case L pressed at the same time. The imap should read :imap &lt; M - l > &lt; E s c > without the spaces</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/40257?reply" class="reply" id="reply_a_40257" title="Reply to comment by Wesley Steinbrink">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/312b4b2dd653bb19e845642a069a8a63.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">Wesley Steinbrink</span>
+
+
+        <span class="permalink"><a href="/c/40258" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">August 22, 2012, 04:27</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Also in input mode, Alt-s works as a convenient backspace. Too bad it doesn't work in gvim etc.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/40258?reply" class="reply" id="reply_a_40258" title="Reply to comment by Wesley Steinbrink">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="/static/img/nogravatar.gif" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">Tyler</span>
+
+
+        <span class="permalink"><a href="/c/40517" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">September 10, 2012, 22:13</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>You just changed my life</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/40517?reply" class="reply" id="reply_a_40517" title="Reply to comment by Tyler">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="http://www.gravatar.com/avatar/9681b05384d154a06da7da975846649f.jpg?s=40" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">Kostya</span>
+
+
+        <span class="permalink"><a href="/c/40712" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">September 30, 2012, 19:14</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Thanks a lot for this :)) I really love vi and always wondered how to use it to edit bash command line... then I was studying `bind` builtin and discovered this wonderful ability to use readline commands. Then googling gave off your blog, and it is excellent! <br>
+Didn't even know that in default mode I was using emacs commands. OK I'll see if the "mixed" emacs+vi mode could help.<br>
+Thanks again!!!</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/40712?reply" class="reply" id="reply_a_40712" title="Reply to comment by Kostya">Reply to this comment</a>
+    </div>
+</div>
+
+
+  
+
+
+<div class="icomment" style="margin-left: 0px">
+  <div class="gravatar">
+    <img src="/static/img/nogravatar.gif" width="40" height="40">
+  </div>
+  <div class="userinfo">
+    <div>
+      <span class="name">User</span>
+
+
+        <span class="permalink"><a href="/c/42549" title="Permanent link to the comment">Permalink</a></span>
+    </div>
+    <div>
+      <span class="time">February 12, 2013, 17:56</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="comment_text">
+    <p>Thank you.</p>
+
+  </div>
+
+    <div class="comment_reply">
+      <a href="/c/42549?reply" class="reply" id="reply_a_42549" title="Reply to comment by User">Reply to this comment</a>
+    </div>
+</div>
+
+
+
+
+        <script>
+          catonmat.init_comments('page', '');
+        </script>
+    </div>
+
+    <div class="add">
+      <h3>Leave a new comment</h3>
+      
+
+<div id="comment_form">
+    <div id="comment_error" class="hidden"></div>
+
+    <div id="comment_preview" class="hidden"></div>
+
+  <form action="/blog/bash-vi-editing-mode-cheat-sheet" method="POST">
+    <input type="hidden" name="page_id" id="page_id" value="38">
+    <input type="hidden" name="parent_id" id="parent_id" value="">
+
+    <p>
+      <label for="name" class="name">Name:</label>
+      <input tabindex="1" type="text" name="name" id="name" maxlength="64" size="30">
+    </p>
+    <div class="clear"></div>
+
+    <p>
+      <label for="email" class="email">E-mail:</label>
+      <input tabindex="2" type="text" name="email" id="email" maxlength="128" size="30">
+      <span class="small">(<a href="#" id="why_email_a" title="Why do I need your email?">why do I need your e-mail?</a>)</span>
+    </p>
+    <div class="clear"></div>
+
+    <div id="why_email_explain" class="hidden">
+      <p>
+        It would be nice if you left your e-mail address. Sometimes I want to send a private message, or just thank for the great comment. Having your e-mail really helps.
+      </p>
+      <p><b>I will never ever spam you.</b></p>
+    </div>
+
+    <p>
+      <label for="twitter" class="twitter">Twitter:</label>
+      <input tabindex="3" type="text" name="twitter" id="twitter" maxlength="128" size="30">
+      <span class="small">(Your twitter name, if you have one. (I'm <a href="http://twitter.com/pkrumins">@pkrumins</a>, btw.))</span>
+    </p>
+    <div class="clear"></div>
+
+    <p class="website">
+      <label for="website" class="website">Website:</label>
+      <input tabindex="4" type="text" name="website" id="website" maxlength="256" size="50">
+    </p>
+    <div class="clear"></div>
+
+    <div class="c">
+      <label for="comment" class="comment">Comment:</label>
+      <div class="a">
+        </p>
+        <textarea tabindex="5" name="comment" rows="8" cols="50" id="comment"></textarea>
+        <script>
+          if ($.browser.safari) {
+            /* i can't solve the 2px offset bug in chrome via css manipulations */
+            $('#comment_form .a').css('margin-left', '94px');
+
+            /* i also can't solve a problem of labels being offset by 3px in vertical direction */
+            $('#comment_form label').css('margin-top','3px')
+          }
+        </script>
+        <div class="comment-help-link"><a href="#" id="ch">Comment Help</a></div>
+        <div class="clear"></div>
+        <div id="comment_help" class="hidden">
+          <p>* use <code>&lt;pre>...&lt;/pre></code> to insert a plain code snippet.</p>
+          <p>
+            * use <code>&lt;pre lang="<strong>lang</strong>">...&lt;/pre></code> to insert a syntax highlighted code snippet.<br>
+            For example, <code>&lt;pre lang="<strong>python</strong>">...&lt;/pre></code> will insert Python highlighted code.
+          </p>
+          <p>* use <code>&lt;code>...&lt;/code></code> to highlight a variable or a single shell command.</p>
+          <p>* use <code>&lt;a href="url">title&lt/a></code> to insert links.</p>
+          <p>* use other HTML tags, such as, <code>&lt;b></code>, <code>&lt;i></code>, <code>&lt;blockquote></code>, <code>&lt;sup></code>, <code>&lt;sub></code> for text formatting.</p>
+        </div>
+      </div>
+    </div>
+    <div class="clear"></div>
+
+    <div class="e">
+      <p>
+        Type the first letter of your name: <input tabindex="6" type="text" name="commentc" size="10"> (just to make sure you're a human)
+      </p>
+
+      <p>
+        <input tabindex="6" id="preview" type="submit" name="preview" value="Preview comment">
+        <input tabindex="7" id="submit" type="submit" name="submit" value="Submit comment">
+      </p>
+
+      <p>
+        <span id="comment_please">Please <b>preview</b> the comment before submitting to make sure it's OK.<br></span>
+      </p>
+    </div>
+
+  </form>
+</div>
+
+
+      <script>
+        catonmat.init_why_email();
+        catonmat.init_comment_help();
+        catonmat.init_preview_comment();
+        catonmat.init_submit_comment('');
+      </script>
+    </div>
+  </div>
+
+  <div class="after_comments_ads">
+    <h3>Advertisements</h3>
+    <div class="after_comments_ad300">
+      <div class="lqm_ad" lqm_publisher="lqm.goodcoderscode.site" lqm_zone="RON" lqm_format="300x250" lqm_tags="HTML5%2CHTML%205%2CHTML5%20or%20HTML%205%2CCSS%2CWeb%2CJavaScript%2CSQL%2CVirtualization%2CCloud%2CHosting%2CVisual%20Studio%20or%20visualstudio%20or%20vs%20or%20vs2010%2CVisual%20Studio%2Cvisualstudio%2Cvs%2Cvs2010%2CWPF%2CXML%2CSilverlight%2CParallelism%2CTesting%2CjQuery%2CMVC%2CAJAX"></div>
+    </div>
+    <div class="after_comments_ad300_last">
+      <div class="lqm_ad" lqm_publisher="lqm.goodcoderscode.site" lqm_zone="RON" lqm_format="300x250" lqm_tags="HTML5%2CHTML%205%2CHTML5%20or%20HTML%205%2CCSS%2CWeb%2CJavaScript%2CSQL%2CVirtualization%2CCloud%2CHosting%2CVisual%20Studio%20or%20visualstudio%20or%20vs%20or%20vs2010%2CVisual%20Studio%2Cvisualstudio%2Cvs%2Cvs2010%2CWPF%2CXML%2CSilverlight%2CParallelism%2CTesting%2CjQuery%2CMVC%2CAJAX"></div>
+    </div>
+    <div class="clear"></div>
+    <div class="after_comments_ad">
+      <div class="lqm_ad" lqm_publisher="lqm.goodcoderscode.site" lqm_zone="RON" lqm_format="1x2" lqm_tags="HTML5%2CHTML%205%2CHTML5%20or%20HTML%205%2CCSS%2CWeb%2CJavaScript%2CSQL%2CVirtualization%2CCloud%2CHosting%2CVisual%20Studio%20or%20visualstudio%20or%20vs%20or%20vs2010%2CVisual%20Studio%2Cvisualstudio%2Cvs%2Cvs2010%2CWPF%2CXML%2CSilverlight%2CParallelism%2CTesting%2CjQuery%2CMVC%2CAJAX"></div>
+      <div style="lqm_ad" lqm_publisher="lqm.goodcoderscode.site" lqm_zone="RON" lqm_format="1x2" lqm_tags="HTML5%2CHTML%205%2CHTML5%20or%20HTML%205%2CCSS%2CWeb%2CJavaScript%2CSQL%2CVirtualization%2CCloud%2CHosting%2CVisual%20Studio%20or%20visualstudio%20or%20vs%20or%20vs2010%2CVisual%20Studio%2Cvisualstudio%2Cvs%2Cvs2010%2CWPF%2CXML%2CSilverlight%2CParallelism%2CTesting%2CjQuery%2CMVC%2CAJAX"></div>
+    </div>
+  </div>
+</div>
+
+
+
+
+        </div>
+        <div id="sidebar">
+          
+  <!-- begin sidebar.tmpl.html -->
+
+<div class="item search">
+  <form name="search" action="/search" method="GET">
+    <input name="q" type="text">
+    <input name="submit" type="submit" value="Search">
+  </form>
+</div>
+
+<!-- About the site -->
+<div class="item aboutsite">
+  <div class="title">About the site:</div>
+  <div class="content">
+    <p>
+      <a href="/about/" title="About Peteris Krumins">
+        <img src="/static/img/peteris-krumins-small.jpg" alt="Peteris Krumins" class="peter">
+      </a>
+      Peteris Krumins' blog about programming, hacking, software reuse, software ideas, computer security, google and technology.
+    </p>
+    <div class="hr"></div>
+    <p class="contact smallmargin">Reach me at:</p>
+    <img src="/static/img/peter-catonmat-net.gif" class="eml">
+    <p class="contact">Or meet me on:</p>
+    <div class="social">
+      <ul>
+        <li class="twitter"><a href="http://www.twitter.com/pkrumins" title="Peteris Krumins on Twitter"><img src="/static/img/twitter-16x16.gif">Twitter</a></li>
+        <li class="facebook"><a href="http://www.facebook.com/pkrumins" title="Peteris Krumins on Facebook"><img src="/static/img/facebook-16x16.gif">Facebook</a></li>
+        <!-- TODO: exchange plurk with github -->
+        <li class="plurk almost-last"><a href="http://www.plurk.com/pkrumins" title="Peteris Krumins on Plurk"><img src="/static/img/plurk-16x16.gif">Plurk</a></li>
+        <li class="more"><a href="#" id="a-more-contacts" class="more" title="More ways to contact Peteris Krumins"><img src="/static/img/more-10x10.gif" class="more">more</a></li>
+      </ul>
+      <div class="clear"></div>
+      <script>
+        catonmat.init_toggle_contacts();
+      </script>
+    </div>
+    <div class="social hidden" id="div-more-contacts">
+      <ul>
+        <li class="github"><a href="http://www.github.com/pkrumins" title="Peteris Krumins programming projects on GitHub"><img src="/static/img/github-16x16.gif">GitHub</a></li>
+        <li class="linkedin"><a href="http://www.linkedin.com/in/pkrumins" title="Peteris Krumins CV on LinkedIn"><img src="/static/img/linkedin-16x16.gif">LinkedIn</a></li>
+        <li class="friendfeed"><a href="http://www.friendfeed.com/pkrumins" title="Peteris Krumins on FriendFeed"><img src="/static/img/friendfeed-16x16.gif">FriendFeed</a></li>
+      </ul>
+      <div class="clear"></div>
+      <div style="padding-bottom: 5px"></div>
+      <ul>
+        <li><a href="http://google.com/profiles/peteris.krumins" title="Peteris Krumins on Google Plus"><img src="/static/img/google-plus-16x16.png">Google Plus</a></li>
+      </ul>
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Subscribe to my posts -->
+<div class="item subscribe">
+  <div class="title">Subscribe to my posts:</div>
+  <div class="content">
+    <p>Subscribe through an RSS feed:</p>
+    <p class="feed">
+      <a href="http://feeds2.feedburner.com/catonmat" rel="alternate" type="application/rss+xml" class="rss" title="Catonmat RSS Feed">
+        <img src="/static/img/rss-feed-16x16.png" class="rss">
+        <img src="http://feeds2.feedburner.com/~fc/catonmat?bg=99CCFF&amp;fg=444444&amp;anim=0" height="26" width="88" class="counter">
+      </a>
+      <span class="rss">(<a href="/what-is-rss/" title="What is an RSS feed?">what is rss?</a>)</span>
+    </p>
+    <div class="hr"></div>
+    <p>Subscribe through email:</p>
+    <!-- begin generated by feedburner.com -->
+    <p>
+      <form style="border:1px solid #ccc;padding:3px;text-align:center;" action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('http://feedburner.google.com/fb/a/mailverify?uri=catonmat', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
+        <p>Enter your email address:</p>
+        <p>
+          <input type="text" style="width:140px" name="email"/>
+        </p>
+        <input type="hidden" value="catonmat" name="uri"/>
+        <input type="hidden" name="loc" value="en_US"/>
+        <p>
+          <input type="submit" value="Subscribe" />
+        </p>
+        <p>
+          Delivered by <a href="http://feedburner.google.com" target="_blank">FeedBurner</a>
+        </p>
+      </form>
+    </p>
+    <!-- end generated by feedburner.com -->
+  </div>
+</div>
+
+<div class="item">
+  <div class="title">Server Sponsors</div>
+  <div class="content">
+    <p>I am being sponsored by <a href="http://www.syntress.com">Syntress</a> since 2007! They bought me an amazing dedicated server to run catonmat on. If you're looking web services in Chicago area, I highly recommend the <a href="http://www.syntress.com">Syntress guys</a>!</p>
+  </div>
+</div>
+
+<div class="item">
+  <div class="title">My Amazon Wish List</div>
+  <div class="content">
+    <p>I love to read science books. They make my day and I get ideas for awesome blog posts, such as <a href="http://www.catonmat.net/blog/busy-beaver/">Busy Beaver</a>, <a href="http://www.catonmat.net/blog/on-functors/">On Functors</a>, <a href="http://www.catonmat.net/blog/recursive-regular-expressions/">Recursive Regular Expressions</a> and <a href="http://www.catonmat.net/archive">many others</a>.</p>
+
+    <p>Take a look at my <a href="http://www.amazon.com/registry/wishlist/QDKYO6OQUU4O?reveal=unpurchased&filter=all&sort=priority&layout=standard" title="Peteris Krumins Amazon Wish List"><img src="/static/img/amazon-16x16.gif" style="position: relative; top: 5px; padding-right: 5px">Amazon wish list</a>, if you're curious about what I have planned reading next, and want to surprise me. :)</p>
+  </div>
+</div>
+
+<div class="item list">
+  <div class="title">My Books</div>
+  <div class="content">
+    <ul>
+      <li><a href="http://www.catonmat.net/blog/awk-book/" title="Awk Programming Book">Awk Programming Book</a></li>
+      <li><a href="http://www.catonmat.net/blog/sed-book/" title="Sed Programming Book">Sed Programming Book</a></li>
+      <li><a href="http://www.catonmat.net/blog/perl-book/" title="Perl Programming Book">Perl Programming Book</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="item list">
+  <div class="title">My Other Websites</div>
+  <div class="content">
+    <ul>
+      <li><a href="http://freescienceonline.blogspot.com">Free Science Online</a></li>
+      <li><a href="http://www.freesciencelectures.com">Free Science Videos</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="item list">
+  <div class="title">Top Ten Articles:</div>
+  <div class="content">
+    <ul>
+     <li><a href="/blog/top-ten-one-liners-from-commandlinefu-explained/" title="Read &quot;Top Ten One-Liners from CommandLineFu Explained&quot; (has been read 1,041,919 times)">Top Ten One-Liners from CommandLineFu Explained</a></li>
+     <li><a href="/blog/my-job-interview-at-google/" title="Read &quot;My Job Interview at Google&quot; (has been read 811,481 times)">My Job Interview at Google</a></li>
+     <li><a href="/blog/mit-introduction-to-algorithms-part-one/" title="Read &quot;MIT's Introduction to Algorithms, Lectures 1 and 2: Analysis of Algorithms&quot; (has been read 773,042 times)">MIT&#39;s Introduction to Algorithms, Lectures 1 and 2: Analysis of Algorithms</a></li>
+     <li><a href="/blog/awk-one-liners-explained-part-one/" title="Read &quot;Famous Awk One-Liners Explained, Part I: File Spacing, Numbering and Calculations&quot; (has been read 613,935 times)">Famous Awk One-Liners Explained, Part I: File Spacing, Numbering and Calculations</a></li>
+     <li><a href="/blog/the-definitive-guide-to-bash-command-line-history/" title="Read &quot;The Definitive Guide to Bash Command Line History&quot; (has been read 595,527 times)">The Definitive Guide to Bash Command Line History</a></li>
+     <li><a href="/blog/sed-one-liners-explained-part-one/" title="Read &quot;Famous Sed One-Liners Explained, Part I: File Spacing, Numbering and Text Conversion and Substitution&quot; (has been read 507,988 times)">Famous Sed One-Liners Explained, Part I: File Spacing, Numbering and Text Conversion and Substitution</a></li>
+     <li><a href="/blog/bash-vi-editing-mode-cheat-sheet/" title="Read &quot;Working Productively in Bash's Vi Command Line Editing Mode (with Cheat Sheet)&quot; (has been read 476,409 times)">Working Productively in Bash&#39;s Vi Command Line Editing Mode (with Cheat Sheet)</a></li>
+     <li><a href="/blog/low-level-bit-hacks-you-absolutely-must-know/" title="Read &quot;Low Level Bit Hacks You Absolutely Must Know&quot; (has been read 428,389 times)">Low Level Bit Hacks You Absolutely Must Know</a></li>
+     <li><a href="/blog/vim-plugins-surround-vim/" title="Read &quot;Vim Plugins You Should Know About, Part I: surround.vim&quot; (has been read 405,214 times)">Vim Plugins You Should Know About, Part I: surround.vim</a></li>
+     <li><a href="/blog/vim-plugins-nerdtree-vim/" title="Read &quot;Vim Plugins You Should Know About, Part VI: nerd_tree.vim&quot; (has been read 400,975 times)">Vim Plugins You Should Know About, Part VI: nerd_tree.vim</a></li>
+    </ul>
+    <p class="moreinfo">
+      <a href="/archive?sorted_by=views" title="Top catonmat articles">See all top articles</a>
+    </p>
+  </div>
+</div>
+
+<div class="item list">
+  <div class="title">Top Ten Downloads:</div>
+  <div class="content">
+    <ul>
+    <li><a href="/download/bash-history-cheat-sheet.pdf" title="Download &quot;bash history cheat sheet (.pdf)&quot;">bash history cheat sheet (.pdf)</a> (<span title="Total 163,254 downloads">163,254</span>)</li>
+    <li><a href="/download/awk.cheat.sheet.pdf" title="Download &quot;awk cheat sheet (.pdf)&quot;">awk cheat sheet (.pdf)</a> (<span title="Total 159,115 downloads">159,115</span>)</li>
+    <li><a href="/download/sed.stream.editor.cheat.sheet.pdf" title="Download &quot;sed stream editor cheat sheet (.pdf)&quot;">sed stream editor cheat sheet (.pdf)</a> (<span title="Total 119,352 downloads">119,352</span>)</li>
+    <li><a href="/download/perl.pack.unpack.printf.cheat.sheet.pdf" title="Download &quot;perl&#39;s pack/unpack and printf cheat sheet (.pdf)&quot;">perl&#39;s pack/unpack and printf cheat sheet (.pdf)</a> (<span title="Total 118,715 downloads">118,715</span>)</li>
+    <li><a href="/download/perl1line.txt" title="Download &quot;perl1line.txt&quot;">perl1line.txt</a> (<span title="Total 111,602 downloads">111,602</span>)</li>
+    <li><a href="/download/screen.cheat.sheet.pdf" title="Download &quot;screen cheat sheet (.pdf)&quot;">screen cheat sheet (.pdf)</a> (<span title="Total 103,034 downloads">103,034</span>)</li>
+    <li><a href="/download/awk.cheat.sheet.txt" title="Download &quot;awk cheat sheet (.txt)&quot;">awk cheat sheet (.txt)</a> (<span title="Total 99,970 downloads">99,970</span>)</li>
+    <li><a href="/download/perl.predefined.variables.pdf" title="Download &quot;perl&#39;s special variable cheat sheet (.pdf)&quot;">perl&#39;s special variable cheat sheet (.pdf)</a> (<span title="Total 97,914 downloads">97,914</span>)</li>
+    <li><a href="/download/bash-vi-editing-mode-cheat-sheet.pdf" title="Download &quot;bash vi editing mode cheat sheet (.pdf)&quot;">bash vi editing mode cheat sheet (.pdf)</a> (<span title="Total 94,035 downloads">94,035</span>)</li>
+    <li><a href="/download/david_pogue-bill_gates_song.mp3" title="Download &quot;the bill gates song.mp3 (musical geek friday #8)&quot;">the bill gates song.mp3 (musical geek friday #8)</a> (<span title="Total 83,285 downloads">83,285</span>)</li>
+    </ul>
+    <p class="moreinfo">
+      <a href="/downloads" title="All catonmat downloads">See all downloads</a>
+    </p>
+  </div>
+</div>
+
+<div class="item list">
+  <div class="title">Recent Articles:</div>
+  <div class="content">
+    <ul>
+     <li><a href="/blog/writing-javascript-tests-with-tape/" title="Read &quot;Writing javascript tests with tape&quot; (was published on June 30, 2013)">Writing javascript tests with tape</a></li>
+     <li><a href="/blog/simple-ld-preload-tutorial-part-2/" title="Read &quot;A Simple LD_PRELOAD Tutorial, Part 2&quot; (was published on May 31, 2013)">A Simple LD_PRELOAD Tutorial, Part 2</a></li>
+     <li><a href="/blog/i-published-another-10-of-my-projects-to-github/" title="Read &quot;I published another 10 of my projects to GitHub&quot; (was published on April 11, 2013)">I published another 10 of my projects to GitHub</a></li>
+     <li><a href="/blog/simple-ld-preload-tutorial/" title="Read &quot;A Simple LD_PRELOAD Tutorial&quot; (was published on March 31, 2013)">A Simple LD_PRELOAD Tutorial</a></li>
+     <li><a href="/blog/regex-char-classes/" title="Read &quot;Visualization of Regular Expression Character Classes&quot; (was published on February 25, 2013)">Visualization of Regular Expression Character Classes</a></li>
+     <li><a href="/blog/tcp-traceroute/" title="Read &quot;TCP Traceroute&quot; (was published on February 24, 2013)">TCP Traceroute</a></li>
+     <li><a href="/blog/browserling-now-has-ie10/" title="Read &quot;Browserling now has Internet Explorer 10!&quot; (was published on January 22, 2013)">Browserling now has Internet Explorer 10!</a></li>
+     <li><a href="/blog/one-to-one-teaching-meetup-network/" title="Read &quot;Idea for later - a 1:1 teaching meetup network&quot; (was published on January 21, 2013)">Idea for later - a 1:1 teaching meetup network</a></li>
+     <li><a href="/blog/howto-write-testling-ci-tests/" title="Read &quot;How to write Testling-CI tests&quot; (was published on January 18, 2013)">How to write Testling-CI tests</a></li>
+     <li><a href="/blog/announcing-testling-ci/" title="Read &quot;Announcing Testling-CI&quot; (was published on January 16, 2013)">Announcing Testling-CI</a></li>
+    </ul>
+    <p class="moreinfo">
+      <a href="/archive" title="All catonmat articles">See more detailed list of recent articles</a>
+    </p>
+  </div>
+</div>
+
+<div class="item list">
+  <div class="title">Article Categories:</div>
+  <div class="content">
+    <ul>
+      
+      <li><a href="/category/awk-programming" title="Awk Programming: AWK is a very important UNIX programming language for manipulating text very quickly. I have mastered it and now I am teaching others.">Awk Programming</a> (<span title="There are 8 articles in &quot;Awk Programming&quot; category">8</span>)</li>
+      
+      <li><a href="/category/stackvm-startup" title="Browserling Startup: Articles about my and James Halliday startup - Browserling (earlier called StackVM) - which brings virtual machines to the web!">Browserling Startup</a> (<span title="There are 18 articles in &quot;Browserling Startup&quot; category">18</span>)</li>
+      
+      <li><a href="/category/cheat-sheets" title="Cheat Sheets: All kinds of programming and computer science cheat sheets - vt100/ansi cheat sheet, shell emacs editing mode cheat sheet, iptables cheat sheets and many many others.">Cheat Sheets</a> (<span title="There are 12 articles in &quot;Cheat Sheets&quot; category">12</span>)</li>
+      
+      <li><a href="/category/computer-science" title="Computer Science: I love computer science.">Computer Science</a> (<span title="There are 9 articles in &quot;Computer Science&quot; category">9</span>)</li>
+      
+      <li><a href="/category/hackers-approach" title="Hacker&#39;s Approach: Using the hacker&#39;s approach one can develop cool software in a matter of hours without really going into details how it all works but using the right pieces and putting them together. Also a real hacker would be able to do the right things with the wrong tools.">Hacker&#39;s Approach</a> (<span title="There are 5 articles in &quot;Hacker&#39;s Approach&quot; category">5</span>)</li>
+      
+      <li><a href="/category/howto" title="Howto: Howto guides - howto download youtube videos, how to upload them, how to be a real hacker, how to become immortal, etc ;)">Howto</a> (<span title="There are 10 articles in &quot;Howto&quot; category">10</span>)</li>
+      
+      <li><a href="/category/idea-for-later" title="Idea for Later: Ideas that I want to build at some time later.">Idea for Later</a> (<span title="There are 1 articles in &quot;Idea for Later&quot; category">1</span>)</li>
+      
+      <li><a href="/category/interviews" title="Interviews: Interviews with me, Peteris Krumins.">Interviews</a> (<span title="There are 3 articles in &quot;Interviews&quot; category">3</span>)</li>
+      
+      <li><a href="/category/introduction-to-algorithms" title="Introduction to Algorithms: Analysis of MIT&#39;s &#34;Introduction to Algorithms&#34; video lectures. Contains embedded videos with timestamped list of topics and scanned lecture notes.">Introduction to Algorithms</a> (<span title="There are 15 articles in &quot;Introduction to Algorithms&quot; category">15</span>)</li>
+      
+      <li><a href="/category/linear-algebra" title="Linear Algebra: Analysis of MIT&#39;s &#34;Linear Algebra&#34; course. Contains embedded videos with timestamped list of topics and scanned lecture notes.">Linear Algebra</a> (<span title="There are 6 articles in &quot;Linear Algebra&quot; category">6</span>)</li>
+      
+      <li><a href="/category/mathematics" title="Mathematics: A good computer scientist has to know mathematics.">Mathematics</a> (<span title="There are 1 articles in &quot;Mathematics&quot; category">1</span>)</li>
+      
+      <li><a href="/category/misc" title="Misc: Articles that don&#39;t fit in other categories. They include interviews and blogging related stuff.">Misc</a> (<span title="There are 12 articles in &quot;Misc&quot; category">12</span>)</li>
+      
+      <li><a href="/category/musical-geek-friday" title="Musical Geek Friday: Really funny and geeky songs I found in my mp3 collection.">Musical Geek Friday</a> (<span title="There are 17 articles in &quot;Musical Geek Friday&quot; category">17</span>)</li>
+      
+      <li><a href="/category/nodejs-modules" title="Node.js Modules: Article series &#34;node.js modules you should know about.&#34;">Node.js Modules</a> (<span title="There are 15 articles in &quot;Node.js Modules&quot; category">15</span>)</li>
+      
+      <li><a href="/category/perl-programming" title="Perl Programming: Perl is one of the best languages ever invented. I have mastered it and now I am teaching others.">Perl Programming</a> (<span title="There are 14 articles in &quot;Perl Programming&quot; category">14</span>)</li>
+      
+      <li><a href="/category/programming" title="Programming: I love programming. Language I know are python, perl, haskell, scheme, awk, c++  and others.">Programming</a> (<span title="There are 36 articles in &quot;Programming&quot; category">36</span>)</li>
+      
+      <li><a href="/category/projects" title="Projects: All the various projects that I have done, they include digpicz, reddit media, reddit river, and others.">Projects</a> (<span title="There are 13 articles in &quot;Projects&quot; category">13</span>)</li>
+      
+      <li><a href="/category/security" title="Security: Computer security is a field close to my heart.">Security</a> (<span title="There are 1 articles in &quot;Security&quot; category">1</span>)</li>
+      
+      <li><a href="/category/the-new-catonmat" title="The New Catonmat: Everything about the new catonmat website.">The New Catonmat</a> (<span title="There are 1 articles in &quot;The New Catonmat&quot; category">1</span>)</li>
+      
+      <li><a href="/category/tools" title="Tools: Tools - small programs that do great things. Actually this category is not very useful, I am going to merge it with some other category soon.">Tools</a> (<span title="There are 1 articles in &quot;Tools&quot; category">1</span>)</li>
+      
+      <li><a href="/category/unix-shell" title="Unix Shell: This category contains various articles on how to work in Unix shell.">Unix Shell</a> (<span title="There are 26 articles in &quot;Unix Shell&quot; category">26</span>)</li>
+      
+      <li><a href="/category/video-lectures" title="Video Lectures: I love watching video lectures, they make me smarter and I love it. I also like to write about what I just saw, so here are some of the lectures I have seen.">Video Lectures</a> (<span title="There are 17 articles in &quot;Video Lectures&quot; category">17</span>)</li>
+      
+      <li><a href="/category/visual-math-friday" title="Visual Math Friday: I have collected hundreds of visual math proofs. In these articles I explain them and prove their correctness.">Visual Math Friday</a> (<span title="There are 1 articles in &quot;Visual Math Friday&quot; category">1</span>)</li>
+    </ul>
+    <p class="moreinfo">
+      <a href="/categories" title="Detailed catonmat category information">See more detailed category information</a>
+    </p>
+  </div>
+</div>
+
+<div class="item list">
+  <div class="title">Article Archive:</div>
+  <div class="content">
+    <ul>
+     <li><a href="/archive/2013/06" title="All articles written in June, 2013">June, 2013</a> (<span title="1 articles were published in June, 2013">1</span>)</li>
+     <li><a href="/archive/2013/05" title="All articles written in May, 2013">May, 2013</a> (<span title="1 articles were published in May, 2013">1</span>)</li>
+     <li><a href="/archive/2013/04" title="All articles written in April, 2013">April, 2013</a> (<span title="1 articles were published in April, 2013">1</span>)</li>
+     <li><a href="/archive/2013/03" title="All articles written in March, 2013">March, 2013</a> (<span title="1 articles were published in March, 2013">1</span>)</li>
+     <li><a href="/archive/2013/02" title="All articles written in February, 2013">February, 2013</a> (<span title="2 articles were published in February, 2013">2</span>)</li>
+     <li><a href="/archive/2013/01" title="All articles written in January, 2013">January, 2013</a> (<span title="4 articles were published in January, 2013">4</span>)</li>
+     <li><a href="/archive/2012/12" title="All articles written in December, 2012">December, 2012</a> (<span title="1 articles were published in December, 2012">1</span>)</li>
+     <li><a href="/archive/2012/11" title="All articles written in November, 2012">November, 2012</a> (<span title="3 articles were published in November, 2012">3</span>)</li>
+     <li><a href="/archive/2012/10" title="All articles written in October, 2012">October, 2012</a> (<span title="4 articles were published in October, 2012">4</span>)</li>
+     <li><a href="/archive/2012/09" title="All articles written in September, 2012">September, 2012</a> (<span title="3 articles were published in September, 2012">3</span>)</li>
+     <li><a href="/archive/2012/08" title="All articles written in August, 2012">August, 2012</a> (<span title="2 articles were published in August, 2012">2</span>)</li>
+     <li><a href="/archive/2012/07" title="All articles written in July, 2012">July, 2012</a> (<span title="2 articles were published in July, 2012">2</span>)</li>
+     <li><a href="/archive/2012/06" title="All articles written in June, 2012">June, 2012</a> (<span title="1 articles were published in June, 2012">1</span>)</li>
+     <li><a href="/archive/2012/05" title="All articles written in May, 2012">May, 2012</a> (<span title="4 articles were published in May, 2012">4</span>)</li>
+     <li><a href="/archive/2012/04" title="All articles written in April, 2012">April, 2012</a> (<span title="4 articles were published in April, 2012">4</span>)</li>
+     <li><a href="/archive/2012/03" title="All articles written in March, 2012">March, 2012</a> (<span title="2 articles were published in March, 2012">2</span>)</li>
+     <li><a href="/archive/2012/02" title="All articles written in February, 2012">February, 2012</a> (<span title="1 articles were published in February, 2012">1</span>)</li>
+     <li><a href="/archive/2012/01" title="All articles written in January, 2012">January, 2012</a> (<span title="4 articles were published in January, 2012">4</span>)</li>
+     <li><a href="/archive/2011/12" title="All articles written in December, 2011">December, 2011</a> (<span title="15 articles were published in December, 2011">15</span>)</li>
+     <li><a href="/archive/2011/11" title="All articles written in November, 2011">November, 2011</a> (<span title="3 articles were published in November, 2011">3</span>)</li>
+     <li><a href="/archive/2011/10" title="All articles written in October, 2011">October, 2011</a> (<span title="2 articles were published in October, 2011">2</span>)</li>
+     <li><a href="/archive/2011/09" title="All articles written in September, 2011">September, 2011</a> (<span title="2 articles were published in September, 2011">2</span>)</li>
+     <li><a href="/archive/2011/08" title="All articles written in August, 2011">August, 2011</a> (<span title="3 articles were published in August, 2011">3</span>)</li>
+     <li><a href="/archive/2011/07" title="All articles written in July, 2011">July, 2011</a> (<span title="1 articles were published in July, 2011">1</span>)</li>
+     <li><a href="/archive/2011/06" title="All articles written in June, 2011">June, 2011</a> (<span title="2 articles were published in June, 2011">2</span>)</li>
+     <li><a href="/archive/2011/05" title="All articles written in May, 2011">May, 2011</a> (<span title="1 articles were published in May, 2011">1</span>)</li>
+     <li><a href="/archive/2011/04" title="All articles written in April, 2011">April, 2011</a> (<span title="1 articles were published in April, 2011">1</span>)</li>
+     <li><a href="/archive/2011/03" title="All articles written in March, 2011">March, 2011</a> (<span title="2 articles were published in March, 2011">2</span>)</li>
+     <li><a href="/archive/2011/02" title="All articles written in February, 2011">February, 2011</a> (<span title="1 articles were published in February, 2011">1</span>)</li>
+     <li><a href="/archive/2011/01" title="All articles written in January, 2011">January, 2011</a> (<span title="1 articles were published in January, 2011">1</span>)</li>
+     <li><a href="/archive/2010/12" title="All articles written in December, 2010">December, 2010</a> (<span title="2 articles were published in December, 2010">2</span>)</li>
+     <li><a href="/archive/2010/11" title="All articles written in November, 2010">November, 2010</a> (<span title="1 articles were published in November, 2010">1</span>)</li>
+     <li><a href="/archive/2010/10" title="All articles written in October, 2010">October, 2010</a> (<span title="2 articles were published in October, 2010">2</span>)</li>
+     <li><a href="/archive/2010/09" title="All articles written in September, 2010">September, 2010</a> (<span title="1 articles were published in September, 2010">1</span>)</li>
+     <li><a href="/archive/2010/08" title="All articles written in August, 2010">August, 2010</a> (<span title="2 articles were published in August, 2010">2</span>)</li>
+     <li><a href="/archive/2010/07" title="All articles written in July, 2010">July, 2010</a> (<span title="2 articles were published in July, 2010">2</span>)</li>
+     <li><a href="/archive/2010/06" title="All articles written in June, 2010">June, 2010</a> (<span title="2 articles were published in June, 2010">2</span>)</li>
+     <li><a href="/archive/2010/05" title="All articles written in May, 2010">May, 2010</a> (<span title="2 articles were published in May, 2010">2</span>)</li>
+     <li><a href="/archive/2010/04" title="All articles written in April, 2010">April, 2010</a> (<span title="2 articles were published in April, 2010">2</span>)</li>
+     <li><a href="/archive/2010/03" title="All articles written in March, 2010">March, 2010</a> (<span title="5 articles were published in March, 2010">5</span>)</li>
+     <li><a href="/archive/2010/02" title="All articles written in February, 2010">February, 2010</a> (<span title="5 articles were published in February, 2010">5</span>)</li>
+     <li><a href="/archive/2010/01" title="All articles written in January, 2010">January, 2010</a> (<span title="7 articles were published in January, 2010">7</span>)</li>
+     <li><a href="/archive/2009/12" title="All articles written in December, 2009">December, 2009</a> (<span title="6 articles were published in December, 2009">6</span>)</li>
+     <li><a href="/archive/2009/11" title="All articles written in November, 2009">November, 2009</a> (<span title="6 articles were published in November, 2009">6</span>)</li>
+     <li><a href="/archive/2009/10" title="All articles written in October, 2009">October, 2009</a> (<span title="2 articles were published in October, 2009">2</span>)</li>
+     <li><a href="/archive/2009/09" title="All articles written in September, 2009">September, 2009</a> (<span title="3 articles were published in September, 2009">3</span>)</li>
+     <li><a href="/archive/2009/08" title="All articles written in August, 2009">August, 2009</a> (<span title="2 articles were published in August, 2009">2</span>)</li>
+     <li><a href="/archive/2009/07" title="All articles written in July, 2009">July, 2009</a> (<span title="4 articles were published in July, 2009">4</span>)</li>
+     <li><a href="/archive/2009/06" title="All articles written in June, 2009">June, 2009</a> (<span title="1 articles were published in June, 2009">1</span>)</li>
+     <li><a href="/archive/2009/04" title="All articles written in April, 2009">April, 2009</a> (<span title="1 articles were published in April, 2009">1</span>)</li>
+     <li><a href="/archive/2009/03" title="All articles written in March, 2009">March, 2009</a> (<span title="2 articles were published in March, 2009">2</span>)</li>
+     <li><a href="/archive/2009/02" title="All articles written in February, 2009">February, 2009</a> (<span title="7 articles were published in February, 2009">7</span>)</li>
+     <li><a href="/archive/2009/01" title="All articles written in January, 2009">January, 2009</a> (<span title="4 articles were published in January, 2009">4</span>)</li>
+     <li><a href="/archive/2008/12" title="All articles written in December, 2008">December, 2008</a> (<span title="8 articles were published in December, 2008">8</span>)</li>
+     <li><a href="/archive/2008/11" title="All articles written in November, 2008">November, 2008</a> (<span title="7 articles were published in November, 2008">7</span>)</li>
+     <li><a href="/archive/2008/10" title="All articles written in October, 2008">October, 2008</a> (<span title="4 articles were published in October, 2008">4</span>)</li>
+     <li><a href="/archive/2008/09" title="All articles written in September, 2008">September, 2008</a> (<span title="5 articles were published in September, 2008">5</span>)</li>
+     <li><a href="/archive/2008/08" title="All articles written in August, 2008">August, 2008</a> (<span title="9 articles were published in August, 2008">9</span>)</li>
+     <li><a href="/archive/2008/07" title="All articles written in July, 2008">July, 2008</a> (<span title="14 articles were published in July, 2008">14</span>)</li>
+     <li><a href="/archive/2008/06" title="All articles written in June, 2008">June, 2008</a> (<span title="4 articles were published in June, 2008">4</span>)</li>
+     <li><a href="/archive/2008/05" title="All articles written in May, 2008">May, 2008</a> (<span title="5 articles were published in May, 2008">5</span>)</li>
+     <li><a href="/archive/2008/04" title="All articles written in April, 2008">April, 2008</a> (<span title="8 articles were published in April, 2008">8</span>)</li>
+     <li><a href="/archive/2008/03" title="All articles written in March, 2008">March, 2008</a> (<span title="3 articles were published in March, 2008">3</span>)</li>
+     <li><a href="/archive/2008/02" title="All articles written in February, 2008">February, 2008</a> (<span title="1 articles were published in February, 2008">1</span>)</li>
+     <li><a href="/archive/2008/01" title="All articles written in January, 2008">January, 2008</a> (<span title="1 articles were published in January, 2008">1</span>)</li>
+     <li><a href="/archive/2007/11" title="All articles written in November, 2007">November, 2007</a> (<span title="1 articles were published in November, 2007">1</span>)</li>
+     <li><a href="/archive/2007/10" title="All articles written in October, 2007">October, 2007</a> (<span title="3 articles were published in October, 2007">3</span>)</li>
+     <li><a href="/archive/2007/09" title="All articles written in September, 2007">September, 2007</a> (<span title="5 articles were published in September, 2007">5</span>)</li>
+     <li><a href="/archive/2007/08" title="All articles written in August, 2007">August, 2007</a> (<span title="10 articles were published in August, 2007">10</span>)</li>
+     <li><a href="/archive/2007/07" title="All articles written in July, 2007">July, 2007</a> (<span title="9 articles were published in July, 2007">9</span>)</li>
+    </ul>
+    <p class="moreinfo">
+      <a href="/archive" title="All catonmat articles">See more detailed list of all articles</a>
+    </p>
+  </div>
+</div>
+
+<div class="item list">
+  <div class="title">Superior Papers</div>
+  <div class="content">
+    <!-- Jul 10, 2013 -->
+    <ul>
+      <li>Our <a href="http://uk.superiorpapers.com/">essay writing service</a> is the top provider of quality essays to students from the UK. Get your essays written by <a href="http://uk.superiorpapers.com/">superior papers</a> and be free!</li>
+    </ul>
+  </div>
+</div>
+
+<div class="item">
+  <div class="title">Advertisements</div>
+  <div class="content">
+    <script type="text/javascript"><!--
+    google_ad_client = "pub-0433925538517663";
+    /* 160x600, catonmat sidebar, created 2/15/09 */
+    google_ad_slot = "2288848838";
+    google_ad_width = 160;
+    google_ad_height = 600;
+    //-->
+    </script>
+    <script type="text/javascript"
+    src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+    </script>
+  </div>
+</div>
+
+
+
+<div class="item">
+  <div class="title">Advertisements</div>
+  <div class="content">
+    <SCRIPT TYPE="text/javascript" SRC="http://adserving.cpxadroit.com/tags2/5-1005894.js"></SCRIPT>
+  </div>
+</div>
+
+<div class="item">
+  <div class="title">Advertisements</div>
+  <div class="content">
+    <div class="lqm_ad" lqm_publisher="lqm.goodcoderscode.site" lqm_zone="RON" lqm_format="160x600" lqm_tags="HTML5%2CHTML%205%2CHTML5%20or%20HTML%205%2CCSS%2CWeb%2CJavaScript%2CSQL%2CVirtualization%2CCloud%2CHosting%2CVisual%20Studio%20or%20visualstudio%20or%20vs%20or%20vs2010%2CVisual%20Studio%2Cvisualstudio%2Cvs%2Cvs2010%2CWPF%2CXML%2CSilverlight%2CParallelism%2CTesting%2CjQuery%2CMVC%2CAJAX"></div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="title">Alexa stats</div>
+  <div class="content">
+    <a href="http://www.alexa.com/siteinfo/www.catonmat.net"><script type='text/javascript' src='http://xslt.alexa.com/site_stats/js/t/a?url=www.catonmat.net'></script></a>
+  </div>
+</div>
+
+<!-- end sidebar.tmpl.html -->
+
+
+
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div id="footer">
+        
+  <div class="friends">
+  <h4>Friends</h4>
+  <ul>
+    <li><a href="http://www.podcats.in">Alastair McGowan-Douglas</a></li>
+    <li><a href="http://www.substack.net">James Halliday</a></li>
+    <li><a href="http://madars.org/">Madars Virza</a></li>
+    <li><a href="http://simcop2387.info/">simcop2387</a></li>
+    <li><a href="http://backreference.org/">Mr. Waldner</a></li>
+    <li><a href="http://symkat.com/">SymKat</a></li>
+    <li><a href="http://f00li5h.pin21.com/">f00li5h</a></li>
+    <li><a href="http://amix.dk">amix</a></li>
+  </ul> 
+</div>
+<div class="info">
+  <h4>Info</h4>
+  <p><a href="http://github.com/pkrumins/catonmat.net" title="catonmat at github">catonmat's source code.</a></p> 
+  <p><a href="/privacy-policy">Privacy Policy</a></p>
+</div>
+<div class="advertise">
+  <h4>Advertise on catonmat</h4>
+  <p>If you are interested in advertising on catonmat.net, <a href="/feedback/">contact me</a>.</p>
+  <!-- oct 1, 2013 -->
+  <p><a href="http://www.dhgate.com/wholesale+computers.html">wholesale computers</a>.</p>
+</div>
+<div class="clear"></div>
+
+<div style="margin-top: 10px">
+<SCRIPT TYPE="text/javascript" SRC="http://adserving.cpxadroit.com/tags2/4-1005894.js"></SCRIPT>
+</div>
+<div style="margin-top: 10px">
+<SCRIPT TYPE="text/javascript" SRC="http://adserving.cpxadroit.com/tags2/3-1005894.js"></SCRIPT>
+</div>
+<div style="margin-top: 10px">
+<SCRIPT TYPE="text/javascript" SRC="http://adserving.cpxadroit.com/tags2/6-1005894.js"></SCRIPT>
+</div>
+
+
+
+      </div>
+    </div>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-273333-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+<!-- Start of StatCounter Code -->
+<script type="text/javascript">
+var sc_project=3189873;
+var sc_invisible=1;
+var sc_security="dc7255a7";
+</script>
+
+<script type="text/javascript" src="http://www.statcounter.com/counter/counter_xhtml.js"></script><noscript><div class="statcounter"><a title="tumblr tracker" class="statcounter" href="http://statcounter.com/tumblr/"><img class="statcounter" src="http://c.statcounter.com/3189873/0/dc7255a7/1/" alt="tumblr tracker" /></a></div></noscript>
+<!-- End of StatCounter Code -->
+
+<script type='text/javascript'>//<![CDATA[
+    if (typeof jQuery == 'undefined') {
+        document.write(unescape("%3Cscript src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.2.min.js' type='text/javascript' %3E%3C/script%3E"));
+    }//]]></script>
+<script type='text/javascript' language='Javascript' src='http://s1.lqcdn.com/m.min.js?dt=2.3.110104.1'></script>
+<script type='text/javascript' language='Javascript'> if(jQuery.LqmAds)jQuery.LqmAds();</script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

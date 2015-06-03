@@ -1,0 +1,385 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+		<title>使用Dstat监控Linux系统资源 demo大全</title>
+		<meta name="keywords" content="Linux,资源,Dstat,系统,休闲">
+        <meta name="description" content="null">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/base.css">
+        <link rel="stylesheet" type="text/css" href="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/common.css">
+        <script src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/hm.js"></script><script src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/jquery-1.js" type="text/javascript"></script>
+        <script src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/common.js" type="text/javascript"></script>
+        <!--[if IE 6]>
+        <script src="/js/DD_belatedPNG_0.0.8a-min.js" type="text/javascript"></script>
+        <![endif]--><link rel="stylesheet" type="text/css" href="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/content.css">
+		<link rel="stylesheet" type="text/css" href="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/prettify.css">
+		<script src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/message.js" type="text/javascript"></script>
+		<script src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/lazyload.js" type="text/javascript"></script>
+		<script src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/prettify.js" type="text/javascript"></script>
+		<script>$(function(){prettyPrint();$("pre").css("white-space","pre-wrap");});</script>
+	<link type="text/css" rel="stylesheet" href="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/bdsstyle.css"><script src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/logger.js"></script></head>
+	<body><div style="z-index: 2147483647; width: 270px; height: 200px; position: fixed; padding: 0px; margin: 0px; right: 0px; bottom: 0px; display: block;" id="__QY_RM_Div"><div style="z-index: 199999; top: 0px; left: 254px; width: 16px; height: 16px; position: absolute; display: block; cursor: pointer;"><img style="width:16px; height:16px;" src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/close.png"></div><div style="top: 185px; width: 23px; height: 17px; overflow: hidden; position: absolute; display: block; z-index: 199998; right: 0px;" id="__QY_RM_Logo"><a href="http://www.qiyou.com/" target="_blank"><img src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/logo.png" style="float:left" height="15" width="77" border="0/"></a></div><iframe allowtransparency="true" vspace="0" hspace="0" src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/popup.html" style="width: 270px; height: 200px; margin: 0px; border: 0px none;" frameborder="0" scrolling="no"></iframe><div style="z-index: 199994; top: 0px; left: 0px; width: 0px; height: 0px; position: absolute; display: none;" id="__QY_RM_Count"></div></div><iframe style="display: none;" frameborder="0"></iframe><div style="right: 1000px; left: 0px; top: 170px; position: fixed; height: 330px; overflow: hidden;" id="bdshare"><img src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/l5.gif" alt="" style="float:right;margin-top:58px;"><iframe id="bdsIfr" style="position:absolute;display:none;z-index:9999;" frameborder="0"></iframe><div style="display: none; right: 24px;" id="bdshare_l"><div id="bdshare_l_c"><h6>分享到</h6><ul><li><a href="#" class="bds_mshare mshare">一键分享</a></li><li><a href="#" class="bds_qzone qqkj">QQ空间</a></li><li><a href="#" class="bds_tsina xlwb">新浪微博</a></li><li><a href="#" class="bds_baidu bdsc">百度搜藏</a></li><li><a href="#" class="bds_renren rrw">人人网</a></li><li><a href="#" class="bds_tqq txwb">腾讯微博</a></li><li><a href="#" class="bds_bdxc bdxc">百度相册</a></li><li><a href="#" class="bds_kaixin001 kxw">开心网</a></li><li><a href="#" class="bds_tqf txpy">腾讯朋友</a></li><li><a href="#" class="bds_tieba bdtb">百度贴吧</a></li><li><a href="#" class="bds_douban db">豆瓣网</a></li><li><a href="#" class="bds_tsohu shwb">搜狐微博</a></li><li><a href="#" class="bds_bdhome bdhome">百度新首页</a></li><li><a href="#" class="bds_sqq sqq">QQ好友</a></li><li><a href="#" class="bds_thx thx">和讯微博</a></li><li><a href="#" class="bds_more">更多...</a></li></ul><p><a href="#" class="goWebsite">百度分享</a></p></div></div></div>
+	<!--顶部-->
+		<div class="w100p">
+			<div class="top-div center">
+				<div class="logo-div">
+					<a href="http://www.verydemo.com/"><img src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/logo.gif" alt="Logo" height="74" width="244"></a>
+				</div>
+				<div class="search-div">
+					<div class="left">
+						<input id="searchInput" class="input" value="请输入搜索条件…" type="text">
+					</div>
+					<div class="right">
+						<a id="searchButton" href="#" target="_blank">搜&nbsp;索</a>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a id="advancedSearchButton" href="#" target="_blank">高级搜索</a>
+					</div>
+					<div class="cl">
+					</div>
+				</div>
+				<div class="hot-search-div">
+				  热门搜索： <a href="http://www.verydemo.com/search/?kw=JQuery%20%E6%8F%92%E4%BB%B6">JQuery 插件</a>&nbsp;
+				           <a href="http://www.verydemo.com/search/?kw=Struts">Struts</a>&nbsp;
+				           <a href="http://www.verydemo.com/search/?kw=Spring">Spring</a>&nbsp;
+				           <a href="http://www.verydemo.com/search/?kw=Hibernate">Hibernate</a>&nbsp;
+				           <a href="http://www.verydemo.com/search/?kw=%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a>&nbsp;
+				           <a href="http://www.verydemo.com/search/?kw=Linux">Linux</a>&nbsp;
+				           <a href="http://www.verydemo.com/search/?kw=Android">Android</a>&nbsp;
+				           <a href="http://www.verydemo.com/search/?kw=Iphone">Iphone</a>&nbsp;
+				           <a href="http://www.verydemo.com/search/?kw=%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F">设计模式</a>&nbsp;
+				</div>
+				<div class="reg-login">
+					<a target="_blank" href="http://www.verydemo.com/blog">站长博客</a>&nbsp;
+					<a target="_blank" href="http://www.orzro.net/" style="color:red">薪水查询</a>&nbsp;
+					<a target="_blank" href="http://www.verydemo.com/library.html">书籍下载</a>&nbsp;
+					<a target="_blank" href="http://www.verydemo.com/search/?kw=%E9%9D%A2%E8%AF%95%E9%A2%98">面试题库</a>&nbsp;
+					<a target="_blank" href="http://www.verydemo.com/map.html">网站地图</a>
+				</div>
+			</div>
+		</div>
+		<!--顶部结束-->
+		<!--导航-->
+		<div class="w100p">
+			<div class="nav-div" style="padding-bottom:14px;">
+				<ul id="navUl">
+				    <li><a href="http://www.verydemo.com/">首页</a></li>
+					<li class="active"><a href="http://www.verydemo.com/one_c52.html">编程语言</a></li>
+					<li><a href="http://www.verydemo.com/one_c53.html">Web开发</a></li>
+					<li><a href="http://www.verydemo.com/one_c54.html">前端技术</a></li>
+					<li class=""><a href="http://www.verydemo.com/one_c55.html">移动开发</a></li>
+					<li class=""><a href="http://www.verydemo.com/one_c56.html">数据库</a></li>
+					<li class=""><a href="http://www.verydemo.com/one_c57.html">操作系统</a></li>
+					<li><a href="http://www.verydemo.com/one_c58.html">嵌入开发</a></li>
+					<li><a href="http://www.verydemo.com/one_c59.html">网络安全</a></li>
+					<li><a href="http://www.verydemo.com/one_c60.html">办公软件</a></li>
+					<li><a href="http://www.verydemo.com/one_c239.html">软件工程/管理</a></li>
+					<li><a href="http://www.verydemo.com/one_c334.html">脚本专栏</a></li>
+					</ul>
+				<div class="cl"></div>
+				<div class="nav-more-div">
+					<a href="http://www.verydemo.com/map.html">全部列表&gt;&gt;</a>
+				</div>
+			</div>
+		</div>
+		<!--导航结束-->
+<!--主架构-->
+		<div class="w100p">
+			<div class="main-div">
+				<!--左架构-->
+				<div class="left-div">
+					<div class="content-title rel">
+						<h1>使用Dstat监控Linux系统资源</h1>
+					</div>
+					<div class="content-info rel">
+						<span class="time">时间: 2013-04-02 04:09:45.0</span><br>
+						<span class="kind">分类：</span>
+						<a href="http://www.verydemo.com/one_c52.html">编程语言</a><span class="kind">/</span>
+						<a href="http://www.verydemo.com/two_c128.html">C语言</a><span class="kind">/</span>
+						<a href="http://www.verydemo.com/two_c128.html">文章</a>
+						</div>
+					<div>
+<script type="text/javascript">
+/*760*90，创建于2013-4-19*/
+var cpro_id = "u1264831";
+</script>
+<script src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/c.js" type="text/javascript"></script><script type="text/javascript" charset="utf-8" src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/ecom_002"></script><div style="display:none">-</div> <iframe id="cproIframe1" src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/uijs.html" marginwidth="0" marginheight="0" allowtransparency="true" frameborder="0" height="90" scrolling="no" width="760" align="center,center"></iframe>
+</div>
+<div class="content-content" id="verydemo_content_div">
+						<div class="showContent">
+    		  <div class="MsoNormal" style="margin: 0cm 0cm 0pt"><span style="font-size: 28pt; color: #242626; font-family: arial" lang="EN-US"><font size="2"><strong>&nbsp;&nbsp;&nbsp;&nbsp;</strong>&nbsp; 本文来源于http://www.opendoc.com.cn/linuxtools/dstat.html</font></span></div>
+<div class="MsoNormal" style="margin: 0cm 0cm 0pt"><span style="font-size: 28pt; color: #242626; font-family: arial" lang="EN-US"><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 这里介绍一个新的监控工具------<strong>Dstat,</strong>你可以通过以下2种方法得到它的安装包或者压缩包</font></span></div>
+<div class="MsoNormal" style="margin: 0cm 0cm 0pt"><b><span style="font-size: 28pt; color: #242626; font-family: arial" lang="EN-US"><font size="2">&nbsp;&nbsp;&nbsp;&nbsp; Wget </font><font color="#800080" size="2">http://rpmforge.sw.be/redhat/el5/en/i386/rpmforge/RPMS/dstat-0.6.7-1.el5.rf.noarch.rpm</font><!--?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /--><o:p></o:p></span></b></div>
+<div class="MsoNormal" style="margin: 0cm 0cm 0pt"><b><span style="font-size: 28pt; color: #242626; font-family: 宋体; mso-ascii-font-family: arial; mso-hansi-font-family: arial; mso-bidi-font-family: arial"></span></b><b><span style="font-size: 28pt; color: #242626; font-family: arial" lang="EN-US"><o:p></o:p></span></b></div>
+<div class="MsoNormal" style="margin: 0cm 0cm 0pt"><span style="font-size: 28pt; color: #242626; font-family: arial" lang="EN-US"><font size="2">&nbsp;&nbsp;&nbsp;&nbsp; wget&nbsp;&nbsp;</font><font size="2">http://dag.wieers.com/home-made/dstat/dstat-0.7.2.tar.bz2</font></span></div>
+<div class="MsoNormal" style="margin: 0cm 0cm 0pt"><span style="font-size: 28pt; color: #242626; font-family: arial" lang="EN-US"><font size="2">&nbsp; 安装好之后，我们来看看效果吧</font></span></div><span style="font-size: 28pt; color: #242626; font-family: arial" lang="EN-US"><o:p>
+<div style="border-right: #aaaaaa 1px solid; padding-right: 5px; border-top: #aaaaaa 1px solid; padding-left: 5px; padding-bottom: 5px; border-left: #aaaaaa 1px solid; padding-top: 5px; border-bottom: #aaaaaa 1px solid; background-color: #d3d3d3">
+<div><font size="2">[root@rep1 ~]# dstat <br>----total-cpu-usage---- -dsk/total- -net/total- ---paging-- ---system--<br>usr sys idl wai hiq siq| read&nbsp; writ| recv&nbsp; send|&nbsp; in&nbsp;&nbsp; out | int&nbsp;&nbsp; csw <br>&nbsp;
+ 0&nbsp;&nbsp; 0 100&nbsp;&nbsp; 0&nbsp;&nbsp; 0&nbsp;&nbsp; 0| 
+820B&nbsp;&nbsp; 33k|&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0 
+|&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0 | 488&nbsp;&nbsp; 960 <br>&nbsp;
+ 0&nbsp;&nbsp; 2&nbsp; 98&nbsp;&nbsp; 0&nbsp;&nbsp; 0&nbsp;&nbsp; 
+0|&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0 |2470B&nbsp; 
+678B|&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0 | 473&nbsp;&nbsp; 894 <br>&nbsp;
+ 0&nbsp;&nbsp; 0 100&nbsp;&nbsp; 0&nbsp;&nbsp; 0&nbsp;&nbsp; 
+0|&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0 |1212B&nbsp; 
+576B|&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0 | 480&nbsp;&nbsp; 935 <br>&nbsp;
+ 0&nbsp;&nbsp; 0 100&nbsp;&nbsp; 0&nbsp;&nbsp; 0&nbsp;&nbsp; 
+0|&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0 |1920B&nbsp; 
+576B|&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0 | 498&nbsp;&nbsp; 959 <br>&nbsp;
+ 0&nbsp;&nbsp; 0 100&nbsp;&nbsp; 0&nbsp;&nbsp; 0&nbsp;&nbsp; 
+0|&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0 |2855B&nbsp; 
+630B|&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0 | 497&nbsp;&nbsp; 956 <br>&nbsp;
+ 0&nbsp;&nbsp; 2&nbsp; 98&nbsp;&nbsp; 0&nbsp;&nbsp; 0&nbsp;&nbsp; 
+0|&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0 |1888B&nbsp; 
+576B|&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0 | 491&nbsp;&nbsp; 929 <br>&nbsp;
+ 0&nbsp;&nbsp; 0 100&nbsp;&nbsp; 0&nbsp;&nbsp; 0&nbsp;&nbsp; 
+0|&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0 |2968B&nbsp; 
+576B|&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0 | 482&nbsp;&nbsp; 925 <br>&nbsp;
+ 0&nbsp;&nbsp; 0 100&nbsp;&nbsp; 0&nbsp;&nbsp; 0&nbsp;&nbsp; 
+0|&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0 |2313B&nbsp; 
+560B|&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0 | 495&nbsp;&nbsp; 957 <br>&nbsp;
+ 0&nbsp;&nbsp; 2&nbsp; 98&nbsp;&nbsp; 0&nbsp;&nbsp; 0&nbsp;&nbsp; 
+0|&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0 |4083B&nbsp; 
+682B|&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0 | 499&nbsp;&nbsp; 957 <br>&nbsp;
+ 0&nbsp;&nbsp; 0 100&nbsp;&nbsp; 0&nbsp;&nbsp; 0&nbsp;&nbsp; 
+0|&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0 |1906B&nbsp; 
+576B|&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0 | 497&nbsp;&nbsp; 948 </font></div>
+<div><font size="2"></font>&nbsp;</div></div></o:p></span>
+<div class="MsoNormal" style="margin: 0cm 0cm 0pt"><span style="font-size: 28pt; color: #242626; font-family: arial" lang="EN-US"><o:p><font size="2">&nbsp;默认他监控的系统的cpu，disk，net，paging，system，一秒钟收集一次，其实最具特色的是他的显示特色，呵呵，有点象那种显示股票的颜色，每一个分类的颜色都是不一样的，很容易分清每项内容。。。</font></o:p></span></div>
+<div class="MsoNormal" style="margin: 0cm 0cm 0pt"><span style="font-size: 28pt; color: #242626; font-family: arial" lang="EN-US"><o:p><font size="2"><img style="display: inline;" onload="if(this.width>650) this.width=650;" onclick='window.open("http://blog.51cto.com/viewpic.php?refimg=" + this.src)' alt="" src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/13648469848880.gif" original="http://cdn.verydemo.com/upload/2013_04_02/13648469848880.gif" border="0"></font></o:p></span></div>
+<div class="MsoNormal" style="margin: 0cm 0cm 0pt"><span style="font-size: 28pt; color: #242626; font-family: arial" lang="EN-US"><o:p><font size="2">怎么样，酷吧，这个截图，呵呵。。。</font></o:p></span></div>
+<div class="MsoNormal" style="margin: 0cm 0cm 0pt"><span style="font-size: 28pt; color: #242626; font-family: arial" lang="EN-US"><o:p><font size="2">下面是一些常用命令：</font></o:p></span></div><span style="font-size: 28pt; color: #242626; font-family: arial" lang="EN-US"><o:p>
+<div><font size="2">常用命令<br><span style="color: #ff0000">dstat -cndymlp -N total -D total 525</span> 统计CPU,IO ,network,system load</font></div>
+<div><font size="2">dstat -cdnsil -D hda -N eth1 统计网卡1的信息</font></div>
+<div><font size="2">dstat �vmstat 内存使用情况</font></div>
+<div><font size="2">date &amp;&amp; dstat -tclmdny 60 </font></div>
+<div><font size="2"></font>&nbsp;</div>
+<div><font size="2">以下是Dstat的一些参数：</font></div>
+<div><font size="2">OPTIONS<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -c, --cpu<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enable cpu stats</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -C 0,3,total<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; include cpu0, cpu3 and total</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -d, --disk<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enable disk stats</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -D total,hda<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; include hda and total</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -g, --page<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enable page stats</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -i, --int<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enable interrupt stats</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -I 5,10<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; include interrupt 5 and 10</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -l, --load<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enable load stats</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -m, --mem<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enable memory stats</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -n, --net<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enable network stats</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -N eth1,total<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; include eth1 and total</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -p, --proc<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enable process stats</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -s, --swap<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enable swap stats</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -S swap1,total<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; include swap1 and total</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -t, --time<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enable time/date output</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -T, --epoch<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enable time counter (seconds since epoch)</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -y, --sys<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enable system stats</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --ipc&nbsp; enable ipc stats</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --lock enable lock stats</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --raw&nbsp; enable raw stats</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --tcp&nbsp; enable tcp stats</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --udp&nbsp; enable udp stats</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --unix enable unix stats</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -M stat1,stat2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enable internal stats and external plugin stats</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Possible internal stats are<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ cpu, cpu24, disk, disk24, disk24old, epoch, int, int24, ipc, load, 
+lock, mem, net, page, page24,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ proc, raw, swap, swapold, sys, tcp, time, udp, unix</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Possible external plugin stats can be listed using<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dstat -M list</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -a, --all<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; equals -cdngy (default)</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -f, --full<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; expand -C, -D, -I, -N and -S discovery lists</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -v, --vmstat<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; equals -pmgdsc -D total</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --integer<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; show integer values</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --nocolor<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; disable colors (implies --noupdate)</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --noheaders<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; disable repetitive headers</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --noupdate<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; disable intermediate updates when delay &gt; 1</font></div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --output file<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; write CSV output to file</font></div>
+<div><font size="2"></font>&nbsp;</div>
+<div><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 如果你想深入研究的话，你可以man下如果有心得，请共享下成果。。。</font></div></o:p></span>
+    		</div>
+</div>
+					<div>
+<script type="text/javascript">
+/*760*90，创建于2013-4-19*/
+var cpro_id = "u1264831";
+</script>
+<script src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/c.js" type="text/javascript"></script><script type="text/javascript" charset="utf-8" src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/ecom_002"></script><div style="display:none">-</div> <iframe id="cproIframe2" src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/uijs_002.html" marginwidth="0" marginheight="0" allowtransparency="true" frameborder="0" height="90" scrolling="no" width="760" align="center,center"></iframe>
+</div>
+<div class="content-yj">
+						评论：0&nbsp;&nbsp;&nbsp;&nbsp;
+						<span>1906人已阅读</span>
+					</div>
+					<div class="content-xg">
+						<div class="xglj">
+							<b style="font-size:16px;">相关文章</b> 没有找到想要的?点击下以下文章试试看哦^_^
+						</div>
+						<ul>
+						 <li><a href="http://www.verydemo.com/demo_c167_i4754.html">使用Dstat监控Linux系统资源&nbsp;分享</a></li>
+						 <li><a href="http://www.verydemo.com/demo_c167_i50925.html">dstat监控linux资源</a></li>
+						 <li><a href="http://www.verydemo.com/demo_c167_i40105.html">应用dstat监控linux资源</a></li>
+						 <li><a href="http://www.verydemo.com/demo_c167_i66986.html">[Linux系统监控工具]--dstat</a></li>
+						 <li><a href="http://www.verydemo.com/demo_c441_i68124.html">dstat 监控工具的使用</a></li>
+						 <li><a href="http://www.verydemo.com/demo_c167_i23404.html">监控linux系统资源</a></li>
+						 <li><a href="http://www.verydemo.com/demo_c167_i25852.html">配置rstatd使用LoadRunner监控Linux系统资源</a></li>
+						 <li><a href="http://www.verydemo.com/demo_c128_i31135.html">使用HTOP, Dstat监测Linux Process</a></li>
+						 <li><a href="http://www.verydemo.com/demo_c167_i23274.html">Linux下很全面的监控工具dstat</a></li>
+						 <li><a href="http://www.verydemo.com/demo_c167_i23455.html">Linux下很全面的监控工具dstat</a></li>
+						 <li><a href="http://www.verydemo.com/demo_c167_i56094.html">Linux上很全面的监控工具dstat</a></li>
+						 <li><a href="http://www.verydemo.com/demo_c167_i21906.html">用nmon监控Linux系统资源</a></li>
+						 <li><a href="http://www.verydemo.com/demo_c167_i31916.html">LoadRunner怎么监控Linux系统资源</a></li>
+						 <li><a href="http://www.verydemo.com/demo_c167_i48987.html">LoadRunner如何监控Linux系统资源</a></li>
+						 <li><a href="http://www.verydemo.com/demo_c167_i73143.html">perl监控linux系统资源的脚步</a></li>
+						 <li><a href="http://www.verydemo.com/demo_c167_i92788.html">LoadRunner监控Linux系统资源详解 (</a></li>
+						 <li><a href="http://www.verydemo.com/demo_c230_i3814.html">Loadrunner如何监控Linux系统资源</a></li>
+						 <li><a href="http://www.verydemo.com/demo_c230_i5226.html">Loadrunner如何监控Linux系统资源</a></li>
+						 <li><a href="http://www.verydemo.com/demo_c290_i290.html">Loadrunner11监控Linux系统资源</a></li>
+						 <li><a href="http://www.verydemo.com/demo_c128_i48659.html">Linux系统分析工具之nicstat，dstat（基础篇-4）</a></li>
+						 <li><a href="http://www.verydemo.com/demo_c167_i10257.html">使用 shell 脚本对 Linux 系统和进程资源进行监控</a></li>
+						 <li><a href="http://www.verydemo.com/demo_c167_i57109.html">使用Shell脚本对Linux系统和进程资源进行监控</a></li>
+						 <li><a href="http://www.verydemo.com/demo_c167_i66762.html">使用Shell脚本对Linux系统和进程资源进行监控（转）</a></li>
+						 <li><a href="http://www.verydemo.com/demo_c167_i66808.html">转：使用Shell脚本对Linux系统和进程资源进行监控</a></li>
+						 </ul>
+						<div class="cl">
+						</div>
+					</div>
+					<div>
+<script type="text/javascript">
+var sogou_ad_id=192676;
+var sogou_ad_height=90;
+var sogou_ad_width=760;
+</script>
+<script language="JavaScript" type="text/javascript" src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/c_002.js"></script><div style="display:none">-</div> <iframe id="starIframe1" onload="document.sogou_ads1_loaded=true;" src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/ct.html" marginwidth="0" marginheight="0" allowtransparency="true" frameborder="0" height="90" scrolling="no" width="760" align="center,center"></iframe>
+</div>
+<div class="content-message" style="border-top:none;">
+						<div class="pl" style="line-height:32px;">
+							<img class="vm" src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/comments.gif">
+							<b style="font-size:16px;">文章评论</b> 以下网友留言只代表其个人观点，不代表本网站的观点和立场。
+						</div>
+						<div class="message"><h1>目前还没有留言，还不快抢！</h1></div>
+						<div class="pl">
+							<img class="vm" src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/comments.gif">
+							<b>参与留言</b> 网名和内容都不能为空。
+						</div>
+						<div class="message-form">
+							<table cellspacing="0" width="100%">
+							 <tbody><tr valign="top">
+							  <td class="tr" width="60">* 网名:&nbsp;</td>
+							  <td>
+							   <input maxlength="50" class="title" id="messageTitle" type="text">
+							  </td>
+							 </tr>
+							 <tr>
+							  <td class="tr pt6" valign="top">* 内容:&nbsp;</td>
+							  <td class="pt6"><textarea id="messageText" class="text"></textarea></td>
+							 </tr>
+							 <tr>
+							  <td class="tr pt6" valign="top">* 验证码:&nbsp;</td>
+							  <td class="pt6">
+							  <input class="code" maxlength="4" id="messageCode" type="text">&nbsp;
+							  <img id="messageCodeImg" class="vm pon" style="display:none;" src2="/json/code.jsp?code=messageCode128_42025">
+							  </td>
+							 </tr>
+							 <tr>
+							  <td class="tr" valign="top">&nbsp;</td>
+							  <td class="pt6">
+							  <input id="messageButton" num="128_42025" class="button" value="提 交" type="button">
+							  &nbsp;&nbsp;<span class="bold" style="color: red;" id="messageStatus">&nbsp;</span>
+							  </td>
+							 </tr>
+						    </tbody></table>
+						</div>
+					</div>
+				</div>
+				<!--左架构结束-->
+				<!--右架构-->
+				<div class="right-div" id="right_tj">
+					<div>
+					 <div>
+<script type="text/javascript">
+/*250*250，创建于2013-4-21*/
+var cpro_id = "u1266889";
+</script>
+<script src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/c.js" type="text/javascript"></script><script type="text/javascript" charset="utf-8" src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/ecom_003"></script><div style="display:none">-</div> <iframe id="cproIframe3" src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/uijs_003.html" marginwidth="0" marginheight="0" allowtransparency="true" frameborder="0" height="250" scrolling="no" width="250" align="center,center"></iframe>
+</div>
+</div>
+					<div class="tag-container">
+						<div class="tag-div">
+							<div class="tag2">
+								<div class="title">
+									<div style="font-size:16px;line-height:34px;">&nbsp;相关文章推荐！</div>
+								</div>
+								<div class="content2" style="border-top:1px dotted #ccc;margin-top:4px;">
+								 <ul>
+								 <li><a href="http://www.verydemo.com/demo_c167_i4754.html">使用Dstat监控Linux系统资源&nbsp;分享</a></li>
+								 <li><a href="http://www.verydemo.com/demo_c167_i50925.html">dstat监控linux资源</a></li>
+								 <li><a href="http://www.verydemo.com/demo_c167_i40105.html">应用dstat监控linux资源</a></li>
+								 <li><a href="http://www.verydemo.com/demo_c167_i66986.html">[Linux系统监控工具]--dstat</a></li>
+								 <li><a href="http://www.verydemo.com/demo_c441_i68124.html">dstat 监控工具的使用</a></li>
+								 <li><a href="http://www.verydemo.com/demo_c167_i23404.html">监控linux系统资源</a></li>
+								 <li><a href="http://www.verydemo.com/demo_c167_i25852.html">配置rstatd使用LoadRunner监控Linux系统资源</a></li>
+								 <li><a href="http://www.verydemo.com/demo_c128_i31135.html">使用HTOP, Dstat监测Linux Process</a></li>
+								 <li><a href="http://www.verydemo.com/demo_c167_i23274.html">Linux下很全面的监控工具dstat</a></li>
+								 <li><a href="http://www.verydemo.com/demo_c167_i23455.html">Linux下很全面的监控工具dstat</a></li>
+								 <li><a href="http://www.verydemo.com/demo_c167_i56094.html">Linux上很全面的监控工具dstat</a></li>
+								 <li><a href="http://www.verydemo.com/demo_c167_i21906.html">用nmon监控Linux系统资源</a></li>
+								 <li><a href="http://www.verydemo.com/demo_c167_i31916.html">LoadRunner怎么监控Linux系统资源</a></li>
+								 <li><a href="http://www.verydemo.com/demo_c167_i48987.html">LoadRunner如何监控Linux系统资源</a></li>
+								 <li><a href="http://www.verydemo.com/demo_c167_i73143.html">perl监控linux系统资源的脚步</a></li>
+								 <li><a href="http://www.verydemo.com/demo_c167_i92788.html">LoadRunner监控Linux系统资源详解 (</a></li>
+								 <li><a href="http://www.verydemo.com/demo_c230_i3814.html">Loadrunner如何监控Linux系统资源</a></li>
+								 <li><a href="http://www.verydemo.com/demo_c230_i5226.html">Loadrunner如何监控Linux系统资源</a></li>
+								 <li><a href="http://www.verydemo.com/demo_c290_i290.html">Loadrunner11监控Linux系统资源</a></li>
+								 <li><a href="http://www.verydemo.com/demo_c128_i48659.html">Linux系统分析工具之nicstat，dstat（基础篇-4）</a></li>
+								 <li><a href="http://www.verydemo.com/demo_c167_i10257.html">使用 shell 脚本对 Linux 系统和进程资源进行监控</a></li>
+								 <li><a href="http://www.verydemo.com/demo_c167_i57109.html">使用Shell脚本对Linux系统和进程资源进行监控</a></li>
+								 <li><a href="http://www.verydemo.com/demo_c167_i66762.html">使用Shell脚本对Linux系统和进程资源进行监控（转）</a></li>
+								 <li><a href="http://www.verydemo.com/demo_c167_i66808.html">转：使用Shell脚本对Linux系统和进程资源进行监控</a></li>
+								 </ul>
+                                </div>
+							</div>
+						</div>
+					</div>
+					<div>
+					 <div>
+<script type="text/javascript">
+var sogou_ad_id=195728;
+var sogou_ad_height=250;
+var sogou_ad_width=250;
+</script>
+<script language="JavaScript" type="text/javascript" src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/c_002.js"></script><div style="display:none">-</div> <iframe id="starIframe2" onload="document.sogou_ads2_loaded=true;" src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/ct_002.html" marginwidth="0" marginheight="0" allowtransparency="true" frameborder="0" height="250" scrolling="no" width="250" align="center,center"></iframe>
+</div>
+</div>
+				</div>
+				<!--右架构结束-->
+				<div class="cl">
+				</div>
+			</div>
+		</div>
+		<!--主架构结束-->
+	    <!--底部-->
+<div class="100p">
+	<div class="footer-div">
+		版权声明:本站大部分内容均为原创内容,部分文章摘自互联网,如果侵犯了您的版权,请联系管理员删除(联系邮箱:421584397@qq.com)
+		<br>
+		Copyright © 2012, WWW.VERYDEMO.COM, All Rights Reserved | 粤ICP备12030714
+	</div>
+</div>
+<!-- Baidu Button BEGIN -->
+<script src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/bds_s_v2.js" type="text/javascript" id="bdshare_js" data="type=slide&amp;img=5&amp;pos=left&amp;uid=0"></script>
+<script src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/shell_v2.js" type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+var bds_config={"bdTop":170};
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+</script>
+<!-- Baidu Button END -->
+<script src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/view.html"></script><script src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/pvcount.html" language="javascript"></script>
+
+<script src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/view_002.html"></script><script src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/stat.html" language="javascript"></script>
+
+<script type="text/javascript">
+/*120*270，创建于2013-4-19*/
+var cpro_id = "u1264833";
+</script>
+<script src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/f.js" type="text/javascript"></script><script type="text/javascript" charset="utf-8" src="%E4%BD%BF%E7%94%A8Dstat%E7%9B%91%E6%8E%A7Linux%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90_files/ecom"></script>
+
+
+
+</body></html>
+<!--105-->

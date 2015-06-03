@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://ogp.me/ns/fb#">
+<head>
+<meta charset="UTF-8"/>
+<meta content="width=device-width,minimum-scale=1,maximum-scale=1" name="viewport">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>
+Using the Official Dropbox Command Line Interface (CLI) - The Unofficial Dropbox Wiki</title>
+<script type="text/javascript">
+//<![CDATA[
+try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag2:1,mirage2:0,oracle:0,paths:{cloudflare:"/cdn-cgi/nexp/dok9v=02fcfa4f56/"},atok:"c27f3e3d10df867236e6b970a6268a4b",petok:"a793bbe306fe0fcfb5f9b29a0dfb70c02c7119bf-1397370135-1800",zone:"dropboxwiki.com",rocket:"a",apps:0}];document.write('<script type="text/javascript" src="//ajax.cloudflare.com/cdn-cgi/nexp/dok9v=b064e16429/cloudflare.min.js"><'+'\/script>');}}catch(e){};
+//]]>
+</script>
+<link rel="profile" href="http://gmpg.org/xfn/11"/>
+<link rel="pingback" href="http://www.dropboxwiki.com/xmlrpc.php"/>
+<script type="text/rocketscript">
+	window.google_analytics_uacct = "UA-25883695-1";
+</script>
+ 
+<link rel="canonical" href="http://www.dropboxwiki.com/tips-and-tricks/using-the-official-dropbox-command-line-interface-cli"/>
+ 
+<link rel="alternate" type="application/rss+xml" title="The Unofficial Dropbox Wiki &raquo; Feed" href="http://www.dropboxwiki.com/feed"/>
+<link rel="alternate" type="application/rss+xml" title="The Unofficial Dropbox Wiki &raquo; Comments Feed" href="http://www.dropboxwiki.com/comments/feed"/>
+<script type="text/rocketscript">//<![CDATA[
+            // Google Analytics for WordPress by Yoast v4.3.5 | http://yoast.com/wordpress/google-analytics/
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-25883695-1']);
+				            _gaq.push(['_setCustomVar',2,'post_type','post',3],['_setCustomVar',3,'categories','linux tips-and-tricks',3],['_trackPageview']);
+            (function () {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+            //]]></script>
+<link rel="alternate" type="application/rss+xml" title="The Unofficial Dropbox Wiki &raquo; Using the Official Dropbox Command Line Interface (CLI) Comments Feed" href="http://www.dropboxwiki.com/tips-and-tricks/using-the-official-dropbox-command-line-interface-cli/feed"/>
+<link rel='stylesheet' id='jetpack-subscriptions-css' href='http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-content/plugins/jetpack/modules/subscriptions/subscriptions.css' type='text/css' media='all'/>
+<link rel='stylesheet' id='apb-core-style-css' href='http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-content/plugins/apollo-bar/css/apollo-bar.css' type='text/css' media='all'/>
+<link rel='stylesheet' id='toc-screen-css' href='http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-content/plugins/table-of-contents-plus/screen.css?ver=1402' type='text/css' media='all'/>
+<link rel='stylesheet' id='jetpack-widgets-css' href='http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-content/plugins/jetpack/modules/widgets/widgets.css?ver=20121003' type='text/css' media='all'/>
+<link rel='stylesheet' id='theme-style-css' href='http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-content/themes/knowhow/style.css' type='text/css' media='all'/>
+<style type='text/css'>a,a:visited{color:#288bd8;}a:hover,.widget a:hover,#primary-nav ul a:hover,#footer-nav a:hover,#breadcrumbs a:hover{color:#288bd8;}#commentform #submit,.st_faq h2.active .action,.widget_categories ul span,.pagination .current,.tags a,.page-links span,#comments .comment-meta .author-badge,input[type="reset"],input[type="submit"],input[type="button"]{background:#288bd8;}#live-search #searchsubmit,input[type="submit"]{background-color:#288bd8;}.tags a:before{border-color:transparent #288bd8 transparent transparent;}#primary-nav{top:29.5px;}#content{width:77%;padding:40px 10px 0 0;}#sidebar{width:23%;}.google-ads{margin:-25px 0 5px;}.nav-previous,.nav-next{display:none;}.spacer{height:15px;}.content-align{text-align:center;}@media screen and (max-width: 720px) {#content,#primary.sidebar-left,#content,#sidebar{width:100%;float:none;clear:both;margin:0 0 20px;}#content{border:none;padding:40px 0 0 0;}#sidebar{padding:0!important;}}.fsb-title{display:block;float:left;margin:3px 20px 0 0;font-size:16px;font-family:Open Sans,Arial,Helvetica,sans-serif;text-decoration:none;color:#333;}</style>
+<link rel='stylesheet' id='theme-font-css' href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,700&#038;subset=latin,latin-ext' type='text/css' media='all'/>
+<link rel='stylesheet' id='font-awesome-css' href='http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-content/themes/knowhow/css/font-awesome.min.css' type='text/css' media='all'/>
+<link rel='stylesheet' id='shortcodes-css' href='http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-content/themes/knowhow/framework/shortcodes/shortcodes.css' type='text/css' media='all'/>
+<link rel='stylesheet' id='like-dislike-css' href='http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-content/plugins/like-dislike-counter-for-posts-pages-and-comments/css/ldc-lite.css?ver=1.0.0' type='text/css' media='all'/>
+<script type='text/rocketscript' data-rocketsrc='http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-includes/js/jquery/jquery.js?ver=1.10.2'></script>
+<script type='text/rocketscript' data-rocketsrc='http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<script type='text/rocketscript' data-rocketsrc='http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-content/plugins/apollo-bar/js/jquery.cookie.js?ver=1.0.2'></script>
+<script type='text/rocketscript' data-rocketsrc='http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-includes/js/comment-reply.min.js'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.dropboxwiki.com/xmlrpc.php?rsd"/>
+<link rel='shortlink' href='http://wp.me/p4fLz7-cp'/>
+<style type="text/css">#apollo-bar{background-color:#288bd8!important;}#apollo-bar .apb-message p{color:#fff;}</style>
+<script type="text/rocketscript">
+//<![CDATA[
+  (function() {
+    var shr = document.createElement('script');
+    shr.src = '//dtym7iokkjlif.cloudfront.net/assets/pub/shareaholic.js';
+    shr.type = 'text/javascript'; shr.async = 'true';
+    shr.onload = shr.onreadystatechange = function() {
+      var rs = this.readyState;
+      if (rs && rs != 'complete' && rs != 'loaded') return;
+      var apikey = '421a4e6c85605df9426c2e0299e8bfa4'
+      try { Shareaholic.init(apikey); } catch (e) {}
+    };
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(shr, s);
+  })();
+//]]>
+</script>
+<style type='text/css'>img#wpstats{display:none}</style><!--[if lt IE 9]><script src="http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-content/themes/knowhow/js/html5.js"></script><![endif]--><!--[if (gte IE 6)&(lte IE 8)]><script src="http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-content/themes/knowhow/js/selectivizr-min.js"></script><![endif]--><link rel="shortcut icon" href="https://www.dropboxwiki.com/wp-content/uploads/2013/06/favicon.ico"/>
+ 
+<meta name="generator" content="NGFB 7.4.3G"/>
+<link rel="author" href="http://www.dropboxwiki.com/author/nathan"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:description" content="This article assumes you have already installed Dropbox as per the instructions here. Contents 1 Installation2 Getting Started3 Commands3.1 STATUS3.1.1 Description3.1.2 Usage3.1.3 Sample output3.2 HELP3.2.1 Description3.2.2 Usage3.2.3 Sample output3.3 PUBURL3.3.1..."/>
+ <meta property="article:author" content="http://www.dropboxwiki.com/author/nathan"/>
+<meta property="article:section" content="Technology"/>
+<meta property="article:published_time" content="2013-06-11T16:04:49+00:00"/>
+<meta property="article:modified_time" content="2013-06-22T14:08:04+00:00"/>
+ 
+<script type="text/rocketscript" id="ngfb-header-script">
+				window.___gcfg = { lang: "en-US" };
+				function ngfb_insert_js( script_id, url, async ) {
+					if ( document.getElementById( script_id + "-js" ) ) return;
+					var async = typeof async !== "undefined" ? async : true;
+					var script_pos = document.getElementById( script_id );
+					var js = document.createElement( "script" );
+					js.id = script_id + "-js";
+					js.async = async;
+					js.type = "text/javascript";
+					js.language = "JavaScript";
+					js.src = url;
+					script_pos.parentNode.insertBefore( js, script_pos );
+				};</script>
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+</head>
+<body class="single single-post postid-769 single-format-standard gecko"><script type="text/javascript">//<![CDATA[try{(function(a){var b="http://",c="www.dropboxwiki.com",d="/cdn-cgi/cl/",e="img.gif",f=new a;f.src=[b,c,d,e].join("")})(Image)}catch(e){}//]]></script>
+ 
+<nav id="primary-nav-mobile">
+<a class="menu-toggle" href="#"></a>
+<ul id="mobile-menu" class="clearfix"><li id="menu-item-12" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12"><a href="https://www.dropboxwiki.com/">Home</a></li>
+<li id="menu-item-28" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-28"><a href="https://www.dropboxwiki.com/faq">FAQs</a></li>
+<li id="menu-item-1590" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1590"><a href="http://www.dropboxwiki.com/rewards">Contribute</a></li>
+<li id="menu-item-1588" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1588"><a href="http://www.dropboxwiki.com/news">News</a></li>
+<li id="menu-item-20" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-20"><a href="http://www.dropboxwiki.com/donate">Donate</a></li>
+<li id="menu-item-19" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19"><a href="http://www.dropboxwiki.com/contact">Contact</a></li>
+</ul></nav>
+ 
+ 
+<header id="header" class="clearfix" role="banner">
+<div class="container">
+ 
+<div id="logo">
+<a title="The Unofficial Dropbox Wiki" href="http://www.dropboxwiki.com">
+<img alt="The Unofficial Dropbox Wiki" src="https://www.dropboxwiki.com/wp-content/uploads/2013/07/logo.png">
+</a>
+</div>
+ 
+ 
+<nav id="primary-nav" role="navigation" class="clearfix">
+<ul id="menu-navigation-menu" class="nav sf-menu clearfix"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12"><a href="https://www.dropboxwiki.com/">Home</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-28"><a href="https://www.dropboxwiki.com/faq">FAQs</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1590"><a href="http://www.dropboxwiki.com/rewards">Contribute</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1588"><a href="http://www.dropboxwiki.com/news">News</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-20"><a href="http://www.dropboxwiki.com/donate">Donate</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19"><a href="http://www.dropboxwiki.com/contact">Contact</a></li>
+</ul> </nav>
+ 
+</div>
+</header>
+ 
+ 
+<div id="live-search">
+<div class="container">
+<div id="search-wrap">
+<form role="search" method="get" id="searchform" class="clearfix" action="http://www.dropboxwiki.com/">
+<input type="text" onfocus="if (this.value == 'Search for Articles') {this.value = '';}" onblur="if (this.value == '')  {this.value = 'Search for Articles';}" value="Search for Articles" name="s" id="s" autocapitalize="off" autocorrect="off" autocomplete="off"/>
+<i class="live-search-loading icon-spinner icon-spin"></i>
+<button type="submit" id="searchsubmit">
+<i class='icon-search'></i><span>Search</span>
+</button>
+</form>
+</div>
+</div>
+</div>
+ 
+ 
+<div id="primary" class="container clearfix">
+ 
+<section id="content" role="main">
+ 
+<header id="page-header" class="clearfix">
+<h1 class="page-title">Using the Official Dropbox Command Line Interface (CLI)</h1>
+ 
+<div id="breadcrumbs">
+ 
+<a title="View all articles in Tips and Tricks." href="http://www.dropboxwiki.com/tips-and-tricks">Tips and Tricks</a><span class="sep"> / </span><a title="View all articles in Linux." href="http://www.dropboxwiki.com/tips-and-tricks/linux">Linux</a><span class="sep"> / </span>Using the Official Dropbox Command Line&hellip;</div>
+</header>
+ 
+<ul class="entry-meta clearfix">
+<li class="author">
+<i class="icon-user"></i>
+Nathan and Raymond</li>
+<li class="category">
+<i class="icon-folder-close"></i>
+<a href="http://www.dropboxwiki.com/tips-and-tricks/linux" title="View all posts in Linux" rel="category tag">Linux</a>/ <a href="http://www.dropboxwiki.com/tips-and-tricks" title="View all posts in Tips and Tricks" rel="category tag">Tips and Tricks</a> </li>
+</ul>
+<article id="post-769" class="post-769 post type-post status-publish format-standard hentry category-linux category-tips-and-tricks clearfix">
+ 
+<header class="entry-header">
+ 
+<div class="entry-thumb">
+</div>
+</header>
+ 
+<div class="entry-content">
+<div class="google-ads">
+<script type="text/rocketscript">
+                        /* ResponsiveAdSense */
+                        var r = [[0,["1241356931",200,90]],[250,["8764623733",250,250]],[300,["7287890530",300,250]],[336,["5811157330",336,280]],[495,["4334424133",468,60]],[1005,["7023398875",728,90]]],
+W=window;w=W.top.innerWidth,e=W.frameElement,i=r.length-1;if(w<r[i][0]){while(--i){if(r[i][0]<w){break;}}};r=r[i][1];if(e){e.width=r[1];e.height=r[2]};
+                        google_ad_client = "ca-pub-5721794472400973";
+                        google_ad_slot = r[0];
+                        google_ad_width = r[1];
+                        google_ad_height = r[2];
+                </script>
+<script type="text/rocketscript" data-rocketsrc="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+</div>
+<p><b>This article assumes you have already installed Dropbox as per the instructions <a title="Text Based Linux Install" href="/tips-and-tricks/install-dropbox-in-an-entirely-text-based-linux-environment">here</a>.</b></p>
+<div id="toc_container" class="toc_light_blue no_bullets"><p class="toc_title">Contents</p><ul class="toc_list"><li><a href="#Installation"><span class="toc_number toc_depth_1">1</span> Installation</a></li><li><a href="#Getting_Started"><span class="toc_number toc_depth_1">2</span> Getting Started</a></li><li><a href="#Commands"><span class="toc_number toc_depth_1">3</span> Commands</a><ul><li><a href="#STATUS"><span class="toc_number toc_depth_2">3.1</span> STATUS</a><ul><li><a href="#Description"><span class="toc_number toc_depth_3">3.1.1</span> Description</a></li><li><a href="#Usage"><span class="toc_number toc_depth_3">3.1.2</span> Usage</a></li><li><a href="#Sample_output"><span class="toc_number toc_depth_3">3.1.3</span> Sample output</a></li></ul></li><li><a href="#HELP"><span class="toc_number toc_depth_2">3.2</span> HELP</a><ul><li><a href="#Description-2"><span class="toc_number toc_depth_3">3.2.1</span> Description</a></li><li><a href="#Usage-2"><span class="toc_number toc_depth_3">3.2.2</span> Usage</a></li><li><a href="#Sample_output-2"><span class="toc_number toc_depth_3">3.2.3</span> Sample output</a></li></ul></li><li><a href="#PUBURL"><span class="toc_number toc_depth_2">3.3</span> PUBURL</a><ul><li><a href="#Description-3"><span class="toc_number toc_depth_3">3.3.1</span> Description</a></li><li><a href="#Usage-3"><span class="toc_number toc_depth_3">3.3.2</span> Usage</a></li><li><a href="#Sample_output-3"><span class="toc_number toc_depth_3">3.3.3</span> Sample output</a></li></ul></li><li><a href="#STOP"><span class="toc_number toc_depth_2">3.4</span> STOP</a><ul><li><a href="#Description-4"><span class="toc_number toc_depth_3">3.4.1</span> Description</a></li><li><a href="#Usage-4"><span class="toc_number toc_depth_3">3.4.2</span> Usage</a></li><li><a href="#Sample_output-4"><span class="toc_number toc_depth_3">3.4.3</span> Sample output</a></li></ul></li><li><a href="#RUNNING"><span class="toc_number toc_depth_2">3.5</span> RUNNING</a><ul><li><a href="#Description-5"><span class="toc_number toc_depth_3">3.5.1</span> Description</a></li><li><a href="#Extra_Info"><span class="toc_number toc_depth_3">3.5.2</span> Extra Info</a></li><li><a href="#Usage-5"><span class="toc_number toc_depth_3">3.5.3</span> Usage</a></li><li><a href="#Sample_output-5"><span class="toc_number toc_depth_3">3.5.4</span> Sample output</a></li></ul></li><li><a href="#EXCLUDE"><span class="toc_number toc_depth_2">3.6</span> EXCLUDE</a><ul><li><a href="#Description-6"><span class="toc_number toc_depth_3">3.6.1</span> Description</a></li><li><a href="#Extra_Info-2"><span class="toc_number toc_depth_3">3.6.2</span> Extra Info</a></li><li><a href="#Usage-6"><span class="toc_number toc_depth_3">3.6.3</span> Usage</a></li><li><a href="#Sample_output-6"><span class="toc_number toc_depth_3">3.6.4</span> Sample output</a></li></ul></li></ul></li></ul></div>
+<h2><span id="Installation">Installation</span></h2>
+<p>Download the <a href="https://www.dropbox.com/download?dl=packages/dropbox.py" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.dropbox.com']);" rel="nofollow">Dropbox command line interface</a> or get it via the command line: First make a bin directory, or a directory of your choosing. The examples below all assume you made a bin directory:</p>
+<pre>mkdir -p ~/bin</pre>
+<p>Download the CLI interface via  wget:</p>
+<pre>wget -O ~/bin/dropbox.py "https://www.dropbox.com/download?dl=packages/dropbox.py"</pre>
+<p>Set the permissions so you can execute the CLI interface:</p>
+<pre>chmod +x ~/bin/dropbox.py</pre>
+<h2><span id="Getting_Started">Getting Started</span></h2>
+<p>Start off by printing the help menu:</p>
+<pre>~/bin/dropbox.py help</pre>
+<p>which will show you all the commands you can use</p>
+<pre>status       get current status of the dropboxd
+help         provide help
+puburl       get public url of a file in your dropbox
+stop         stop dropboxd
+running      return whether dropbox is running
+start        start dropboxd
+filestatus   get current sync status of one or more files
+ls           list directory contents with current sync status
+autostart    automatically start dropbox at login
+exclude      ignores/excludes a directory from syncing</pre>
+<p>As the help menu shows, to start Dropbox, simply type</p>
+<pre>~/bin/dropbox.py start</pre>
+<p>If successful, it should show</p>
+<pre>Starting Dropbox...Done!</pre>
+<p>Then check its status with</p>
+<pre>~/bin/dropbox.py status</pre>
+<h2><span id="Commands">Commands</span></h2>
+<h3><span id="STATUS">STATUS</span></h3>
+<h4><span id="Description">Description</span></h4>
+<pre>get current status of the dropboxd</pre>
+<h4><span id="Usage">Usage</span></h4>
+<p>Basic usage   dropbox.py status Example         ~/bin/dropbox.py status Combined with &#8220;watch&#8221; command <em>watch &#8216;~/bin/dropbox.py status&#8217;</em></p>
+<h4><span id="Sample_output">Sample output</span></h4>
+<pre>$ ~/bin/dropbox.py status
+Indexing 317 files...
+$ ~/bin/dropbox.py status
+Idle</pre>
+<h3><span id="HELP">HELP</span></h3>
+<h4><span id="Description-2">Description</span></h4>
+<pre>provide help</pre>
+<h4><span id="Usage-2">Usage</span></h4>
+<p>Basic usage    dropbox.py help Example          ~/bin/dropbox.py help Command help usage  dropbox.py help COMMAND Example          ~/bin/dropbox.py help exclude</p>
+<h4><span id="Sample_output-2">Sample output</span></h4>
+<pre>$ ~/bin/dropbox.py help
+Dropbox command-line interface
+commands:
+
+Note: use dropbox help &lt;command&gt; to view usage for a specific command.
+
+status       get current status of the dropboxd
+help         provide help
+puburl       get public url of a file in your dropbox
+stop         stop dropboxd
+running      return whether dropbox is running
+start        start dropboxd
+filestatus   get current sync status of one or more files
+ls           list directory contents with current sync status
+autostart    automatically start dropbox at login
+exclude      ignores/excludes a directory from syncing
+$ ~/bin/dropbox.py help puburl
+dropbox puburl FILE
+Prints out a public url for FILE.</pre>
+<h3><span id="PUBURL">PUBURL</span></h3>
+<h4><span id="Description-3">Description</span></h4>
+<pre>get public url of a file in your dropbox</pre>
+<h4><span id="Usage-3">Usage</span></h4>
+<p>Basic usage    dropbox.py puburl FILE Example          ~/bin/dropbox.py puburl ~/Dropbox/Public/file.zip</p>
+<h4><span id="Sample_output-3">Sample output</span></h4>
+<pre>$ ~/bin/dropbox.py puburl ~/Dropbox/Public/file.zip
+
+http://dl.dropbox.com/u/XXXXXXX/file.zip</pre>
+<p>If not used on a file in your Public folder, you will get an error message:</p>
+<pre>$ ~/bin/dropbox.py puburl ~/Dropbox/myFolder/file.zip 
+Couldn't get public url: Unknown Error</pre>
+<h3><span id="STOP">STOP</span></h3>
+<h4><span id="Description-4">Description</span></h4>
+<pre>stop dropboxd</pre>
+<h4><span id="Usage-4">Usage</span></h4>
+<p>Basic usage    dropbox.py stop Example          ~/bin/dropbox.py stop</p>
+<h4><span id="Sample_output-4">Sample output</span></h4>
+<pre>$ ~/bin/dropbox.py stop
+Dropbox daemon stopped.</pre>
+<h3><span id="RUNNING">RUNNING</span></h3>
+<h4><span id="Description-5">Description</span></h4>
+<pre>return whether dropbox is running</pre>
+<p>Used in scripts to check if Dropbox is running. This command does not output anything to the user.</p>
+<h4><span id="Extra_Info">Extra Info</span></h4>
+<pre>$ ~/bin/dropbox.py help running
+dropbox running
+Returns 1 if running 0 if not running.</pre>
+<h4><span id="Usage-5">Usage</span></h4>
+<p>Basic usage    dropbox.py running Example          ~/bin/dropbox.py running</p>
+<h4><span id="Sample_output-5">Sample output</span></h4>
+<pre>$ ~/bin/dropbox.py running
+&lt;no output&gt;</pre>
+<h3><span id="EXCLUDE">EXCLUDE</span></h3>
+<h4><span id="Description-6">Description</span></h4>
+<pre>ignores/excludes a directory from syncing</pre>
+<p>Used in scripts to check if Dropbox is running. This command does not output anything to the user.</p>
+<h4><span id="Extra_Info-2">Extra Info</span></h4>
+<pre>$ ~/bin/dropbox.py help exclude
+dropbox exclude [list]
+dropbox exclude add [DIRECTORY] [DIRECTORY] ...
+dropbox exclude remove [DIRECTORY] [DIRECTORY] ...
+"list" prints a list of directories currently excluded from syncing.  
+"add" adds one or more directories to the exclusion list, then resynchronizes Dropbox. 
+"remove" removes one or more directories from the exclusion list, then resynchronizes Dropbox.
+With no arguments, executes "list". 
+Any specified path must be within Dropbox.</pre>
+<h4><span id="Usage-6">Usage</span></h4>
+<p>List usage:    dropbox.py exclude list Example        ~/bin/dropbox.py exclude Example        ~/bin/dropbox.py exclude list Add exclusion usage  dropbox.py exclude add DIRECTORY Example        ~/bin/dropbox.py exclude add ~/Dropbox/MyExcludedFolder Remove exclusion usage   dropbox.py exclude remove DIRECTORY Example       ~/bin/dropbox.py exclude remove ~/Dropbox/MyReincludedFolder</p>
+<h4><span id="Sample_output-6">Sample output</span></h4>
+<pre>$ ~/bin/dropbox.py exclude list
+Excluded: 
+Dropbox/backup
+Dropbox/documents
+Dropbox/music
+Dropbox/papers
+Dropbox/photos
+Dropbox/pictures
+$ ~/bin/dropbox.py exclude add ~/Dropbox/MyExclude1 ~/Dropbox/MyExclude2 ~/Dropbox/MyExclude3
+[...]</pre>
+<div id="fsb-social-bar" class="fsb-social-bar fsb-no-float" data-post-id="769" data-socialite="false">
+<style type="text/css">#fsb-social-bar{width:100%;border-bottom:1px solid #dbdbdb;border-top:1px solid #dbdbdb;padding:10px 0;margin:0px 0 20px 0;float:left;background:#fff;position:relative;clear:both;}#fsb-social-bar a{border:0px!important}#fsb-social-bar.fsb-fixed{position:fixed;top:-2px;z-index:99999;}#fsb-social-bar .fsb-title{display:block;float:left;margin:3px 20px 0 0;font-size:16px;font-family:Open Sans,Arial,Helvetica,sans-serif;text-decoration:none;color:#333;}#fsb-social-bar .fsb-share-facebook{width:120px;float:left;padding:3px 0 2px;height:25px;}#fsb-social-bar .fsb-share-facebook.fsb-hide-count{width:44px;overflow:hidden;margin-right:30px;}#fsb-social-bar .fsb-share-twitter{float:left;width:135px;padding:3px 0 2px;height:25px;}#fsb-social-bar .fsb-share-twitter.fsb-hide-count{width:61px;overflow:hidden;margin-right:30px;}#fsb-social-bar .fsb-share-google{float:left;width:105px;padding:3px 0 2px;height:25px;}#fsb-social-bar .fsb-share-google.fsb-hide-count{width:33px;overflow:hidden;margin-right:30px;}#fsb-social-bar .fsb-share-linkedin{float:left;width:135px;padding:3px 0 2px;height:25px;}#fsb-social-bar .fsb-share-linkedin.fsb-hide-count{width:61px;overflow:hidden;margin-right:30px;}#fsb-social-bar .fsb-share-pinterest{float:left;width:115px;padding:3px 0 2px;height:25px;}#fsb-social-bar .fsb-share-pinterest.fsb-hide-count{width:43px;overflow:hidden;margin-right:30px;}#fsb-social-bar .socialite{display:block;position:relative;background:url(http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-content/plugins/floating-social-bar/images/fsb-sprite.png) no-repeat scroll 0 0;}#fsb-social-bar .socialite-loaded{background:none!important;}#fsb-social-bar .fsb-service-title{display:none;}#fsb-social-bar a{color:#333;text-decoration:none;font-size:12px;font-family:Arial,Helvetica,sans-serif;}#fsb-social-bar .fsb-twitter{width:105px;height:25px;background-position:-13px -10px;line-height:25px;vertical-align:middle;}#fsb-social-bar .fsb-twitter .fsb-count{width:30px;text-align:center;display:inline-block;margin:0px 0 0 69px;color:#333;}#fsb-social-bar .fsb-google{width:75px;height:25px;background-position:-136px -10px;line-height:25px;vertical-align:middle;}#fsb-social-bar .fsb-google .fsb-count{width:30px;text-align:center;display:inline-block;margin:0px 0 0 41px;color:#333;}#fsb-social-bar .fsb-google .socialite-button{margin:0!important;}#fsb-social-bar .fsb-share-google .socialite-loaded .socialite-button{padding:2px 0 0}#fsb-social-bar .fsb-facebook{width:89px;height:25px;background-position:-231px -10px;line-height:25px;vertical-align:middle;}#fsb-social-bar .fsb-facebook .fsb-count{width:30px;text-align:center;display:inline-block;margin:0px 0 0 52px;color:#333;}#fsb-social-bar .fsb-facebook .socialite-button{margin:0!important;}#fsb-social-bar .fsb-share-facebook .socialite-loaded .socialite-button{padding:2px 0 0}#fsb-social-bar .fsb-linkedin{width:105px;height:25px;background-position:-347px -10px;line-height:25px;vertical-align:middle;}#fsb-social-bar .fsb-linkedin .fsb-count{width:30px;text-align:center;display:inline-block;margin:0px 0 0 70px;color:#333;}#fsb-social-bar .fsb-linkedin .socialite-button{margin:0!important;}#fsb-social-bar .fsb-pinterest{width:88px;height:25px;background-position:-484px -10px;line-height:25px;vertical-align:middle;}#fsb-social-bar .fsb-pinterest .fsb-count{width:30px;text-align:center;display:inline-block;margin:0px 0 0 50px;color:#333;}#fsb-social-bar .fsb-pinterest .socialite-button{margin:0!important;}.fsb-clear{clear:both;}.fsb-clear:after{clear:both;content:;display:block;height:0;line-height:0;overflow:auto;visibility:hidden;zoom:1;}@media (max-width: 768px) {#fsb-social-bar.fsb-fixed{position:relative!important;top:auto!important;}}</style>
+<p><span class="fsb-title">Share the Knowledge!</span>
+<div class="fsb-share-facebook"><a href="http://www.facebook.com/sharer.php?u=http://www.dropboxwiki.com/tips-and-tricks/using-the-official-dropbox-command-line-interface-cli" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.facebook.com']);" class="socialite facebook fsb-facebook" data-fsb-service="facebook" data-href="http://www.dropboxwiki.com/tips-and-tricks/using-the-official-dropbox-command-line-interface-cli" data-send="false" data-layout="button_count" data-width="60" data-show-faces="false" rel="nofollow" target="_blank"><span class="fsb-service-title">Facebook</span><span class="fsb-count">13</span></a></div>
+<div class="fsb-share-twitter"><a href="https://twitter.com/share?original_referer=http%3A%2F%2Fwww.dropboxwiki.com%2F&#038;source=tweetbutton&#038;text=Using+the+Official+Dropbox+Command+Line+Interface+%28CLI%29&#038;url=http%3A%2F%2Fwww.dropboxwiki.com%2Ftips-and-tricks%2Fusing-the-official-dropbox-command-line-interface-cli&#038;via=" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://twitter.com']);" class="socialite twitter fsb-twitter" data-fsb-service="twitter" rel="nofollow" target="_blank" title="18 retweets so far"><span class="fsb-service-title">Twitter</span><span class="fsb-count">18</span></a></div>
+<div class="fsb-share-google"><a href="https://plus.google.com/share?url=http://www.dropboxwiki.com/tips-and-tricks/using-the-official-dropbox-command-line-interface-cli" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://plus.google.com']);" class="socialite googleplus fsb-google" data-fsb-service="google" data-size="medium" data-href="http://www.dropboxwiki.com/tips-and-tricks/using-the-official-dropbox-command-line-interface-cli" rel="nofollow" target="_blank"><span class="fsb-service-title">Google+</span><span class="fsb-count">6</span></a></div>
+<div class="fsb-share-pinterest fsb-hide-count"><a href="http://pinterest.com/pin/create/button/?url=http://www.dropboxwiki.com/tips-and-tricks/using-the-official-dropbox-command-line-interface-cli&#038;description=Using+the+Official+Dropbox+Command+Line+Interface+%28CLI%29&#038;media=" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://pinterest.com']);" class="socialite pinit fsb-pinterest" data-fsb-service="pinterest" target="_blank" rel="nofollow"><span class="fsb-service-title">Pinterest</span><span class="fsb-count">0</span></a></div>
+<div class="fsb-share-linkedin fsb-hide-count"><a href="https://www.linkedin.com/cws/share?url=http://www.dropboxwiki.com/tips-and-tricks/using-the-official-dropbox-command-line-interface-cli" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.linkedin.com']);" class="socialite linkedin fsb-linkedin" data-fsb-service="linkedin" data-size="medium" data-href="http://www.dropboxwiki.com/tips-and-tricks/using-the-official-dropbox-command-line-interface-cli" rel="nofollow" target="_blank"><span class="fsb-service-title">LinkedIn</span><span class="fsb-count">0</span></a></div>
+</div>
+<div class="fsb-clear"></div>
+</div>
+<span class='ldc-ul_cont' onclick="alter_ul_post_values(this,'769','like')">Helpful<img src="http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-content/plugins/like-dislike-counter-for-posts-pages-and-comments/images/up.png"/>(<span>3</span>)</span>
+<span class='ldc-ul_cont' onclick="alter_ul_post_values(this,'769','dislike')">Unhelpful<img src="http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-content/plugins/like-dislike-counter-for-posts-pages-and-comments/images/down.png"/>(<span>0</span>)</span>
+</article>
+<section id="related-posts" class="clearfix">
+<h3 id="related-posts-title">Related Articles</h3>
+<ul class="clearfix">
+<li class="standard">
+<h4 class="entry-title"><a href="http://www.dropboxwiki.com/tips-and-tricks/harp-io-host-production-websites-custom-domains-ssl" rel="bookmark" title="Harp.io &#8211; Host production websites with custom domains and SSL">Harp.io &#8211; Host production websites with custom domains and SSL</a></h4>
+</li>
+<li class="standard">
+<h4 class="entry-title"><a href="http://www.dropboxwiki.com/tips-and-tricks/dockbox-io" rel="bookmark" title="dockbox.io &#8211; Host Websites in Dropbox With Custom Domains">dockbox.io &#8211; Host Websites in Dropbox With Custom Domains</a></h4>
+</li>
+<li class="standard">
+<h4 class="entry-title"><a href="http://www.dropboxwiki.com/tips-and-tricks/mac-theft-recovery-help-dropbox" rel="bookmark" title="Mac Theft Recovery With the Help of Dropbox">Mac Theft Recovery With the Help of Dropbox</a></h4>
+</li>
+<li class="standard">
+<h4 class="entry-title"><a href="http://www.dropboxwiki.com/tips-and-tricks/synchronized-downloads-folder-with-dropbox" rel="bookmark" title="Synchronized &#8220;Downloads&#8221; Folder With Dropbox">Synchronized &#8220;Downloads&#8221; Folder With Dropbox</a></h4>
+</li>
+<li class="standard">
+<h4 class="entry-title"><a href="http://www.dropboxwiki.com/tips-and-tricks/dropbox-on-archlinux" rel="bookmark" title="Dropbox On Archlinux">Dropbox On Archlinux</a></h4>
+</li>
+<li class="standard">
+<h4 class="entry-title"><a href="http://www.dropboxwiki.com/tips-and-tricks/cross-platform-note-sync-with-dropbox" rel="bookmark" title="Cross-platform Note Sync with Dropbox">Cross-platform Note Sync with Dropbox</a></h4>
+</li>
+</ul></section>
+<div id="disqus_thread">
+<div id="dsq-content">
+<ul id="dsq-comments">
+<li class="post pingback">
+<p>Pingback: <a href="http://mrpc.pramnos.net/2013/08/project-aquarium-server/" onclick="javascript:_gaq.push(['_trackEvent','outbound-commentauthor','http://mrpc.pramnos.net']);" rel='external nofollow' class='url'>Project: Aquarium Server - mrpc’s Blog</a></p>
+</li>
+</li> 
+<li class="post pingback">
+<p>Pingback: <a href="http://www.linuxnov.com/cloud-storage-services-on-linux-platforms/" onclick="javascript:_gaq.push(['_trackEvent','outbound-commentauthor','http://www.linuxnov.com']);" rel='external nofollow' class='url'>Cloud Storage Services on Linux Platforms | LinuxNov</a></p>
+</li>
+</li> 
+<li class="comment even thread-even depth-1" id="dsq-comment-118">
+<div id="dsq-comment-header-118" class="dsq-comment-header">
+<cite id="dsq-cite-118">
+<span id="dsq-author-user-118">Francois</span>
+</cite>
+</div>
+<div id="dsq-comment-body-118" class="dsq-comment-body">
+<div id="dsq-comment-message-118" class="dsq-comment-message"><p>Is there a way to pause/unpause the synchronization from the command line?</p>
+</div>
+</div>
+<ul class="children">
+<li class="comment odd alt depth-2" id="dsq-comment-187">
+<div id="dsq-comment-header-187" class="dsq-comment-header">
+<cite id="dsq-cite-187">
+<span id="dsq-author-user-187">un person</span>
+</cite>
+</div>
+<div id="dsq-comment-body-187" class="dsq-comment-body">
+<div id="dsq-comment-message-187" class="dsq-comment-message"><p>Is there a way to start Dropbox in pause-sync mode, from the command line?</p>
+</div>
+</div>
+</li> 
+</ul> 
+</li> 
+<li class="comment even thread-odd thread-alt depth-1" id="dsq-comment-122">
+<div id="dsq-comment-header-122" class="dsq-comment-header">
+<cite id="dsq-cite-122">
+<span id="dsq-author-user-122">Hardus</span>
+</cite>
+</div>
+<div id="dsq-comment-body-122" class="dsq-comment-body">
+<div id="dsq-comment-message-122" class="dsq-comment-message"><p>I just want to add that I had trouble running the dropbox.py, I had it executable and all the tutorials show for example: dropbox.py help, that don&#8217;t work like that, you have to run it as a executable like: ./dropbox.py help then only it works.</p>
+</div>
+</div>
+</li> 
+<li class="comment odd alt thread-even depth-1" id="dsq-comment-131">
+<div id="dsq-comment-header-131" class="dsq-comment-header">
+<cite id="dsq-cite-131">
+<span id="dsq-author-user-131">Michael</span>
+</cite>
+</div>
+<div id="dsq-comment-body-131" class="dsq-comment-body">
+<div id="dsq-comment-message-131" class="dsq-comment-message"><p>I got the following error during synchronization of files that cannot be accessed because the message Dropbox throws contains characters that cannot be read by the script.</p>
+<p>UnicodeEncodeError: &#8216;latin-1&#8242; codec can&#8217;t encode character u&#8217;u201e&#8217; in position 10: ordinal not in range(256)</p>
+<p>Anybody knows what I can do to solve this?</p>
+<p>I&#8217;m using Debian 7.0 (Wheezy) 64bit with an installed Dropbox client fetched by the linked script from this guide.</p>
+<p>Since the mentioned character is the DOUBLE LOW-9 QUOTATION MARK („) it appears that it comes from one of the German messages Dropbox sends to the client. Maybe it is just a configuration of the client itself, I don&#8217;t know this.</p>
+<p>I&#8217;d change the language of the client to English if someone tells me how. But fixing the error would be nice.</p>
+</div>
+</div>
+</li> 
+<li class="comment even thread-odd thread-alt depth-1" id="dsq-comment-148">
+<div id="dsq-comment-header-148" class="dsq-comment-header">
+<cite id="dsq-cite-148">
+<span id="dsq-author-user-148">Stanislav</span>
+</cite>
+</div>
+<div id="dsq-comment-body-148" class="dsq-comment-body">
+<div id="dsq-comment-message-148" class="dsq-comment-message"><p>Very useful cli program. In my opinion it lacks such a feature as a callback. For example, when after Dropbox starts and finishes the synchronization</p>
+</div>
+</div>
+</li> 
+<li class="post pingback">
+<p>Pingback: <a href="http://www.narga.net/why-moved-digitalocean-guidelines-setup-perfect-vps/" onclick="javascript:_gaq.push(['_trackEvent','outbound-commentauthor','http://www.narga.net']);" rel='external nofollow' class='url'>Guidelines to setup a perfect Digital Ocean VPS | NARGA</a></p>
+</li>
+</li> 
+<li class="comment odd alt thread-even depth-1" id="dsq-comment-174">
+<div id="dsq-comment-header-174" class="dsq-comment-header">
+<cite id="dsq-cite-174">
+<span id="dsq-author-user-174">Harringer</span>
+</cite>
+</div>
+<div id="dsq-comment-body-174" class="dsq-comment-body">
+<div id="dsq-comment-message-174" class="dsq-comment-message"><p>Is there any relationship between the dropboxd (dropox daemon) and the usual dropbox client? I thought I could use the dropbox CLI to track the activity of the dropbox client, but it seems that both apps are independent.</p>
+</div>
+</div>
+</li> 
+<li class="post pingback">
+<p>Pingback: <a href="http://vdevices.com/how-to-install-configure-headless-dropbox-as-a-service-ubuntu-12-04/" onclick="javascript:_gaq.push(['_trackEvent','outbound-commentauthor','http://vdevices.com']);" rel='external nofollow' class='url'>How To Install &amp; Configure Headless Dropbox as a Service on Ubuntu 12.04 | vDevices</a></p>
+</li>
+</li> 
+<li class="comment even thread-odd thread-alt depth-1" id="dsq-comment-181">
+<div id="dsq-comment-header-181" class="dsq-comment-header">
+<cite id="dsq-cite-181">
+<span id="dsq-author-user-181">tcumming</span>
+</cite>
+</div>
+<div id="dsq-comment-body-181" class="dsq-comment-body">
+<div id="dsq-comment-message-181" class="dsq-comment-message"><p>If someone shares their dropbox with me by sending me a url, how can I reference it with a cli? What if it&#8217;s a shared directory? What if I want to modify a file in a directory they&#8217;ve shared with me?</p>
+</div>
+</div>
+</li> 
+<li class="comment odd alt thread-even depth-1" id="dsq-comment-193">
+<div id="dsq-comment-header-193" class="dsq-comment-header">
+<cite id="dsq-cite-193">
+<span id="dsq-author-user-193">Achim</span>
+</cite>
+</div>
+<div id="dsq-comment-body-193" class="dsq-comment-body">
+<div id="dsq-comment-message-193" class="dsq-comment-message"><p>I am glad I discovered this command line utility &#8212; very helpful. However, I was hoping for a command that would list the recent synchronisation events (much like the &#8220;events&#8221; page that I get when I log into the online Dropbox account).</p>
+</div>
+</div>
+</li> 
+<li class="comment even thread-odd thread-alt depth-1" id="dsq-comment-194">
+<div id="dsq-comment-header-194" class="dsq-comment-header">
+<cite id="dsq-cite-194">
+<span id="dsq-author-user-194">Chad</span>
+</cite>
+</div>
+<div id="dsq-comment-body-194" class="dsq-comment-body">
+<div id="dsq-comment-message-194" class="dsq-comment-message"><p>Dropbox&#8230; almost all your stuff works great, with the exception of this daemon and command line utility&#8230;.</p>
+<p>How about something to pause the syncing, and something to exclude all the folders in my dropbox while letting me pick only what I do want to download&#8230;</p>
+</div>
+</div>
+</li> 
+<li class="comment odd alt thread-even depth-1" id="dsq-comment-205">
+<div id="dsq-comment-header-205" class="dsq-comment-header">
+<cite id="dsq-cite-205">
+<span id="dsq-author-user-205">RobbieD</span>
+</cite>
+</div>
+<div id="dsq-comment-body-205" class="dsq-comment-body">
+<div id="dsq-comment-message-205" class="dsq-comment-message"><p>How do you exclude folders that include spaces? I have tried:</p>
+<p>~/.dropbox/dropbox.py exclude add &#8220;~/Dropbox/Camera Uploads&#8221;</p>
+<p>&#8230; but that doesn&#8217;t work.</p>
+</div>
+</div>
+<ul class="children">
+<li class="comment even depth-2" id="dsq-comment-206">
+<div id="dsq-comment-header-206" class="dsq-comment-header">
+<cite id="dsq-cite-206">
+<span id="dsq-author-user-206">RobbieD</span>
+</cite>
+</div>
+<div id="dsq-comment-body-206" class="dsq-comment-body">
+<div id="dsq-comment-message-206" class="dsq-comment-message"><p>Sorry &#8211; my bad&#8230; This worked:</p>
+<p>~/.dropbox/dropbox.py exclude add ~/Dropbox/Camera Uploads</p>
+</div>
+</div>
+</li> 
+</ul> 
+</li> 
+<li class="post pingback">
+<p>Pingback: <a href="http://www.kingstonit.com/blog/?p=5" onclick="javascript:_gaq.push(['_trackEvent','outbound-commentauthor','http://www.kingstonit.com']);" rel='external nofollow' class='url'>Webserver Dropbox Sync &#124; Kingston IT</a></p>
+</li>
+</li> 
+<li class="comment odd alt thread-odd thread-alt depth-1" id="dsq-comment-214">
+<div id="dsq-comment-header-214" class="dsq-comment-header">
+<cite id="dsq-cite-214">
+<span id="dsq-author-user-214">Luis Navarro</span>
+</cite>
+</div>
+<div id="dsq-comment-body-214" class="dsq-comment-body">
+<div id="dsq-comment-message-214" class="dsq-comment-message"><p>How can I link with an accoun by this way?. Thanks</p>
+</div>
+</div>
+</li> 
+<li class="post pingback">
+<p>Pingback: <a href="http://blog.droidzone.in/2014/03/22/synchronizing-dropbox-files-with-hubic/" onclick="javascript:_gaq.push(['_trackEvent','outbound-commentauthor','http://blog.droidzone.in']);" rel='external nofollow' class='url'>Synchronizing Dropbox files with Hubic</a></p>
+</li>
+</li> 
+</ul>
+</div>
+</div>
+<script type="text/rocketscript">
+/* <![CDATA[ */
+    var disqus_url = 'http://www.dropboxwiki.com/tips-and-tricks/using-the-official-dropbox-command-line-interface-cli';
+    var disqus_identifier = '769 http://new.dropboxwiki.com/?p=769';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'dropboxwiki';
+    var disqus_title = "Using the Official Dropbox Command Line Interface (CLI)";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = '?cf_action=sync_comments&post_id=769';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+/* ]]> */
+</script>
+<script type="text/rocketscript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+            {
+                'author_name':    "Project: Aquarium Server - mrpc’s Blog",
+                'author_url':    "http:\/\/mrpc.pramnos.net\/2013\/08\/project-aquarium-server\/",
+                'date':            "08\/16\/2013 11:22 AM",
+                'excerpt':        "[&#8230;] δεν είμαι ο μόνος με τέτοια ανάγκη, το dropbox παρέχει το dropbox cli, ένα python script που δίνει πρόσβαση σε &hellip;",
+                'type':            "pingback"            }
+,            {
+                'author_name':    "Cloud Storage Services on Linux Platforms | LinuxNov",
+                'author_url':    "http:\/\/www.linuxnov.com\/cloud-storage-services-on-linux-platforms\/",
+                'date':            "08\/28\/2013 03:32 PM",
+                'excerpt':        "[&#8230;] directly to your Dropbox account using &#8220;CLI&#8221; command line interface script. Check this WIKI for more [&#8230;] ",
+                'type':            "pingback"            }
+,            {
+                'author_name':    "Guidelines to setup a perfect Digital Ocean VPS | NARGA",
+                'author_url':    "http:\/\/www.narga.net\/why-moved-digitalocean-guidelines-setup-perfect-vps\/",
+                'date':            "10\/15\/2013 09:49 AM",
+                'excerpt':        "[&#8230;] the way to run, config, setup Dropbox via command line by use dropbox.py. Just read about it on Using &hellip;",
+                'type':            "pingback"            }
+,            {
+                'author_name':    "How To Install &amp; Configure Headless Dropbox as a Service on Ubuntu 12.04 | vDevices",
+                'author_url':    "http:\/\/vdevices.com\/how-to-install-configure-headless-dropbox-as-a-service-ubuntu-12-04\/",
+                'date':            "12\/04\/2013 05:55 AM",
+                'excerpt':        "[&#8230;] (not to be confused with the dropbox daemon), it is recommended that you download the official Dropbox CLI, by &hellip;",
+                'type':            "pingback"            }
+,            {
+                'author_name':    "Webserver Dropbox Sync &#124; Kingston IT",
+                'author_url':    "http:\/\/www.kingstonit.com\/blog\/?p=5",
+                'date':            "02\/12\/2014 06:24 AM",
+                'excerpt':        "[&#8230;] http:\/\/www.dropboxwiki.com\/tips-and-tricks\/using-the-official-dropbox-command-line-interface-cli [&#8230;] ",
+                'type':            "pingback"            }
+,            {
+                'author_name':    "Synchronizing Dropbox files with Hubic",
+                'author_url':    "http:\/\/blog.droidzone.in\/2014\/03\/22\/synchronizing-dropbox-files-with-hubic\/",
+                'date':            "03\/22\/2014 10:35 PM",
+                'excerpt':        "[&#8230;] the Dropbox service running: You should install the Dropbox CLI (command line interface) which can be used to get &hellip;",
+                'type':            "pingback"            }
+        ],
+        'trackback_url': "http:\/\/www.dropboxwiki.com\/tips-and-tricks\/using-the-official-dropbox-command-line-interface-cli\/trackback"    };
+/* ]]> */
+</script>
+<script type="text/rocketscript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.74';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+</section>
+ 
+ 
+<aside id="sidebar" role="complementary" itemscope itemtype="http://schema.org/WPSideBar">
+<div id="categories-3" class="widget widget_categories clearfix"><h4 class="widget-title"><span>Article Categories</span></h4> <ul>
+<li class="cat-item cat-item-3"><a href="http://www.dropboxwiki.com/tips-and-tricks" title="This portal talks about tips and tricks discovered while using Dropbox. Articles may use technical language. Tips and tricks could vary from interesting workflow combinations involving Dropbox to unique uses for the application.">Tips and Tricks</a> <span>87</span>
+</li>
+<li class="cat-item cat-item-4"><a href="http://www.dropboxwiki.com/dropbox-addons" title="This portal talks about addons (other applications and scripts</span> that can be used to extend or enhance the Dropbox experience. Most articles contain walkthrough instructions on how to setup and use these scripts. Addons could vary from web applications that sync files using Dropbox to scripts that change the look of the Dropbox web interface.">Dropbox Addons</a> <span>118</span>
+</li>
+<li class="cat-item cat-item-5"><a href="http://www.dropboxwiki.com/forums-faq" title="This portal contains the most commonly asked questions on the Dropbox Forums and includes links and articles to help you get started with using Dropbox or to answer questions that come up most often.">Dropbox FAQ</a> <span>10</span>
+</li>
+</ul>
+</div><div id="st_popular_articles_widget-2" class="widget st_popular_articles_widget clearfix">
+<h4 class="widget-title"><span>Popular Articles</span></h4>
+<ul class="clearfix">
+<li class="clearfix format-standard">
+<a href="http://www.dropboxwiki.com/tips-and-tricks/run-dropbox-with-daemontools" rel="bookmark">Run Dropbox With Daemontools</a>
+</li>
+<li class="clearfix format-standard">
+<a href="http://www.dropboxwiki.com/tips-and-tricks/mac-theft-recovery-help-dropbox" rel="bookmark">Mac Theft Recovery With the Help of Dropbox</a>
+</li>
+<li class="clearfix format-standard">
+<a href="http://www.dropboxwiki.com/dropbox-addons/python-script-to-display-dropbox-client-configuration-data" rel="bookmark">Python Script to Display Dropbox Client Configuration Data</a>
+</li>
+<li class="clearfix format-standard">
+<a href="http://www.dropboxwiki.com/dropbox-addons/firefox-profile-cleaner" rel="bookmark">FirefoxProfileCleaner &#8211; Remove All Conflicted Copies From Your Portable Mozilla Firefox Profile</a>
+</li>
+</ul>
+</div> 
+</aside>
+</div>
+ 
+ 
+ 
+ 
+<footer id="footer-bottom" class="clearfix" role="contentinfo">
+<div class="container">
+<nav id="footer-nav" role="navigation">
+<ul id="menu-navigation-menu-1" class="nav-footer clearfix"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12"><a href="https://www.dropboxwiki.com/">Home</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-28"><a href="https://www.dropboxwiki.com/faq">FAQs</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1590"><a href="http://www.dropboxwiki.com/rewards">Contribute</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1588"><a href="http://www.dropboxwiki.com/news">News</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-20"><a href="http://www.dropboxwiki.com/donate">Donate</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19"><a href="http://www.dropboxwiki.com/contact">Contact</a></li>
+</ul> </nav>
+<small id="copyright">
+The Unofficial Dropbox Wiki is not affiliated with Dropbox. </small>
+</div>
+</footer>
+ 
+<div id="apollo-bar" class="apb-hidden fixed">
+<div class="apb-wrapper">
+<a class="apb-close" href="#" id="close">x</a>
+<div class="apb-message">
+<div><p>To celebrate our move to <a href="http://www.shareasale.com/r.cfm?B=394686&amp;U=900398&amp;M=41388&amp;urllink=" target="_blank">WP Engine</a>, we're giving away a 16 GB Nexus 5 and other weekly prizes! <a href="http://www.dropboxwiki.com/promotions">Find out more</a>.</p>
+</div> </div> 
+</div> 
+</div> 
+<script type="text/rocketscript">
+	var isProcessing = false; 
+    function alter_ul_post_values(obj,post_id,ul_type){
+	
+		if (isProcessing)    
+		return;  
+		isProcessing = true;   
+		
+		jQuery(obj).find("span").html("..");
+    	jQuery.ajax({
+   		type: "POST",
+   		url: "http://www.dropboxwiki.com/wp-content/plugins/like-dislike-counter-for-posts-pages-and-comments/ajax_counter.php",
+   		data: "post_id="+post_id+"&up_type="+ul_type,
+   		success: function(msg){
+     		jQuery(obj).find("span").html(msg);
+			isProcessing = false; 
+   			}
+ 		});
+	}
+	</script>
+<div style="display:none">
+</div>
+<script type="text/rocketscript">
+	jQuery(document).ready(function() {
+	jQuery('#live-search #s').liveSearch({url: 'http://www.dropboxwiki.com/index.php?ajax=1&s='});
+	});
+	</script>
+<script type='text/rocketscript' data-rocketsrc='http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-content/plugins/apollo-bar/js/apollo-bar-core.js?ver=1.0.2'></script>
+<script type='text/rocketscript'>
+/* <![CDATA[ */
+var tocplus = {"smooth_scroll":"1","visibility_show":"show","visibility_hide":"hide","width":"Auto"};
+/* ]]> */
+</script>
+<script type='text/rocketscript' data-rocketsrc='http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-content/plugins/table-of-contents-plus/front.js?ver=1402'></script>
+<script type='text/rocketscript' data-rocketsrc='http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-content/plugins/wp-retina-2x/js/retina.js?ver=1.1.0'></script>
+<script type='text/rocketscript' data-rocketsrc='http://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201415'></script>
+<script type='text/rocketscript' data-rocketsrc='http://s.gravatar.com/js/gprofiles.js?ver=2014Apraa'></script>
+<script type='text/rocketscript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/rocketscript' data-rocketsrc='http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-content/plugins/jetpack/modules/wpgroho.js'></script>
+<script type='text/rocketscript' data-rocketsrc='http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-content/themes/knowhow/js/functions.js'></script>
+<script type='text/rocketscript' data-rocketsrc='http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-content/themes/knowhow/js/jquery.livesearch.js'></script>
+<script type='text/rocketscript' data-rocketsrc='http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-content/themes/knowhow/framework/shortcodes/shortcodes.js'></script>
+<script type='text/rocketscript'>
+/* <![CDATA[ */
+var fsb = {"ajax":"http:\/\/www.dropboxwiki.com\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type='text/rocketscript' data-rocketsrc='http://3eyzqu3i5okr4aihu01siit81qx.wpengine.netdna-cdn.com/wp-content/plugins/floating-social-bar/js/fsb.js?ver=1.1.5'></script>
+<script data-rocketsrc="http://stats.wordpress.com/e-201415.js" type="text/rocketscript"></script>
+<script type="text/rocketscript">
+	st_go({v:'ext',j:'1:2.9.3',blog:'62863109',post:'769',tz:'-7'});
+	var load_cmc = function(){linktracker_init(62863109,769,2);};
+	if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+	else load_cmc();
+	</script></body>
+</html>

@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>How To Setup a Firewall with UFW on an Ubuntu and Debian Cloud Server | DigitalOcean</title>
+<meta content='Learn how to setup a firewall with UFW on an Ubuntu / Debian cloud server.' name='description'>
+<meta content='["Firewall", "Ubuntu", "Security"]' name='keywords'>
+<!-- Twitter Meta -->
+<meta content='summary' name='twitter:card'>
+<meta content='@digitalocean' name='twitter:site'>
+<meta content='@digitalocean' name='twitter:creator'>
+<meta content='How To Setup a Firewall with UFW on an Ubuntu and Debian Cloud Server' name='twitter:title'>
+<meta content='Learn how to setup a firewall with UFW on an Ubuntu / Debian cloud server.' name='twitter:description'>
+<!-- Facebook Meta -->
+<meta content='How To Setup a Firewall with UFW on an Ubuntu and Debian Cloud Server' name='og:title'>
+<meta content='Learn how to setup a firewall with UFW on an Ubuntu / Debian cloud server.' name='og:description'>
+<meta content='DigitalOcean' name='og:site_name'>
+<meta content='article' name='og:type'>
+
+
+<link href="/assets/community/application-d067d086987488e078d894922c216922.css" media="screen" rel="stylesheet" type="text/css" />
+<meta content="authenticity_token" name="csrf-param" />
+<meta content="zB1Rs9HZ9qCaSUqU6rO64fQkWPyOa/cHAZzSFT6GiD0=" name="csrf-token" />
+<script type="text/javascript" src="//use.typekit.net/izu1uqu.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<script>
+  //<![CDATA[
+    (function() {
+      var config = {
+        kitId: 'mwy0yxy',
+        scriptTimeout: 3000
+      };
+      var h=document.getElementsByTagName("html")[0];h.className+=" wf-loading";var t=setTimeout(function(){h.className=h.className.replace(/(\s|^)wf-loading(\s|$)/g," ");h.className+=" wf-inactive"},config.scriptTimeout);var tk=document.createElement("script"),d=false;tk.src='//use.typekit.net/'+config.kitId+'.js';tk.type="text/javascript";tk.async="true";tk.onload=tk.onreadystatechange=function(){var a=this.readyState;if(d||a&&a!="complete"&&a!="loaded")return;d=true;clearTimeout(t);try{Typekit.load(config)}catch(b){}};var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(tk,s)
+    })();
+    
+    var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-26573244-1']);
+     _gaq.push(['_trackPageview']);
+    
+     (function() {
+       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+    
+     /* <![CDATA[ */
+     var google_conversion_id = 1010666955;
+     var google_conversion_language = "en";
+     var google_conversion_format = "3";
+     var google_conversion_color = "ffffff";
+     var google_conversion_label = "g5d3CM2C9QIQy5v24QM";
+     var google_conversion_value = 0;
+     /* ]]> */
+  //]]>
+</script>
+</head>
+<body class='community'>
+<header>
+	<div class="wrapper">
+
+    <a href="/" class="logo"></a>
+
+      <div id="entrance">
+        <a href="https://cloud.digitalocean.com/registrations/new" class="button" id="sign-up">Sign Up</a>
+        <a href="https://cloud.digitalocean.com/login" class="button" id="log-in">Log In</a>
+      </div>
+
+    <nav>
+      <ul>
+        <li><a href="/community/" class="community">Community</a></li>
+        <li><a href="/community/articles">Tutorials</a></li>
+        <li><a href="/community/questions">Questions</a></li>
+        <li><a href="/community/projects">Projects</a></li>
+        <li><a href="/community/tags">Explore</a></li>
+        <li class="irc-link"><a href="#">IRC</a></li>
+      </ul>
+
+      <div class="overlay" style="display:none;"></div>
+      <div class="box">
+       <a class="boxclose"></a>
+       <h1>Before you continue...</h1>
+       <p>
+        You are about to enter a community-supported IRC chat.  DigitalOcean is not responsible for its content. If you require immediate assistance, please open a <a href="https://cloud.digitalocean.com/support">support ticket</a></a>.
+       </p>
+       <a href="http://webchat.freenode.net/?channels=digitalocean&amp;uio=d4" class="continue">Continue to IRC Chat</a>
+      </div>
+    </nav>
+
+    <form accept-charset="UTF-8" action="/community/search" data-remote="true" id="search" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="zB1Rs9HZ9qCaSUqU6rO64fQkWPyOa/cHAZzSFT6GiD0=" /></div>
+      <input type="text" name="search[query]" id="search_query" placeholder="Search the Community" value="">
+
+      <button type="submit" class="icon-btn">
+        <span class="icon-arrow-down"></span>
+      </button>
+</form>  </div>
+</header>
+<div class='tutorial-single wrapper'>
+
+<div id="tutorial-wrapper">
+  <div id="table-of-contents">
+  <h3 id="toc-trigger">
+    <a href="#">
+    Contents
+    <span class="icon-navicon"></span>
+    </a>
+  </h3>
+  </div>
+
+  <div id="slim-sidebar">
+    <div class="big-upvote"></div>
+    <p class="author"></p>
+    <p class="date">June 25, 2013</p>
+    <span class="difficulty-level advanced">Advanced</span>
+  </div>
+
+  <div class="slim-body" id="tutorial-body">
+  <h1>How To Setup a Firewall with UFW on an Ubuntu and Debian Cloud Server</h1>
+    <div id="tags">
+      <span>Tagged In: </span>
+      <a href="/community/tags/firewall">Firewall</a>, <a href="/community/tags/ubuntu">Ubuntu</a>, <a href="/community/tags/security">Security</a>
+    </div>
+
+  <div class="tutorial-content">
+    <h3>Introduction</h3><hr>One of the first lines of defense in securing your cloud server is a functioning firewall. In the past, this was often done through complicated and arcane utilities. There is a lot of functionality built into these utilities, iptables being the most popular nowadays, but they require a decent effort on behalf of the user to learn and understand them. Firewall rules are not something you want yourself second-guessing. To this end, UFW is a considerably easier-to-use alternative.
+
+<h2>What is UFW?</h2><hr>
+
+UFW, or Uncomplicated Firewall, is a front-end to iptables. Its main goal is to make managing your firewall drop-dead simple and to provide an easy-to-use interface. It’s well-supported and popular in the Linux community—even installed by default in a lot of distros. As such, it’s a great way to get started securing your sever.
+
+<h2>Before We Get Started</h2><hr>
+
+First, obviously, you want to make sure UFW is installed. It should be installed by default in Ubuntu, but if for some reason it’s not, you can install the package using aptitude or apt-get using the following commands:
+
+ <pre>sudo aptitude install ufw</pre>
+or 
+ <pre>sudo apt-get install ufw</pre>
+
+<h2>Check the Status</h2><hr>
+
+You can check the status of UFW by typing:
+
+ <pre>sudo ufw status</pre> <br/>
+
+Right now, it will probably tell you it is inactive. Whenever ufw is active, you’ll get a listing of the current rules that looks similar to this:
+
+<pre>Status: active
+
+To               Action      From
+--               ------      ----
+22               ALLOW       Anywhere</pre>
+
+
+<h2>Set Up Defaults</h2><hr>
+
+One of the things that will make setting up any firewall easier is to define some default rules for allowing and denying connections. UFW’s defaults are to deny all incoming connections and allow all outgoing connections. This means anyone trying to reach your cloud server would not be able to connect, while any application within the server would be able to reach the outside world. To set the defaults used by UFW, you would use the following commands:
+
+ <pre>sudo ufw default deny incoming</pre>
+ 
+and
+
+ <pre>sudo ufw default allow outgoing</pre><br/>
+
+Note: if you want to be a little bit more restrictive, you can also deny all outgoing requests as well. The necessity of this is debatable, but if you have a public-facing cloud server, it could help prevent against any kind of remote shell connections. It does make your firewall more cumbersome to manage because you’ll have to set up rules for all outgoing connections as well. You can set this as the default with the following:
+
+ <pre>sudo ufw default deny outgoing</pre> 
+
+
+<h2>Allow Connections</h2><hr>
+
+The syntax is pretty simple. You change the firewall rules by issuing commands in the terminal. If we turned on our firewall now, it would deny all incoming connections. If you’re connected over SSH to your cloud server, that would be a problem because you would be locked out of your server. Let’s enable SSH connections to our server to prevent that from happening:
+
+ <pre>sudo ufw allow ssh</pre> <br/>
+
+As you can see, the syntax for adding services is pretty simple. UFW comes with some defaults for common uses. Our SSH command above is one example. It’s basically just shorthand for:
+
+ <pre>sudo ufw allow 22/tcp</pre><br/> 
+
+This command allows a connection on port 22 using the TCP protocol. If our SSH server is running on port 2222, we could enable connections with the following command:
+
+ <pre>sudo ufw allow 2222/tcp</pre>
+
+<h3>Other Connections We Might Need</h3><hr>
+Now is a good time to allow some other connections we might need. If we’re securing a web server with FTP access, we might need these commands:<br/><br/>
+
+<code>sudo ufw allow www</code>   or  <code>sudo ufw allow 80/tcp</code><br/><br/>
+<code>sudo ufw allow ftp</code>  or  <code>sudo ufw allow 21/tcp</code> <br/><br/>
+
+You mileage will vary on what ports and services you need to open. There will probably be a bit of testing necessary. In addition, you want to make sure you leave your SSH connection allowed.
+
+<h3>Port Ranges</h3><hr>
+You can also specify port ranges with UFW. To allow ports 1000 through 2000, use the command:
+
+ <pre>sudo ufw allow 1000:2000/tcp</pre><br/>
+
+If you want UDP:
+
+ <pre>sudo ufw allow 1000:2000/udp</pre> 
+
+<h3>IP Addresses</h3><hr>
+You can also specify IP addresses. For example, if I wanted to allow connections from a specific IP address (say my work or home address), I’d use this command:
+
+<pre>sudo ufw allow from 192.168.255.255</pre>
+
+<h2>Denying Connections</h2><hr>
+
+Our default set up is to deny all incoming connections. This makes the firewall rules easier to administer since we are only selectively allowing certain ports and IP addresses through. However, if you want to flip it and open up all your server’s ports (not recommended), you could allow all connections and then restrictively deny ports you didn’t want to give access to by replacing “allow” with “deny” in the commands above. For example:
+
+ <pre>sudo ufw allow 80/tcp</pre>
+
+would allow access to port 80 while:
+
+ <pre>sudo ufw deny 80/tcp</pre>
+
+would deny access to port 80. 
+
+<h2>Deleting Rules</h2><hr>
+There are two options to delete rules. The most straightforward one is to use the following syntax:
+<pre>sudo ufw delete allow ssh</pre><br/>
+
+As you can see, we use the command “delete” and input the rules you want to eliminate after that. Other examples include:
+<pre>sudo ufw delete allow 80/tcp</pre>
+or
+<pre>sudo ufw delete allow 1000:2000/tcp</pre><br/>
+
+This can get tricky when you have rules that are long and complex.
+
+A simpler, two-step alternative is to type:
+<pre>sudo ufw status numbered</pre>
+which will have UFW list out all the current rules in a numbered list. Then, we issue the command:
+<pre>sudo ufw delete [number]</pre>
+where “[number]” is the line number from the previous command.
+
+<h2>Turn It On</h2><hr>
+After we’ve gotten UFW to where we want it, we can turn it on using this command (remember: if you’re connecting via SSH, make sure you’ve set your SSH port, commonly port 22, to be allowed to receive connections):
+<pre>sudo ufw enable</pre><br/> 
+
+You should see the command prompt again if it all went well. You can check the status of your rules now by typing:
+<pre>sudo ufw status</pre>
+or
+<pre>sudo ufw status verbose</pre>
+for the most thorough display.<br/><br/>
+
+To turn UFW off, use the following command:
+<pre>sudo ufw disable</pre>
+
+<h2>Reset Everything</h2><hr>
+
+If, for whatever reason, you need to reset your cloud server’s rules to their default settings, you can do this by typing this command:
+<pre>sudo ufw reset</pre> 
+
+<h2>Conclusion</h2><hr>
+You should now have a cloud server that is configured properly to restrict access to a subset of ports or IP addresses.
+
+<div style="text-align: right; font-size:smaller;">Article Submitted by: Shaun Lewis</a></div>
+  </div>
+
+  
+  <div class="related">
+      <h3>Related Articles</h3>
+      <ul>
+        <li><a href="/community/articles/how-to-use-fwknop-to-enable-single-packet-authentication-on-ubuntu-12-04">How To Use fwknop to Enable Single Packet Authentication on Ubuntu 12.04</a></li>
+        <li><a href="/community/articles/how-to-configure-port-knocking-using-only-iptables-on-an-ubuntu-vps">How To Configure Port Knocking Using Only IPTables on an Ubuntu VPS</a></li>
+        <li><a href="/community/articles/how-to-use-psad-to-detect-network-intrusion-attempts-on-an-ubuntu-vps">How To Use psad to Detect Network Intrusion Attempts on an Ubuntu VPS</a></li>
+        <li><a href="/community/articles/how-to-use-port-knocking-to-hide-your-ssh-daemon-from-attackers-on-ubuntu">How To Use Port Knocking to Hide your SSH Daemon from Attackers on Ubuntu</a></li>
+        <li><a href="/community/articles/how-to-install-and-configure-config-server-firewall-csf-on-ubuntu">How To Install and Configure Config Server Firewall (CSF) on Ubuntu</a></li>
+        <li><a href="/community/articles/how-to-setup-a-basic-ip-tables-configuration-on-centos-6">How To Setup a Basic IP Tables Configuration on Centos 6</a></li>
+        <li><a href="/community/articles/how-to-use-vundle-to-manage-vim-plugins-on-a-linux-vps">How To Use Vundle to Manage Vim Plugins on a Linux VPS</a></li>
+        <li><a href="/community/articles/how-to-use-dvtm-and-dtach-as-a-terminal-window-manager-on-an-ubuntu-vps">How To Use DVTM and Dtach as a Terminal Window Manager on an Ubuntu VPS</a></li>
+      </ul>
+  </div>
+
+  <div id="sharing-is-caring">
+  <h2>Share this Tutorial</h2>
+  <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">Tweet</a>
+  <div id="fb-root">
+    <div class="fb-link" data-href="https://www.digitalocean.com/community/articles/how-to-setup-a-firewall-with-ufw-on-an-ubuntu-and-debian-cloud-server" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="arial"></div>
+  </div>
+  <div class="g-plus" data-action="share" data-annotation="bubble"></div>
+  <a href="https://news.ycombinator.com/submit" class="hn-button" data-count="horizontal">Vote on Hacker News</a>
+</div>
+
+
+  <br>
+<div class='do-form tutorial-call-action' id='register'>
+<div class='form-wrap'>
+<h2><strong>Try this tutorial</strong> on an SSD cloud server.</h2>
+<p class="copy">Includes 512MB RAM, 20GB SSD Disk, and 1TB Transfer for
+<strong>$5/mo</strong>! <a class="learn-more" href="https://www.digitalocean.com/pricing">Learn more</a></p>
+<form accept-charset="UTF-8" action="https://cloud.digitalocean.com/registrations" class="form-inline" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="zB1Rs9HZ9qCaSUqU6rO64fQkWPyOa/cHAZzSFT6GiD0=" /></div><fieldset>
+<input id="user_signup_form_name" name="user[signup_form_name]" type="hidden" value="articles" />
+  <fieldset id="register">
+    <legend>Create an account or login:</legend>
+
+    <div class="field">
+      <input id="user_email" name="user[email]" placeholder="Email" required="required" type="text" />
+    </div>
+
+    <div class="field">
+      <input data-toggle="tooltip" id="user_password" name="user[password]" placeholder="Password" rel="tooltip-focus" required="required" title="Must be at least 6 characters long and it must contain at least one letter" type="password" />
+    </div>
+  </fieldset>
+
+<div class='field'>
+<input class="button" name="commit" type="submit" value="Get Started!" />
+</div>
+</fieldset>
+</form>
+
+</div>
+</div>
+
+
+  <div id="comment-wrapper" class="tutorial-comments">
+    <h4>34 Comments</h4>
+    <a href="/community/get-paid-to-write" class="write">
+      <span class="icon-edit"></span> Write Tutorial
+</a>    <div>
+  <ul class="comment-responses ">
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/dfec9466dcf5bccbdca8f0eabe741194?default=identicon" width="80" />
+  <a class="full-name">james</a>
+  <span id="1372900912" class="time-ago" title="2013-07-04 01:21:52 UTC">10 months</span>
+  <p class="comment-copy">Great article, glad I found this because looking at the iptables firewall option was way over my head as a noob.  Quick question, aside from having this firewall setup, should I still use the iptables firewall option as well or is there another form of server security I should be using as well.  Thanks for the info here and the help.</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/215b6bc15b5cf772f9c4477a3ba0544b?default=identicon" width="80" />
+  <a class="full-name">Kamal Nasser</a>
+  <span id="1372931359" class="time-ago" title="2013-07-04 09:49:19 UTC">10 months</span>
+  <p class="comment-copy">@james: UFW is an iptables wrapper, you're indirectly using iptables while using ufw. ;]</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/637dd7f401b33f63354f7d8c453aaed7?default=identicon" width="80" />
+  <a class="full-name">piscue</a>
+  <span id="1374072279" class="time-ago" title="2013-07-17 14:44:39 UTC">9 months</span>
+  <p class="comment-copy">useful article, I set up everything I needed in 5 minutes...</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/ec8f5540679229d1defdd598ce01e888?default=identicon" width="80" />
+  <a class="full-name">Caesar Schinas</a>
+  <span id="1374471868" class="time-ago" title="2013-07-22 05:44:28 UTC">9 months</span>
+  <p class="comment-copy">This works in Debian too; you might want to change the title so as not to imply that it's just for Ubuntu.</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/215b6bc15b5cf772f9c4477a3ba0544b?default=identicon" width="80" />
+  <a class="full-name">Kamal Nasser</a>
+  <span id="1374480109" class="time-ago" title="2013-07-22 08:01:49 UTC">9 months</span>
+  <p class="comment-copy">@caesarsgrunt: Thanks! Updated.</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/0a96b7eff3e45767c001064026500b9b?default=identicon" width="80" />
+  <a class="full-name">KiwoT</a>
+  <span id="1375584619" class="time-ago" title="2013-08-04 02:50:19 UTC">9 months</span>
+  <p class="comment-copy">So to allow ssh should I use:
+
+sudo ufw allow ssh
+
+AND
+
+sudo ufw allow 22/tcp ?
+
+Thanks</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/215b6bc15b5cf772f9c4477a3ba0544b?default=identicon" width="80" />
+  <a class="full-name">Kamal Nasser</a>
+  <span id="1375636106" class="time-ago" title="2013-08-04 17:08:26 UTC">9 months</span>
+  <p class="comment-copy">No, you should use only one of them, not both.</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/545f63644abd1159e7e06cdb824344a1?default=identicon" width="80" />
+  <a class="full-name">Craig Martin</a>
+  <span id="1376668827" class="time-ago" title="2013-08-16 16:00:27 UTC">8 months</span>
+  <p class="comment-copy">What's the easiest way to add a whole range of specific IP addresses, such as https://www.cloudflare.com/ips?</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/b697c0c2439e25ce2442a5911a9f5ea0?default=identicon" width="80" />
+  <a class="full-name">aaron</a>
+  <span id="1377714250" class="time-ago" title="2013-08-28 18:24:10 UTC">8 months</span>
+  <p class="comment-copy">Thanks for this.  Made it pretty quick for me to get started.  Used iptable setups before, but they can be annoying to setup, and have remember the rules etc.</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/3675f35f6fce86a4bb53d224fd27f5ad?default=identicon" width="80" />
+  <a class="full-name">manuel.bua</a>
+  <span id="1377972995" class="time-ago" title="2013-08-31 18:16:35 UTC">8 months</span>
+  <p class="comment-copy">On my debian/wheezy64 i keep having problems with ufw: trying to enable it causes the error "ERROR: problem running ufw-init" and it will not autostart at boot, does anyone know how to solve this? On my local wheezy installation everything works fine, but my box at digitalocean won't do it :(</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/215b6bc15b5cf772f9c4477a3ba0544b?default=identicon" width="80" />
+  <a class="full-name">Kamal Nasser</a>
+  <span id="1377975888" class="time-ago" title="2013-08-31 19:04:48 UTC">8 months</span>
+  <p class="comment-copy">@manuel.bua: Try editing <pre>/etc/default/ufw</pre> and setting IPv6 to no.</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/3675f35f6fce86a4bb53d224fd27f5ad?default=identicon" width="80" />
+  <a class="full-name">manuel.bua</a>
+  <span id="1377990498" class="time-ago" title="2013-08-31 23:08:18 UTC">8 months</span>
+  <p class="comment-copy">@KamalNasser: that did it, thanks! So i suspect this has to do with the fact it's a VPS since my parallel wheezy installation in VirtualBox is working fine.</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/215b6bc15b5cf772f9c4477a3ba0544b?default=identicon" width="80" />
+  <a class="full-name">Kamal Nasser</a>
+  <span id="1378032353" class="time-ago" title="2013-09-01 10:45:53 UTC">8 months</span>
+  <p class="comment-copy">@manuel.bua: It's because our platform does not support IPv6 so you have to disable ufw's IPv6 support in order for ufw to work :]</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/3675f35f6fce86a4bb53d224fd27f5ad?default=identicon" width="80" />
+  <a class="full-name">manuel.bua</a>
+  <span id="1378057774" class="time-ago" title="2013-09-01 17:49:34 UTC">8 months</span>
+  <p class="comment-copy">Ok, thanks for clarifying: keep up the good work guys, this platform is really awesome and i'm looking forward to making big use out of it!</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/abc2b96334b363105355e3835254b24f?default=identicon" width="80" />
+  <a class="full-name">cekvenich.vic</a>
+  <span id="1379283297" class="time-ago" title="2013-09-15 22:14:57 UTC">7 months</span>
+  <p class="comment-copy">Nice.
+How do I forward port 8080(tomcat) to 80 via ufw?
+Vic
+</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/215b6bc15b5cf772f9c4477a3ba0544b?default=identicon" width="80" />
+  <a class="full-name">Kamal Nasser</a>
+  <span id="1379326302" class="time-ago" title="2013-09-16 10:11:42 UTC">7 months</span>
+  <p class="comment-copy">@cekvenich.vic: Edit <strong>/etc/ufw/before.rules</strong> and add <pre>*nat
+:PREROUTING - [0:0]
+
+iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
+
+# don't delete the 'COMMIT' line or these nat table rules won't be processed
+COMMIT</pre> at the very top of the file.
+
+Save and restart ufw:
+
+<pre>sudo service ufw restart</pre></p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/0b87203cd7f880dd423ae560aaa38a7d?default=identicon" width="80" />
+  <a class="full-name">Asterix</a>
+  <span id="1379902272" class="time-ago" title="2013-09-23 02:11:12 UTC">7 months</span>
+  <p class="comment-copy">What is the difference between 
+sudo ufw insert 1 allow 80
+and
+sudo ufw allow 80/tcp
+If I only want to allow web browser traffic (http/https) on this port, what shall enter?
+</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/215b6bc15b5cf772f9c4477a3ba0544b?default=identicon" width="80" />
+  <a class="full-name">Kamal Nasser</a>
+  <span id="1379947590" class="time-ago" title="2013-09-23 14:46:30 UTC">7 months</span>
+  <p class="comment-copy">Both should work fine. The first command explicitly tells ufw to insert the rule at the top while the second command will insert it at the bottom.</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/77dab9f0fc43fba60da5e8e979d1fbd1?default=identicon" width="80" />
+  <a class="full-name">ny.roy.berry</a>
+  <span id="1387732246" class="time-ago" title="2013-12-22 17:10:46 UTC">4 months</span>
+  <p class="comment-copy">Loved the article - was one of the first available in my google search on UFW -- been a while!</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/b98cf45d4aa96b4e377b02504a551732?default=identicon" width="80" />
+  <a class="full-name">Jason</a>
+  <span id="1390587246" class="time-ago" title="2014-01-24 18:14:06 UTC">3 months</span>
+  <p class="comment-copy">I followed these instructions and when UFW is enabled I cannot access my site via a browser going to my IP address (when I could before). The only rules I have on my UFW are:
+
+To                         Action      From
+--                         ------      ----
+2222/tcp                  ALLOW IN    Anywhere
+2222/tcp                  ALLOW IN    Anywhere (v6)
+
+(Where 2222 is my SSH port, but in reality 2222 is not it, just using this for privacy concerns).
+</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/b98cf45d4aa96b4e377b02504a551732?default=identicon" width="80" />
+  <a class="full-name">Jason</a>
+  <span id="1390589689" class="time-ago" title="2014-01-24 18:54:49 UTC">3 months</span>
+  <p class="comment-copy">I figured it out... rookie mistake I suppose. I had to open up port 80 so that my site could load since nginx is listening on that port.</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/2c611cf37bf4b2c7a7e230991c775193?default=identicon" width="80" />
+  <a class="full-name">Deepak Keswani</a>
+  <span id="1391198054" class="time-ago" title="2014-01-31 19:54:14 UTC">3 months</span>
+  <p class="comment-copy">Very nicely written article. 
+Admins from RHEL/Centos are more comfortable with iptables. Do you think UFW will simplify life ?
+Can this be installed with yum ? 
+Is their any way to restrict server access by source ip ?
+Appreciate if you could also help with some syntax to avoid DDOS attacks. </p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/215b6bc15b5cf772f9c4477a3ba0544b?default=identicon" width="80" />
+  <a class="full-name">Kamal Nasser</a>
+  <span id="1391253837" class="time-ago" title="2014-02-01 11:23:57 UTC">3 months</span>
+  <p class="comment-copy">@Deepak: UFW is a wrapper for iptables, but it usually easier to manage. I believe you will have to compile ufw yourself if you want to install it on a Redhat-based system such as CentOS.
+<blockquote>Is their any way to restrict server access by source ip ?
+ </blockquote>Yes, read this article and you'll know how to do that :]
+<blockquote>Appreciate if you could also help with some syntax to avoid DDOS attacks.</blockquote>There isn't much you can do using UFW to protect against DDoS attacks other than rate-limiting access to port 80 but that wouldn't help much if it's a relatively large <strong>D</strong>DoS attack.</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/0a96b7eff3e45767c001064026500b9b?default=identicon" width="80" />
+  <a class="full-name">KiwoT</a>
+  <span id="1391593874" class="time-ago" title="2014-02-05 09:51:14 UTC">2 months</span>
+  <p class="comment-copy">I will be adding a ev SSL, do I need to allow port 443 for https?
+
+Also, im adding a slave server, do I need to open up a specific port on the master for the slave server? And then open a port on the slave server itself to connect to the master?</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/b98cf45d4aa96b4e377b02504a551732?default=identicon" width="80" />
+  <a class="full-name">Jason</a>
+  <span id="1391721072" class="time-ago" title="2014-02-06 21:11:12 UTC">2 months</span>
+  <p class="comment-copy">For Postfix, to receive email, do I open up port 25? Would I just enter `sudo ufw allow 25/tcp    # smtp`?</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/215b6bc15b5cf772f9c4477a3ba0544b?default=identicon" width="80" />
+  <a class="full-name">Kamal Nasser</a>
+  <span id="1391883910" class="time-ago" title="2014-02-08 18:25:10 UTC">2 months</span>
+  <p class="comment-copy">@Jason: Correct.</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/215b6bc15b5cf772f9c4477a3ba0544b?default=identicon" width="80" />
+  <a class="full-name">Kamal Nasser</a>
+  <span id="1391883977" class="time-ago" title="2014-02-08 18:26:17 UTC">2 months</span>
+  <p class="comment-copy">@KiwoT: Yes, you will need to allow connections to port 443. What do you mean by a slave server?</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/982a4eec427ddf97681c15667e62b495?default=identicon" width="80" />
+  <a class="full-name">Remi</a>
+  <span id="1392563078" class="time-ago" title="2014-02-16 15:04:38 UTC">about 1 month</span>
+  <p class="comment-copy">Thanks for creating the turorial.
+I've got one question though;
+I have set up UFW to, on default, deny all ingoing and outgoing (excluding SSH and webserver) requests. Because of this I am unable to make DNS requests (ping digitalocean.com throws 'Unknown host', PHP cURL can't connect, apt-get 'fails to fetch'). Do you know how I can whitelist it? 
+I've tried allowing port 53 (on UDP and TCP) and 1024-65535 (on UDP), but that didn't work. Neither did ' iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT '. </p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/62b048a32cfd3dd71b2318f8b452a437?default=identicon" width="80" />
+  <a class="full-name">wiz.master49</a>
+  <span id="1393304351" class="time-ago" title="2014-02-25 04:59:11 UTC">about 1 month</span>
+  <p class="comment-copy">I'm having the exact same issue as Remi is.</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/62b048a32cfd3dd71b2318f8b452a437?default=identicon" width="80" />
+  <a class="full-name">wiz.master49</a>
+  <span id="1393306647" class="time-ago" title="2014-02-25 05:37:27 UTC">about 1 month</span>
+  <p class="comment-copy">Ah, I figured it out. If you were getting any errors like I was following this guide helped me.
+http://blog.bodhizazen.net/linux/how-to-use-ufw-in-openvz-templates/</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/6ae080df097103c8f3e789a854af06a9?default=identicon" width="80" />
+  <a class="full-name">btauler</a>
+  <span id="1393367218" class="time-ago" title="2014-02-25 22:26:58 UTC">about 1 month</span>
+  <p class="comment-copy">Hi,
+
+I have a ubuntu 13.10 box, i successfully installed and started ufw with no problems.
+Is still true that we have to disable ipv6 from /etc/default/ufw ?
+If i'm getting no errors , should eitherway disable it? (haven't tried yet rebooting)</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/6ae080df097103c8f3e789a854af06a9?default=identicon" width="80" />
+  <a class="full-name">btauler</a>
+  <span id="1393367322" class="time-ago" title="2014-02-25 22:28:42 UTC">about 1 month</span>
+  <p class="comment-copy">@Remi and @wiz.master49, if you disable outgoing connections... that's whay you get, that you cannot go out...
+You should allow outlgoing conections unless you really know what you're doing.
+
+Cheers.</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/872745a7a160e4b61445d104cfeeebd1?default=identicon" width="80" />
+  <a class="full-name">Sean W.</a>
+  <span id="1394523875" class="time-ago" title="2014-03-11 07:44:35 UTC">about 1 month</span>
+  <p class="comment-copy">Hi,
+
+Having trouble getting ufw to start on reboot.  I disabled IPv6 from the /etc/default/ufw but it still shows inactive after reboot.  This is a pretty fresh machine without much installed so not sure where to troubleshoot.  </p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+      <li>
+  <img alt="Gravatar" height="80" src="https://secure.gravatar.com/avatar/9f32954d88a0fa458058308836863cc7?default=identicon" width="80" />
+  <a class="full-name">fritsm</a>
+  <span id="1397716022" class="time-ago" title="2014-04-17 06:27:02 UTC">about 8 hours</span>
+  <p class="comment-copy">I've set it up following this guide and it works fine. The only part I'm wondering about is:
+
+"You can also specify port ranges with UFW. To allow ports 1000 through 2000"
+
+OK, but is this necessary? If so, why? And how do you determine which port range to open? Or can you just skip this step?</p>
+  <div class="comment-actions">
+    <a href="#tutorial-comment-submit">Reply</a>
+  </div>
+</li>
+  </ul>
+</div>
+
+    <div id="tutorial-comment-submit">
+  <h4>Leave a Comment</h4>
+  <div id="signed-in">
+  </div>
+
+  <div class="comments">
+
+    <form accept-charset="UTF-8" action="/community/articles/how-to-setup-a-firewall-with-ufw-on-an-ubuntu-and-debian-cloud-server/comments" class="simple_form new_comment" data-remote="true" id="new_comment" method="post" novalidate="novalidate"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="zB1Rs9HZ9qCaSUqU6rO64fQkWPyOa/cHAZzSFT6GiD0=" /></div>
+      <div class="control-group text required"><div class="controls"><textarea class="text required textarea" cols="40" id="comment_content" name="comment[content]" placeholder="Leave a comment..." rows="20">
+</textarea></div></div>
+
+        <fieldset id="register">
+    <legend>Create an account or login:</legend>
+
+    <div class="field">
+      <input id="user_email" name="user[email]" placeholder="Email" required="required" type="text" />
+    </div>
+
+    <div class="field">
+      <input data-toggle="tooltip" id="user_password" name="user[password]" placeholder="Password" rel="tooltip-focus" required="required" title="Must be at least 6 characters long and it must contain at least one letter" type="password" />
+    </div>
+  </fieldset>
+
+
+      <div class="errors" style="clear:both;"></div>
+
+      <div class="field">
+        <input id="submit-comment" name="commit" type="submit" value="Submit Comment" />      </div>
+</form>  </div>
+</div>
+
+<div class="new-comment loading">
+  <img alt="Ajax-loader" src="/assets/community/ajax-loader-338c17cb4b726875e8bd8c70442e2bc4.gif" />
+</div>
+  </div>
+  </div>
+</div>
+</div>
+<footer id="footer">
+  <div class="wrapper">
+    <div id="column-main" class="footer-column">
+      <a href="#" class="cloud-icon"></a>
+      <div id="copyright">
+
+        Copyright &copy; 2014<br>
+        DigitalOcean &trade; Inc.
+      </div>
+      <a href="http://nytm.org/made-in-nyc/" id="made-in-ny">Proudly Made in NY</a>
+
+      <div id="privacy">
+        <a href="/legal/terms/">Terms, Privacy, &amp; Copyright</a>
+        <a href="#">Security</a>
+      </div>
+
+    </div>
+
+    <div id="column-product" class="footer-column">
+      <h3>Product</h3>
+      <ul>
+        <li><a href="/pricing/">Pricing</a></li>
+        <li><a href="/features/">Features</a></li>
+        <li><a href="/customers/">Customers</a></li>
+        <li><a href="/one-click-apps/">One-Click Apps</a></li>
+        <li><a href="https://api.digitalocean.com/">API</a></li>
+      </ul>
+    </div>
+
+    <div id="column-company" class="footer-column">
+      <h3>Company</h3>
+      <ul>
+        <li><a href="/company/about/">About Us</a></li>
+        <li><a href="/company/blog/">Blog</a></li>
+        <li><a href="/company/careers/">Jobs</a></li>
+        <li><a href="/company/press/">Press</a></li>
+        <li><a href="/company/logos-and-badges/">Logos &amp; Badges</a></li>
+        <li><a href="/company/events/">Events</a></li>
+        <li><a href="/company/contact/" target="_blank">Contact</a></li>
+      </ul>
+    </div>
+
+    <div id="column-help" class="footer-column">
+      <h3>Help</h3>
+      <ul>
+        <li><a href="/help/">Knowledgebase</a></li>
+        <li><a href="/help/getting-started/">Getting Started</a></li>
+        <li><a href="http://digitalocean.uservoice.com/forums/136585-digital-ocean" target="_blank">Feedback</a></li>
+        <li><a href="/referral-program/">Referral Program</a></li>
+        <li><a href="http://www.digitaloceanstatus.com" target="_blank">Network Status</a></li>
+      </ul>
+    </div>
+
+    <div id="column-community" class="footer-column">
+      <h3>Community</h3>
+      <ul>
+        <li><a href="/community/">Dashboard</a></li>
+        <li><a href="/community/overview">Overview</a></li>
+        <li><a href="/community/articles">Tutorials</a></li>
+        <li><a href="/community/questions">Questions</a></li>
+        <li><a href="/community/projects">Projects</a></li>
+        <li><a href="https://www.digitalocean.com/community/articles/digitalocean-community-article-suggestions-and-ideas">Tutorial Suggestions</a></li>
+        <li><a href="/community/get-paid-to-write">Get Paid to Write</a></li>
+      </ul>
+    </div>
+
+    <div id="column-connect" class="footer-column">
+      <h3>Connect</h3>
+      <ul>
+        <li class="twitter"><a href="https://twitter.com/digitalocean">Twitter</a></li>
+        <li class="facebook"><a href="https://www.facebook.com/DigitalOceanCloudHosting">Facebook</a></li>
+        <li class="linkedin"><a href="http://www.linkedin.com/company/digitalocean">LinkedIn</a></li>
+        <li class="google"><a href="https://plus.google.com/+Digitalocean/posts">Google+</a></li>
+        <li class="instagram"><a href="http://instagram.com/thedigitalocean">Instagram</a></li>
+      </ul>
+    </div>
+
+    <div id="droplet-count">
+      <span class="count">1,482,086</span> Droplets Launched
+    </div>
+  </div>
+</footer>
+</body>
+<script type="text/javascript" src="https://www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:hidden;position:absolute;top:-1000px;">
+<img height="1" width="1" style="border-style:none;" alt="" src="https://www.googleadservices.com/pagead/conversion/1010666955/?value=0&amp;label=g5d3CM2C9QIQy5v24QM&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+<script>
+  //<![CDATA[
+    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.async=true;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+  //]]>
+</script>
+<script>
+  //<![CDATA[
+    setTimeout(function(){var a=document.createElement("script");
+    var b=document.getElementsByTagName("script")[0];
+    a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0020/5850.js?"+Math.floor(new Date().getTime()/3600000);
+    a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+  //]]>
+</script>
+<script src="/assets/community/application-3323b6d7d1860c78cdcd62c730a5e85c.js" type="text/javascript"></script>
+<script>
+  //<![CDATA[
+    (function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+    typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+    b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+    mixpanel.init("155e217a94fcfc75058909a4489b9c58");
+  //]]>
+</script>
+
+
+
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.async=true;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id; js.async = true;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=439858199408280";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    window.___gcfg = {
+      lang: 'en-US',
+      parsetags: 'onload'
+    };
+    (function() {
+      var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+          po.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+
+    var HN=[];HN.factory=function(e){return function(){HN.push([e].concat(Array.prototype.slice.call(arguments,0)))};},HN.on=HN.factory("on"),HN.once=HN.factory("once"),HN.off=HN.factory("off"),HN.emit=HN.factory("emit"),HN.load=function(){var e="hn-button.js";if(document.getElementById(e))return;var t=document.createElement("script");t.async=true;t.id=e,t.src="//hn-button.herokuapp.com/hn-button.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n)},HN.load();
+  </script>
+<script>
+  //<![CDATA[
+    mixpanel.track("Page View");
+  //]]>
+</script>
+
+<script type="text/javascript">
+  (function() {
+    window._pa = window._pa || {};
+    var pa = document.createElement('script'); pa.type = 'text/javascript'; pa.async = true;
+    pa.src = ('https:' == document.location.protocol ? 'https:' : 'http:') + "//tag.perfectaudience.com/serve/51c8920f71ca6dc47d00002f.js";
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(pa, s);
+  })();
+</script>
+<script type="text/javascript">
+  adroll_adv_id = "S4BPDI4QWNB57PEKEZSLIP";
+  adroll_pix_id = "4IDGVTPEAFC4TM2QKYNQ53";
+  (function () {
+  var oldonload = window.onload;
+  window.onload = function(){
+     __adroll_loaded=true;
+     var scr = document.createElement("script");
+     var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+     scr.setAttribute('async', 'true');
+     scr.type = "text/javascript";
+     scr.src = host + "/j/roundtrip.js";
+     ((document.getElementsByTagName('head') || [null])[0] ||
+      document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+     if(oldonload){oldonload()}};
+  }());
+</script>
+
+</html>

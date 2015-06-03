@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>wget 下载整个网站，或者特定目录 - DP. - 博客园</title>
+<link type="text/css" rel="stylesheet" href="http://common.cnblogs.com/blog/css/common.css?id=20130323"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="http://common.cnblogs.com/Skins/SimpleClear/style.css?id=20130323"/>
+<link type="text/css" rel="stylesheet" href="http://common.cnblogs.com/blog/css/common2.css"/>
+<link type="text/css" rel="stylesheet" href="http://common.cnblogs.com/css/shStyle.css"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/lidp/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/lidp/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/lidp/wlwmanifest.xml"/>
+<script src="http://common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">
+var currentBlogApp = 'lidp';
+</script>
+<script src="http://common.cnblogs.com/blog/script/common.js?id=20130323" type="text/javascript"></script> 
+<script src="http://common.cnblogs.com/script/json2.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://common.cnblogs.com/script/syntaxHighlighter.js"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<div id="main">
+<div id="header">
+<h1><a id="Header1_HeaderTitle" href="http://www.cnblogs.com/lidp/">DP: 生活的脚步，技术的点滴...</a></h1>
+<p id="tagline"></p></div>
+
+	
+<div class="post">
+    <h2 class="postTitle"><a id="cb_post_title_url" href="http://www.cnblogs.com/lidp/archive/2010/03/02/1696447.html">wget 下载整个网站，或者特定目录</a></h2>
+    <div class="postText"><div id="cnblogs_post_body">需要下载某个目录下面的所有文件。命令如下<p>wget -c -r -np -k -L -p <a href="http://www.xxx.org/pub/path/">www.xxx.org/pub/path/</a><p>在下载时。有用到外部域名的图片或连接。如果需要同时下载就要用-H参数。<p>wget -np -nH -r --span-hosts <a href="http://www.xxx.org/pub/path/">www.xxx.org/pub/path/</a><p>-c 断点续传<br>-r 递归下载，下载指定网页某一目录下（包括子目录）的所有文件<br>-nd 递归下载时不创建一层一层的目录，把所有的文件下载到当前目录<br>-np 递归下载时不搜索上层目录，如wget -c -r <a href="http://www.xxx.org/pub/path/">www.xxx.org/pub/path/</a><br>没有加参数-np，就会同时下载path的上一级目录pub下的其它文件<br>-k 将绝对链接转为相对链接，下载整个站点后脱机浏览网页，最好加上这个参数<br>-L 递归时不进入其它主机，如wget -c -r <a href="http://www.xxx.org/">www.xxx.org/</a>  <br>如果网站内有一个这样的链接：  <br><a href="http://www.yyy.org">www.yyy.org</a>，不加参数-L，就会像大火烧山一样，会递归下载<a href="http://www.yyy.org">www.yyy.org</a>网站<br>-p 下载网页所需的所有文件，如图片等<br>-A 指定要下载的文件样式列表，多个样式用逗号分隔<br>-i 后面跟一个文件，文件内指明要下载的URL<p>还有其他的用法，我从网上搜索的，也一并写上来，方便以后自己使用。<p>wget的常见用法<p>wget的使用格式<br>Usage: wget [OPTION]… [URL]…<p>* 用wget做站点镜像:<br>wget -r -p -np -k <a href="http://dsec.pku.edu.cn/~usr_name/">http://dsec.pku.edu.cn/~usr_name/</a><br># 或者<br>wget -m <a href="http://www.tldp.org/LDP/abs/html/">http://www.tldp.org/LDP/abs/html/</a><p>* 在不稳定的网络上下载一个部分下载的文件，以及在空闲时段下载<br>wget -t 0 -w 31 -c <a href="http://dsec.pku.edu.cn/BBC.avi">http://dsec.pku.edu.cn/BBC.avi</a> -o down.log &amp;<br># 或者从filelist读入要下载的文件列表<br>wget -t 0 -w 31 -c -B <a href="ftp://dsec.pku.edu.cn/linuxsoft">ftp://dsec.pku.edu.cn/linuxsoft</a> -i filelist.txt -o  <br>down.log &amp;<p>上面的代码还可以用来在网络比较空闲的时段进行下载。我的用法是:在mozilla中将不方便当时下载的URL链接拷贝到内存中然后粘贴到文件filelist.txt中，在晚上要出去系统前执行上面代码的第二条。<p>* 使用代理下载<br>wget -Y on -p -k <a href="https://sourceforge.net/projects/wvware/">https://sourceforge.net/projects/wvware/</a><p>代理可以在环境变量或wgetrc文件中设定<p># 在环境变量中设定代理<br>export PROXY=<a href="http://211.90.168.94:8080/">http://211.90.168.94:8080/</a><br># 在~/.wgetrc中设定代理<br>http_proxy = <a href="http://proxy.yoyodyne.com:18023/">http://proxy.yoyodyne.com:18023/</a><br>ftp_proxy = <a href="http://proxy.yoyodyne.com:18023/">http://proxy.yoyodyne.com:18023/</a><p>wget各种选项分类列表<p>* 启动<p>-V, –version 显示wget的版本后退出<br>-h, –help 打印语法帮助<br>-b, –background 启动后转入后台执行<br>-e, –execute=COMMAND  <br>执行`.wgetrc&#39;格式的命令，wgetrc格式参见/etc/wgetrc或~/.wgetrc<p>* 记录和输入文件<p>-o, –output-file=FILE 把记录写到FILE文件中<br>-a, –append-output=FILE 把记录追加到FILE文件中<br>-d, –debug 打印调试输出<br>-q, –quiet 安静模式(没有输出)<br>-v, –verbose 冗长模式(这是缺省设置)<br>-nv, –non-verbose 关掉冗长模式，但不是安静模式<br>-i, –input-file=FILE 下载在FILE文件中出现的URLs<br>-F, –force-html 把输入文件当作HTML格式文件对待<br>-B, –base=URL 将URL作为在-F -i参数指定的文件中出现的相对链接的前缀<br>–sslcertfile=FILE 可选客户端证书<br>–sslcertkey=KEYFILE 可选客户端证书的KEYFILE<br>–egd-file=FILE 指定EGD socket的文件名<p>* 下载<p>–bind-address=ADDRESS  <br>指定本地使用地址(主机名或IP，当本地有多个IP或名字时使用)<br>-t, –tries=NUMBER 设定最大尝试链接次数(0 表示无限制).<br>-O –output-document=FILE 把文档写到FILE文件中<br>-nc, –no-clobber 不要覆盖存在的文件或使用.#前缀<br>-c, –continue 接着下载没下载完的文件<br>–progress=TYPE 设定进程条标记<br>-N, –timestamping 不要重新下载文件除非比本地文件新<br>-S, –server-response 打印服务器的回应<br>–spider 不下载任何东西<br>-T, –timeout=SECONDS 设定响应超时的秒数<br>-w, –wait=SECONDS 两次尝试之间间隔SECONDS秒<br>–waitretry=SECONDS 在重新链接之间等待1…SECONDS秒<br>–random-wait 在下载之间等待0…2*WAIT秒<br>-Y, –proxy=on/off 打开或关闭代理<br>-Q, –quota=NUMBER 设置下载的容量限制<br>–limit-rate=RATE 限定下载输率<p>* 目录<p>-nd –no-directories 不创建目录<br>-x, –force-directories 强制创建目录<br>-nH, –no-host-directories 不创建主机目录<br>-P, –directory-prefix=PREFIX 将文件保存到目录 PREFIX/…<br>–cut-dirs=NUMBER 忽略 NUMBER层远程目录<p>* HTTP 选项<p>–http-user=USER 设定HTTP用户名为 USER.<br>–http-passwd=PASS 设定http密码为 PASS.<br>-C, –cache=on/off 允许/不允许服务器端的数据缓存 (一般情况下允许).<br>-E, –html-extension 将所有text/html文档以.html扩展名保存<br>–ignore-length 忽略 `Content-Length&#39;头域<br>–header=STRING 在headers中插入字符串 STRING<br>–proxy-user=USER 设定代理的用户名为 USER<br>–proxy-passwd=PASS 设定代理的密码为 PASS<br>–referer=URL 在HTTP请求中包含 `Referer: URL&#39;头<br>-s, –save-headers 保存HTTP头到文件<br>-U, –user-agent=AGENT 设定代理的名称为 AGENT而不是 Wget/VERSION.<br>–no-http-keep-alive 关闭 HTTP活动链接 (永远链接).<br>–cookies=off 不使用 cookies.<br>–load-cookies=FILE 在开始会话前从文件 FILE中加载cookie<br>–save-cookies=FILE 在会话结束后将 cookies保存到 FILE文件中<p>* FTP 选项<p>-nr, –dont-remove-listing 不移走 `.listing&#39;文件<br>-g, –glob=on/off 打开或关闭文件名的 globbing机制<br>–passive-ftp 使用被动传输模式 (缺省值).<br>–active-ftp 使用主动传输模式<br>–retr-symlinks 在递归的时候，将链接指向文件(而不是目录)<p>* 递归下载<p>-r, –recursive 递归下载－－慎用!<br>-l, –level=NUMBER 最大递归深度 (inf 或 0 代表无穷).<br>–delete-after 在现在完毕后局部删除文件<br>-k, –convert-links 转换非相对链接为相对链接<br>-K, –backup-converted 在转换文件X之前，将之备份为 X.orig<br>-m, –mirror 等价于 -r -N -l inf -nr.<br>-p, –page-requisites 下载显示HTML文件的所有图片<p>* 递归下载中的包含和不包含(accept/reject)<p>-A, –accept=LIST 分号分隔的被接受扩展名的列表<br>-R, –reject=LIST 分号分隔的不被接受的扩展名的列表<br>-D, –domains=LIST 分号分隔的被接受域的列表<br>–exclude-domains=LIST 分号分隔的不被接受的域的列表<br>–follow-ftp 跟踪HTML文档中的FTP链接<br>–follow-tags=LIST 分号分隔的被跟踪的HTML标签的列表<br>-G, –ignore-tags=LIST 分号分隔的被忽略的HTML标签的列表<br>-H, –span-hosts 当递归时转到外部主机<br>-L, –relative 仅仅跟踪相对链接<br>-I, –include-directories=LIST 允许目录的列表<br>-X, –exclude-directories=LIST 不被包含目录的列表<br>-np, –no-parent 不要追溯到父目录</div><div id="MySignature"></div>
+<script type="text/javascript">
+var isLogined = false;
+var cb_blogId = 68257;
+var cb_entryId = 1696447;
+var cb_blogApp = currentBlogApp;
+var cb_blogUserGuid = "424d376e-5937-df11-ba8f-001cf0cd104b";
+var cb_entryCreatedDate = '2010/3/2 10:17:00';
+var enableGoogleAd = true;
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+</script>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+<script type="text/javascript">
+    //SyntaxHighlighter.config.strings.expandSource = '<span><img src="http://static.cnblogs.com/images/expand-code.gif" alt="" class="expand-code-icon"/>View Code</span>';
+    $(function () {             
+        fixPostBodyFormat();
+        loadAdUnderPost();
+        loadBlogSignature();
+        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);        
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);        
+    });
+</script></div>
+    <p class="postfoot">posted on <span id="post-date">2010-03-02 10:17</span> <a href='http://www.cnblogs.com/lidp/'>DP.</a> 阅读(6876) 评论(<span id="post-comment-count">0</span>)  <a href ="http://www.cnblogs.com/lidp/admin/EditPosts.aspx?postid=1696447" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(1696447);return false;">收藏</a></p>
+</div>
+<img src ="http://www.cnblogs.com/lidp/aggbug/1696447.html?type=1&amp;webview=1" width="1" height="1" alt=""/>
+
+<div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.loadComments();</script>
+<div id="comment_form" class="commentform">
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+<div id="comment_form_container"></div>
+
+<script type="text/javascript">
+    if (typeof commentManager === 'undefined') {
+        commentManager = new blogCommentManager();
+    }
+    commentManager.loadCommentForm();   
+</script>
+
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="程序员的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="ad_under_post_holder"></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+</div>
+
+
+
+
+
+</div>
+<div id="rightmenu">
+	
+		
+<div id="my_links">
+<h3>导航</h3>
+<ul>
+<li></li>
+<li></li>
+<!--<li></li>-->
+<li><a id="MyLinks1_ContactLink" rel="nofollow" href="http://space.cnblogs.com/msg/send/DP.">联系</a></li>
+<li></li><!---->
+<li><a id="MyLinks1_Admin" rel="nofollow" href="http://www.cnblogs.com/lidp/admin/EditPosts.aspx">管理</a></li>
+</ul>
+</div>
+		<div id="blog-calendar-block" style="display:none"><div id="blog-calendar"></div>
+</div>
+		
+<h3>公告</h3>
+<div class="newsItem">
+	<div id="blog-news"></div>
+</div>		
+		
+<div id="blog_stats">
+<h3>统计</h3>
+<ul>
+<li>随笔 - 1017
+<li>文章 - 938
+<li>评论 - 21
+<!--<li>引用 - 0-->
+</li>
+</ul>
+</div>
+		<div id="blog-sidecolumn"></div>
+        
+		
+<div id="footer">
+	Powered by: 
+	<br />
+	
+	<a id="Footer1_Hyperlink3" NAME="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br />
+	Copyright &copy; DP.
+</div>
+	
+</div>			
+			
+	
+
+<script type="text/javascript" src="http://common.cnblogs.com/script/google-analytics.js"></script>
+</body>
+</html>

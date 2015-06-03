@@ -1,0 +1,562 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <title>
+        在Linux上将视频转换成动态gif图片_Linux教程_Linux学院_希赛网
+    </title>
+    <meta name="keywords" content="视频转换成gif,Linux视频转换,Linux,Linux教程,Linux系统,Linux安装,Ubuntu,Fedora,RedHat,SUSE,CentOS,红旗Linux">
+    <meta name="description" content="你们中的一些人会好奇怎样才能生成这样的动态GIF图片。已经有各种各样专门用来生成动态GIF图片的在线或离线工具。另一种选择是创">
+    <meta name="classification" content="Linux教程" />
+    <meta name="author" content="Linux学院_希赛网" />
+    <meta name="copyright" content="希赛网" />
+    <link rel="canonical" href="http://www.educity.cn/linux/1573512.html" />
+    <link rel="stylesheet" type="text/css" href="/css/article_cnt.css" />
+    
+</head>
+<body>
+    <!--顶部Begin-->
+    <div id="topHdead">
+<link href="http://www.educity.cn/config/head.css" rel="stylesheet" type="text/css" />
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="top_bg">
+    <tr>
+      <td>&nbsp;</td>
+      <td class="top"><table width="100%" border="0" cellspacing="0" cellpadding="0" style="line-height:33px">
+          <tr>
+            <td style="color:#666;" width="380"><a href="http://www.educity.cn/" target="_blank">希赛网</a>&nbsp;·&nbsp;<a href="http://www.educity.cn/biaoqian/" target="_blank"><font color="#FF0000">知识导航</font></a></td>
+            <td style="color:#666;" width="230"><a href="http://www.csai.cn/" target="_blank"><font color="#0595e8">常识网：理财知识库和投资理财服务平台</font></a></td>
+            <td style="text-align:right;color:#666" width="370"><script language="javascript" type="text/javascript" src="http://www.educity.cn/usercenter/user_state.aspx"></script></td>
+          </tr>
+        </table></td>
+      <td>&nbsp;</td>
+    </tr>
+  </table>
+<div style="margin:0px auto;height:70px;background:#fff">
+  <div class="width980">
+
+    <div class="logo_y fl"><a href="http://www.educity.cn/linux/" target="_blank" title="希赛网Linux学院"><img src="http://www.educity.cn/linux/images/java_logo.jpg" alt="希赛网Linux学院" width="320" height="69" /></a></div>
+  <!--搜索开始-->
+  <form action="http://s.educity.cn/search.php" target="_blank" accept-charset="utf-8">
+    <div class="search fl">
+       <div class="search_list fl">
+         <div id="WUCTop1_hh" class="classlistt" style="position:absolute;left:-1px;margin-top:30px;display:none;">
+           <ul>
+             <!--可循环-->
+             <li class="lis" onclick="gets_value('文章',1)">文章</li>
+             <li class="lis" onclick="gets_value('资料',2)">资料</li>
+             <li class="lis" onclick="gets_value('问答',3)">问答</li>
+             <li class="lis" onclick="gets_value('论坛',4)">论坛</li>
+             <li class="lis" onclick="gets_value('图书',5)">图书</li>
+             <li class="lis" onclick="gets_value('教程',6)">教程</li>
+             <li class="lis" onclick="gets_value('试卷',7)">试卷</li>
+             <li class="lis" onclick="gets_value('题目',8)">题目</li>
+             <li class="lis" onclick="gets_value('视频',9)">视频</li>
+             <li class="lis" onclick="gets_value('课程',10)">课程</li>
+           </ul>
+         </div>
+         <div id="WUCTop1_stype" class="dimg" onclick="sh();">文章</div> 
+       </div>
+       <div class="search_input fl"><input name="q" id="top_keyword" class="ser_input" onfocus="if(this.value=='Linux'){this.value='';this.style.color='#333333'}" onblur="if(this.value==''){this.value='Linux';this.style.color='#ccc'}" value="Linux" type="text"/></div>
+       <div class="fl"><input type="submit" id="" class="inputnone" value="" style="cursor:pointer;" /></div>
+    </div>
+    <input name="type" type="hidden" value="1" id="Select1" />
+  </form>
+  <!--搜索结束-->
+    <div class="header_icon fr">
+      <dl>
+        <dt><a href="http://www.educity.cn/tiku/" target="_blank"><img src="http://www.educity.cn/js/article/images/header_icon1_zys.jpg" width="15" height="16" border="0" alt="在线测试平台"/></a></dt>
+        <dd><a href="http://www.educity.cn/tiku/" target="_blank">在线考试</a></dd>
+      </dl>
+      <dl>
+        <dt><a href="http://www.educity.cn/shipin/" target="_blank"><img src="http://www.educity.cn/js/article/images/header_icon2_zys.jpg" width="15" height="16" border="0" alt="视频教学平台"/></a></dt>
+        <dd><a href="http://www.educity.cn/shipin/" target="_blank">视频课程</a></dd>
+      </dl>
+      <dl>
+        <dt><a href="http://www.educity.cn/jiaocheng/" target="_blank"><img src="http://www.educity.cn/js/article/images/header_icon2_zys.jpg" width="15" height="16" border="0" alt="在线阅读"/></a></dt>
+        <dd><a href="http://www.educity.cn/jiaocheng/" target="_blank">在线阅读</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+  <div class="h10"></div>
+  <table width="100%" align="center" cellpadding="0" cellspacing="0">
+    <tr>
+      <td background="http://www.educity.cn/images/menu_bg.png">&nbsp;</td>
+      <td width="980" background="http://www.educity.cn/images/menu_bg.png" style="text-align:left;" class="zysmenu" height="37">&nbsp;
+      <a href="http://www.educity.cn/linux/c157.html" target="_blank">Linux教程</a>&nbsp; &nbsp;
+      <a href="http://www.educity.cn/linux/c117.html" target="_blank">Unix教程</a>&nbsp; &nbsp;
+      <a href="http://www.educity.cn/linux/c325.html" target="_blank">Solaris教程</a>&nbsp; &nbsp;
+      <a href="http://www.educity.cn/linux/c326.html" target="_blank">AIX教程</a>&nbsp; &nbsp;
+      <a href="http://www.educity.cn/linux/c116.html" target="_blank">Linux系统管理</a>&nbsp; &nbsp;
+      <a href="http://www.educity.cn/linux/c280.html" target="_blank">Linux编程&nbsp;Shell&nbsp;Perl</a>&nbsp; &nbsp;
+      <a href="http://www.educity.cn/linux/c282.html" target="_blank">Linux内核技术</a>&nbsp; &nbsp;
+      <a href="http://www.educity.cn/linux/c284.html" target="_blank">Linux服务器</a>&nbsp; &nbsp;
+      <a href="http://www.educity.cn/linux/c281.html" target="_blank">Linux集群</a>&nbsp; &nbsp;
+      <a href="http://www.educity.cn/linux/c283.html" target="_blank">Linux安全</a></td>
+      <td background="http://www.educity.cn/images/menu_bg.png">&nbsp;</td>
+    </tr>
+  </table>
+  <div class="width980">
+      <div style="border:1px solid #ccc;padding:5px 8px;background-color:#FFF;margin-top:6px">
+    <script type="text/javascript">
+     /*文章页导航条广告*/
+     var cpro_id = "u1420412";
+   </script>
+   <script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+   </div>
+  </div>
+</div>
+<script src="/js/jquery-1.6.4.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="/js/eduPlay.js"></script>
+    <!--顶部End-->
+    <div id="nowpz_list">
+        <div class="nowpz">
+            您现在的位置：<a href="http://www.educity.cn/" title="希赛网">希赛网</a> &gt;
+            <a id="HL_channel" title="Linux学院" href="http://www.educity.cn/linux/"><font color="#BC2931">Linux学院</font></a>
+            &gt;
+            <a id="HL_class" title="Linux教程" href="http://www.educity.cn/linux/c157.html">Linux教程</a>
+            &gt;
+            在Linux上将视频转换成动态gif图片</div>
+    </div>
+    <div class="PageLineH">
+    </div>
+    <!-- 内容开始 -->
+    <div id="gPageCnt">
+        <div id="CntMain">
+            <div class="article">
+                <h1 align="center">
+                    在Linux上将视频转换成动态gif图片</h1>
+                <div class="info">
+                    <font color="#bc2931">www.educity.cn</font> 发布者：atongboy
+                    来源：<span id="lb_fromurl" title="互联网">互联网</span>
+                    发布日期：2014年07月15日
+                    <a id="hl_TieZi" title="在Linux上将视频转换成动态gif图片的评论" href="http://www.educity.cn/luntan/1749138.html" target="_blank">文章评论</a>
+                    <a href="http://www.educity.cn/jiaocheng/pub_jiaocheng_article.aspx" target="_blank">
+                        发表文章</a>
+                </div>
+                <div class="height10">
+                </div>
+                <div>
+                    <script type="text/javascript">
+   /*文章页左边第1个广告（新样式）*/
+   var cpro_id = "u1373399";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+                </div>
+                
+                <div id="ArticleCnt">
+                    <p>　　虽然曾经被认为是过时的艺术形式，但动态GIF图片现在复苏了。如果你还没有留意到，不少在线分享和社交网络网站都开始支持动态GIF图片，例如，Tumblr，Flickr，Google+和Facebook的部分地方。由于在消费和共享上的容易，GIF的动画已经成为主流互联网文化的一部分了。</p>
+<p>　　<img src="../../upload/2014_02/140204110043401.png" alt="" width="386" height="498" /></p>
+<p>　　所以，你们中的一些人会好奇怎样才能生成这样的动态GIF图片。已经有各种各样专门用来生成动态GIF图片的在线或离线工具。另一种选择是创建一副动态GIF图片时关闭现有的视频剪辑。在这个教程中，我会描述<strong>在Linux上如何将一段视频文件转换成一副动态GIF图片</strong>。</p>
+<p>　　作为一个更有用的例子，让我展示如何<strong>将一个YouTube视频转换成一副动态GIF图片</strong>。</p>
+<strong>第一步：下载YouTube视频</strong>
+<p>　　首先，下载一个你想要转换的YouTube视频。你可以使用youtube-dl这个工具将YouTube视频保存为MP4文件。假设你把你最爱的YouTube视频保存为"funny.mp4"。（译注：对于墙内的同学，请无视YT吧，自行去好人楼主那里寻找一个MP4吧，;-}）</p>
+<strong>第二步：从视频中解压视频帧</strong>
+<p>　　接下来，在Linux系统上安装FFmpeg，我会用这个工具去解压从视频中解压出视频帧。</p>
+<p>　　下面的指令会解压出独立的视频帧，将它们保存为GIF图片。确保使用诸如("out%04d.gif")的输出文件格式。这样，独立的帧就被合适地命名并保存。</p>
+<p>　　ffmpeg -t &lt;时长&gt; -ss &lt;hh:mm:ss格式的开始位置&gt; -i &lt;视频文件&gt; out%04d.gif
+</p>
+<p>　　例如，如果你想解压输入视频的视频帧，从第10秒开始，每5秒一帧，请运行下列命令。</p>
+<p>　　$ ffmpeg -t 5 -ss 00:00:10 -i funny.mp4 out%04d.gif 
+</p>
+<p>　　在完成FFmpeg之后，你会看到一组创建出来的GIF文件，它们被命名为"out[\d+].gif"。</p>
+<strong>第三步：合并视频帧进一副动态GIF</strong>
+<p>　　下面这一步要合并单个的GIF文件成一副动态GIF图片。为此，你可以使用ImageMagick。</p>
+<p>　　首先，如果你还没有的话，在Linux系统上安装ImageMagick。</p>
+<p>　　convert -delay &lt;帧数&gt;x&lt;每秒帧数&gt; -loop 0 out*gif &lt;输出文件&gt;
+</p>
+<p>　　在这个命令中，"-delay"是控制动态速度的选项。这个选项表示在显示下一帧画面前需要等待的秒数：帧数/每秒帧数 。"-loop 0"选项表示动画的无限次循环。如果你愿意，你可以指定"-loop N"让动画只重复N次。</p>
+<p>　　例如，为了生成一副每秒20帧和循环无数次的动态GIF图片，使用如下命令。</p>
+<p>　　$ convert -delay 1x20 -loop 0 out*.gif animation.gif 
+</p>
+<strong>第四步（可选）：减少动态GIF的大小</strong>
+<p>　　最后这一步（可选）是通过使用ImageMagick的GIF优化功能来减少生成的GIF文件的大小。</p>
+<p>　　使用下列命令去减少GIF大小。</p>
+<p>　　convert -layers Optimize animation.gif animation_small.gif 
+</p>
+<p>　　现在你已经准备好在你的社交网络上分享制作完成的GIF图片。下面是一副我从一个可爱的YouTube视频中生成的GIF样例图片。</p>
+<p>　　享受技术带来的乐趣吧！:-)</p>
+<p>　　<img src="http://img.educity.cn/img_21/359/2014062514/15810144833.gif" alt="" /></p>
+                    <div class="height10">
+                    </div>
+                    <div class="listCon_bottom">
+                        <span class="listCon_tagT">标签：</span><span class="listCon_tagC1">
+                             <a href="http://s.educity.cn/search.php?q=%e7%ba%a2%e6%97%97Linux&type=1" target="_blank">红旗Linux</a> <a href="http://s.educity.cn/search.php?q=CentOS&type=1" target="_blank">CentOS</a> <a href="http://s.educity.cn/search.php?q=SUSE&type=1" target="_blank">SUSE</a> <a href="http://s.educity.cn/search.php?q=RedHat&type=1" target="_blank">RedHat</a>
+                        </span>
+                    </div>
+                </div>
+                <div class="page">
+                    <span id="lbl_pagebottom"></span>
+                </div>
+            </div>
+            <div class="height10">
+            </div>
+            <div>
+                <script type="text/javascript">
+   /*文章页面左边第2个广告*/
+   var cpro_id = "u1343900";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+            </div>
+            <div class="height10">
+            </div>
+            <div class="height10">
+            </div>
+            <div class="listCon_foot_title">
+                本文标题：<a id="Literal_Title_bottom" title="在Linux上将视频转换成动态gif图片" href="http://www.educity.cn/linux/1573512.html">在Linux上将视频转换成动态gif图片</a></div>
+            <div class="listCon_foot_title">
+                本文链接：<a id="Literal_CurLink" title="在Linux上将视频转换成动态gif图片" href="http://www.educity.cn/linux/1573512.html">http://www.educity.cn/linux/1573512.html</a></div>
+            <div class="height10">
+            </div>
+
+            <script language="javascript" type="text/javascript" src="/js/shengming.js"></script>
+
+            <div class="aboutarticle_title">
+                <span><a href="http://www.educity.cn/news.asp" target="_blank" title="更多最新文章">更多>></a></span>
+                <a id="Literal_ClassNameAbout" title="Linux学院：Linux教程 栏目最近更新" href="http://www.educity.cn/linux/c157.html" target="_blank">Linux学院：Linux教程 栏目最近更新</a>
+            </div>
+            <div class="aboutarticle_con">
+                <div class="left_article">
+                    <ul>
+                        
+                                <li>· <a title="Fedora 9在不同的硬盘间进行系统的备份和恢复" target="_blank"
+                                    href="http://www.educity.cn/linux/1586961.html">
+                                    Fedora 9在不同的硬盘间进行系统的备份和恢复</a></li>
+                            
+                                <li>· <a title="最近主流Linux版本发布很频繁" target="_blank"
+                                    href="http://www.educity.cn/linux/1586104.html">
+                                    最近主流Linux版本发布很频繁</a></li>
+                            
+                                <li>· <a title="redflag6硬盘安装与修复GRUB" target="_blank"
+                                    href="http://www.educity.cn/linux/1589483.html">
+                                    redflag6硬盘安装与修复GRUB</a></li>
+                            
+                                <li>· <a title="[初级教程]用SecureCRT+Xming轻松远程实现Linux的X DISPLAY" target="_blank"
+                                    href="http://www.educity.cn/linux/1576136.html">
+                                    [初级教程]用SecureCRT+Xming轻松远程实现Linux的X DISPLA..</a></li>
+                            
+                                <li>· <a title="Ubuntu下给ThinkPad X61笔记本无线网卡降温" target="_blank"
+                                    href="http://www.educity.cn/linux/1586351.html">
+                                    Ubuntu下给ThinkPad X61笔记本无线网卡降温</a></li>
+                            
+                                <li>· <a title="Ubuntu Linux下安装和使用PPS详细步骤及解决无声的问题" target="_blank"
+                                    href="http://www.educity.cn/linux/1582786.html">
+                                    Ubuntu Linux下安装和使用PPS详细步骤及解决无声的问题</a></li>
+                            
+                                <li>· <a title="成功安装Fedora 7 体会" target="_blank"
+                                    href="http://www.educity.cn/linux/1590858.html">
+                                    成功安装Fedora 7 体会</a></li>
+                            
+                                <li>· <a title="U盘无法启动Ubuntu解决一例" target="_blank"
+                                    href="http://www.educity.cn/linux/1580615.html">
+                                    U盘无法启动Ubuntu解决一例</a></li>
+                            
+                                <li>· <a title="Linux系统管理的内容与其常用命令大全" target="_blank"
+                                    href="http://www.educity.cn/linux/1591760.html">
+                                    Linux系统管理的内容与其常用命令大全</a></li>
+                            
+                                <li>· <a title="我的Fedora8 安装使用札记" target="_blank"
+                                    href="http://www.educity.cn/linux/1589284.html">
+                                    我的Fedora8 安装使用札记</a></li>
+                            
+                                <li>· <a title="升级到Ubuntu 8.04后Pidgin成功登陆QQ了" target="_blank"
+                                    href="http://www.educity.cn/linux/1587553.html">
+                                    升级到Ubuntu 8.04后Pidgin成功登陆QQ了</a></li>
+                            
+                                <li>· <a title="Ubuntu 7.1内核编译详解与无线网卡安装" target="_blank"
+                                    href="http://www.educity.cn/linux/1588580.html">
+                                    Ubuntu 7.1内核编译详解与无线网卡安装</a></li>
+                            
+                    </ul>
+                </div>
+                <div class="rigth_article">
+                    <script type="text/javascript">
+    /*文章页面左边第3个广告*/
+    var cpro_id = "u1373299";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+                </div>
+            </div>
+            <div class="height10">
+            </div>
+            <div class="aboutarticle_title">
+                <span><a href="http://www.educity.cn/xiazai/roll.asp" target="_blank" title="更多最新下载资料">
+                    更多>></a></span>
+                <a id="Literal_ClassNameAbout_down" title="Linux系统下载：Linux教程下载 栏目最近更新" href="http://www.educity.cn/xiazai/c157.html" target="_blank">Linux系统下载：Linux教程下载 栏目最近更新</a>
+            </div>
+            <div class="aboutarticle_con">
+                <div class="left_article">
+                    <ul>
+                        
+                                <li>· <a title="05菜鸟入门之五：51单片机的内部结构 搭建单片机最小系统下载(RAR格式)" target="_blank"
+                                    href="http://www.educity.cn/xiazai/3360303.html">
+                                    05菜鸟入门之五：51单片机的内部结构 搭建单片机最小系统下..</a></li>
+                                <li>· <a title="XenServer 3. 1. 0" target="_blank"
+                                    href="http://www.educity.cn/xiazai/2870973.html">
+                                    XenServer 3. 1. 0</a></li>
+                                <li>· <a title="装系统出现的问题解析下载" target="_blank"
+                                    href="http://www.educity.cn/xiazai/2151944.html">
+                                    装系统出现的问题解析下载</a></li>
+                                <li>· <a title="linux内核完全剖析" target="_blank"
+                                    href="http://www.educity.cn/xiazai/6407275.html">
+                                    linux内核完全剖析</a></li>
+                                <li>· <a title="施乐复印机维修代码" target="_blank"
+                                    href="http://www.educity.cn/xiazai/6238761.html">
+                                    施乐复印机维修代码</a></li>
+                                <li>· <a title="电脑主板DIY问题排除指南" target="_blank"
+                                    href="http://www.educity.cn/xiazai/1956722.html">
+                                    电脑主板DIY问题排除指南</a></li>
+                                <li>· <a title="柯尼卡美能达复印机维修代码大全" target="_blank"
+                                    href="http://www.educity.cn/xiazai/6238763.html">
+                                    柯尼卡美能达复印机维修代码大全</a></li>
+                                <li>· <a title="win7命令" target="_blank"
+                                    href="http://www.educity.cn/xiazai/1970696.html">
+                                    win7命令</a></li>
+                                <li>· <a title="《linux软件工程师》网络程序设计资料下载" target="_blank"
+                                    href="http://www.educity.cn/xiazai/2267812.html">
+                                    《linux软件工程师》网络程序设计资料下载</a></li>
+                                <li>· <a title="Windows8消费者预览版快速使用指南" target="_blank"
+                                    href="http://www.educity.cn/xiazai/3496851.html">
+                                    Windows8消费者预览版快速使用指南</a></li>
+                                <li>· <a title="Windows7开机加速全攻略大全" target="_blank"
+                                    href="http://www.educity.cn/xiazai/3823904.html">
+                                    Windows7开机加速全攻略大全</a></li>
+                                <li>· <a title="详细图解Ghost封装系统制做过程" target="_blank"
+                                    href="http://www.educity.cn/xiazai/3372684.html">
+                                    详细图解Ghost封装系统制做过程</a></li>
+                    </ul>
+                </div>
+                <div class="rigth_article">
+                    <script type="text/javascript">
+    /*文章页面左边第4个广告*/
+    var cpro_id = "u1737883";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+                </div>
+            </div>
+        </div>
+        <div id="CntR">
+            <!-- 右边内容Begin-->
+            
+<div id="CntR_con">
+    <table width="99%" border="0" cellpadding="0" cellspacing="0" style="background-color: White;">
+        <tr>
+    <td height="26" style="background-color:#EFFDFE;border-bottom:#CCCCCC 1px solid">&nbsp;&nbsp;&nbsp;<strong class="neblack">主编推荐</strong></td>
+  </tr>
+  <tr>
+    <td class="neblack" style="text-align:center;padding:5px 0px"><script type="text/javascript" src="http://www.educity.cn/self_text/text_disp.aspx?id=1"></script></td>
+  </tr>
+        <tr>
+            <td height="26" style="background-color: #EFFDFE; border-top: #CCCCCC 1px solid;
+                border-bottom: #CCCCCC 1px solid">
+                <span class="rightMore">
+                    <a id="UserControl_Right1_Literal_HotPaper" title="更多试卷" href="http://www.educity.cn/tiku/" target="_blank">更多>></a></span>&nbsp;&nbsp;&nbsp;<strong class="neblack">热门试卷</strong>
+            </td>
+        </tr>
+        <tr>
+            <td class="neblack rightLI" style="padding: 6px 6px 6px 6px;">
+                <ul>
+                    
+                            <li>· <a href="http://www.educity.cn/tiku/tp661.html" target="_blank" title='2011年下半年系统架构设计师考试论文真题（权威解析）'>2011年下半年系统架构设计师考试论文真题（权威解析）</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/tiku/tp659.html" target="_blank" title='2012年上半年软件设计师考试上午真题（权威解析+标准答案）'>2012年上半年软件设计师考试上午真题（权威解析+标准答案）</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/tiku/tp645.html" target="_blank" title='2012年上半年系统集成项目管理工程师考试上午真题（权威解析+标准答案）'>2012年上半年系统集成项目管理工程师考试上午真题（权威解..</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/tiku/tp643.html" target="_blank" title='2012年上半年信息系统监理师考试上午真题（权威解析+标准答案）'>2012年上半年信息系统监理师考试上午真题（权威解析+标准答..</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/tiku/tp642.html" target="_blank" title='2012年上半年网络管理员考试上午真题（权威解析+标准答案）'>2012年上半年网络管理员考试上午真题（权威解析+标准答案）</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/tiku/tp638.html" target="_blank" title='2011年下半年系统集成项目管理工程师考试上午真题（权威解析+标准答案）'>2011年下半年系统集成项目管理工程师考试上午真题（权威解..</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/tiku/tp637.html" target="_blank" title='2011年下半年信息系统监理师考试上午真题（权威解析+标准答案）'>2011年下半年信息系统监理师考试上午真题（权威解析+标准答..</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/tiku/tp636.html" target="_blank" title='2011年上半年系统分析师考试上午真题（权威解析+标准答案）'>2011年上半年系统分析师考试上午真题（权威解析+标准答案）</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/tiku/tp635.html" target="_blank" title='2011年上半年信息系统管理工程师考试上午真题（权威解析+标准答案）'>2011年上半年信息系统管理工程师考试上午真题（权威解析+标..</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/tiku/tp632.html" target="_blank" title='2011年上半年数据库系统工程师考试上午真题（权威解析+标准答案）'>2011年上半年数据库系统工程师考试上午真题（权威解析+标准..</a></li>
+                        
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td height="26" style="background-color: #EFFDFE; border-top: #CCCCCC 1px solid;
+                border-bottom: #CCCCCC 1px solid">
+                <span class="rightMore"><a id="UserControl_Right1_Literal_NewShiPin" title="更多视频" href="http://www.educity.cn/shipin/" target="_blank">更多>></a></span>&nbsp;&nbsp;&nbsp;<strong class="neblack">最新视频</strong>
+            </td>
+        </tr>
+        <tr>
+            <td class="neblack rightLI" style="padding: 6px 6px 6px 6px;">
+                <ul>
+                    
+                            <li>· <a href="http://www.educity.cn/shipin/v3594.html" target="_blank" title='2014年中级通信工程师考试终端与业务真题分析与解答（综合能力+专业实务）'>2014年中级通信工程师考试终端与业务真题分析与解答（综合..</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/shipin/v3592.html" target="_blank" title='信息系统管理工程师网络课堂（2015）'>信息系统管理工程师网络课堂（2015）</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/shipin/v3593.html" target="_blank" title='系统集成项目管理工程师网络课堂（2015）'>系统集成项目管理工程师网络课堂（2015）</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/shipin/v3591.html" target="_blank" title='系统分析师网络课堂（2015）'>系统分析师网络课堂（2015）</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/shipin/v3590.html" target="_blank" title='软件设计师培训网络课堂（2015）'>软件设计师培训网络课堂（2015）</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/shipin/v3587.html" target="_blank" title='2014年中级通信工程师考试传输与接入真题分析与解答（综合能力+专业实务）'>2014年中级通信工程师考试传输与接入真题分析与解答（综合..</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/shipin/v3588.html" target="_blank" title='2013年中级通信工程师考试设备环境真题分析与解答（综合能力+专业实务）'>2013年中级通信工程师考试设备环境真题分析与解答（综合能..</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/shipin/v3589.html" target="_blank" title='中级通信工程师考试考前串讲视频课程（交换技术专业实务）'>中级通信工程师考试考前串讲视频课程（交换技术专业实务）</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/shipin/v3585.html" target="_blank" title='软考报名不再迷茫（信息系统管理工程师篇）'>软考报名不再迷茫（信息系统管理工程师篇）</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/shipin/v3583.html" target="_blank" title='软考报名不再迷茫（数据库系统工程师篇）'>软考报名不再迷茫（数据库系统工程师篇）</a></li>
+                        
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td class="neblack" style="padding-bottom: 5px; padding-left: 3px; padding-top: 5px;">
+                <script type="text/javascript">
+    /*文章页面右边第1个广告*/
+    var cpro_id = "u1737857";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+            </td>
+        </tr>
+        <tr>
+            <td height="26" style="background-color: #EFFDFE; border-top: #CCCCCC 1px solid;
+                border-bottom: #CCCCCC 1px solid">
+                <span class="rightMore"><a id="UserControl_Right1_Literal_HotJiaoCheng" title="更多教程" href="http://www.educity.cn/jiaocheng/" target="_blank">更多>></a></span>&nbsp;&nbsp;&nbsp;<strong class="neblack">热门阅读</strong>
+            </td>
+        </tr>
+        <tr>
+            <td class="neblack rightLI" style="padding: 6px 6px 6px 6px;">
+                <ul>
+                    
+                            <li>· <a href="http://www.educity.cn/jiaocheng/zt172.html" target="_blank" title='系统架构设计师教程（第3版）'>系统架构设计师教程（第3版）</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/jiaocheng/zt110.html" target="_blank" title='PHP开发从入门到精通'>PHP开发从入门到精通</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/jiaocheng/zt117.html" target="_blank" title='Java Web标签应用开发'>Java Web标签应用开发</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/jiaocheng/zt39.html" target="_blank" title='信息系统项目管理师教程（第3版）'>信息系统项目管理师教程（第3版）</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/jiaocheng/zt111.html" target="_blank" title='ASP.NET应用开发(C#版)'>ASP.NET应用开发(C#版)</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/jiaocheng/zt113.html" target="_blank" title='贯通AJAX+PHP+Dreamweaver CS3动态网站开发'>贯通AJAX+PHP+Dreamweaver CS3动态网站开发</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/jiaocheng/zt87.html" target="_blank" title='网络工程师考试试题分类精解（2014版）'>网络工程师考试试题分类精解（2014版）</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/jiaocheng/zt165.html" target="_blank" title='计算机科学与技术学科联考计算机学科专业基础综合教程（上册）'>计算机科学与技术学科联考计算机学科专业基础综合教程（上..</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/jiaocheng/zt91.html" target="_blank" title='软件设计师考试考点突破、案例分析、实战练习一本通（2014版）'>软件设计师考试考点突破、案例分析、实战练习一本通（2014版）</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/jiaocheng/zt167.html" target="_blank" title='系统架构设计师考试全程指导（2014版）'>系统架构设计师考试全程指导（2014版）</a></li>
+                        
+                </ul>
+            </td>
+        </tr>
+        
+    <tr>
+       <td height="26"  style=" background-color:#EFFDFE;border-top:#CCCCCC 1px solid;border-bottom:#CCCCCC 1px solid"><span class="rightMore"><a href="http://www.educity.cn/wenda/" title="更多问答" target="_blank">更多>></a></span>&nbsp;&nbsp;&nbsp;<strong class="neblack">最新问答</td>
+    </tr>
+    <tr>
+       <td class="neblack rightLI" style="padding: 6px 6px 6px 6px;">
+       <ul>
+        <li>&middot;&nbsp;<a title="关于试题（编号：43133）的疑问集中解答贴" target="_blank" href="http://www.educity.cn/wenda/670229.html">关于试题（编号：43133）的疑问集中解答贴</a></li>
+        <li>&middot;&nbsp;<a title="学习“净现值与投资回报率计算 - 案例分析”的疑问" target="_blank" href="http://www.educity.cn/wenda/670227.html">学习“净现值与投资回报率计算 - 案例分析”的疑问</a></li>
+        <li>&middot;&nbsp;<a title="学习“净现值与投资回报率计算”的疑问" target="_blank" href="http://www.educity.cn/wenda/670226.html">学习“净现值与投资回报率计算”的疑问</a></li>
+        <li>&middot;&nbsp;<a title="关于试题（编号：10014）的疑问集中解答贴" target="_blank" href="http://www.educity.cn/wenda/670224.html">关于试题（编号：10014）的疑问集中解答贴</a></li>
+        <li>&middot;&nbsp;<a title="学习“信息系统开发基础-2”的疑问" target="_blank" href="http://www.educity.cn/wenda/670221.html">学习“信息系统开发基础-2”的疑问</a></li>
+        <li>&middot;&nbsp;<a title="学习“信息系统安全管理”的疑问" target="_blank" href="http://www.educity.cn/wenda/670217.html">学习“信息系统安全管理”的疑问</a></li>
+        <li>&middot;&nbsp;<a title="关于终端接路由器上不了网的问题" target="_blank" href="http://www.educity.cn/wenda/670211.html">关于终端接路由器上不了网的问题</a></li>
+        <li>&middot;&nbsp;<a title="在交换机中如果确实下面的DHCP路由器" target="_blank" href="http://www.educity.cn/wenda/670210.html">在交换机中如果确实下面的DHCP路由器</a></li></ul>
+      </td>
+    </tr>
+
+        
+        <tr>
+            <td class="neblack" style="padding-bottom: 5px; padding-left: 3px; padding-top: 5px;">
+                <script type="text/javascript">
+   /*文章页面右边第2个广告*/
+   var cpro_id = "u1343895";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+            </td>
+        </tr>
+    </table>
+</div>
+
+        </div>
+        <div class="clr">
+        </div>
+    </div>
+    <!-- end  -->
+    <div class="PageLineH">
+    </div>
+    <div class="blank1">
+    </div>
+</body>
+    <div id="CSAIBottomFoot" align="center">
+        <div class="width980" style="background-color:#FFF;text-align:center;border:1px solid #CCC;padding:5px 0px">
+<script type="text/javascript">
+    /*文章页面底部广告*/
+    var cpro_id = "u1364097";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+</div>
+
+<script type="text/javascript">
+ /*文章页悬浮广告*/
+var cpro_id = "u1347884";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/f.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+/*文章页面为您推荐*/
+var cpro_id = "u1708974";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/s.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    /* 创建于 2014-09-29*/
+var cpro_id = "u1740074";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/cnw.js" type="text/javascript"></script>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="menu1" style="margin-top:10px;margin-bottom:20px">
+  <tr>
+    <td align="center"><a href="http://www.educity.cn/" target="_blank">网站首页</a>&nbsp;&nbsp;&nbsp;<a href="http://www.educity.cn/hzzx/about.htm" target="_blank">关于希赛</a>&nbsp;&nbsp;&nbsp;<a href="http://www.educity.cn/hzzx/job.htm" target="_blank" >工作机会</a>&nbsp;&nbsp;&nbsp;<a href="http://www.educity.cn/hzzx/xieyi.htm" target="_blank">服务协议</a>&nbsp;&nbsp;&nbsp;<a href="http://www.educity.cn/hzzx/right.htm" target="_blank">免责声明</a>&nbsp;&nbsp;&nbsp;<a href="http://www.educity.cn/hzzx/contact.htm" target="_blank">联系希赛</a><br>
+    希赛网 版权所有 &copy; 2001-2015&nbsp;&nbsp;<a href="http://www.miibeian.gov.cn" target="_blank">湘ICP备10026015号</a>&nbsp;&nbsp;湘教QS2-201008-001164&nbsp;&nbsp;增值电信业务经营许可证湘B2-20070093</td>
+</tr>
+</table>
+
+<!-- 置顶按钮开始 -->
+<link href="/css/to_top.css" rel="stylesheet" type="text/css" />
+<script src="/js/to_top.js" type="text/javascript"></script>
+<!-- 置顶按钮结束 -->
+
+<!-- 图+推广开始 -->
+<script>
+var cpro_id = 'u1605519';
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/i.js"></script>
+<!-- 图+推广结束 -->
+
+<!-- 百度统计开始 -->
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F555d9dcffdcb317595de82b0fc125cdf' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<!-- 百度统计结束 -->
+
+<!-- 百度分享开始 -->
+<script type="text/javascript" id="bdshare_js" data="type=slide&amp;img=6&amp;pos=right&amp;uid=6819010" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+var bds_config={"bdTop":120};
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+</script>
+<!-- 百度分享结束 -->
+    </div>
+<script language="javascript" type="text/javascript" src="/js/imgWidth.js"></script>
+</html>

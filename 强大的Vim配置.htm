@@ -1,0 +1,605 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<title>强大的Vim配置,让编程更随意_Linux编程_Linux公社-Linux系统门户网站</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+<link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
+<link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon"/>
+<meta name="description" content="vim本来就是很强大，很方便的编辑器，加上我的代码后肯定会如虎添翼，或许读者使用其他编程语言，可以根据自己的需要进行修改，配置文件里面"/>
+<meta name="keywords" content="Vim配置,Vim编程,Vim,强大的Vim配置,让编程更随意,编程,Linux编程,Linux Shell,Android,Android教程,JAVA,C语言,Python,HTML5"/>
+<meta name="generator" content="Linux公社"/>
+<meta name="generator" content="Linux"/>
+<link rel="stylesheet" href="../../style/systems/style.css" type="text/css"/>
+<meta name="generator" content="专业的Linux网站"/>
+<script type="text/javascript" src="../../inc/jquery.js"></script>
+<script type="text/javascript" src="../../inc/iwms.js"></script>
+<script type="text/javascript">iwms.urlPrefix="../../";</script>
+
+<script type="text/javascript" src="../../inc/show.js"></script>
+</head>
+<body>
+<div class="topBar">
+	<div class="twidth">
+	
+	<div style="float:right">
+		<script type="text/javascript" src="../../inc/language.js"></script>
+	</div>
+	
+	<div id="topUser">你好，游客 <a href="#" onclick="iwms.logPop()">登录</a>
+	<a href="../../memberreg.aspx" rel="nofollow">注册</a>
+	<a href="../../search.aspx" rel="nofollow">搜索</a>
+	</div>
+	</div>
+</div>
+<div class="twidth">
+<div id="sitehead">
+<div class="l"></div>
+<div class="r"></div>
+<div class="m">
+	<table width="100%">
+	<tr align="center"><td width="160">
+	<a href="http://www.linuxidc.com/"><img style="filter: chroma(color=#FFFFFF);" src="../../pic/logo.jpg" alt="Linux公社" width="155" height="53" border="0" /></a>
+	</td><td>
+	<script type="text/javascript" language="javaScript" src="/linuxfile/linux.js"></script>
+	</td>
+	</tr></table>
+</div>
+</div>
+<div id="navbar">
+<div class="l"></div>
+<div class="r"></div>
+<div class="m">
+	<a href="../../index.htm" class="first">首页</a><a href="../../it/">Linux新闻</a><a href="../../Linuxit/">Linux教程</a><a href="../../MySql/">数据库技术</a><a href="../../RedLinux/" class="thisclass">Linux编程</a><a href="../../Apache/">服务器应用</a><a href="../../Unix/">Linux安全</a><a href="../../download/">Linux下载</a><a href="../../Linuxrz/">Linux认证</a><a href="../../theme/">Linux主题</a><a href="../../Linuxwallpaper/">Linux壁纸</a><a href="../../linuxsoft/">Linux软件</a><a href="../../digi/">数码</a><a href="../../mobile/">手机</a><a href="../../diannao/">电脑</a>
+
+</div>
+</div>
+
+<div id="navsub">
+<div class="l"></div>
+<div class="r"></div>
+<div class="m">
+	<a href="../../index.htm">首页</a> → <a href="../../RedLinux/">Linux编程</a>
+</div>
+</div>
+<div class="linus"><script type="text/javascript" language="javaScript" src="/linuxfile/linuxe1.js"></script></div>
+<div class="linus"><script type="text/javascript" language="javaScript" src="/linuxfile/linux1.js"></script></div>
+<div class="linus"><script type="text/javascript" language="javaScript" src="/linuxfile/linuxa.js"></script></div>
+<div class="linus"><script type="text/javascript" language="javaScript" src="/linuxfile/linuxa1.js"></script></div>
+<table id="middle" width="100%" cellspacing="0" cellpadding="0" style="table-layout:fixed">
+<tr valign="top"><td>
+
+	<div class="mframe mR">
+	<div class="tl"></div>
+	<div class="tr"></div>
+	<div class="tm">
+		<div class="moreR">
+			背景：<script type="text/javascript">WriteBg()</script>
+		</div>
+		<span class="tt">阅读新闻</span>
+	</div>
+	<div class="wrapper">
+	<div class="ml"></div>
+	<div class="mr"></div>
+	<div class="mm" id="bodyTd">
+		<div id="printBody" style="word-break:break-all;">
+			<div style="text-align:center"><h1 class="aTitle">强大的Vim配置,让编程更随意</h1></div>
+			
+			<table width="97%" align="center">
+				<tr>
+				<td width="140">[日期：2013-04-14]</td>
+				<td align="center">来源：Linux社区&nbsp;
+				作者：ma6174</td>
+				<td width="160" align="right">[字体：<a href="javascript:ContentSize(16)">大</a> <a href="javascript:ContentSize(0)">中</a> <a href="javascript:ContentSize(12)">小</a>]
+				</td></tr>
+			</table>
+<div class="linua"><script type="text/javascript" language="javaScript" src="/linuxfile/linux2.js"></script></div>	
+			<div id="content"><div class="linub"><script type="text/javascript" language="javaScript" src="/linuxfile/linux19.js"></script></div>	<p>花了很长时间整理的，感觉用起来很方便，共享一下。</p>
+<p>我的vim配置主要有以下优点：</p>
+<p>1.按F5可以直接编译并执行C、C++、java代码以及执行shell脚本，按&ldquo;F8&rdquo;可进行C、C++代码的调试</p>
+<p>2.自动插入文件头 ，新建C、C++源文件时自动插入表头：包括文件名、作者、联系方式、建立时间等，读者可根据需求自行更改</p>
+<p>3.映射&ldquo;Ctrl + A&rdquo;为全选并复制快捷键，方便复制代码</p>
+<p>4.按&ldquo;F2&rdquo;可以直接消除代码中的空行</p>
+<p>5.&ldquo;F3&rdquo;可列出当前目录文件，打开树状文件目录</p>
+<p>6. 支持鼠标选择、方向键移动</p>
+<p>7. 代码高亮，自动缩进，显示行号，显示状态行</p>
+<p>8.按&ldquo;Ctrl + P&rdquo;可自动补全</p>
+<p>9.[]、{}、()、""、' '等都自动补全</p>
+<p>10.其他功能读者可以研究以下文件</p>
+<p><img src="../../upload/2013_04/130414140033421.png" alt="强大的Vim配置,让编程更随意" width="659" height="429" /></p>
+<p>vim本来就是很强大，很方便的编辑器，加上我的代码后肯定会如虎添翼，或许读者使用其他编程语言，可以根据自己的需要进行修改，配置文件里面已经加上注释。</p>
+<p>读者感兴趣的话直接复制下面的代码到文本文件，然后把文件改名为&ldquo; .vimrc&rdquo; (不要忘记前面的&ldquo;.&rdquo;)，然后把文件放到用户文件夹的根目录下面即可。重新打开vim即可看到效果。</p>
+<p>""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""</p>
+<p>" 显示相关&nbsp;</p>
+<p>""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""</p>
+<p>"set shortmess=atI&nbsp; " 启动的时候不显示那个援助乌干达儿童的提示&nbsp;</p>
+<p>"winpos 5 5&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " 设定窗口位置&nbsp;</p>
+<p>"set lines=40 columns=155&nbsp; &nbsp; " 设定窗口大小&nbsp;</p>
+<p>"set nu&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " 显示行号&nbsp;</p>
+<p>set go=&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " 不要图形按钮&nbsp;</p>
+<p>"color asmanian2&nbsp; &nbsp; " 设置背景主题&nbsp;</p>
+<p>set guifont=Courier_New:h10:cANSI&nbsp; " 设置字体&nbsp;</p>
+<p>"syntax on&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " 语法高亮&nbsp;</p>
+<p>autocmd InsertLeave * se nocul&nbsp; " 用浅色高亮当前行&nbsp;</p>
+<p>autocmd InsertEnter * se cul&nbsp; &nbsp; " 用浅色高亮当前行&nbsp;</p>
+<p>"set ruler&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " 显示标尺&nbsp;</p>
+<p>set showcmd&nbsp; &nbsp; &nbsp; &nbsp; " 输入的命令显示出来，看的清楚些&nbsp;</p>
+<p>"set cmdheight=1&nbsp; &nbsp; " 命令行（在状态行下）的高度，设置为1&nbsp;</p>
+<p>"set whichwrap+=&lt;,&gt;,h,l&nbsp; " 允许backspace和光标键跨越行边界(不建议)&nbsp;</p>
+<p>"set scrolloff=3&nbsp; &nbsp; " 光标移动到buffer的顶部和底部时保持3行距离&nbsp;</p>
+<p>set novisualbell&nbsp; &nbsp; " 不要闪烁(不明白)&nbsp;</p>
+<p>set statusline=%F%m%r%h%w\ [FORMAT=%{&amp;ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}&nbsp; "状态行显示的内容&nbsp;</p>
+<p>set laststatus=1&nbsp; &nbsp; " 启动显示状态行(1),总是显示状态行(2)&nbsp;</p>
+<p>set foldenable&nbsp; &nbsp; &nbsp; " 允许折叠&nbsp;</p>
+<p>set foldmethod=manual&nbsp; " 手动折叠&nbsp;</p>
+<p>"set background=dark "背景使用黑色</p>
+<p>set nocompatible&nbsp; "去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限&nbsp;</p>
+<p>" 显示中文帮助</p>
+<p>if version &gt;= 603</p>
+<p>&nbsp; &nbsp; set helplang=cn</p>
+<p>&nbsp; &nbsp; set encoding=utf-8</p>
+<p>endif</p>
+<p>" 设置配色方案</p>
+<p>"colorscheme murphy</p>
+<p>"字体</p>
+<p>"if (has("gui_running"))</p>
+<p>"&nbsp; set guifont=Bitstream\ Vera\ Sans\ Mono\ 10</p>
+<p>"endif</p>
+<p><br />&nbsp;<br />set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936</p>
+<p>set termencoding=utf-8</p>
+<p>set encoding=utf-8</p>
+<p>set fileencodings=ucs-bom,utf-8,cp936</p>
+<p>set fileencoding=utf-8</p>
+<p>"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""</p>
+<p>"""""新文件标题""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""</p>
+<p>"新建.c,.h,.sh,.java文件，自动插入文件头</p>
+<p>autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()"</p>
+<p>""定义函数SetTitle，自动插入文件头</p>
+<p>func SetTitle()</p>
+<p>&nbsp; &nbsp; "如果文件类型为.sh文件</p>
+<p>&nbsp; &nbsp; if &amp;filetype == 'sh'</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; call setline(1,"\#########################################################################")</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; call append(line("."), "\# File Name: ".expand("%"))</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; call append(line(".")+1, "\# Author: ma6174")</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; call append(line(".")+2, "\# mail: <a href="mailto:ma6174@163.com">ma6174@163.com</a>")</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; call append(line(".")+3, "\# Created Time: ".strftime("%c"))</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; call append(line(".")+4, "\#########################################################################")</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; call append(line(".")+5, "\#!/bin/bash")</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; call append(line(".")+6, "")</p>
+<p>&nbsp; &nbsp; else</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; call setline(1, "/*************************************************************************")</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; call append(line("."), "&nbsp; &nbsp; &gt; File Name: ".expand("%"))</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; call append(line(".")+1, "&nbsp; &nbsp; &gt; Author: ma6174")</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; call append(line(".")+2, "&nbsp; &nbsp; &gt; Mail: <a href="mailto:ma6174@163.com">ma6174@163.com</a> ")</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; call append(line(".")+3, "&nbsp; &nbsp; &gt; Created Time: ".strftime("%c"))</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; call append(line(".")+4, " ************************************************************************/")</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; call append(line(".")+5, "")</p>
+<p>&nbsp; &nbsp; endif</p>
+<p>&nbsp; &nbsp; if &amp;filetype == 'cpp'</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; call append(line(".")+6, "#include&lt;iostream&gt;")</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; call append(line(".")+7, "using namespace std;")</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; call append(line(".")+8, "")</p>
+<p>&nbsp; &nbsp; endif</p>
+<p>&nbsp; &nbsp; if &amp;filetype == 'c'</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; call append(line(".")+6, "#include&lt;stdio.h&gt;")</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; call append(line(".")+7, "")</p>
+<p>&nbsp; &nbsp; endif</p>
+<p>&nbsp; &nbsp; "新建文件后，自动定位到文件末尾</p>
+<p>&nbsp; &nbsp; autocmd BufNewFile * normal G</p>
+<p>endfunc</p>
+<p>""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""</p>
+<p>"键盘命令</p>
+<p>""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""</p>
+<p>&nbsp;</p>
+<p>nmap &lt;leader&gt;w :w!&lt;cr&gt;</p>
+<p>nmap &lt;leader&gt;f :find&lt;cr&gt;</p>
+<p>&nbsp;</p>
+<p>" 映射全选+复制 ctrl+a</p>
+<p>map &lt;C-A&gt; ggVGY</p>
+<p>map! &lt;C-A&gt; &lt;Esc&gt;ggVGY</p>
+<p>map &lt;F12&gt; gg=G</p>
+<p>" 选中状态下 Ctrl+c 复制</p>
+<p>vmap &lt;C-c&gt; "+y</p>
+<p>"去空行&nbsp;</p>
+<p>nnoremap &lt;F2&gt; :g/^\s*$/d&lt;CR&gt;</p>
+<p>"比较文件&nbsp;</p>
+<p>nnoremap &lt;C-F2&gt; :vert diffsplit</p>
+<p>"新建标签&nbsp;</p>
+<p>map &lt;M-F2&gt; :tabnew&lt;CR&gt;&nbsp;</p>
+<p>"列出当前目录文件&nbsp;</p>
+<p>map &lt;F3&gt; :tabnew .&lt;CR&gt;&nbsp;</p>
+<p>"打开树状文件目录&nbsp;</p>
+<p>map &lt;C-F3&gt; \be&nbsp;</p>
+<p>"C，C++ 按F5编译运行</p>
+<p>map &lt;F5&gt; :call CompileRunGcc()&lt;CR&gt;</p>
+<p>func! CompileRunGcc()</p>
+<p>&nbsp; &nbsp; exec "w"</p>
+<p>&nbsp; &nbsp; if &amp;filetype == 'c'</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; exec "!g++ % -o %&lt;"</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; exec "! ./%&lt;"</p>
+<p>&nbsp; &nbsp; elseif &amp;filetype == 'cpp'</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; exec "!g++ % -o %&lt;"</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; exec "! ./%&lt;"</p>
+<p>&nbsp; &nbsp; elseif &amp;filetype == 'java'</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; exec "!javac %"</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; exec "!java %&lt;"</p>
+<p>&nbsp; &nbsp; elseif &amp;filetype == 'sh'</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; :!./%</p>
+<p>&nbsp; &nbsp; endif</p>
+<p>endfunc</p>
+<p>"C,C++的调试</p>
+<p>map &lt;F8&gt; :call Rungdb()&lt;CR&gt;</p>
+<p>func! Rungdb()</p>
+<p>&nbsp; &nbsp; exec "w"</p>
+<p>&nbsp; &nbsp; exec "!g++ % -g -o %&lt;"</p>
+<p>&nbsp; &nbsp; exec "!gdb ./%&lt;"</p>
+<p>endfunc</p>
+<p>""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""</p>
+<p>""实用设置</p>
+<p>"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""</p>
+<p>" 设置当文件被改动时自动载入</p>
+<p>set autoread</p>
+<p>" quickfix模式</p>
+<p>autocmd FileType c,cpp map &lt;buffer&gt; &lt;leader&gt;&lt;space&gt; :w&lt;cr&gt;:make&lt;cr&gt;</p>
+<p>"代码补全</p>
+<p>set completeopt=preview,menu</p>
+<p>"允许插件&nbsp;</p>
+<p>filetype plugin on</p>
+<p>"共享剪贴板&nbsp;</p>
+<p>set clipboard+=unnamed</p>
+<p>"从不备份&nbsp;</p>
+<p>set nobackup</p>
+<p>"make 运行</p>
+<p>:set makeprg=g++\ -Wall\ \ %</p>
+<p>"自动保存</p>
+<p>set autowrite</p>
+<p>set ruler&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " 打开状态栏标尺</p>
+<p>set cursorline&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " 突出显示当前行</p>
+<p>set magic&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " 设置魔术</p>
+<p>set guioptions-=T&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " 隐藏工具栏</p>
+<p>set guioptions-=m&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " 隐藏菜单栏</p>
+<p>"set statusline=\ %&lt;%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&amp;fileformat}\ %{&amp;encoding}\ %c:%l/%L%)\</p>
+<p>" 设置在状态行显示的信息</p>
+<p>set foldcolumn=0</p>
+<p>set foldmethod=indent</p>
+<p>set foldlevel=3</p>
+<p>set foldenable&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; " 开始折叠</p>
+<p>" 不要使用vi的键盘模式，而是vim自己的</p>
+<p>set nocompatible</p>
+<p>" 语法高亮</p>
+<p>set syntax=on</p>
+<p>" 去掉输入错误的提示声音</p>
+<p>set noeb</p>
+<p>" 在处理未保存或只读文件的时候，弹出确认</p>
+<p>set confirm</p>
+<p>" 自动缩进</p>
+<p>set autoindent</p>
+<p>set cindent</p>
+<p>" Tab键的宽度</p>
+<p>set tabstop=4</p>
+<p>" 统一缩进为4</p>
+<p>set softtabstop=4</p>
+<p>set shiftwidth=4</p>
+<p>" 不要用空格代替制表符</p>
+<p>set noexpandtab</p>
+<p>" 在行和段开始处使用制表符</p>
+<p>set smarttab</p>
+<p>" 显示行号</p>
+<p>set number</p>
+<p>" 历史记录数</p>
+<p>set history=1000</p>
+<p>"禁止生成临时文件</p>
+<p>set nobackup</p>
+<p>set noswapfile</p>
+<p>"搜索忽略大小写</p>
+<p>set ignorecase</p>
+<p>"搜索逐字符高亮</p>
+<p>set hlsearch</p>
+<p>set incsearch</p>
+<p>"行内替换</p>
+<p>set gdefault</p>
+<p>"编码设置</p>
+<p>set enc=utf-8</p>
+<p>set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936</p>
+<p>"语言设置</p>
+<p>set langmenu=zh_CN.UTF-8</p>
+<p>set helplang=cn</p>
+<p>" 我的状态行显示的内容（包括文件类型和解码）</p>
+<p>"set statusline=%F%m%r%h%w\ [FORMAT=%{&amp;ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}</p>
+<p>"set statusline=[%F]%y%r%m%*%=[Line:%l/%L,Column:%c][%p%%]</p>
+<p>" 总是显示状态行</p>
+<p>set laststatus=2</p>
+<p>" 命令行（在状态行下）的高度，默认为1，这里是2</p>
+<p>set cmdheight=2</p>
+<p>" 侦测文件类型</p>
+<p>filetype on</p>
+<p>" 载入文件类型插件</p>
+<p>filetype plugin on</p>
+<p>" 为特定文件类型载入相关缩进文件</p>
+<p>filetype indent on</p>
+<p>" 保存全局变量</p>
+<p>set viminfo+=!</p>
+<p>" 带有如下符号的单词不要被换行分割</p>
+<p>set iskeyword+=_,$,@,%,#,-</p>
+<p>" 字符间插入的像素行数目</p>
+<p>set linespace=0</p>
+<p>" 增强模式中的命令行自动完成操作</p>
+<p>set wildmenu</p>
+<p>" 使回格键（backspace）正常处理indent, eol, start等</p>
+<p>set backspace=2</p>
+<p>" 允许backspace和光标键跨越行边界</p>
+<p>set whichwrap+=&lt;,&gt;,h,l</p>
+<p>" 可以在buffer的任何地方使用鼠标（类似office中在工作区双击鼠标定位）</p>
+<p>set mouse=a</p>
+<p>set selection=exclusive</p>
+<p>set selectmode=mouse,key</p>
+<p>" 通过使用: commands命令，告诉我们文件的哪一行被改变过</p>
+<p>set report=0</p>
+<p>" 在被分割的窗口间显示空白，便于阅读</p>
+<p>set fillchars=vert:\ ,stl:\ ,stlnc:\</p>
+<p>" 高亮显示匹配的括号</p>
+<p>set showmatch</p>
+<p>" 匹配括号高亮的时间（单位是十分之一秒）</p>
+<p>set matchtime=1</p>
+<p>" 光标移动到buffer的顶部和底部时保持3行距离</p>
+<p>set scrolloff=3</p>
+<p>" 为C程序提供自动缩进</p>
+<p>set smartindent</p>
+<p>" 高亮显示普通txt文件（需要txt.vim脚本）</p>
+<p>au BufRead,BufNewFile *&nbsp; setfiletype txt</p>
+<p>"自动补全</p>
+<p>:inoremap ( ()&lt;ESC&gt;i</p>
+<p>:inoremap ) &lt;c-r&gt;=ClosePair(')')&lt;CR&gt;</p>
+<p>:inoremap { {&lt;CR&gt;}&lt;ESC&gt;O</p>
+<p>:inoremap } &lt;c-r&gt;=ClosePair('}')&lt;CR&gt;</p>
+<p>:inoremap [ []&lt;ESC&gt;i</p>
+<p>:inoremap ] &lt;c-r&gt;=ClosePair(']')&lt;CR&gt;</p>
+<p>:inoremap " ""&lt;ESC&gt;i</p>
+<p>:inoremap ' ''&lt;ESC&gt;i</p>
+<p>function! ClosePair(char)</p>
+<p>&nbsp; &nbsp; if getline('.')[col('.') - 1] == a:char</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; return "\&lt;Right&gt;"</p>
+<p>&nbsp; &nbsp; else</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; return a:char</p>
+<p>&nbsp; &nbsp; endif</p>
+<p>endfunction</p>
+<p>filetype plugin indent on</p>
+<p>"打开文件类型检测, 加了这句才可以用智能补全</p>
+<p>set completeopt=longest,menu</p>
+<p>"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""</p>
+<p>" CTags的设定&nbsp;</p>
+<p>"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""</p>
+<p>let Tlist_Sort_Type = "name"&nbsp; &nbsp; " 按照名称排序&nbsp;</p>
+<p>let Tlist_Use_Right_Window = 1&nbsp; " 在右侧显示窗口&nbsp;</p>
+<p>let Tlist_Compart_Format = 1&nbsp; &nbsp; " 压缩方式&nbsp;</p>
+<p>let Tlist_Exist_OnlyWindow = 1&nbsp; " 如果只有一个buffer，kill窗口也kill掉buffer&nbsp;</p>
+<p>let Tlist_File_Fold_Auto_Close = 0&nbsp; " 不要关闭其他文件的tags&nbsp;</p>
+<p>let Tlist_Enable_Fold_Column = 0&nbsp; &nbsp; " 不要显示折叠树&nbsp;</p>
+<p>autocmd FileType java set tags+=D:\tools\java\tags&nbsp;</p>
+<p>"autocmd FileType h,cpp,cc,c set tags+=D:\tools\cpp\tags&nbsp;</p>
+<p>"let Tlist_Show_One_File=1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; "不同时显示多个文件的tag，只显示当前文件的</p>
+<p>"设置tags&nbsp;</p>
+<p>set tags=tags&nbsp;</p>
+<p>"set autochdir</p>
+<p>&nbsp;</p>
+<p>""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""</p>
+<p>"其他东东</p>
+<p>"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""</p>
+<p>"默认打开Taglist</p>
+<p>let Tlist_Auto_Open=1</p>
+<p>""""""""""""""""""""""""""""""</p>
+<p>" Tag list (ctags)</p>
+<p>""""""""""""""""""""""""""""""""</p>
+<p>let Tlist_Ctags_Cmd = '/usr/bin/ctags'</p>
+<p>let Tlist_Show_One_File = 1 "不同时显示多个文件的tag，只显示当前文件的</p>
+<p>let Tlist_Exit_OnlyWindow = 1 "如果taglist窗口是最后一个窗口，则退出vim</p>
+<p>let Tlist_Use_Right_Window = 1 "在右侧窗口中显示taglist窗口</p>
+<p>" minibufexpl插件的一般设置</p>
+<p>let g:miniBufExplMapWindowNavVim = 1</p>
+<p>let g:miniBufExplMapWindowNavArrows = 1</p>
+<p>let g:miniBufExplMapCTabSwitchBufs = 1<br />let g:miniBufExplModSelTarget = 1</p>
+<p>为了方便大家下载使用，我把它放到LinuxIDC.com空间里了，得到.vimrc文件<br />&nbsp;<br />unzip&nbsp; -f&nbsp; vimrc.zip&nbsp; -d&nbsp; ~/</p>
+<p>免费下载地址在 <a href="http://linux.linuxidc.com/">http://linux.linuxidc.com/</a></p>
+<p>用户名与密码都是<a>www.linuxidc.com</a></p>
+<p>具体下载目录在 /2013年资料/4月/14日/强大的Vim配置,让编程更随意</p><a href="http://www.linuxidc.com" target="_blank"><img src="/linuxfile/logo.gif" alt="linux" width="15" height="17" /></div>
+<div class="linu3"><script type="text/javascript" language="javaScript" src="/linuxfile/linux3.js"></script></div>			
+			
+			
+		</div>
+	
+		<div style="padding:0 15px">
+			<ul id="digg" class="digg">
+				<li class="digg1">0</li>
+				<li class="digg2"><a href="###" onclick="iwms.diggIt(this,iwms.aId)">顶一下</a></li>
+			</ul>
+	
+<div align="center"><script type="text/javascript" language="javaScript" src="/fengxiang/fx.js"></script></div>
+		</div>
+<div class="linu8"><script type="text/javascript" language="javaScript" src="/linuxfile/linux8.js"></script></div>		
+		<div class="nearNews">
+			<div class="prevNews"><a href="../../Linux/2013-04/82743.htm">Android 弧形进度条</a></div>
+			<div class="nextNews"><a href="../../Linux/2013-04/82746.htm">Shell编程检测监控MySQL的CPU占用率</a></div>
+		</div>
+	</div>
+	</div>
+	<div class="bl"></div>
+	<div class="br"></div>
+	<div class="bm"></div>
+	</div>
+	
+	<div class="mframe mR">
+	<div class="tl"></div>
+	<div class="tr"></div>
+	<div class="tm">
+		<span class="tt">相关资讯</span> &nbsp; &nbsp; &nbsp;
+		<a href="../../search.aspx?where=nkey&amp;keyword=1047" target="_blank">Vim</a>&nbsp; <a href="../../search.aspx?where=nkey&amp;keyword=11089" target="_blank">Vim配置</a>&nbsp; <a href="../../search.aspx?where=nkey&amp;keyword=20768" target="_blank">Vim编程</a>&nbsp; 
+	</div>
+	<div class="wrapper">
+	<div class="ml"></div>
+	<div class="mr"></div>
+	<div class="mm">
+		<table width='100%'><tr><td width='50%' valign='top'><ul class='nl'><li><a href="../../Linux/2013-08/89096.htm"  target="_blank" >Vim学习指南</a>&nbsp; <span class="gray">(<span class="time">今 08:56</span>)</span></li>
+<li><a href="../../Linux/2013-07/87920.htm"  target="_blank" >Linux基础之Vim命令</a>&nbsp; <span class="gray">(07月27日)</span></li>
+<li><a href="../../Linux/2013-07/87363.htm"  target="_blank" >在CentOS 6.2上搭建Vim开发环境</a>&nbsp; <span class="gray">(07月15日)</span></li>
+</ul></td><td width='50%' valign='top'><ul class='nl'><li><a href="../../Linux/2013-08/88555.htm"  target="_blank"  title="Vim 7.4 正式版发布，文本编辑器标准">Vim 7.4 正式版发布，文本编辑器标</a>&nbsp; <span class="gray">(08月11日)</span></li>
+<li><a href="../../Linux/2013-07/87544.htm"  target="_blank" >强大的Vim 编辑器</a>&nbsp; <span class="gray">(07月18日)</span></li>
+<li><a href="../../Linux/2013-07/87035.htm"  target="_blank"  title="Vim 7.4a 发布，全新更快的正则表达式引擎">Vim 7.4a 发布，全新更快的正则表</a>&nbsp; <span class="gray">(07月07日)</span></li>
+</ul></td></tr></table>
+	</div>
+	</div>
+	<div class="bl"></div>
+	<div class="br"></div>
+	<div class="bm"></div>
+	</div>
+
+	<div class="mframe mR">
+	<div class="tl"></div>
+	<div class="tr"></div>
+	<div class="tm">
+		<span class="tt">图片资讯</span> &nbsp; &nbsp; &nbsp;
+	</div>
+	<div class="wrapper">
+	<div class="ml"></div>
+	<div class="mr"></div>
+	<div class="mm">
+<div class="imgList"><ul><li style="width:25%"><a href="../../Linux/2013-08/89096.htm"  target="_blank" ><img src="../../upload/2013_08/130820090014272t.jpg" alt="Vim学习指南" width="120" height="90"/>Vim学习指南</a></li><li style="width:25%"><a href="../../Linux/2013-06/86129.htm"  target="_blank"  title="为什么 Vim 使用 HJKL 键作为方向键"><img src="../../upload/2013_06/130616203544403t.jpg" alt="为什么 Vim 使用 HJKL 键作为方向键" width="120" height="90"/>为什么 Vim 使用 HJKL</a></li><li style="width:25%"><a href="../../Linux/2013-06/86048.htm"  target="_blank"  title="Vim升华之树形目录插件NERDTree安装图解"><img src="../../upload/2013_06/130615101886001t.jpg" alt="Vim升华之树形目录插件NERDTree安装图解" width="120" height="90"/>Vim升华之树形目录插</a></li><li style="width:25%"><a href="../../Linux/2013-05/83737.htm"  target="_blank"  title="Linux Vim快捷键操作命令整理"><img src="../../upload/2013_05/130502172579161t.jpg" alt="Linux Vim快捷键操作命令整理" width="120" height="90"/>Linux Vim快捷键操作</a></li><li style="width:25%"><a href="../../Linux/2013-04/82744.htm"  target="_blank"  title="Linux虚拟机安装与vim安装(vim没有可供安装的候选者错误)"><img src="../../upload/2013_04/130414135182331t.jpg" alt="Linux虚拟机安装与vim安装(vim没有可供安装的候选者错误)" width="120" height="90"/>Linux虚拟机安装与vim</a></li><li style="width:25%"><a href="../../Linux/2013-03/81029.htm"  target="_blank" ><img src="../../upload/2013_03/130317150067021t.jpg" alt="urxvt及vim配色方案" width="120" height="90"/>urxvt及vim配色方案</a></li><li style="width:25%"><a href="../../Linux/2012-11/75179.htm"  target="_blank" ><img src="../../upload/2012_11/12113019251810t.jpg" alt="Vim分屏功能" width="120" height="90"/>Vim分屏功能</a></li><li style="width:25%"><a href="../../Linux/2012-11/74654.htm"  target="_blank" ><img src="../../upload/2012_11/121123063158672t.jpg" alt="Linux Vim编辑器" width="120" height="90"/>Linux Vim编辑器</a></li></ul></div>
+	</div>
+	</div>
+	<div class="bl"></div>
+	<div class="br"></div>
+	<div class="bm"></div>
+	</div>
+	
+	
+	<div class="mframe mR">
+	<div class="tl"></div>
+	<div class="tr"></div>
+	<div class="tm">
+		<span class="tt">本文评论</span>
+		 	　　<a href="../../remark.aspx?id=82745" target="_blank">查看全部评论</a> <span class="gray">(0)</span>
+	</div>
+	<div class="wrapper">
+	<div class="ml"></div>
+	<div class="mr"></div>
+	<div class="mm">
+		<table width="100%" style="margin:6px">
+		<tr><td width="300">
+			<form action="" name="fmRemarkSt" onsubmit="return remark.post(this);">
+			<input type="hidden" value="1" name="face"/>
+			表情： <img src="../../pic/b.gif" alt="表情" class="face1" style="cursor:pointer;vertical-align:middle" onclick="remark.dispFace(this)" onmouseout="remark.hideFace()"/>
+			姓名： <input type="text" name="username" value="" maxlength="15" style="width:60px" class="inputbg"/>
+			<input type="checkbox" id="rmAnonymitySt" onclick="remark.anony(this)"/><label for="rmAnonymitySt">匿名</label>
+			字数 <input type="text" id="bodyLen" size="3" readonly="readonly" style="border-width:0;background:transparent;vertical-align:middle" value="0"/>
+			<br/>
+			点评：
+				<textarea name="body" cols="40" rows="4" onkeydown="remark.dispLen(this)" onkeyup="remark.handle(event,this);remark.dispLen(this)" style="width:20em;height:60px;margin:3px 0;overflow-y:auto"></textarea>
+				<br/>
+		　　　<input type="checkbox" checked="checked" id="rmAgreeSt"/><label for="rmAgreeSt">同意评论声明</label>
+		　　　<button type="submit" style="width:50px">发表</button>
+			</form>
+		</td><td>
+			评论声明
+			<ul style="list-style-type:square;margin:5px 0 0 1em;padding:0">
+			<li>尊重网上道德，遵守中华人民共和国的各项有关法律法规</li>
+			<li>承担一切因您的行为而直接或间接导致的民事或刑事法律责任</li>
+			<li>本站管理人员有权保留或删除其管辖留言中的任意内容</li>
+			<li>本站有权在网站内转载或引用您的评论</li>
+			<li>参与本评论即表明您已经阅读并接受上述条款</li>
+			</ul>
+		</td></tr>
+		</table>
+		<script type="text/javascript" src="../../inc/remark.js"></script>
+		<script type="text/javascript">
+			remark.maxSize=500;
+			remark.minSize=2;
+			remark.sourceEle=$(document.fmRemarkSt).find("button").get(0);
+			iwms.vCode="31E1F88C";
+			iwms.user.name.length==0 ? $i("rmAnonymitySt").click() : $i("rmAnonymitySt").form.username.value=iwms.user.name;
+		</script>
+		
+		<div class="reCont" id="reContainer"></div>
+	</div>
+	</div>
+	<div class="bl"></div>
+	<div class="br"></div>
+	<div class="bm"></div>
+	</div>
+	
+</td><td width="300" valign="top">
+<div class="linuzs"><script type="text/javascript" language="javaScript" src="/linuxfile/jquery.js"></script></div>
+<div class="linuzs"><script type="text/javascript" language="javaScript" src="/linuxfile/linuxgif.js"></script></div>
+<div class="linuzb"><script type="text/javascript" language="javaScript" src="/linuxfile/linux16.js"></script></div>
+<div class="linuzb"><script type="text/javascript" language="javaScript" src="/linuxfile/linux18.js"></script></div>
+	
+	<div class="lframe">
+	<div class="tl"></div>
+	<div class="tr"></div>
+	<div class="tm">
+		<span class="tt">最新资讯</span>
+	</div>
+	<div class="wrapper">
+	<div class="ml"></div>
+	<div class="mr"></div>
+	<div class="mm">
+		<ul class="nl">
+<li><a href="../../Linux/2013-08/89096.htm" target="_blank">Vim学习指南</a></li>
+<li><a href="../../Linux/2013-08/89095.htm" target="_blank">Teiid Designer 8.2 Final 发布</a></li>
+<li><a href="../../Linux/2013-08/89094.htm" target="_blank">Spring Social 1.1.0.M4 发布</a></li>
+<li><a href="../../Linux/2013-08/89093.htm" target="_blank">AeroGear.js 1.2.0 发布，手机Web应用脚手架</a></li>
+<li><a href="../../Linux/2013-08/89092.htm" target="_blank">Hypertable 0.9.7.9 发布，分布式数据库</a></li>
+<li><a href="../../Linux/2013-08/89091.htm" target="_blank">ZK 7.0 预览版发布，全新的主题引擎</a></li>
+<li><a href="../../Linux/2013-08/89090.htm" target="_blank">pride 1.3.3 发布，Android 开发脚本</a></li>
+<li><a href="../../Linux/2013-08/89089.htm" target="_blank">Siege 3.0.3 发布，压力测试工具</a></li>
+<li><a href="../../Linux/2013-08/89088.htm" target="_blank">Eric5 5.3.6 发布，Python 集成开发环境</a></li>
+<li><a href="../../Linux/2013-08/89087.htm" target="_blank">Zutils 1.1 发布，文件压缩工具包</a></li>
+</ul>
+	</div>
+	</div>
+	<div class="bl"></div>
+	<div class="br"></div>
+	<div class="bm"></div>
+	</div>
+
+	<div class="lframe">
+	<div class="tl"></div>
+	<div class="tr"></div>
+	<div class="tm">
+		<span class="tt">本周热门</span>
+	</div>
+	<div class="wrapper">
+	<div class="ml"></div>
+	<div class="mr"></div>
+	<div class="mm">
+		<ul class="nl">
+<li><a href="../../Linux/2007-12/9546.htm" target="_blank">在Windows平台下使用安装GCC(图)</a></li>
+<li><a href="../../Linux/2011-04/33966.htm" target="_blank">Android核心分析</a></li>
+<li><a href="../../Linux/2011-02/32603.htm" target="_blank">Android SD卡路径问题以及如何获取SDCard 内存</a></li>
+<li><a href="../../Linux/2007-06/4767.htm" target="_blank">Linux shell脚本全面学习</a></li>
+<li><a href="../../Linux/2012-05/61283.htm" target="_blank">Android串口通信实例分析【附源码】</a></li>
+<li><a href="../../Linux/2012-02/55500.htm" target="_blank" title="Android的onCreateOptionsMenu()创建菜单Menu详解">Android的onCreateOptionsMenu()创建菜单Menu详</a></li>
+<li><a href="../../Linux/2011-07/39271.htm" target="_blank">Android Binder设计与实现 – 设计篇</a></li>
+<li><a href="../../Linux/2012-06/63652.htm" target="_blank">PyQt4 精彩实例分析</a></li>
+<li><a href="../../Linux/2012-02/53030.htm" target="_blank">Shell for&amp;while 循环详细总结</a></li>
+<li><a href="../../Linux/2010-08/28027.htm" target="_blank">关于Android如何获取屏幕分辨率的例子</a></li>
+</ul>
+	</div>
+	</div>
+	<div class="bl"></div>
+	<div class="br"></div>
+	<div class="bm"></div>
+	</div>
+	<div class="linuxy9"><script type="text/javascript" language="javaScript" src="/linuxfile/y9.js"></script></div>	
+</td></tr>
+</table>
+<div id="footer">
+<a href="http://www.linuxidc.com/aboutus.htm">Linux公社简介</a> - <a href="http://www.linuxidc.com/adsense.htm">广告服务</a> - <a href="http://www.linuxidc.com/sitemap.aspx">网站地图</a> - <a href="http://www.linuxidc.com/help.htm">帮助信息</a> - <a href="http://www.linuxidc.com/contactus.htm">联系我们</a><br />本站（LinuxIDC）所刊载文章不代表同意其说法或描述，仅为提供更多信息，也不构成任何建议。<br /><script type="text/javascript" language="javaScript" src="/linuxfile/qq.js"></script><br />
+<script type="text/javascript" language="javaScript" src="/linuxfile/foot.js"></script><br />Copyright &copy; 2006-2011　<a href="http://www.linuxidc.com/">Linux公社</a>　All rights reserved 浙ICP备06018118号
+	<script type="text/javascript">iwms.aId=82745;$(function(){iwms.imgCont=$i('content');iwms.imgResize();InitContStyle();iwms.getVars();})</script>
+	
+</div>
+</div>
+<script type="text/javascript" language="javaScript" src="/linuxren/linuxren1.js"></script>
+<script type="text/javascript" language="javaScript" src="/linuxren/linuxren2.js"></script>
+<script type="text/javascript" language="javaScript" src="/linuxren/linuxren3.js"></script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>Using Mutt to send emails to mailing lists</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="Using%20Mutt%20to%20send%20emails%20to%20mailing%20lists_files/base.css">
+    <style type="text/css">
+      .mind {
+      color: black;
+      background-color: red;
+      border-style: line;
+      border-color: black;
+      padding-left: 1em;
+      padding-right: 1em;
+      padding-bottom: 0.1em;
+      padding-top: 0.1em;
+      margin-left: 1em;
+      }
+    </style>
+</head>
+
+<body>
+
+<h1>Using Mutt to send emails to mailing lists</h1>
+
+    <div class="mind" id="m">
+      <p>Please note that I have actually changed my mind on the role
+	that the <code>Mail-Followup-To</code> hearder plays in this
+	world.</p>
+      <p>It is not a standard, and some people argue against it for
+	good reasons (see an <a href="http://pm-doc.sourceforge.net/pm-tips-body.html#replyto_header">example of arguments against <code>Mail-Followup-To</code></a>). Until
+	there actually is an RFC solving the problems
+	<code>Mail-Followup-To</code> is trying to address, or a group
+	of people working on it and making it fit in the rest of the
+	electronic mail scenary (<a href="http://www.ietf.org/rfc/rfc2822.txt">RFC 2822</a> and
+	friends), I am
+	forced to see this header as a hack that can potentially do
+	more harm than good.</p>
+      <p>I am leaving this page here because I think that it is useful
+	documentation, but I am now setting:</p>
+      <blockquote>
+<pre>set followup_to=no
+set honor_followup_to=no</pre>
+      </blockquote>
+      <p>I will be happy to be pointed to a place
+	where such discussions happen.</p>
+    </div>
+
+<p>If you are in a hurry and want to see quickly what to put in your
+<tt>.muttrc</tt>, go the <a href="#summary">example configuration</a>.</p>
+
+<h2>Background</h2>
+
+<p>I am getting tired of receiving emails twice when somebody replies
+to an email I sent to a mailing list (one copy for me, another one to
+a mailing list).</p>
+
+<p>As I explained in my <a href="http://larve.net/people/hugo/2000/03/email">email guidelines</a>,
+people should preferably write to a mailing list unless they really
+want to draw sombody's attention, in which case they can copy this
+person.</p>
+
+<p>Most mail user agents do not know how to deal with mailing
+lists. Fortunately, <a href="http://www.mutt.org/">Mutt</a> does.</p>
+
+<p>I want to summarize here how to configure Mutt to be able to send
+email to mailing lists in an efficient way. If you want more
+information about mailing list capabilities in Mutt, please have a
+look at the <a href="http://www.mutt.org/doc/manual/manual-3.html#ss3.9">configuration</a>
+and <a href="http://www.mutt.org/doc/manual/manual-4.html#ss4.8">advanced
+usage</a> information in the <a href="http://www.mutt.org/doc/manual/">Mutt manual</a>.</p>
+
+<p>I am talking here about mailing list support in Mutt version 1.2.4.</p>
+
+<p>Mutt recognizes mailing lists in two ways:</p>
+<ul>
+<li>the user specified in his configuration that a particular address
+was a mailing list.</li>
+<li>a mail received contains a <a href="http://larve.net/people/hugo/2000/03/email#mft"><tt>Mail-Followup-To</tt> header</a>.</li>
+</ul>
+
+<h2><code>subscribe</code> and <code>lists</code></h2>
+
+<p>You should tell Mutt about mailing lists you use:</p>
+<ul>
+<li><p><code>subscribe</code>: you are subscribed to a mailing list.</p>
+<p>For example, if you subscribed to <tt>coolstuff@lists.example.com</tt>, add
+to your configuration:</p>
+<pre>subscribe coolstuff@lists.example.com</pre></li>
+<li><p><code>lists</code>: it is a list but you are not subscribed
+too.</p>
+<p>If you occasionnaly send email to <tt>bugs@lists.example.com</tt> but do
+not receive it, you want to put in your configuration:</p>
+<pre>lists bugs@lists.example.com</pre></li>
+</ul>
+
+<p>This allows you to use the <code>list-reply</code> function ('L'
+key) to reply to a mailing list.</p>
+
+<h2><tt>Mail-Followup-To</tt> header</h2>
+
+    <div class="mind">
+      <p>Please see <a href="#m">my comment about this hearder</a>.</p>
+    </div>
+
+<p>To tell people how to reply to an email you send to those mailing
+lists, you must use a <tt>Mail-Followup-To</tt> header. In order to
+do that, put in your configuration:</p>
+<pre>set followup_to</pre>
+
+<p>This will have the following effect:</p>
+<ul>
+<li><p>emails sent to mailing lists you subscribed to will be answered in the
+mailing list (specified with <code>subscribe</code>) and not to you. With our
+previous example, the following header will be used:</p>
+<pre>Mail-Followup-To: coolstuff@lists.example.com</pre></li>
+<li><p>emails sent to other mailing lists (specified with
+<code>lists</code>) will be answered to the list and to you. Our
+example would give:</p>
+<pre>Mail-Followup-To: bugs@lists.example.com, your.address@your.domain.example.org</pre></li>
+<li><p>the <tt>Reply-To</tt> field can be used if people want to reply
+to you directly, keeping in mind that some mail user-agents force the
+user to reply to the address specified in the <tt>Reply-To</tt>
+field...</p></li>
+</ul>
+
+<p>You must also tell Mutt that it should not ignore the
+<tt>Mail-Followup-To</tt> header. This is done with:</p>
+<pre>set honor_followup_to=yes</pre>
+
+<p>That way, <code>group-reply</code>s and <code>list-reply</code>s
+will use the information in the <tt>Mail-Followup-To</tt> field.</p>
+
+<p>For example, doing a <code>group-reply</code> to an email sent by
+<tt>user1@example.org</tt> to <tt>bugs@lists.example.com</tt> and
+<tt>user2@example.org</tt> with the following headers:</p>
+<pre>From: user1@example.org
+To: bugs@lists.example.com, user2@example.org
+Mail-Followup-To: bugs@lists.example.com, user2@example.org</pre>
+<p>will send your mail to <tt>bugs@lists.example.com</tt>,
+<tt>user2@example.org</tt> as specified by <tt>Mail-Followup-To</tt>,
+but not to <tt>user1@example.org</tt>. The <tt>Mail-Followup-To</tt>
+field set will include your address since you are not subscribed to
+that list:</p>
+<pre>From: your.address@your.domain.example.org
+To: bugs@lists.example.com, user2@example.org
+Mail-Followup-To: bugs@lists.example.com, user2@example.org,
+	your.address@your.domain.example.org</pre>
+
+<p>If the same email had been sent to <tt>coolstuff@lists.example.com</tt>
+to which you subscribed:</p>
+<pre>From: user1@example.org
+To: coolstuff@lists.example.com, user2@example.org
+Mail-Followup-To: coolstuff@lists.example.com, user2@example.org</pre>
+<p>your reply would have been:</p>
+<pre>From: your.address@your.domain.example.org
+To: coolstuff@lists.example.com, user2@example.org
+Mail-Followup-To: coolstuff@lists.example.com, user2@example.org</pre>
+<p>in order to tell people not to copy you if they want to reply to
+the list.</p>
+
+<h2>Sample configuration</h2>
+
+<p id="summary">The summary of the configuration in this example is:</p>
+<pre># I subscribed to coolstuff@lists.example.com
+subscribe coolstuff@lists.example.com
+# I know that bugs@lists.example.com is a list, but I didn't subscribe to it
+lists bugs@lists.example.com
+# Please <a href="#m">see my comment at the top of this page about this</a>
+set followup_to
+set honor_followup_to=yes
+</pre>
+
+<p>You should really consider configuring Mutt like that in order to make
+everybody's life easier.</p>
+
+<hr>
+
+<address>
+<a href="http://larve.net/people/hugo/">Hugo Haas</a>. Send comments to <a href="mailto:hugo@larve.net">hugo@larve.net</a>.<br>
+$Date: 2003-01-15 12:41:46 -0800 (Wed, 15 Jan 2003) $
+</address>
+
+
+
+
+</body></html>

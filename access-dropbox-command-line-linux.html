@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<!-- Xmodulo uses HeatMap AdAptive v1.4.8 by heatmaptheme.com -->
+<!-- render.php -->
+<html prefix="og: http://ogp.me/ns#" lang="en-US"><!-- Beginning of <head> --><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<!-- heatmapthemead_pre_wp_head hook -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<title>How to access Dropbox from the command line in Linux - Linux FAQ</title>
+<link rel="profile" href="http://gmpg.org/xfn/11"><link rel="pingback" href="http://xmodulo.com/xmlrpc.php">
+<link href="access-dropbox-command-line-linux_files/css.css" rel="stylesheet" type="text/css"><!-- end of heatmapthemead_pre_wp_head hook -->
+<!-- wp_head()-->
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.5.2.6 - https://yoast.com/wordpress/plugins/seo/ -->
+<link rel="canonical" href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html">
+<link rel="author" href="http://115769503924233918974/">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to access Dropbox from the command line in Linux - Linux FAQ">
+<meta property="og:description" content="Cloud storage is everywhere in today's multi-device environment where people want to access content across multiple devices wherever they go. Dropbox is the most widely used cloud storage service due to its elegant UI and flawless multi-platform compatibility. There are numerous official or unofficial Dropbox clients available on multiple platforms. Linux has its own share …Continue reading...">
+<meta property="og:url" content="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html">
+<meta property="og:site_name" content="Xmodulo">
+<meta property="article:tag" content="cli">
+<meta property="article:tag" content="dropbox">
+<meta property="article:section" content="Cloud Services">
+<meta property="article:published_time" content="2013-09-26T10:00:16+00:00">
+<meta property="article:modified_time" content="2013-09-26T03:22:29+00:00">
+<meta property="og:updated_time" content="2013-09-26T03:22:29+00:00">
+<meta property="og:image" content="http://farm6.staticflickr.com/5549/9943534636_9de00dbed7.jpg">
+<meta property="og:image" content="http://farm3.staticflickr.com/2851/9943645173_52d3fff89c.jpg">
+<meta property="og:image" content="http://farm4.staticflickr.com/3829/9943534516_5771695499.jpg">
+<meta property="og:image" content="http://farm6.staticflickr.com/5324/9944064476_b3c4457f8a.jpg">
+<meta property="og:image" content="http://farm6.staticflickr.com/5549/9944173496_fa04503243.jpg">
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel="alternate" type="application/rss+xml" title="Xmodulo » Feed" href="http://xmodulo.com/feed">
+<link rel="alternate" type="application/rss+xml" title="Xmodulo » Comments Feed" href="http://xmodulo.com/comments/feed">
+<link rel="alternate" type="application/rss+xml" title="Xmodulo » How to access Dropbox from the command line in Linux Comments Feed" href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html/feed">
+<link rel="stylesheet" href="access-dropbox-command-line-linux_files/output.css" type="text/css">
+<link rel="stylesheet" id="jetpack_likes-css" href="access-dropbox-command-line-linux_files/style_002.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack-subscriptions-css" href="access-dropbox-command-line-linux_files/subscriptions.css" type="text/css" media="all">
+<link rel="stylesheet" id="ts_fab_css-css" href="access-dropbox-command-line-linux_files/ts-fab.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack-widgets-css" href="access-dropbox-command-line-linux_files/widgets.css" type="text/css" media="all">
+<link rel="stylesheet" id="style-css" href="access-dropbox-command-line-linux_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="sharedaddy-css" href="access-dropbox-command-line-linux_files/sharing.css" type="text/css" media="all">
+<script type="text/javascript" src="access-dropbox-command-line-linux_files/plusone.js"></script>
+<script type="text/javascript" src="access-dropbox-command-line-linux_files/jquery.js"></script>
+<script type="text/javascript" src="access-dropbox-command-line-linux_files/jquery-migrate.js"></script>
+<script type="text/javascript" src="access-dropbox-command-line-linux_files/anti-spam.js"></script>
+<script type="text/javascript" src="access-dropbox-command-line-linux_files/q2w3-fixed-widget.js"></script>
+<script type="text/javascript" src="access-dropbox-command-line-linux_files/postmessage.js"></script>
+<script type="text/javascript" src="access-dropbox-command-line-linux_files/jquery_002.js"></script>
+<script type="text/javascript" src="access-dropbox-command-line-linux_files/jquery_003.js"></script>
+<script type="text/javascript" src="access-dropbox-command-line-linux_files/ts-fab.js"></script>
+<script type="text/javascript" src="access-dropbox-command-line-linux_files/small-menu.js"></script>
+<script type="text/javascript" src="access-dropbox-command-line-linux_files/comment-reply.js"></script>
+<script type="text/javascript" src="access-dropbox-command-line-linux_files/corescripts.js"></script>
+<script type="text/javascript" src="access-dropbox-command-line-linux_files/scripts.js"></script>
+<script type="text/javascript" src="access-dropbox-command-line-linux_files/plusone_002.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://xmodulo.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://xmodulo.com/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 3.8.2">
+<link rel="shortlink" href="http://wp.me/p2ZLjm-1ly">
+
+<!--Plugin WP Missed Schedule 2013.1231.2013 Active - Tag 6707293c0218e2d8b7aa38d418ffa608-->
+
+<!-- This site is patched which an important unfixed problem since WordPress 2.5+ to 3.9+ -->
+
+	<link rel="stylesheet" type="text/css" href="access-dropbox-command-line-linux_files/wp_social_toolbar.css">
+	<style type="text/css">
+#wps-toolbar-show { background:#666666 !important; }
+#wp-social-toolbar-show-box { border-color:#666666 !important; }
+#wps-toolbar-content #wps-toolbar-top #wps-close-button,.wpcs-border { background:#666666 !important; }
+#wps-toolbar-content #wps-toolbar-top #wps-twitter-status { background-color:#999999 !important; font-family:Arial, Helvetica, sans-serif; color:#ffffff; font-size:12px; background-image:url('http://xmodulo.com/wp-content/plugins/wp-social-toolbar-pro//images/icons/normal/bird/white.png'); background-repeat:no-repeat; }
+#wpsc-social-accounts,#wps-toolbar-bottom { background:#000000 !important; }
+#wpsc-social-accounts img:hover,.wpst-credit-pro:hover { background:#ffffff; }
+#wp-social-toolbar-show-box,#wps-toolbar-content #wps-toolbar-bottom #wpsc-social-accounts img,#wps-toolbar-content #wps-toolbar-bottom,.wpcs-share-icons { border-color:#666666 !important; }
+#wps-toolbar-content #wps-toolbar-top #wps-twitter-status a { color:#ffffff; }
+#wps-toolbar-bottom{ height: 40px !important; overflow:hidden !important; }
+</style>
+<!--[if IE]>
+<link rel="stylesheet" type="text/css" href="http://xmodulo.com/wp-content/plugins/wp-social-toolbar-pro/css/ie.css" />
+<![endif]-->
+		<style>
+			/* Link color */
+			a {
+				color: #1b8be0;
+			}
+		</style>
+			<style>
+			/* Max Width */
+			#heatmapthemead-leaderboard,
+			nav.main-navigation,
+			nav.secondary-navigation,
+			#heatmapthemead-branding-container,
+			.heatmapthemead-layout-both-sidebars #heatmapthemead-main,
+			.heatmapthemead-layout-primary-sidebar-content #heatmapthemead-main,
+			.heatmapthemead-layout-content-secondary-sidebar #heatmapthemead-main,
+			.heatmapthemead-layout-content #heatmapthemead-main
+			{
+				max-width: 1320px;
+			}
+		</style>
+		
+				<style>
+				#heatmapthemead-header, #heatmapthemead-footer { 
+					max-width: 1320px; 
+				} 
+			</style>
+					
+					<style>
+					/* Font Style */
+					h1,h2,h3,h4,h5,h6,
+					#heatmapthemead-header-text p#site-title,
+					#heatmapthemead-header-text p#site-description { font-family: 'Open Sans', Arial, Helvetica, sans-serif; }
+					.heatmapthemead-menu { font-family: 'Open Sans', Arial, Helvetica, sans-serif; }
+					body { font-size: 1.7em; }
+					body, button, input, select, textarea { font-family:  Arial, Helvetica, sans-serif; }
+				</style> 
+				<style type="text/css">
+			#site-title a,
+		#site-description {
+			color: #000000 !important;
+		}
+		</style>
+	<style type="text/css" id="syntaxhighlighteranchor"></style>
+<!-- End of wp_head() -->
+<!-- heatmapthemead_post_wp_head hook -->
+<!-- end of heatmapthemead_post_wp_head hook -->
+</head>
+<!-- End of <head> -->
+<body class="single single-post postid-5180 single-format-standard heatmapthemead-layout-both-sidebars  heatmapthemead-max-width-1320">
+<!-- heatmapthemead_start_body hook -->
+<!-- end of heatmapthemead_start_body hook -->
+<!-- The Header Bars -->
+<div id="heatmapthemead-header-wipe">
+<div id="heatmapthemead-header">
+<div id="heatmapthemead-header-container">
+  
+		<div id="heatmapthemead-primary-menu" class="heatmapthemead-menu">
+			<nav role="navigation" class="site-navigation main-navigation">
+				<p class="primary-small-nav-text">	
+					Menu				</p>
+				<div class="menu-menu-container"><ul id="menu-menu" class="menu"><li id="menu-item-5809" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-5809"><a href="http://xmodulo.com/">Home</a></li>
+<li id="menu-item-5811" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5811"><a href="http://xmodulo.com/about">About</a></li>
+<li id="menu-item-5814" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5814"><a href="http://ask.xmodulo.com/">Linux Q &amp; A</a></li>
+<li id="menu-item-6965" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-6965"><a href="http://list.xmodulo.com/">List</a></li>
+<li id="menu-item-5810" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5810"><a href="http://xmodulo.com/write-us">Write for Us</a></li>
+<li id="menu-item-5812" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5812"><a href="http://xmodulo.com/advertise">Advertise</a></li>
+<li id="menu-item-5813" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5813"><a href="http://xmodulo.com/contact">Contact</a></li>
+</ul></div>			</nav>
+		</div>
+			<div id="heatmapthemead-header-branding">
+		<div id="heatmapthemead-branding-container">
+							<header id="branding" role="banner">
+							<div id="heatmapthemead-header-text">
+			<aside>
+				<p id="site-title"><a href="http://xmodulo.com/" title="Xmodulo" rel="home">Xmodulo</a></p>
+				<p id="site-description">Linux FAQs, tips and tutorials</p>
+			</aside>
+		</div>
+					</header><!-- #branding -->
+			<div id="heatmapthemead-widget-position-header" class="heatmapthemead-widget-position heatmapthemead-homeheader widget-area heatmapthemead-static-header-widget" role="complementary"><aside class="widget"><div class="heatmapthemead-social-icons"><a id="heatmapthemead-fb-social-icon" class="heatmapthemead-social-icon" href="https://www.facebook.com/xmodulo" target="_blank"><img src="access-dropbox-command-line-linux_files/facebook.png" alt=""></a><a id="heatmapthemead-twitter-social-icon" class="heatmapthemead-social-icon" href="https://twitter.com/xmodulo" target="_blank"><img src="access-dropbox-command-line-linux_files/twitter_002.png" alt=""></a><a id="heatmapthemead-googleplus-social-icon" class="heatmapthemead-social-icon" href="https://plus.google.com/113402205121279785792" target="_blank"><img src="access-dropbox-command-line-linux_files/googleplus_002.png" alt=""></a><a id="heatmapthemead-linkedin-social-icon" class="heatmapthemead-social-icon" href="http://www.linkedin.com/in/xmodulo" target="_blank"><img src="access-dropbox-command-line-linux_files/linkedin.png" alt=""></a><a id="heatmapthemead-rss-social-icon" class="heatmapthemead-social-icon" href="http://xmodulo.com/feed" target="_blank"><img src="access-dropbox-command-line-linux_files/rss-feed.png" alt=""></a></div> <!--.heatmapthemead-social-icons --></aside></div> <!-- id="heatmapthemead-widget-position-header" -->
+		</div><!-- #heatmapthemead-branding-container -->
+	</div><!-- #heatmapthemead-header-branding -->		
+</div> <!-- id="heatmapthemead-header-container" -->
+</div> <!-- id="heatmapthemead-header" -->
+</div> <!-- id="heatmapthemead-header-wipe" -->
+<!-- The main part of the page (with content and sidebars) -->
+<div id="heatmapthemead-main-wipe">
+<div id="heatmapthemead-main">
+<div id="heatmapthemead-widget-position-leaderboard" class="heatmapthemead-widget-position heatmapthemead-leaderboard widget-area" role="complementary"><aside id="heatmapthemead_ad-3" class="widget heatmapthemead_ad_widget">				<div class="heatmapthemead_ad_widget"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-7245163904660683";
+/* xmodulo-navlinks */
+google_ad_slot = "3936448789";
+google_ad_width = 728;
+google_ad_height = 15;
+//-->
+</script>
+<script type="text/javascript" src="access-dropbox-command-line-linux_files/show_ads.js">
+</script></div>
+			</aside></div> <!-- id="heatmapthemead-widget-position-leaderboard" -->
+<div id="heatmapthemead-content">
+<div id="heatmapthemead-the-content" class="site-content">
+<div id="heatmapthemead-the-content-container" role="main">
+	
+	
+		<article id="post-5180" class="post-5180 post type-post status-publish format-standard hentry category-cloud-services tag-cli tag-dropbox">
+		
+					<header class="entry-header">
+			<h1 class="entry-title"><a href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html" title="Permalink to How to access Dropbox from the command line in Linux" rel="bookmark">How to access Dropbox from the command line in Linux</a></h1>
+		</header> <!-- heatmapthemead-entry-header -->
+	<div class="heatmapthemead-header-entry-meta entry-meta"><span class="heatmapthemead-post-details">Posted on <a href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html" title="10:00 am" rel="bookmark"><time class="entry-date" datetime="2013-09-26T10:00:16+00:00">September 26, 2013</time></a><span class="byline"> by <span class="author vcard"><a class="url fn n" href="http://xmodulo.com/author/nanni" title="View all posts by Dan Nanni" rel="author">Dan Nanni</a></span></span></span>					<span class="comments-link"><a href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html#comments" title="Comment on How to access Dropbox from the command line in Linux">12 Comments</a></span>
+								</div><!-- .heatmapthemead-entry-meta -->
+			<div class="entry-content">
+<!--Ad Injection mfunc mode ad include code--><!--mfunc include_once('/home/kimchido/public_html/wp-content/plugins/ad-injection/adshow.php') --><!--/mfunc-->
+<p>Cloud storage is everywhere in today's multi-device environment where
+ people want to access content across multiple devices wherever they go.
+ Dropbox is the most widely used cloud storage service due to its 
+elegant UI and flawless multi-platform compatibility. There are numerous
+ official or unofficial Dropbox clients available on multiple platforms.</p>
+<p>Linux has its own share of Dropbox clients; CLI clients as well as GUI-based clients. <a highlight="" href="http://www.andreafabrizi.it/?dropbox_uploader" target="_blank">Dropbox Uploader</a> is an easy-to-use Dropbox CLI client written in BASH scripting language. In this tutorial, I describe <strong>how to access Dropbox from the command line in Linux by using Dropbox Uploader</strong>.</p>
+<h3>Install and Configure Dropbox Uploader on Linux</h3>
+<p>To use Dropbox Uploader, download the script and make it executable.</p>
+<div class="console">
+$ wget https://raw.github.com/andreafabrizi/Dropbox-Uploader/master/dropbox_uploader.sh<br>
+$ chmod +x dropbox_uploader.sh
+</div>
+<p></p>
+<p>Make sure that you have installed <tt>curl</tt> on your system, since Dropbox Uploader runs Dropbox APIs via <tt>curl</tt>.</p>
+<p>To configure Dropbox Uploader, simply run <tt>dropbox_uploader.sh</tt>.  When you run the script for the first time, it will ask you to grant the script access to your Dropbox account.</p>
+<div class="console">
+$ ./dropbox_uploader.sh
+</div>
+<p><a target="_blank" rel="nofollow" href="http://www.flickr.com/photos/xmodulo/9943534636/"><img src="access-dropbox-command-line-linux_files/9943534636_9de00dbed7.jpg"></a></p>
+<p>As instructed above, go to https://www2.dropbox.com/developers/apps 
+on your web browser, and create a new Dropbox app.  Fill in the 
+information of the new app as shown below, and enter the app name as 
+generated by Dropbox Uploader.</p>
+<p><a target="_blank" rel="nofollow" href="http://www.flickr.com/photos/xmodulo/9943645173/"><img src="access-dropbox-command-line-linux_files/9943645173_52d3fff89c.jpg"></a></p>
+<p>After you have created a new app, you will see app key/secret on the next page.  Make a note of them.</p>
+<p><a target="_blank" rel="nofollow" href="http://www.flickr.com/photos/xmodulo/9943534516/"><img src="access-dropbox-command-line-linux_files/9943534516_5771695499.jpg"></a></p>
+<p>Enter the app key and secret in the terminal window where dropbox_uploader.sh is running. <tt>dropbox_uploader.sh</tt> will then generate an oAUTH URL (e.g., http://www2.dropbox.com/1/oauth/authorize?oauth_token=XXXXXXX).</p>
+<p><a target="_blank" rel="nofollow" href="http://www.flickr.com/photos/xmodulo/9944064476/"><img src="access-dropbox-command-line-linux_files/9944064476_b3c4457f8a.jpg"></a></p>
+<p>Go to the oAUTH URL generated above on your web browser, and allow access to your Dropbox account.</p>
+<p><a target="_blank" rel="nofollow" href="http://www.flickr.com/photos/xmodulo/9944173496/"><img src="access-dropbox-command-line-linux_files/9944173496_fa04503243.jpg"></a></p>
+<!--Ad Injection mfunc mode ad code--><!--mfunc adshow_display_ad_file_v2(array('ad_random_1.txt'), array(100), array('align' => '', 'clear' => '', 'margin_top' => '10', 'margin_bottom' => '10', 'padding_top' => '', 'padding_bottom' => ''), array(), array()) -->
+
+<div style="margin-top:10px;margin-bottom:10px;"><script type="text/javascript">
+google_ad_client = "ca-pub-7245163904660683";
+if (!document.body.clientWidth || document.body.clientWidth >= 360) {
+google_ad_slot = "5804090714";
+google_ad_width = 336;
+google_ad_height = 280;
+} else {
+google_ad_slot = "3390650388";
+google_ad_width = 300;
+google_ad_height = 250;
+}
+</script>
+<script type="text/javascript" src="access-dropbox-command-line-linux_files/show_ads.js">
+</script></div><!--/mfunc-->
+
+<p>This completes Dropbox Uploader configuration. To check whether 
+Dropbox Uploader is successfully authenticated, run the following 
+command.</p>
+<div class="console">
+$ ./dropbox_uploader.sh info
+</div>
+<pre>Dropbox Uploader v0.12
+
+ &gt; Getting info... 
+
+Name:	Dan Nanni
+UID:	XXXXXXXXXX
+Email:	my@email_address
+Quota:	2048 Mb
+Used:	13 Mb
+Free:	2034 Mb
+</pre>
+<h3>Dropbox Uploader Examples</h3>
+<p>To list all contents in the top-level directory:</p>
+<div class="console">
+$ ./dropbox_uploader.sh list
+</div>
+<p></p>
+<p>To list all contents in a specific folder:</p>
+<div class="console">
+$ ./dropbox_uploader.sh list Documents/manuals
+</div>
+<p></p>
+<p>To upload a local file to a remote Dropbox folder:</p>
+<div class="console">
+$ ./dropbox_uploader.sh upload snort.pdf Documents/manuals
+</div>
+<p></p>
+<p>To download a remote file from Dropbox to a local file:</p>
+<div class="console">
+$ ./dropbox_uploader.sh download Documents/manuals/mysql.pdf ./mysql.pdf
+</div>
+<p></p>
+<p>To download an entire remote folder from Dropbox to a local folder:</p>
+<div class="console">
+$ ./dropbox_uploader.sh download Documents/manuals ./manuals
+</div>
+<p></p>
+<p>To create a new remote folder on Dropbox:</p>
+<div class="console">
+$ ./dropbox_uploader.sh mkdir Documents/whitepapers
+</div>
+<p></p>
+<p>To delete an entire remote folder (including all its contents) on Dropbox:</p>
+<div class="console">
+$ ./dropbox_uploader.sh delete Documents/manuals
+</div><p></p>
+<div style="padding: 10px 10px 10px 0px;"><div style="float: left; width: 336px;margin-right:10px;">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-7245163904660683";
+google_ad_slot = "5804090714";
+google_ad_width = 336;
+google_ad_height = 280;
+//-->
+</script>
+<script type="text/javascript" src="access-dropbox-command-line-linux_files/show_ads.js">
+</script>
+</div><h3><img style="vertical-align:middle;height:20px;" src="access-dropbox-command-line-linux_files/rss_small.png"> Subscribe to Xmodulo</h3>
+<p>Do you want to receive <strong>Linux FAQs, detailed tutorials and tips</strong>
+ published at Xmodulo?   Enter your email address below, and we will 
+deliver our Linux posts straight to your email box, for free.  Delivery 
+powered by Google Feedburner.</p>
+<form id="feedburner_email_widget_sbef" action="http://feedburner.google.com/fb/a/mailverify" method="post" onsubmit="window.open(\" http:="" feedburner.google.com="" fb="" a="" mailverify?uri="linuxfaq\&quot;," \"popupwindow\",="" \"scrollbars="yes,width=550,height=520\&quot;);return" true;"="" target="popupwindow"><input id="feedburner_email_widget_bottom_email" name="email" value="Your email address" onclick="javascript:if(this.value==\" your="" email="" address\"){this.value="\&quot;\&quot;;}&quot;" type="text"><input value="linuxfaq" name="uri" type="hidden"><input value="en_US" name="loc" type="hidden"><input id="feedburner_submit" value="Subscribe" type="submit"></form></div><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-official sd-sharing"><h3 class="sd-title">Share this FAQ:</h3><div class="sd-content"><ul><li class="share-google-plus-1"><div class="googleplus1_button"><div class="g-plus" data-action="share" data-annotation="bubble" data-href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html"></div></div></li><li class="share-facebook"><div class="like_button"><iframe src="access-dropbox-command-line-linux_files/like.xhtml" style="border:none; overflow:hidden; width:96px; height:21px;" allowtransparency="true" frameborder="0" scrolling="no"></iframe></div></li><li class="share-twitter"><div class="twitter_button"><iframe allowtransparency="true" src="access-dropbox-command-line-linux_files/tweet_button.xhtml" style="width:101px; height:20px;" frameborder="0" scrolling="no"></iframe></div></li><li class="share-linkedin"><div class="linkedin_button"><script type="in/share" data-url="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html" data-counter="right"></script></div></li><li class="share-end"></li></ul></div></div></div><div class="yarpp-related">
+<br><h3>Related FAQs:</h3><ul>
+<li><a href="http://xmodulo.com/2013/06/how-to-access-amazon-s3-cloud-storage-from-command-line-in-linux.html" rel="bookmark" title="How to access Amazon S3 cloud storage from command line in Linux">How to access Amazon S3 cloud storage from command line in Linux</a></li>
+<li><a href="http://xmodulo.com/2014/01/access-facebook-command-line-linux.html" rel="bookmark" title="How to access Facebook from the command line on Linux">How to access Facebook from the command line on Linux</a></li>
+<li><a href="http://xmodulo.com/2013/12/access-twitter-command-line-linux.html" rel="bookmark" title="How to access Twitter from the command line on Linux">How to access Twitter from the command line on Linux</a></li>
+<li><a href="http://xmodulo.com/2013/05/how-to-sync-google-drive-from-the-command-line-on-linux.html" rel="bookmark" title="How to sync Google Drive from the command line on Linux">How to sync Google Drive from the command line on Linux</a></li>
+<li><a href="http://xmodulo.com/2014/03/manage-vms-openstack-command-line-tools.html" rel="bookmark" title="How to manage VMs with OpenStack command line tools">How to manage VMs with OpenStack command line tools</a></li>
+</ul>
+</div>
+</div> <!-- .entry-content -->    
+    				<div class="heatmapthemead-footer-entry-meta">
+				<footer class="entry-meta">
+				
+										
+														<p class="heatmapthemead-cat-links">
+									Categories: <a href="http://xmodulo.com/category/cloud-services" title="View all posts in Cloud Services" rel="tag">Cloud Services</a>								</p>
+													
+													<p class="heatmapthemead-tag-links">
+								Tags: <a href="http://xmodulo.com/tag/cli" rel="tag">cli</a>, <a href="http://xmodulo.com/tag/dropbox" rel="tag">dropbox</a>							</p>
+								
+								
+				</footer><!-- #heatmapthemead-article-meta -->    
+			</div><!-- #footer-entry-meta --> 
+    	<div id="comments" class="comments-area">
+	
+	
+			<h2 id="comments-title">
+			12 thoughts on “<span>How to access Dropbox from the command line in Linux</span>”		</h2>
+
+		
+		<ol class="commentlist">
+					<li class="comment even thread-even depth-1" id="li-comment-4442">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-4442" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html?replytocom=4442#respond" onclick='return addComment.moveForm("comment-4442", "4442", "respond", "5180")'>Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="access-dropbox-command-line-linux_files/5ca4136a060a2574a936cdf6881f733c.png" class="avatar avatar-68 photo" height="68" width="68"><span class="fn">Eric Yeoh</span> on <a href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html#comment-4442"><time datetime="2013-09-27T04:00:13+00:00">September 27, 2013 at 4:00 am</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>I have nothing against Dropbox but 
+if we are serious about privacy, having your own mail and file storage 
+servers in a place where the US authorities can't get to would be sound.</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-4456">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-4456" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html?replytocom=4456#respond" onclick='return addComment.moveForm("comment-4456", "4456", "respond", "5180")'>Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="access-dropbox-command-line-linux_files/117eb1bc33bb4c7a00b0a5c2e1880412.png" class="avatar avatar-68 photo" height="68" width="68"><span class="fn">Perplexed</span> on <a href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html#comment-4456"><time datetime="2013-09-27T15:19:25+00:00">September 27, 2013 at 3:19 pm</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>I don't get it. If you're running 
+the official DropBox client, you can open a terminal on the DropBox 
+folder and use any file-related command (ls, rm, cp, grep, awk, find, 
+etc...). No complex setup needed. What does this do that's not already 
+available?</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		<ul class="children">
+		<li class="comment even depth-2" id="li-comment-4470">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-4470" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html?replytocom=4470#respond" onclick='return addComment.moveForm("comment-4470", "4470", "respond", "5180")'>Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="access-dropbox-command-line-linux_files/15ec878547aea50f3c71b4d7f0ade2a7.png" class="avatar avatar-39 photo" height="39" width="39"><span class="fn">Tom</span> on <a href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html#comment-4470"><time datetime="2013-09-28T04:01:36+00:00">September 28, 2013 at 4:01 am</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>This is good for people running servers without a GUI.</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-nanni bypostauthor odd alt depth-2" id="li-comment-4473">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-4473" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html?replytocom=4473#respond" onclick='return addComment.moveForm("comment-4473", "4473", "respond", "5180")'>Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="access-dropbox-command-line-linux_files/3a851be8f0817a4981056998f9f52562.png" class="avatar avatar-39 photo" height="39" width="39"><span class="fn"><a href="http://xmodulo.com/" rel="external nofollow" class="url">Dan Nanni</a></span> on <a href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html#comment-4473"><time datetime="2013-09-28T13:56:22+00:00">September 28, 2013 at 1:56 pm</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>That’s when you are on a restricted
+ multi-user Linux system where you don’t have Python available or cannot
+ install anything on your own.</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="li-comment-4477">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-4477" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html?replytocom=4477#respond" onclick='return addComment.moveForm("comment-4477", "4477", "respond", "5180")'>Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="access-dropbox-command-line-linux_files/f731ab5313beb6fd680c8a9a51612925.png" class="avatar avatar-68 photo" height="68" width="68"><span class="fn">Sitaram</span> on <a href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html#comment-4477"><time datetime="2013-09-28T16:47:03+00:00">September 28, 2013 at 4:47 pm</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>@Perplexed: it may be because the 
+dropbox client is proprietary software.  Trusting the API is one thing, 
+trusting closed source software on your machine is quite another.</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-4603">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-4603" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html?replytocom=4603#respond" onclick='return addComment.moveForm("comment-4603", "4603", "respond", "5180")'>Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="access-dropbox-command-line-linux_files/b1b48e497135041bf34e4a67ef82006e.png" class="avatar avatar-68 photo" height="68" width="68"><span class="fn">Seth Williams</span> on <a href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html#comment-4603"><time datetime="2013-10-09T06:24:14+00:00">October 9, 2013 at 6:24 am</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>That's an excellent tutorial Dan. Looking forward to more such tutorials from you.</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="li-comment-4683">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-4683" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html?replytocom=4683#respond" onclick='return addComment.moveForm("comment-4683", "4683", "respond", "5180")'>Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="access-dropbox-command-line-linux_files/aed3b39f4e4bbc24f9d6aad174d5fc8b.png" class="avatar avatar-68 photo" height="68" width="68"><span class="fn"><a href="http://www.youtube.com/watch?v=AkfOsRwzO5o" rel="external nofollow" class="url">JBaf</a></span> on <a href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html#comment-4683"><time datetime="2013-10-16T19:43:34+00:00">October 16, 2013 at 7:43 pm</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>This is a great script, but under my company's RedHat printf's syntax seems not to work quite good :<br>
+"encoded+=: command not found"<br>
+or "printf: -v: invalid option"<br>
+Do you have a clue ?  I'm not that good at URL encoding in regexp-bash style...</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		<ul class="children">
+		<li class="comment byuser comment-author-nanni bypostauthor odd alt depth-2" id="li-comment-4684">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-4684" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html?replytocom=4684#respond" onclick='return addComment.moveForm("comment-4684", "4684", "respond", "5180")'>Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="access-dropbox-command-line-linux_files/3a851be8f0817a4981056998f9f52562.png" class="avatar avatar-39 photo" height="39" width="39"><span class="fn"><a href="http://xmodulo.com/" rel="external nofollow" class="url">Dan Nanni</a></span> on <a href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html#comment-4684"><time datetime="2013-10-16T19:59:09+00:00">October 16, 2013 at 7:59 pm</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>It might be something to do with the shell you are using.   Dropbox Uploader is a BASH script.  So make sure to use BASH.</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1" id="li-comment-6512">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-6512" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html?replytocom=6512#respond" onclick='return addComment.moveForm("comment-6512", "6512", "respond", "5180")'>Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="access-dropbox-command-line-linux_files/b63a1e36150ec69a8e63832c4013e9c4.jpeg" class="avatar avatar-68 photo" height="68" width="68"><span class="fn">Malachi</span> on <a href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html#comment-6512"><time datetime="2014-03-22T18:53:01+00:00">March 22, 2014 at 6:53 pm</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>I want to use curl to talk to 
+dropbox and found something about that on stackoverflow. Either way, it 
+needs an oauth access token secret. How do I get that?</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		<ul class="children">
+		<li class="comment byuser comment-author-nanni bypostauthor odd alt depth-2" id="li-comment-6516">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-6516" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html?replytocom=6516#respond" onclick='return addComment.moveForm("comment-6516", "6516", "respond", "5180")'>Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="access-dropbox-command-line-linux_files/3a851be8f0817a4981056998f9f52562.png" class="avatar avatar-39 photo" height="39" width="39"><span class="fn"><a href="http://xmodulo.com/" rel="external nofollow" class="url">Dan Nanni</a></span> on <a href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html#comment-6516"><time datetime="2014-03-23T01:51:25+00:00">March 23, 2014 at 1:51 am</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>Refer to the Dropbox tutorial here:<br>
+<a href="https://www.dropbox.com/developers/datastore/tutorial/http" rel="nofollow">https://www.dropbox.com/developers/datastore/tutorial/http</a></p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="li-comment-6573">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-6573" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html?replytocom=6573#respond" onclick='return addComment.moveForm("comment-6573", "6573", "respond", "5180")'>Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="access-dropbox-command-line-linux_files/b63a1e36150ec69a8e63832c4013e9c4.jpeg" class="avatar avatar-68 photo" height="68" width="68"><span class="fn">Malachi</span> on <a href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html#comment-6573"><time datetime="2014-03-31T15:28:18+00:00">March 31, 2014 at 3:28 pm</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>Ok, I started all over. I created 
+the app in dropbox, and followed all the instructions. Now I run the 
+upload thing and upload it to "/"(plus filename).<br>
+The reply I get is Failed: An error occurred requesting /upload</p>
+<p>The documentation isn't giving me any clues. Does anyone on here knows what I'm doing wrong?</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		<ul class="children">
+		<li class="comment odd alt depth-2" id="li-comment-6683">
+			<div class="heatmapthemead-comment-article">
+				<article id="comment-6683" class="comment">
+					<footer class="comment-meta">
+						<div class="reply">
+							<a class="comment-reply-link" href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html?replytocom=6683#respond" onclick='return addComment.moveForm("comment-6683", "6683", "respond", "5180")'>Reply</a>						</div><!-- .reply -->
+						<div class="comment-author vcard">
+							<img alt="" src="access-dropbox-command-line-linux_files/8d202bf69709db0a2c8fa98c610584f0.png" class="avatar avatar-39 photo" height="39" width="39"><span class="fn"><a href="http://stackoverflow.com/users/3076252/user3076252" rel="external nofollow" class="url">Ted</a></span> on <a href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html#comment-6683"><time datetime="2014-04-10T19:35:27+00:00">April 10, 2014 at 7:35 pm</time></a> <span class="says">said:</span>		
+													</div><!-- .comment-author .vcard -->
+		
+								
+					</footer>
+		
+					<div class="comment-content"><p>I had the same problem, and I think
+ it was because my token permissions didn't match what's on the dropbox 
+account.  Unlink and try again, but set permissions to "a" (App folder),
+ not "f" (Full).</p>
+</div>
+				</article><!-- #comment-## -->
+			</div><!-- .heatmapthemead-comment-article -->
+	
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		</ol>
+
+		
+	
+	
+									<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a comment <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://xmodulo.com/2013/09/access-dropbox-command-line-linux.html#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://xmodulo.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																			<p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p>							<p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" size="30" aria-required="true" type="text"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" size="30" aria-required="true" type="text"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" size="30" type="text"></p>
+												<p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>												<p class="form-submit">
+							<input name="submit" id="submit" value="Post Comment" type="submit">
+							<input name="comment_post_ID" value="5180" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+						</p>
+						<p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="6b7eaa9012" type="hidden"></p>
+	<p class="comment-form-ant-spm" style="clear:both;">
+		<strong>Current <span style="display:none;">day</span> <span style="display:none;">month</span> <span style="display:inline;">ye@r</span></strong> <span class="required">*</span>
+		<input name="ant-spm-a" id="ant-spm-a" value="2014" type="hidden">
+		<input name="ant-spm-q" id="ant-spm-q" size="30" value="21" type="text">
+	</p>
+	
+	<p class="comment-form-ant-spm-2" style="display:none;">
+		<strong>Leave this field empty</strong> <span class="required">*</span>
+		<input highlight="" name="ant-spm-e-email-url" id="ant-spm-e-email-url" size="30" type="text">
+	</p>
+	<p class="comment-subscription-form"><input name="subscribe_comments" id="subscribe_comments" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" type="checkbox"> <label class="subscribe-label" id="subscribe-label" for="subscribe_comments">Notify me of follow-up comments by email.</label></p><p class="comment-subscription-form"><input name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;" type="checkbox"> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog">Notify me of new posts by email.</label></p>					</form>
+							</div><!-- #respond -->
+			
+</div><!-- #comments .comments-area -->		</article><!-- #post-5180 -->        
+			<div id="heatmapthemead-post-navigation">
+            <nav role="navigation" id="nav-below" class="site-navigation post-navigation">
+        
+                    
+                <div class="nav-previous"><a href="http://xmodulo.com/2013/09/interesting-facts-fedora-linux.html" rel="prev"><span class="meta-nav">«</span> Interesting facts about Fedora Linux</a></div>                <div class="nav-next"><a href="http://xmodulo.com/2013/09/access-ssh-terminal-web-browser-linux.html" rel="next">How to access ssh terminal in web browser on Linux <span class="meta-nav">»</span></a></div>        
+                    
+            </nav><!-- .site-navigation post-navigation -->
+        </div><!-- #heatmapthemead-post-navigation -->
+		</div> <!-- id="heatmapthemead-the-content-container" --> 
+</div> <!-- id="heatmapthemead-the-content" --> 
+</div> <!-- id="heatmapthemead-content" --> 
+<!-- primary sidebar -->
+<div id="heatmapthemead-primary-sidebar">
+<div id="heatmapthemead-primary-sidebar-container" role="complementary">
+<div id="heatmapthemead-widget-position-primary" class="heatmapthemead-widget-position heatmapthemead-primary" role="complementary"><aside id="heatmapthemead_ad-6" class="widget heatmapthemead_ad_widget">				<div class="heatmapthemead_ad_widget"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-7245163904660683";
+/* xmodulo-leftskyscraper */
+google_ad_slot = "9982982382";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript" src="access-dropbox-command-line-linux_files/show_ads.js">
+</script></div>
+			</aside></div> <!-- id="heatmapthemead-widget-position-primary" -->
+</div> <!-- id="heatmapthemead-primary-sidebar-container" -->
+</div> <!-- id="heatmapthemead-primary-sidebar" -->
+<!-- secondary sidebar -->
+<div id="heatmapthemead-secondary-sidebar">
+<div id="heatmapthemead-secondary-sidebar-container" role="complementary">
+<div id="heatmapthemead-widget-position-secondary" class="heatmapthemead-widget-position heatmapthemead-secondary widget-area" role="complementary"><aside id="feedburneremailwidget-2" class="widget FeedburnerEmailWidget"><h4 class="widget-title">Enter your email address to subscribe</h4><form id="feedburner_email_widget_sbef" action="http://feedburner.google.com/fb/a/mailverify" method="post" onsubmit="window.open('http://feedburner.google.com/fb/a/mailverify?uri=linuxfaq', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true;" target="popupwindow"><input id="feedburner_email_widget_sbef_email" name="email" value="Your email address" onclick="javascript:if(this.value=='Your email address'){this.value= '';}" type="text"><input value="linuxfaq" name="uri" type="hidden"><input value="en_US" name="loc" type="hidden"><input id="feedburner_email_widget_sbef_submit" value="Subscribe" type="submit"></form></aside><aside id="text-11" class="widget widget_text">			<div class="textwidget"><!-- Place this tag where you want the widget to render. -->
+<div class="g-page" data-width="280" data-href="//plus.google.com/113402205121279785792" data-layout="landscape" data-rel="publisher"></div>
+
+<!-- Place this tag after the last widget tag. -->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script></div>
+		</aside><aside id="search-4" class="widget widget_search"><form role="search" method="get" id="searchform" class="searchform" action="http://xmodulo.com/">
+				<div>
+					<label class="screen-reader-text" for="s">Search for:</label>
+					<input name="s" id="s" type="text">
+					<input id="searchsubmit" value="Search" type="submit">
+				</div>
+			</form></aside><aside id="oio-widget-2" class="widget oio">
+<ul class="oio-banner-zone" id="oio-banner-1" style="width:275px; height:125px; float:left;">
+<li style="width:125px; height:125px; margin:0 25px 25px 0;"><a rel="nofollow" target="_blank" href="https://www.digitalocean.com/?refcode=5605bcc01645" title="SSD cloud server starting from $5 / month"><img src="access-dropbox-command-line-linux_files/ZHbGR9_digitalocean.jpg" alt="SSD cloud server starting from $5 / month" style="width:125px; height:125px; border:0px;"></a></li>
+<li style="width:125px; height:125px; margin:0 0 25px 0;"><a rel="nofollow" target="_blank" href="http://xmodulo.com/advertise#banner" title="Advertise Here"><img src="access-dropbox-command-line-linux_files/ad.png" alt="Advertise Here" style="width:125px; height:125px; border:0px;"></a></li>
+</ul>
+<hr class="oio-clear-left">
+</aside><aside id="heatmapthemead_ad-4" class="widget heatmapthemead_ad_widget">				<div class="heatmapthemead_ad_widget"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-7245163904660683";
+/* xmodulo-side-links */
+google_ad_slot = "2515372787";
+google_ad_width = 200;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript" src="access-dropbox-command-line-linux_files/show_ads.js">
+</script></div>
+			</aside><aside id="relatedpoststhumbnailswidget-2" class="widget widget_relatedpoststhumbnailswidget"><h4 class="widget-title">Related Linux FAQs</h4><div style="clear: both"></div><div style="border: 0pt none ; margin: 0pt; padding: 0pt;"><a highlight="" onmouseout="this.style.backgroundColor='#FFFFFF'" onmouseover="this.style.backgroundColor='#EEEEEF'" style="background-color: #FFFFFF; border-right: 1px solid #DDDDDD; border-bottom: medium none; margin: 0pt; padding: 6px; display: block; float: left; text-decoration: none; text-align: left; cursor: pointer;" href="http://xmodulo.com/2013/02/how-to-mount-box-com-cloud-storage-on-linux.html"><div style="border: 0pt none ; margin: 0pt; padding: 0pt; width: 130px; height: 230px;"><div style="border: 1pt solid #000000; margin: 0pt; padding: 0pt; background: transparent url(http://farm9.staticflickr.com/8507/8477100699_912fcd61ea_q.jpg) no-repeat scroll 0% 0%; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; width: 130px; height: 130px;"></div><div style="border: 0pt none; margin: 3px 0pt 0pt; padding: 0pt; font-family: ; font-style: normal; font-variant: normal; font-weight: normal; font-size: px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; color: #333333;">How to mount Box.com cloud storage on Linux</div></div></a><a highlight="" onmouseout="this.style.backgroundColor='#FFFFFF'" onmouseover="this.style.backgroundColor='#EEEEEF'" style="background-color: #FFFFFF; border-right: 1px solid #DDDDDD; border-bottom: medium none; margin: 0pt; padding: 6px; display: block; float: left; text-decoration: none; text-align: left; cursor: pointer;" href="http://xmodulo.com/2013/05/how-to-sync-google-drive-from-the-command-line-on-linux.html"><div style="border: 0pt none ; margin: 0pt; padding: 0pt; width: 130px; height: 230px;"><div style="border: 1pt solid #000000; margin: 0pt; padding: 0pt; background: transparent url(http://farm9.staticflickr.com/8554/8745579077_da36040387_q.jpg) no-repeat scroll 0% 0%; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; width: 130px; height: 130px;"></div><div style="border: 0pt none; margin: 3px 0pt 0pt; padding: 0pt; font-family: ; font-style: normal; font-variant: normal; font-weight: normal; font-size: px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; color: #333333;">How to sync Google Drive from the command line on Linux</div></div></a><a highlight="" onmouseout="this.style.backgroundColor='#FFFFFF'" onmouseover="this.style.backgroundColor='#EEEEEF'" style="background-color: #FFFFFF; border-right: 1px solid #DDDDDD; border-bottom: medium none; margin: 0pt; padding: 6px; display: block; float: left; text-decoration: none; text-align: left; cursor: pointer;" href="http://xmodulo.com/2013/06/how-to-access-amazon-s3-cloud-storage-from-command-line-in-linux.html"><div style="border: 0pt none ; margin: 0pt; padding: 0pt; width: 130px; height: 230px;"><div style="border: 1pt solid #000000; margin: 0pt; padding: 0pt; background: transparent url(http://farm3.staticflickr.com/2840/9417071921_fc4df083af_q.jpg) no-repeat scroll 0% 0%; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; width: 130px; height: 130px;"></div><div style="border: 0pt none; margin: 3px 0pt 0pt; padding: 0pt; font-family: ; font-style: normal; font-variant: normal; font-weight: normal; font-size: px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; color: #333333;">How to access Amazon S3 cloud storage from command line in Linux</div></div></a><a highlight="" onmouseout="this.style.backgroundColor='#FFFFFF'" onmouseover="this.style.backgroundColor='#EEEEEF'" style="background-color: #FFFFFF; border-right: 1px solid #DDDDDD; border-bottom: medium none; margin: 0pt; padding: 6px; display: block; float: left; text-decoration: none; text-align: left; cursor: pointer;" href="http://xmodulo.com/2013/10/things-installing-ubuntu-13-10.html"><div style="border: 0pt none ; margin: 0pt; padding: 0pt; width: 130px; height: 230px;"><div style="border: 1pt solid #000000; margin: 0pt; padding: 0pt; background: transparent url(http://farm8.staticflickr.com/7335/10485148606_024b99ebc0_q.jpg) no-repeat scroll 0% 0%; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; width: 130px; height: 130px;"></div><div style="border: 0pt none; margin: 3px 0pt 0pt; padding: 0pt; font-family: ; font-style: normal; font-variant: normal; font-weight: normal; font-size: px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; color: #333333;">What are things to do after installing Ubuntu 13.10?</div></div></a><a highlight="" onmouseout="this.style.backgroundColor='#FFFFFF'" onmouseover="this.style.backgroundColor='#EEEEEF'" style="background-color: #FFFFFF; border-right: 1px solid #DDDDDD; border-bottom: medium none; margin: 0pt; padding: 6px; display: block; float: left; text-decoration: none; text-align: left; cursor: pointer;" href="http://xmodulo.com/2014/01/watch-live-streaming-video-command-line-linux.html"><div style="border: 0pt none ; margin: 0pt; padding: 0pt; width: 130px; height: 230px;"><div style="border: 1pt solid #000000; margin: 0pt; padding: 0pt; background: transparent url(http://farm4.staticflickr.com/3678/12230741396_bea9a7a52d_q.jpg) no-repeat scroll 0% 0%; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; width: 130px; height: 130px;"></div><div style="border: 0pt none; margin: 3px 0pt 0pt; padding: 0pt; font-family: ; font-style: normal; font-variant: normal; font-weight: normal; font-size: px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; color: #333333;">How to watch live streaming video from the command line on Linux</div></div></a><a highlight="" onmouseout="this.style.backgroundColor='#FFFFFF'" onmouseover="this.style.backgroundColor='#EEEEEF'" style="background-color: #FFFFFF; border-right: 1px solid #DDDDDD; border-bottom: medium none; margin: 0pt; padding: 6px; display: block; float: left; text-decoration: none; text-align: left; cursor: pointer;" href="http://xmodulo.com/2014/03/geographic-location-ip-address-command-line.html"><div style="border: 0pt none ; margin: 0pt; padding: 0pt; width: 130px; height: 230px;"><div style="border: 1pt solid #000000; margin: 0pt; padding: 0pt; background: transparent url(http://farm4.staticflickr.com/3770/13117907603_3cce4123de_q.jpg) no-repeat scroll 0% 0%; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; width: 130px; height: 130px;"></div><div style="border: 0pt none; margin: 3px 0pt 0pt; padding: 0pt; font-family: ; font-style: normal; font-variant: normal; font-weight: normal; font-size: px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; color: #333333;">How to look up the geographic location of an IP address from the command line</div></div></a></div><div style="clear: both"></div></aside><aside id="rss-2" class="widget widget_rss"><h4 class="widget-title"><a class="rsswidget" href="http://ask.xmodulo.com/feed" title="Syndicate this content"><img style="border:0" src="access-dropbox-command-line-linux_files/rss.png" alt="RSS" height="14" width="14"></a> <a class="rsswidget" href="http://ask.xmodulo.com/" title="Find answers to commonly asked Linux questions">Ask Xmodulo</a></h4><ul><li><a class="rsswidget" href="http://ask.xmodulo.com/copy-file-content-clipboard-linux-desktop.html" title="Question: I have a relatively big text file. I would like to copy the whole file content, and paste it to somewhere else on my Linux desktop. Is it possible to copy the content of a file to clipboard without opening the file? In X windows system, clipboard is a mechanism for transferring data from […]Continue reading... The post How to copy file content to clipboard from the command line on Linux desktop appeared first on Ask Xmodulo.">How to copy file content to clipboard from the command line on Linux desktop</a></li><li><a class="rsswidget" href="http://ask.xmodulo.com/disable-desktop-gui-raspberry-pi.html" title="Question: I do not want to auto-start graphical desktop on my Raspberry Pi upon boot. How can I disable desktop GUI on Raspberry Pi? You don't have to run desktop GUI on Raspberry Pi if you are not using Raspberry Pi interactively, but rather remotely control it from terminal or remote desktop interfaces. Besides, even […]Continue reading... The post How to disable desktop GUI on Raspberry Pi appeared first on Ask Xmodulo.">How to disable desktop GUI on Raspberry Pi</a></li><li><a class="rsswidget" href="http://ask.xmodulo.com/change-timezone-linux.html" title="Question: I want to change the default timezone on my Linux system. How can I change timezone on Linux? To change the default timezone, the first step is to select the timezone of your region among available timezones. For that, you can use tzselect command which allows you to view and choose installed timezone files. […]Continue reading... The post How to change timezone on Linux appeared first on Ask Xmodulo.">How to change timezone on Linux</a></li><li><a class="rsswidget" href="http://ask.xmodulo.com/change-network-interface-names-permanently-linux.html" title="Question: I want to change a network interface name (e.g., &quot;eth0&quot;) to something else on my Linux. What is a proper way to rename network interfaces on Linux? In Linux, device name management is handled by udev system. When Linux kernel discovers a new device (e.g., a network interface card) added to the system, it […]Continue reading... The post How to change network interface names permanently in Linux appeared first on Ask Xmodulo.">How to change network interface names permanently in Linux</a></li><li><a class="rsswidget" href="http://ask.xmodulo.com/rotate-x-axis-labels-gnuplot.html" title="Question: I want to rotate the x-axis (xtics) labels in a Gnuplot figure. What is the Gnuplot command to rotate x-axis labels? To rotate x-axis labels on Gnuplot, you can use the following command. It will rotate x-axis labels by  degrees counter-clockwise. Optionally, you can also specify the offset of the labels to adjust […]Continue reading... The post How to rotate x-axis labels on Gnuplot appeared first on Ask Xmodulo.">How to rotate x-axis labels on Gnuplot</a></li><li><a class="rsswidget" href="http://ask.xmodulo.com/find-ubuntu-version-codename-shell-script.html" title="Question: I am writing a shell script where I need to obtain the release version and codename of Ubuntu system. How can I find Ubuntu version/codename inside a shell script? To find the version/codename of Ubuntu distribution from the command line, you can use lsb_release command which displays distribution-specific information. The following shell script snippet […]Continue reading... The post How to find Ubuntu version and codename in a shell script appeared first on Ask Xmodulo.">How to find Ubuntu version and codename in a shell script</a></li><li><a class="rsswidget" href="http://ask.xmodulo.com/install-grub-bootloader-master-boot-record-ubuntu-mint.html" title="Question: My Ubuntu fails to boot from disk after a clean installation. I suspect GRUB bootloader was not properly installed during Ubuntu installation for some reason. I would like to repair GRUB bootloader. How can I re-install GRUB bootloader on my Ubuntu? In Linux, master boot record (or MBR) is a reserved space in disk […]Continue reading... The post How to install GRUB bootloader on master boot record on Ubuntu or Mint appeared first on Ask Xmodulo.">How to install GRUB bootloader on master boot record on Ubuntu or Mint</a></li><li><a class="rsswidget" href="http://ask.xmodulo.com/change-message-login-console-linux.html" title="Question: I would like to show a custom message at the login console. How can I change a pre-login message which appears at the login screen? The pre-login message you see at the console screen is useful in multi-user Linux environment for various purposes. It can contain important messages for users to be aware of […]Continue reading... The post How to change a message at the login console on Linux appeared first on Ask Xmodulo.">How to change a message at the login console on Linux</a></li><li><a class="rsswidget" href="http://ask.xmodulo.com/find-biggest-files-directories-linux.html" title="Question: I want to know which files (or directories) consume the largest disk space on my Linux. What is a command line which finds the biggest files or directories? When it comes to checking which files or directories waste your disk space the most, du command is probably the easiest way. To find the biggest […]Continue reading... The post How to find the biggest files or directories on Linux appeared first on Ask Xmodulo.">How to find the biggest files or directories on Linux</a></li><li><a class="rsswidget" href="http://ask.xmodulo.com/find-device-name-usb-drive-linux.html" title="Question: I need to know the device name (e.g., /dev/sdb) assigned to my USB flash drive after I plug the drive into my Linux system. Is there an easy way to identify the device name of a USB drive on Linux? To find out the device name assigned to a USB drive or USB stick, […]Continue reading... The post How to find the device name of a USB drive on Linux appeared first on Ask Xmodulo.">How to find the device name of a USB drive on Linux</a></li></ul></aside><aside id="rss-3" class="widget widget_rss"><h4 class="widget-title"><a class="rsswidget" href="http://list.xmodulo.com/feed" title="Syndicate this content"><img style="border:0" src="access-dropbox-command-line-linux_files/rss.png" alt="RSS" height="14" width="14"></a> <a class="rsswidget" href="http://list.xmodulo.com/" title="Best Linux applications and software">Xmodulo List</a></h4><ul><li><a class="rsswidget" href="http://list.xmodulo.com/seahorse/" title="Seahorse is an open-source GUI application that allows users to manage and use encryption keys such as PGP keys, SSH keys and passwords in the GNOME desktop. Using Seahorse, one can manage passwords (e.g., […] The post Seahorse appeared first on Xmodulo List.   ">Seahorse</a></li><li><a class="rsswidget" href="http://list.xmodulo.com/bleachbit/" title="BleachBit is an open-source disk cleaner software which can automatically clean up unnecessary files or securely shred privacy-sensitive files from disk space, including various application-specific file caches, browser history, temporary files, system logs, unused […] The post BleachBit appeared first on Xmodulo List.   ">BleachBit</a></li><li><a class="rsswidget" href="http://list.xmodulo.com/unison/" title="Unison is an open-source file synchronization tool which allows bidirectional file sync between a pair of replicas located on the same host, as well as on different hosts. Unison detects (non-conflicting) updates in either […] The post Unison appeared first on Xmodulo List.   ">Unison</a></li><li><a class="rsswidget" href="http://list.xmodulo.com/nginx/" title="Nginx is an open-source web server, designed focused on high performance, scalability and low memory footprint under high workloads. Nginx serves static and dynamic web content based on a single-threaded event-driven fashion, as opposed […] The post Nginx appeared first on Xmodulo List.   ">Nginx</a></li><li><a class="rsswidget" href="http://list.xmodulo.com/novnc/" title="noVNC is an open-source web-based remote desktop (VNC) client. It is built with HTML5 WebSockets and Canvas, and has a built-in SSL/TLS encryption support. noVNC communicates with a remote VNC server via WebSockets connections […] The post noVNC appeared first on Xmodulo List.   ">noVNC</a></li><li><a class="rsswidget" href="http://list.xmodulo.com/shellinabox/" title="Shell In A Box (or simply shellinabox) is a web-based terminal emulator. shellinabox comes with a built-in web server which enables users to access terminal interface of the local server via JavaScript/CSS enabled web […] The post shellinabox appeared first on Xmodulo List.   ">shellinabox</a></li><li><a class="rsswidget" href="http://list.xmodulo.com/wxhexeditor/" title="wxHexEditor is an open-source hex editor built with wxWidgets toolkit library for cross-platform GUI. With 64-bit file descriptors, wxHexEditor is able to open and edit very large files or even entire disk devices (on […] The post wxHexEditor appeared first on Xmodulo List.   ">wxHexEditor</a></li><li><a class="rsswidget" href="http://list.xmodulo.com/kdenlive/" title="Kdenlive is an open-source video editor for KDE desktop, with support for a wide range of audio/video codecs. Kdenlive offers standard video editing features such as creating, croping, deleting, moving video/audio clips. It also […] The post Kdenlive appeared first on Xmodulo List.   ">Kdenlive</a></li><li><a class="rsswidget" href="http://list.xmodulo.com/meld/" title="Meld is an open-source GUI tool which can visualize and merge differences between files or directories. Meld provides two-way and three-way comparison via intuitive GUI. Also, it can visualize conflicts and perform automatic merge […] The post Meld appeared first on Xmodulo List.   ">Meld</a></li><li><a class="rsswidget" href="http://list.xmodulo.com/photorec/" title="PhotoRec is an open-source file recovery tool with command-line interface. Originally developed to recover accidentally deleted photo images, PhotoRec is now able to support 400+ different file formats including archiving, multimedia, document files, etc. […] The post PhotoRec appeared first on Xmodulo List.   ">PhotoRec</a></li></ul></aside><aside id="heatmapthemead_ad-7" class="widget heatmapthemead_ad_widget">				<div class="heatmapthemead_ad_widget"><iframe src="access-dropbox-command-line-linux_files/cm.html" border="0" marginwidth="0" style="border:none;" frameborder="0" height="250" scrolling="no" width="300"></iframe>
+</div>
+			</aside></div> <!-- id="heatmapthemead-widget-position-secondary" -->
+</div> <!-- id="heatmapthemead-secondary-sidebar-container" -->
+</div> <!-- id="heatmapthemead-secondary-sidebar" -->
+</div> <!-- id="heatmapthemead-main" -->
+</div> <!-- id="heatmapthemead-main-wipe" -->
+<!-- Footer -->
+<div id="heatmapthemead-footer-wipe">
+<div id="heatmapthemead-footer">
+<div id="heatmapthemead-footer-container" role="complementary">
+				<div id="heatmapthemead-footer-menu" class="heatmapthemead-menu">
+					<nav role="navigation" class="site-navigation footer-navigation">
+						<div class="menu"><ul><li class="page_item page-item-5032"><a href="http://xmodulo.com/about">About</a></li><li class="page_item page-item-3805"><a href="http://xmodulo.com/advertise">Advertise</a></li><li class="page_item page-item-5367"><a href="http://xmodulo.com/write-us">Write for Us</a></li><li class="page_item page-item-574"><a href="http://xmodulo.com/contact">Contact</a></li></ul></div>
+					</nav>
+				</div>
+	</div> <!-- id="heatmapthemead-footer-container" -->
+</div> <!-- id="heatmapthemead-footer" -->
+</div> <!-- id="heatmapthemead-footer-wipe" -->
+<!-- wp_footer() -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-31255384-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<!--Plugin WP Missed Schedule 2013.1231.2013 Active - Tag 6707293c0218e2d8b7aa38d418ffa608-->
+
+<!-- This site is patched which an important unfixed problem since WordPress 2.5+ to 3.9+ -->
+
+	<div id="wp-social-toolbar" class="wp-social-toolbar-	 wpst_bar_normal_bottom">
+									<!-- wp social toolbar show box start -->
+			<div id="wp-social-toolbar-show-box">
+				<div id="wps-toolbar-show">
+				<img src="access-dropbox-command-line-linux_files/white_002.png" class="wpsc_show_button">
+				</div>    
+			</div>
+			<!-- wp social toolbar show box end -->
+			<!-- wp social toolbar border visible on hide starts -->
+			<div class="wpcs-border">&nbsp;</div>
+			<!-- wp social toolbar border visible on hide ends -->
+			
+    <div id="wps-toolbar-content">
+				<!-- Top Starts -->
+    	<div id="wps-toolbar-top">
+        	<div id="wps-close-button">
+            	<img src="access-dropbox-command-line-linux_files/white.png" class="wpsc_close_button">
+            </div>
+			<div id="wps-twitter-status-no"></div>        </div>
+		<!-- Top ends -->
+		        <div id="wps-toolbar-bottom">
+		
+        	<div id="wpsc-social-accounts">
+			<!-- START LOOP -->
+								
+					<a href="http://www.twitter.com/xmodulo" title="twitter" target="_blank"><img src="access-dropbox-command-line-linux_files/twitter.png" alt="twitter" height="40" width="40"></a>
+										<a href="https://www.facebook.com/xmodulo" title="facebook" target="_blank"><img src="access-dropbox-command-line-linux_files/facebook_002.png" alt="facebook" height="40" width="40"></a>
+											<a href="http://www.linkedin.com/in/xmodulo" title="linkedin" target="_blank"><img src="access-dropbox-command-line-linux_files/linkedin_002.png" alt="linkedin" height="40" width="40"></a>
+											<a href="https://plus.google.com/113402205121279785792" title="google+" target="_blank"><img src="access-dropbox-command-line-linux_files/googleplus.png" alt="google+" height="40" width="40"></a>
+									<!-- END LOOP -->
+				
+			
+            	
+				
+            </div>
+			<!-- <div id="wpsc-social-counts">  -->
+	
+												
+					
+												<div class="wpcs-share-icons">
+												<script src="access-dropbox-command-line-linux_files/in.js" type="text/javascript"></script>
+						<script type="IN/Share" data-counter="right"></script>						
+												</div>
+																								<div class="wpcs-share-icons"><g:plusone size="medium"></g:plusone></div>
+																											<div class="wpcs-share-icons">
+																		<a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="xmodulo">Tweet</a>
+																		<script type="text/javascript" src="access-dropbox-command-line-linux_files/widgets.js"></script>
+									</div>	
+																		<div class="wpcs-share-icons"><iframe src="access-dropbox-command-line-linux_files/like_002.xhtml" style="border:none;margin-left:auto;margin-right:auto; overflow:hidden; width:90px; height:25px;" allowtransparency="true" frameborder="0" scrolling="no"></iframe></div>		
+									
+						
+						<!--</div>  wpsc social counts close -->
+										
+						
+				
+			</div> <!-- wpsc social bottom close -->
+				</div><!-- wpsc social content close -->
+						</div><!-- wpsc social bottom close -->
+	<div style="display:none">
+	<div class="grofile-hash-map-5ca4136a060a2574a936cdf6881f733c">
+	</div>
+	<div class="grofile-hash-map-117eb1bc33bb4c7a00b0a5c2e1880412">
+	</div>
+	<div class="grofile-hash-map-15ec878547aea50f3c71b4d7f0ade2a7">
+	</div>
+	<div class="grofile-hash-map-3a851be8f0817a4981056998f9f52562">
+	</div>
+	<div class="grofile-hash-map-f731ab5313beb6fd680c8a9a51612925">
+	</div>
+	<div class="grofile-hash-map-b1b48e497135041bf34e4a67ef82006e">
+	</div>
+	<div class="grofile-hash-map-aed3b39f4e4bbc24f9d6aad174d5fc8b">
+	</div>
+	<div class="grofile-hash-map-b63a1e36150ec69a8e63832c4013e9c4">
+	</div>
+	<div class="grofile-hash-map-8d202bf69709db0a2c8fa98c610584f0">
+	</div>
+	</div>
+			<script type="text/javascript">
+			  (function() {
+			    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+			    po.src = 'https://apis.google.com/js/plusone.js';
+			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+			  })();
+			</script>
+					<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+		<script type="text/javascript">
+			jQuery( document ).ready( function() {
+			    jQuery.getScript( 'http://platform.linkedin.com/in.js?async=true', function success() {
+			        IN.init();
+			    });
+			});
+			jQuery( document.body ).on( 'post-load', function() {
+				if ( typeof IN != 'undefined' )
+					IN.parse();
+			});
+			</script><script type="text/javascript" src="access-dropbox-command-line-linux_files/devicepx-jetpack.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var recaptcha_options = {"lang":"en"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="access-dropbox-command-line-linux_files/sharing.js"></script>
+
+	<script src="access-dropbox-command-line-linux_files/e-201415.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	st_go({v:'ext',j:'1:2.9.3',blog:'44272548',post:'5180',tz:'0'});
+	var load_cmc = function(){linktracker_init(44272548,5180,2);};
+	if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+	else load_cmc();
+	</script><!-- End of wp_footer() -->
+<!-- Number of Queries:38   Seconds: 0.809-->
+<!-- heatmapthemead_end_body hook -->
+<!-- END BODY Scripts -->
+
+
+<!-- end of heatmapthemead_end_body hook -->
+
+
+
+
+</body></html>
+<!-- End of render.php -->
+<!-- Performance optimized by W3 Total Cache. Learn more: http://www.w3-edge.com/wordpress-plugins/
+
+Page Caching using disk: enhanced
+Database Caching 4/42 queries in 0.030 seconds using disk
+Object Caching 2375/2447 objects using disk
+
+ Served from: xmodulo.com @ 2014-04-13 04:58:23 by W3 Total Cache -->

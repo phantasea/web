@@ -1,0 +1,413 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>tmux学习笔记 -  - ITeye技术网站</title>
+    <meta name="description" content="tmux号称screen的替代品，来看看为什么这么说： 支持多个window之间的粘贴/复制，可以选择粘贴缓冲区，而这screen不支持。 分屏操作完胜。screen只支持简陋的上下分屏，分屏后还需要ctrl+a+c才能创建一个新的终端。screen直接创建一个终端，且支持屏幕之间的切换/relocate/重定义大小，以及提供了一些预置的layout tmux默认自带status bar，scree ..." />
+    <meta name="keywords" content=" tmux学习笔记" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="search" type="application/opensearchdescription+xml" href="/open_search.xml" title="ITeye" />
+    <link href="/rss" rel="alternate" title="" type="application/rss+xml" />
+    <link href="http://www.iteye.com/stylesheets/blog.css?1393920955" media="screen" rel="stylesheet" type="text/css" />
+<link href="http://www.iteye.com/stylesheets/themes/blog/blue.css?1326191326" media="screen" rel="stylesheet" type="text/css" />
+    <script src="http://www.iteye.com/javascripts/application.js?1358214518" type="text/javascript"></script>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-535605-1']);
+  _gaq.push(['_setDomainName', 'iteye.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+      <link href="http://www.iteye.com/javascripts/syntaxhighlighter/SyntaxHighlighter.css?1348819953" media="screen" rel="stylesheet" type="text/css" />
+  <script src="http://www.iteye.com/javascripts/syntaxhighlighter/shCoreCommon.js?1325907333" type="text/javascript"></script>
+<script src="http://www.iteye.com/javascripts/hotkey.js?1324994303" type="text/javascript"></script>
+  <script src="http://www.iteye.com/javascripts/code_favorites.js?1358214518" type="text/javascript"></script>
+<script src="http://www.iteye.com/javascripts/weiboshare.js?1324994303" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div id="blog_site_nav">
+  <a href="http://www.iteye.com/" class="homepage">首页</a>
+  <a href="http://www.iteye.com/news">资讯</a>
+  <a href="http://www.iteye.com/magazines">精华</a>
+  <a href="http://www.iteye.com/forums">论坛</a>
+  <a href="http://www.iteye.com/ask">问答</a>
+  <a href="http://www.iteye.com/blogs">博客</a>
+  <a href="http://www.iteye.com/blogs/subjects">专栏</a>
+  <a href="http://www.iteye.com/groups">群组</a>
+  <a href="#" onclick="return false;" id="msna"><u>更多</u> <small>▼</small></a>
+  <div class="quick_menu" style="display:none;">
+    <a target="_blank" href="http://job.iteye.com/iteye">招聘</a>
+    <a href="http://www.iteye.com/search">搜索</a>
+  </div>
+</div>
+
+      <div id="user_nav">
+      <a href="/login" class="welcome" title="登录">您还未登录 !</a>
+    <a href="/login">登录</a>
+    <a href="/signup" class="nobg">注册</a>
+  </div>
+
+    </div>
+
+    <div id="page">
+      <div id="branding" class="clearfix">
+        <div id="blog_name">
+          <h1><a href="/">liaofeng-xiao</a></h1>
+        </div>
+        <div id='fd'></div>
+        <div id="blog_navbar">
+          <ul>
+            <li class='blog_navbar_for'><a href="http://liaofeng-xiao.iteye.com"><strong>博客</strong></a></li>
+            <li ><a href="/weibo">微博</a></li>
+            <li ><a href="/album">相册</a></li>
+            <li ><a href="/link">收藏</a></li>
+            <li ><a href="/blog/guest_book">留言</a></li>
+            <li ><a href="/blog/profile">关于我</a></li>
+          </ul>
+    
+          <div class="search">
+            <form action="/blog/search" method="get">
+              <input class="search_text" id="query" name="query" style="margin-left: 10px;width: 110px;" type="text" value="" />
+              <input class="submit_search" type="submit" value="" />
+            </form>
+          </div> 
+          <div id="fd"></div>         
+        </div>
+      </div>
+      
+      <div id="content" class="clearfix">
+        <div id="main">
+          
+
+
+
+          
+
+
+<div class="h-entry" style='display:none'>
+  <a href="http://liaofeng-xiao.iteye.com" class="p-author" target="_blank">liaofeng_xiao</a>
+</div>
+
+
+<div class="blog_main">
+  <div class="blog_title">
+    <h3>
+      <a href="/blog/1768691">tmux学习笔记</a>
+      <em class="actions">      </em>
+    </h3>
+    <ul class='blog_categories'><strong>博客分类：</strong> <li><a href="/category/86896">Linux</a></li> </ul>
+        <div class='news_tag'></div>
+  </div>
+
+  <div id="blog_content" class="blog_content">
+    tmux号称screen的替代品，来看看为什么这么说：<br /><ul><li>支持多个window之间的粘贴/复制，可以选择粘贴缓冲区，而这screen不支持。</li><li>分屏操作完胜。screen只支持简陋的上下分屏，分屏后还需要ctrl+a+c才能创建一个新的终端。screen直接创建一个终端，且支持屏幕之间的切换/relocate/重定义大小，以及提供了一些预置的layout</li><li>tmux默认自带status bar，screen还需手动配置</li><li>tmux的配置比screen简单</li><li>vi和emac模式绑定&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </li></ul><br /><br /><br />启动tmux：<br />tmux ls: list tmux session<br />tmux attach: attach a tmux session<br /><br />tmux启动参数：<br /><ul><li>-c: shell-command, 比如 tmux -c vim</li><li>-f file: 指定配置文件，默认~/.tmux.conf，或者/etc/tmux.conf</li><li>-L socket-name: 制定tmux session的名字</li><li>-u: 支持utf-8</li><li>-V: version</li></ul><br /><br />tmux的一些概念：<br /><br />A session is a single collection of pseudo terminals under the management of tmux.&nbsp; Each session has one or more<br />&nbsp;&nbsp;&nbsp;&nbsp; windows linked to it.&nbsp; A window occupies the entire screen and may be split into rectangular panes, each of<br />&nbsp;&nbsp;&nbsp;&nbsp; which is a separate pseudo terminal (the pty(4) manual page documents the technical details of pseudo termi‐<br />&nbsp;&nbsp;&nbsp;&nbsp; nals).&nbsp; Any number of tmux instances may connect to the same session, and any number of windows may be present<br />&nbsp;&nbsp;&nbsp;&nbsp; in the same session.&nbsp; Once all sessions are killed, tmux exits.<br /><br /><br />session: 会话，一个服务器可以包含多个session<br />window: 窗口，一个session可以包含多个window<br />pane: 面板，一个window可以包含多个pane<br /><br />tmux 配置：<br />tmux默认的bind-key是ctrl + b，可以修改为习惯的ctrl+a:<br />set -g prefix ^a<br />unbind ^b<br />bind a send-prefix<br /><br />设置之后，ctrl+a+a可以在terminal中将光标一到行首<br /><br /><br /><pre name="code" class="vim">
+set-option -g display-time 4000                                                 
+set-option -g status-keys vi                                                    
+set-window-option -g mode-keys vi                                               
+                                                                                
+# set default bind-key to ctrl + a                                              
+set-option -g prefix C-a                                                        
+unbind-key C-b                                                                  
+bind-key C-a send-prefix                                                        
+                                                                                
+# unbind '"'                                                                    
+bind - splitw -v # 分割成上下两个窗口                                           
+# unbind %                                                                      
+bind | splitw -h # 分割成左右两个窗口                                           
+                                                                                
+bind k selectp -U # 选择上窗格                                                  
+bind j selectp -D # 选择下窗格                                                  
+bind h selectp -L # 选择左窗格                                                  
+bind l selectp -R # 选择右窗格                                                  
+                                                                                
+bind-key J resize-pane -D 10                                                    
+bind-key K resize-pane -U 10                                                    
+bind-key H resize-pane -L 10                                                    
+bind-key L resize-pane -R 10                                                    
+                                                                                
+                                                                                
+bind ^u swapp -U # 与上窗格交换 Ctrl-u                                          
+bind ^d swapp -D # 与下窗格交换 Ctrl-d
+bind ^u swapp -U # 与上窗格交换 Ctrl-u                                          
+bind ^d swapp -D # 与下窗格交换 Ctrl-d                                          
+                                                                                
+                                                                                
+bind m command-prompt "splitw -h 'exec man %%'"                                 
+                                                                                
+                                                                                
+#定制状态行                                                                     
+#状态行左边默认就很好了，我对右边定制了一下，显示 uptime 和 loadavg：           
+                                                                                
+#set -g status-right "#[fg=green]#(uptime.pl)#[default] • #[fg=green]#(cut -d ' ' -f 1-3 /proc/loadavg)#[default]"
+                                                                                
+# 下面两行设置状态行的背景和前景色:                                             
+set -g status-bg black                                                          
+set -g status-fg yellow                                                         
+                                                                                
+#默认启动应用                                                                   
+#当 tmux 启动时，可以默认启动一些应用：                                         
+#new -s work  # 新建名为 work 的会话，并启动 mutt                               
+#neww rtorrent # 启动 rtorrent                                                  
+#neww vim # 启动 vim                                                            
+#neww sh                                                                        
+#selectw -t 1 # 默认选择标号为1的窗口
+</pre>
+  </div>
+
+  
+
+
+  <IFRAME SRC="/iframe_ggbd/794" SCROLLING=no WIDTH=468 HEIGHT=60 FRAMEBORDER=0></IFRAME>
+  
+  <div id="bottoms" class="clearfix">
+    
+    <div id="share_weibo">分享到：
+      <a data-type='sina' href="javascript:;" title="分享到新浪微博"><img src="/images/sina.jpg"></a>
+      <a data-type='qq' href="javascript:;" title="分享到腾讯微博"><img src="/images/tec.jpg"></a>
+    </div>
+  </div>
+
+  <div class="blog_nav">
+    <div class="pre_next">
+      <a href="/blog/1990577" class="next" title="beanstalkd学习笔记">beanstalkd学习笔记</a>
+      |
+      <a href="/blog/1759924" class="pre" title="diff and patch">diff and patch</a>
+    </div>
+  </div>
+  <div class="blog_bottom">
+    <ul>
+      <li>2013-01-12 15:01</li>
+      <li>浏览 413</li>
+      <li><a href="#comments">评论(0)</a></li>
+      
+      
+      <li>分类:<a href="http://www.iteye.com/blogs/category/os">操作系统</a></li>      
+      <li class='last'><a href="http://www.iteye.com/wiki/blog/1768691" target="_blank" class="more">相关推荐</a></li>
+    </ul>
+  </div>
+
+  <div class="blog_comment">
+    <h5>评论</h5>
+    <a id="comments" name="comments"></a>
+    
+    
+    
+  </div>
+
+  <div class="blog_comment">
+    <h5>发表评论</h5>
+            <p style="text-align:center; margin-top:30px;margin-bottom:0px;"><a href="/login" style="background-color:white;"> <img src="/images/login_icon.png" style="vertical-align:middle; margin-right: 10px;" /></a><a href="/login">  您还没有登录,请您登录后再发表评论 </a></p>
+      </div>
+</div>
+
+
+<script type="text/javascript">
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  $$('#main .blog_content pre[name=code]').each(function(pre, index){ // blog content
+    var post_id = 1768691;
+    var location = window.location;
+    source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+    pre.writeAttribute('codeable_id', post_id);
+    pre.writeAttribute('codeable_type', "Blog");
+    pre.writeAttribute('source_url', source_url);
+    pre.writeAttribute('pre_index', index);
+    pre.writeAttribute('title', 'tmux学习笔记');
+  });
+
+  fix_image_size($$('div.blog_content img'), 700);
+
+  function processComment() {
+    $$('#main .blog_comment > div').each(function(comment){// comment
+      var post_id = comment.id.substr(2);
+      $$("#"+comment.id+" pre[name=code]").each(function(pre, index){
+        var location = window.location;
+        source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+        source_url += "#" + comment.id;
+        pre.writeAttribute('codeable_id', post_id);
+        pre.writeAttribute('codeable_type', "BlogComment");
+        pre.writeAttribute('source_url', source_url);
+        pre.writeAttribute('pre_index', index);
+        pre.writeAttribute('title', 'tmux学习笔记');
+      });
+    });
+  }
+
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+      parameters: {'id':id, 'type':'BlogComment'},
+      onSuccess:function(response){editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);
+        Element.scrollTo(editor.bbcode_editor.textarea.element);}
+    });
+  }
+
+  code_favorites_init();
+  processComment();
+  new WeiboShare({share_buttons: $('share_weibo'), img_scope: $('blog_content')});
+</script>
+
+
+
+
+        </div>
+
+        <div id="local">
+          <div class="local_top"></div>
+          <div id="blog_owner">
+  <div id="blog_owner_logo"><a href='http://liaofeng-xiao.iteye.com'><img alt="liaofeng_xiao的博客" class="logo" src="http://www.iteye.com/upload/logo/user/243193/5c3d3992-b925-3c4a-a310-d31048e300a3.gif?1272771363" title="liaofeng_xiao的博客: " /></a></div>
+  <div id="blog_owner_name">liaofeng_xiao</div>
+</div>
+
+          <div id="blog_actions">
+            <ul>
+              <li>浏览: 25853 次</li>
+              <li>性别: <img alt="Icon_minigender_1" src="http://www.iteye.com/images/icon_minigender_1.gif?1324994303" title="男" /></li>
+              <li>来自: 北京</li>
+              <li><img src='/images/status/offline.gif'/></li>
+              
+            </ul>
+          </div>
+          <div id="user_visits" class="clearfix">
+            <h5>最近访客 <span style='font-weight:normal;font-size:12px;padding-left:30px;'><a href="/blog/user_visits">更多访客&gt;&gt;</a></span></h5>
+            
+              <div class="user_visit">
+                <div class="logo"><a href='http://dylinshi126.iteye.com' target='_blank'><img alt="dylinshi126的博客" class="logo" src="http://www.iteye.com/images/user-logo-thumb.gif?1324994303" title="dylinshi126的博客: " /></a></div>
+                <div class="left"><a href='http://dylinshi126.iteye.com' target='_blank' title='dylinshi126'>dylinshi126</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href='http://676744379-qq-com.iteye.com' target='_blank'><img alt="苹果超人的博客" class="logo" src="http://www.iteye.com/upload/logo/user/463656/7d36fe85-9ad5-3b09-a24e-ccd777582270-thumb.gif?1302791203" title="苹果超人的博客: 苹果超人|" /></a></div>
+                <div class="left"><a href='http://676744379-qq-com.iteye.com' target='_blank' title='苹果超人'>苹果超人</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href='http://a379019643.iteye.com' target='_blank'><img alt="a379019643的博客" class="logo" src="http://www.iteye.com/images/user-logo-thumb.gif?1324994303" title="a379019643的博客: " /></a></div>
+                <div class="left"><a href='http://a379019643.iteye.com' target='_blank' title='a379019643'>a379019643</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href='http://suipian1029.iteye.com' target='_blank'><img alt="suipian1029的博客" class="logo" src="http://www.iteye.com/upload/logo/user/928709/75937772-1a2a-326b-8668-0f2a95981367-thumb.jpg?1389020177" title="suipian1029的博客: " /></a></div>
+                <div class="left"><a href='http://suipian1029.iteye.com' target='_blank' title='suipian1029'>suipian1029</a></div>
+              </div>
+            
+          </div>
+
+          
+
+                      <div id="blog_menu">
+              <h5>文章分类</h5>
+              <ul>
+                <li><a href="/">全部博客 (32)</a></li>
+                
+                  <li><a href="/category/259420">python (4)</a></li>
+                
+                  <li><a href="/category/86885">Java (4)</a></li>
+                
+                  <li><a href="/category/86886">JavaScript (5)</a></li>
+                
+                  <li><a href="/category/86890">Spring (10)</a></li>
+                
+                  <li><a href="/category/86896">Linux (7)</a></li>
+                
+                  <li><a href="/category/185982">mysql (1)</a></li>
+                
+                  <li><a href="/category/262572">template (1)</a></li>
+                
+              </ul>
+            </div>
+            <div id='month_blogs'>
+              <h5>社区版块</h5>
+              <ul>
+                <li><a href="/blog/news">我的资讯</a> (0)</li>
+                <li>
+                  <a href="/blog/post">我的论坛</a> (158)
+                </li>
+                <li><a href="/blog/answered_problems">我的问答</a> (50)</li>
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>存档分类</h5>
+              <ul>
+                
+                  <li><a href="/blog/monthblog/2013-12">2013-12</a> (1)</li>
+                
+                  <li><a href="/blog/monthblog/2013-01">2013-01</a> (4)</li>
+                
+                  <li><a href="/blog/monthblog/2012-12">2012-12</a> (5)</li>
+                
+                <li><a href="/blog/monthblog_more">更多存档...</a></li>
+              </ul>
+            </div>
+            
+            
+
+            <div id="guest_books">
+              <h5>最新评论</h5>
+              <ul>
+                
+                <li>
+                  <a href='http://pch272215690.iteye.com' target='_blank' title='pch272215690'>pch272215690</a>： 
+                  测试代码无法运行，死循环了：enhancer.setCallb ...<br />
+                  <a href="/blog/657664#bc2243517">Spring AOP（2）：Cglib动态代理</a>
+                </li>
+                
+                <li>
+                  <a href='http://ps329795485.iteye.com' target='_blank' title='ps329795485'>ps329795485</a>： 
+                  谢谢，在这里找到了我想要的答案。刚开始我不知道是如何加载ap ...<br />
+                  <a href="/blog/875069#bc2238571">我不熟悉spring+struts+ibatis配置文件</a>
+                </li>
+                
+                <li>
+                  <a href='http://lee-json.iteye.com' target='_blank' title='lee_json'>lee_json</a>： 
+                  很有帮助 我可以转走吗？谢谢<br />
+                  <a href="/blog/875069#bc2080113">我不熟悉spring+struts+ibatis配置文件</a>
+                </li>
+                
+                <li>
+                  <a href='http://heiwoshimaoya.iteye.com' target='_blank' title='heiwoshimaoya'>heiwoshimaoya</a>： 
+                   good  写的好！喜爱原创！ 支持<br />
+                  <a href="/blog/678753#bc1538576">学习笔记：Javascript数据类型和值</a>
+                </li>
+                
+                <li>
+                  <a href='http://20055294.iteye.com' target='_blank' title='20055294'>20055294</a>： 
+                  期待 day  two 啊！<br />
+                  <a href="/blog/631227#bc1451780">spring day by day---day one</a>
+                </li>
+                
+              </ul>
+            </div>
+
+            <div class="local_bottom"></div>
+          
+        </div>
+      </div>
+
+      <div id="footer" class="clearfix">
+        <div id="copyright">
+          <hr/>
+          声明：ITeye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<br />
+          &copy; 2003-2014 ITeye.com.   All rights reserved.  [ 京ICP证110151号  京公网安备110105010620 ]
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+  document.write("<img src='http://stat.iteye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&user_id=' width='0' height='0' />");
+</script>
+
+<script src="http://csdnimg.cn/pubfooter/js/tracking.js?version=20130923164150" type="text/javascript"></script>
+
+    
+    
+  </body>
+</html>

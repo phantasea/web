@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Mutt sidebar (folder list) patch | Lunar Linux</title>
+<!-- Platform WordPress Framework By PageLines - www.PageLines.com -->
+<link rel="shortcut icon" href="http://www.lunar-linux.org/images/favicon.png" type="image/x-icon" />
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="alternate" type="application/rss+xml" title="Lunar Linux &raquo; Feed" href="http://www.lunar-linux.org/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Lunar Linux &raquo; Comments Feed" href="http://www.lunar-linux.org/comments/feed/" />
+
+            <script type="text/javascript">//<![CDATA[
+            // Google Analytics for WordPress by Yoast v4.3.5 | http://yoast.com/wordpress/google-analytics/
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-2510780-1']);
+				            _gaq.push(['_setDomainName','lunar-linux.org'],['_trackPageview']);
+            (function () {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+            //]]></script>
+			<meta name="description" content="News April 12, 2014 Updated patch for pristine mutt-1.5.23 source package. February 19, 2013 Added the sidebar shortpath_indent patch courtesy of v4hn (fellow..." />
+<link rel="alternate" type="application/rss+xml" title="Lunar Linux &raquo; Mutt sidebar (folder list) patch Comments Feed" href="http://www.lunar-linux.org/mutt-sidebar/feed/" />
+<meta name="keywords" content="mutt,sidebar,patch" />
+<meta name="robots" content="index,follow,noodp,noydir" />
+<link rel="canonical" href="http://www.lunar-linux.org/mutt-sidebar/" />
+<link rel='stylesheet' id='jetpack-subscriptions-css'  href='http://www.blogs.lunar-linux.org/wp-content/plugins/jetpack/modules/subscriptions/subscriptions.css?ver=3.8.2' type='text/css' media='all' />
+<link rel='stylesheet' id='pagelines-stylesheet-css'  href='http://www.blogs.lunar-linux.org/wp-content/themes/platform/style.css?ver=143-032013203607' type='text/css' media='all' />
+<!--[if IE 7]>
+<link rel='stylesheet' id='ie7-style-css'  href='http://www.blogs.lunar-linux.org/wp-content/themes/platform/css/ie7.css?ver=1.4.3' type='text/css' media='all' />
+<![endif]-->
+<link rel='stylesheet' id='wp-syntax-css-css'  href='http://www.blogs.lunar-linux.org/wp-content/plugins/wp-syntax/css/wp-syntax.css?ver=1.0' type='text/css' media='all' />
+<link rel='stylesheet' id='jetpack-widgets-css'  href='http://www.blogs.lunar-linux.org/wp-content/plugins/jetpack/modules/widgets/widgets.css?ver=20121003' type='text/css' media='all' />
+<link rel='stylesheet' id='superfish-css'  href='http://www.blogs.lunar-linux.org/wp-content/themes/platform/sections/nav/superfish.css?ver=1.4.3' type='text/css' media='screen' />
+<script type='text/javascript' src='http://www.blogs.lunar-linux.org/wp-includes/js/jquery/jquery.js?ver=1.10.2'></script>
+<script type='text/javascript' src='http://www.blogs.lunar-linux.org/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.blogs.lunar-linux.org/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.blogs.lunar-linux.org/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Mailing Lists' href='http://www.lunar-linux.org/mailing-lists/' />
+<link rel='next' title='Share your Lunar Images!' href='http://www.lunar-linux.org/screenshot-submit/' />
+<meta name="generator" content="WordPress 3.8.2" />
+<link rel='shortlink' href='http://wp.me/P4ap4y-M' />
+		
+<script type="text/javascript"> /* <![CDATA[ */ jQuery(document).ready(function() {  jQuery('ul.sf-menu').superfish({ delay: 100, speed: 'fast', autoArrows:  1, dropShadows: 1 });  }); /* ]]> */ </script>			
+
+<style type="text/css" id="dynamic-css">
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans:regular,bold);
+h1, h2, h3, h4, h5, h6, .site-title{font-family:Georgia, "Times New Roman", Times, serif;letter-spacing:0.00em;text-transform:none;font-weight:normal;font-variant:normal;font-style:normal;}body, .font1, .font-primary, .commentlist{font-family:"Droid Sans", "Lucida Grande", Tahoma, sans-serif;letter-spacing:0.00em;text-transform:none;font-weight:normal;font-variant:normal;font-style:normal;}.font2, .font-sub, ul.main-nav li a, #secondnav li a, .metabar, .subtext, .subhead, .widget-title, .post-comments, .reply a, .editpage, #pagination .wp-pagenavi, .post-edit-link, #wp-calendar caption, #wp-calendar thead th, .soapbox-links a, .fancybox, .standard-form .admin-links, #featurenav a, .pagelines-blink, .ftitle small{font-family:"Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", sans-serif;letter-spacing:0.10em;text-transform:uppercase;font-weight:normal;font-variant:normal;font-style:normal;}.fixed_width #page, .fixed_width #footer, .canvas #page-canvas{width:1220px}#page-main .content{width:1202px}#site{min-width:1202px}#site .content, .wcontent, #primary-nav ul.main-nav.nosearch{width:1200px}#primary-nav ul.main-nav{width:980px}.fullwidth #pagelines_content #column-main, .fullwidth .wmain, .fullwidth #buddypress-page #container{width:1200px}.fullwidth #pagelines_content #sidebar1, .fullwidth #buddypress-page #sidebar1{width:px}.fullwidth #pagelines_content #sidebar2, .fullwidth #buddypress-page #sidebar2{width:0px}.fullwidth #pagelines_content #column-wrap, .fullwidth #buddypress-page #container{width:1200px}.fullwidth #pagelines_content #sidebar-wrap, .fullwidth #buddypress-page #sidebar-wrap{width:0px}.one-sidebar-right #pagelines_content #column-main, .one-sidebar-right .wmain, .one-sidebar-right #buddypress-page #container{width:640px}.one-sidebar-right #pagelines_content #sidebar1, .one-sidebar-right #buddypress-page #sidebar1{width:560px}.one-sidebar-right #pagelines_content #sidebar2, .one-sidebar-right #buddypress-page #sidebar2{width:0px}.one-sidebar-right #pagelines_content #column-wrap, .one-sidebar-right #buddypress-page #container{width:640px}.one-sidebar-right #pagelines_content #sidebar-wrap, .one-sidebar-right #buddypress-page #sidebar-wrap{width:560px}.one-sidebar-left #pagelines_content #column-main, .one-sidebar-left .wmain, .one-sidebar-left #buddypress-page #container{width:1000px}.one-sidebar-left #pagelines_content #sidebar1, .one-sidebar-left #buddypress-page #sidebar1{width:200px}.one-sidebar-left #pagelines_content #sidebar2, .one-sidebar-left #buddypress-page #sidebar2{width:0px}.one-sidebar-left #pagelines_content #column-wrap, .one-sidebar-left #buddypress-page #container{width:1000px}.one-sidebar-left #pagelines_content #sidebar-wrap, .one-sidebar-left #buddypress-page #sidebar-wrap{width:200px}.two-sidebar-right #pagelines_content #column-main, .two-sidebar-right .wmain, .two-sidebar-right #buddypress-page #container{width:480px}.two-sidebar-right #pagelines_content #sidebar1, .two-sidebar-right #buddypress-page #sidebar1{width:240px}.two-sidebar-right #pagelines_content #sidebar2, .two-sidebar-right #buddypress-page #sidebar2{width:480px}.two-sidebar-right #pagelines_content #column-wrap, .two-sidebar-right #buddypress-page #container{width:480px}.two-sidebar-right #pagelines_content #sidebar-wrap, .two-sidebar-right #buddypress-page #sidebar-wrap{width:720px}.two-sidebar-left #pagelines_content #column-main, .two-sidebar-left .wmain, .two-sidebar-left #buddypress-page #container{width:480px}.two-sidebar-left #pagelines_content #sidebar1, .two-sidebar-left #buddypress-page #sidebar1{width:240px}.two-sidebar-left #pagelines_content #sidebar2, .two-sidebar-left #buddypress-page #sidebar2{width:480px}.two-sidebar-left #pagelines_content #column-wrap, .two-sidebar-left #buddypress-page #container{width:480px}.two-sidebar-left #pagelines_content #sidebar-wrap, .two-sidebar-left #buddypress-page #sidebar-wrap{width:720px}.two-sidebar-center #pagelines_content #column-main, .two-sidebar-center .wmain, .two-sidebar-center #buddypress-page #container{width:700px}.two-sidebar-center #pagelines_content #sidebar1, .two-sidebar-center #buddypress-page #sidebar1{width:200px}.two-sidebar-center #pagelines_content #sidebar2, .two-sidebar-center #buddypress-page #sidebar2{width:300px}.two-sidebar-center #pagelines_content #column-wrap, .two-sidebar-center #buddypress-page #container{width:900px}.two-sidebar-center #pagelines_content #sidebar-wrap, .two-sidebar-center #buddypress-page #sidebar-wrap{width:300px}.dcol_container_2{width: 1220px; float: right;}.dcol_2{width: 590px; margin-left: 20px;}.dcol_container_3{width: 1220px; float: right;}.dcol_3{width: 386px; margin-left: 20px;}.dcol_container_4{width: 1220px; float: right;}.dcol_4{width: 285px; margin-left: 20px;}.dcol_container_5{width: 1220px; float: right;}.dcol_5{width: 224px; margin-left: 20px;}body, body.fixed_width{background-color:#000000;}body #page, .sf-menu li, #primary-nav ul.sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active, .commentlist ul.children .even, .alt #commentform textarea{background-color:#FFFFFF;}hr, .fpost, .clip_box, .widget-title, #buddypress-page .item-list li, .metabar a, #morefoot .widget-title, #site #dsq-content h3, .post.fpost .entry, #soapbox .fboxinfo,  #primary-nav #nav_row, .fpost.sticky{border-color:#E9E9E9;}h1, h2, h3, h4, h5, h6, h1 a, h2 a, h3 a, h4 a, h5 a, h6 a, a.site-title, .entry-title a, .entry-title a:hover, .widget-title a:hover, h3.widget-title a:hover{color:#000000;}#page, .tcolor1, #subnav ul li a:active, .commentlist cite a, #breadcrumb a, .metabar a:hover, .post-nav a:hover, .post-footer a, #buddypress-page #object-nav ul li a, #buddypress-page table.forum .td-title a, #buddypress-page #subnav a:hover, #buddypress-page #subnav li.current a, #twitterbar a, #carousel .carousel_text, #site #dsq-content .dsq-request-user-info td a, #pagination .wp-pagenavi a:hover, #pagination .wp-pagenavi .current, #featurenav a.activeSlide, .content-pagination a:hover .cp-num{color:#000000;}.tcolor2, .lcolor2 a, .subhead, .widget-title,  .post-edit-link, .metabar .sword, #branding .site-description, #callout, #commentform .required, #postauthor .subtext, #buddypress-page .standard-form .admin-links, #wp-calendar caption, #carousel .thecarousel, #pagination .wp-pagenavi span.pages, .commentlist .comment-meta  a,  #highlight .highlight-subhead, .content-pagination span, .content-pagination a .cp-num, .searchform .searchfield{color:#AFAFAF;}.tcolor3, .lcolor3 a, .main_nav li a,  .widget-title a, h3.widget-title a, #subnav_row li a, .metabar em, .metabar a, .tags, #commentform label, .form-allowed-tags code, .rss-date, #breadcrumb, .reply a, .post-nav a, .post-nav a:visited, .post-footer, .auxilary a, #buddypress-page .standard-form .admin-links a, #twitterbar .content .tbubble, .widget ul.twitter .twitter-item, .cform .emailreqtxt,.cform .reqtxt, #pagination .wp-pagenavi a, #pagination .wp-pagenavi .current, #pagination .wp-pagenavi .extend, .main_nav ul.sf-menu a, .sf-menu a:visited, #featurenav a, #feature-footer span.playpause{color:#777777;}a, #subnav_row li.current_page_item a, #subnav_row li a:hover, #grandchildnav .current_page_item > a, .branding h1 a:hover, .post-comments a:hover, .bbcrumb a:hover, 	#feature_slider .fcontent.fstyle-lightbg a, #feature_slider .fcontent.fstyle-nobg a{color:#225E9B;}a:hover,.commentlist cite a:hover,  #grandchildnav .current_page_item a:hover, .headline h1 a:hover{color:#0F457C;}#feature-footer, .main-nav li.current-page-ancestor a, .main-nav li.current_page_item a, .main-nav li.current-page-ancestor ul a, .main-nav li.current_page_item ul a, #wp-calendar caption, #buddypress-page #subnav, #buddypress-page .activity .activity-inner, #buddypress-page table.forum th, #grandchildnav.widget, blockquote, input, textarea, .searchform .searchfield, .wp-caption, .widget-default, .commentlist .alt, #wp-calendar #today, #buddypress-page div.activity-comments form .ac-textarea, #buddypress-page form#whats-new-form #whats-new-textarea, .post-nav, .current_posts_info, .post-footer,  #twitterbar, #carousel .content-pad, .success, .sf-menu li li, .sf-menu li li, .sf-menu li li li, .content-pagination a .cp-num, .hentry table .alternate td{background:#F7F7F7;}ul.sf-menu ul li, .post-nav, .current_posts_info, .post-footer, blockquote, input, textarea, .searchform .searchfield, .wp-caption, .widget-default, #buddypress-page div.activity-comments form .ac-textarea, #buddypress-page form#whats-new-form #whats-new-textarea, #grandchildnav.widget, .fpost .post-thumb img, .clip .clip-thumb img, .author-thumb img, #carousel .content ul li a img, #carousel .content ul li a:hover img, #feature-footer{border-color:#E9E9E9;}blockquote, input, textarea, .searchform .searchfield, .wp-caption, .widget-default, #buddypress-page div.activity-comments form .ac-textarea, #buddypress-page form#whats-new-form #whats-new-textarea, #grandchildnav.widget, fpost .post-thumb img, .clip .clip-thumb img, .author-thumb img{border-left-color:#DDDDDD;}blockquote, input, textarea, .searchform .searchfield, .wp-caption, .widget-default, #buddypress-page div.activity-comments form .ac-textarea, #buddypress-page form#whats-new-form #whats-new-textarea, #grandchildnav.widget, fpost .post-thumb img, .clip .clip-thumb img, .author-thumb img{border-top-color:#DDDDDD;}#feature-footer .feature-footer-pad{border-left-color:#FFFFFF;}#feature-footer .feature-footer-pad{border-top-color:#FFFFFF;}#feature-footer, #grandchildnav li a, #grandchildnav .current_page_item  ul li a, #buddypress-page #object-nav ul li a{ text-shadow:#FFFFFF 0 1px 0;}#wp-calendar thead th, #buddypress-page #object-nav, .item-avatar a, .comment blockquote, #grandchildnav .current_page_item a, #grandchildnav li a:hover, #grandchildnav .current_page_item  ul li a:hover, #carousel .carousel_text, pagination .wp-pagenavi a, #pagination .wp-pagenavi .current, #pagination .wp-pagenavi .extend, .sf-menu li:hover, .sf-menu li.sfHover, #featurenav a, #feature-footer span.playpause, .content-pagination .cp-num, .content-pagination a:hover .cp-num, ins{background:#F1F1F1;}#featurenav a, #feature-footer span.playpause{border-color:#DDDDDD;}#featurenav a, #feature-footer span.playpause{border-left-color:#CCCCCC;}#featurenav a, #feature-footer span.playpause{border-top-color:#CCCCCC;}#buddypress-page #object-nav ul li a:hover,#buddypress-page #object-nav ul li.selected a, #buddypress-page #subnav a:hover, #buddypress-page #subnav li.current a, #featurenav a.activeSlide{background:#E1E1E1;}#featurenav a.activeSlide{border-color:#CCCCCC;}#featurenav a.activeSlide{border-left-color:#999999;}#featurenav a.activeSlide{border-top-color:#999999;}#footer, #footer li.link-list a, #footer .latest_posts li .list-excerpt{color:#999999;}#footer a, #footer .widget-title,  #footer li h5 a{color:#FFFFFF;}#footer, .fixed_width #footer{ text-shadow:#000000 0 -1px 0;}
+</style>
+<style type="text/css">.broken_link, a.broken_link {
+	text-decoration: line-through;
+}</style>
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Mutt sidebar (folder list) patch" />
+<meta property="og:url" content="http://www.lunar-linux.org/mutt-sidebar/" />
+<meta property="og:description" content="News April 12, 2014 Updated patch for pristine mutt-1.5.23 source package. February 19, 2013 Added the sidebar shortpath_indent patch courtesy of v4hn (fellow lunar dev). August 29, 2012 Updated pa..." />
+<meta property="article:published_time" content="2006-07-21T15:06:47+00:00" />
+<meta property="article:modified_time" content="2014-04-12T21:20:35+00:00" />
+<meta property="article:author" content="http://www.lunar-linux.org/author/tchan/" />
+<meta property="og:site_name" content="Lunar Linux" />
+<meta property="og:image" content="http://www.blogs.lunar-linux.org/wp-content/uploads/2014/04/mutt-screenshot.png" />
+<meta name="twitter:site" content="@jetpack" />
+<meta name="twitter:image" content="http://www.blogs.lunar-linux.org/wp-content/uploads/2014/04/mutt-screenshot.png?w=240" />
+<meta name="twitter:card" content="summary" />
+</head>
+<body class="page page-id-48 page-template-default full_width ttype-default tmain-default">
+<div id="site" class="one-sidebar-left"> <!-- #site // Wraps #header, #page-main, #footer - closed in footer -->
+	<div id="page"> <!-- #page // Wraps #header, #page-main - closed in footer -->
+		<div id="page-canvas">
+						<div id="header" class="container-group fix">
+				<div class="outline">
+					<div id="branding" class="container fix">
+	<div class="texture">
+		<div class="content">
+			<div class="content-pad">
+<div class="branding_wrap">
+	<a class="mainlogo-link" href="http://www.lunar-linux.org" title="Lunar Linux"><img class="mainlogo-img" src="http://www.lunar-linux.org/images/logo.png" alt="Lunar Linux" /></a>		
+	
+	<div class="icons" style="bottom: 0px; right: px;">
+
+				<a target="_blank" href="http://www.lunar-linux.org/feed/" class="rsslink"></a>
+		
+																			</div>
+</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="primary-nav" class="container fix">
+	<div class="texture">
+		<div class="content">
+			<div class="content-pad">
+	<div id="nav_row" class="main_nav fix">
+<ul id="menu-navigation" class="main-nav sf-menu"><li id="menu-item-57" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-57"><a href="http://www.lunar-linux.org/" onclick="javascript:_gaq.push(['_trackEvent','outbound-menu','http://www.lunar-linux.org']);">Home</a></li>
+<li id="menu-item-297" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-297"><a href="http://www.lunar-linux.org/blogs/" onclick="javascript:_gaq.push(['_trackEvent','outbound-menu','http://www.lunar-linux.org']);">Blogs</a>
+<ul class="sub-menu">
+	<li id="menu-item-177" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-177"><a href="#">Contributors</a>
+	<ul class="sub-menu">
+		<li id="menu-item-181" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-181"><a href="http://akelling.blogs.lunar-linux.org/" >Drew Kelling (akelling)</a></li>
+	</ul>
+</li>
+	<li id="menu-item-176" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-176"><a href="#">Developers</a>
+	<ul class="sub-menu">
+		<li id="menu-item-182" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-182"><a href="http://dveatch.blogs.lunar-linux.org/" >Dennis Veatch (dveatch)</a></li>
+		<li id="menu-item-180" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-180"><a href="http://florin.blogs.lunar-linux.org/" >Florin Braescu</a></li>
+		<li id="menu-item-443" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-443"><a href="http://v4hn.blogs.lunar-linux.org/" >Michael Goerner (v4hn)</a></li>
+		<li id="menu-item-178" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-178"><a href="http://wdp.blogs.lunar-linux.org/" >Jean Bruenn (wdp)</a></li>
+		<li id="menu-item-179" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-179"><a href="http://striker.blogs.lunar-linux.org/" >Jon South (Striker)</a></li>
+		<li id="menu-item-495" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-495"><a href="http://cavalier.blogs.lunar-linux.org/" >Peter de Ridder (cavalier)</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li id="menu-item-59" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-59"><a href="http://www.lunar-linux.org/downloads/" onclick="javascript:_gaq.push(['_trackEvent','outbound-menu','http://www.lunar-linux.org']);">Downloads</a></li>
+<li id="menu-item-60" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-60"><a href="http://modules.lunar-linux.org/" onclick="javascript:_gaq.push(['_trackEvent','outbound-menu','http://modules.lunar-linux.org']);">Modules</a></li>
+<li id="menu-item-58" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-58"><a href="http://www.lunar-linux.org/about/" onclick="javascript:_gaq.push(['_trackEvent','outbound-menu','http://www.lunar-linux.org']);">About Lunar</a></li>
+<li id="menu-item-242" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-242"><a href="http://wiki.lunar-linux.org/Lunar_Linux" onclick="javascript:_gaq.push(['_trackEvent','outbound-menu','http://wiki.lunar-linux.org']);">Documentation</a>
+<ul class="sub-menu">
+	<li id="menu-item-301" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-301"><a href="http://wiki.lunar-linux.org/Lunar_Linux" onclick="javascript:_gaq.push(['_trackEvent','outbound-menu','http://wiki.lunar-linux.org']);">Lunar-Linux Wiki</a></li>
+	<li id="menu-item-300" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-300"><a href="http://www.lunar-linux.org/mailing-lists/" onclick="javascript:_gaq.push(['_trackEvent','outbound-menu','http://www.lunar-linux.org']);">Mailing Lists</a></li>
+	<li id="menu-item-316" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-316"><a href="http://www.lunar-linux.org/friends-and-affiliates/" onclick="javascript:_gaq.push(['_trackEvent','outbound-menu','http://www.lunar-linux.org']);">Friends / Affiliates</a></li>
+</ul>
+</li>
+<li id="menu-item-62" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-62"><a href="http://bugs.lunar-linux.org/" onclick="javascript:_gaq.push(['_trackEvent','outbound-menu','http://bugs.lunar-linux.org']);">Bugs</a></li>
+<li id="menu-item-63" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-63"><a href="http://screenshots.lunar-linux.org/" onclick="javascript:_gaq.push(['_trackEvent','outbound-menu','http://screenshots.lunar-linux.org']);">Screenshots</a>
+<ul class="sub-menu">
+	<li id="menu-item-428" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-428"><a href="http://screenshots.lunar-linux.org/" onclick="javascript:_gaq.push(['_trackEvent','outbound-menu','http://screenshots.lunar-linux.org']);">View Screenshots</a></li>
+	<li id="menu-item-427" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-427"><a href="http://www.lunar-linux.org/screenshot-submit/" onclick="javascript:_gaq.push(['_trackEvent','outbound-menu','http://www.lunar-linux.org']);">Submit yours!</a></li>
+</ul>
+</li>
+</ul><form method="get" class="searchform" action="http://www.lunar-linux.org/" onsubmit="this.submit();return false;">
+	<fieldset>
+		<input type="text" value="Search" name="s" class="searchfield" onfocus="if (this.value == 'Search') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Search';}" />
+
+		<input type="image" class="submit btn" name="submit" src="http://www.blogs.lunar-linux.org/wp-content/themes/platform/images/search-btn.png" alt="Go" />
+	</fieldset>
+</form>
+	</div>
+
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="breadcrumb" class="container fix">
+	<div class="texture">
+		<div class="content">
+			<div class="content-pad">
+			<div class="breadcrumb subtext">
+<!-- Breadcrumb NavXT 5.0.1 -->
+<a title="Go to Lunar Linux." href="http://www.lunar-linux.org" class="home">Lunar Linux</a> &gt; Mutt sidebar (folder list) patch			</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+</div>
+				</div>
+			</div>
+						<div id="page-main" class="container-group fix"> <!-- #page-main // closed in footer -->
+				<div id="dynamic-content" class="outline fix">
+					<div id="maincontent" class="container fix">
+	<div class="texture">
+		<div class="content">
+			<div class="content-pad">
+<div id="pagelines_content" class="one-sidebar-left fix">
+	
+		<div id="column-wrap" class="fix">
+		
+				<div id="column-main" class="mcolumn fix">
+			<div class="mcolumn-pad" >
+				<div id="theloop" class="copy fix">
+	<div class="copy-pad">
+<div class="post-48 page type-page status-publish hentry fpost" id="post-48">
+				
+					<h1 class="pagetitle">Mutt sidebar (folder list) patch</h1>
+							
+				
+					  	
+						<div class="entry_wrap fix">
+						
+							<div class="entry_content">
+								<h3>News</h3>
+<table class="msnews">
+<tbody>
+<tr>
+<th class="ndate">April 12, 2014</th>
+<td class="news">Updated patch for pristine mutt-1.5.23 source package.</td>
+</tr>
+<tr>
+<th class="ndate">February 19, 2013</th>
+<td class="news">Added the sidebar shortpath_indent patch courtesy of v4hn (fellow lunar dev).</td>
+</tr>
+<tr>
+<th class="ndate">August 29, 2012</th>
+<td class="news">Updated patch for pristine mutt-1.5.21 source package.<br />
+Also incorporated 16 patches from <a href="http://blog.plenz.com/2012-01/mutt-sidebar-patch-improvements.html" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://blog.plenz.com']);">Julius Plenz</a> (patches 0005 through 0020).</td>
+</tr>
+<tr>
+<th class="ndate">June 19, 2009</th>
+<td class="news">Updated patch for pristine mutt-1.5.20 source package.</td>
+</tr>
+<tr>
+<th class="ndate">June 18, 2009</th>
+<td class="news">Added IMAP folder sorting patch courtesy of Jan Larres</td>
+</tr>
+<tr>
+<th class="ndate">May 22, 2009</th>
+<td class="news">Added maildir patches courtesy of Stuart Henderson and Aneesh Kumar</td>
+</tr>
+<tr>
+<th class="ndate">March 8, 2009</th>
+<td class="news">Updated patch for pristine mutt-1.5.19 source package.</td>
+</tr>
+<tr>
+<th class="ndate">June 11, 2008</th>
+<td class="news">Fixes the indenting folder patch &#8212; no more null&#8217;s being displayed.</td>
+</tr>
+<tr>
+<th class="ndate">May 17, 2008</th>
+<td class="news">Updated patch for pristine mutt-1.5.18 source package.</td>
+</tr>
+<tr>
+<th class="ndate">April 12, 2008</th>
+<td class="news">Incorporated patches from Tomas Hoger (multiple pages of mailboxes screen display fixed),<br />
+Nicolas Duboc (flagged emails), Micha Lenk (indenting folders relative to folder depth).</td>
+</tr>
+<tr>
+<th class="ndate">November 3, 2007</th>
+<td class="news">Updated patch for pristine mutt-1.5.17 source package.</td>
+</tr>
+<tr>
+<th class="ndate">July 4, 2007</th>
+<td class="news">Updated patch for pristine mutt-1.5.16 source package.</td>
+</tr>
+<tr>
+<th class="ndate">April 8, 2007</th>
+<td class="news">Updated patch for pristine mutt-1.5.15 source package.</td>
+</tr>
+<tr>
+<th class="ndate">February 23, 2007</th>
+<td class="news">Updated patch for pristine mutt-1.5.14 source package.</td>
+</tr>
+<tr>
+<th class="ndate">October 23, 2006</th>
+<td class="news">Incorporated a patch from Andreas Krennmair that allows the sidebar delimiter to be user-configured.</td>
+</tr>
+<tr>
+<th class="ndate">August 30, 2006</th>
+<td class="news">Incorporated a patch from Eugene Paskevich that corrects a problem the sidebar code<br />
+has with the regular mutt status line at the bottom of the screen.</td>
+</tr>
+<tr>
+<th class="ndate">August 28, 2006</th>
+<td class="news">Updated patch for pristine mutt-1.5.13 source package.<br />
+Incorporated a patch from Dr. Werner Fink to behave better with other mutt patches and to make sidebar<br />
+play nicer with autoconfigure.</td>
+</tr>
+<tr>
+<th class="ndate">August 4, 2006</th>
+<td class="news">Updated patch for pristine mutt-1.5.12 source package.<br />
+Incorporated a patch from Charles Killian for better refresh of IMAP folder message counts.</td>
+</tr>
+<tr>
+<th class="ndate">July 21, 2006</th>
+<td class="news">
+<div style="color: red"><strong>New maintainer is Terry P. Chan.</strong></div>
+<p>I&#8217;ll only be maintaining the patch for the pristine mutt source tarballs (i.e.<br />
+unpatched mutt source). So that also means no Debian packages, and<br />
+no RPM&#8217;s.</td>
+</tr>
+<tr>
+<th class="ndate">July 20, 2006</th>
+<td class="news">Patch for pristine mutt-1.5.12 source package.</td>
+</tr>
+</tbody>
+</table>
+<h3>Introduction</h3>
+<p><a href="http://www.mutt.org/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.mutt.org']);">Mutt</a> is the mail client of choice for people who are wary of fancy graphical user interfaces. I do like <a href="http://www.mozilla.org/products/thunderbird/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.mozilla.org']);">Mozilla Thunderbird</a>, <a href="http://balsa.gnome.org/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://balsa.gnome.org']);">Balsa</a>, and even <a href="http://en.wikipedia.org/wiki/Outlook_Express" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://en.wikipedia.org']);">Outlook Express</a>. My biggest problem with all of these mail clients, however, is that I cannot use <a href="http://vim.sourceforge.net" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://vim.sourceforge.net']);">Vim</a> to write my emails.</p>
+<p>Unfortunately, though, mutt lacks an important feature that most email clients do have: a folder list that allows you to see all mail folders you have and how many (new) emails they each contain.</p>
+<p>Justin Hibbits wrote a mutt patch that is an approximate fix to this problem. <a href="http://thomer.com/mutt/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://thomer.com']);">Thomer M. Gil</a> helped him by adding some features and fixing some bugs. I temporarily borrowed most of the text from <a href="http://thomer.com/mutt/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://thomer.com']);">Thomer&#8217;s mutt sidebar page</a>, at least until I can find the time to figure out what needs to change here.</p>
+<h3>Features</h3>
+<ul>
+<li>A sidebar with a list of folders on the left side of the mutt window.</li>
+<li>Hide/Unhide the sidebar with a single keystroke.</li>
+<li>Every line in the sidebar lists a folder with the total and new number of messages in it.</li>
+<li>Optionally highlight folders with new messages.</li>
+<li>Scroll up and down the list of folders and open the selected folder.</li>
+<li>Configurable sidebar width and colors.</li>
+<li>Configurable key bindings.</li>
+</ul>
+<h3>Screenshot</h3>
+<div style="text-align: center"><img alt="" src="http://www.blogs.lunar-linux.org/wp-content/uploads/2014/04/mutt-screenshot.png" /></div>
+<h3>Download</h3>
+<h4 style="margin-bottom: 0">Patches</h4>
+<ul>
+<li><strong>Latest patch for mutt-1.5.23</strong>(Pristine tarball only)
+<ul>
+<li><a href="http://lunar-linux.org/~tchan/mutt/patch-1.5.23.sidebar.20140412.txt" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://lunar-linux.org']);">patch-1.5.23.sidebar.20140412.txt</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Latest patch for mutt-1.5.21</strong>(Pristine tarball only)
+<ul>
+<li><a href="http://lunar-linux.org/~tchan/mutt/patch-1.5.21.sidebar.20130219.txt" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://lunar-linux.org']);">patch-1.5.21.sidebar.20130219.txt</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Previous patch for mutt-1.5.21</strong>(Pristine tarball only)
+<ul>
+<li><a href="http://lunar-linux.org/~tchan/mutt/patch-1.5.21.sidebar.20120829.txt" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://lunar-linux.org']);">patch-1.5.21.sidebar.20120829.txt</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Latest patch for mutt-1.5.20</strong>(Pristine tarball only)
+<ul>
+<li><a href="http://lunar-linux.org/~tchan/mutt/patch-1.5.20.sidebar.20090619.txt" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://lunar-linux.org']);">patch-1.5.20.sidebar.20090619.txt</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Latest patch for mutt-1.5.19</strong>(Pristine tarball only)
+<ul>
+<li><a href="http://lunar-linux.org/~tchan/mutt/patch-1.5.19.sidebar.20090618.txt" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://lunar-linux.org']);">patch-1.5.19.sidebar.20090618.txt</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Previous patch for mutt-1.5.19</strong>(Pristine tarball only)
+<ul>
+<li><a href="http://lunar-linux.org/~tchan/mutt/patch-1.5.19.sidebar.20090522.txt" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://lunar-linux.org']);">patch-1.5.19.sidebar.20090522.txt</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Latest patch for mutt-1.5.18</strong>(Pristine tarball only)
+<ul>
+<li><a href="http://lunar-linux.org/~tchan/mutt/patch-1.5.18.sidebar.20080611.txt" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://lunar-linux.org']);">patch-1.5.18.sidebar.20080611.txt</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Previous patch for mutt-1.5.18</strong>(Pristine tarball only)
+<ul>
+<li><a href="http://lunar-linux.org/~tchan/mutt/patch-1.5.18.sidebar.20080517.txt" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://lunar-linux.org']);">patch-1.5.18.sidebar.20080517.txt</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Latest patch for mutt-1.5.17</strong>(Pristine tarball only)
+<ul>
+<li><a href="http://lunar-linux.org/~tchan/mutt/patch-1.5.17.sidebar.20080412.txt" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://lunar-linux.org']);">patch-1.5.17.sidebar.20080412.txt</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Previous patch for mutt-1.5.17</strong>(Pristine tarball only)
+<ul>
+<li><a href="http://lunar-linux.org/~tchan/mutt/patch-1.5.17.sidebar.20071102.txt" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://lunar-linux.org']);">patch-1.5.17.sidebar.20071102.txt</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Latest patch for mutt-1.5.16</strong>(Pristine tarball only)
+<ul>
+<li><a href="http://lunar-linux.org/~tchan/mutt/patch-1.5.16.sidebar.20070704.txt" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://lunar-linux.org']);">patch-1.5.16.sidebar.20070704.txt</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Latest patch for mutt-1.5.15</strong>(Pristine tarball only)
+<ul>
+<li><a href="http://lunar-linux.org/~tchan/mutt/patch-1.5.15.sidebar.20070408.txt" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://lunar-linux.org']);">patch-1.5.15.sidebar.20070408.txt</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Latest patch for mutt-1.5.14</strong>(Pristine tarball only)
+<ul>
+<li><a href="http://lunar-linux.org/~tchan/mutt/patch-1.5.14.sidebar.20070223.txt" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://lunar-linux.org']);">patch-1.5.14.sidebar.20070223.txt</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Latest patch for mutt-1.5.13</strong>(Pristine tarball only)
+<ul>
+<li><a href="http://lunar-linux.org/~tchan/mutt/patch-1.5.13.sidebar.20061023.txt" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://lunar-linux.org']);">patch-1.5.13.sidebar.20061023.txt</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Previous patch for mutt-1.5.13</strong>(Pristine tarball only)
+<ul>
+<li><a href="http://lunar-linux.org/~tchan/mutt/patch-1.5.13.sidebar.20060830.txt" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://lunar-linux.org']);">patch-1.5.13.sidebar.20060830.txt</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Latest patch for mutt-1.5.12</strong>(Pristine tarball only)
+<ul>
+<li><a href="http://lunar-linux.org/~tchan/mutt/patch-1.5.12.sidebar.20060804.txt" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://lunar-linux.org']);">patch-1.5.12.sidebar.20060804.txt</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Previous patch for mutt-1.5.12</strong>(Pristine tarball only)
+<ul>
+<li><a href="http://lunar-linux.org/~tchan/mutt/patch-1.5.12.sidebar.20060720.txt" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://lunar-linux.org']);">patch-1.5.12.sidebar.20060720.txt</a></li>
+</ul>
+</li>
+</ul>
+<h3>Announcements</h3>
+<p>If you want an announcement when I release a new version of the patch, subscribe to the <a href="https://freecode.com/projects/mutt-folderlist" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://freecode.com']);">Mutt Folder List freecode project</a>.</p>
+<h3>Installation</h3>
+<p>Get the unpatched <a href="ftp://ftp.mutt.org/mutt/devel/mutt-1.5.23.tar.gz" >mutt 1.5.23 tarball</a>, untar it, and apply the patch. For example:</p>
+<p><code>$ wget -q -O - ftp://ftp.mutt.org/mutt/devel/mutt-1.5.23.tar.gz | tar xvfz -<br />
+$ cd ./mutt-1.5.23<br />
+$ wget -q -O - http://lunar-linux.org/~tchan/mutt/patch-1.5.23.sidebar.20140412.txt | patch -p1<br />
+$ ./configure<br />
+$ make<br />
+$ ./mutt<br />
+$ make install (optional, <strong>you need to be root for this</strong>)</code></p>
+<h3>Documentation</h3>
+<p>Here are the relevant settings from my muttrc:</p>
+<p><code># set up the sidebar, default not visible<br />
+set sidebar_width=12<br />
+set sidebar_visible=no<br />
+set sidebar_delim='|'<br />
+set sidebar_sort=yes</code></p>
+<p># which mailboxes to list in the sidebar<br />
+mailboxes =inbox =ml</p>
+<p># color of folders with new mail<br />
+color sidebar_new yellow default</p>
+<p># ctrl-n, ctrl-p to select next, prev folder<br />
+# ctrl-o to open selected folder<br />
+bind index CP sidebar-prev<br />
+bind index CN sidebar-next<br />
+bind index CO sidebar-open<br />
+bind pager CP sidebar-prev<br />
+bind pager CN sidebar-next<br />
+bind pager CO sidebar-open</p>
+<p># I don&#8217;t need these. just for documentation purposes. See below.<br />
+# sidebar-scroll-up<br />
+# sidebar-scroll-down</p>
+<p># b toggles sidebar visibility<br />
+macro index b &#8216;&lt;enter-command&gt;toggle sidebar_visible&lt;enter&gt;&#8217;<br />
+macro pager b &#8216;&lt;enter-command&gt;toggle sidebar_visible&lt;enter&gt;&#8217;</p>
+<p># Remap bounce-message function to &#8220;B&#8221;<br />
+bind index B bounce-message</p>
+<p>#<br />
+# Mario Holbe suggests:<br />
+# macro index b &#8216;&lt;enter-command&gt;toggle sidebar_visible&lt;enter&gt;&lt;refresh&gt;&#8217;<br />
+# macro pager b &#8216;&lt;enter-command&gt;toggle sidebar_visible&lt;enter&gt;&lt;redraw-screen&gt;&#8217;<br />
+#</p>
+<p><tt>sidebar_width (number)</tt><br />
+Width of the sidebar.</p>
+<p><tt>sidebar_visible (boolean)</tt><br />
+Whether or not the sidebar is visible.</p>
+<p><tt>sidebar_delim (string)</tt><br />
+Specifies the delimiter between the sidebar and other screens</p>
+<p><tt>sidebar_sort</tt><br />
+This specifies whether or not to sort the folders in the sidebar alphabetically, mainly for IMAP user.</p>
+<p><tt>color sidebar_new [fg] [bg]</tt><br />
+The foreground (fg) and background (bg) color of folders that contain new mail.</p>
+<p><tt>sidebar-prev</tt><br />
+Mutt&#8217;s name for the operation that selects the previous folder.</p>
+<p><tt>sidebar-next</tt><br />
+Mutt&#8217;s name for the operation that selects the next folder.</p>
+<p><tt>sidebar-open</tt><br />
+Mutt&#8217;s name for the operation that opens the currently selected folder.</p>
+<p><tt>sidebar-scroll-up</tt><br />
+Only useful if you have more folders than lines in your terminal: scrolls one<br />
+page up through the list of folders.</p>
+<p><tt>sidebar-scroll-down</tt><br />
+Only useful if you have more folders than lines in your terminal: scrolls one<br />
+page down through the list of folders.</p>
+<p><tt>sidebar_format (string)</tt><br />
+Format string for the sidebar. The sequences `%N&#8217;, `%F&#8217; and `%S&#8217; will<br />
+be replaced by the number of new or flagged messages or the total size<br />
+of them mailbox. `%B&#8217; will be replaced with the name of the mailbox.<br />
+The `%!&#8217; sequence will be expanded to `!&#8217; if there is one flagged<br />
+message; to `!!&#8217; if there are two flagged messages; and to `n!&#8217; for n<br />
+flagged messages, n&gt;2.</p>
+<p><tt>sidebar_folderindent (boolean)</tt><br />
+Should folders be indented in the sidebar.</p>
+<p><tt>sidebar_indentstr (string)</tt><br />
+This specifies the string that is used to indent items with<br />
+sidebar_folderindent= yes.</p>
+<p><tt>sidebar_shortpath (boolean)</tt><br />
+Should the sidebar shorten the path showed.</p>
+<h3>Bugs and patches</h3>
+<p>Bugs? Probably! Patches? <a href="mailto:tchan@lunar-linux.org">Yes, please!</a></p>
+<div class="pagedata">URL: <a title="Mutt-Sidebar Patch" href="http://www.lunar-linux.org/mutt-sidebar/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.lunar-linux.org']);">http://www.lunar-linux.org/mutt-sidebar/</a><br class="pagedata" /> Copyright © 1994-2006 by Thomer M. Gil<br />
+Portions Copyright © 2006-2014 by Terry P. Chan</div>
+									<div class="clear"></div> 
+																</div>	
+							<div class="tags">
+								&nbsp;
+							</div>
+						</div>
+								</div>
+
+	<div class="clear"></div>
+	</div>
+</div>
+			</div>
+		</div>
+		
+				
+	</div>	
+	
+	
+	<div id="sidebar-wrap" class="fix">
+			<div id="sidebar1" class="scolumn fix" >
+				<div class="scolumn-pad">
+					<div id="sidebar_primary" class="copy fix">
+	<div class="copy-pad">
+	<ul id="list_sidebar_primary" class="sidebar_widgets fix">
+				<li id="recent-posts-2" class="widget_recent_entries widget fix"><div class="widget-pad">		<h3 class="widget-title">Recent Posts</h3>		<ul>
+					<li>
+				<a href="http://cavalier.blogs.lunar-linux.org/2013/09/19/new-installation-iso-development/">New installation ISO development</a>
+						</li>
+					<li>
+				<a href="http://v4hn.blogs.lunar-linux.org/2012/06/03/moonbase-workflow/">Moonbase Workflow</a>
+						</li>
+					<li>
+				<a href="http://wdp.blogs.lunar-linux.org/2012/04/01/new-32bit-chroot-image/">new 32bit chroot image</a>
+						</li>
+					<li>
+				<a href="http://wdp.blogs.lunar-linux.org/2012/03/17/future-use-of-maintainer-in-details/">Future use of MAINTAINER= in DETAILS</a>
+						</li>
+					<li>
+				<a href="http://wdp.blogs.lunar-linux.org/2012/03/17/lunar-linux-introducing-stable-unstable/">Lunar Linux: Introducing stable / unstable</a>
+						</li>
+				</ul>
+		</div></li><li id="text-6" class="widget_text widget fix"><div class="widget-pad"><h3 class="widget-title">Lunar Mirrors</h3>			<div class="textwidget">
+<p><a href="http://tx-us.lunar-linux.org/lunar/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://tx-us.lunar-linux.org']);" title="Dallas, TX, United States"><img src="/images/flags/usa.gif" alt="US - Secondary Mirror" style="vertical-align: middle; padding: 1px inherit 1px inherit;" /></a>
+<a href="http://tx-us.lunar-linux.org/lunar/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://tx-us.lunar-linux.org']);">Dallas</a></p>
+
+<p><a href="http://fr-de.lunar-linux.org/lunar/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://fr-de.lunar-linux.org']);" title="Frankfurt, Germany"><img src="/images/flags/germany.gif" alt="DE - Secondary Mirror" style="vertical-align: middle; padding: 1px inherit 1px inherit;" /></a>
+<a href="http://fr-de.lunar-linux.org/lunar/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://fr-de.lunar-linux.org']);" title="Frankfurt, Germany">Frankfurt</a></p>
+
+<p><a href="http://su-se.lunar-linux.org/lunar/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://su-se.lunar-linux.org']);" title="Stockholm, Sweden"><img src="/images/flags/sweden.gif" alt="SE - Secondary Mirror" style="vertical-align: middle; padding: 1px inherit 1px inherit;" /></a>
+<a href="http://su-se.lunar-linux.org/lunar/" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://su-se.lunar-linux.org']);">Stockholm</a></p></div>
+		</div></li><li id="categories-2" class="widget_categories widget fix"><div class="widget-pad"><h3 class="widget-title">Categories</h3><select name='cat' id='cat' class='postform' >
+	<option value='-1'>Select Category</option>
+	<option class="level-0" value="5">Announcements</option>
+	<option class="level-0" value="40">Cogitations</option>
+	<option class="level-0" value="6">General</option>
+	<option class="level-0" value="27">Moonbase</option>
+	<option class="level-1" value="32">&nbsp;&nbsp;&nbsp;Modules</option>
+	<option class="level-0" value="24">Releases</option>
+	<option class="level-1" value="25">&nbsp;&nbsp;&nbsp;Alpha Releases</option>
+	<option class="level-1" value="26">&nbsp;&nbsp;&nbsp;Beta Releases</option>
+	<option class="level-1" value="22">&nbsp;&nbsp;&nbsp;Release Candidates</option>
+	<option class="level-1" value="21">&nbsp;&nbsp;&nbsp;Stable Releases</option>
+	<option class="level-0" value="28">the daily insanity</option>
+	<option class="level-0" value="1">Uncategorized</option>
+	<option class="level-0" value="23">Website</option>
+</select>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+	var dropdown = document.getElementById("cat");
+	function onCatChange() {
+		if ( dropdown.options[dropdown.selectedIndex].value > 0 ) {
+			location.href = "http://www.lunar-linux.org/?cat="+dropdown.options[dropdown.selectedIndex].value;
+		}
+	}
+	dropdown.onchange = onCatChange;
+/* ]]> */
+</script>
+
+</div></li><li id="archives-2" class="widget_archive widget fix"><div class="widget-pad"><h3 class="widget-title">Archives</h3>		<select name="archive-dropdown" onchange='document.location.href=this.options[this.selectedIndex].value;'> <option value="">Select Month</option> 	<option value='http://www.lunar-linux.org/2013/09/'> September 2013 </option>
+	<option value='http://www.lunar-linux.org/2012/06/'> June 2012 </option>
+	<option value='http://www.lunar-linux.org/2012/04/'> April 2012 </option>
+	<option value='http://www.lunar-linux.org/2012/03/'> March 2012 </option>
+	<option value='http://www.lunar-linux.org/2012/02/'> February 2012 </option>
+	<option value='http://www.lunar-linux.org/2012/01/'> January 2012 </option>
+	<option value='http://www.lunar-linux.org/2011/10/'> October 2011 </option>
+	<option value='http://www.lunar-linux.org/2011/08/'> August 2011 </option>
+	<option value='http://www.lunar-linux.org/2011/07/'> July 2011 </option>
+	<option value='http://www.lunar-linux.org/2011/02/'> February 2011 </option>
+	<option value='http://www.lunar-linux.org/2010/08/'> August 2010 </option>
+	<option value='http://www.lunar-linux.org/2010/07/'> July 2010 </option>
+	<option value='http://www.lunar-linux.org/2008/12/'> December 2008 </option>
+	<option value='http://www.lunar-linux.org/2008/10/'> October 2008 </option>
+	<option value='http://www.lunar-linux.org/2008/09/'> September 2008 </option>
+	<option value='http://www.lunar-linux.org/2008/07/'> July 2008 </option>
+	<option value='http://www.lunar-linux.org/2008/02/'> February 2008 </option>
+	<option value='http://www.lunar-linux.org/2007/11/'> November 2007 </option>
+	<option value='http://www.lunar-linux.org/2007/09/'> September 2007 </option>
+	<option value='http://www.lunar-linux.org/2007/07/'> July 2007 </option>
+	<option value='http://www.lunar-linux.org/2007/04/'> April 2007 </option>
+	<option value='http://www.lunar-linux.org/2007/02/'> February 2007 </option>
+	<option value='http://www.lunar-linux.org/2006/12/'> December 2006 </option>
+	<option value='http://www.lunar-linux.org/2006/10/'> October 2006 </option>
+	<option value='http://www.lunar-linux.org/2006/06/'> June 2006 </option>
+	<option value='http://www.lunar-linux.org/2006/04/'> April 2006 </option>
+	<option value='http://www.lunar-linux.org/2006/03/'> March 2006 </option>
+	<option value='http://www.lunar-linux.org/2006/02/'> February 2006 </option>
+	<option value='http://www.lunar-linux.org/2006/01/'> January 2006 </option>
+	<option value='http://www.lunar-linux.org/2005/11/'> November 2005 </option>
+	<option value='http://www.lunar-linux.org/2005/09/'> September 2005 </option>
+	<option value='http://www.lunar-linux.org/2005/08/'> August 2005 </option>
+	<option value='http://www.lunar-linux.org/2005/03/'> March 2005 </option>
+ </select>
+</div></li><li id="text-7" class="widget_text widget fix"><div class="widget-pad"><h3 class="widget-title">Polls</h3>			<div class="textwidget"><a name="pd_a_5990671"></a>
+<div class="PDS_Poll" id="PDI_container5990671" style="display:inline-block;"></div>
+<div id="PD_superContainer"></div>
+<script type="text/javascript" charset="UTF-8" src="http://static.polldaddy.com/p/5990671.js"></script>
+<noscript><a href="http://polldaddy.com/poll/5990671" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://polldaddy.com']);">Take Our Poll</a></noscript></div>
+		</div></li>	</ul>
+	<div class="clear"></div>
+	</div>
+</div>
+	
+				</div>
+			</div>
+			</div>		
+
+</div>				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+</div>
+</div> <!-- END #dynamic-content -->
+
+<div id="morefoot_area"><div id="morefoot" class="container fix">
+	<div class="texture">
+		<div class="content">
+			<div class="content-pad">
+								<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="clear"></div>
+				
+</div> <!-- END #page-main from header -->
+</div> <!-- END #page-canvas from header -->
+</div> <!-- END #page from header -->
+
+<div  id="footer">
+	<div class="outline fix"><div id="simple_footer_nav" class="container fix">
+	<div class="texture">
+		<div class="content">
+			<div class="content-pad">
+	<div id="logo">
+					<h1 class="site-title">
+				<a class="home" href="http://www.lunar-linux.org" title="Home">
+					Lunar Linux				</a>
+			</h1>
+			</div>
+	
+	<div class="menu-secondary-navigation-container"><ul id="menu-secondary-navigation" class="menu"><li id="menu-item-151" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-151"><a href="http://www.lunar-linux.org/downloads/" onclick="javascript:_gaq.push(['_trackEvent','outbound-menu','http://www.lunar-linux.org']);">Downloads</a></li>
+<li id="menu-item-152" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-152"><a href="http://modules.lunar-linux.org/" onclick="javascript:_gaq.push(['_trackEvent','outbound-menu','http://modules.lunar-linux.org']);">Modules</a></li>
+<li id="menu-item-243" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-243"><a href="http://wiki.lunar-linux.org/Lunar_Linux" onclick="javascript:_gaq.push(['_trackEvent','outbound-menu','http://wiki.lunar-linux.org']);">Documentation</a></li>
+<li id="menu-item-155" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-155"><a href="http://bugs.lunar-linux.org/" onclick="javascript:_gaq.push(['_trackEvent','outbound-menu','http://bugs.lunar-linux.org']);">Bug Tracker</a></li>
+<li id="menu-item-156" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-156"><a href="http://screenshots.lunar-linux.org/" onclick="javascript:_gaq.push(['_trackEvent','outbound-menu','http://screenshots.lunar-linux.org']);">Screenshots</a></li>
+</ul></div>	
+	<span class="terms">
+		Lunar Linux is <a href="http://www.gnu.org/copyleft/">Copyleft</a> © 2002-2012, Lunar Linux Team<br />
+LINUX® is a registered trademark of Linus Torvalds.<br />
+Powered by <a href="http://www.lunar-linux.org/">Lunar-Linux</a>.	</span>	
+
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="footcols" class="container fix">
+	<div class="texture">
+		<div class="content">
+			<div class="content-pad">
+			<div id="fcolumns_container" class="dcol_container_5 fix">
+				
+				<div id="text-2" class="widget_text dcol_5 dcol"><div class="dcol-pad">			<div class="textwidget"><i>It's out of this world!</i></div>
+		</div></div><div id="text-3" class="widget_text dcol_5 dcol"><div class="dcol-pad">			<div class="textwidget"></div>
+		</div></div><div id="tag_cloud-3" class="widget_tag_cloud dcol_5 dcol"><div class="dcol-pad"><h3 class="widget-title">Categories</h3><div class="tagcloud"><a href='http://www.lunar-linux.org/category/releases/alpha/' class='tag-link-25' title='2 topics' style='font-size: 14.4615384615pt;'>Alpha Releases</a>
+<a href='http://www.lunar-linux.org/category/announcements/' class='tag-link-5' title='4 topics' style='font-size: 17.4230769231pt;'>Announcements</a>
+<a href='http://www.lunar-linux.org/category/releases/beta/' class='tag-link-26' title='2 topics' style='font-size: 14.4615384615pt;'>Beta Releases</a>
+<a href='http://www.lunar-linux.org/category/cogitations/' class='tag-link-40' title='2 topics' style='font-size: 14.4615384615pt;'>Cogitations</a>
+<a href='http://www.lunar-linux.org/category/general/' class='tag-link-6' title='3 topics' style='font-size: 16.0769230769pt;'>General</a>
+<a href='http://www.lunar-linux.org/category/moonbase/modules/' class='tag-link-32' title='10 topics' style='font-size: 22pt;'>Modules</a>
+<a href='http://www.lunar-linux.org/category/moonbase/' class='tag-link-27' title='0 topics' style='font-size: 8pt;'>Moonbase</a>
+<a href='http://www.lunar-linux.org/category/releases/rc/' class='tag-link-22' title='6 topics' style='font-size: 19.4423076923pt;'>Release Candidates</a>
+<a href='http://www.lunar-linux.org/category/releases/' class='tag-link-24' title='0 topics' style='font-size: 8pt;'>Releases</a>
+<a href='http://www.lunar-linux.org/category/releases/stable/' class='tag-link-21' title='4 topics' style='font-size: 17.4230769231pt;'>Stable Releases</a>
+<a href='http://www.lunar-linux.org/category/tdi/' class='tag-link-28' title='7 topics' style='font-size: 20.1153846154pt;'>the daily insanity</a>
+<a href='http://www.lunar-linux.org/category/uncategorized/' class='tag-link-1' title='1 topic' style='font-size: 12.0384615385pt;'>Uncategorized</a>
+<a href='http://www.lunar-linux.org/category/website/' class='tag-link-23' title='7 topics' style='font-size: 20.1153846154pt;'>Website</a></div>
+</div></div><div id="tag_cloud-2" class="widget_tag_cloud dcol_5 dcol"><div class="dcol-pad"><h3 class="widget-title">Tags</h3><div class="tagcloud"><a href='http://www.lunar-linux.org/tag/alpha-2/' class='tag-link-30' title='2 topics' style='font-size: 10.7096774194pt;'>alpha</a>
+<a href='http://www.lunar-linux.org/tag/beta-2/' class='tag-link-31' title='1 topic' style='font-size: 8pt;'>beta</a>
+<a href='http://www.lunar-linux.org/tag/ccache/' class='tag-link-42' title='1 topic' style='font-size: 8pt;'>ccache</a>
+<a href='http://www.lunar-linux.org/tag/coreutils/' class='tag-link-43' title='1 topic' style='font-size: 8pt;'>coreutils</a>
+<a href='http://www.lunar-linux.org/tag/distcc/' class='tag-link-41' title='1 topic' style='font-size: 8pt;'>distcc</a>
+<a href='http://www.lunar-linux.org/tag/gcc/' class='tag-link-34' title='1 topic' style='font-size: 8pt;'>gcc</a>
+<a href='http://www.lunar-linux.org/tag/glibc/' class='tag-link-35' title='2 topics' style='font-size: 10.7096774194pt;'>glibc</a>
+<a href='http://www.lunar-linux.org/tag/i18n/' class='tag-link-18' title='1 topic' style='font-size: 8pt;'>i18n</a>
+<a href='http://www.lunar-linux.org/tag/i386/' class='tag-link-33' title='2 topics' style='font-size: 10.7096774194pt;'>i386</a>
+<a href='http://www.lunar-linux.org/tag/i686/' class='tag-link-11' title='10 topics' style='font-size: 19.1397849462pt;'>i686</a>
+<a href='http://www.lunar-linux.org/tag/iso/' class='tag-link-10' title='16 topics' style='font-size: 22pt;'>ISO</a>
+<a href='http://www.lunar-linux.org/tag/kernel/' class='tag-link-36' title='1 topic' style='font-size: 8pt;'>kernel</a>
+<a href='http://www.lunar-linux.org/tag/mediawiki/' class='tag-link-45' title='1 topic' style='font-size: 8pt;'>MediaWiki</a>
+<a href='http://www.lunar-linux.org/tag/rc-2/' class='tag-link-29' title='6 topics' style='font-size: 16.2795698925pt;'>rc</a>
+<a href='http://www.lunar-linux.org/tag/release/' class='tag-link-9' title='6 topics' style='font-size: 16.2795698925pt;'>release</a>
+<a href='http://www.lunar-linux.org/tag/translation/' class='tag-link-17' title='1 topic' style='font-size: 8pt;'>translation</a>
+<a href='http://www.lunar-linux.org/tag/udev/' class='tag-link-38' title='1 topic' style='font-size: 8pt;'>udev</a>
+<a href='http://www.lunar-linux.org/tag/www/' class='tag-link-13' title='4 topics' style='font-size: 14.0215053763pt;'>website</a>
+<a href='http://www.lunar-linux.org/tag/wiki/' class='tag-link-46' title='1 topic' style='font-size: 8pt;'>Wiki</a>
+<a href='http://www.lunar-linux.org/tag/x86/' class='tag-link-15' title='5 topics' style='font-size: 15.2258064516pt;'>x86</a>
+<a href='http://www.lunar-linux.org/tag/x86_64/' class='tag-link-12' title='6 topics' style='font-size: 16.2795698925pt;'>x86_64</a>
+<a href='http://www.lunar-linux.org/tag/xorg/' class='tag-link-37' title='4 topics' style='font-size: 14.0215053763pt;'>XOrg</a>
+<a href='http://www.lunar-linux.org/tag/zbeta/' class='tag-link-44' title='1 topic' style='font-size: 8pt;'>zbeta</a></div>
+</div></div><div id="search-3" class="widget_search dcol_5 dcol"><div class="dcol-pad"><form method="get" class="searchform" action="http://www.lunar-linux.org/" onsubmit="this.submit();return false;">
+	<fieldset>
+		<input type="text" value="Search" name="s" class="searchfield" onfocus="if (this.value == 'Search') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Search';}" />
+
+		<input type="image" class="submit btn" name="submit" src="http://www.blogs.lunar-linux.org/wp-content/themes/platform/images/search-btn.png" alt="Go" />
+	</fieldset>
+</form>
+</div></div>			</div>	
+			<div class="clear"></div>
+						<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="cred" class="pagelines"><a class="plimage" target="_blank" href="http://www.pagelines.com/" title="PageLines"><img src="http://www.blogs.lunar-linux.org/wp-content/themes/platform/images/pagelines.png" alt="Platform by PageLines" /></a></div><div class="clear"></div></div>
+</div>
+</div>
+<style type="text/css">
+  li > div.widget-pad > select {
+    margin: 10px;
+  }
+  div.dms-block {
+    clear:both;
+    border:0;
+    min-height:96px;
+    padding: 0.25em;
+  }
+  div.dms-block:hover {
+    background: #eee;
+  }
+  div.dms-block > span {
+    float: right;
+  }
+</style>
+
+<!--[if !(lte IE 8)]><!--> 
+   <script type="text/javascript"> 
+  var tdwfb_config = {
+    greeting: 'Dear Internet', // Sets the salutation at the top left
+    disableDate: false, // If true, the banner shows even if the date is not yet 02/11/2014
+    callOnly: true // If true, the banner only displays a form for calling congress
+  };
+  (function(){
+    var e = document.createElement('script'); e.type='text/javascript'; e.async = true;
+    e.src = document.location.protocol + '//d1agz031tafz8n.cloudfront.net/thedaywefightback.js/widget.min.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(e, s);
+  })();
+          
+   </script>
+<!--<![endif]-->	<div style="display:none">
+	</div>
+<script type='text/javascript' src='http://www.blogs.lunar-linux.org/wp-content/themes/platform/sections/nav/superfish.js?ver=1.0'></script>
+<script type='text/javascript' src='http://www.blogs.lunar-linux.org/wp-content/themes/platform/sections/nav/jquery.bgiframe.min.js?ver=1.0'></script>
+<script type='text/javascript' src='http://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201415'></script>
+<script type='text/javascript' src='http://s.gravatar.com/js/gprofiles.js?ver=2014Apraa'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.blogs.lunar-linux.org/wp-content/plugins/jetpack/modules/wpgroho.js?ver=3.8.2'></script>
+
+	<script src="http://stats.wordpress.com/e-201415.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	st_go({v:'ext',j:'1:2.8.2',blog:'61585006',post:'48',tz:'0'});
+	var load_cmc = function(){linktracker_init(61585006,48,2);};
+	if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+	else load_cmc();
+	</script></body>
+</html>
+<!-- Dynamic page generated in 1.039 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2014-04-12 21:20:44 -->
+
+<!-- Compression = gzip -->

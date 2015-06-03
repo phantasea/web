@@ -1,0 +1,582 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+     
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    
+<head>
+    <title>git上两种工作模式 - duqi_yc的专栏
+        - 博客频道 - CSDN.NET</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="转载自：http://qbaty.iteye.com/blog/865368。最近和army8735一起维护他的代码，由于最近代码管理github吵的很热，所以也正好把代码放到git hub上管理，顺便了解下github的工作模式，写这篇文章就是来总结用github来管理代码的一些方式。文章开始前我觉得有必要稍微介绍下GIT.Git --- The stupid content" />
+    <script src="http://static.blog.csdn.net/scripts/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://static.blog.csdn.net/scripts/ad.js?v=1.1"></script>
+        <!--new top-->
+               <link rel="stylesheet" href="http://static.csdn.net/public/common/toolbar/css/index.css">        <!--new top-->
+
+    <link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/default/css/style.css?v=1.1" />
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/duqi_yc/rss/list" />
+    <link rel="shortcut icon" href="http://csdnimg.cn/public/favicon.ico" />
+    <link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/nobg.css" />
+ 
+
+</head>
+<body>
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="http://static.csdn.net/public/common/toolbar/js/html.js" type="text/javascript"></script>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/duqi_yc">duqi_yc的专栏</a></h2>
+            <h3>坚持，积累，沉淀，才会有所收获……</h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>
+                <li id="btnContents"><a href="http://blog.csdn.net/duqi_yc?viewmode=contents"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_mulu'])">
+                    <img src="http://static.blog.csdn.net/images/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/duqi_yc?viewmode=list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_zhaiyao'])">
+                    <img src="http://static.blog.csdn.net/images/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/duqi_yc/rss/list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_RSS'])">
+                    <img src="http://static.blog.csdn.net/images/ico_rss.gif">订阅</span></a></li>
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "duqi_yc";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/duqi_yc";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+<div class="notice tracking-ad" data-mod='popu_3' > 
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/25387451"target="_blank">
+<font color=blue>有奖征资源，博文分享有内涵
+</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/29379593"target="_blank">
+<font color=red>5月推荐博文汇总 
+</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="http://student.csdn.net/mcs/programming_challenges"target="_blank">
+<font color=blue>第二届战神杯编程挑战月赛
+</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="http://vote.blog.csdn.net/contest/"target="_blank">
+<font color=red>2014 CSDN博文大赛 
+</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="http://www.csdn.net/article/2014-06-10/2820155"target="_blank">
+<font color=blue>技术牛人的蜕变之路-陆其明
+</font></a>
+
+
+</div>                    <link href="http://static.blog.csdn.net/css/comment1.css" type="text/css" rel="stylesheet" />
+<link href="http://static.blog.csdn.net/css/style1.css" type="text/css" rel="stylesheet" />
+<script language='JavaScript' type='text/javascript' src='http://download.csdn.net/js/jquery.cookie.js'></script>
+<script type="text/javascript" src="http://csdnimg.cn/rabbit/search-service/main.js"></script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Repost"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="/duqi_yc/article/details/8982879">
+        git上两种工作模式
+        </a></span>
+    </h1>
+</div>
+
+    <div class="article_manage">
+        <span class="link_categories">
+        分类：
+            <a href="/duqi_yc/article/category/1431956" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_fenlei']);">Git</a> 
+        </span>
+    <span class="link_postdate">2013-05-28 09:03</span>
+    <span class="link_view" title="阅读次数">182人阅读</span>
+    <span class="link_comments" title="评论次数"><a href="#comments" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(0)</span>
+    <span class="link_collect"><a href="javascript:void(0);" onclick="javascript:_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shoucang']);collectArticle('git上两种工作模式','8982879');return false;" title="收藏">收藏</a></span>
+    <span class="link_report"><a href="#report"  onclick="javascript:_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_jubao']);report(8982879,2);return false;" title="举报">举报</a></span>
+    
+</div>
+
+    
+<div id="article_content" class="article_content">
+
+<p>转载自：http://qbaty.iteye.com/blog/865368。</p>
+<p><br>
+</p>
+<p>最近和army8735一起维护他的代码，由于最近代码管理github吵的很热，所以也正好把代码放到git hub上管理，顺便了解下github的工作模式，写这篇文章就是来总结用github来管理代码的一些方式。</p>
+文章开始前我觉得有必要稍微介绍下GIT.<br>
+Git --- The stupid content tracker, 傻瓜内容跟踪器。那么怎么理解呢？git首先是一个版本控制工具，这点和常用CVS, Subversion是一样的，而不同的是，他采用分布式版本控制库的方式管理。Git的速度非常快，可以很轻易创建分支，并且非常适合用于大项目，它有着非常出色的代码合并追踪能力，再同时它有很多小工具帮它管理版本库。在此本文不试图去深入讨论理解git的工作原理,只打算介绍一下git的相对优点，以及我们可以用git做什么。当今的jquery,淘宝的kissy,白度的Tangram都把自己的代码托管到github上,这里像一个开源基地，谁都可以给任何自己想要参与的项目贡献代码，这个归功于github上提供的两种协作模式(Collaborative
+ Development Models):1、The Fork &#43; Pull Model&nbsp; （分支推送模式）2、The Shared Repository Model（共享仓库模式）第一种模式在作为陌生人贡献代码上十分有用，后面会详细介绍。<br>
+<br>
+<span style="font-size:18px"><strong>第一步 环境</strong></span><br>
+（如果你已经安装好了环境，并且在github上设置好了ssh密钥，你可以跳过这些内容）<br>
+目前git已经都具备了mac linux(不用说) win的安装包<br>
+在开始用git工作前，先得确保机器上已经有git的环境<br>
+win 下的git安装<a target="_blank" href="http://help.github.com/win-git-installation/">http://help.github.com/win-git-installation/</a><br>
+mac 下的git安装<a target="_blank" href="http://help.github.com/mac-git-installation/">http://help.github.com/mac-git-installation/</a><br>
+linux 下的git安装<a target="_blank" href="http://help.github.com/linux-git-installation/">http://help.github.com/linux-git-installation/</a><br>
+<br>
+在安装好了git环境之后你需要做些简单的配置<br>
+打开 git 命令行，进到你要放置你代码的目录<br>
+输入 git init //git 初始化<br>
+<div id="" class="dp-highlighter">
+<div class="bar">
+<div class="tools">Linux代码 &nbsp;<a title="收藏这段代码"><img class="star" src="http://qbaty.iteye.com/images/icon_star.png" alt="收藏代码"></a></div>
+</div>
+<ol class="dp-default" start="1">
+<li><span><span>git&nbsp;config&nbsp;--global&nbsp;user.name=xxx&nbsp;&nbsp;</span></span></li><li><span>git&nbsp;config&nbsp;--global&nbsp;user.email=xxx&nbsp;&nbsp;</span></li></ol>
+</div>
+<br>
+mac下 等号替换成空&#26684;<br>
+做上面那些是设置用户名和email，因为git不允许匿名提交<br>
+这个时候git本地已经可以工作了，但是如果要和服务器通信，还有一步要做就是<br>
+<br>
+<span style="font-size:18px"><strong>第二步 远程连接</strong></span><br>
+Generating SSH keys 生成ssh密钥<br>
+希望这个时候你已经有了一个github的帐号，因为key是要绑定的，没有就去申请一个吧<br>
+密钥应该是在根目录的.ssh下，所以<br>
+<div id="" class="dp-highlighter">
+<div class="bar">
+<div class="tools">Java代码 &nbsp;<a title="收藏这段代码"><img class="star" src="http://qbaty.iteye.com/images/icon_star.png" alt="收藏代码"></a></div>
+</div>
+<ol class="dp-j" start="1">
+<li><span><span>$&nbsp;cd&nbsp;~/.ssh&nbsp;&nbsp;</span></span></li><li><span><span class="comment">//这个emai替换成你自己的email</span><span>&nbsp;&nbsp;</span></span></li><li><span>$&nbsp;ssh-keygen&nbsp;-t&nbsp;rsa&nbsp;-C&nbsp;<span class="string">&quot;xxx@gmail.com&quot;</span><span>&nbsp;&nbsp;</span></span></li><li><span>这个时候，应该能看到下面的结果&nbsp;&nbsp;</span></li><li><span>$&nbsp;ls&nbsp;&nbsp;</span></li><li><span>config&nbsp;&nbsp;id_rsa&nbsp;&nbsp;id_rsa.pub&nbsp;&nbsp;known_hosts&nbsp;&nbsp;</span></li></ol>
+</div>
+<br>
+<br>
+然后登录github<br>
+github＝》account setting＝》ssh public keys＝》add public key<br>
+在content里填入rsa.pub的内容，注意别多空&#26684;，保存就ok了<br>
+最后通过<br>
+$ ssh git@github.com来测试是否可以通信<br>
+如果你是第一次链接得到的结果如果是<br>
+<div class="quote_title">引用</div>
+<div class="quote_div">The authenticity of host 'github.com (207.97.227.239)' can't be established.<br>
+RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.<br>
+Are you sure you want to continue connecting (yes/no)? yes<br>
+Warning: Permanently added 'github.com,207.97.227.239' (RSA) to the list of known hosts.<br>
+ERROR: Hi tekkub! You've successfully authenticated, but GitHub does not provide shell access<br>
+Connection to github.com closed.</div>
+<br>
+则证明你已经联通了github<br>
+<br>
+<span style="font-size:18px"><strong>第三步 开始工作 简单的双向操作</strong></span><br>
+现在我们可以开始来说说如何从github上获取代码了，当你在浏览github的时候，你发现你对jquery的代码很有兴趣，然后你又发现了他的一些bug这个时候你想要修改怎么办？<br>
+让我们从第一种模式开始说起吧<br>
+The Fork &#43; Pull Model 分支推送模式<br>
+你可以在浏览代码库的时候发现github右上角右个小按钮fork,这是分支的意思。当你按下之后你会发现，在你自己的主页会产生一个和这个同名的库，这个库就是分支出来的库。<br>
+然后你可以看到，github 给 你分支的库生成了三个地址分别是ssh http 和 read only<br>
+用前两个都有编辑权限，这个时候打开你的terminal<br>
+<div id="" class="dp-highlighter">
+<div class="bar">
+<div class="tools">Linux代码 &nbsp;<a title="收藏这段代码"><img class="star" src="http://qbaty.iteye.com/images/icon_star.png" alt="收藏代码"></a></div>
+</div>
+<ol class="dp-default" start="1">
+<li><span><span>//把服务器分支好的代码库down到本地&nbsp;&nbsp;</span></span></li><li><span>$&nbsp;git&nbsp;clone&nbsp;https://qbaty@github.com/qbaty/jquery.git&nbsp;&nbsp;</span></li></ol>
+</div>
+<br>
+这个时候你就可以在本地修改了，当然你也可以直接在github上修改。然后你改完了某个文件，假如是build.xml这个文件<br>
+<div id="" class="dp-highlighter">
+<div class="bar">
+<div class="tools">Linux代码 &nbsp;<a title="收藏这段代码"><img class="star" src="http://qbaty.iteye.com/images/icon_star.png" alt="收藏代码"></a></div>
+</div>
+<ol class="dp-default" start="1">
+<li><span><span>//让git版本库追踪到build.xml这个文件&nbsp;&nbsp;</span></span></li><li><span>$&nbsp;git&nbsp;add&nbsp;build.xml&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>//提交到本地版本库&nbsp;引号里是注释&nbsp;&nbsp;</span></li><li><span>$&nbsp;git&nbsp;commit&nbsp;-m&nbsp;<span class="string">&quot;add&nbsp;something&quot;</span><span>&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span>//这个时候已经提交到本地git版本库了，需要传到github需要推送下&nbsp;&nbsp;</span></li><li><span>$&nbsp;git&nbsp;push&nbsp;origin&nbsp;master&nbsp;&nbsp;</span></li></ol>
+</div>
+<br>
+这个环节可能会要你输入你产生ssh密钥时候设置的密码,如果没有设置则为空<br>
+当terminal显示完成的时候，刷新你在github上的代码库，你已经可以发现你的修改已经被更新到服务器了<br>
+<br>
+回到你的代码库首页，会发现还是右上角有个pull request按钮，如果你想要把你的代码的改动更新到jquery，按下那个按钮会跳转到sent pull request页面，有一个表单，是用来说明你的提交的内容主要功能。填完按下sent pull request,代码库管理者就能收到这个请求，在审核过你的代码后，把这部分合并到主代码上。<br>
+<br>
+假设你是代码管理者，别人send pull request 给你的时候，你会在你的代码库首页接受到这个请求，然后你决定你要合并别人的改动<br>
+这个时候你需要merge pull request<br>
+通常有两种比较流行的方式：<br>
+Fetch and Merge<br>
+<div id="" class="dp-highlighter">
+<div class="bar">
+<div class="tools">Linux代码 &nbsp;<a title="收藏这段代码"><img class="star" src="http://qbaty.iteye.com/images/icon_star.png" alt="收藏代码"></a></div>
+</div>
+<ol class="dp-default" start="1">
+<li><span><span>//选种当前&nbsp;master&nbsp;为当前分支&nbsp;&nbsp;</span></span></li><li><span>$&nbsp;git&nbsp;checkout&nbsp;master&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>//让git追踪到远程的要合并的代码库&nbsp;&nbsp;</span></li><li><span>$&nbsp;git&nbsp;remote&nbsp;add&nbsp;xxx&nbsp;git://github.com/xxx/jquery.git&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>//合并分支&nbsp;&nbsp;</span></li><li><span>$&nbsp;git&nbsp;fetch&nbsp;xxx&nbsp;&nbsp;</span></li><li><span>$&nbsp;git&nbsp;merge&nbsp;xxx/jquery.js&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;</span></li><li><span>//推送回给自己的代码库&nbsp;&nbsp;</span></li><li><span>$&nbsp;git&nbsp;push&nbsp;origin&nbsp;master&nbsp;&nbsp;</span></li></ol>
+</div>
+<br>
+<br>
+Patch and Apply<br>
+每一个pull request都会产生一个patch url，你可以用git am命令来应用修改<br>
+<div id="" class="dp-highlighter">
+<div class="bar">
+<div class="tools">Java代码 &nbsp;<a title="收藏这段代码"><img class="star" src="http://qbaty.iteye.com/images/icon_star.png" alt="收藏代码"></a></div>
+</div>
+<ol class="dp-j" start="1">
+<li><span><span>$&nbsp;git&nbsp;checkout&nbsp;master&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;</span></li><li><span><span class="comment">//应用这个分支的改动</span><span>&nbsp;&nbsp;</span></span></li><li><span>$&nbsp;curl&nbsp;http:<span class="comment">//github.com/github/jobs/pull/25.patch&nbsp;|&nbsp;git&nbsp;am</span><span>&nbsp;&nbsp;</span></span></li><li><span>$&nbsp;git&nbsp;push&nbsp;origin&nbsp;master&nbsp;&nbsp;</span></li></ol>
+</div>
+<br>
+这就是一个简单的fork&#43;pull request model下分支以及合并过程。<br>
+<br>
+关于github的分支冲突合并，了解的还不够深入，目前只知道手动合并。<br>
+而其强大之处就是你可以通过fork quene来查看所有的分支，并且可以随意选择和任意一个分支合并。这一块应该还有很多可以研究的，在此我只是抛砖引玉，如有错漏还请见谅，希望越来越多的人来尝试github,因为开源的力量真的很强大。<br>
+
+</div>
+
+
+
+<!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare" style="float: right;">
+<a class="bds_qzone"></a>
+<a class="bds_tsina"></a>
+<a class="bds_tqq"></a>
+<a class="bds_renren"></a>
+<a class="bds_t163"></a>
+<span class="bds_more">更多</span>
+<a class="shareCount"></a>
+</div>
+<!-- Baidu Button END -->
+
+
+<!--192.168.100.33-->
+<ul class="article_next_prev">
+            <li class="prev_article"><span  onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian']);location.href='/duqi_yc/article/details/8974041';">上一篇</span><a href="/duqi_yc/article/details/8974041" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian'])">Markdown+Pandoc，打通写作界的任督二脉！</a></li>
+            <li class="next_article"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian']);location.href='/duqi_yc/article/details/9207043';">下一篇</span><a href="/duqi_yc/article/details/9207043" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian'])">#R_packages# R2DOCX</a></li>
+</ul>
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+</div>
+      <dl class="blog-associat-tag">
+        <dt>主题推荐</dt>
+        <dd>
+                <a href="http://www.csdn.net/tag/工作" target="_blank" class="blog-tage-red" >工作</a> 
+                <a href="http://www.csdn.net/tag/git" target="_blank" class="blog-tage-red" >git</a> 
+                <a href="http://www.csdn.net/tag/版本控制工具" target="_blank" class="blog-tage-red" >版本控制工具</a> 
+                <a href="http://www.csdn.net/tag/远程连接" target="_blank" class="blog-tage-red" >远程连接</a> 
+                <a href="http://www.csdn.net/tag/版本控制" target="_blank" class="blog-tage-red" >版本控制</a> 
+        </dd>
+    </dl> 
+
+
+<dl class="blog-ass-articl tracking-ad"  data-mod="popu_36" id="res-relatived"> 
+     <dt><span>猜你在找</span></dt>    
+</dl>
+
+<script type="text/javascript">
+    var searchtitletags = 'git上两种工作模式' + ',' + '工作,git,版本控制工具,远程连接,版本控制';
+    searchService({
+        index: 'blog',
+        query: searchtitletags,
+        from: 10,
+        size: 10,
+        appendTo: '#res-relatived',
+        url: 'recommend',
+        his: 2,
+        client: "blog_cf_enhance",
+        tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+    });
+
+ </script>   
+
+    <div id="ad_cen">
+        <script type="text/javascript">            BAIDU_CLB_SLOT_ID = "117306";</script>
+        <script type="text/javascript" src="http://cbjs.baidu.com/js/o.js"></script>
+    </div>
+    <script type="text/javascript">
+        //new Ad(4, 'ad_cen');
+    </script>
+<div id="comment_title" class="panel_head">
+    查看评论<a name="comments"></a></div>
+<div id="comment_list">
+</div>
+<div id="comment_bar">
+</div>
+<div id="comment_form">
+</div>
+<div class="announce">
+    * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+<script type="text/javascript">
+    var fileName = '8982879';
+    var commentscount = 0;
+    var islock = false
+</script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/comment.js"></script>
+    <div id="ad_bot">
+    </div>
+    <script type="text/javascript">
+    new Ad(5, 'ad_bot');
+    </script>
+<div id="report_dialog">
+</div>
+
+<div id="d-top"  style="bottom:60px;">
+      
+
+       <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="http://static.blog.csdn.net/images/blog-icon-reply.png" alt="快速回复">
+        </a>    
+
+    <a id="d-top-a" class="btn btn-top backtop"  style="display: none;" title="返回顶部" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_huidaodingbu'])" style="">         
+         <img src="http://static.blog.csdn.net/images/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        if($("#comment_content").length>0)
+        {
+            $("#quick-reply").show();
+
+            $("#quick-reply").click(function(){
+                setEditorFocus();
+            });
+        }       
+     
+        var d_top = $('#d-top-a');
+        document.onscroll = function ()
+        {
+            var scrTop = (document.body.scrollTop || document.documentElement.scrollTop);
+            if (scrTop > 500)
+            {
+                d_top.show();
+            } else
+            {
+                d_top.hide();
+            }
+        }
+        $('#d-top-a').click(function ()
+        {
+            scrollTo(0, 0);
+            this.blur();
+            return false;
+        });
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+<div class="tag_list">
+    <h5>
+        <a href="http://www.csdn.net/tag/" target="_blank">核心技术类目</a></h5>
+    <div class="classify">
+<a title="全部主题" href="http://www.csdn.net/tag" target="_blank" onclick="LogClickCount(this,336);">全部主题</a>
+<a title="Java" href="http://www.csdn.net/tag/Java" target="_blank" onclick="LogClickCount(this,336);">Java</a>
+<a title="VPN" href="http://www.csdn.net/tag/vpn" target="_blank" onclick="LogClickCount(this,336);">VPN</a>
+<a title="Android" href="http://www.csdn.net/tag/android" target="_blank" onclick="LogClickCount(this,336);">Android</a>
+<a title="iOS" href="http://www.csdn.net/tag/ios" target="_blank" onclick="LogClickCount(this,336);">iOS</a>
+<a title="ERP" href="http://www.csdn.net/tag/erp" target="_blank" onclick="LogClickCount(this,336);">ERP</a>
+<a title="IE10" href="http://www.csdn.net/tag/ie10" target="_blank" onclick="LogClickCount(this,336);">IE10</a>
+<a title="Eclipse" href="http://www.csdn.net/tag/eclipse" target="_blank" onclick="LogClickCount(this,336);">Eclipse</a>
+<a title="CRM" href="http://www.csdn.net/tag/crm" target="_blank" onclick="LogClickCount(this,336);">CRM</a>
+<a title="JavaScript" href="http://www.csdn.net/tag/javascript" target="_blank" onclick="LogClickCount(this,336);">JavaScript</a>
+<a title="Ubuntu" href="http://www.csdn.net/tag/ubuntu" target="_blank" onclick="LogClickCount(this,336);">Ubuntu</a>
+<a title="NFC" href="http://www.csdn.net/tag/nfc" target="_blank" onclick="LogClickCount(this,336);">NFC</a>
+<a title="WAP" href="http://www.csdn.net/tag/wap" target="_blank" onclick="LogClickCount(this,336);">WAP</a>
+<a title="jQuery" href="http://www.csdn.net/tag/jquery" target="_blank" onclick="LogClickCount(this,336);">jQuery</a>
+<a title="数据库" href="http://www.csdn.net/tag/数据库" target="_blank" onclick="LogClickCount(this,336);">数据库</a>
+<a title="BI" href="http://www.csdn.net/tag/bi" target="_blank" onclick="LogClickCount(this,336);">BI</a>
+<a title="HTML5" href="http://www.csdn.net/tag/html5" target="_blank" onclick="LogClickCount(this,336);">HTML5</a>
+<a title="Spring" href="http://www.csdn.net/tag/spring" target="_blank" onclick="LogClickCount(this,336);">Spring</a>
+<a title="Apache" href="http://www.csdn.net/tag/apache" target="_blank" onclick="LogClickCount(this,336);">Apache</a>
+<a title="Hadoop" href="http://www.csdn.net/tag/hadoop" target="_blank" onclick="LogClickCount(this,336);">Hadoop</a>
+<a title=".NET" href="http://www.csdn.net/tag/.net" target="_blank" onclick="LogClickCount(this,336);">.NET</a>
+<a title="API" href="http://www.csdn.net/tag/api" target="_blank" onclick="LogClickCount(this,336);">API</a>
+<a title="HTML" href="http://www.csdn.net/tag/html" target="_blank" onclick="LogClickCount(this,336);">HTML</a>
+<a title="SDK" href="http://www.csdn.net/tag/sdk" target="_blank" onclick="LogClickCount(this,336);">SDK</a>
+<a title="IIS" href="http://www.csdn.net/tag/iis" target="_blank" onclick="LogClickCount(this,336);">IIS</a>
+<a title="Fedora" href="http://www.csdn.net/tag/fedora" target="_blank" onclick="LogClickCount(this,336);">Fedora</a>
+<a title="XML" href="http://www.csdn.net/tag/xml" target="_blank" onclick="LogClickCount(this,336);">XML</a>
+<a title="LBS" href="http://www.csdn.net/tag/lbs" target="_blank" onclick="LogClickCount(this,336);">LBS</a>
+<a title="Unity" href="http://www.csdn.net/tag/unity" target="_blank" onclick="LogClickCount(this,336);">Unity</a>
+<a title="Splashtop" href="http://www.csdn.net/tag/splashtop" target="_blank" onclick="LogClickCount(this,336);">Splashtop</a>
+<a title="UML" href="http://www.csdn.net/tag/uml" target="_blank" onclick="LogClickCount(this,336);">UML</a>
+<a title="components" href="http://www.csdn.net/tag/components" target="_blank" onclick="LogClickCount(this,336);">components</a>
+<a title="Windows Mobile" href="http://www.csdn.net/tag/windowsmobile" target="_blank" onclick="LogClickCount(this,336);">Windows Mobile</a>
+<a title="Rails" href="http://www.csdn.net/tag/rails" target="_blank" onclick="LogClickCount(this,336);">Rails</a>
+<a title="QEMU" href="http://www.csdn.net/tag/qemu" target="_blank" onclick="LogClickCount(this,336);">QEMU</a>
+<a title="KDE" href="http://www.csdn.net/tag/kde" target="_blank" onclick="LogClickCount(this,336);">KDE</a>
+<a title="Cassandra" href="http://www.csdn.net/tag/cassandra" target="_blank" onclick="LogClickCount(this,336);">Cassandra</a>
+<a title="CloudStack" href="http://www.csdn.net/tag/cloudstack" target="_blank" onclick="LogClickCount(this,336);">CloudStack</a>
+<a title="FTC" href="http://www.csdn.net/tag/ftc" target="_blank" onclick="LogClickCount(this,336);">FTC</a>
+<a title="coremail" href="http://www.csdn.net/tag/coremail" target="_blank" onclick="LogClickCount(this,336);">coremail</a>
+<a title="OPhone " href="http://www.csdn.net/tag/ophone " target="_blank" onclick="LogClickCount(this,336);">OPhone </a>
+<a title="CouchBase" href="http://www.csdn.net/tag/couchbase" target="_blank" onclick="LogClickCount(this,336);">CouchBase</a>
+<a title="云计算" href="http://www.csdn.net/tag/云计算" target="_blank" onclick="LogClickCount(this,336);">云计算</a>
+<a title="iOS6" href="http://www.csdn.net/tag/iOS6" target="_blank" onclick="LogClickCount(this,336);">iOS6</a>
+<a title="Rackspace " href="http://www.csdn.net/tag/rackspace " target="_blank" onclick="LogClickCount(this,336);">Rackspace </a>
+<a title="Web App" href="http://www.csdn.net/tag/webapp" target="_blank" onclick="LogClickCount(this,336);">Web App</a>
+<a title="SpringSide" href="http://www.csdn.net/tag/springside" target="_blank" onclick="LogClickCount(this,336);">SpringSide</a>
+<a title="Maemo" href="http://www.csdn.net/tag/maemo" target="_blank" onclick="LogClickCount(this,336);">Maemo</a>
+<a title="Compuware" href="http://www.csdn.net/tag/compuware" target="_blank" onclick="LogClickCount(this,336);">Compuware</a>
+<a title="大数据" href="http://www.csdn.net/tag/大数据" target="_blank" onclick="LogClickCount(this,336);">大数据</a>
+<a title="aptech" href="http://www.csdn.net/tag/aptech" target="_blank" onclick="LogClickCount(this,336);">aptech</a>
+<a title="Perl" href="http://www.csdn.net/tag/perl" target="_blank" onclick="LogClickCount(this,336);">Perl</a>
+<a title="Tornado" href="http://www.csdn.net/tag/tornado" target="_blank" onclick="LogClickCount(this,336);">Tornado</a>
+<a title="Ruby" href="http://www.csdn.net/tag/ruby" target="_blank" onclick="LogClickCount(this,336);">Ruby</a>
+<a title="Hibernate" href="http://www.csdn.net/hibernate" target="_blank" onclick="LogClickCount(this,336);">Hibernate</a>
+<a title="ThinkPHP" href="http://www.csdn.net/tag/thinkphp" target="_blank" onclick="LogClickCount(this,336);">ThinkPHP</a>
+<a title="Spark" href="http://www.csdn.net/tag/spark" target="_blank" onclick="LogClickCount(this,336);">Spark</a>
+<a title="HBase" href="http://www.csdn.net/tag/hbase" target="_blank" onclick="LogClickCount(this,336);">HBase</a>
+<a title="Pure" href="http://www.csdn.net/tag/pure" target="_blank" onclick="LogClickCount(this,336);">Pure</a>
+<a title="Solr" href="http://www.csdn.net/tag/solr" target="_blank" onclick="LogClickCount(this,336);">Solr</a>
+<a title="Angular" href="http://www.csdn.net/tag/angular" target="_blank" onclick="LogClickCount(this,336);">Angular</a>
+<a title="Cloud Foundry" href="http://www.csdn.net/tag/cloudfoundry" target="_blank" onclick="LogClickCount(this,336);">Cloud Foundry</a>
+<a title="Redis" href="http://www.csdn.net/tag/redis" target="_blank" onclick="LogClickCount(this,336);">Redis</a>
+<a title="Scala" href="http://www.csdn.net/tag/scala" target="_blank" onclick="LogClickCount(this,336);">Scala</a>
+<a title="Django" href="http://www.csdn.net/tag/django" target="_blank" onclick="LogClickCount(this,336);">Django</a>
+<a title="Bootstrap" href="http://www.csdn.net/tag/bootstrap" target="_blank" onclick="LogClickCount(this,336);">Bootstrap</a>
+    </div>
+</div>
+
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+            <div id="side">
+    <div class="side">
+<div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">
+             <li>
+                <a href="http://blog.csdn.net/duqi_yc/article/category/1138954" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">R</a><span>(48)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/duqi_yc/article/category/1138953" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">AWK</a><span>(18)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/duqi_yc/article/category/1102147" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Hadoop&amp;hive</a><span>(12)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/duqi_yc/article/category/1102149" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">数据分析</a><span>(6)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/duqi_yc/article/category/1102146" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Ruby&amp;Python</a><span>(9)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/duqi_yc/article/category/1138956" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">生活-思</a><span>(20)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/duqi_yc/article/category/1305635" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">生活-乐</a><span>(3)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/duqi_yc/article/category/1316591" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">生活-食</a><span>(0)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/duqi_yc/article/category/1317656" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">IdeaS</a><span>(1)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/duqi_yc/article/category/1431956" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Git</a><span>(1)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/duqi_yc/article/category/1588545" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">互联网广告</a><span>(2)</span>
+            </li>
+</ul>
+</div>    </div>
+    <div class="clear">
+    </div>
+</div>
+
+            <div class="clear">
+            </div>
+        </div>
+        
+
+<script type="text/javascript" src="http://csdnimg.cn/rabbit/cnick/cnick.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="http://medal.blog.csdn.net/showblogmedal.ashx?blogid=1250635"></script>
+<script type="text/javascript">
+    document.write('<script type="text/javascript" src="http://csdnimg.cn/pubfooter/js/publib_footer.js?' + Math.floor(new Date() / 120000).toString(36) + '="></' + 'script>');
+</script>
+    <script type="text/javascript" src="http://passport.csdn.net/content/loginbox/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script>
+<script type="text/javascript" src="http://www.csdn.net/ui/scripts/Csdn/counter.js"></script>
+<script type="text/javascript" src="http://ad.csdn.net/scripts/ad-blog.js"></script>
+<script type="text/javascript" src="http://zz.csdn.net/js/count.js"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a>"
+                    + "<a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+    });
+</script>
+
+    </div>
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnId="header_notice_num" wrapId="note1" count="5" subCount="5" type="text/javascript" src="http://static.csdn.net/public/common/toolbar/js/toolbar.js"></script>     <!--new top-->
+</body>
+</html>

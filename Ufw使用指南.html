@@ -1,0 +1,513 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" lang="zh" dir="ltr">
+<head>
+               <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="verify-v1" content="tQmdIA0A40oxMSeeRiXDaxmk+ZMoOvRptLxa4dt7C+w=" />
+                <meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.15.3" />
+		<meta name="keywords" content="Ufw使用指南" />
+		<link rel="alternate" type="application/x-wiki" title="编辑" href="/index.php?title=Ufw%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97&amp;action=edit" />
+		<link rel="edit" title="编辑" href="/index.php?title=Ufw%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97&amp;action=edit" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Ubuntu中文 (zh)" />
+		<link rel="alternate" type="application/rss+xml" title="Ubuntu中文的RSS订阅" href="/index.php?title=Special:%E6%9C%80%E8%BF%91%E6%9B%B4%E6%94%B9&amp;feed=rss" />
+		<link rel="alternate" type="application/atom+xml" title="Ubuntu中文的Atom订阅" href="/index.php?title=Special:%E6%9C%80%E8%BF%91%E6%9B%B4%E6%94%B9&amp;feed=atom" />
+                <title>Ufw使用指南 - Ubuntu中文</title>
+                <link rel="stylesheet" href="/skins/common/shared.css?207" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/skins/common/commonPrint.css?207" type="text/css" media="print" />
+		<link rel="stylesheet" href="/skins/ubuntuchina/main.css?207" type="text/css" media="screen" />
+		<!--[if lt IE 5.5000]><link rel="stylesheet" href="/skins/monobook/IE50Fixes.css?207" type="text/css" media="screen" /><![endif]-->
+		<!--[if IE 5.5000]><link rel="stylesheet" href="/skins/monobook/IE55Fixes.css?207" type="text/css" media="screen" /><![endif]-->
+		<!--[if IE 6]><link rel="stylesheet" href="/skins/monobook/IE60Fixes.css?207" type="text/css" media="screen" /><![endif]-->
+		<!--[if IE 7]><link rel="stylesheet" href="/skins/monobook/IE70Fixes.css?207" type="text/css" media="screen" /><![endif]-->
+		<link rel="stylesheet" href="/index.php?title=MediaWiki:Common.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" type="text/css" />
+		<link rel="stylesheet" href="/index.php?title=MediaWiki:Print.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" type="text/css" media="print" />
+		<link rel="stylesheet" href="/index.php?title=MediaWiki:Ubuntuchina.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" type="text/css" />
+		<link rel="stylesheet" href="/index.php?title=-&amp;action=raw&amp;maxage=18000&amp;gen=css" type="text/css" />
+                <!--[if lt IE 7]><script type="text/javascript" src="/skins/common/IEFixes.js?207"></script>
+                <meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
+                <script type= "text/javascript">/*<![CDATA[*/
+		var skin = "ubuntuchina";
+		var stylepath = "/skins";
+		var wgArticlePath = "/$1";
+		var wgScriptPath = "";
+		var wgScript = "/index.php";
+		var wgVariantArticlePath = false;
+		var wgActionPaths = {};
+		var wgServer = "http://wiki.ubuntu.org.cn";
+		var wgCanonicalNamespace = "";
+		var wgCanonicalSpecialPageName = false;
+		var wgNamespaceNumber = 0;
+		var wgPageName = "Ufw使用指南";
+		var wgTitle = "Ufw使用指南";
+		var wgAction = "view";
+		var wgArticleId = "43562";
+		var wgIsArticle = true;
+		var wgUserName = null;
+		var wgUserGroups = null;
+		var wgUserLanguage = "zh";
+		var wgContentLanguage = "zh";
+		var wgBreakFrames = false;
+		var wgCurRevisionId = 147828;
+		var wgVersion = "1.15.3";
+		var wgEnableAPI = true;
+		var wgEnableWriteAPI = true;
+		var wgSeparatorTransformTable = ["", ""];
+		var wgDigitTransformTable = ["", ""];
+		var wgRestrictionEdit = [];
+		var wgRestrictionMove = [];
+		/*]]>*/</script>
+                
+                <script type="text/javascript" src="/skins/common/wikibits.js?207"><!-- wikibits js --></script>
+                <script type="text/javascript" src="/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=ubuntuchina"><!-- site js --></script>
+                <!-- Head Scripts -->
+		<script type="text/javascript" src="/skins/common/ajax.js?207"></script>
+</head>
+
+<body >
+<div id="container">
+	<div id="mastWrapper">
+        <div id="masthead">
+            <div id="nav1">
+                <ul>
+
+				         <li><a href="http://www.ubuntu.org.cn/">Ubuntu</a></li>
+                                         <li><a href="http://forum.ubuntu.org.cn">Forum</a></li>
+                                         <li id="current"><a href="http://wiki.ubuntu.org.cn">Wiki</a></li>
+                                         <li><a href="http://linux.ubuntu.org.cn">Linux</a></li>
+                                         <li><a href="http://paste.ubuntu.org.cn">Paste</a></li>
+                                         <li><a href="http://webchat.freenode.net/?channels=ubuntu-cn">Chat</a></li>
+
+                </ul>
+            </div>
+        		<form name="searchform" action="/Special:%E6%90%9C%E7%B4%A2" id="search">
+    			<div style="text-align:right">
+    			<label for="q">搜索</label>
+    			<input id="q" name="search" type="text"
+    			accesskey="f" value="" />
+    			<input type="submit" name="go" class="searchButton" id="searchGoButton"
+    	        value="进入"
+    	        />&nbsp;<input type="submit" name="fulltext"
+    	        class="searchButton"
+    	        value="搜索" />
+    	       </div>
+    		</form>
+    	</div>
+    	<div id="bar">
+    		<ul>
+    		   	<li
+    		       class="selected"    		       ><a href="/Ufw%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97">页面</a></li><li
+    		       class="new"    		       ><a href="/index.php?title=Talk:Ufw%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97&amp;action=edit&amp;redlink=1">讨论</a></li><li
+    		           		       ><a href="/index.php?title=Ufw%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97&amp;action=edit">编辑</a></li><li
+    		           		       ><a href="/index.php?title=Ufw%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97&amp;action=history">历史</a></li><li
+    		           		       ><a href="/index.php?title=Ufw%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97&amp;variant=zh-hans">简体</a></li><li
+    		           		       ><a href="/index.php?title=Ufw%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97&amp;variant=zh-hant">繁体</a></li>    		</ul>
+        </div>
+    </div>
+    <p>&nbsp;</p>
+	<div id="mBody">
+	
+		<div id="side">
+			<ul id="nav">
+								<li><span>导航</span>
+						<ul>
+										<li id="n-mainpage-description"><a href="/%E9%A6%96%E9%A1%B5">首页</a></li>
+										<li id="n-recentchanges"><a href="/Special:%E6%9C%80%E8%BF%91%E6%9B%B4%E6%94%B9">最近更改</a></li>
+										<li id="n-randompage"><a href="/Special:%E9%9A%8F%E6%9C%BA%E9%A1%B5%E9%9D%A2">随机页面</a></li>
+										<li id="n-页面分类"><a href="/Category:%E9%A1%B5%E9%9D%A2%E5%88%86%E7%B1%BB">页面分类</a></li>
+										<li id="n-help"><a href="/Help:%E7%9B%AE%E5%BD%95">帮助</a></li>
+									</ul>
+					</li>
+								<li><span>编辑</span>
+						<ul>
+										<li id="n-编辑指南"><a href="/Category:%E8%B4%A1%E7%8C%AE">编辑指南</a></li>
+										<li id="n-沙盒"><a href="/%E6%B2%99%E7%9B%92">沙盒</a></li>
+										<li id="n-currentevents"><a href="/Ubuntu%E4%B8%AD%E6%96%87:%E5%BD%93%E5%89%8D%E4%BA%8B%E4%BB%B6">当前事件</a></li>
+										<li id="n-字词处理"><a href="/MediaWiki:Conversiontable/zh-hant">字词处理</a></li>
+									</ul>
+					</li>
+								<li><span>工具箱</span>
+					<ul>
+					  					  <li id="t-whatlinkshere"><a href="/Special:%E9%93%BE%E5%85%A5%E9%A1%B5%E9%9D%A2/Ufw%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97">链入页面</a></li>
+					  					  <li id="t-recentchangeslinked"><a href="/Special:%E9%93%BE%E5%87%BA%E6%9B%B4%E6%94%B9/Ufw%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97">链出更改</a></li>
+					  				      				      				      				      				      				      				      				      				      <li id="t-specialpages"><a href="/Special:%E7%89%B9%E6%AE%8A%E9%A1%B5%E9%9D%A2">所有特殊页面</a></li>				      					</ul>
+				</li>
+				<li><span>个人工具</span>
+					<ul>
+					<li id="pt-login"><a href="/index.php?title=Special:%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95&amp;returnto=Ufw%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97">登录</a></li>					</ul>
+				</li>
+							</ul>
+		</div><!-- end of SIDE div -->
+		
+		<div id="mainContent">
+			
+			<h1>Ufw使用指南</h1>
+			<h3 id="siteSub">出自Ubuntu中文</h3>
+			<div id="contentSub"></div>
+									<!-- start content -->
+			<p>有问题，联系我：一般还是使用站内短信通知比较快。 <a href="http://forum.ubuntu.org.cn/ucp.php?i=pm&amp;mode=compose&amp;u=171468" class="external free" title="http://forum.ubuntu.org.cn/ucp.php?i=pm&amp;mode=compose&amp;u=171468" rel="nofollow">http://forum.ubuntu.org.cn/ucp.php?i=pm&amp;mode=compose&amp;u=171468</a>
+</p><p>email：cat650@163.com
+</p>
+<table id="toc" class="toc" summary="目录"><tr><td><div id="toctitle"><h2>目录</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#.E6.8F.8F.E8.BF.B0"><span class="tocnumber">1</span> <span class="toctext">描述</span></a></li>
+<li class="toclevel-1"><a href="#.E7.94.A8.E6.B3.95.EF.BC.88.E5.A4.8D.E8.BF.B0.E4.B8.AD.E6.96.87.E5.90.AB.E6.84.8F.EF.BC.89"><span class="tocnumber">2</span> <span class="toctext">用法（复述中文含意）</span></a></li>
+<li class="toclevel-1"><a href="#.E5.8F.AF.E7.9B.B4.E6.8E.A5.E8.B7.9F.E5.9C.A8ufw.E5.90.8E.E7.9A.84.E5.8F.82.E6.95.B0"><span class="tocnumber">3</span> <span class="toctext">可直接跟在ufw后的参数</span></a></li>
+<li class="toclevel-1"><a href="#.E8.A7.84.E5.88.99.E7.A4.BA.E4.BE.8B"><span class="tocnumber">4</span> <span class="toctext">规则示例</span></a></li>
+<li class="toclevel-1"><a href="#.E8.BF.9C.E7.A8.8B.E7.AE.A1.E7.90.86"><span class="tocnumber">5</span> <span class="toctext">远程管理</span></a></li>
+<li class="toclevel-1"><a href="#.E5.BA.94.E7.94.A8.E7.A8.8B.E5.BA.8F.E9.9B.86.E6.88.90.E7.AE.A1.E7.90.86"><span class="tocnumber">6</span> <span class="toctext">应用程序集成管理</span></a></li>
+<li class="toclevel-1"><a href="#.E6.8A.A5.E5.91.8A"><span class="tocnumber">7</span> <span class="toctext">报告</span></a></li>
+<li class="toclevel-1"><a href="#.E5.B8.B8.E7.94.A8.E6.93.8D.E4.BD.9C.EF.BC.88.E6.96.B0.E6.89.8B.E6.93.8D.E4.BD.9C.EF.BC.89"><span class="tocnumber">8</span> <span class="toctext">常用操作（新手操作）</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "显示"; var tocHideText = "隐藏"; showTocToggle(); } </script>
+<a name=".E6.8F.8F.E8.BF.B0" id=".E6.8F.8F.E8.BF.B0"></a><h2><span class="editsection">[<a href="/index.php?title=Ufw%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97&amp;action=edit&amp;section=1" title="编辑段落：描述">编辑</a>]</span> <span class="mw-headline"> 描述 </span></h2>
+<p>此程序（ufw）是为了使linux防火墙更易于使用和管理。（通常已默认安装）
+ufw与其它linux类防火墙一样，使用iptable作为后台。
+</p><p>安装方法：
+</p>
+<pre> sudo apt-get install ufw
+</pre>
+<a name=".E7.94.A8.E6.B3.95.EF.BC.88.E5.A4.8D.E8.BF.B0.E4.B8.AD.E6.96.87.E5.90.AB.E6.84.8F.EF.BC.89" id=".E7.94.A8.E6.B3.95.EF.BC.88.E5.A4.8D.E8.BF.B0.E4.B8.AD.E6.96.87.E5.90.AB.E6.84.8F.EF.BC.89"></a><h2><span class="editsection">[<a href="/index.php?title=Ufw%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97&amp;action=edit&amp;section=2" title="编辑段落：用法（复述中文含意）">编辑</a>]</span> <span class="mw-headline"> 用法（复述中文含意） </span></h2>
+<p>［］是代表可选内容。可能需要root权限，如无法运行，请使用 sudo ufw……的命令结构。“”中的内容不能照抄，要按需要更改。
+</p>
+<pre> ufw [--dry-run] enable|disable|reload
+ 命令［--试运行］激活｜关闭｜重新载入
+</pre>
+<pre> ufw [--dry-run] default allow|deny|reject [incoming|outgoing]
+ 命令［--试运行］默认 允许｜阻止｜拒绝 ［访问本机｜向外访问］
+</pre>
+<ul><li>deny让访问者知道数据被拒绝（回馈拒绝信息），这样调试网络时就知道是防火墙阻止了访问。reject则直接丢弃访问数据，访问者不知道是访问被拒绝还是不存在该主机。
+</li><li>这个默认策略。相当于“总策略”
+</li><li>如果更改了默认策略，一些已经存在的规则可能需要手动修改。更多内容看“规则示例”一节。
+</li></ul>
+<pre> ufw [--dry-run] logging on|off|LEVEL
+ 命令［--试运行］日志 开启｜关闭｜“级别”
+</pre>
+<ul><li>“级别”分为low、medium、high、full
+</li><li>low 记录与默认策略冲突的封装数据包（记录速度被限制）。记录与规则符合的数据包（没有要求关闭记录的） 
+</li><li>medium 记录与默认策略冲突的数据包（包括被规则允许的）、无效数据包、所有新连接。记录速度被限制。 
+</li><li>high 同medium，只是没有记录速度限制。附加记录所有数据包（有记录速度限制）。 
+</li><li>full 与high等同，只是取消记录限制。 
+</li></ul>
+<p>medium级别及更上级会记录许多内容，有可能短时间内撑爆你的硬盘。特别是用在服务器一类的机器上。 
+</p>
+<pre> ufw [--dry-run] reset
+ 命令［--试运行］复位
+</pre>
+<pre> ufw [--dry-run] status [verbose|numbered]
+ 命令［--试运行］状态 ［详细｜规则编号］
+</pre>
+<ul><li>这个命令可以查看现有规则
+</li></ul>
+<pre> ufw [--dry-run] show REPORT
+ 命令［--试运行］显示 “报告类型”
+</pre>
+<ul><li>“报告类型”包括：raw,builtins,before-rules,user-rules,after-rules,logging-rules,listening
+</li><li>它们都是基于iptable
+<ul><li> raw 原始报告。它是所有报告的来源，除外listening。
+</li><li> builtins 
+</li><li>       before-rules
+</li><li>       user-rules
+</li><li>       after-rules
+</li><li>       logging-rules
+</li><li> listening 监听。显示系统中处于监听状态的tcp端口和 开放状态的udp端口，以及对应的IP地址、网络设备。网络设备显示为‘*’时，表示这个端口绑定到了所有网络设备上。后面显示激活这个端口进行监听的规则。只有IPV6启用的时候，默认规则才会显示tcp6、udp6。
+</li></ul>
+</li></ul>
+<p><br />
+</p>
+<pre> ufw [--dry-run] [delete] [insert NUM] allow|deny|reject|limit  [in|out][log|log-all] PORT[/protocol]
+ 命令［--试运行］［删除］ ［插到“x号规则”之前］ 允许｜阻止｜拒绝｜限制 ［进｜出］ ［记录新连接｜记录所有数据包］ “端口” ［/“协议”］
+</pre>
+<ul><li>[insert NUM]插到“x号规则”之前。意思是把规则等级提前，序号在前的规则要优先于序号在后的规则。
+</li><li>deny让访问者知道数据被拒绝（回馈拒绝信息），这样调试网络时就知道是防火墙阻止了访问。reject则直接丢弃访问数据，访问者不知道是访问被拒绝还是不存在该主机。limit对连接数率进行限制，以防范暴力登录攻击。如果同一个IP地址在30秒之内进行了6次及6次以上的连接，ufw将阻止（deny）该连接。
+</li><li>[in|out]in接收数据包，out发送数据包。
+</li><li>PORT用具体的端口号代替，比如80
+</li><li>[/protocol]协议类型。不指定时，同时作用于tcp、udp。PORT[/protocol]的写法：8080/udp这样，中间没有空格。
+</li></ul>
+<pre> ufw  [--dry-run]  [delete] [insert NUM] allow|deny|reject|limit [in|out on INTERFACE] [log|log-all] [proto protocol] [from ADDRESS [port PORT]] [to ADDRESS [port PORT]]
+ 命令 ［--试运行］［删除］［插到x号规则之前］ 允许｜阻止｜拒绝｜限制 ［进｜出 基于“什么网络设备”］ ［协议 “协议”］ ［来源 “地址” ［端口 “端口”］］ ［目标 “地址” ［端口 “端口”］］
+</pre>
+<ul><li>[insert NUM]插到“x号规则”之前。意思是把规则等级提前，序号在前的规则要优先于序号在后的规则。
+</li><li>deny让访问者知道数据被拒绝（回馈拒绝信息），这样调试网络时就知道是防火墙阻止了访问。reject则直接丢弃访问数据，访问者不知道是访问被拒绝还是不存在该主机。limit对连接数率进行限制，以防范暴力登录攻击。如果同一个IP地址在30秒之内进行了6次及6次以上的连接，ufw将阻止（deny）该连接。
+</li><li>[in|out on INTERFACE]在某网络设备上in接收数据包，out发送数据包。比如规则只作用于无线网卡0号（一般表示为wlan0,你可以单独运行命令ifconfig来查看你有哪些网络设备）接收数据包，这点就写为：in on wlan0。
+</li><li> [from ADDRESS [port PORT]]规则应用于某IP地址（的“某端口”）。假如：主机192.168.1.2无限制上网，而虚拟机192.168.1.120禁止访问192.168.1.56。就用到ufw deny from 192.168.1.120 to 192.168.1.56
+</li><li>[to ADDRESS [port PORT]]规则应用于某IP地址来源（的“某端口”）。这里指外部IP地址，也就是传统意义上的防火墙设定。
+</li></ul>
+<pre> ufw [--dry-run] delete NUM
+ 命令［--试运行］ 删除 “第X号规则”
+</pre>
+<ul><li>通过这个命令来获得规则号
+</li></ul>
+<pre>ufw status
+</pre>
+<p><br />
+</p>
+<pre> ufw [--dry-run] app list|info|default|update
+ 命令 ［--试运行］ 程序 清单｜信息｜默认｜更新
+</pre>
+<a name=".E5.8F.AF.E7.9B.B4.E6.8E.A5.E8.B7.9F.E5.9C.A8ufw.E5.90.8E.E7.9A.84.E5.8F.82.E6.95.B0" id=".E5.8F.AF.E7.9B.B4.E6.8E.A5.E8.B7.9F.E5.9C.A8ufw.E5.90.8E.E7.9A.84.E5.8F.82.E6.95.B0"></a><h2><span class="editsection">[<a href="/index.php?title=Ufw%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97&amp;action=edit&amp;section=3" title="编辑段落：可直接跟在ufw后的参数">编辑</a>]</span> <span class="mw-headline"> 可直接跟在ufw后的参数 </span></h2>
+<p>命令方式：（如：ufw -h）
+</p>
+<pre>ufw 参数
+</pre>
+<pre> --version
+ 显示程序版本号
+</pre>
+<pre> -h , --help
+ 显示帮助信息
+</pre>
+<pre> --dry-run
+ 不实际运行，只是把涉及的更改显示出来。
+</pre>
+<pre> enable
+ 激活防火墙，开机时自动启动
+</pre>
+<pre> disable
+ 关闭防火墙，开机时不启动
+</pre>
+<pre> reload
+ 重新载入防火墙
+</pre>
+<pre> reset [--force]
+ 关闭防火墙，并复位至初始安装状态。如果使用--force选项，则忽略确认提示。
+</pre>
+<pre> status
+ 显示防火墙的状态和已经设定的规则。使用status verbose显示更详细的信息。‘anywhere’与‘any’、‘0.0.0.0/0’一个意思。
+</pre>
+<pre> show “报告类型”
+ 显示防火墙运行信息。详细内容看“报告类型”
+</pre>
+<pre> limit “规则”
+ 限制连接次数。通常用于登录端口，防止暴力破解。如果同一个IP地址在30秒之内进行了6次及6次以上的连接，ufw将阻止（deny）该连接。
+ 此命令目前只能用于IPv4。还不支持IPv6.
+</pre>
+<a name=".E8.A7.84.E5.88.99.E7.A4.BA.E4.BE.8B" id=".E8.A7.84.E5.88.99.E7.A4.BA.E4.BE.8B"></a><h2><span class="editsection">[<a href="/index.php?title=Ufw%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97&amp;action=edit&amp;section=4" title="编辑段落：规则示例">编辑</a>]</span> <span class="mw-headline"> 规则示例 </span></h2>
+<ul><li>规则可以简写也可以完整表达。简写的规则只能指定端口和（或）协议被允许或阻止。默认是访问本机的规则（incoming）。例如：
+</li></ul>
+<pre> ufw allow 53
+</pre>
+<p>允许其它机子访问本机53端口，协议包含tcp和udp。
+</p>
+<ul><li>如果要控制协议，只要加入“/协议”在端口后面就行了。例如：
+</li></ul>
+<pre> ufw allow 25/tcp
+</pre>
+<p>允许其它机子使用tcp协议访问25端口。
+</p>
+<ul><li>UFW也可以检查 /etc/services文件，明白服务的名字及对应的端口和协议。我们使用服务的名称即可。
+</li></ul>
+<pre> ufw allow smtp
+</pre>
+<ul><li>UFW同时支持出入口过滤。用户可以使用in或out来指定向内还是向外。如果未指定，默认是in。例如：
+</li></ul>
+<pre> ufw allow in http
+</pre>
+<p>许可访问本机http端口（80）
+</p>
+<pre> ufw reject out smtp
+</pre>
+<p>禁止访问外部smtp端口，不告知“被防火墙阻止”。
+</p>
+<pre> ufw deny out to 192.168.1.1
+</pre>
+<p>禁止本机192.168.1.1对外访问。比如本机有多个IP时（通过虚拟网卡、多网卡等）。告知“被防火墙阻止”
+</p>
+<ul><li>用户也可使用完整的规则来指定来源与目的地，还有端口。书写规则基于OpenBSD PF。举例：
+</li></ul>
+<pre> ufw deny proto tcp to any port 80
+</pre>
+<p>阻止使用tcp协议向任何地址的80端口发送数据包。告知“被防火墙阻止”（以下略写）
+</p>
+<pre> ufw deny proto tcp from 10.0.0.0/8 to 192.168.0.1 port 25
+</pre>
+<p>阻止来源为10.0.0.0/8（255.0.0.0）这个网络段的数据包通过tcp协议发送到192.168.0.1的25端口。
+</p>
+<pre>ufw reject out on wlan0 to 119.75.217.56
+</pre>
+<p>禁止通过本机无线网卡wlan0联接到119.75.217.56（已测试）
+</p>
+<pre>sudo ufw deny out on wlan0 from 192.168.1.2 to 119.75.217.56
+</pre>
+<p>禁止通过本机192.168.1.2无限网卡wlan0发送数据包到119.75.217.56（已测试）。当IP被改为192.168.1.3或其它就能通过wlan0连接到119.75.217.56
+</p>
+<ul><li>ufw也可以使用IPv6协议。但要事先在/etc/default/ufw 中设定IPv6为启动状态。举例：
+</li></ul>
+<pre> ufw deny proto tcp from 2001:db8::/32 to any port 25
+</pre>
+<p>阻止IPv6为2001:db8::/32类型的地址，连接25端口
+</p>
+<ul><li>ufw可以连续例举端口号。端口号间必须使用逗号或分号，不能使用空格。“输入端口号”字符数最多不能超过15过（8080：8090算两个字符）。比如允许80,443，8080～8090这几个端口接受tcp传入连接。
+</li></ul>
+<pre> ufw allow proto tcp from any to any port 80,443,8080:8090
+</pre>
+<p>此例，“输入端口号”字符数为4个。命令意思是阻止通过tcp协议发送数据包到80,443,8080~8090端口
+</p>
+<ul><li>ufw可以对连接数率进行限制，以防范暴力登录攻击。如果同一个IP地址在30秒之内进行了6次及6次以上的连接，ufw将阻止（deny）该连接。<a href="http://www.debian-administration.org/articles/187" class="external text" title="http://www.debian-administration.org/articles/187" rel="nofollow">可以查看更多信息</a>。
+</li></ul>
+<pre> ufw limit ssh/tcp
+</pre>
+<ul><li>当然有些时候我们不想让访问者知道他的访问被拒绝了。就使用reject代替deny
+</li></ul>
+<pre> ufw reject auth
+</pre>
+<ul><li>默认情况下ufw的所有规则针对所有网络设备（比如网卡1，网卡2，无线网卡1，虚拟网卡1……）。但是我们可以特别指定，某规则在什么网络设备上生效。注意只能使用设备号，不能用别名。比如有线网卡：eth0(你可以使用ifconfig命令查看你现有的网络设备）
+</li></ul>
+<pre> ufw allow in on eth0 to any port 80 proto tcp
+</pre>
+<ul><li>要删除规则，只要在命令中加入delete就行了。比如：
+</li></ul>
+<pre> ufw deny 80/tcp
+ 要删除这条命令建立的规则，使用：
+ ufw delete deny 80/tcp
+</pre>
+<pre> 当然，也可以使用规则号来进行删除。比如要第3号规则
+ ufw delete 3
+</pre>
+<pre> 注意，如果你开启IPv6功能。要同时删除IPv4和IPv6的规则（比如：ufw allow 22/tcp）,如果用规则号的方式删除可能只删除了一个。
+</pre>
+<ul><li>显示第几号规则，可以使用这样的命令
+</li></ul>
+<pre> ufw status numbered(也就是规则号)
+</pre>
+<ul><li>日志功能。如果使用log将记录所有符合规则的新连接，如果使用log-all将记录所有符合规则的数据包。例如，要允许并记录shh（22/tcp）上的新连接：
+</li></ul>
+<pre> ufw allow log 22/tcp
+</pre>
+<pre> 更多内容看“日志sudo ufw default deny”一节
+</pre>
+<p>特殊例子：
+允许RFC1918网络结构访问本机：
+</p>
+<pre>ufw allow from 10.0.0.0/8
+ufw allow from 172.16.0.0/12
+ufw allow from 192.168.0.0/16
+</pre>
+<p>其实这个就是用CIDR（无类别域间路由选择
+，Classless and Subnet Address Extensions and Supernetting）的形式表示的一个网段，或者说子网。
+</p><p>192.168.0.0/24”就表示，这个网段的IP地址从192.168.0.1开始，到192.168.0.254结束（192.168.0.0和192.168.0.255有特殊含义，不能用作IP地址）；子网掩码是255.255.255.0。
+</p><p>上面的子网掩码怎么来的呢？其实关键就在“24”上。我们知道IP地址是四个十进制数组成的，相当于32位二进制。用CIDR表示形式，后一个数字将这32位进行了间隔（以24为例）：前24位用"1"表示，后面8位用0表示，得到一个二进制数：
+</p>
+<pre>11111111 11111111 11111111 00000000。
+</pre>
+<p>将其转化为十进制，就是：255.255.255.0了。这个不就是子网掩码，netmask。
+</p><p>对应的：
+</p>
+<pre>/8 就是 255.0.0.0； /16就是 255.255.0.0
+</pre>
+<p>比如要把192.168.0.0/24分为两个网络。
+192.168.0.0对应2进制为
+</p>
+<pre>11000000 10101000.00000000 00000000
+</pre>
+<p>子网掩码原为255.255.255.0
+</p>
+<pre>11111111 11111111 11111111 00000000
+</pre>
+<p><br />
+</p>
+<ul><li>192.168.0.0～192.168.0.127为一个网络；192.168.0.128～192.168.0.255为另一个网络。
+</li><li>所属网络分别为192.168.0.0；192.168.0.128
+</li><li>网络广播分别为192.168.0.127；192.168.0.255
+</li><li>子网掩码为255.255.255.128；255.255.255.128。2进制表示为（25个1）
+</li></ul>
+<pre>11111111 11111111 11111111 10000000
+</pre>
+<p>CIDR表示就很简单了：192.168.0.0/25即192.168.0.0～192.168.0.127；192.168.0.128/25即192.168.0.128～192.168.0.255
+</p><p>怎么样比你换算半天二进制要好得多吧。
+</p>
+<a name=".E8.BF.9C.E7.A8.8B.E7.AE.A1.E7.90.86" id=".E8.BF.9C.E7.A8.8B.E7.AE.A1.E7.90.86"></a><h2><span class="editsection">[<a href="/index.php?title=Ufw%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97&amp;action=edit&amp;section=5" title="编辑段落：远程管理">编辑</a>]</span> <span class="mw-headline"> 远程管理 </span></h2>
+<p>此章节还未被编辑
+</p>
+<a name=".E5.BA.94.E7.94.A8.E7.A8.8B.E5.BA.8F.E9.9B.86.E6.88.90.E7.AE.A1.E7.90.86" id=".E5.BA.94.E7.94.A8.E7.A8.8B.E5.BA.8F.E9.9B.86.E6.88.90.E7.AE.A1.E7.90.86"></a><h2><span class="editsection">[<a href="/index.php?title=Ufw%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97&amp;action=edit&amp;section=6" title="编辑段落：应用程序集成管理">编辑</a>]</span> <span class="mw-headline"> 应用程序集成管理 </span></h2>
+<ul><li>ufw能从 /etc/ufw/applications.d. 中读取应用程序清单。你可以使用命令查看：
+</li></ul>
+<pre> ufw app list
+</pre>
+<ul><li>大家可以使用应用程序名字来增加规则。比如
+</li></ul>
+<pre> ufw allow &lt;程序名字&gt;
+ ufw allow CUPS
+ ufw allow from 192.168.0.0/16 to any app &lt;程序名字&gt;
+ 注意，端口号已经被程序名所对应的策略所包括，不要再重新列举端口号。
+</pre>
+<ul><li>查看程序名所对应的策略内容，命令：
+</li></ul>
+<pre> ufw app into &lt;程序名字&gt;
+ 注意：程序名字是清单上有的才行。程序名字改用用all，可以看全部策略。
+</pre>
+<ul><li>如果你编辑或者增加了程序清单，你可使用此命令更新防火墙：
+</li></ul>
+<pre> ufw app update &lt;程序名字&gt;
+ 程序名字改用用all，则更新整个清单。
+</pre>
+<ul><li>更新清单同时增加规则可以使用如下命令：
+</li></ul>
+<pre> ufw app update --add-new &lt;程序名字&gt;
+</pre>
+<pre> 注意：update --add-new参数的行为由此命令配置：
+ ufw app default skip|allow|deny
+ 默认是skip，也就是没有设定。
+</pre>
+<p>警告：如果程序规则设定为default allow ，将会引起很大的风险。请三思而后行！
+</p><p><br />
+</p>
+<a name=".E6.8A.A5.E5.91.8A" id=".E6.8A.A5.E5.91.8A"></a><h2><span class="editsection">[<a href="/index.php?title=Ufw%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97&amp;action=edit&amp;section=7" title="编辑段落：报告">编辑</a>]</span> <span class="mw-headline"> 报告 </span></h2>
+<p>ufw的报告是基于系统。使用形式是iptable格式：
+</p>
+<ul><li>raw
+</li></ul>
+<p>完整报告，下面是该报告的细选。
+</p>
+<ul><li>builtins
+</li><li>before-rules
+</li><li>user-rules
+</li><li>logging-rules
+</li><li>listening
+</li></ul>
+<p>显示系统对tcp的监听和udp的开放状态。同时显示被监听端口的地址。如果地址变为“＊”，说明该端口对所有地址开放。接下来是显示可能影响该端口的规则。
+</p>
+<a name=".E5.B8.B8.E7.94.A8.E6.93.8D.E4.BD.9C.EF.BC.88.E6.96.B0.E6.89.8B.E6.93.8D.E4.BD.9C.EF.BC.89" id=".E5.B8.B8.E7.94.A8.E6.93.8D.E4.BD.9C.EF.BC.88.E6.96.B0.E6.89.8B.E6.93.8D.E4.BD.9C.EF.BC.89"></a><h2><span class="editsection">[<a href="/index.php?title=Ufw%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97&amp;action=edit&amp;section=8" title="编辑段落：常用操作（新手操作）">编辑</a>]</span> <span class="mw-headline"> 常用操作（新手操作） </span></h2>
+<p>查看ufw防火墙是否在工作，查看使用中的规则。
+</p>
+<pre>sudo ufw status
+</pre>
+<p>启动ufw防火墙
+</p>
+<pre>sudo ufw enable
+</pre>
+<p>启动默认防御（阻止外部联接，放行对外联接）。一般用户到这一步算是可以了。
+</p>
+<pre>sudo ufw default deny
+</pre>
+<ul><li>如果你只是只菜鸟，不建议你把deny换成reject。当网络不正常的时候，deny会告诉网络，你是被防火墙阻止了，而不是网络出问题了。
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 9/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key ubuntuwiki:pcache:idhash:43562-0!1!0!!zh!2!zh and timestamp 20140417093538 -->
+<div class="printfooter">
+取自“<a href="http://wiki.ubuntu.org.cn/Ufw%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97">http://wiki.ubuntu.org.cn/Ufw%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97</a>”</div>
+						<!-- end content -->
+
+		</div><!-- end of MAINCONTENT div -->	
+	
+	</div><!-- end of MBODY div -->
+
+	<div id="footer"><table><tr><td align="left" width="1%" nowrap="nowrap">
+		</td><td align="center">
+		<span id="f-viewcount">此页面已被浏览过15,091次。 </span>		<ul id="f-list">
+			<li id="f-credits">此页由Ubuntu中文的匿名用户于2012年7月15日 (星期日) 03:03的最后更改。 在<a href="/User:Cat650" title="User:Cat650">cat650</a>的工作基础上。</li>						<li id="f-about"><a href="/Ubuntu%E4%B8%AD%E6%96%87:%E5%85%B3%E4%BA%8E" title="Ubuntu中文:关于">关于Ubuntu中文</a></li>			<li id="f-disclaimer"><a href="/Ubuntu%E4%B8%AD%E6%96%87:%E5%85%8D%E8%B4%A3%E5%A3%B0%E6%98%8E" title="Ubuntu中文:免责声明">免责声明</a></li>		</ul></td><td align="right" width="1%" nowrap="nowrap"><div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div></td></tr></table>
+
+	</div><!-- end of the FOOTER div -->
+</div><!-- end of the CONTAINER div -->
+
+<!-- Served in 0.187 secs. -->
+</body>
+</html>

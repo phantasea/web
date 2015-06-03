@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7" lang="zh-CN">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8" lang="zh-CN">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html lang="zh-CN">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<!-- 设置标题 -->
+<title>
+          本博使用的vim(gvim)相关插件整理 | Vimer的程序世界        </title> 
+
+<!-- 设置描述性标签和关键词标签 -->
+
+<meta content="之前有朋友在博客里希望我能列出自己使用的所有Vim插件，一直没有时间，趁周末的最后的几个小时，就给大家列一下，大家可以实行拿来主义，取自己需要的，呵呵�" name="description"/>
+<meta content="gvim,vi,vim,vim插件,插件列表" name="keywords"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<link rel="alternate" type="application/rss+xml" title="Vimer的程序世界 &raquo; 本博使用的vim(gvim)相关插件整理评论Feed" href="http://www.vimer.cn/2010/06/%e6%9c%ac%e5%8d%9a%e4%bd%bf%e7%94%a8%e7%9a%84vimgvim%e7%9b%b8%e5%85%b3%e6%8f%92%e4%bb%b6%e6%95%b4%e7%90%86.html/feed" />
+<link rel='stylesheet' id='crayon-css'  href='http://www.vimer.cn/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css?ver=2.6.5' type='text/css' media='all' />
+<link rel='stylesheet' id='crayon-theme-tomorrow-night-css'  href='http://www.vimer.cn/wp-content/plugins/crayon-syntax-highlighter/themes/tomorrow-night/tomorrow-night.css?ver=2.6.5' type='text/css' media='all' />
+<link rel='stylesheet' id='crayon-font-droid-sans-mono-css'  href='http://www.vimer.cn/wp-content/plugins/crayon-syntax-highlighter/fonts/droid-sans-mono.css?ver=2.6.5' type='text/css' media='all' />
+<link rel='stylesheet' id='zanblog-style-css'  href='http://www.vimer.cn/wp-content/themes/zanblog2.0.7/style.css?ver=2.0.7' type='text/css' media='all' />
+<link rel='stylesheet' id='bootstrap-style-css'  href='http://www.vimer.cn/wp-content/themes/zanblog2.0.7/ui/css/bootstrap.css?ver=3.0.0' type='text/css' media='all' />
+<link rel='stylesheet' id='fontawesome-style-css'  href='http://www.vimer.cn/wp-content/themes/zanblog2.0.7/ui/font-awesome/css/font-awesome.min.css?ver=4.0.1' type='text/css' media='all' />
+<link rel='stylesheet' id='icheck-style-css'  href='http://www.vimer.cn/wp-content/themes/zanblog2.0.7/ui/css/flat/red.css?ver=3.9.3' type='text/css' media='all' />
+<link rel='stylesheet' id='custom-style-css'  href='http://www.vimer.cn/wp-content/themes/zanblog2.0.7/ui/css/custom.css?ver=2.0.7' type='text/css' media='all' />
+<script type="text/javascript">
+var duoshuoQuery = {"short_name":"vimer","sso":{"login":"http:\/\/www.vimer.cn\/wp-login.php?action=duoshuo_login","logout":"http:\/\/www.vimer.cn\/wp-login.php?action=logout&_wpnonce=30f75367a1"},"theme":"default","stylePatch":"wordpress\/Zanblog"};
+duoshuoQuery.sso.login += '&redirect_to=' + encodeURIComponent(window.location.href);
+duoshuoQuery.sso.logout += '&redirect_to=' + encodeURIComponent(window.location.href);
+</script>
+<script type="text/javascript" src="http://static.duoshuo.com/embed.js" charset="UTF-8" async="async"></script>
+<script type='text/javascript' src='http://www.vimer.cn/wp-includes/js/jquery/jquery.js?ver=1.11.0'></script>
+<script type='text/javascript' src='http://www.vimer.cn/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.6.5","is_admin":"0","ajaxurl":"http:\/\/www.vimer.cn\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"\u4f7f\u7528 %s \u590d\u5236\uff0c\u4f7f\u7528 %s \u7c98\u8d34\u3002","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.vimer.cn/wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js?ver=2.6.5'></script>
+<script type='text/javascript' src='http://www.vimer.cn/wp-content/themes/zanblog2.0.7/ui/js/bootstrap.js?ver=3.0.0'></script>
+<script type='text/javascript' src='http://www.vimer.cn/wp-content/themes/zanblog2.0.7/ui/js/jquery.icheck.js?ver=3.9.3'></script>
+<script type='text/javascript' src='http://www.vimer.cn/wp-content/themes/zanblog2.0.7/ui/js/zanblog.js?ver=2.0.7'></script>
+<script type='text/javascript' src='http://www.vimer.cn/wp-content/themes/zanblog2.0.7/ui/js/custom.js?ver=2.0.7'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.vimer.cn/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.vimer.cn/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='关于在函数调用时传递string引用的必要性' href='http://www.vimer.cn/2010/06/%e5%85%b3%e4%ba%8e%e5%9c%a8%e5%87%bd%e6%95%b0%e8%b0%83%e7%94%a8%e6%97%b6%e4%bc%a0%e9%80%92string%e5%bc%95%e7%94%a8%e7%9a%84%e5%bf%85%e8%a6%81%e6%80%a7.html' />
+<link rel='next' title='python-django的中文编码总结' href='http://www.vimer.cn/2010/06/python-django%e7%9a%84%e4%b8%ad%e6%96%87%e7%bc%96%e7%a0%81%e6%80%bb%e7%bb%93.html' />
+<meta name="generator" content="WordPress 3.9.3" />
+<link rel='canonical' href='http://www.vimer.cn/2010/06/%e6%9c%ac%e5%8d%9a%e4%bd%bf%e7%94%a8%e7%9a%84vimgvim%e7%9b%b8%e5%85%b3%e6%8f%92%e4%bb%b6%e6%95%b4%e7%90%86.html' />
+<link rel='shortlink' href='http://www.vimer.cn/?p=1372' />
+<style type="text/css"><!----></style><!-- wp thread comment 1.4.9.4.002 -->
+<style type="text/css" media="screen">
+.editComment, .editableComment, .textComment{
+	display: inline;
+}
+.comment-childs{
+	border: 1px solid #999;
+	margin: 5px 2px 2px 4px;
+	padding: 4px 2px 2px 4px;
+	background-color: white;
+}
+.chalt{
+	background-color: #E2E2E2;
+}
+#newcomment{
+	border:1px dashed #777;width:90%;
+}
+#newcommentsubmit{
+	color:red;
+}
+.adminreplycomment{
+	border:1px dashed #777;
+	width:99%;
+	margin:4px;
+	padding:4px;
+}
+.mvccls{
+	color: #999;
+}
+			
+</style>
+
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements Responsive IE8-->
+<!--[if lt IE 9]>
+  <script src="http://www.vimer.cn/wp-content/themes/zanblog2.0.7/ui/js/modernizr.js"></script>
+  <script src="http://www.vimer.cn/wp-content/themes/zanblog2.0.7/ui/js/respond.min.js"></script>
+  <script src="http://www.vimer.cn/wp-content/themes/zanblog2.0.7/ui/js/html5shiv.js"></script>
+<![endif]-->
+
+</head>
+<body class="single single-post postid-1372 single-format-standard">
+<header id="zan-header" class="navbar navbar-inverse bs-docs-nav">
+  <nav class="container">
+      <a href="http://www.vimer.cn"><div class="navbar-brand">Vimer的程序世界</div></a>
+    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="fa fa-reorder fa-lg"></span>
+    </button>
+    <div class="navbar-collapse bs-navbar-collapse collapse">
+      <ul id="menu-navbar" class="nav navbar-nav"><li id="menu-item-2633" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-2633"><a href="http://www.vimer.cn">主页</a></li>
+<li id="menu-item-2639" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-2639"><a href="http://www.vimer.cn/category/vim">Vim</a></li>
+<li id="menu-item-2634" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2634"><a href="http://www.vimer.cn/category/webdev">Web开发</a></li>
+<li id="menu-item-2875" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2875"><a href="http://www.vimer.cn/category/appdev">App开发</a></li>
+<li id="menu-item-2637" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2637"><a href="http://www.vimer.cn/category/zaxiang">杂项</a></li>
+<li id="menu-item-2892" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2892"><a href="http://www.vimer.cn/%e7%95%99%e8%a8%80">留言板</a></li>
+</ul>          </div>
+  </nav>
+  <div id="if-fixed" class="pull-right visible-lg visible-md">
+    <i class="fa fa-thumb-tack"></i>
+    <input type="checkbox">
+  </div>
+</header>
+<div id="zan-bodyer" style="padding-top: 30px;">
+	<div class="container">
+		<section class="row">
+			<div class="col-md-8">	
+												<article class="article container well">
+					<!-- 面包屑 -->
+					<div class="breadcrumb">
+					    <i class="fa fa-home"></i> <!-- Breadcrumb NavXT 5.1.1 -->
+<a title="Go to Vimer的程序世界." href="http://www.vimer.cn" class="home">Vimer的程序世界</a> &gt; <span typeof="v:Breadcrumb"><a rel="v:url" property="v:title" title="转到 Vim 分类存档" href="http://www.vimer.cn/category/vim" class="taxonomy category">Vim</a></span> &gt; 本博使用的vim(gvim)相关插件整理					</div>
+					<!-- 面包屑 -->	
+					<!-- 大型设备文章属性 -->
+					<div class="hidden-xs">
+						<div class="title-article">
+							<h1><a href="http://www.vimer.cn/2010/06/%e6%9c%ac%e5%8d%9a%e4%bd%bf%e7%94%a8%e7%9a%84vimgvim%e7%9b%b8%e5%85%b3%e6%8f%92%e4%bb%b6%e6%95%b4%e7%90%86.html">本博使用的vim(gvim)相关插件整理</a></h1>
+						</div>
+						<div class="tag-article container">
+							<span class="label label-zan"><i class="fa fa-tags"></i> 6-20</span>
+							<span class="label label-zan"><i class="fa fa-tags"></i> <a href="http://www.vimer.cn/category/vim" title="查看Vim中的全部文章" rel="category tag">Vim</a></span>
+							<span class="label label-zan"><i class="fa fa-user"></i> <a href="http://www.vimer.cn/author/admin" title="由Dante发布" rel="author">Dante</a></span>
+							<span class="label label-zan"><i class="fa fa-eye"></i> 94,868</span>
+						</div>
+					</div>
+					<!-- 大型设备文章属性 -->
+					<!-- 小型设备文章属性 -->
+					<div class="visible-xs">
+						<div class="title-article">
+							<h4><a href="http://www.vimer.cn/2010/06/%e6%9c%ac%e5%8d%9a%e4%bd%bf%e7%94%a8%e7%9a%84vimgvim%e7%9b%b8%e5%85%b3%e6%8f%92%e4%bb%b6%e6%95%b4%e7%90%86.html">本博使用的vim(gvim)相关插件整理</a></h4>
+						</div>
+						<p>
+							<i class="fa fa-calendar"></i> 6-20							<i class="fa fa-eye"></i> 94,868						</p>
+					</div>
+					<!-- 小型设备文章属性 -->
+					<div class="centent-article">
+														<figure class="thumbnail hidden-xs"></figure>							                 
+						<p>
+							<p>之前有朋友在博客里希望我能列出自己使用的所有Vim插件，一直没有时间，趁周末的最后的几个小时，就给大家列一下，大家可以实行拿来主义，取自己需要的，呵呵～<br />
+OK，一个个来说吧～～</p>
+<p><b>plugin:</b></p>
+<ul>
+<li><b>编程相关:</b></li>
+<ul>
+<li><b>公共:</b></li>
+<ul>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=273" target="_blank" >taglist</a></li>
+<p>            相信无人不知其大名，用来提供单个源代码文件的函数列表之类的功能。最近在使用一个针对面向对象语言的类似插件-<a href="http://www.vim.org/scripts/script.php?script_id=3465" target="_blank" >tagbar.vim</a>，也很不错。</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=1218" target="_blank" >NERD_commenter</a></li>
+<p>            提供快速注释/反注释代码块的功能</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=987" target="_blank" >DoxygenToolkit.vim</a></li>
+<p>            添加doxygen注释</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=2715" target="_blank" >UltiSnips</a></li>
+<p>            提供超强的快速生成代码段的功能(超越snipmate)</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=2666" target="_blank" >mark.vim</a></li>
+<p>            给不同的单词高亮，表明不同的变量时很有用。（特别说明一下，vim.org上有两个Mark.vim，请使用链接中指向的那个，另外一个是有bug的）</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=2902" target="_blank" >authorinfo</a></li>
+<p>            自动生成/更新文件的作者信息(本博编写)</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=1431" target="_blank" >checksyntax </a></li>
+<p>            一个通用的语法检查插件，支持c,js,等等</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=3361" target="_blank" >Indent Guides</a></li>
+<p>            用来帮助缩进对齐的插件，需要的时候会很好用
+        </ul>
+<li><b>c/c++:</b></li>
+<ul>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=1520" target="_blank" >omnicppcomplete</a></li>
+<p>            提供C++代码的自动补全功能</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=31" target="_blank" >a.vim</a></li>
+<p>            提供快速切换.h和.cpp文件的功能
+        </ul>
+<li><b>python:</b></li>
+<ul>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=2441" target="_blank" >pyflakes</a></li>
+<p>            提供实时检查python代码语法的功能（强烈推荐！）</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=910" target="_blank" >pydoc</a></li>
+<p>            在vim中查找python文档</p>
+<li><a href="https://github.com/davidhalter/jedi-vim" target="_blank" >jedi-vim</a></li>
+<p>            提供很好的python代码提示，以及shift+k 提供 __doc__ 展示功能
+        </ul>
+<li><b>js:</b></li>
+<ul>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=2727" target="_blank" >jsbeautify.vim</a></li>
+<p>            优化js代码，并不是简单的缩进，而是整个优化
+        </ul>
+<li><b>html/xml:</b></li>
+<ul>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=39" target="_blank" >matchit</a></li>
+<p>            使%不仅能够匹配简单的&lt;&gt;()，还能匹配&lt;html&gt;&lt;/html&gt;之类标签的功能</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=1397" target="_blank" >xml.vim</a></li>
+<p>            提供快速编写xml/html的能力，如标签自动闭合等
+        </ul>
+</ul>
+<li><b>常用工具:</b></li>
+<ul>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=1658" target="_blank" >NERD_tree</a></li>
+<p>        提供展示文件/目录列表的功能，比自带的文件浏览器要好很多</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=2771" target="_blank" >conque_term</a></li>
+<p>        提供在vim中打开终端的功能，非常有用！</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=1298" target="_blank" >csExplorer</a></li>
+<p>        提供列出配色列表的功能，就不用一个个手工去敲配色名字了</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=52" target="_blank" >calendar</a></li>
+<p>        提供日历的功能，并且可以记笔记</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=1708" target="_blank" >fencview</a></li>
+<p>        自动检测文件编码，也可以手动选择文件编码。</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=670" target="_blank" >visincr</a></li>
+<p>        提供生成数列的功能</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=2226" target="_blank" >vimwiki</a></li>
+<p>        用vim来打造个人wiki</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=1984" target="_blank" >FuzzyFinder</a></li>
+<p>        很强大的文件查找工具，需要依赖<a href="http://www.vim.org/scripts/script.php?script_id=3252" target="_blank" >L9</a></p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=3352" target="_blank" >auto_mkdir</a></li>
+<p>        用 :w 写入文件的时候会自动创建目录</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=1697" target="_blank" >surround.vim</a></li>
+<p>        快速给单词/句子两边增加符号（包括html标签），缺点是不用用&#8221;.&#8221;来重复命令，<a href="http://www.vim.org/scripts/script.php?script_id=2136" target="_blank" >repeat.vim</a>可以解决这个问题</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=1953" target="_blank" >Vimpress</a></li>
+<p>        用vim来查看、发布、修改、删除博客，有人优化了这个代码:<a href="http://www.vim.org/scripts/script.php?script_id=3510" target="_blank" >VimRepress</a></p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=2657" target="_blank" >VOoM</a></li>
+<p>        提供outline功能，功能非常强大</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=294" target="_blank" >Align</a></li>
+<p>        提供对齐文字的功能，不同于indent插件，一旦用到就会非常方便</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=2222" target="_blank" >CmdlineComplete</a></li>
+<p>        提供命令模式下的补全，可以补全缓冲区中出现过的单词，很好用（另一个选择是<a href="http://www.vim.org/scripts/script.php?script_id=3531" target="_blank" >cmdline completion</a>）</p>
+<li><a href="http://vim.sourceforge.net/scripts/script.php?script_id=3839" target="_blank" >weibo.vim</a></li>
+<p>        在Vim中发腾讯微博（本博编写）
+    </ul>
+<li><b>娱乐:</b></li>
+<ul>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=3083" target="_blank" >qiushibaike</a></li>
+<p>        可以在vim中看糗事百科（本博编写，纯属娱乐～～）</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=40" target="_blank" >DrawIt</a></li>
+<p>        可以在vim中画图，键盘控制。（还有一款插件，sketch也是画图，不过是用鼠标控制）
+    </ul>
+</ul>
+<p><b>indent:</b></p>
+<ul>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=2765" target="_blank" >javascript.vim</a></li>
+<p>    提供js代码的智能缩进，仅使用了他的indent功能</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=3461" target="_blank" >indent/python.vim</a></li>
+<p>    提供python的语法缩进，比默认的要好很多(本博修改)
+</ul>
+<p><b>syntax:</b></p>
+<ul>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=1491" target="_blank" >javascript.vim</a></li>
+<p>    提供更好的js语法高亮</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=790" target="_blank" >python.vim</a></li>
+<p>    提供更好的python语法高亮</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=1061" target="_blank" >actionscript.vim</a></li>
+<p>    提供as代码的语法高亮</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=1945" target="_blank" >json.vim</a></li>
+<p>    提供json的语法高亮</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=2150" target="_blank" >css.vim</a> 本博修正版:<a href="http://vimercode.googlecode.com/svn/trunk/css.vim/css.vim" target="_blank" >css.vim</a></li>
+<p>    提供实时显示颜色的功能，如#FFFFFF</p>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=2882" target="_blank" >markdown</a></li>
+<p>    提供markdown着色功能，顺便也提供了snippet
+</ul>
+<p>这里的列表会随博主的使用情况实时更新，希望能让大家使用vim更加方便。<br />
+另外，博友们如果还有什么好的插件我没有列出来，欢迎留言提醒～～</p>
+						</p>
+						<!-- 分页 -->
+						<div clas="zan-page bs-example">
+					        <ul class="pager">
+								<li class="previous"><a href="http://www.vimer.cn/2010/06/%e5%9c%a8vimgvim%e4%b8%ad%e8%bf%90%e8%a1%8c%e7%bb%88%e7%ab%af%e5%af%b9%e4%bd%a0%e6%b2%a1%e6%9c%89%e7%9c%8b%e9%94%99%e6%88%91%e4%b9%9f%e6%b2%a1%e6%9c%89%e5%86%99%e5%8f%8d.html" rel="prev">上一篇</a></li>
+								<li class="next"><a href="http://www.vimer.cn/2010/07/vimgvim%e4%b8%80%e9%94%ae%e6%89%a7%e8%a1%8cpython%e8%84%9a%e6%9c%ac%e7%9a%84bug.html" rel="next">下一篇</a></li>
+							</ul>
+				        </div>
+				        <!-- 分页 -->
+						<!-- 文章版权信息 -->
+						<div class="copyright alert alert-success">
+                            <p>版权属于：<a href="http://www.vimer.cn">Vimer的程序世界</a></p>
+							<!-- <p>原文地址：<a href="http://www.vimer.cn/2010/06/%e6%9c%ac%e5%8d%9a%e4%bd%bf%e7%94%a8%e7%9a%84vimgvim%e7%9b%b8%e5%85%b3%e6%8f%92%e4%bb%b6%e6%95%b4%e7%90%86.html">http://www.vimer.cn/2010/06/%e6%9c%ac%e5%8d%9a%e4%bd%bf%e7%94%a8%e7%9a%84vimgvim%e7%9b%b8%e5%85%b3%e6%8f%92%e4%bb%b6%e6%95%b4%e7%90%86.html</a></p> -->
+                            <p>原文地址：<a href="http://www.vimer.cn?p=1372">http://www.vimer.cn?p=1372</a></p>
+							<p>转载时必须以链接形式注明原始出处及本声明。</p>
+						</div>
+						<!-- 文章版权信息 -->
+						<!-- Baidu Button BEGIN -->
+						<div id="bdshare" class="bdshare_b pull-right clearfix" style="line-height: 12px;">
+						<img src="http://bdimg.share.baidu.com/static/images/type-button-1.jpg?cdnversion=20120831" />
+						<a class="shareCount"></a>
+						</div>
+						<script type="text/javascript" id="bdshare_js" data="type=button&amp;uid=6553914" ></script>
+						<script type="text/javascript" id="bdshell_js"></script>
+						<script type="text/javascript">
+						document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+						</script>
+						<!-- Baidu Button END -->
+					</div>				
+				</article>
+								<!-- 相关文章 -->
+		        <div id="post-related" class="bs-example visible-md visible-lg">
+					<div class="row">
+						<div class="alert alert-danger related-title">您可能也喜欢:</div>
+			            			            <div>暂无相关产品</div>
+			            					</div>
+				</div>
+				<a name="comments"></a>
+
+<div class="ds-thread" data-thread-key="1372" data-author-key="1" data-title="本博使用的vim(gvim)相关插件整理" data-url="http://www.vimer.cn/2010/06/%e6%9c%ac%e5%8d%9a%e4%bd%bf%e7%94%a8%e7%9a%84vimgvim%e7%9b%b8%e5%85%b3%e6%8f%92%e4%bb%b6%e6%95%b4%e7%90%86.html"></div>
+
+<script type="text/javascript">
+	if (typeof DUOSHUO !== 'undefined')
+		DUOSHUO.EmbedThread('.ds-thread');
+</script>
+	<div id="ds-ssr">
+
+				<nav id="comment-nav-above">
+			<h1 class="assistive-text">Comment navigation</h1>
+			<div class="nav-previous"><a href="http://www.vimer.cn/2010/06/%e6%9c%ac%e5%8d%9a%e4%bd%bf%e7%94%a8%e7%9a%84vimgvim%e7%9b%b8%e5%85%b3%e6%8f%92%e4%bb%b6%e6%95%b4%e7%90%86.html/comment-page-2#comments" >&larr; Older Comments</a></div>
+			<div class="nav-next"></div>
+		</nav>
+		
+            <ol id="commentlist">
+                		<li class="comment even thread-even depth-1" id="li-comment-44625">
+			<article id="comment-44625" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn">caimaoy</span> on <a rel="nofollow" href="http://www.vimer.cn/2010/06/%e6%9c%ac%e5%8d%9a%e4%bd%bf%e7%94%a8%e7%9a%84vimgvim%e7%9b%b8%e5%85%b3%e6%8f%92%e4%bb%b6%e6%95%b4%e7%90%86.html/comment-page-3#comment-44625"><time pubdate datetime="2014-10-12T11:07:20+00:00">2014年10月12日 at 11:07 上午</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>pydoc 可以在windows下使用吗？</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,44625,1,'caimaoy');">回复</a>]</p><div class="comment-childs chalt" id="comment-44627"><img alt='' src='http://0.gravatar.com/avatar/2f757944f02b96b2ccaf0f295256b435?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /><p><cite><a href='http://t.qq.com/dantezhu' rel='external nofollow' class='url'>朱念洋</a></cite> 回复:<br /><small class="commentmetadata">十月 14th, 2014 at 12:06 上午</small></p><p>好像可以吧，我一直在用mac。。</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,44627,2,'朱念洋');">回复</a>]</p></div></div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-44650">
+			<article id="comment-44650" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn">caimaoy</span> on <a rel="nofollow" href="http://www.vimer.cn/2010/06/%e6%9c%ac%e5%8d%9a%e4%bd%bf%e7%94%a8%e7%9a%84vimgvim%e7%9b%b8%e5%85%b3%e6%8f%92%e4%bb%b6%e6%95%b4%e7%90%86.html/comment-page-3#comment-44650"><time pubdate datetime="2014-10-28T16:15:31+00:00">2014年10月28日 at 4:15 下午</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>作者大牛，我在又遇到问题了，所以来这里提问 &#8211; - 我在windows下用YCM python的标准库可以补全但是第三方的库不能补全，不知道你有没有使用个插件，还有能说一下你的配置吗？THX</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,44650,1,'caimaoy');">回复</a>]</p><div class="comment-childs chalt" id="comment-44660"><img alt='' src='http://0.gravatar.com/avatar/2f757944f02b96b2ccaf0f295256b435?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /><p><cite><a href='http://t.qq.com/dantezhu' rel='external nofollow' class='url'>朱念洋</a></cite> 回复:<br /><small class="commentmetadata">十月 31st, 2014 at 10:45 下午</small></p><p>用过一段时间，后来觉得太卡就删了。。。</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,44660,2,'朱念洋');">回复</a>]</p></div></div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="li-comment-44655">
+			<article id="comment-44655" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn">丰碑无语</span> on <a rel="nofollow" href="http://www.vimer.cn/2010/06/%e6%9c%ac%e5%8d%9a%e4%bd%bf%e7%94%a8%e7%9a%84vimgvim%e7%9b%b8%e5%85%b3%e6%8f%92%e4%bb%b6%e6%95%b4%e7%90%86.html/comment-page-3#comment-44655"><time pubdate datetime="2014-10-30T23:21:53+00:00">2014年10月30日 at 11:21 下午</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>博主好厉害，以上列举python的插件全吗，想用vim开发python。</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,44655,1,'丰碑无语');">回复</a>]</p><div class="comment-childs chalt" id="comment-44659"><img alt='' src='http://0.gravatar.com/avatar/2f757944f02b96b2ccaf0f295256b435?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /><p><cite><a href='http://t.qq.com/dantezhu' rel='external nofollow' class='url'>朱念洋</a></cite> 回复:<br /><small class="commentmetadata">十月 31st, 2014 at 10:44 下午</small></p><p>蛮全的：）</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,44659,2,'朱念洋');">回复</a>]</p></div></div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-44657">
+			<article id="comment-44657" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href='http://t.qq.com/lijingzheng3460' rel='external nofollow' class='url'>Marshall</a></span> on <a rel="nofollow" href="http://www.vimer.cn/2010/06/%e6%9c%ac%e5%8d%9a%e4%bd%bf%e7%94%a8%e7%9a%84vimgvim%e7%9b%b8%e5%85%b3%e6%8f%92%e4%bb%b6%e6%95%b4%e7%90%86.html/comment-page-3#comment-44657"><time pubdate datetime="2014-10-31T22:39:27+00:00">2014年10月31日 at 10:39 下午</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>你好博主, 我好喜欢您的文章,我是通过您的文章认识了解vim的,我现在开始用vim了,现在碰到了一个问题,没有思路, 我想要做个特定语言的标签管理, 关于lua的, 能用ctags做吗, 求博主 恩典赐解</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,44657,1,'Marshall');">回复</a>]</p><div class="comment-childs chalt" id="comment-44658"><img alt='' src='http://0.gravatar.com/avatar/2f757944f02b96b2ccaf0f295256b435?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /><p><cite><a href='http://t.qq.com/dantezhu' rel='external nofollow' class='url'>朱念洋</a></cite> 回复:<br /><small class="commentmetadata">十月 31st, 2014 at 10:44 下午</small></p><p>ctags默认是支持lua的吧，太详细的我也就没研究过了呢</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,44658,2,'朱念洋');">回复</a>]</p></div></div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="li-comment-44683">
+			<article id="comment-44683" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href='http://www.4008060066.com/ac/' rel='external nofollow' class='url'>脸上长暗疮</a></span> on <a rel="nofollow" href="http://www.vimer.cn/2010/06/%e6%9c%ac%e5%8d%9a%e4%bd%bf%e7%94%a8%e7%9a%84vimgvim%e7%9b%b8%e5%85%b3%e6%8f%92%e4%bb%b6%e6%95%b4%e7%90%86.html/comment-page-3#comment-44683"><time pubdate datetime="2014-11-14T11:09:23+00:00">2014年11月14日 at 11:09 上午</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>有点疑问，插件太多，网速会不会很卡啊</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,44683,1,'脸上长暗疮');">回复</a>]</p></div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-44688">
+			<article id="comment-44688" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href='http://www.4008060066.com/ac/' rel='external nofollow' class='url'>脸上长暗疮</a></span> on <a rel="nofollow" href="http://www.vimer.cn/2010/06/%e6%9c%ac%e5%8d%9a%e4%bd%bf%e7%94%a8%e7%9a%84vimgvim%e7%9b%b8%e5%85%b3%e6%8f%92%e4%bb%b6%e6%95%b4%e7%90%86.html/comment-page-3#comment-44688"><time pubdate datetime="2014-11-18T10:34:27+00:00">2014年11月18日 at 10:34 上午</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>有点深奥啊</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,44688,1,'脸上长暗疮');">回复</a>]</p></div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="li-comment-44696">
+			<article id="comment-44696" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href='http://weibo.com/3308984583' rel='external nofollow' class='url'>为什么总是昵称不合法</a></span> on <a rel="nofollow" href="http://www.vimer.cn/2010/06/%e6%9c%ac%e5%8d%9a%e4%bd%bf%e7%94%a8%e7%9a%84vimgvim%e7%9b%b8%e5%85%b3%e6%8f%92%e4%bb%b6%e6%95%b4%e7%90%86.html/comment-page-3#comment-44696"><time pubdate datetime="2014-11-28T16:06:00+00:00">2014年11月28日 at 4:06 下午</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>Java vim插件不知道楼主如何配置的？感觉总是差点呢= =</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,44696,1,'为什么总是昵称不合法');">回复</a>]</p><div class="comment-childs chalt" id="comment-44699"><img alt='' src='http://0.gravatar.com/avatar/2f757944f02b96b2ccaf0f295256b435?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /><p><cite><a href='http://t.qq.com/dantezhu' rel='external nofollow' class='url'>朱念洋</a></cite> 回复:<br /><small class="commentmetadata">十二月 1st, 2014 at 9:38 上午</small></p><p>java用的很少呢。。基本没有他相关的插件了。。</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,44699,2,'朱念洋');">回复</a>]</p></div></div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-44710">
+			<article id="comment-44710" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href='http://weibo.com/xzywill' rel='external nofollow' class='url'>风吹稻花-香两岸</a></span> on <a rel="nofollow" href="http://www.vimer.cn/2010/06/%e6%9c%ac%e5%8d%9a%e4%bd%bf%e7%94%a8%e7%9a%84vimgvim%e7%9b%b8%e5%85%b3%e6%8f%92%e4%bb%b6%e6%95%b4%e7%90%86.html/comment-page-3#comment-44710"><time pubdate datetime="2014-12-18T23:57:04+00:00">2014年12月18日 at 11:57 下午</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>相见恨晚！还在持续更新中吗？ <img src="http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/af/kl_org.gif" /> </p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,44710,1,'风吹稻花-香两岸');">回复</a>]</p><div class="comment-childs chalt" id="comment-44716"><img alt='' src='http://0.gravatar.com/avatar/2f757944f02b96b2ccaf0f295256b435?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /><p><cite><a href='http://t.qq.com/dantezhu' rel='external nofollow' class='url'>朱念洋</a></cite> 回复:<br /><small class="commentmetadata">十二月 21st, 2014 at 1:35 上午</small></p><p>是的，有新的好插件还是会放上来的：）</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,44716,2,'朱念洋');">回复</a>]</p></div></div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="li-comment-44711">
+			<article id="comment-44711" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href='http://www.4008060066.com/dk/143.html' rel='external nofollow' class='url'>痘坑能修复吗</a></span> on <a rel="nofollow" href="http://www.vimer.cn/2010/06/%e6%9c%ac%e5%8d%9a%e4%bd%bf%e7%94%a8%e7%9a%84vimgvim%e7%9b%b8%e5%85%b3%e6%8f%92%e4%bb%b6%e6%95%b4%e7%90%86.html/comment-page-3#comment-44711"><time pubdate datetime="2014-12-19T11:23:55+00:00">2014年12月19日 at 11:23 上午</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>这个插件会不会影响电脑的运行速度</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,44711,1,'痘坑能修复吗');">回复</a>]</p><div class="comment-childs chalt" id="comment-44715"><img alt='' src='http://0.gravatar.com/avatar/2f757944f02b96b2ccaf0f295256b435?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /><p><cite><a href='http://t.qq.com/dantezhu' rel='external nofollow' class='url'>朱念洋</a></cite> 回复:<br /><small class="commentmetadata">十二月 21st, 2014 at 1:35 上午</small></p><p>大部分不会的</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,44715,2,'朱念洋');">回复</a>]</p></div></div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-44785">
+			<article id="comment-44785" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href='http://t.qq.com/jujuer' rel='external nofollow' class='url'>阿举</a></span> on <a rel="nofollow" href="http://www.vimer.cn/2010/06/%e6%9c%ac%e5%8d%9a%e4%bd%bf%e7%94%a8%e7%9a%84vimgvim%e7%9b%b8%e5%85%b3%e6%8f%92%e4%bb%b6%e6%95%b4%e7%90%86.html/comment-page-3#comment-44785"><time pubdate datetime="2015-01-22T13:49:32+00:00">2015年01月22日 at 1:49 下午</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>谢谢。</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,44785,1,'阿举');">回复</a>]</p></div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="li-comment-44796">
+			<article id="comment-44796" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href='http://www.mazhuang.org' rel='external nofollow' class='url'>壮哥不胖</a></span> on <a rel="nofollow" href="http://www.vimer.cn/2010/06/%e6%9c%ac%e5%8d%9a%e4%bd%bf%e7%94%a8%e7%9a%84vimgvim%e7%9b%b8%e5%85%b3%e6%8f%92%e4%bb%b6%e6%95%b4%e7%90%86.html/comment-page-3#comment-44796"><time pubdate datetime="2015-01-26T20:02:23+00:00">2015年01月26日 at 8:02 下午</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>博主现在使用什么来管理这些插件呢？推荐一下~ <img src="http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/ac/smilea_org.gif" /> </p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,44796,1,'壮哥不胖');">回复</a>]</p><div class="comment-childs chalt" id="comment-44798"><img alt='' src='http://0.gravatar.com/avatar/2f757944f02b96b2ccaf0f295256b435?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /><p><cite><a href='http://t.qq.com/dantezhu' rel='external nofollow' class='url'>朱念洋</a></cite> 回复:<br /><small class="commentmetadata">一月 26th, 2015 at 9:06 下午</small></p><p>vbundle</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,44798,2,'朱念洋');">回复</a>]</p></div></div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-44808">
+			<article id="comment-44808" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn">Ray</span> on <a rel="nofollow" href="http://www.vimer.cn/2010/06/%e6%9c%ac%e5%8d%9a%e4%bd%bf%e7%94%a8%e7%9a%84vimgvim%e7%9b%b8%e5%85%b3%e6%8f%92%e4%bb%b6%e6%95%b4%e7%90%86.html/comment-page-3#comment-44808"><time pubdate datetime="2015-01-31T11:31:57+00:00">2015年01月31日 at 11:31 上午</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>居然没有 vimgdb, 差评 <img src="http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/0b/tootha_org.gif" /> </p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,44808,1,'Ray');">回复</a>]</p><div class="comment-childs chalt" id="comment-44812"><img alt='' src='http://0.gravatar.com/avatar/2f757944f02b96b2ccaf0f295256b435?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' /><p><cite><a href='http://t.qq.com/dantezhu' rel='external nofollow' class='url'>朱念洋</a></cite> 回复:<br /><small class="commentmetadata">一月 31st, 2015 at 9:38 下午</small></p><p>哈哈～ 插件不错的，只是我一般直接用gdb。。</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,44812,2,'朱念洋');">回复</a>]</p></div></div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="li-comment-44831">
+			<article id="comment-44831" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href='http://t.qq.com/a1608320333' rel='external nofollow' class='url'>寂寞的心</a></span> on <a rel="nofollow" href="http://www.vimer.cn/2010/06/%e6%9c%ac%e5%8d%9a%e4%bd%bf%e7%94%a8%e7%9a%84vimgvim%e7%9b%b8%e5%85%b3%e6%8f%92%e4%bb%b6%e6%95%b4%e7%90%86.html/comment-page-3#comment-44831"><time pubdate datetime="2015-03-01T15:55:16+00:00">2015年03月1日 at 3:55 下午</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>您好，请问您qq是多少？</p>
+<p class="thdrpy">[<a href="javascript:void(0)" onclick="movecfm(event,44831,1,'寂寞的心');">回复</a>]</p></div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+            </ol>
+
+				<nav id="comment-nav-below">
+			<h1 class="assistive-text">Comment navigation</h1>
+			<div class="nav-previous"><a href="http://www.vimer.cn/2010/06/%e6%9c%ac%e5%8d%9a%e4%bd%bf%e7%94%a8%e7%9a%84vimgvim%e7%9b%b8%e5%85%b3%e6%8f%92%e4%bb%b6%e6%95%b4%e7%90%86.html/comment-page-2#comments" >&larr; Older Comments</a></div>
+			<div class="nav-next"></div>
+		</nav>
+		            
+    </div> 									
+			</div>
+			<aside id="sidebar"  class="col-md-4">
+				<div class="textwidget"></div>
+			<!-- 最热文章模块-->
+	<div class="panel panel-zan hot">
+		<div class="panel-heading">
+			<i class="fa fa-fire"></i> 最热文章
+			<i class="fa fa-times-circle panel-remove"></i>
+			<i class="fa fa-chevron-circle-up panel-toggle"></i>
+		</div>
+		<!-- 大屏PC端、手机端 -->
+		<ul class="list-group list-group-flush visible-lg visible-xs">
+<li class="list-group-item"><a href= "http://www.vimer.cn/2014/11/%e5%88%9b%e4%b8%9a%e8%bf%99%e4%bb%b6%e5%b0%8f%e4%ba%8b%ef%bc%88%e5%9b%9b%ef%bc%89.html" rel="bookmark" title="创业这件小事（四）" >创业这件小事（四）</a><span class="badge">14</span></li>
+<li class="list-group-item"><a href= "http://www.vimer.cn/2014/11/%e5%88%9b%e4%b8%9a%e8%bf%99%e4%bb%b6%e5%b0%8f%e4%ba%8b%ef%bc%88%e4%ba%94%ef%bc%89.html" rel="bookmark" title="创业这件小事（五）" >创业这件小事（五）</a><span class="badge">13</span></li>
+<li class="list-group-item"><a href= "http://www.vimer.cn/2015/02/%e6%96%b0%e5%b9%b4%e5%bf%ab%e4%b9%90%ef%bc%81.html" rel="bookmark" title="新年快乐！" >新年快乐！</a><span class="badge">10</span></li>
+<li class="list-group-item"><a href= "http://www.vimer.cn/2015/01/%e5%88%9b%e4%b8%9a%e8%bf%99%e4%bb%b6%e5%b0%8f%e4%ba%8b%ef%bc%88%e5%85%ad%ef%bc%89.html" rel="bookmark" title="创业这件小事（六）" >创业这件小事（六）</a><span class="badge">7</span></li>
+<li class="list-group-item"><a href= "http://www.vimer.cn/2015/01/%e7%bb%99%e5%88%9b%e4%b8%9a%e8%80%85%e6%95%b4%e7%90%86%e7%9a%84%e5%b7%a5%e5%85%b7.html" rel="bookmark" title="给创业者整理的工具" >给创业者整理的工具</a><span class="badge">6</span></li>
+<li class="list-group-item"><a href= "http://www.vimer.cn/2014/12/%e6%b8%b8%e6%88%8f%e6%9c%8d%e5%8a%a1%e5%99%a8%e7%ab%af%e6%9e%b6%e6%9e%84%e5%8d%87%e7%ba%a7%e4%b9%8b%e8%b7%af.html" rel="bookmark" title="游戏服务器端架构升级之路" >游戏服务器端架构升级之路</a><span class="badge">2</span></li>
+<li class="list-group-item"><a href= "http://www.vimer.cn/2014/10/%e6%b8%b8%e6%88%8f%e5%86%85%e7%bb%9f%e4%b8%80%e6%94%af%e4%bb%98%e7%b3%bb%e7%bb%9f%e8%ae%be%e8%ae%a1%e4%b8%8e%e5%ae%9e%e7%8e%b0%ef%bc%88%e4%ba%8c%ef%bc%89.html" rel="bookmark" title="游戏内统一支付系统设计与实现（二）" >游戏内统一支付系统设计与实现（二）</a><span class="badge">0</span></li>
+<li class="list-group-item"><a href= "http://www.vimer.cn/2014/09/%e6%b8%b8%e6%88%8f%e5%86%85%e7%bb%9f%e4%b8%80%e6%94%af%e4%bb%98%e7%b3%bb%e7%bb%9f%e8%ae%be%e8%ae%a1%e4%b8%8e%e5%ae%9e%e7%8e%b0%ef%bc%88%e4%b8%80%ef%bc%89.html" rel="bookmark" title="游戏内统一支付系统设计与实现（一）" >游戏内统一支付系统设计与实现（一）</a><span class="badge">0</span></li></ul>
+		<!-- 小屏PC端 -->
+		<ul class="list-group list-group-flush visible-md">
+<li class="list-group-item"><a href= "http://www.vimer.cn/2014/11/%e5%88%9b%e4%b8%9a%e8%bf%99%e4%bb%b6%e5%b0%8f%e4%ba%8b%ef%bc%88%e5%9b%9b%ef%bc%89.html" rel="bookmark" title="创业这件小事（四）" >创业这件小事（四）</a><span class="badge">14</span></li>
+<li class="list-group-item"><a href= "http://www.vimer.cn/2014/11/%e5%88%9b%e4%b8%9a%e8%bf%99%e4%bb%b6%e5%b0%8f%e4%ba%8b%ef%bc%88%e4%ba%94%ef%bc%89.html" rel="bookmark" title="创业这件小事（五）" >创业这件小事（五）</a><span class="badge">13</span></li>
+<li class="list-group-item"><a href= "http://www.vimer.cn/2015/02/%e6%96%b0%e5%b9%b4%e5%bf%ab%e4%b9%90%ef%bc%81.html" rel="bookmark" title="新年快乐！" >新年快乐！</a><span class="badge">10</span></li>
+<li class="list-group-item"><a href= "http://www.vimer.cn/2015/01/%e5%88%9b%e4%b8%9a%e8%bf%99%e4%bb%b6%e5%b0%8f%e4%ba%8b%ef%bc%88%e5%85%ad%ef%bc%89.html" rel="bookmark" title="创业这件小事（六）" >创业这件小事（六）</a><span class="badge">7</span></li>
+<li class="list-group-item"><a href= "http://www.vimer.cn/2015/01/%e7%bb%99%e5%88%9b%e4%b8%9a%e8%80%85%e6%95%b4%e7%90%86%e7%9a%84%e5%b7%a5%e5%85%b7.html" rel="bookmark" title="给创业者整理的工具" >给创业者整理的工具</a><span class="badge">6</span></li>
+<li class="list-group-item"><a href= "http://www.vimer.cn/2014/12/%e6%b8%b8%e6%88%8f%e6%9c%8d%e5%8a%a1%e5%99%a8%e7%ab%af%e6%9e%b6%e6%9e%84%e5%8d%87%e7%ba%a7%e4%b9%8b%e8%b7%af.html" rel="bookmark" title="游戏服务器端架构升级之路" >游戏服务器端架构升级之路</a><span class="badge">2</span></li>
+<li class="list-group-item"><a href= "http://www.vimer.cn/2014/10/%e6%b8%b8%e6%88%8f%e5%86%85%e7%bb%9f%e4%b8%80%e6%94%af%e4%bb%98%e7%b3%bb%e7%bb%9f%e8%ae%be%e8%ae%a1%e4%b8%8e%e5%ae%9e%e7%8e%b0%ef%bc%88%e4%ba%8c%ef%bc%89.html" rel="bookmark" title="游戏内统一支付系统设计与实现（二）" >游戏内统一支付系统设计与实现（二）</a><span class="badge">0</span></li>
+<li class="list-group-item"><a href= "http://www.vimer.cn/2014/09/%e6%b8%b8%e6%88%8f%e5%86%85%e7%bb%9f%e4%b8%80%e6%94%af%e4%bb%98%e7%b3%bb%e7%bb%9f%e8%ae%be%e8%ae%a1%e4%b8%8e%e5%ae%9e%e7%8e%b0%ef%bc%88%e4%b8%80%ef%bc%89.html" rel="bookmark" title="游戏内统一支付系统设计与实现（一）" >游戏内统一支付系统设计与实现（一）</a><span class="badge">0</span></li></ul>
+		<!-- 平板端 -->
+		<ul class="list-group list-group-flush visible-sm">
+<li class="list-group-item"><a href= "http://www.vimer.cn/2014/11/%e5%88%9b%e4%b8%9a%e8%bf%99%e4%bb%b6%e5%b0%8f%e4%ba%8b%ef%bc%88%e5%9b%9b%ef%bc%89.html" rel="bookmark" title="创业这件小事（四）" >创业这件小事（四）</a><span class="badge">14</span></li>
+<li class="list-group-item"><a href= "http://www.vimer.cn/2014/11/%e5%88%9b%e4%b8%9a%e8%bf%99%e4%bb%b6%e5%b0%8f%e4%ba%8b%ef%bc%88%e4%ba%94%ef%bc%89.html" rel="bookmark" title="创业这件小事（五）" >创业这件小事（五）</a><span class="badge">13</span></li>
+<li class="list-group-item"><a href= "http://www.vimer.cn/2015/02/%e6%96%b0%e5%b9%b4%e5%bf%ab%e4%b9%90%ef%bc%81.html" rel="bookmark" title="新年快乐！" >新年快乐！</a><span class="badge">10</span></li>
+<li class="list-group-item"><a href= "http://www.vimer.cn/2015/01/%e5%88%9b%e4%b8%9a%e8%bf%99%e4%bb%b6%e5%b0%8f%e4%ba%8b%ef%bc%88%e5%85%ad%ef%bc%89.html" rel="bookmark" title="创业这件小事（六）" >创业这件小事（六）</a><span class="badge">7</span></li>
+<li class="list-group-item"><a href= "http://www.vimer.cn/2015/01/%e7%bb%99%e5%88%9b%e4%b8%9a%e8%80%85%e6%95%b4%e7%90%86%e7%9a%84%e5%b7%a5%e5%85%b7.html" rel="bookmark" title="给创业者整理的工具" >给创业者整理的工具</a><span class="badge">6</span></li>
+<li class="list-group-item"><a href= "http://www.vimer.cn/2014/12/%e6%b8%b8%e6%88%8f%e6%9c%8d%e5%8a%a1%e5%99%a8%e7%ab%af%e6%9e%b6%e6%9e%84%e5%8d%87%e7%ba%a7%e4%b9%8b%e8%b7%af.html" rel="bookmark" title="游戏服务器端架构升级之路" >游戏服务器端架构升级之路</a><span class="badge">2</span></li>
+<li class="list-group-item"><a href= "http://www.vimer.cn/2014/10/%e6%b8%b8%e6%88%8f%e5%86%85%e7%bb%9f%e4%b8%80%e6%94%af%e4%bb%98%e7%b3%bb%e7%bb%9f%e8%ae%be%e8%ae%a1%e4%b8%8e%e5%ae%9e%e7%8e%b0%ef%bc%88%e4%ba%8c%ef%bc%89.html" rel="bookmark" title="游戏内统一支付系统设计与实现（二）" >游戏内统一支付系统设计与实现（二）</a><span class="badge">0</span></li>
+<li class="list-group-item"><a href= "http://www.vimer.cn/2014/09/%e6%b8%b8%e6%88%8f%e5%86%85%e7%bb%9f%e4%b8%80%e6%94%af%e4%bb%98%e7%b3%bb%e7%bb%9f%e8%ae%be%e8%ae%a1%e4%b8%8e%e5%ae%9e%e7%8e%b0%ef%bc%88%e4%b8%80%ef%bc%89.html" rel="bookmark" title="游戏内统一支付系统设计与实现（一）" >游戏内统一支付系统设计与实现（一）</a><span class="badge">0</span></li></ul>
+	</div>
+	<!-- 最新评论模块 -->
+	<div class="visible-md visible-lg">
+		<div class="panel panel-zan">
+			<div class="panel-heading">
+				<i class="fa fa-comments"></i> 最新评论
+				<i class="fa fa-times-circle panel-remove"></i>
+				<i class="fa fa-chevron-circle-up panel-toggle"></i>
+			</div>
+			<!-- 大屏PC端 -->
+			<ul class="list-group list-group-flush visible-lg">
+<li class="list-group-item"><img alt='' src='http://0.gravatar.com/avatar/acede1117208d2ef6f0932c2dc8c1cda?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' /><span class="comment-log"> <a href="http://www.vimer.cn/2009/12/%e5%9c%a8windows%e4%b8%8b%e6%90%ad%e5%bb%bamysqlphpapache%e7%8e%af%e5%a2%834-wordpress%e7%9a%84%e9%83%a8%e7%bd%b2.html#ds-thread" title="on 在windows下搭建mysql,php,apache环境(4)-wordpress的部署">谢谢楼主，正想试一试&nbsp;</a></span></li>
+<li class="list-group-item"><img alt='' src='http://0.gravatar.com/avatar/2f757944f02b96b2ccaf0f295256b435?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' /><span class="comment-log"> <a href="http://www.vimer.cn/2014/08/python%e5%8d%95%e8%bf%9b%e7%a8%8b%e8%83%bd%e5%90%a6%e5%88%a9%e7%94%a8%e5%a4%9a%e6%a0%b8cpu%e7%9a%84%e6%b5%8b%e8%af%95%e7%bb%93%e8%ae%ba.html#ds-thread" title="on python单进程能否利用多核cpu的测试结论">赞，之前确实没有注意到这个，多谢提醒～&nbsp;</a></span></li>
+<li class="list-group-item"><img alt='' src='http://0.gravatar.com/avatar/2f757944f02b96b2ccaf0f295256b435?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' /><span class="comment-log"> <a href="http://www.vimer.cn/2014/11/%e5%88%9b%e4%b8%9a%e8%bf%99%e4%bb%b6%e5%b0%8f%e4%ba%8b%ef%bc%88%e4%ba%94%ef%bc%89.html#ds-thread" title="on 创业这件小事（五）">嗯，我帮你删了，免得你同事看到。&nbsp;</a></span></li>
+<li class="list-group-item"><img alt='' src='http://0.gravatar.com/avatar/63d1e9d50a1936b6ef4b0784ece92d79?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' /><span class="comment-log"> <a href="http://www.vimer.cn/2014/08/python%e5%8d%95%e8%bf%9b%e7%a8%8b%e8%83%bd%e5%90%a6%e5%88%a9%e7%94%a8%e5%a4%9a%e6%a0%b8cpu%e7%9a%84%e6%b5%8b%e8%af%95%e7%bb%93%e8%ae%ba.html#ds-thread" title="on python单进程能否利用多核cpu的测试结论">我也是发现用多线程之后效率反而变低了，不...&nbsp;</a></span></li>
+<li class="list-group-item"><img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=40' class='avatar avatar-40 photo avatar-default' height='40' width='40' /><span class="comment-log"> <a href="http://www.vimer.cn/%e7%95%99%e8%a8%80#ds-thread" title="on 留言板">博主你好，这两个月一直想从eclipse...&nbsp;</a></span></li>
+<li class="list-group-item"><img alt='' src='http://1.gravatar.com/avatar/dd735e49da662afaaad8976a782c3ef0?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' /><span class="comment-log"> <a href="http://www.vimer.cn/2014/11/%e5%88%9b%e4%b8%9a%e8%bf%99%e4%bb%b6%e5%b0%8f%e4%ba%8b%ef%bc%88%e4%ba%94%ef%bc%89.html#ds-thread" title="on 创业这件小事（五）">抱歉  发了负面情绪了   博主把这个删...&nbsp;</a></span></li></ul>
+			<!-- 小屏PC端 -->
+			<ul class="list-group list-group-flush visible-md">
+<li class="list-group-item"><img alt='' src='http://0.gravatar.com/avatar/acede1117208d2ef6f0932c2dc8c1cda?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' /><span class="comment-log"> <a href="http://www.vimer.cn/2009/12/%e5%9c%a8windows%e4%b8%8b%e6%90%ad%e5%bb%bamysqlphpapache%e7%8e%af%e5%a2%834-wordpress%e7%9a%84%e9%83%a8%e7%bd%b2.html#ds-thread" title="on 在windows下搭建mysql,php,apache环境(4)-wordpress的部署">谢谢楼主，正想试一试&nbsp;</a></span></li>
+<li class="list-group-item"><img alt='' src='http://0.gravatar.com/avatar/2f757944f02b96b2ccaf0f295256b435?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' /><span class="comment-log"> <a href="http://www.vimer.cn/2014/08/python%e5%8d%95%e8%bf%9b%e7%a8%8b%e8%83%bd%e5%90%a6%e5%88%a9%e7%94%a8%e5%a4%9a%e6%a0%b8cpu%e7%9a%84%e6%b5%8b%e8%af%95%e7%bb%93%e8%ae%ba.html#ds-thread" title="on python单进程能否利用多核cpu的测试结论">赞，之前确实没有注意到这个，多...&nbsp;</a></span></li>
+<li class="list-group-item"><img alt='' src='http://0.gravatar.com/avatar/2f757944f02b96b2ccaf0f295256b435?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' /><span class="comment-log"> <a href="http://www.vimer.cn/2014/11/%e5%88%9b%e4%b8%9a%e8%bf%99%e4%bb%b6%e5%b0%8f%e4%ba%8b%ef%bc%88%e4%ba%94%ef%bc%89.html#ds-thread" title="on 创业这件小事（五）">嗯，我帮你删了，免得你同事看到...&nbsp;</a></span></li>
+<li class="list-group-item"><img alt='' src='http://0.gravatar.com/avatar/63d1e9d50a1936b6ef4b0784ece92d79?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' /><span class="comment-log"> <a href="http://www.vimer.cn/2014/08/python%e5%8d%95%e8%bf%9b%e7%a8%8b%e8%83%bd%e5%90%a6%e5%88%a9%e7%94%a8%e5%a4%9a%e6%a0%b8cpu%e7%9a%84%e6%b5%8b%e8%af%95%e7%bb%93%e8%ae%ba.html#ds-thread" title="on python单进程能否利用多核cpu的测试结论">我也是发现用多线程之后效率反而...&nbsp;</a></span></li>
+<li class="list-group-item"><img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=40' class='avatar avatar-40 photo avatar-default' height='40' width='40' /><span class="comment-log"> <a href="http://www.vimer.cn/%e7%95%99%e8%a8%80#ds-thread" title="on 留言板">博主你好，这两个月一直想从ec...&nbsp;</a></span></li>
+<li class="list-group-item"><img alt='' src='http://1.gravatar.com/avatar/dd735e49da662afaaad8976a782c3ef0?s=40&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' /><span class="comment-log"> <a href="http://www.vimer.cn/2014/11/%e5%88%9b%e4%b8%9a%e8%bf%99%e4%bb%b6%e5%b0%8f%e4%ba%8b%ef%bc%88%e4%ba%94%ef%bc%89.html#ds-thread" title="on 创业这件小事（五）">抱歉  发了负面情绪了   博...&nbsp;</a></span></li></ul>
+		</div>
+	</div>
+    <!-- 广告模块 -->
+<!--     <div class="visible-md visible-lg">
+		<div class="panel panel-zan host">		
+			<a href="http://www.yeahzan.net" target="_blank">
+				<img src="http://www.vimer.cn/wp-content/themes/zanblog2.0.7/ui/images/zanblog_ad.png" />
+			</a>
+		</div>
+	</div> -->
+	<!-- 最新文章模块 -->
+	<!-- <div class=" visible-md visible-lg">
+		<div class="panel panel-zan recent">
+			<div class="panel-heading">
+				<i class="fa fa-refresh"></i> 最新文章
+				<i class="fa fa-times-circle panel-remove"></i>
+				<i class="fa fa-chevron-circle-up panel-toggle"></i>
+			</div>
+			<ul class="list-group list-group-flush">
+								<li class="list-group-item">
+					<a href="http://www.vimer.cn/2015/02/%e6%96%b0%e5%b9%b4%e5%bf%ab%e4%b9%90%ef%bc%81.html" rel="bookmark" target="_blank">
+						
+						<div class="visible-lg">新年快乐！</div>
+						
+						<div class="visible-md">新年快乐！</div>
+					</a>
+					<span class="badge">
+						10					</span>
+				</li>
+								<li class="list-group-item">
+					<a href="http://www.vimer.cn/2015/01/%e5%88%9b%e4%b8%9a%e8%bf%99%e4%bb%b6%e5%b0%8f%e4%ba%8b%ef%bc%88%e5%85%ad%ef%bc%89.html" rel="bookmark" target="_blank">
+						
+						<div class="visible-lg">创业这件小事（六）</div>
+						
+						<div class="visible-md">创业这件小事（六）</div>
+					</a>
+					<span class="badge">
+						7					</span>
+				</li>
+								<li class="list-group-item">
+					<a href="http://www.vimer.cn/2015/01/%e5%ae%89%e5%8d%93%e5%ba%94%e7%94%a8%e8%87%aa%e5%8a%a8%e6%9b%b4%e6%96%b0%e5%8a%9f%e8%83%bd%e5%ae%9e%e7%8e%b0%e6%96%b9%e6%a1%88.html" rel="bookmark" target="_blank">
+						
+						<div class="visible-lg">安卓应用自动更新功能实现方案</div>
+						
+						<div class="visible-md">安卓应用自动更新功能实现方案</div>
+					</a>
+					<span class="badge">
+						0					</span>
+				</li>
+								<li class="list-group-item">
+					<a href="http://www.vimer.cn/2015/01/%e7%bb%99%e5%88%9b%e4%b8%9a%e8%80%85%e6%95%b4%e7%90%86%e7%9a%84%e5%b7%a5%e5%85%b7.html" rel="bookmark" target="_blank">
+						
+						<div class="visible-lg">给创业者整理的工具</div>
+						
+						<div class="visible-md">给创业者整理的工具</div>
+					</a>
+					<span class="badge">
+						6					</span>
+				</li>
+								<li class="list-group-item">
+					<a href="http://www.vimer.cn/2014/12/%e6%b8%b8%e6%88%8f%e6%9c%8d%e5%8a%a1%e5%99%a8%e7%ab%af%e6%9e%b6%e6%9e%84%e5%8d%87%e7%ba%a7%e4%b9%8b%e8%b7%af.html" rel="bookmark" target="_blank">
+						
+						<div class="visible-lg">游戏服务器端架构升级之路</div>
+						
+						<div class="visible-md">游戏服务器端架构升级之路</div>
+					</a>
+					<span class="badge">
+						2					</span>
+				</li>
+								<li class="list-group-item">
+					<a href="http://www.vimer.cn/2014/11/%e5%88%9b%e4%b8%9a%e8%bf%99%e4%bb%b6%e5%b0%8f%e4%ba%8b%ef%bc%88%e4%ba%94%ef%bc%89.html" rel="bookmark" target="_blank">
+						
+						<div class="visible-lg">创业这件小事（五）</div>
+						
+						<div class="visible-md">创业这件小事（五）</div>
+					</a>
+					<span class="badge">
+						13					</span>
+				</li>
+								<li class="list-group-item">
+					<a href="http://www.vimer.cn/2014/11/%e5%88%9b%e4%b8%9a%e8%bf%99%e4%bb%b6%e5%b0%8f%e4%ba%8b%ef%bc%88%e5%9b%9b%ef%bc%89.html" rel="bookmark" target="_blank">
+						
+						<div class="visible-lg">创业这件小事（四）</div>
+						
+						<div class="visible-md">创业这件小事（四）</div>
+					</a>
+					<span class="badge">
+						14					</span>
+				</li>
+								<li class="list-group-item">
+					<a href="http://www.vimer.cn/2014/10/%e6%b8%b8%e6%88%8f%e5%86%85%e7%bb%9f%e4%b8%80%e6%94%af%e4%bb%98%e7%b3%bb%e7%bb%9f%e8%ae%be%e8%ae%a1%e4%b8%8e%e5%ae%9e%e7%8e%b0%ef%bc%88%e4%ba%8c%ef%bc%89.html" rel="bookmark" target="_blank">
+						
+						<div class="visible-lg">游戏内统一支付系统设计与实现（二）</div>
+						
+						<div class="visible-md">游戏内统一支付系统设计与实现（...</div>
+					</a>
+					<span class="badge">
+						0					</span>
+				</li>
+							</ul>
+		</div>
+	</div> -->
+	<!-- 随机文章模块 -->
+	<div class="visible-md visible-lg">
+		<div class="panel panel-zan random">
+			<div class="panel-heading">
+				<i class="fa fa-random"></i> 随机文章
+				<i class="fa fa-times-circle panel-remove"></i>
+				<i class="fa fa-chevron-circle-up panel-toggle"></i>
+			</div>
+			<ul class="list-group list-group-flush">
+								<li class="list-group-item">
+					<a href="http://www.vimer.cn/2009/10/%e6%97%b6%e9%97%b4time_t%e5%92%8cstring%e6%a0%bc%e5%bc%8f%e4%ba%92%e8%bd%ac.html" rel="bookmark" target="_blank">					
+						<!-- 大屏PC端 -->
+						<div class="visible-lg">时间time_t和string(char...</div>
+						<!-- 小屏PC端 -->
+						<div class="visible-md">时间time_t和string...</div>
+					</a>
+					<span class="badge">
+						1					</span>
+				</li>
+								<li class="list-group-item">
+					<a href="http://www.vimer.cn/2010/03/libcurl%e7%9a%84%e4%bd%bf%e7%94%a8%e6%80%bb%e7%bb%93%ef%bc%88%e4%b8%80%ef%bc%89.html" rel="bookmark" target="_blank">					
+						<!-- 大屏PC端 -->
+						<div class="visible-lg">libcurl的使用总结（一）</div>
+						<!-- 小屏PC端 -->
+						<div class="visible-md">libcurl的使用总结（一）</div>
+					</a>
+					<span class="badge">
+						7					</span>
+				</li>
+								<li class="list-group-item">
+					<a href="http://www.vimer.cn/2010/04/o3d%e5%9f%ba%e7%a1%80%e6%95%99%e7%a8%8b3-%e7%ba%b9%e7%90%86texture.html" rel="bookmark" target="_blank">					
+						<!-- 大屏PC端 -->
+						<div class="visible-lg">O3D基础教程3 纹理Texture</div>
+						<!-- 小屏PC端 -->
+						<div class="visible-md">O3D基础教程3 纹理Text...</div>
+					</a>
+					<span class="badge">
+						4					</span>
+				</li>
+								<li class="list-group-item">
+					<a href="http://www.vimer.cn/2009/11/string%e6%9b%bf%e6%8d%a2%e6%89%80%e6%9c%89%e6%8c%87%e5%ae%9a%e5%ad%97%e7%ac%a6%e4%b8%b2%ef%bc%88c%ef%bc%89.html" rel="bookmark" target="_blank">					
+						<!-- 大屏PC端 -->
+						<div class="visible-lg">string替换所有指定字符串（C++）</div>
+						<!-- 小屏PC端 -->
+						<div class="visible-md">string替换所有指定字符串...</div>
+					</a>
+					<span class="badge">
+						7					</span>
+				</li>
+								<li class="list-group-item">
+					<a href="http://www.vimer.cn/2011/03/%e5%9c%a8vimgvim%e4%b8%8b%e6%92%ad%e6%94%be%e5%ad%97%e7%ac%a6%e7%89%88badapple.html" rel="bookmark" target="_blank">					
+						<!-- 大屏PC端 -->
+						<div class="visible-lg">在vim(gvim)下播放字符版BadA...</div>
+						<!-- 小屏PC端 -->
+						<div class="visible-md">在vim(gvim)下播放字符...</div>
+					</a>
+					<span class="badge">
+						17					</span>
+				</li>
+								<li class="list-group-item">
+					<a href="http://www.vimer.cn/2015/01/%e5%ae%89%e5%8d%93%e5%ba%94%e7%94%a8%e8%87%aa%e5%8a%a8%e6%9b%b4%e6%96%b0%e5%8a%9f%e8%83%bd%e5%ae%9e%e7%8e%b0%e6%96%b9%e6%a1%88.html" rel="bookmark" target="_blank">					
+						<!-- 大屏PC端 -->
+						<div class="visible-lg">安卓应用自动更新功能实现方案</div>
+						<!-- 小屏PC端 -->
+						<div class="visible-md">安卓应用自动更新功能实现方案</div>
+					</a>
+					<span class="badge">
+						0					</span>
+				</li>
+								<li class="list-group-item">
+					<a href="http://www.vimer.cn/2009/10/%e7%94%a8vim%e5%9c%a8%e6%ba%90%e4%bb%a3%e7%a0%81%e4%b8%ad%e6%b7%bb%e5%8a%a0%e4%bd%a0%e7%9a%84%e4%b8%aa%e4%ba%ba%e4%bf%a1%e6%81%af.html" rel="bookmark" target="_blank">					
+						<!-- 大屏PC端 -->
+						<div class="visible-lg">Vim在源代码中自动添加作者信息</div>
+						<!-- 小屏PC端 -->
+						<div class="visible-md">Vim在源代码中自动添加作者信...</div>
+					</a>
+					<span class="badge">
+						16					</span>
+				</li>
+								<li class="list-group-item">
+					<a href="http://www.vimer.cn/2012/10/%e7%99%be%e5%ba%a6%e7%ab%99%e5%86%85%e5%ba%94%e7%94%a8%e5%bc%80%e5%8f%91%e4%bd%93%e9%aa%8c%e5%8f%8ademo%e4%bb%a3%e7%a0%81.html" rel="bookmark" target="_blank">					
+						<!-- 大屏PC端 -->
+						<div class="visible-lg">百度站内应用开发体验及demo代码</div>
+						<!-- 小屏PC端 -->
+						<div class="visible-md">百度站内应用开发体验及demo...</div>
+					</a>
+					<span class="badge">
+						10					</span>
+				</li>
+							</ul>
+		</div> 
+	</div>
+    <!-- 分类目录、热门标签、友情链接模块-->
+	<div class="panel hidden-xs">
+		<ul class="nav nav-pills pills-zan">
+			<li class="active"><a href="#sidebar-categories" data-toggle="tab">分类目录</a></li>
+			<li><a href="#sidebar-tags" data-toggle="tab">热门标签</a></li>
+					</ul>
+		<div class="tab-content">
+			<div class="tab-pane active nav bs-sidenav fade in" id="sidebar-categories">	<li class="cat-item cat-item-858"><a href="http://www.vimer.cn/category/appdev" title="App开发">App开发</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://www.vimer.cn/category/vim" title="查看Vim下的所有文章">Vim</a>
+</li>
+	<li class="cat-item cat-item-581"><a href="http://www.vimer.cn/category/webdev" title="Web开发">Web开发</a>
+</li>
+	<li class="cat-item cat-item-314"><a href="http://www.vimer.cn/category/zaxiang" title="查看杂项下的所有文章">杂项</a>
+</li>
+</div>
+			<div class="tab-pane fade" id="sidebar-tags"><a href='http://www.vimer.cn/tag/apache' class='tag-link-307' title='8个话题' style="color:#19be81;font-size: 12.341085271318pt;;">apache</a>
+<a href='http://www.vimer.cn/tag/bottle' class='tag-link-801' title='5个话题' style="color:#66ab31;font-size: 10.232558139535pt;;">bottle.</a>
+<a href='http://www.vimer.cn/tag/c' class='tag-link-7' title='58个话题' style="color:#19ff1e;font-size: 22.511627906977pt;;">c++</a>
+<a href='http://www.vimer.cn/tag/cgi' class='tag-link-422' title='4个话题' style="color:#8a955;font-size: 9.2403100775194pt;;">cgi</a>
+<a href='http://www.vimer.cn/tag/cpp' class='tag-link-282' title='30个话题' style="color:#be6fa;font-size: 19.038759689922pt;;">cpp</a>
+<a href='http://www.vimer.cn/tag/cscope' class='tag-link-21' title='3个话题' style="color:#42f33c;font-size: 8pt;;">cscope</a>
+<a href='http://www.vimer.cn/tag/ctags' class='tag-link-20' title='8个话题' style="color:#934853;font-size: 12.341085271318pt;;">ctags</a>
+<a href='http://www.vimer.cn/tag/django' class='tag-link-514' title='16个话题' style="color:#513f94;font-size: 15.813953488372pt;;">django</a>
+<a href='http://www.vimer.cn/tag/epoll' class='tag-link-50' title='4个话题' style="color:#46e1b0;font-size: 9.2403100775194pt;;">epoll</a>
+<a href='http://www.vimer.cn/tag/flask' class='tag-link-804' title='5个话题' style="color:#d1d995;font-size: 10.232558139535pt;;">flask</a>
+<a href='http://www.vimer.cn/tag/fuload' class='tag-link-666' title='6个话题' style="color:#1c8e4c;font-size: 11.100775193798pt;;">fuload</a>
+<a href='http://www.vimer.cn/tag/gvim' class='tag-link-35' title='74个话题' style="color:#c60bc5;font-size: 23.875968992248pt;;">gvim</a>
+<a href='http://www.vimer.cn/tag/ide' class='tag-link-10' title='4个话题' style="color:#ada540;font-size: 9.2403100775194pt;;">IDE</a>
+<a href='http://www.vimer.cn/tag/javascript' class='tag-link-392' title='6个话题' style="color:#966559;font-size: 11.100775193798pt;;">javascript</a>
+<a href='http://www.vimer.cn/tag/js' class='tag-link-298' title='7个话题' style="color:#73cf2f;font-size: 11.720930232558pt;;">js</a>
+<a href='http://www.vimer.cn/tag/linux' class='tag-link-5' title='62个话题' style="color:#dbe16e;font-size: 22.883720930233pt;;">Linux</a>
+<a href='http://www.vimer.cn/tag/map' class='tag-link-341' title='4个话题' style="color:#204ffa;font-size: 9.2403100775194pt;;">map</a>
+<a href='http://www.vimer.cn/tag/mysql' class='tag-link-296' title='12个话题' style="color:#743780;font-size: 14.325581395349pt;;">mysql</a>
+<a href='http://www.vimer.cn/tag/php' class='tag-link-9' title='15个话题' style="color:#342ba5;font-size: 15.441860465116pt;;">php</a>
+<a href='http://www.vimer.cn/tag/printf' class='tag-link-108' title='3个话题' style="color:#ab8cd0;font-size: 8pt;;">printf</a>
+<a href='http://www.vimer.cn/tag/python' class='tag-link-493' title='39个话题' style="color:#844298;font-size: 20.403100775194pt;;">python</a>
+<a href='http://www.vimer.cn/tag/select' class='tag-link-51' title='3个话题' style="color:#6b04d4;font-size: 8pt;;">select</a>
+<a href='http://www.vimer.cn/tag/socket' class='tag-link-55' title='3个话题' style="color:#1e0321;font-size: 8pt;;">socket</a>
+<a href='http://www.vimer.cn/tag/sql' class='tag-link-297' title='3个话题' style="color:#ccc672;font-size: 8pt;;">sql</a>
+<a href='http://www.vimer.cn/tag/stl' class='tag-link-218' title='8个话题' style="color:#5d445c;font-size: 12.341085271318pt;;">stl</a>
+<a href='http://www.vimer.cn/tag/string' class='tag-link-85' title='6个话题' style="color:#4903a2;font-size: 11.100775193798pt;;">string</a>
+<a href='http://www.vimer.cn/tag/svn' class='tag-link-226' title='3个话题' style="color:#63be6;font-size: 8pt;;">svn</a>
+<a href='http://www.vimer.cn/tag/tags' class='tag-link-22' title='4个话题' style="color:#87450;font-size: 9.2403100775194pt;;">tags</a>
+<a href='http://www.vimer.cn/tag/tcp' class='tag-link-277' title='4个话题' style="color:#f6e229;font-size: 9.2403100775194pt;;">tcp</a>
+<a href='http://www.vimer.cn/tag/tcp%e5%8d%8f%e8%ae%ae' class='tag-link-117' title='3个话题' style="color:#dac458;font-size: 8pt;;">tcp协议</a>
+<a href='http://www.vimer.cn/tag/time_t' class='tag-link-84' title='3个话题' style="color:#599731;font-size: 8pt;;">time_t</a>
+<a href='http://www.vimer.cn/tag/vi' class='tag-link-36' title='65个话题' style="color:#10a0ab;font-size: 23.131782945736pt;;">vi</a>
+<a href='http://www.vimer.cn/tag/vim-2' class='tag-link-648' title='76个话题' style="color:#416f8a;font-size: 24pt;;">vim</a>
+<a href='http://www.vimer.cn/tag/vimrc' class='tag-link-25' title='3个话题' style="color:#73964f;font-size: 8pt;;">vimrc</a>
+<a href='http://www.vimer.cn/tag/vim%e4%b8%ad%e6%96%87' class='tag-link-213' title='4个话题' style="color:#194a00;font-size: 9.2403100775194pt;;">vim中文</a>
+<a href='http://www.vimer.cn/tag/vs2005' class='tag-link-14' title='3个话题' style="color:#4d5684;font-size: 8pt;;">vs2005</a>
+<a href='http://www.vimer.cn/tag/web' class='tag-link-315' title='5个话题' style="color:#b6898b;font-size: 10.232558139535pt;;">Web</a>
+<a href='http://www.vimer.cn/tag/windows' class='tag-link-6' title='32个话题' style="color:#ac9253;font-size: 19.410852713178pt;;">Windows</a>
+<a href='http://www.vimer.cn/tag/%e4%b8%ad%e6%96%87' class='tag-link-12' title='3个话题' style="color:#9e9619;font-size: 8pt;;">中文</a>
+<a href='http://www.vimer.cn/tag/%e5%88%9b%e4%b8%9a' class='tag-link-877' title='7个话题' style="color:#fd6b3c;font-size: 11.720930232558pt;;">创业</a>
+<a href='http://www.vimer.cn/tag/%e5%a4%9a%e7%ba%bf%e7%a8%8b' class='tag-link-178' title='3个话题' style="color:#7e6be9;font-size: 8pt;;">多线程</a>
+<a href='http://www.vimer.cn/tag/%e5%bc%80%e6%ba%90' class='tag-link-212' title='3个话题' style="color:#bb2465;font-size: 8pt;;">开源</a>
+<a href='http://www.vimer.cn/tag/%e6%9b%bf%e6%8d%a2' class='tag-link-19' title='9个话题' style="color:#c37701;font-size: 12.961240310078pt;;">替换</a>
+<a href='http://www.vimer.cn/tag/%e6%9c%8d%e5%8a%a1%e5%99%a8' class='tag-link-71' title='3个话题' style="color:#2c1129;font-size: 8pt;;">服务器</a>
+<a href='http://www.vimer.cn/tag/%e6%9f%a5%e6%89%be' class='tag-link-18' title='8个话题' style="color:#5189bf;font-size: 12.341085271318pt;;">查找</a>
+<a href='http://www.vimer.cn/tag/%e6%ad%a3%e5%88%99' class='tag-link-16' title='8个话题' style="color:#374631;font-size: 12.341085271318pt;;">正则</a>
+<a href='http://www.vimer.cn/tag/%e6%ad%a3%e5%88%99%e8%a1%a8%e8%be%be%e5%bc%8f' class='tag-link-17' title='7个话题' style="color:#7f298;font-size: 11.720930232558pt;;">正则表达式</a>
+<a href='http://www.vimer.cn/tag/%e7%bb%88%e7%ab%af' class='tag-link-63' title='4个话题' style="color:#71d9ba;font-size: 9.2403100775194pt;;">终端</a>
+<a href='http://www.vimer.cn/tag/%e8%87%aa%e5%8a%a8%e8%a1%a5%e5%85%a8' class='tag-link-24' title='4个话题' style="color:#ab7db1;font-size: 9.2403100775194pt;;">自动补全</a>
+<a href='http://www.vimer.cn/tag/%e9%85%8d%e8%89%b2' class='tag-link-44' title='4个话题' style="color:#3c1e3e;font-size: 9.2403100775194pt;;">配色</a></div>
+					</div>
+	</div>
+	<!-- 文章存档模块	 -->
+	<div class="panel visible-md visible-lg archive">
+		<a href="http://www.vimer.cn/archive">
+			<div class="panel-heading">			
+				<i class="fa fa-folder-open"></i> <span>文章存档</span>			
+			</div>
+		</a>
+	</div>
+	</aside>		</section>
+	</div>
+</div>
+<footer id="zan-footer">	      	
+    Copyright © 2014 Vimer的程序世界. All Rights Reserved. <a href="http://www.miibeian.gov.cn/" target="_blank">粤ICP备11073360号</a> Theme by Zanblog.
+	<!--统计代码开始-->
+        	                            <script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F90eb371330bfc33d1ba84099bb2ca841' type='text/javascript'%3E%3C/script%3E"));
+</script>
+                                <!--统计代码结束-->
+</footer>
+
+<div style="display: none;" class="fa fa-angle-up" id="gotop"></div>
+<script type='text/javascript'>
+	backTop=function (btnId){
+		var btn=document.getElementById(btnId);
+		var d=document.documentElement;
+		var b=document.body;
+		window.onscroll=set;
+		btn.onclick=function (){
+			btn.style.display="none";
+			window.onscroll=null;
+			this.timer=setInterval(function(){
+				d.scrollTop-=Math.ceil((d.scrollTop+b.scrollTop)*0.1);
+				b.scrollTop-=Math.ceil((d.scrollTop+b.scrollTop)*0.1);
+				if((d.scrollTop+b.scrollTop)==0) clearInterval(btn.timer,window.onscroll=set);
+			},10);
+		};
+		function set(){btn.style.display=(d.scrollTop+b.scrollTop>100)?'block':"none"}
+	};
+	backTop('gotop');
+</script>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var viewsCacheL10n = {"admin_ajax_url":"http:\/\/www.vimer.cn\/wp-admin\/admin-ajax.php","post_id":"1372"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.vimer.cn/wp-content/plugins/wp-postviews/postviews-cache.js?ver=1.67'></script>
+</body>
+</html>
+
+<!-- Dynamic page generated in 1.137 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2015-03-14 22:43:29 -->

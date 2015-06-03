@@ -1,0 +1,1229 @@
+<!doctype html >
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js ie9 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"> <!--<![endif]-->
+<head>
+    <title>How to Push and Pull Files on Android using the ADB commands</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Naveen Robsworth">
+    <link rel="pingback" href="http://www.droidviews.com/xmlrpc.php" />
+
+    <link rel="icon" type="image/png" href="http://cdn.droidviews.com/wp-content/uploads/2014/05/DV-Black-Favicon.png">
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.7.4 - https://yoast.com/wordpress/plugins/seo/ -->
+<meta name="description" content="Push and Pull Files on Android using the ADB commands which will making your Android development easy saving a lot of time by reducing the data retrieving operations."/>
+<link rel="canonical" href="http://www.droidviews.com/push-pull-files-android-using-adb-commands/" />
+<link rel="publisher" href="https://plus.google.com/+Droidviews"/>
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="How to Push and Pull Files on Android using the ADB commands" />
+<meta property="og:description" content="Push and Pull Files on Android using the ADB commands which will making your Android development easy saving a lot of time by reducing the data retrieving operations." />
+<meta property="og:url" content="http://www.droidviews.com/push-pull-files-android-using-adb-commands/" />
+<meta property="og:site_name" content="DroidViews" />
+<meta property="article:publisher" content="https://www.facebook.com/DroidViews" />
+<meta property="article:tag" content="ADB and Fastboot,How to Guides,Tips and Tricks" />
+<meta property="article:section" content="Guides" />
+<meta property="article:published_time" content="2014-10-13T17:30:08+00:00" />
+<meta property="article:modified_time" content="2014-10-13T17:34:27+00:00" />
+<meta property="og:updated_time" content="2014-10-13T17:34:27+00:00" />
+<meta property="fb:admins" content="100000456642850" />
+<meta property="og:image" content="http://cdn.droidviews.com/wp-content/uploads/2014/10/adb-push-pull.jpg" />
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel="alternate" type="application/rss+xml" title="DroidViews &raquo; Feed" href="http://www.droidviews.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="DroidViews &raquo; Comments Feed" href="http://www.droidviews.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="DroidViews &raquo; How to Push and Pull Files on Android using the ADB commands Comments Feed" href="http://www.droidviews.com/push-pull-files-android-using-adb-commands/feed/" />
+<link rel='stylesheet' id='stpCSS-group-css' href='http://cdn.droidviews.com/wp-content/plugins/bwp-minify/cache/minify-b1-stpCSS-1010eb39e8d921ca444a86f109c74795.css' type='text/css' media='all' />
+<link rel='stylesheet' id='apss-font-opensans-css'  href='http://fonts.googleapis.com/css?family=Open+Sans&#038;ver=4.1.1' type='text/css' media='all' />
+<link rel='stylesheet' id='apsc-googlefont-roboto-css'  href='http://fonts.googleapis.com/css?family=Roboto%3A400%2C300%2C500%2C700%2C900%2C100&#038;ver=4.1.1' type='text/css' media='all' />
+<link rel='stylesheet' id='google-font-opensans-css'  href='http://fonts.googleapis.com/css?family=Open+Sans%3A300%2C400%2C600%2C700&#038;subset=latin%2Ccyrillic-ext%2Cgreek-ext%2Cgreek%2Cvietnamese%2Clatin-ext%2Ccyrillic&#038;ver=4.1.1' type='text/css' media='all' />
+<link rel='stylesheet' id='google-font-ubuntu-css'  href='http://fonts.googleapis.com/css?family=Ubuntu%3A300%2C400%2C500%2C700%2C300italic%2C400italic%2C500italic%2C700italic&#038;subset=latin%2Ccyrillic-ext%2Cgreek-ext%2Cgreek%2Clatin-ext%2Ccyrillic&#038;ver=4.1.1' type='text/css' media='all' />
+<link rel='stylesheet' id='google-font-pt-sans-css'  href='http://fonts.googleapis.com/css?family=PT+Sans%3A400%2C700%2C400italic&#038;subset=latin%2Ccyrillic-ext%2Clatin-ext%2Ccyrillic&#038;ver=4.1.1' type='text/css' media='all' />
+<link rel='stylesheet' id='google-font-oswald-css'  href='http://fonts.googleapis.com/css?family=Oswald%3A400%2C300%2C700&#038;subset=latin%2Clatin-ext&#038;ver=4.1.1' type='text/css' media='all' />
+<link rel='stylesheet' id='google-roboto-cond-css'  href='http://fonts.googleapis.com/css?family=Roboto+Condensed%3A300italic%2C400italic%2C700italic%2C400%2C300%2C700&#038;subset=latin%2Ccyrillic-ext%2Cgreek-ext%2Cgreek%2Cvietnamese%2Clatin-ext%2Ccyrillic&#038;ver=4.1.1' type='text/css' media='all' />
+<link rel='stylesheet' id='google-fonts-style-css'  href='http://fonts.googleapis.com/css?family=Roboto+Condensed%3A400%2C700%7COpen+Sans%3A400%2C700&#038;ver=4.1.1' type='text/css' media='all' />
+<link rel='stylesheet' id='tablepress-default-group-css' href='http://cdn.droidviews.com/wp-content/plugins/bwp-minify/cache/minify-b1-tablepress-default-e6d9a9b911bb82c6257485c37cc50899.css' type='text/css' media='all' />
+<script type='text/javascript' src='http://cdn.droidviews.com/wp-includes/js/jquery/jquery.js?ver=1.11.1'></script>
+<script type='text/javascript' src='http://cdn.droidviews.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<script type='text/javascript' src='http://connect.facebook.net/en_US/all.js?ver=1.0#xfbml=1'></script>
+<script type='text/javascript' src='http://platform.twitter.com/widgets.js?ver=1.0'></script>
+<script type='text/javascript' src='https://apis.google.com/js/plusone.js?ver=1.0'></script>
+<script type='text/javascript' src='http://cdn.droidviews.com/wp-content/plugins/bwp-minify/cache/minify-b1-stp-44f294c43fb6d610031373d2d5ca6770.js'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.droidviews.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://cdn.droidviews.com/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 4.1.1" />
+<link rel='shortlink' href='http://www.droidviews.com/?p=29720' />
+							
+			<script language="javascript">
+					
+				jQuery(document).ready(function() {		
+								
+					jQuery().socialTrafficPop({
+						// Configure display of popup
+						title: "Sharing is Caring",
+						message: "Please, help us grow. Thanks!",
+						closeable: true,
+						advancedClose: true,
+						opacity: '0.25',
+						// Confifgure URLs and Twitter
+						google_url: "https://plus.google.com/114016838361038899563",
+						fb_url: "https://www.facebook.com/DroidViews",
+						twitter_user: "DroidViews",
+						twitter_method: "follow",
+						linkedin_url: "",
+						// Set timers
+						timeout: 0,
+						wait: "5",
+						onClick: "stp-open"
+					});
+					
+				});
+				
+			</script>
+
+	<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    
+<!-- Style compiled by theme -->
+
+<style>
+    
+.block-title a, .block-title span, .td-tags a:hover, .td-scroll-up-visible, .td-scroll-up, .sf-menu ul
+    .current-menu-item > a, .sf-menu ul a:hover, .sf-menu ul .sfHover > a, .sf-menu ul .td-not-mega > a:hover, .td-rating-bar-wrap div, .iosSlider .slide-meta-cat, .sf-menu ul
+    .current-menu-ancestor > a, .td-404-sub-sub-title a, .widget_tag_cloud .tagcloud a:hover, .td-mobile-close a,
+    ul.td-category a, .td_social .td_social_type .td_social_button a, .dropcap, .td-forum-category-title
+    .td-forum-category-name, .td_display_err, .td_block_mega_menu .td-ajax-next-page:hover, .td_block_mega_menu .td_ajax-prev-page:hover, .post-via span {
+        background-color: #00af81;
+    }
+    .block-title, .sf-menu li a:hover, .sf-menu .sfHover a, .sf-menu .current-menu-ancestor a, .header-search-wrap
+    .dropdown-menu, .sf-menu > .current-menu-item > a, .ui-tabs-nav,
+    .woocommerce .product .woocommerce-tabs ul.tabs, .td-forum-list-head, .td-login-panel-title {
+        border-color: #00af81;
+    }
+
+    .widget_price_filter .ui-slider-handle {
+        border-color: #00af81 !important;
+    }
+
+    .author-box-wrap .td-author-name a, blockquote p, .page-nav a:hover, .widget_pages .current_page_item a,
+    .widget_calendar td a, .widget_categories .current-cat > a, .widget_pages .current_page_parent > a,
+    .td_pull_quote p, .page-nav-post a:hover span, .td-forum-last-comment-content .td-forum-last-author,
+    .td-topics-title-details a, .td-posted-in a {
+        color: #00af81;
+    }
+
+    .woocommerce .button, .woocommerce .form-submit #submit, .widget_price_filter .ui-slider-handle,
+    .jetpack_subscription_widget input[type="submit"], .pp_woocommerce .pp_close, .pp_woocommerce .pp_expand,
+    .pp_woocommerce .pp_contract, .pp_woocommerce .pp_arrow_previous, .pp_woocommerce .pp_arrow_next, .pp_woocommerce
+     .pp_next:before, .pp_woocommerce .pp_previous:before, #bbpress-forums .button {
+        background: #00af81 !important;
+    }
+
+    .woocommerce .woocommerce-message, .woocommerce .woocommerce-info, .bbp-template-notice, .td-reply-list-header {
+        border-color: #00af81 !important;
+    }
+    .woocommerce .woocommerce-message:before, .woocommerce .woocommerce-info:before, .td-login-button {
+        background-color: #00af81 !important;
+    }
+
+
+    .buddypress #buddypress div.dir-search input[type="submit"], .buddypress #buddypress .message-search
+    input[type="submit"], .buddypress #buddypress .item-list-tabs ul li.selected a,
+    .buddypress #buddypress .generic-button a, .buddypress #buddypress .submit input[type="submit"],
+    .buddypress #buddypress .ac-reply-content input[type="submit"], .buddypress #buddypress .standard-form
+    input[type="submit"], .buddypress #buddypress .standard-form .button-nav .current a, .buddypress #buddypress .standard-form .button, .buddypress #buddypress input[type="submit"],
+        .buddypress #buddypress a.accept, .buddypress #buddypress #activate-page .standard-form input[type="submit"],
+        .buddypress #buddypress .standard-form #group-create-body input[type="button"],
+        .post-password-required input[type="submit"]  {
+        background: #00af81 !important;
+    }
+
+    .buddypress #buddypress .groups .item-meta, .bbp-forum-title:hover, .td_login_tab_focus, .block-mega-child-cats a.cur-sub-cat {
+        color: #00af81 !important;
+    }
+
+    .page-nav .current, .page-nav-post span {
+        background-color: #00af81;
+        border-color: #00af81;
+    }
+    .wpb_btn-inverse, .ui-tabs-nav .ui-tabs-active a, .post .wpb_btn-danger, .form-submit input, .wpcf7-submit,
+    .wpb_default, .woocommerce .product .woocommerce-tabs ul.tabs li.active, .woocommerce.widget_product_search
+    input[type="submit"], .more-link-wrap, .td_read_more {
+        background-color: #00af81 !important;
+    }
+    .header-search-wrap .dropdown-menu:before {
+        border-color: transparent transparent #00af81;
+    }
+    .td-mobile-content .current-menu-item > a, .td-mobile-content a:hover {
+        color: #00af81 !important;
+    }
+    .category .entry-content, .tag .entry-content, .td_quote_box {
+        border-color: #00af81;
+    }
+
+    .td-timeline-block-title {
+        background-color: #00af81 !important;
+    }
+
+    .td-timeline-wrapper-links {
+       border-color: #00af81 !important;
+    }
+
+    .td-timline-h1-link  span {
+        background-color: #00af81 !important;
+    }
+
+
+     
+    .td-sbig-title-wrap .td-sbig-title, .td-slide-item-sec .td-sbig-title-wrap, .td-mobile-post .td-sbig-title-wrap a {
+        background-color: rgba(0, 175, 129, 0.7);
+    }
+
+
+    
+    ::-moz-selection {
+        background: #32e1b3;
+        color: #fff;
+    }
+
+    ::selection {
+        background: #32e1b3;
+        color: #fff;
+    }
+
+
+
+    
+    .td-logo-rec-wrap, .td-full-logo {
+        background-color: transparent !important;
+    }
+
+
+    
+	a, .widget_recent_comments .recentcomments .url {
+		color: #00af81;
+    }
+    .cur-sub-cat {
+      color:#00af81 !important;
+    }
+
+	
+	
+	a:hover, .widget_recent_comments .recentcomments .url:hover {
+		color: #e22b68;
+    }
+
+
+    
+    .top-header-menu li a:before {
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+
+
+    
+    .td-header-menu-wrap li a {
+        color:#ffffff;
+	
+    }
+
+    
+    .sf-menu > .td-not-mega > a {
+        font-family:"Roboto Condensed";
+	font-size:20px;
+	color:#4f4f4f;
+	
+    }
+
+    
+    body .td-post-text-content, .page p, .bbpress p {
+        font-family:"Open Sans";
+	font-size:17px;
+	line-height:31px;
+	
+    }
+</style>
+
+
+<!-- JS generated by theme -->
+
+<script>
+    
+
+var td_blocks = []; //here we store all the items for the current page
+
+//td_block class - each ajax block uses a object of this class for requests
+function td_block() {
+    this.id = '';
+    this.block_type = 1; //block type id (1-234 etc)
+    this.atts = '';
+    this.td_cur_cat = '';
+    this.td_column_number = '';
+    this.td_current_page = 1; //
+    this.post_count = 0; //from wp
+    this.found_posts = 0; //from wp
+    this.max_num_pages = 0; //from wp
+}
+
+    
+var td_ad_background_click_link="";
+var td_ad_background_click_target="";
+var td_ajax_url="http://www.droidviews.com/wp-admin/admin-ajax.php";
+var td_get_template_directory_uri="http://cdn.droidviews.com/wp-content/themes/Newspaper";
+var tds_snap_menu="";
+var tds_header_style="";
+var tds_mobile_swipe="swipe";
+var td_search_url="http://www.droidviews.com/search/";
+var td_please_wait="Please wait...";
+var td_email_user_pass_incorrect="User or password incorrect!";
+var td_email_user_incorrect="Email or username incorrect!";
+var td_email_incorrect="Email incorrect!";
+var tds_more_articles_on_post_enable="";
+var tds_more_articles_on_post_time_to_wait="";
+var tds_more_articles_on_post_pages_distance_from_top="0";
+var td_responsive="";
+</script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-34063984-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script><script type="text/javascript">
+  window._taboola = window._taboola || [];
+  _taboola.push({article:'auto'});
+  !function (e, f, u) {
+    e.async = 1;
+    e.src = u;
+    f.parentNode.insertBefore(e, f);
+  }(document.createElement('script'),
+  document.getElementsByTagName('script')[0],
+  'http://cdn.taboola.com/libtrc/droidviews/loader.js');
+</script>
+
+
+<script type="text/javascript">
+  window._taboola = window._taboola || [];
+  _taboola.push({flush: true});
+</script>
+
+
+<script type='text/javascript'>
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+(function() {
+var gads = document.createElement('script');
+gads.async = true;
+gads.type = 'text/javascript';
+var useSSL = 'https:' == document.location.protocol;
+gads.src = (useSSL ? 'https:' : 'http:') + 
+'//www.googletagservices.com/tag/js/gpt.js';
+var node = document.getElementsByTagName('script')[0];
+node.parentNode.insertBefore(gads, node);
+})();
+</script>
+<script type='text/javascript'>
+var gptAdSlots = [];
+googletag.cmd.push(function() {
+var mapping = googletag.sizeMapping().
+        addSize([768, 200 ], [728, 90]). // Desktop
+        addSize([480, 200], [468, 60]). // Tablet
+        addSize([320, 400], [[320, 100]). // Mobile
+        build();
+gptAdSlots[0]=googletag.defineSlot('/6235672/DV_HP_TOP_728*90', [728, 90], 'div-gpt-ad-1427712168468-0').
+defineSizeMapping(mapping).
+addService(googletag.pubads());
+googletag.enableServices();
+});
+</script>
+
+</head>
+
+<body class="single single-post postid-29720 single-format-standard td-full-layout td_responsive push-pull-files-android-using-adb-commands wpb-js-composer js-comp-ver-3.6.8 vc_responsive" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+
+<div id="outer-wrap">
+    <div id="inner-wrap">
+<div id="td-mobile-nav">
+    <!-- mobile menu close -->
+    <div class="td-mobile-close">
+        <a href="#">CLOSE</a>
+        <div class="td-nav-triangle"></div>
+    </div>
+
+    <div class="td-mobile-content">
+        <div class="menu-menu-items-1-container"><ul id="menu-menu-items-1" class=""><li id="menu-item-24766" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-first td-no-down-arrow td-not-mega menu-item-24766"><a href="http://www.droidviews.com/"><span class="menu_icon td-sp td-sp-ico-home"></span><span class="menu_hidden">Home</span></a></li>
+<li id="menu-item-28227" class="menu-item menu-item-type-taxonomy menu-item-object-category td-not-mega menu-item-28227"><a href="http://www.droidviews.com/android-news/">News</a></li>
+<li id="menu-item-24859" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children td-not-mega menu-item-24859"><a href="http://www.droidviews.com/reviews/">Reviews</a>
+<ul class="sub-menu">
+	<li id="menu-item-39234" class="menu-item menu-item-type-custom menu-item-object-custom td-not-mega menu-item-39234"><a href="http://www.droidviews.com/tag/app-review/">App Review</a></li>
+</ul>
+</li>
+<li id="menu-item-20474" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children td-not-mega menu-item-20474"><a href="http://www.droidviews.com/guides/">Tutorials</a>
+<ul class="sub-menu">
+	<li id="menu-item-8476" class="menu-item menu-item-type-taxonomy menu-item-object-category td-not-mega menu-item-8476"><a href="http://www.droidviews.com/rooting-guides/">Rooting Guides</a></li>
+	<li id="menu-item-16912" class="menu-item menu-item-type-custom menu-item-object-custom td-not-mega menu-item-16912"><a href="http://droidviews.com/tag/tips-and-tricks/">Tips &#038; Tricks</a></li>
+</ul>
+</li>
+<li id="menu-item-8475" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children td-not-mega menu-item-8475"><a href="http://www.droidviews.com/roms/">ROMs</a>
+<ul class="sub-menu">
+	<li id="menu-item-24763" class="menu-item menu-item-type-taxonomy menu-item-object-category td-not-mega menu-item-24763"><a title="All ROMs" href="http://www.droidviews.com/roms/">ROMs</a></li>
+	<li id="menu-item-8483" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag td-not-mega menu-item-8483"><a href="http://www.droidviews.com/tag/best-custom-roms-series/">Best Custom ROMs Series</a></li>
+</ul>
+</li>
+<li id="menu-item-8462" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children td-not-mega menu-item-8462"><a href="http://www.droidviews.com/downloads/">Downloads</a>
+<ul class="sub-menu">
+	<li id="menu-item-24858" class="menu-item menu-item-type-custom menu-item-object-custom td-not-mega menu-item-24858"><a href="http://www.droidviews.com/downloads/">All Downloads</a></li>
+	<li id="menu-item-8463" class="menu-item menu-item-type-taxonomy menu-item-object-category td-not-mega menu-item-8463"><a href="http://www.droidviews.com/downloads/android-apps/">Android Apps</a></li>
+	<li id="menu-item-8466" class="menu-item menu-item-type-taxonomy menu-item-object-category td-not-mega menu-item-8466"><a href="http://www.droidviews.com/downloads/wallpapers/">Wallpapers</a></li>
+	<li id="menu-item-8536" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag td-not-mega menu-item-8536"><a href="http://www.droidviews.com/tag/ringtones/">Ringtones</a></li>
+	<li id="menu-item-8485" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag td-not-mega menu-item-8485"><a href="http://www.droidviews.com/tag/fonts/">Fonts</a></li>
+	<li id="menu-item-8572" class="menu-item menu-item-type-taxonomy menu-item-object-post_tag td-not-mega menu-item-8572"><a href="http://www.droidviews.com/tag/system-dump/">System Dump</a></li>
+	<li id="menu-item-9609" class="menu-item menu-item-type-custom menu-item-object-custom td-not-mega menu-item-9609"><a href="http://droidviews.com/2012/android-usb-drivers-samsung-motorola-sony-lg-zte-htc-asus-huawei-acer/">USB Drivers</a></li>
+	<li id="menu-item-9610" class="menu-item menu-item-type-custom menu-item-object-custom td-not-mega menu-item-9610"><a href="http://droidviews.com/2012/download-google-apps-gapps-for-your-android-device-on-gbicsjb/">Google Apps</a></li>
+	<li id="menu-item-8464" class="menu-item menu-item-type-taxonomy menu-item-object-category td-not-mega menu-item-8464"><a href="http://www.droidviews.com/downloads/themes/">Themes</a></li>
+</ul>
+</li>
+<li id="menu-item-24723" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children td-not-mega menu-item-24723"><a title="Click to find your device" href="http://www.droidviews.com/">Devices</a>
+<ul class="sub-menu">
+	<li id="menu-item-8477" class="menu-item menu-item-type-taxonomy menu-item-object-category td-not-mega menu-item-8477"><a href="http://www.droidviews.com/samsung/">Samsung</a></li>
+	<li id="menu-item-8469" class="menu-item menu-item-type-taxonomy menu-item-object-category td-not-mega menu-item-8469"><a href="http://www.droidviews.com/htc/">HTC</a></li>
+	<li id="menu-item-8470" class="menu-item menu-item-type-taxonomy menu-item-object-category td-not-mega menu-item-8470"><a href="http://www.droidviews.com/lg/">LG</a></li>
+	<li id="menu-item-19412" class="menu-item menu-item-type-taxonomy menu-item-object-category td-not-mega menu-item-19412"><a href="http://www.droidviews.com/google/">Google Nexus</a></li>
+	<li id="menu-item-19413" class="menu-item menu-item-type-taxonomy menu-item-object-category td-not-mega menu-item-19413"><a href="http://www.droidviews.com/sony/">Sony</a></li>
+	<li id="menu-item-19676" class="menu-item menu-item-type-taxonomy menu-item-object-category td-not-mega menu-item-19676"><a href="http://www.droidviews.com/motorola/">Motorola</a></li>
+</ul>
+</li>
+<li id="menu-item-19059" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children td-not-mega menu-item-19059"><a href="http://www.droidviews.com/contact-us/">Contact Us</a>
+<ul class="sub-menu">
+	<li id="menu-item-24762" class="menu-item menu-item-type-post_type menu-item-object-page td-not-mega menu-item-24762"><a href="http://www.droidviews.com/contact-us/">Contact Us</a></li>
+	<li id="menu-item-24856" class="menu-item menu-item-type-post_type menu-item-object-page td-not-mega menu-item-24856"><a href="http://www.droidviews.com/privacy-policy/">Privacy Policy</a></li>
+</ul>
+</li>
+<li id="menu-item-30629" class="menu-item menu-item-type-post_type menu-item-object-page td-not-mega menu-item-30629"><a href="http://www.droidviews.com/join-droidviews/">Join Us</a></li>
+</ul></div>    </div>
+</div>
+<!-- graphic logo and ad -->
+<div class="td-header-bg">
+    <div class="container td-logo-rec-wrap">
+        <div class="row">
+            <div class="span4 header-logo-wrap" role="banner" itemscope="itemscope" itemtype="http://schema.org/Organization">
+                                    <a itemprop="url" href="http://www.droidviews.com">
+                        <img width="300" class="td-retina-data" data-retina="http://cdn.droidviews.com/wp-content/uploads/2014/11/lollipop-dv-top-green-optimized-logo.png" src="http://cdn.droidviews.com/wp-content/uploads/2014/11/lollipop-dv-top-green-small-logo.png" alt="Android Root, ROMs, Reviews & Tips" title="Android Root, ROMs, Reviews & Tips"/>
+                    </a>
+                    <meta itemprop="name" content="DroidViews">
+                                </div>
+            <div class="span8 td-header-style-1">
+                <div class="td-a-rec td-a-rec-id-header "><div class="td-visible-desktop">
+<SCRIPT>var ACE_AR = {Site: '849474', Size: '728090'};</SCRIPT> <SCRIPT language='JavaScript' src='http://uac.advertising.com/wrapper/aceUAC.js'></SCRIPT>
+</div>
+<div class="td-visible-tablet-l">
+<SCRIPT>var ACE_AR = {Site: '849478', Size: '468060'};</SCRIPT> <SCRIPT language='JavaScript' src='http://uac.advertising.com/wrapper/aceUAC.js'></SCRIPT>
+</div>
+<div class="td-visible-tablet-tp">
+tablet portrait ad code
+</div>
+<div class="td-visible-phone">
+<SCRIPT>var ACE_AR = {Site: '849478', Size: '468060'};</SCRIPT> <SCRIPT language='JavaScript' src='http://uac.advertising.com/wrapper/aceUAC.js'></SCRIPT>
+</div></div>            </div>
+        </div>
+    </div>
+</div>
+<!-- header menu -->
+
+<div class="td-menu-placeholder">
+
+    <div class="td-menu-background">
+        <div class="container td-menu-wrap">
+
+
+
+            <div class="row-fluid td-menu-header">
+
+                <div class="span11">
+                                            <div class="mobile-logo-wrap">
+                                                            <a itemprop="url" href="http://www.droidviews.com">
+                                    <img width="300" class="td-retina-data"  data-retina="http://cdn.droidviews.com/wp-content/uploads/2014/11/lollipop-dv-top-green-optimized-logo.png" src="http://cdn.droidviews.com/wp-content/uploads/2014/11/lollipop-dv-top-green-small-logo.png" alt="Android Root, ROMs, Reviews & Tips" title="Android Root, ROMs, Reviews & Tips"/>
+                                </a>
+                                <meta itemprop="name" content="DroidViews">
+                                                    </div>
+                    
+
+                    <div id="td-top-mobile-toggle">
+                        <ul class="sf-menu">
+                            <li>
+                                <a href="#">
+                                    <span class="menu_icon td-sp td-sp-ico-menu"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div id="td-top-menu" role="navigation" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+
+                            <div class="menu-menu-items-1-container"><ul id="menu-menu-items-2" class="sf-menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-first td-no-down-arrow td-not-mega menu-item-24766"><a href="http://www.droidviews.com/"><span class="menu_icon td-sp td-sp-ico-home"></span><span class="menu_hidden">Home</span></a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category td-not-mega menu-item-28227"><a href="http://www.droidviews.com/android-news/">News</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children td-not-mega menu-item-24859"><a href="http://www.droidviews.com/reviews/">Reviews</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-custom menu-item-object-custom td-not-mega menu-item-39234"><a href="http://www.droidviews.com/tag/app-review/">App Review</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children td-not-mega menu-item-20474"><a href="http://www.droidviews.com/guides/">Tutorials</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category td-not-mega menu-item-8476"><a href="http://www.droidviews.com/rooting-guides/">Rooting Guides</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom td-not-mega menu-item-16912"><a href="http://droidviews.com/tag/tips-and-tricks/">Tips &#038; Tricks</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children td-not-mega menu-item-8475"><a href="http://www.droidviews.com/roms/">ROMs</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category td-not-mega menu-item-24763"><a title="All ROMs" href="http://www.droidviews.com/roms/">ROMs</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-post_tag td-not-mega menu-item-8483"><a href="http://www.droidviews.com/tag/best-custom-roms-series/">Best Custom ROMs Series</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children td-not-mega menu-item-8462"><a href="http://www.droidviews.com/downloads/">Downloads</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-custom menu-item-object-custom td-not-mega menu-item-24858"><a href="http://www.droidviews.com/downloads/">All Downloads</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category td-not-mega menu-item-8463"><a href="http://www.droidviews.com/downloads/android-apps/">Android Apps</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category td-not-mega menu-item-8466"><a href="http://www.droidviews.com/downloads/wallpapers/">Wallpapers</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-post_tag td-not-mega menu-item-8536"><a href="http://www.droidviews.com/tag/ringtones/">Ringtones</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-post_tag td-not-mega menu-item-8485"><a href="http://www.droidviews.com/tag/fonts/">Fonts</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-post_tag td-not-mega menu-item-8572"><a href="http://www.droidviews.com/tag/system-dump/">System Dump</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom td-not-mega menu-item-9609"><a href="http://droidviews.com/2012/android-usb-drivers-samsung-motorola-sony-lg-zte-htc-asus-huawei-acer/">USB Drivers</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom td-not-mega menu-item-9610"><a href="http://droidviews.com/2012/download-google-apps-gapps-for-your-android-device-on-gbicsjb/">Google Apps</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category td-not-mega menu-item-8464"><a href="http://www.droidviews.com/downloads/themes/">Themes</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children td-not-mega menu-item-24723"><a title="Click to find your device" href="http://www.droidviews.com/">Devices</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category td-not-mega menu-item-8477"><a href="http://www.droidviews.com/samsung/">Samsung</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category td-not-mega menu-item-8469"><a href="http://www.droidviews.com/htc/">HTC</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category td-not-mega menu-item-8470"><a href="http://www.droidviews.com/lg/">LG</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category td-not-mega menu-item-19412"><a href="http://www.droidviews.com/google/">Google Nexus</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category td-not-mega menu-item-19413"><a href="http://www.droidviews.com/sony/">Sony</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category td-not-mega menu-item-19676"><a href="http://www.droidviews.com/motorola/">Motorola</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children td-not-mega menu-item-19059"><a href="http://www.droidviews.com/contact-us/">Contact Us</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page td-not-mega menu-item-24762"><a href="http://www.droidviews.com/contact-us/">Contact Us</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page td-not-mega menu-item-24856"><a href="http://www.droidviews.com/privacy-policy/">Privacy Policy</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page td-not-mega menu-item-30629"><a href="http://www.droidviews.com/join-droidviews/">Join Us</a></li>
+</ul></div>                    </div>
+
+
+
+                </div>
+
+                <div class="span1" id="td-top-search">
+                    <!-- Search -->
+                    <div class="header-search-wrap">
+                        <div class="dropdown header-search">
+                            <a id="search-button" href="#" role="button" class="dropdown-toggle " data-toggle="dropdown"><span class="td-sp td-sp-ico-search"></span></a>
+                            <div class="dropdown-menu" aria-labelledby="search-button">
+                                <form role="search" method="get" class="td-search-form" action="http://www.droidviews.com/">
+                                    <div class="td-head-form-search-wrap">
+                                        <input class="needsclick" id="td-header-search" type="text" value="" name="s" autocomplete="off" /><input class="wpb_button wpb_btn-inverse btn" type="submit" id="td-header-search-top" value="Search" />
+                                    </div>
+                                </form>
+                                <div id="td-aj-search"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div> <!-- /.row-fluid -->
+        </div> <!-- /.td-menu-wrap -->
+    </div> <!-- /.td-menu-background -->
+</div> <!-- /.td-menu-placeholder -->
+        <div class="container td-page-wrap">
+            <div class="row">
+                <div class="span12">
+                    <div class="td-grid-wrap">
+                        <div class="container-fluid">
+                            <div class="row-fluid ">
+                    <div class="span8 column_container" role="main" itemprop="mainContentOfPage" itemscope="itemscope" itemtype="http://schema.org/Blog">
+                    <article id="post-29720" class="post-29720 post type-post status-publish format-standard has-post-thumbnail hentry category-guides tag-adb-and-fastboot tag-how-to-guides tag-tips-and-tricks" itemscope itemtype="http://schema.org/Article">
+
+        <header>
+
+            <h1 itemprop="name" class="entry-title">How to Push and Pull Files on Android using the ADB commands</h1>
+            <div class="meta-info">
+                <ul class="td-category"><li class="entry-category"><a  style="background-color:#f7ca00;" href="http://www.droidviews.com/guides/">Guides</a></li></ul>                                <time  itemprop="dateCreated" class="entry-date updated" datetime="2014-10-13T17:30:08+00:00" >Oct 13, 2014</time><meta itemprop="interactionCount" content="UserComments:0"/>                <div class="entry-comments-views"><span class="td-sp td-sp-ico-comments td-fake-click" data-fake-click="http://www.droidviews.com/push-pull-files-android-using-adb-commands/#comments"></span>0</div>            </div>
+        </header>
+
+        
+        
+        <div class="td-post-text-content">
+            
+ <!-- A generated by theme --> 
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><div class="td-g-rec td-g-rec-id-content_top">
+<script type="text/javascript">
+var td_screen_width = document.body.clientWidth;
+
+                    if ( td_screen_width >= 1200 ) {
+                        /* large monitors */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-3671910213332959" data-ad-slot="6885713812"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+            
+                    if ( td_screen_width >= 1019  && td_screen_width < 1200 ) {
+                        /* landscape tablets */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-3671910213332959" data-ad-slot="6885713812"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                
+                    if ( td_screen_width >= 768  && td_screen_width < 1019 ) {
+                        /* portrait tablets */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:468px;height:60px" data-ad-client="ca-pub-3671910213332959" data-ad-slot="6885713812"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                
+                    if ( td_screen_width < 768 ) {
+                        /* Phones */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-3671910213332959" data-ad-slot="6885713812"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                </script>
+</div>
+
+ <!-- end A --> 
+
+<p><a href="http://cdn.droidviews.com/wp-content/uploads/2014/10/adb-push-pull.jpg"><img class="size-full wp-image-29731 aligncenter" src="http://cdn.droidviews.com/wp-content/uploads/2014/10/adb-push-pull.jpg" alt="adb-push-pull" width="671" height="450" /></a></p>
+<p>An advanced Android user always want to minimize the work during the development process so that more focus can be beamed on to the target. During the development of a ROM or a Mod, many tiny operations like retrieving files from device, flashing the mods, restore the backups if the device is bricked and so on. These tiny operations consume a major chunk of time during this process, and one most important operation is the pushing and pulling files from the Android device.</p>
+
+ <!-- A generated by theme --> 
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><div class="td-g-rec td-g-rec-id-content_inline">
+<script type="text/javascript">
+var td_screen_width = document.body.clientWidth;
+
+                    if ( td_screen_width >= 1200 ) {
+                        /* large monitors */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-3671910213332959" data-ad-slot="5783689018"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+            
+                    if ( td_screen_width >= 1019  && td_screen_width < 1200 ) {
+                        /* landscape tablets */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-3671910213332959" data-ad-slot="5783689018"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                
+                    if ( td_screen_width >= 768  && td_screen_width < 1019 ) {
+                        /* portrait tablets */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-3671910213332959" data-ad-slot="5783689018"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                
+                    if ( td_screen_width < 768 ) {
+                        /* Phones */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-3671910213332959" data-ad-slot="5783689018"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                </script>
+</div>
+
+ <!-- end A --> 
+
+<p>Transferring the Apk&#8217;s and other files in and out using the normal process where you need to transfer the files using an USB cable and then using the root explorer to copy it to the system partition and then assigning permissions is a lengthy and tiresome process. Even if you make flashable Zips which can be flashed using recovery, you need to reboot to recovery every time you want to try the modification. However, the ADB mode of transferring files using the Push and Pull commands is one of the best alternative you&#8217;ll get.</p>
+<p>Using the ADB tool, you can push and pull files with simple commands, so you don&#8217;t even need to touch your device while trying your mods. Today, we will show you how to push and pull files on Android device using the ADB commands.</p>
+<h3>PREPARE YOUR DEVICE</h3>
+<ul>
+<li>Charge your device above 60% battery level to avoid shutdowns during the process.</li>
+<li>Install proper device drivers on your PC and check if the device is detected. You can find the drivers for your device from our driver downloads page → <strong><a href="http://www.droidviews.com/android-usb-drivers-samsung-motorola-sony-lg-zte-htc-asus-huawei-acer/" target="_blank">Click Here</a></strong></li>
+<li>Enable <strong>USB Debugging</strong> on your phone from<strong> Settings&gt; Developer options</strong>. If you do not find Developer option under device settings, read the instructions <a href="http://www.droidviews.com/how-to-enable-developer-optionsusb-debugging-mode-on-devices-with-android-4-2-jelly-bean/" target="_blank"><strong>given here</strong></a>.</li>
+<li>Either <a href="http://www.droidviews.com/tag/adb-and-fastboot/" target="_blank">setup ADB and Fastboot</a> on your computer, <span id="IL_AD4" class="IL_AD">or download</span> the Minimal Fastboot/ADB tool and unzip it: <a href="http://www.mediafire.com/download/6b3aw3dq8omefyw/mfastboot-v2.zip" target="_blank">mfastboot-v2.zip</a></li>
+</ul>
+<h2>PUSH AND PULL FILES USING ADB COMMANDS</h2>
+<ol>
+<li>Download and extract the ADB files on your PC.</li>
+<li>Open a command prompt in the ADB folder by right clicking on mouse in the empty space of the folder while holding the Shift key.</li>
+<li>Now to pull any file from your device, you need to know its path. Once you know the path of the file, enter the following command to pull the file.
+<pre><strong>adb pull &lt;path-of-the-file&gt;</strong></pre>
+<p>For instance, lets pull the Settings.apk which is located in the /System/app/ folder on your device.</p>
+<pre><strong>adb pull /system/app/Settings.apk</strong></pre>
+</li>
+<li>The file will be pulled and saved in the ADB folder itself and you can see the transfer rate in the command prompt.<br />
+<a href="http://cdn.droidviews.com/wp-content/uploads/2014/10/adb-pull.png"><img class="size-full wp-image-29723 aligncenter" src="http://cdn.droidviews.com/wp-content/uploads/2014/10/adb-pull.png" alt="adb-pull" width="798" height="128" /></a></li>
+<li>Pulling any file from the device is easy but pushing files to the device needs permissions. You can push any file to the internal or external SD card without any issue, but when you&#8217;re pushing it to the System partitions you might get this error:<br />
+<a href="http://cdn.droidviews.com/wp-content/uploads/2014/10/adb-push-mount-error.png"><img class="size-full wp-image-29725 aligncenter" src="http://cdn.droidviews.com/wp-content/uploads/2014/10/adb-push-mount-error.png" alt="adb-push-mount-error" width="796" height="124" /></a></li>
+<li>So you need to mount the file system as Read Write rather than Read-only, so execute the following commands one-by-one to mount the system writable:
+<pre class="alt2 "><strong>adb shell
+su
+mount -o remount rw /system</strong></pre>
+</li>
+<li>Your device might prompt for root permissions when you type SU, grant them. You will get the following output if everything went right.:<br />
+<a href="http://cdn.droidviews.com/wp-content/uploads/2014/10/adb-mount-writable.png"><img class="size-full wp-image-29726 aligncenter" src="http://cdn.droidviews.com/wp-content/uploads/2014/10/adb-mount-writable.png" alt="adb-mount-writable" width="800" height="168" /></a></li>
+<li>To push a file to the device, just type the following command:
+<pre><strong>adb push &lt;source-path&gt; &lt;target-path&gt;</strong></pre>
+<p>For instance:</p>
+<pre><strong>adb push Settings.apk /system/apps/</strong></pre>
+</li>
+<li>If the file is pushed correctly to your device, you&#8217;ll get the similar output on the command prompt:<br />
+<a href="http://cdn.droidviews.com/wp-content/uploads/2014/10/adb-push.png"><img class="size-full wp-image-29727 aligncenter" src="http://cdn.droidviews.com/wp-content/uploads/2014/10/adb-push.png" alt="adb-push" width="799" height="130" /></a></li>
+</ol>
+<p>So you now know how to push and pull files using the ADB commands. These commands are important yet simple, aren&#8217;t they?</p>
+<p><em>Leave your feedback in the comments section below.</em></p>
+
+ <!-- A generated by theme --> 
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><div class="td-g-rec td-g-rec-id-content_bottom">
+<script type="text/javascript">
+var td_screen_width = document.body.clientWidth;
+
+                    if ( td_screen_width >= 1200 ) {
+                        /* large monitors */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-3671910213332959" data-ad-slot="8222846215"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+            
+                    if ( td_screen_width >= 1019  && td_screen_width < 1200 ) {
+                        /* landscape tablets */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:468px;height:60px" data-ad-client="ca-pub-3671910213332959" data-ad-slot="8222846215"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                
+                    if ( td_screen_width >= 768  && td_screen_width < 1019 ) {
+                        /* portrait tablets */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:468px;height:60px" data-ad-client="ca-pub-3671910213332959" data-ad-slot="8222846215"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                
+                    if ( td_screen_width < 768 ) {
+                        /* Phones */
+                        document.write('<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-3671910213332959" data-ad-slot="8222846215"></ins>');
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                </script>
+</div>
+
+ <!-- end A --> 
+
+        </div>
+
+        <div class="clearfix"></div>
+
+&nbsp;
+        <footer>
+                                                
+            <div class="td-social-sharing">
+                <div class="td-tags-and-social-wrapper-box td-tags-and-social-wrapper-box-bottom-line"> <ul class="td-tags clearfix"><li><span class="td-tag-black">TAGS</span></li><li><a href="http://www.droidviews.com/tag/adb-and-fastboot/">ADB and Fastboot</a></li><li><a href="http://www.droidviews.com/tag/how-to-guides/">How to Guides</a></li><li><a href="http://www.droidviews.com/tag/tips-and-tricks/">Tips and Tricks</a></li></ul></div></div>            
+
+<div class='apss-social-share apss-theme-8 counter-enable clearfix'>
+			<div class='apss-facebook apss-single-icon'>
+					<a title='Share on Facebook' target='_blank' href='https://www.facebook.com/sharer/sharer.php?u=http://www.droidviews.com/push-pull-files-android-using-adb-commands/'>
+							<div class='apss-icon-block clearfix'>
+									<i class='fa fa-facebook'></i>
+									<span class='apss-social-text'>Share on Facebook</span>
+									<span class='apss-share'>Share</span>
+                    
+							</div>
+					                    <div class='count apss-count' data-url='http://www.droidviews.com/push-pull-files-android-using-adb-commands/' data-social-network='facebook' data-social-detail="http://www.droidviews.com/push-pull-files-android-using-adb-commands/_facebook">Loading...</div>
+                    					</a>
+			</div>
+						<div class='apss-twitter apss-single-icon'>
+				<a title='Share on Twitter' target='_blank' href='https://twitter.com/intent/tweet?text=How to Push and Pull Files on Android using the ADB commands&amp;url=http%3A%2F%2Fwww.droidviews.com%2Fpush-pull-files-android-using-adb-commands%2F&amp;via=DroidViews'>
+					<div class='apss-icon-block clearfix'>
+						<i class='fa fa-twitter'></i>
+						<span class='apss-social-text'>Share on Twitter</span>
+						<span class='apss-share'>Tweet</span>
+					</div>
+										<div class='count apss-count' data-url='http://www.droidviews.com/push-pull-files-android-using-adb-commands/' data-social-network='twitter' data-social-detail="http://www.droidviews.com/push-pull-files-android-using-adb-commands/_twitter">Loading...</div>
+									</a>
+			</div>
+						<div class='apss-google-plus apss-single-icon'>
+			<a title='Share on Google Plus' target='_blank' href='https://plus.google.com/share?url=http://www.droidviews.com/push-pull-files-android-using-adb-commands/'>
+				<div class='apss-icon-block clearfix'>
+					<i class='fa fa-google-plus'></i>
+					<span class='apss-social-text'>Share on Google Plus</span>
+					<span class='apss-share'>Share</span>
+				</div>
+												<div class='count apss-count' data-url='http://www.droidviews.com/push-pull-files-android-using-adb-commands/' data-social-network='google-plus' data-social-detail="http://www.droidviews.com/push-pull-files-android-using-adb-commands/_google-plus">Loading...</div>
+										</a>
+			</div>
+			
+			<div class='apss-pinterest apss-single-icon'>
+				<a title='Share on Pinterest' href='javascript:void((function()%7Bvar%20e=document.createElement(&apos;script&apos;);e.setAttribute(&apos;type&apos;,&apos;text/javascript&apos;);e.setAttribute(&apos;charset&apos;,&apos;UTF-8&apos;);e.setAttribute(&apos;src&apos;,&apos;http://assets.pinterest.com/js/pinmarklet.js?r=&apos;+Math.random()*99999999);document.body.appendChild(e)%7D)());'>
+					<div class='apss-icon-block clearfix'>
+					<i class='fa fa-pinterest'></i>
+					<span class='apss-social-text'>Share on Pinterest</span>
+					<span class='apss-share'>Share</span>
+					</div>
+
+												<div class='count apss-count' data-url='http://www.droidviews.com/push-pull-files-android-using-adb-commands/' data-social-network='pinterest' data-social-detail="http://www.droidviews.com/push-pull-files-android-using-adb-commands/_pinterest">Loading...</div>
+						
+				</a>
+			</div>
+			
+			<div class='apss-reddit apss-single-icon'>
+				<a title='Share on Reddit' target='_blank' href='http://www.reddit.com/submit?url=http://www.droidviews.com/push-pull-files-android-using-adb-commands/&title=How to Push and Pull Files on Android using the ADB commands'>
+					<div class='apss-icon-block clearfix'>
+					<i class='fa fa-reddit'></i>
+					<span class='apss-social-text'>Share on Reddit</span>
+					<span class='apss-share'>Share</span>
+					</div>
+												<div class='count apss-count' data-url='http://www.droidviews.com/push-pull-files-android-using-adb-commands/' data-social-network='reddit' data-social-detail="http://www.droidviews.com/push-pull-files-android-using-adb-commands/_reddit">Loading...</div>
+										</a>
+			</div>
+			</div>            <div class="td-social-like-tweet"><ul><li class="td-like-tweet-twitter"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.droidviews.com/push-pull-files-android-using-adb-commands/" data-text="How to Push and Pull Files on Android using the ADB commands" data-via="" data-lang="en">tweet</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></li><li class="td-like-tweet-facebook"><iframe src="http://www.facebook.com/plugins/like.php?href=http://www.droidviews.com/push-pull-files-android-using-adb-commands/&amp;layout=button_count&amp;show_faces=false&amp;width=105&amp;action=like&amp;colorscheme=light&amp;height=21" style="border:none; overflow:hidden; width:105px; height:21px; background-color:transparent;"></iframe></li><li  class="td-like-tweet-google">
+                    <div class="g-plusone" data-size="medium" data-href="http://www.droidviews.com/push-pull-files-android-using-adb-commands/"></div>
+                    <script type="text/javascript">
+                        (function() {
+                            var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;
+                            po.src = "https://apis.google.com/js/plusone.js";
+                            var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);
+                        })();
+                    </script>
+                    </li></ul></div>&nbsp;
+<div id="taboola-below-article-thumbnails"></div>
+<script type="text/javascript">
+  window._taboola = window._taboola || [];
+  _taboola.push({
+    mode: 'thumbnails-a',
+    container: 'taboola-below-article-thumbnails',
+    placement: 'Below Article Thumbnails',
+    target_type: 'mix'
+  });
+</script>
+            <div class="wpb_row row-fluid next-prev"><div class="span6 prev-post"><div><img width="6" class="td-retina" src="http://cdn.droidviews.com/wp-content/themes/Newspaper/images/icons/similar-left.png" alt=""/>Previous article</div><a href="http://www.droidviews.com/sideload-roms-mods-using-adb-sideload/">How to Sideload ROMs and Mods Using ADB Sideload</a></div><div class="span6 next-post"><div>Next article<img width="6" class="td-retina" src="http://cdn.droidviews.com/wp-content/themes/Newspaper/images/icons/similar-right.png" alt=""/></div><a href="http://www.droidviews.com/flash-zips-without-recovery-using-flash-gordon/">Flash Zips without Recovery using Flash Gordon</a></div></div>            <div class="author-box-wrap"><a itemprop="author" href="http://www.droidviews.com/author/naveenrobsworth/"><img class="avatar avatar-106 photo" width="64" height="64" src="http://cdn.droidviews.com/wp-content/uploads/2014/09/Naveen-Robsworth.jpg"/></a><div class="desc"><div class="td-author-name"><a itemprop="author" href="http://www.droidviews.com/author/naveenrobsworth/">Naveen Robsworth</a></div><div class="vcard author"><span class="fn">Naveen is a tech enthusiast with a deep interest in Open Source software and Operating Systems. Freelancing and learning new technologies are his motives. His Pen name Robsworth reflects that his talents are worthy to be robbed.</span></div><div class="td-author-social"></div><div class="clearfix"></div></div></div>        </footer>
+
+    </article> <!-- /.post -->
+
+    <SCRIPT>var ACE_AR = {Site: '849474', Size: '728090'};</SCRIPT> <SCRIPT language='JavaScript' src='http://uac.advertising.com/wrapper/aceUAC.js'></SCRIPT>
+
+<div id="disqus_thread">
+    </div>
+
+<script type="text/javascript">
+var disqus_url = 'http://www.droidviews.com/push-pull-files-android-using-adb-commands/';
+var disqus_identifier = '29720 http://www.droidviews.com/?p=29720';
+var disqus_container_id = 'disqus_thread';
+var disqus_shortname = 'droidview';
+var disqus_title = "How to Push and Pull Files on Android using the ADB commands";
+var disqus_config_custom = window.disqus_config;
+var disqus_config = function () {
+    /*
+    All currently supported events:
+    onReady: fires when everything is ready,
+    onNewComment: fires when a new comment is posted,
+    onIdentify: fires when user is authenticated
+    */
+    
+    
+    this.language = '';
+        this.callbacks.onReady.push(function () {
+
+        // sync comments in the background so we don't block the page
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = '?cf_action=sync_comments&post_id=29720';
+
+        var firstScript = document.getElementsByTagName('script')[0];
+        firstScript.parentNode.insertBefore(script, firstScript);
+    });
+    
+    if (disqus_config_custom) {
+        disqus_config_custom.call(this);
+    }
+};
+
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+
+            </div>
+            <div class="span4 column_container" role="complementary" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
+                <aside class="widget widget_aps_widget"><div class="block-title"><span>Follow DroidViews</span></div><div class="apsc-icons-wrapper  apsc-theme-3 apsc-animation-1" data-hover-color="">
+                <div class="apsc-each-profile">
+                                        <a  class="apsc-facebook-icon apsc-icon-soc clearfix" href="http://facebook.com/DroidViews" target="_blank">
+                            <div class="apsc-inner-block">
+                                <span class="social-icon"><span class="apsc-fa-icon"><i class="fa fa-facebook apsc-facebook"></i></span><span class="media-name"><span class="apsc-social-name">Facebook</span></span></span>
+                                <span class="apsc-count">14,469</span><span class="apsc-media-type">Fans</span>
+                            </div>
+                        </a>
+                        <a  class="apsc-bttn-bg" href="http://facebook.com/DroidViews" target="_blank"><div class="apsc_bttn">follow</div></a>
+                                    </div>            <div class="apsc-each-profile">
+                                        <a  class="apsc-google-plus-icon apsc-icon-soc clearfix" href="https://plus.google.com/114016838361038899563" target="_blank">
+                            <div class="apsc-inner-block">
+                                <span class="social-icon"><span class="apsc-fa-icon"><i class="apsc-googlePlus fa fa-google-plus"></i></span><span class="media-name"><span class="apsc-social-name">google+</span></span></span>
+                                <span class="apsc-count">1,378</span><span class="apsc-media-type">Followers</span>
+                            </div>
+                        </a>
+                        <a  class="apsc-bttn-bg" href="https://plus.google.com/114016838361038899563" target="_blank"><div class="apsc_bttn">follow</div></a>
+                                    </div>            <div class="apsc-each-profile">
+                                        <a  class="apsc-twitter-icon apsc-icon-soc clearfix"  href="http://twitter.com/Droidviews" target="_blank">
+                            <div class="apsc-inner-block">
+                                <span class="social-icon"><span class="apsc-fa-icon"><i class="fa fa-twitter apsc-twitter"></i></span><span class="media-name"><span class="apsc-social-name">Twitter</span></span></span>
+                                <span class="apsc-count">1,355</span><span class="apsc-media-type">Followers</span>
+                            </div>
+                        </a>
+                        <a  class="apsc-bttn-bg"  href="http://twitter.com/Droidviews" target="_blank"><div class="apsc_bttn">follow</div></a>
+                                    </div>
+</div>
+
+
+</aside><aside class="widget widget_text">			<div class="textwidget"><!-- Place this tag where you want the widget to render. -->
+<div class="g-page" data-href="https://plus.google.com/114016838361038899563" data-layout="landscape" data-showtagline="false" data-showcoverphoto="false" data-rel="publisher"></div>
+
+<!-- Place this tag after the last widget tag. -->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/platform.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+</div>
+		</aside><aside class="widget widget_text"><div class="block-title"><span>Advertisement</span></div>			<div class="textwidget"><SCRIPT>var ACE_AR = {Site: '849470', Size: '300250'};</SCRIPT> <SCRIPT language='JavaScript' src='http://uac.advertising.com/wrapper/aceUAC.js'></SCRIPT>
+</div>
+		</aside><script>var block_td_uid_1_551945161f036 = new td_block();
+block_td_uid_1_551945161f036.id = "td_uid_1_551945161f036";
+block_td_uid_1_551945161f036.atts = '{"category_id":"","category_ids":"","tag_slug":"","sort":"","autors_id":"","hide_title":"","installed_post_types":"","limit":"7","offset":"","header_color":"#76b300","header_text_color":"#","custom_title":"Latest Articles","custom_url":"http:\/\/www.droidviews.com\/","title_style":"","show_child_cat":"","sub_cat_ajax":"","ajax_pagination":"load_more"}';
+block_td_uid_1_551945161f036.td_cur_cat = "";
+block_td_uid_1_551945161f036.td_column_number = "1";
+block_td_uid_1_551945161f036.block_type = "4";
+block_td_uid_1_551945161f036.post_count = "7";
+block_td_uid_1_551945161f036.found_posts = "1849";
+block_td_uid_1_551945161f036.max_num_pages = "265";
+td_blocks.push(block_td_uid_1_551945161f036);
+</script><div class="td_block_wrap td_block4"><h4 style="border-bottom: 2px solid #76b300" class="block-title"><a style="background-color:#76b300" href="http://www.droidviews.com/">Latest Articles</a></h4><div id=td_uid_1_551945161f036 class="td_block_inner">
+        <div class="td_mod3 td_mod_wrap " itemscope itemtype="http://schema.org/Article">
+        <div class="thumb-wrap"><a  href="http://www.droidviews.com/flash-twrp-recovery-and-root-moto-maxx-xt1225-on-lollipop/" rel="bookmark" title="Flash TWRP Recovery and Root Moto Maxx XT1225 on Lollipop (Android 5.0.2)"><img width="100" height="65" itemprop="image" class="entry-thumb" src="http://cdn.droidviews.com/wp-content/uploads/2015/03/Root-Moto-Maxx-XT1225-on-Lollipop-100x65.jpg" alt="" title="Flash TWRP Recovery and Root Moto Maxx XT1225 on Lollipop (Android 5.0.2)"/></a></div>        <div class="item-details">
+            <h3 itemprop="name" class="entry-title"><a itemprop="url" href="http://www.droidviews.com/flash-twrp-recovery-and-root-moto-maxx-xt1225-on-lollipop/" rel="bookmark" title="Flash TWRP Recovery and Root Moto Maxx XT1225 on Lollipop (Android 5.0.2)">Flash TWRP Recovery and Root Moto Maxx XT1225 on Lollipop (Android 5.0.2)</a></h3>            <div class="meta-info">
+                <span class="td-block-author">by <a itemprop="author" href="http://www.droidviews.com/author/admin/">Rakesh</a> - </span><meta itemprop="interactionCount" content="UserComments:0"/>                <time  itemprop="dateCreated" class="entry-date updated" datetime="2015-03-30T16:19:06+00:00" >Mar 30, 2015</time><meta itemprop="interactionCount" content="UserComments:0"/>                            </div>
+        </div>
+                </div>
+
+        
+        <div class="td_mod3 td_mod_wrap " itemscope itemtype="http://schema.org/Article">
+        <div class="thumb-wrap"><a  href="http://www.droidviews.com/fix-invalid-ext4-image-error-in-odin-while-installing-firmware-on-samsung-devices/" rel="bookmark" title="How to Fix Invalid Ext4 Image Error in Odin While Installing Firmware on Samsung Devices"><img width="100" height="65" itemprop="image" class="entry-thumb" src="http://cdn.droidviews.com/wp-content/uploads/2015/03/Fix-Invalid-Ext4-Image-Error-in-Odin-Samsung-100x65.jpg" alt="" title="How to Fix Invalid Ext4 Image Error in Odin While Installing Firmware on Samsung Devices"/></a></div>        <div class="item-details">
+            <h3 itemprop="name" class="entry-title"><a itemprop="url" href="http://www.droidviews.com/fix-invalid-ext4-image-error-in-odin-while-installing-firmware-on-samsung-devices/" rel="bookmark" title="How to Fix Invalid Ext4 Image Error in Odin While Installing Firmware on Samsung Devices">How to Fix Invalid Ext4 Image Error in Odin While Installing Firmware on Samsung Devices</a></h3>            <div class="meta-info">
+                <span class="td-block-author">by <a itemprop="author" href="http://www.droidviews.com/author/admin/">Rakesh</a> - </span><meta itemprop="interactionCount" content="UserComments:0"/>                <time  itemprop="dateCreated" class="entry-date updated" datetime="2015-03-29T20:58:22+00:00" >Mar 29, 2015</time><meta itemprop="interactionCount" content="UserComments:0"/>                            </div>
+        </div>
+                </div>
+
+        
+        <div class="td_mod3 td_mod_wrap " itemscope itemtype="http://schema.org/Article">
+        <div class="thumb-wrap"><a  href="http://www.droidviews.com/download-asus-zenfone-2-stock-wallpapers-full-hd/" rel="bookmark" title="Download Asus Zenfone 2 Stock Wallpapers (Full HD)"><img width="100" height="65" itemprop="image" class="entry-thumb" src="http://cdn.droidviews.com/wp-content/uploads/2015/03/Asus-ZenPhone-2-Stock-Wallpapers-100x65.jpg" alt="" title="Download Asus Zenfone 2 Stock Wallpapers (Full HD)"/></a></div>        <div class="item-details">
+            <h3 itemprop="name" class="entry-title"><a itemprop="url" href="http://www.droidviews.com/download-asus-zenfone-2-stock-wallpapers-full-hd/" rel="bookmark" title="Download Asus Zenfone 2 Stock Wallpapers (Full HD)">Download Asus Zenfone 2 Stock Wallpapers (Full HD)</a></h3>            <div class="meta-info">
+                <span class="td-block-author">by <a itemprop="author" href="http://www.droidviews.com/author/admin/">Rakesh</a> - </span><meta itemprop="interactionCount" content="UserComments:0"/>                <time  itemprop="dateCreated" class="entry-date updated" datetime="2015-03-26T21:33:18+00:00" >Mar 26, 2015</time><meta itemprop="interactionCount" content="UserComments:0"/>                            </div>
+        </div>
+                </div>
+
+        
+        <div class="td_mod3 td_mod_wrap " itemscope itemtype="http://schema.org/Article">
+        <div class="thumb-wrap"><a  href="http://www.droidviews.com/root-verizon-motorola-droid-turbo-with-moforoot/" rel="bookmark" title="Root Verizon Motorola Droid Turbo with MofoRoot"><img width="100" height="65" itemprop="image" class="entry-thumb" src="http://cdn.droidviews.com/wp-content/uploads/2015/03/Root-Verizon-Motorola-Droid-Turbo-100x65.jpg" alt="" title="Root Verizon Motorola Droid Turbo with MofoRoot"/></a></div>        <div class="item-details">
+            <h3 itemprop="name" class="entry-title"><a itemprop="url" href="http://www.droidviews.com/root-verizon-motorola-droid-turbo-with-moforoot/" rel="bookmark" title="Root Verizon Motorola Droid Turbo with MofoRoot">Root Verizon Motorola Droid Turbo with MofoRoot</a></h3>            <div class="meta-info">
+                <span class="td-block-author">by <a itemprop="author" href="http://www.droidviews.com/author/admin/">Rakesh</a> - </span><meta itemprop="interactionCount" content="UserComments:0"/>                <time  itemprop="dateCreated" class="entry-date updated" datetime="2015-03-26T17:01:36+00:00" >Mar 26, 2015</time><meta itemprop="interactionCount" content="UserComments:0"/>                            </div>
+        </div>
+                </div>
+
+        
+        <div class="td_mod3 td_mod_wrap " itemscope itemtype="http://schema.org/Article">
+        <div class="thumb-wrap"><a  href="http://www.droidviews.com/install-android-5-0-2-lollipop-on-galaxy-tab-s-10-5-wi-fi-sm-t800/" rel="bookmark" title="Install Android 5.0.2 Lollipop on Galaxy Tab S 10.5 Wi-Fi SM-T800"><img width="100" height="65" itemprop="image" class="entry-thumb" src="http://cdn.droidviews.com/wp-content/uploads/2015/03/Lollipop-on-Galaxy-Tab-S-10.5-Wi-Fi-SM-T800-100x65.jpg" alt="" title="Install Android 5.0.2 Lollipop on Galaxy Tab S 10.5 Wi-Fi SM-T800"/></a></div>        <div class="item-details">
+            <h3 itemprop="name" class="entry-title"><a itemprop="url" href="http://www.droidviews.com/install-android-5-0-2-lollipop-on-galaxy-tab-s-10-5-wi-fi-sm-t800/" rel="bookmark" title="Install Android 5.0.2 Lollipop on Galaxy Tab S 10.5 Wi-Fi SM-T800">Install Android 5.0.2 Lollipop on Galaxy Tab S 10.5 Wi-Fi SM-T800</a></h3>            <div class="meta-info">
+                <span class="td-block-author">by <a itemprop="author" href="http://www.droidviews.com/author/admin/">Rakesh</a> - </span><meta itemprop="interactionCount" content="UserComments:0"/>                <time  itemprop="dateCreated" class="entry-date updated" datetime="2015-03-26T09:57:03+00:00" >Mar 26, 2015</time><meta itemprop="interactionCount" content="UserComments:0"/>                            </div>
+        </div>
+                </div>
+
+        
+        <div class="td_mod3 td_mod_wrap " itemscope itemtype="http://schema.org/Article">
+        <div class="thumb-wrap"><a  href="http://www.droidviews.com/root-galaxy-s4-on-lollipop-without-tripping-knox/" rel="bookmark" title="Root Galaxy S4 on Lollipop (Android 5.0.1) without Tripping KNOX (GT-I9505)"><img width="100" height="65" itemprop="image" class="entry-thumb" src="http://cdn.droidviews.com/wp-content/uploads/2015/03/Root-Galaxy-S4-on-Lollipop-GT-I9505-100x65.jpg" alt="" title="Root Galaxy S4 on Lollipop (Android 5.0.1) without Tripping KNOX (GT-I9505)"/></a></div>        <div class="item-details">
+            <h3 itemprop="name" class="entry-title"><a itemprop="url" href="http://www.droidviews.com/root-galaxy-s4-on-lollipop-without-tripping-knox/" rel="bookmark" title="Root Galaxy S4 on Lollipop (Android 5.0.1) without Tripping KNOX (GT-I9505)">Root Galaxy S4 on Lollipop (Android 5.0.1) without Tripping KNOX (GT-I9505)</a></h3>            <div class="meta-info">
+                <span class="td-block-author">by <a itemprop="author" href="http://www.droidviews.com/author/admin/">Rakesh</a> - </span><meta itemprop="interactionCount" content="UserComments:0"/>                <time  itemprop="dateCreated" class="entry-date updated" datetime="2015-03-25T22:24:17+00:00" >Mar 25, 2015</time><meta itemprop="interactionCount" content="UserComments:0"/>                            </div>
+        </div>
+                </div>
+
+        
+        <div class="td_mod3 td_mod_wrap " itemscope itemtype="http://schema.org/Article">
+        <div class="thumb-wrap"><a  href="http://www.droidviews.com/create-and-download-themes-for-htc-devices-with-htc-theme-maker/" rel="bookmark" title="Create and Download Themes for HTC Devices with HTC Theme Maker"><img width="100" height="65" itemprop="image" class="entry-thumb" src="http://cdn.droidviews.com/wp-content/uploads/2015/03/HTC-Theme-Maker-100x65.jpg" alt="" title="Create and Download Themes for HTC Devices with HTC Theme Maker"/></a></div>        <div class="item-details">
+            <h3 itemprop="name" class="entry-title"><a itemprop="url" href="http://www.droidviews.com/create-and-download-themes-for-htc-devices-with-htc-theme-maker/" rel="bookmark" title="Create and Download Themes for HTC Devices with HTC Theme Maker">Create and Download Themes for HTC Devices with HTC Theme Maker</a></h3>            <div class="meta-info">
+                <span class="td-block-author">by <a itemprop="author" href="http://www.droidviews.com/author/admin/">Rakesh</a> - </span><meta itemprop="interactionCount" content="UserComments:2"/>                <time  itemprop="dateCreated" class="entry-date updated" datetime="2015-03-25T20:11:33+00:00" >Mar 25, 2015</time><meta itemprop="interactionCount" content="UserComments:2"/>                            </div>
+        </div>
+                </div>
+
+        </div><div class="td-load-more-wrap"><a href="#" class="td_ajax_load_more" id="next-page-td_uid_1_551945161f036" data-td_block_id="td_uid_1_551945161f036">Load more</a><div class="td-load-more-img-wrap"><div class="td-load-more-img"></div></div></div></div> <!-- ./block1 --><aside class="widget widget_text"><div class="block-title"><span>Advertisement</span></div>			<div class="textwidget"><SCRIPT>var ACE_AR = {Site: '849470', Size: '300250'};</SCRIPT> <SCRIPT language='JavaScript' src='http://uac.advertising.com/wrapper/aceUAC.js'></SCRIPT></div>
+		</aside><script>var block_td_uid_3_551945162b15d = new td_block();
+block_td_uid_3_551945162b15d.id = "td_uid_3_551945162b15d";
+block_td_uid_3_551945162b15d.atts = '{"category_id":"9","category_ids":"","tag_slug":"","sort":"","autors_id":"","hide_title":"","installed_post_types":"","limit":"7","offset":"","header_color":"#be24ff","header_text_color":"#ffffff","custom_title":"Downloads","custom_url":"http:\/\/www.droidviews.com\/downloads\/","title_style":"","show_child_cat":"","sub_cat_ajax":"","ajax_pagination":"load_more"}';
+block_td_uid_3_551945162b15d.td_cur_cat = "9";
+block_td_uid_3_551945162b15d.td_column_number = "1";
+block_td_uid_3_551945162b15d.block_type = "4";
+block_td_uid_3_551945162b15d.post_count = "7";
+block_td_uid_3_551945162b15d.found_posts = "644";
+block_td_uid_3_551945162b15d.max_num_pages = "92";
+td_blocks.push(block_td_uid_3_551945162b15d);
+</script><div class="td_block_wrap td_block4"><h4 style="border-bottom: 2px solid #be24ff" class="block-title"><a style="background-color:#be24ff; color:#ffffff !important" href="http://www.droidviews.com/downloads/">Downloads</a></h4><div id=td_uid_3_551945162b15d class="td_block_inner">
+        <div class="td_mod3 td_mod_wrap " itemscope itemtype="http://schema.org/Article">
+        <div class="thumb-wrap"><a  href="http://www.droidviews.com/download-asus-zenfone-2-stock-wallpapers-full-hd/" rel="bookmark" title="Download Asus Zenfone 2 Stock Wallpapers (Full HD)"><img width="100" height="65" itemprop="image" class="entry-thumb" src="http://cdn.droidviews.com/wp-content/uploads/2015/03/Asus-ZenPhone-2-Stock-Wallpapers-100x65.jpg" alt="" title="Download Asus Zenfone 2 Stock Wallpapers (Full HD)"/></a></div>        <div class="item-details">
+            <h3 itemprop="name" class="entry-title"><a itemprop="url" href="http://www.droidviews.com/download-asus-zenfone-2-stock-wallpapers-full-hd/" rel="bookmark" title="Download Asus Zenfone 2 Stock Wallpapers (Full HD)">Download Asus Zenfone 2 Stock Wallpapers (Full HD)</a></h3>            <div class="meta-info">
+                <span class="td-block-author">by <a itemprop="author" href="http://www.droidviews.com/author/admin/">Rakesh</a> - </span><meta itemprop="interactionCount" content="UserComments:0"/>                <time  itemprop="dateCreated" class="entry-date updated" datetime="2015-03-26T21:33:18+00:00" >Mar 26, 2015</time><meta itemprop="interactionCount" content="UserComments:0"/>                            </div>
+        </div>
+                </div>
+
+        
+        <div class="td_mod3 td_mod_wrap " itemscope itemtype="http://schema.org/Article">
+        <div class="thumb-wrap"><a  href="http://www.droidviews.com/create-and-download-themes-for-htc-devices-with-htc-theme-maker/" rel="bookmark" title="Create and Download Themes for HTC Devices with HTC Theme Maker"><img width="100" height="65" itemprop="image" class="entry-thumb" src="http://cdn.droidviews.com/wp-content/uploads/2015/03/HTC-Theme-Maker-100x65.jpg" alt="" title="Create and Download Themes for HTC Devices with HTC Theme Maker"/></a></div>        <div class="item-details">
+            <h3 itemprop="name" class="entry-title"><a itemprop="url" href="http://www.droidviews.com/create-and-download-themes-for-htc-devices-with-htc-theme-maker/" rel="bookmark" title="Create and Download Themes for HTC Devices with HTC Theme Maker">Create and Download Themes for HTC Devices with HTC Theme Maker</a></h3>            <div class="meta-info">
+                <span class="td-block-author">by <a itemprop="author" href="http://www.droidviews.com/author/admin/">Rakesh</a> - </span><meta itemprop="interactionCount" content="UserComments:2"/>                <time  itemprop="dateCreated" class="entry-date updated" datetime="2015-03-25T20:11:33+00:00" >Mar 25, 2015</time><meta itemprop="interactionCount" content="UserComments:2"/>                            </div>
+        </div>
+                </div>
+
+        
+        <div class="td_mod3 td_mod_wrap " itemscope itemtype="http://schema.org/Article">
+        <div class="thumb-wrap"><a  href="http://www.droidviews.com/download-mito-2-stock-wallpapers-in-hd-quality/" rel="bookmark" title="Download Mito 2 Stock Wallpapers in HD Quality"><img width="100" height="65" itemprop="image" class="entry-thumb" src="http://cdn.droidviews.com/wp-content/uploads/2015/03/Mito-2-Stock-Wallpapers-100x65.jpg" alt="" title="Download Mito 2 Stock Wallpapers in HD Quality"/></a></div>        <div class="item-details">
+            <h3 itemprop="name" class="entry-title"><a itemprop="url" href="http://www.droidviews.com/download-mito-2-stock-wallpapers-in-hd-quality/" rel="bookmark" title="Download Mito 2 Stock Wallpapers in HD Quality">Download Mito 2 Stock Wallpapers in HD Quality</a></h3>            <div class="meta-info">
+                <span class="td-block-author">by <a itemprop="author" href="http://www.droidviews.com/author/admin/">Rakesh</a> - </span><meta itemprop="interactionCount" content="UserComments:0"/>                <time  itemprop="dateCreated" class="entry-date updated" datetime="2015-03-24T22:50:38+00:00" >Mar 24, 2015</time><meta itemprop="interactionCount" content="UserComments:0"/>                            </div>
+        </div>
+                </div>
+
+        
+        <div class="td_mod3 td_mod_wrap " itemscope itemtype="http://schema.org/Article">
+        <div class="thumb-wrap"><a  href="http://www.droidviews.com/install-htc-one-m9-home-launcher-keyboard-gallery-music-player-apps-and-widgets/" rel="bookmark" title="Install HTC One M9 Home Launcher, Keyboard, Gallery, Music Player Apps and Widgets"><img width="100" height="65" itemprop="image" class="entry-thumb" src="http://cdn.droidviews.com/wp-content/uploads/2015/03/HTC-One-M9-Home-Launcher-100x65.jpg" alt="" title="Install HTC One M9 Home Launcher, Keyboard, Gallery, Music Player Apps and Widgets"/></a></div>        <div class="item-details">
+            <h3 itemprop="name" class="entry-title"><a itemprop="url" href="http://www.droidviews.com/install-htc-one-m9-home-launcher-keyboard-gallery-music-player-apps-and-widgets/" rel="bookmark" title="Install HTC One M9 Home Launcher, Keyboard, Gallery, Music Player Apps and Widgets">Install HTC One M9 Home Launcher, Keyboard, Gallery, Music Player Apps and Widgets</a></h3>            <div class="meta-info">
+                <span class="td-block-author">by <a itemprop="author" href="http://www.droidviews.com/author/jishnu/">Jishnu Sur</a> - </span><meta itemprop="interactionCount" content="UserComments:12"/>                <time  itemprop="dateCreated" class="entry-date updated" datetime="2015-03-24T15:51:48+00:00" >Mar 24, 2015</time><meta itemprop="interactionCount" content="UserComments:12"/>                            </div>
+        </div>
+                </div>
+
+        
+        <div class="td_mod3 td_mod_wrap " itemscope itemtype="http://schema.org/Article">
+        <div class="thumb-wrap"><a  href="http://www.droidviews.com/install-htc-blinkfeed-launcher-sense-6-and-7/" rel="bookmark" title="Install HTC BlinkFeed Launcher (Sense 6 and 7) on Your Android Device"><img width="100" height="65" itemprop="image" class="entry-thumb" src="http://cdn.droidviews.com/wp-content/uploads/2015/03/HTC-BlinkFeed-Launcher-100x65.jpg" alt="" title="Install HTC BlinkFeed Launcher (Sense 6 and 7) on Your Android Device"/></a></div>        <div class="item-details">
+            <h3 itemprop="name" class="entry-title"><a itemprop="url" href="http://www.droidviews.com/install-htc-blinkfeed-launcher-sense-6-and-7/" rel="bookmark" title="Install HTC BlinkFeed Launcher (Sense 6 and 7) on Your Android Device">Install HTC BlinkFeed Launcher (Sense 6 and 7) on Your Android Device</a></h3>            <div class="meta-info">
+                <span class="td-block-author">by <a itemprop="author" href="http://www.droidviews.com/author/admin/">Rakesh</a> - </span><meta itemprop="interactionCount" content="UserComments:8"/>                <time  itemprop="dateCreated" class="entry-date updated" datetime="2015-03-23T12:02:37+00:00" >Mar 23, 2015</time><meta itemprop="interactionCount" content="UserComments:8"/>                            </div>
+        </div>
+                </div>
+
+        
+        <div class="td_mod3 td_mod_wrap " itemscope itemtype="http://schema.org/Article">
+        <div class="thumb-wrap"><a  href="http://www.droidviews.com/download-samsung-galaxy-tab-a-stock-wallpapers/" rel="bookmark" title="Download Samsung Galaxy Tab A Stock Wallpapers"><img width="100" height="65" itemprop="image" class="entry-thumb" src="http://cdn.droidviews.com/wp-content/uploads/2015/03/Galaxy-Tab-A-Stock-Wallpapers-100x65.jpg" alt="" title="Download Samsung Galaxy Tab A Stock Wallpapers"/></a></div>        <div class="item-details">
+            <h3 itemprop="name" class="entry-title"><a itemprop="url" href="http://www.droidviews.com/download-samsung-galaxy-tab-a-stock-wallpapers/" rel="bookmark" title="Download Samsung Galaxy Tab A Stock Wallpapers">Download Samsung Galaxy Tab A Stock Wallpapers</a></h3>            <div class="meta-info">
+                <span class="td-block-author">by <a itemprop="author" href="http://www.droidviews.com/author/admin/">Rakesh</a> - </span><meta itemprop="interactionCount" content="UserComments:0"/>                <time  itemprop="dateCreated" class="entry-date updated" datetime="2015-03-20T12:14:12+00:00" >Mar 20, 2015</time><meta itemprop="interactionCount" content="UserComments:0"/>                            </div>
+        </div>
+                </div>
+
+        
+        <div class="td_mod3 td_mod_wrap " itemscope itemtype="http://schema.org/Article">
+        <div class="thumb-wrap"><a  href="http://www.droidviews.com/enable-galaxy-s6-theme-engine-on-samsung-galaxy-s4-s5-and-note-4/" rel="bookmark" title="Enable Galaxy S6 Theme Engine on Samsung Galaxy S4, S5 and Note 4"><img width="100" height="65" itemprop="image" class="entry-thumb" src="http://cdn.droidviews.com/wp-content/uploads/2015/03/Enable-Galaxy-S6-Theme-Engine-100x65.jpg" alt="" title="Enable Galaxy S6 Theme Engine on Samsung Galaxy S4, S5 and Note 4"/></a></div>        <div class="item-details">
+            <h3 itemprop="name" class="entry-title"><a itemprop="url" href="http://www.droidviews.com/enable-galaxy-s6-theme-engine-on-samsung-galaxy-s4-s5-and-note-4/" rel="bookmark" title="Enable Galaxy S6 Theme Engine on Samsung Galaxy S4, S5 and Note 4">Enable Galaxy S6 Theme Engine on Samsung Galaxy S4, S5 and Note 4</a></h3>            <div class="meta-info">
+                <span class="td-block-author">by <a itemprop="author" href="http://www.droidviews.com/author/admin/">Rakesh</a> - </span><meta itemprop="interactionCount" content="UserComments:1"/>                <time  itemprop="dateCreated" class="entry-date updated" datetime="2015-03-17T22:38:17+00:00" >Mar 17, 2015</time><meta itemprop="interactionCount" content="UserComments:1"/>                            </div>
+        </div>
+                </div>
+
+        </div><div class="td-load-more-wrap"><a href="#" class="td_ajax_load_more" id="next-page-td_uid_3_551945162b15d" data-td_block_id="td_uid_3_551945162b15d">Load more</a><div class="td-load-more-img-wrap"><div class="td-load-more-img"></div></div></div></div> <!-- ./block1 --><aside class="widget widget_text">			<div class="textwidget"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- SinglePost Sidebar -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:600px"
+     data-ad-client="ca-pub-3671910213332959"
+     data-ad-slot="4810191412">
+     google_ad_region = "Single Post Sidebar"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+		</aside>            </div>
+        
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="td-footer-wrap">
+    <div class="container">
+        <div class="row">
+            
+                                <div class="span12">
+                                    <div class="td-grid-wrap">
+                                        <div class="container-fluid">
+                                            <div class="wpb_row row-fluid ">
+                                                <div class="span12 wpb_column column_container">
+                                                                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                </div>
+    </div>
+</div> <!-- /.td-footer-wrap  -->
+
+
+<div class="td-sub-footer-wrap">
+    <div class="container ">
+        <div class="row">
+            <div class="span12">
+                <div class="td-grid-wrap">
+                    <div class="container-fluid">
+                        <div class="row-fluid ">
+                            <div class="span4 td-sub-footer-copy">
+                                &copy; 2015, DroidViews Media Ltd.                            </div>
+                            <div class="span8 td-sub-footer-menu">
+
+                                                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+var infolinks_pid = 308957;
+var infolinks_wsid = 0;
+</script>
+<script type="text/javascript" src="http://resources.infolinks.com/js/infolinks_main.js"></script>
+
+</div>
+<!--/#inner-wrap-->
+</div>
+<!--/#outer-wrap-->
+
+
+<div class="td-sp td-scroll-up"></div>
+
+
+<div class='apss-popup-overlay' id="apss-popup-overlay-email" style="display:none"></div>
+<div class="apss_email_share_popup" style="display:none;">
+<div class='apss_email_share_popup_close'>X</div>
+	            <div class="apss_popup_top">
+	                <div class="title">Share this </div>
+	                <div class="apss_email_share_popup_close_bttn"></div>
+	                <div class="clear"></div>
+	            </div>
+	            <div class="apss_email_popup_content">
+	               <div class="apss_email_popup_form">
+	                <div class="apss_email_popup_name apss-email-block">
+	                  <input type="text" id="apss_email_popup_name" placeholder="Your Name" onkeyup="removeMe('apss_email_popup_name_error');">
+	                  <div class='error apss_email_popup_name_error'></div>
+					</div> 
+					<div class="apss_email_popup_from apss-email-block"> 
+			          <input type="text" id="apss_email_popup_from" placeholder="Your email" onkeyup="removeMe('apss_email_popup_from_error');">
+			          <div class='error apss_email_popup_from_error'></div>
+					</div>
+					<div class="apss_email_popup_sendto apss-email-block">
+	                  <input type="text" id="apss_email_popup_receiver" placeholder="Friend's email address" onkeyup="removeMe('apss_email_popup_sendto_error');">
+	                  <div class='error apss_email_popup_sendto_error'></div>
+					</div>
+
+					<div class='apss-sub-wrap apss-email-block'>
+						<div class="apss_email_popup_label">
+		                   Subject:
+		                 </div>
+
+						 <div class="apss_email_popup_subject">
+							<input type="text" id="apss_email_popup_subject" value="Please visit this link http://www.droidviews.com/push-pull-files-android-using-adb-commands/">
+		                </div>
+	                </div>
+	                <div class='apss-message-wrap apss-email-block'>
+						<div class="apss_email_popup_label">
+							Message:
+						</div>	
+		                <div class="apss_email_popup_message">
+	                            <textarea id="apss_email_popup_message">Hey Buddy!, I found this information for you: "How to Push and Pull Files on Android using the ADB commands". Here is the website link: http://www.droidviews.com/push-pull-files-android-using-adb-commands/. Thank you.</textarea>
+		                </div>
+	                </div>
+	               </div>
+	                <button class="apss-the-button" id="apss_email_popup_send_email">Send</button>
+	                <span class="apss_email_popup_loading" style="display:none;"><img src='http://cdn.droidviews.com/wp-content/plugins/accesspress-social-pro/images/share/ajax-loader.gif' /></span>
+					<div class="clear"></div>
+	                <div class='apss_email_popup_result'> </div>
+	            </div>
+</div>
+            <input type="hidden" id="apss-current-url" value="http://www.droidviews.com/push-pull-files-android-using-adb-commands/"/>
+                    <span class="apss-temp" style="font-size:14px;position:relative;z-index:99999;"></span>
+                <div class="apsc-floating-sidebar apsc-sidebar-theme-2 apsc-sidebar-left-middle">
+                        <div class="apsc-each-profile">
+                                                <a  class="apsc-facebook-icon clearfix" href="http://facebook.com/DroidViews" target="_blank">
+                                <div class="apsc-inner-block">
+                                    <span class="social-icon"><i class="fa fa-facebook apsc-facebook"></i><span class="media-name">Facebook</span></span>
+                                    <span class="apsc-count">14,469</span><span class="apsc-media-type">Fans</span>
+                                </div>
+                            </a>
+                                            </div>                <div class="apsc-each-profile">
+                                                <a  class="apsc-google-plus-icon clearfix" href="https://plus.google.com/114016838361038899563" target="_blank">
+                                <div class="apsc-inner-block"><span class="social-icon">
+                                        <i class="apsc-googlePlus fa fa-google-plus"></i><span class="media-name">google+</span></span>
+                                    <span class="apsc-count">1,378</span><span class="apsc-media-type">Followers</span>
+                                </div>
+                            </a>                </div>                <div class="apsc-each-profile">
+                                                <a  class="apsc-twitter-icon clearfix"  href="http://twitter.com/Droidviews" target="_blank">
+                                <div class="apsc-inner-block">
+                                    <span class="social-icon"><i class="fa fa-twitter apsc-twitter"></i><span class="media-name">Twitter</span></span>
+                                    <span class="apsc-count">1,355</span><span class="apsc-media-type">Followers</span>
+                                </div>
+                            </a>                </div>    </div>
+            <script type="text/javascript">
+        // <![CDATA[
+        var disqus_shortname = 'droidview';
+        (function () {
+            var nodes = document.getElementsByTagName('span');
+            for (var i = 0, url; i < nodes.length; i++) {
+                if (nodes[i].className.indexOf('dsq-postid') != -1) {
+                    nodes[i].parentNode.setAttribute('data-disqus-identifier', nodes[i].getAttribute('data-dsqidentifier'));
+                    url = nodes[i].parentNode.href.split('#', 1);
+                    if (url.length == 1) { url = url[0]; }
+                    else { url = url[1]; }
+                    nodes[i].parentNode.href = url + '#disqus_thread';
+                }
+            }
+            var s = document.createElement('script'); 
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+        // ]]>
+        </script>
+        
+
+    <!--
+        Theme: Newspaper by tagDiv 2014
+        Version: 3.6 (rara)
+        Deploy mode: deploy
+    -->
+
+    <script type='text/javascript'>
+/* <![CDATA[ */
+var frontend_ajax_object = {"ajax_url":"http:\/\/www.droidviews.com\/wp-admin\/admin-ajax.php","ajax_nonce":"2508be3261"};
+/* ]]> */
+</script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var _wpcf7 = {"loaderUrl":"http:\/\/www.droidviews.com\/wp-content\/plugins\/contact-form-7\/images\/ajax-loader.gif","sending":"Sending ...","cached":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://cdn.droidviews.com/wp-content/plugins/bwp-minify/cache/minify-b1-apss-frontend-mainjs-232530719c22548a34c0fee215f54544.js'></script>
+
+<!-- JS generated by theme -->
+
+<script>
+    
+</script>
+
+<script type="text/javascript">
+setTimeout(function(){var a=document.createElement("script");
+var b=document.getElementsByTagName("script")[0];
+a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0027/3605.js?"+Math.floor(new Date().getTime()/3600000);
+a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+</script>
+</body>
+</html>
+<!-- Dynamic page generated in 0.701 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2015-03-30 18:14:06 -->
+
+<!-- Compression = gzip -->

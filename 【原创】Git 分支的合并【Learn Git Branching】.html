@@ -1,0 +1,422 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head id="Head1"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="keywords" content="码迷,mamicode.com,互联网,软件开发,开源,asp,asp.net,android,apple,jsp,php,Windows,数据库,HTML,JS,CSS,技术文章,游戏,创业,手机相关"><meta name="description" content="merge git merge是我们要学习的合并工作的第一个方法。合并产生一个特殊的提交记录，它包含两个唯一父提交。有两个父提交的提交记录本质上是：“我想把这两个父提交本身及它们的父提交集合都包含进来。” 1. 有共同祖先，但非直接上下游关系的分支 根据C1、C2、C3这三个提交对象（C1是C2....."><title>
+	【原创】Git 分支的合并【Learn Git Branching】
+</title><link href="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/css.css" type="text/css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/prettify.css">
+    <script type="text/javascript" charset="utf-8" src="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/prettify.js"></script>
+    <script type="text/javascript" charset="utf-8" src="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/jquery-1.js"></script>
+</head>
+<body>
+    <div class="width100bi height20px divbackgroundcolor">
+    <div class="width1100px divmargin0auto">
+        <div class="divfloatleft">
+        </div>
+        <div class="divfloatright width200px">
+            <div class="topshoucang">
+                [<a class="acursorpointer" onclick="addfavorite()" title="将mamicode.com加入收藏">加入收藏</a>]&nbsp;
+            </div>
+        </div>
+        <div class="divfloatclear">
+        </div>
+    </div>
+</div>
+<div class="width1100px divmargin0auto paddingtop10bottom10">
+    <div class="width150px divfloatleft">
+        <a href="http://www.mamicode.com/" title="码迷，mamicode.com">
+            <img src="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/logo.png" alt="码迷，mamicode.com" height="60" width="109" border="0">
+        </a>
+    </div>
+    <div class="width950px divfloatright">
+        <div class="menuDiv">
+            <ul>
+                <li class="bottomline width10px">&nbsp;</li>
+                <li id="default-aspx" class="title0"><a href="http://www.mamicode.com/" title="码迷，mamicode.com">首页</a></li>
+                <li id="infolist-2" class="title1"><a href="http://www.mamicode.com/info-list-2-1.html" title="Web开发">Web开发</a></li>
+                <li id="infolist-3" class="title1"><a href="http://www.mamicode.com/info-list-3-1.html" title="Windows程序">Windows程序</a></li>
+                <li id="infolist-4" class="title1"><a href="http://www.mamicode.com/info-list-4-1.html" title="编程语言">编程语言</a></li>
+                <li id="infolist-5" class="title1"><a href="http://www.mamicode.com/info-list-5-1.html" title="数据库">数据库</a></li>
+                <li id="infolist-6" class="title1"><a href="http://www.mamicode.com/info-list-6-1.html" title="移动开发">移动开发</a></li>
+                <li id="infolist-8" class="title1"><a href="http://www.mamicode.com/info-list-8-1.html" title="系统相关">系统相关</a></li>
+                <li id="infolist-9" class="title1"><a href="http://www.mamicode.com/info-list-9-1.html" title="微信">微信</a></li>
+                <li id="infolist-11" class="title1"><a href="http://www.mamicode.com/info-list-11-1.html" title="其他好文">其他好文</a></li>
+                <li class="bottomline width50px">&nbsp;</li>
+            </ul>
+        </div>
+    </div>
+    <div class="divfloatclear">
+    </div>
+</div>
+
+    <div class="divdaohang">
+        <div class="divtitlefont">
+            <a href="http://www.mamicode.com/" title="码迷首页">首页</a>
+            <span id="lbltitle"> &gt; <a href="http://www.mamicode.com/info-list-11-1.html">其他好文</a> &gt; 详细</span>
+        </div>
+    </div>
+    <div class="divmain">
+        <div class="width780px divfloatleft paddingright20">
+            
+            <div class="detailtitle divtextaligncenter divborderbottomdotted">
+                <h1 id="Htitle" class="detailtitle">【原创】Git 分支的合并【Learn Git Branching】</h1>
+            </div>
+            <div class="detail1 divtextalignright">
+                时间：<span id="Label2" class="colorlan">2014-12-29 21:15:43</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="Label7"></span>
+            </div>
+            
+            <div class="detailcontennt">
+                <span id="Label3"><p>标签：</p><div><span style="font-size: 10.5pt; line-height: 1.5;"><strong><span style="font-size: 14pt;" data-wiz-span="data-wiz-span">merge</span></strong></span></div>
+<div><span style="font-size: 10.5pt; line-height: 1.5;"><strong><span style="font-size: 14pt;" data-wiz-span="data-wiz-span">&nbsp;</span></strong></span></div>
+<div><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-size: 10.5pt; line-height: 1.5;">git merge是我们要学习的合并工作的第一个方法。合并产生一个特殊的提交记录，它包含两个唯一父提交。有两个父提交的提交记录本质上是：“我想把这两个父提交本身及它们的父提交集合都包含进来。”</span><span style="font-size: 10.5pt; line-height: 1.5;"><strong><span style="font-size: 14pt;" data-wiz-span="data-wiz-span"><br></span></strong></span></div>
+<div><span style="font-family: Microsoft YaHei UI;">&nbsp; &nbsp;</span></div>
+<div><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;"><strong>1. 有共同祖先，但非直接上下游关系的分支</strong></span></div>
+<div><span style="font-family: Microsoft YaHei UI;">&nbsp; &nbsp;&nbsp;</span><img alt="技术分享" style="font-size: 10.5pt; line-height: 1.5;" src="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/291949301384599.png" name="" height="406" width="671" border="0"><img alt="技术分享" style="font-size: 10.5pt; line-height: 1.5;" src="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/291949536692011.png" name="" height="409" width="682" border="0"><span style="font-size: 10.5pt; line-height: 1.5;"><br></span></div>
+<div><span style="font-family: Microsoft YaHei UI;">&nbsp; &nbsp; 
+根据C1、C2、C3这三个提交对象（C1是C2、C3的共同祖先），合并之后，生成了一个新的提交对象，包含了两个父提交。假如从合并后的master
+出发，开始沿着箭头向上游走，在到达起点的路上会经过所有的提交记录，这说明master包含了所有代码库的修改。</span></div>
+<div><span style="font-family: Microsoft YaHei UI;"><strong><span style="font-size: 11pt;" data-wiz-span="data-wiz-span">2. 直接上下游分支关系</span></strong></span></div>
+<div><img alt="技术分享" src="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/291950074972887.png" name="" height="415" width="687" border="0"><img alt="技术分享" style="font-size: 10.5pt; line-height: 1.5;" src="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/291950305445912.png" name="" height="413" width="678" border="0"><span style="font-family: Microsoft YaHei UI;"><br></span></div>
+<div><span style="font-family: Microsoft YaHei UI;">&nbsp; &nbsp; 可以看出，合并只是将bugFix分支移动到上游的master分支，使得bugFix和master指向同一提交对象。</span></div>
+<div><span style="font-family: Microsoft YaHei UI;">&nbsp;</span></div>
+<div><span style="font-family: Microsoft YaHei UI;">&nbsp; &nbsp;</span><span style="font-size: 10.5pt; line-height: 1.5;">分支合并情况有多种，一种是当前master分支所指向的提交对象为新建分支的直接祖先，一种则不是。</span></div>
+<div><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span>第
+一种情况的合并比较简单，合并时，只需要前移master指针使它指向新建分支所指向的commit对象。这种情况下，如果在master和新建分支之间
+还有多个直接祖先为master的分支，直接和最新的合并，那么如果再和上游的分支合并，会提示already 
+up-to-date。如果合并的是上游的，那么可以一步一步合并到最新的分支。</div>
+<div><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span>第
+二种情况的合并比较复杂，因为当前master分支所指向的commit对象不是新建分支的直接祖先，Git不得不进行一些额外的处理，一般会取新建分支
+所指向的commit、master所指向的commit和新建分支和master的共同祖先所指向的commit这三个对象合并为一个新的commit
+对象，并生成结果的文件快照，该文件快照是一些合并时被修改的文件快照。</div>
+<div>&nbsp;</div>
+<div>（2）Git会自动选取合适的新建分支和master的共同祖先作为合并基础，这一点和CVS和subversion的人工选择不同，极大的简化操作流程。</div>
+<div><span style="font-family: Microsoft YaHei UI;">&nbsp;</span></div>
+<div><strong><span style="font-size: 12pt;" data-wiz-span="data-wiz-span">rebase</span></strong><span style="font-family: Microsoft YaHei UI;"><br></span></div>
+<div><strong><span style="font-size: 12pt;" data-wiz-span="data-wiz-span">&nbsp;</span></strong></div>
+<div>
+<div><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span>rebasing是在分支之间合并工作的第二种方法。Rebasing就是取出一系列的提交记录，"复制"它们，然后把在别的某个地方放下来。<span style="font-size: 10.5pt; line-height: 1.5;">虽然听上去难以理解，rebasing 的优势是可以创造更线性的提交历史。假如只允许使用rebasing，代码库的提交日志/历史会更好看。</span></div>
+
+
+
+</div>
+<div style="text-align: center;"><strong><span style="font-size: 12pt;" data-wiz-span="data-wiz-span"><span style="font-size: 10.5pt;" data-wiz-span="data-wiz-span">?</span></span></strong><img alt="技术分享" style="font-size: 10.5pt; line-height: 1.5;" src="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/291950419037974.png" name="" height="425" width="705" border="0"><img alt="技术分享" style="font-size: 10.5pt; line-height: 1.5;" src="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/291950494193913.png" name="" height="424" width="704" border="0"><img alt="技术分享" style="font-size: 10.5pt; line-height: 1.5;" src="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/291950517312539.png" name="" height="426" width="708" border="0"></div>
+<div style="text-align: left;"><span style="font-family: Microsoft YaHei UI;">&nbsp;
+ &nbsp; 
+简单地说下上面的三张图片所演示的效果和作用。开始，master分支和bugFix分支中的修改是唯一独立的，现在想要把bugFix分支里的修改直接
+移动到master分支中。在bugFix分支中，使用git rebase 
+master命令，复制bugFix的最新提交对象，然后把它放在master分支的最新提交对象的后面，得到了一个更加线性好看的提交记录，此时
+bugFix是master的上游，应注意原来被复制的提交对象仍在、不会消失；现在唯一的问题是master分支还没有更新。接下来切换到master
+分支，把它rebase到bugFix分支，git rebase 
+bugFix，因为master是bugFix的直接下游，所以Git只把master分支的记录前移到bugFix上而已。</span></div>
+<div style="text-align: left;"><span style="font-family: Microsoft YaHei UI;">&nbsp; &nbsp;&nbsp;</span><span style="font-size: 10.5pt; line-height: 1.5;">rebase时候，git做了些什么呢？</span></div>
+<div>&nbsp; &nbsp; 1. 先将master分支的代码checkout出来，作为工作目录</div>
+<div>&nbsp; &nbsp; 2. 然后将bugFix分支从master分支创建起的所有改变的补丁，依次打上。如果打补丁的过程没问题，rebase就搞定了</div>
+<div>&nbsp; &nbsp; 3. 如果打补丁的时候出现了问题，就会提示你处理冲突。处理好了，可以运行git rebase –continue继续直到完成</div>
+<div>&nbsp; &nbsp; 4. 如果你不想处理，你还是有两个选择，一个是放弃rebase过程（运行git rebase –abort），另一个是直接用test分支的取代当前分支的（git rebase –skip）。</div>
+<div>&nbsp;</div>
+<div>最后补一下 有关rebase的知识：</div>
+<div style="text-align: center;"><img alt="技术分享" style="font-size: 10.5pt; line-height: 1.5;" src="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/291950526226867.png" name=""><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp;</span></div>
+<div style="text-align: left;">
+<div>
+<div class="cnblogs_code">
+<pre><span style="color: #008080;">1</span> <span style="color: #000000;">#将当前分支切换到mywork
+</span><span style="color: #008080;">2</span> <span style="color: #000000;">git checkout mywork
+</span><span style="color: #008080;">3</span> git rebase origin</pre>
+</div>
+</div>
+</div>
+<div style="text-align: center;"><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><img alt="技术分享" style="font-size: 10.5pt; line-height: 1.5;" src="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/291950535443952.png" name="" height="259" width="531"></div>
+<div style="text-align: left;"><span style="font-family: Microsoft YaHei UI;">&nbsp; &nbsp;&nbsp;</span></div>
+<div style="text-align: left;"><span style="font-family: Microsoft YaHei UI;">&nbsp; &nbsp;&nbsp;</span><span style="font-size: 10.5pt; line-height: 1.5;">这些命令会把你的"mywork"分支里的每个提交(commit)取消掉，并且把它们临时 保存为补丁(patch)(这些补丁放到".git/rebase"目录中),然后把"mywork"分支更新到最新的"origin"分支（即</span><span style="font-size: 10.5pt; line-height: 1.5;">"mywork"分支引用移动到origin上</span><span style="font-size: 10.5pt; line-height: 1.5;">），最后把保存的这些补丁应用到"mywork"分支上。</span><span style="font-size: 10.5pt; line-height: 1.5;">当‘mywork‘分支更新之后，它会指向这些新创建的提交(commit),而那些老的提交会被丢弃。 如果运行垃圾收集命令(pruning garbage collection), 这些被丢弃的提交就会删除.</span></div>
+<p>&nbsp;<span style="font-family: Microsoft YaHei UI;">&nbsp; &nbsp; 使用rebase和merge之后的区别：</span></p>
+<div>
+<div style="text-align: center;"><img alt="技术分享" style="font-size: 10.5pt; line-height: 1.5;" src="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/291950549974708.png" name="" height="471" width="532"></div>
+<div style="text-align: left;">参考资料：</div>
+<div><a href="http://gitbook.liuhui998.com/4_2.html"><span style="color: #000000;">Git Community Book 中文版</span></a><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><a style="font-size: 10.5pt; line-height: 1.5;" href="http://gitbook.liuhui998.com/4_2.html">http://gitbook.liuhui998.com/4_2.html</a></div>
+<div style="text-align: left;"><span style="text-decoration: underline;">Learn Git Branching</span><span style="font-size: 10.5pt; line-height: 1.5; font-family: ‘Microsoft YaHei UI‘;">&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; &nbsp; &nbsp;</span><span style="font-size: 10.5pt; line-height: 1.5; font-family: ‘Microsoft YaHei UI‘;">&nbsp;</span><a style="font-size: 10.5pt; line-height: 1.5;" href="http://pcottle.github.io/learnGitBranching/">http://pcottle.github.io/learnGitBranching/</a></div>
+<div style="text-align: left;"><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;"><span style="text-decoration: underline;">Git官方教程 &nbsp; </span>&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp;</span><a style="font-size: 10.5pt; line-height: 1.5;" href="http://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF">http://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF</a></div>
+<div style="text-align: left;"><a href="http://www.cnblogs.com/kym/archive/2010/08/12/1797937.html"><span style="color: #000000;">git rebase小计(转)</span></a><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; &nbsp;</span><a style="font-size: 10.5pt; line-height: 1.5;" href="http://www.cnblogs.com/kym/archive/2010/08/12/1797937.html">http://www.cnblogs.com/kym/archive/2010/08/12/1797937.html</a></div>
+<div style="text-align: left;"><span style="text-decoration: underline;"> 廖雪峰的Git教程</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;"><span style="text-decoration: underline;">&nbsp; </span>&nbsp;&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: ‘Microsoft YaHei UI‘; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><a style="font-size: 10.5pt; line-height: 1.5;" href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001375840038939c291467cc7c747b1810aab2fb8863508000">http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001375840038939c291467cc7c747b1810aab2fb8863508000</a></div>
+<div style="text-align: left;">&nbsp;</div>
+本文链接：<a id="Editor_Edit_hlEntryLink" title="view: Git 分支的合并【Learn Git Branching】" href="http://www.cnblogs.com/cposture/p/4192298.html" target="_blank">http://www.cnblogs.com/cposture/p/4192298.html</a></div><p><a href="http://www.mamicode.com/info-detail-395373.html" title="【原创】Git 分支的合并【Learn Git Branching】,mamicode.com" style="color:#ffffff" target="_blank">【原创】Git 分支的合并【Learn Git Branching】</a></p><p>标签：</p></span>
+            </div>
+            <div>
+    <div class="divfloatleft">
+        <script type="text/javascript">
+            /*mamicode-infodetail-left-336*280 于 2015-03-13*/
+            var cpro_id = "u1987253";
+        </script>
+        <script src="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/c.js" type="text/javascript"></script>
+    </div>
+    <div class="divfloatright">
+        <script type="text/javascript">
+            /*mamicode-infodetail-right-336*280 于 2015-03-13*/
+            var cpro_id = "u1987255";
+        </script>
+        <script src="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/c.js" type="text/javascript"></script>
+    </div>
+    <div class="divfloatclear">
+    </div>
+</div>
+            <div class="divtextalignleft margintop20">
+                <div class="detailpinglun1">
+                    <span class="detailpinglun2 title6">评论</span> <span class="detailpinglun3">一句话评论（<a href="http://www.mamicode.com/info-detail-comment-395373.html" id="commentCount" class="colorboldHong" title="评论数量">0</a>）</span><span class=" divfloatclear"></span> <span class="detailpinglun4"><a href="http://www.mamicode.com/info-detail-comment-395373.html" title="更多评论">&gt;&gt; 更多评论</a></span>
+                </div>
+                <div class="paddingtop20">
+                    
+                </div>
+                <div class="detailpinglun5">
+                    <a class="detailpinglun6" href="http://www.mamicode.com/info-detail-comment-395373.html" title="点这里去评论">点这里去评论</a>
+                </div>
+                
+            </div>
+        </div>
+        <div class="width300px divfloatright">
+            <div class="paddingbottom10">
+    <script async="" src="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/adsbygoogle.js"></script>
+    <!-- 1-mamicode-right-300x600 -->
+    <ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 600px" data-ad-client="ca-pub-8616102841876629" data-ad-slot="8947049888"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+    <script type="text/javascript">
+        /*mamicode-infodetail-zuoyouxuanfu-120*300 创建于 2015-03-13*/
+        var cpro_id = "u1987286";
+    </script>
+    <script src="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/f.js" type="text/javascript"></script>
+</div>
+
+<div class="width100bi divborder">
+    <div class="divtitle">
+        <div id="taghot1_divtitle" class="divfloatleft divtitlefont">最热标签</div>
+        <div class="divfloatright">
+            <img src="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/j01.jpg" alt="mamicode.com排行更多图片" height="14" width="14"></div>
+        <div class="divfloatright">
+            <a href="http://www.mamicode.com/info-tag-0.html" id="taghot1_amore" title="最热标签更多">更多</a></div>
+        <div class="divfloatclear">
+        </div>
+    </div>
+    <div class="divtextalignleft paddingleft10right10 margintop10bottom10 heightline30px">
+        <a class="taga" href="http://www.mamicode.com/so/1/style" title="style" target="_blank">
+                    style</a><a class="taga" href="http://www.mamicode.com/so/1/blog" title="blog" target="_blank">
+                    blog</a><a class="taga" href="http://www.mamicode.com/so/1/http" title="http" target="_blank">
+                    http</a><a class="taga" href="http://www.mamicode.com/so/1/ar" title="ar" target="_blank">
+                    ar</a><a class="taga" href="http://www.mamicode.com/so/1/io" title="io" target="_blank">
+                    io</a><a class="taga" href="http://www.mamicode.com/so/1/color" title="color" target="_blank">
+                    color</a><a class="taga" href="http://www.mamicode.com/so/1/os" title="os" target="_blank">
+                    os</a><a class="taga" href="http://www.mamicode.com/so/1/%E4%BD%BF%E7%94%A8" title="使用" target="_blank">
+                    使用</a><a class="taga" href="http://www.mamicode.com/so/1/sp" title="sp" target="_blank">
+                    sp</a><a class="taga" href="http://www.mamicode.com/so/1/for" title="for" target="_blank">
+                    for</a><a class="taga" href="http://www.mamicode.com/so/1/java" title="java" target="_blank">
+                    java</a><a class="taga" href="http://www.mamicode.com/so/1/strong" title="strong" target="_blank">
+                    strong</a><a class="taga" href="http://www.mamicode.com/so/1/on" title="on" target="_blank">
+                    on</a><a class="taga" href="http://www.mamicode.com/so/1/%E6%96%87%E4%BB%B6" title="文件" target="_blank">
+                    文件</a><a class="taga" href="http://www.mamicode.com/so/1/%E6%95%B0%E6%8D%AE" title="数据" target="_blank">
+                    数据</a><a class="taga" href="http://www.mamicode.com/so/1/div" title="div" target="_blank">
+                    div</a><a class="taga" href="http://www.mamicode.com/so/1/des" title="des" target="_blank">
+                    des</a><a class="taga" href="http://www.mamicode.com/so/1/2014" title="2014" target="_blank">
+                    2014</a><a class="taga" href="http://www.mamicode.com/so/1/android" title="android" target="_blank">
+                    android</a><a class="taga" href="http://www.mamicode.com/so/1/art" title="art" target="_blank">
+                    art</a><a class="taga" href="http://www.mamicode.com/so/1/%E9%97%AE%E9%A2%98" title="问题" target="_blank">
+                    问题</a><a class="taga" href="http://www.mamicode.com/so/1/log" title="log" target="_blank">
+                    log</a><a class="taga" href="http://www.mamicode.com/so/1/bs" title="bs" target="_blank">
+                    bs</a><a class="taga" href="http://www.mamicode.com/so/1/cti" title="cti" target="_blank">
+                    cti</a><a class="taga" href="http://www.mamicode.com/so/1/%E4%BB%A3%E7%A0%81" title="代码" target="_blank">
+                    代码</a><a class="taga" href="http://www.mamicode.com/so/1/ad" title="ad" target="_blank">
+                    ad</a><a class="taga" href="http://www.mamicode.com/so/1/html" title="html" target="_blank">
+                    html</a><a class="taga" href="http://www.mamicode.com/so/1/ef" title="ef" target="_blank">
+                    ef</a><a class="taga" href="http://www.mamicode.com/so/1/amp" title="amp" target="_blank">
+                    amp</a><a class="taga" href="http://www.mamicode.com/so/1/as" title="as" target="_blank">
+                    as</a><a class="taga" href="http://www.mamicode.com/so/1/%E6%97%B6%E9%97%B4" title="时间" target="_blank">
+                    时间</a><a class="taga" href="http://www.mamicode.com/so/1/linux" title="linux" target="_blank">
+                    linux</a><a class="taga" href="http://www.mamicode.com/so/1/%E5%B7%A5%E4%BD%9C" title="工作" target="_blank">
+                    工作</a><a class="taga" href="http://www.mamicode.com/so/1/tt" title="tt" target="_blank">
+                    tt</a><a class="taga" href="http://www.mamicode.com/so/1/size" title="size" target="_blank">
+                    size</a><a class="taga" href="http://www.mamicode.com/so/1/line" title="line" target="_blank">
+                    line</a><a class="taga" href="http://www.mamicode.com/so/1/new" title="new" target="_blank">
+                    new</a><a class="taga" href="http://www.mamicode.com/so/1/nbsp" title="nbsp" target="_blank">
+                    nbsp</a><a class="taga" href="http://www.mamicode.com/so/1/%E7%AE%97%E6%B3%95" title="算法" target="_blank">
+                    算法</a><a class="taga" href="http://www.mamicode.com/so/1/c_1__1_" title="c++" target="_blank">
+                    c++</a><a class="taga" href="http://www.mamicode.com/so/1/%E7%AE%A1%E7%90%86" title="管理" target="_blank">
+                    管理</a><a class="taga" href="http://www.mamicode.com/so/1/htm" title="htm" target="_blank">
+                    htm</a><a class="taga" href="http://www.mamicode.com/so/1/javascript" title="javascript" target="_blank">
+                    javascript</a><a class="taga" href="http://www.mamicode.com/so/1/%E6%95%B0%E6%8D%AE%E5%BA%93" title="数据库" target="_blank">
+                    数据库</a><a class="taga" href="http://www.mamicode.com/so/1/%E6%9C%8D%E5%8A%A1%E5%99%A8" title="服务器" target="_blank">
+                    服务器</a><a class="taga" href="http://www.mamicode.com/so/1/sql" title="sql" target="_blank">
+                    sql</a><a class="taga" href="http://www.mamicode.com/so/1/.net" title=".net" target="_blank">
+                    .net</a><a class="taga" href="http://www.mamicode.com/so/1/%E5%BA%94%E7%94%A8" title="应用" target="_blank">
+                    应用</a><a class="taga" href="http://www.mamicode.com/so/1/python" title="python" target="_blank">
+                    python</a><a class="taga" href="http://www.mamicode.com/so/1/res" title="res" target="_blank">
+                    res</a><a class="taga" href="http://www.mamicode.com/so/1/br" title="br" target="_blank">
+                    br</a><a class="taga" href="http://www.mamicode.com/so/1/%E5%AD%A6%E4%B9%A0" title="学习" target="_blank">
+                    学习</a><a class="taga" href="http://www.mamicode.com/so/1/%E7%A8%8B%E5%BA%8F" title="程序" target="_blank">
+                    程序</a><a class="taga" href="http://www.mamicode.com/so/1/ios" title="ios" target="_blank">
+                    ios</a><a class="taga" href="http://www.mamicode.com/so/1/%E8%AE%BE%E8%AE%A1" title="设计" target="_blank">
+                    设计</a><a class="taga" href="http://www.mamicode.com/so/1/window" title="window" target="_blank">
+                    window</a><a class="taga" href="http://www.mamicode.com/so/1/%E7%94%A8%E6%88%B7" title="用户" target="_blank">
+                    用户</a><a class="taga" href="http://www.mamicode.com/so/1/mysql" title="mysql" target="_blank">
+                    mysql</a><a class="taga" href="http://www.mamicode.com/so/1/acm" title="acm" target="_blank">
+                    acm</a><a class="taga" href="http://www.mamicode.com/so/1/%E5%AE%89%E8%A3%85" title="安装" target="_blank">
+                    安装</a>
+    </div>
+</div>
+<div class="width100bi divborder margintop20">
+    <div class="divtitle">
+        <div id="taghot1_div1" class="divfloatleft divtitlefont">
+            分享档案</div>
+        <div class="divfloatright">
+            <img src="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/j01.jpg" alt="mamicode.com分享档案图片" height="14" width="14"></div>
+        <div class="divfloatright">
+            <a href="http://www.mamicode.com/infotimemore.html" title="分享档案更多">更多</a>
+        </div>
+        <div class="divfloatclear">
+        </div>
+    </div>
+    <div class="divtextalignleft paddingleft10right10 margintop10bottom10 heightline30px">
+        <a class="taga" href="http://www.mamicode.com/info-time-20150529-1.html" target="_blank" title="2015年05月29日技术分享文章">
+                        2015年05月29日
+                        (2007)</a><br><a class="taga" href="http://www.mamicode.com/info-time-20150528-1.html" target="_blank" title="2015年05月28日技术分享文章">
+                        2015年05月28日
+                        (2071)</a><br><a class="taga" href="http://www.mamicode.com/info-time-20150527-1.html" target="_blank" title="2015年05月27日技术分享文章">
+                        2015年05月27日
+                        (2141)</a><br><a class="taga" href="http://www.mamicode.com/info-time-20150526-1.html" target="_blank" title="2015年05月26日技术分享文章">
+                        2015年05月26日
+                        (2489)</a><br><a class="taga" href="http://www.mamicode.com/info-time-20150525-1.html" target="_blank" title="2015年05月25日技术分享文章">
+                        2015年05月25日
+                        (2045)</a><br><a class="taga" href="http://www.mamicode.com/info-time-20150524-1.html" target="_blank" title="2015年05月24日技术分享文章">
+                        2015年05月24日
+                        (1521)</a><br><a class="taga" href="http://www.mamicode.com/info-time-20150523-1.html" target="_blank" title="2015年05月23日技术分享文章">
+                        2015年05月23日
+                        (1383)</a><br><a class="taga" href="http://www.mamicode.com/info-time-20150522-1.html" target="_blank" title="2015年05月22日技术分享文章">
+                        2015年05月22日
+                        (2313)</a><br>
+    </div>
+</div>
+            
+<div class="width100bi margintop20 divborder">
+    <div class="divtitle">
+        <div id="infotop2_divtitle" class="divfloatleft divtitlefont">周排行</div>
+        <div class="divfloatright">
+            <img src="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/j01.jpg" alt="mamicode.com排行更多图片" height="14" width="14"></div>
+        <div class="divfloatright">
+            <a href="http://www.mamicode.com/info-toplist-11-2-1.html" id="infotop2_amore" title="周排行更多">更多</a></div>
+        <div class="divfloatclear">
+        </div>
+    </div>
+    <div>
+        <ul>
+            <li class="divullititle heightline25px divtextalignleft"><a href="http://www.mamicode.com/info-detail-140116.html" title="CentOS 7 学习（二） 配置Nginx反向代理" target="_blank">
+                        CentOS 7 学习（二） 配置Nginx反向代理
+                        &nbsp;<span class="colorlan">2014-08-04</span> </a></li><li class="divullititle heightline25px divtextalignleft"><a href="http://www.mamicode.com/info-detail-247334.html" title="中文LaTeX安装与使用(beamer)" target="_blank">
+                        中文LaTeX安装与使用(beamer)
+                        &nbsp;<span class="colorlan">2014-10-09</span> </a></li><li class="divullititle heightline25px divtextalignleft"><a href="http://www.mamicode.com/info-detail-504733.html" title="hdu 4240 最大流量路径" target="_blank">
+                        hdu 4240 最大流量路径
+                        &nbsp;<span class="colorlan">2015-03-08</span> </a></li><li class="divullititle heightline25px divtextalignleft"><a href="http://www.mamicode.com/info-detail-45824.html" title="应用程序无法正常启动0xc0150002 解决方式" target="_blank">
+                        应用程序无法正常启动0xc0150002 解决方式
+                        &nbsp;<span class="colorlan">2014-05-29</span> </a></li><li class="divullititle heightline25px divtextalignleft"><a href="http://www.mamicode.com/info-detail-494155.html" title="柴静——《穹顶之下》的雾霾调查读后感" target="_blank">
+                        柴静——《穹顶之下》的雾霾调查读后感
+                        &nbsp;<span class="colorlan">2015-03-02</span> </a></li><li class="divullititle heightline25px divtextalignleft"><a href="http://www.mamicode.com/info-detail-175353.html" title="使用百度网盘+Git，把版本控制托管到云端" target="_blank">
+                        使用百度网盘+Git，把版本控制托管到云端
+                        &nbsp;<span class="colorlan">2014-08-23</span> </a></li><li class="divullititle heightline25px divtextalignleft"><a href="http://www.mamicode.com/info-detail-172844.html" title="cocos2dx基础篇(12)——点九图CCScale9Sprite" target="_blank">
+                        cocos2dx基础篇(12)——点九图CCScale9Sprite
+                        &nbsp;<span class="colorlan">2014-08-22</span> </a></li><li class="divullititle heightline25px divtextalignleft"><a href="http://www.mamicode.com/info-detail-168312.html" title="dubbo管理控制台安装和使用" target="_blank">
+                        dubbo管理控制台安装和使用
+                        &nbsp;<span class="colorlan">2014-08-19</span> </a></li><li class="divullititle heightline25px divtextalignleft"><a href="http://www.mamicode.com/info-detail-149397.html" title="当刷机工具遇到SetupConnection时的解决方法" target="_blank">
+                        当刷机工具遇到SetupConnection时的解决方法
+                        &nbsp;<span class="colorlan">2014-08-09</span> </a></li><li class="divullititle heightline25px divtextalignleft"><a href="http://www.mamicode.com/info-detail-247772.html" title="cocos2dx[3.2](19)——裁剪节点ClippingNode" target="_blank">
+                        cocos2dx[3.2](19)——裁剪节点ClippingNode
+                        &nbsp;<span class="colorlan">2014-10-10</span> </a></li>
+        </ul>
+    </div>
+</div>
+
+            <div id="rightXuan" class="width300px height550px" style="border: 0px solid #aaa;">
+    <div class="margintop20">
+        <script async="" src="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/adsbygoogle.js"></script>
+        <!-- mamicode-infodetail-right-300x250 -->
+        <ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px" data-ad-client="ca-pub-8616102841876629" data-ad-slot="9952747089"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    <div class="margintop20">
+        <script type="text/javascript">
+            var cpro_id = "u2096636";
+            (window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id] = { at: "3", rsi0: "300", rsi1: "300", pat: "6", tn: "baiduCustNativeAD", rss1: "#FFFFFF", conBW: "1", adp: "1", ptt: "0", titFF: "%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91", titFS: "14", rss2: "#000000", titSU: "0", ptbg: "90", piw: "0", pih: "0", ptp: "0" }
+        </script>
+        <script src="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/c.js" type="text/javascript"></script>
+    </div>
+</div>
+<script type="text/javascript">
+    (function ($) {
+        var obj = $("#rightXuan");
+
+        var left = parseInt(($(document).width() - 1000) / 2) + 1000 - 300;
+        var contentTop = parseInt(obj.offset().top);
+
+        $(window).bind("scroll", function () {
+            var temp = contentTop;
+
+            if ($(document).scrollTop() > temp) {
+                obj.css("position", "fixed");
+                obj.css("left", "" + left + "px");
+                obj.css("top", "1px");
+            }
+
+            if ($(document).scrollTop() <= temp) {
+                obj.css("position", "");
+            }
+        });
+
+    })(jQuery);
+</script>
+        </div>
+        <div class="divfloatclear">
+        </div>
+    </div>
+    <script type="text/javascript">
+        prettyPrint();
+    </script>
+    <div class="width1100px divmargin0auto paddingtop20bottom20">
+<script type="text/javascript">
+var cpro_id="u1995297";
+(window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id]={at:"3",rsi0:"1000",rsi1:"250",pat:"6",tn:"baiduCustNativeAD",rss1:"#FFFFFF",conBW:"1",adp:"1",ptt:"0",titFF:"%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91",titFS:"14",rss2:"#000000",titSU:"0",ptbg:"90",piw:"0",pih:"0",ptp:"0"}
+</script>
+<script src="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/c.js" type="text/javascript"></script>
+</div><div class="width1100px divmargin0auto paddingtop20bottom20">
+    <div class="width1100px divborder margintop20">
+        <div class="youqingtitle">
+            <a title="友情链接">友情链接</a>
+        </div>
+        <div class="youqingcontent">
+            <a href="http://www.guozhihua.net/" target="_blank">国之画</a>&nbsp;&nbsp;<a href="http://tongji.baidu.com/" target="_blank">百度统计</a>&nbsp;&nbsp; <a href="http://www.cnzz.com/" target="_blank">
+                    站长统计</a>&nbsp;&nbsp;<a href="http://www.aliyun.com/" target="_blank">阿里云</a>&nbsp;&nbsp;
+        </div>
+    </div>
+</div><div class="height110px bottomdiv">
+    <div class="width1100px divmargin0auto paddingtop20">
+        <div class="height30px divtextalignleft">
+            <a href="http://www.mamicode.com/about.html" title="mamicode.com关于我们">关于我们</a> - <a href="http://www.mamicode.com/contactus.html" title="mamicode.com联系我们">联系我们</a>
+        </div>
+        <div class="height30px divtextalignleft">
+            © 2014 <a href="http://www.mamicode.com/" target="_blank" title="mamicode.com,技术分享">mamicode.com</a>
+            版权所有 京ICP备13008772号-2
+        </div>
+        <div class="divtextalignleft">
+            <span class="colorlan">迷上了代码！</span>
+        </div>
+        <div class="paddingtop20">
+            <script type="text/javascript">                var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://"); document.write(unescape("%3Cspan id='cnzz_stat_icon_1254666564'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1254666564%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <script type="text/javascript">
+                var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+                document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb65e01a9bac157f881c4d8cbac4b6995' type='text/javascript'%3E%3C/script%3E"));
+            </script>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="%E3%80%90%E5%8E%9F%E5%88%9B%E3%80%91Git%20%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6%E3%80%90Learn%20Git%20Branching%E3%80%91_files/mamicodejs.js"></script>
+
+
+
+</body></html>

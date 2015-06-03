@@ -1,0 +1,378 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<script type="text/javascript">
+var _speedMark = new Date();
+</script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>muttrc配置文件中文说明@leeon | 分享未来 - 互联网技术</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<meta name="keywords" content="leoangel,leeon,web,php,linux,javascript,net,cluster,system,internet,technology,性能优化,系统架构,网络应用,网络优化" />
+<meta name="description" content=".muttrc是mutt命令的个人配置文件，此文章中文解释muttrc中的每个参数" />
+<meta name="author" content="leeon" />
+<meta name="generator" content="leoblog1.5Preview 2006-2013" />
+<meta name="robots" content="index, follow" />
+<meta name="googlebot" content="index, follow" />
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.leeon.me/feed" />
+<link href="http://leeon.me/template/classical/style.css" rel="stylesheet" type="text/css" />
+<script  type="text/javascript" src="http://leeon.me/template/classical/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="http://leeon.me/template/classical/common.js"></script>
+<script type="text/javascript" src="http://leeon.me/template/classical/code.js"></script>
+</head>
+<body>
+
+<div id="container">
+
+<div id="nav">
+<h1>分享未来 <sup>Internet</sup> <sub>Technology</sub></h1>
+<ul><li><a href="/" title="首页" >Home</a></li><li><a href="/about" title="关于我" >About</a></li><li><a href="/albums" title="我的相册" >Album</a></li><li><a href="/myrss" title="我的聚合">feed</a></li><li><a href="javascript:void(0);" id="side_control">Sidebar on</a></li></ul>
+</div>
+
+<div id="wrap">
+<div id="siderl">
+
+
+<div class="content">
+<div class="dt"><span class="mon">Feb</span><span class="day">23</span></div>
+<h2 class="posts_title">muttrc配置文件中文说明</h2>
+<span class="info">Author:   leeon&nbsp;  Click:   2794 &nbsp; Date:   2010.02.23 @ 12:53:52 pm&nbsp;Category:  linux</span>
+<div class="text">
+
+
+
+<pre class="brush: bash; ruler: true;"><br />
+#windbeg<br />
+<br />
+#编辑器 直接在 Mutt 的终端里使用非图形界面的 Emacs (emacs -nw)<br />
+set editor="emacs -nw"<br />
+<br />
+#设置邮件发送程序<br />
+set sendmail="/usr/bin/msmtp"<br />
+<br />
+#建立信箱<br />
+set folder="~/Mail"<br />
+set mbox="~/Mail/inbox"<br />
+#set mbox_type=maildir<br />
+set spoolfile="~/Mail/inbox"<br />
+set postponed="~/Mail/postponed"<br />
+set record="~/Mail/sent"<br />
+<br />
+# 让mutt监视下面几个邮箱，并随时报告新邮件<br />
+mailboxes "=inbox"<br />
+mailboxes "=163"<br />
+mailboxes "=cnc"<br />
+mailboxes "=OA"<br />
+<br />
+<br />
+set check_new = yes<br />
+set timeout = 600<br />
+<br />
+#set alternates="renbin@unicomzj.com" <br />
+#这是一个格式字符串，用来控制你的index的列表显示。它的缺省定义是<br />
+<br />
+set index_format="%4C %Z %{%b %d} %-15.15L (%4l) %s"<br />
+#指定你有那些信箱文件。当你按 "c" 切换信箱时，再按 Tab 键，这些信箱就可供你选择<br />
+mailboxes Mailbox sent-mail <br />
+#这是一个 bool 型变量。它表明你在回信时引用原文是否加入原文的邮件头。<br />
+set header=no <br />
+#可以设置为 yes, no, ask-yes, 或者 ask-no. 这是说，当你按q退出时，是否提示你(ask-yes,ask-no)，<br />
+#还是直接就退出了(yes)，还是根本不理你(no)。<br />
+set quit=ask-yes<br />
+#html类型的附件是允许直接通过 .mailcap 浏览的？<br />
+#doc类型的附件通过wvware转成html 浏览<br />
+auto_view text/html application/msword<br />
+<br />
+#这也是一个提示性变量。它是确定当你退出时，是否提示你把信件从 spool 移动到的 mbox 文件。<br />
+set move=no<br />
+#当 Mutt 用 thread 方式显示时，是否用纯 ascii 表示树状列表。<br />
+set ascii_chars=yes<br />
+#回信时是否包含原文。<br />
+set include<br />
+#回信的引文之前插入那个符号？<br />
+set indent_str="&gt; "<br />
+#设置你自己的邮件头。<br />
+my_hdr From: renbin@unicomzj.com<br />
+#打分<br />
+#新信件+4分,主题包含“通知”的+2，主题包含 “Circulation” +3, 已经标记删除的 -5，上次没有读的 +1，包含 “believe”的 -10(垃圾广告！)。<br />
+score "~N" +4<br />
+score "~s 通知" +2<br />
+score "~s Circulation" +3<br />
+score "~D" -5<br />
+score "~O" +1<br />
+score "~s believe" -10<br />
+#排序方式。<br />
+set sort=score<br />
+#当用 thread 排序方式时，我们对各个 thread 的相对排序顺序。<br />
+set sort_aux=date<br />
+#如果翻到最后，再按往下翻也不会翻到下一封信件<br />
+set pager_stop<br />
+#如果设置，当你按 "r" 回信时，就不会再提示你输入回信地址和主题，直接进入编辑模式。<br />
+set fast_reply<br />
+#当你按 "t" 或者 "D" 之类的标记操作时，是否自动把光标移动到下一封信件。<br />
+set resolve=yes<br />
+#地址簿<br />
+source ~/.mutt.alias<br />
+#当你在 index 里按 "a" 为来信者取别名时，使用哪一个别名文件保存这个别名。<br />
+set alias_file=/home/windbeg/.mutt.alias<br />
+#你发出的邮件保存到那个信箱文件？比如可以像我这样每个月发出的信件放在不同的文件里。<br />
+set record="~/Mail/=sent-mail-`date +%Y-%m`"<br />
+#你的终端支持哪一种编码的显示？这个必须和你的终端编码一样。推荐用utf8<br />
+set charset="utf8"<br />
+#send_charset<br />
+#set send_charset="us-ascii:iso-8859-1:gb2312:utf-8"<br />
+set send_charset="us-ascii:iso-8859-1:gb2312:utf-8"<br />
+#外部程序退出时，是否要求用户按一个键才返回。这在察看某些shell命令输出时是比要的，<br />
+#否则它们一下就消失了。<br />
+set wait_key=yes<br />
+#当你要把信件存到另一个信箱，而这个信箱已经存在时，是否提示附加？<br />
+set noconfirmappend<br />
+#是否把邮件头也放在编辑器里可以修改？<br />
+set edit_headers=no<br />
+#当你在用 pager 看信件时，在 index 留出多少行显示邮件列表？<br />
+set pager_index_lines=4<br />
+#告诉 Mutt 你已经订阅了那些邮件列表(mailing-list).<br />
+#subscribe fvwm@fvwm.org<br />
+<br />
+#mutt显示日期为中文<br />
+set locale="zh_CN"<br />
+#有些没有设置字符编码时<br />
+charset-hook ^us-ascii$ gb2312<br />
+#Chinaren 等服务器发出来的信件使用了 quoted-printable 的 subject，<br />
+#而且设置编码为 "iso8859-1"，这显然是错误的。<br />
+#对付这个错误的办法是把 iso-8859-1 变成 gb2312 的别名<br />
+charset-hook ^iso-8859-1$ gb2312<br />
+# evolution 发过来的 subject 为 utf-8 编码的邮件标题乱码！<br />
+#那就把不是 utf-8 的编码都映射到 gb2312<br />
+charset-hook !utf-8 gb2312<br />
+charset-hook .* gb2312<br />
+<br />
+# mutt进行pop3收信，当然之前要查看$ mutt -v 编辑情况的确编辑了pop3了。<br />
+# 以后进入mutt按G就可以收信了。<br />
+#set pop_user=xxx@mail.ustc.edu.cn<br />
+#set pop_pass="xxxxxx"<br />
+#set pop_host=202.38.64.8<br />
+#现在不用mutt直接收信了。<br />
+<br />
+#把mutt发送的from域作为sendmail发送邮件的sender(否则会用user@localdomian)<br />
+set envelope_from=yes<br />
+</pre>
+<br />
+<div style="text-align:center;">
+<script type="text/javascript"><!--
+google_ad_client = "pub-1960123950214545";
+/* 468x60, 创建于 10-6-9 */
+google_ad_slot = "7195204576";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+
+</div>
+<p class="tag">TAG: &nbsp; <a href="/tag/mutt" title="mutt" >mutt</a>   <a href="/tag/%E4%B8%AD%E6%96%87" title="中文" >中文</a>   <a href="/tag/muttrc" title="muttrc" >muttrc</a>  </p>
+
+<ul id="comments"></ul>
+
+</div>    
+
+
+<div id="post_comments">
+  <fieldset>
+  	<legend>评论</legend>
+    <ul>
+    	<li><label for="c_n"  class="c_n">网名：</label><input type="text" id="c_n"  name="c_n"/></li>
+        <li><label for="c_e"  class="c_e">邮箱：</label><input type="text" id="c_e"  name="c_e"/></li>
+        <li><label for="c_c" class="c_c">内容：</label><textarea name="c_c" id="c_c"></textarea></li>
+        <li><input type="hidden" id="c_id"  value="42"/></li>
+        <li><span id="c_p">提交</span></li>
+    </ul>
+  </fieldset>
+</div>
+
+</div>
+<div id="siderr">
+<h2>分类</h2>
+<ul>
+<li><a href="/category/life/1"  title="生活"  rel="bookmark" >生活</a>[14]</li>
+<li><a href="/category/os/1"  title="操作系统"  rel="bookmark" >操作系统</a>[2]</li>
+<li><a href="/category/database/1"  title="数据库"  rel="bookmark" >数据库</a>[25]</li>
+<li><a href="/category/linux/1"  title="linux"  rel="bookmark" >linux</a>[41]</li>
+<li><a href="/category/architecture/1"  title="架构"  rel="bookmark" >架构</a>[20]</li>
+<li><a href="/category/arithmetic/1"  title="算法"  rel="bookmark" >算法</a>[2]</li>
+<li><a href="/category/program_language/1"  title="程序语言"  rel="bookmark" >程序语言</a>[1]</li>
+<li><a href="/category/php/1"  title="php"  rel="bookmark" >php</a>[19]</li>
+<li><a href="/category/css_html/1"  title="CSS | HTML"  rel="bookmark" >CSS | HTML</a>[2]</li>
+<li><a href="/category/javascript/1"  title="javascript"  rel="bookmark" >javascript</a>[13]</li>
+<li><a href="/category/optimize/1"  title="优化"  rel="bookmark" >优化</a>[4]</li>
+<li><a href="/category/java/1"  title="java"  rel="bookmark" >java</a>[3]</li>
+<li><a href="/category/c%2Fc%2B%2B/1"  title="c/c++"  rel="bookmark" >c/c++</a>[6]</li>
+<li><a href="/category/net/1"  title="网络"  rel="bookmark" >网络</a>[16]</li>
+<li><a href="/category/python/1"  title="python"  rel="bookmark" >python</a>[3]</li>
+<li><a href="/category/software_engineering/1"  title="软件工程"  rel="bookmark" >软件工程</a>[4]</li>
+<li><a href="/category/other/1"  title="其他"  rel="bookmark" >其他</a>[16]</li>
+<li><a href="/category/tuning/1"  title="调优"  rel="bookmark" >调优</a>[1]</li>
+<li><a href="/category/linux-c-cpp-program/1"  title="Linux C/C++编程"  rel="bookmark" >Linux C/C++编程</a>[8]</li>
+</ul>
+
+<h2>标签</h2>
+<div  class="siderbar_tag"> 
+
+ <a href="/tag/%E9%AB%98%E6%80%A7%E8%83%BD" title="高性能" style="font-size:12px;" >高性能</a>  <a href="/tag/javascript" title="javascript" style="font-size:19px;" >javascript</a>  <a href="/tag/rewrite" title="rewrite" style="font-size:24px;" >rewrite</a>  <a href="/tag/nginx" title="nginx" style="font-size:16px;" >nginx</a>  <a href="/tag/apache" title="apache" style="font-size:13px;" >apache</a>  <a href="/tag/website" title="website" style="font-size:15px;" >website</a>  <a href="/tag/git" title="git" style="font-size:12px;" >git</a>  <a href="/tag/http" title="http" style="font-size:18px;" >http</a>  <a href="/tag/network" title="network" style="font-size:14px;" >network</a>  <a href="/tag/gitosis" title="gitosis" style="font-size:17px;" >gitosis</a>  <a href="/tag/SyntaxHighlighter" title="SyntaxHighlighter" style="font-size:15px;" >SyntaxHighlighter</a>  <a href="/tag/tortoisegit" title="tortoisegit" style="font-size:15px;" >tortoisegit</a>  <a href="/tag/php" title="php" style="font-size:13px;" >php</a>  <a href="/tag/mysql" title="mysql" style="font-size:23px;" >mysql</a>  <a href="/tag/linux" title="linux" style="font-size:21px;" >linux</a>  <a href="/tag/shell" title="shell" style="font-size:18px;" >shell</a>  <a href="/tag/execvp" title="execvp" style="font-size:15px;" >execvp</a>  <a href="/tag/jquery" title="jquery" style="font-size:23px;" >jquery</a>  <a href="/tag/python" title="python" style="font-size:18px;" >python</a>  <a href="/tag/cache" title="cache" style="font-size:16px;" >cache</a> 
+</div>
+
+<h2>归档</h2>
+<ul>
+<li><a  href="/date/2013/04"  title="2013年04月归档"   rel="bookmark" >2013年04月 [3]</a></li>
+<li><a  href="/date/2013/03"  title="2013年03月归档"   rel="bookmark" >2013年03月 [4]</a></li>
+<li><a  href="/date/2013/02"  title="2013年02月归档"   rel="bookmark" >2013年02月 [4]</a></li>
+<li><a  href="/date/2013/01"  title="2013年01月归档"   rel="bookmark" >2013年01月 [1]</a></li>
+<li><a  href="/date/2012/12"  title="2012年12月归档"   rel="bookmark" >2012年12月 [3]</a></li>
+<li><a  href="/date/2012/11"  title="2012年11月归档"   rel="bookmark" >2012年11月 [2]</a></li>
+<li><a  href="/date/2012/10"  title="2012年10月归档"   rel="bookmark" >2012年10月 [2]</a></li>
+<li><a  href="/date/2012/07"  title="2012年07月归档"   rel="bookmark" >2012年07月 [1]</a></li>
+<li><a  href="/date/2012/05"  title="2012年05月归档"   rel="bookmark" >2012年05月 [2]</a></li>
+<li><a  href="/date/2012/04"  title="2012年04月归档"   rel="bookmark" >2012年04月 [4]</a></li>
+<li><a  href="/date/2012/03"  title="2012年03月归档"   rel="bookmark" >2012年03月 [2]</a></li>
+<li><a  href="/date/2012/01"  title="2012年01月归档"   rel="bookmark" >2012年01月 [2]</a></li>
+<li><a  href="/date/2011/12"  title="2011年12月归档"   rel="bookmark" >2011年12月 [2]</a></li>
+<li><a  href="/date/2011/11"  title="2011年11月归档"   rel="bookmark" >2011年11月 [2]</a></li>
+<li><a  href="/date/2011/10"  title="2011年10月归档"   rel="bookmark" >2011年10月 [1]</a></li>
+<li><a  href="/date/2011/09"  title="2011年09月归档"   rel="bookmark" >2011年09月 [1]</a></li>
+<li><a  href="/date/2011/08"  title="2011年08月归档"   rel="bookmark" >2011年08月 [4]</a></li>
+<li><a  href="/date/2011/07"  title="2011年07月归档"   rel="bookmark" >2011年07月 [5]</a></li>
+<li><a  href="/date/2011/06"  title="2011年06月归档"   rel="bookmark" >2011年06月 [2]</a></li>
+<li><a  href="/date/2011/05"  title="2011年05月归档"   rel="bookmark" >2011年05月 [3]</a></li>
+<li><a  href="/date/2011/04"  title="2011年04月归档"   rel="bookmark" >2011年04月 [6]</a></li>
+<li><a  href="/date/2011/03"  title="2011年03月归档"   rel="bookmark" >2011年03月 [3]</a></li>
+<li><a  href="/date/2011/02"  title="2011年02月归档"   rel="bookmark" >2011年02月 [6]</a></li>
+<li><a  href="/date/2011/01"  title="2011年01月归档"   rel="bookmark" >2011年01月 [2]</a></li>
+<li><a  href="/date/2010/12"  title="2010年12月归档"   rel="bookmark" >2010年12月 [4]</a></li>
+<li><a  href="/date/2010/11"  title="2010年11月归档"   rel="bookmark" >2010年11月 [6]</a></li>
+<li><a  href="/date/2010/10"  title="2010年10月归档"   rel="bookmark" >2010年10月 [5]</a></li>
+<li><a  href="/date/2010/09"  title="2010年09月归档"   rel="bookmark" >2010年09月 [4]</a></li>
+<li><a  href="/date/2010/08"  title="2010年08月归档"   rel="bookmark" >2010年08月 [9]</a></li>
+<li><a  href="/date/2010/07"  title="2010年07月归档"   rel="bookmark" >2010年07月 [13]</a></li>
+<li><a  href="/date/2010/06"  title="2010年06月归档"   rel="bookmark" >2010年06月 [4]</a></li>
+<li><a  href="/date/2010/05"  title="2010年05月归档"   rel="bookmark" >2010年05月 [13]</a></li>
+<li><a  href="/date/2010/04"  title="2010年04月归档"   rel="bookmark" >2010年04月 [14]</a></li>
+<li><a  href="/date/2010/03"  title="2010年03月归档"   rel="bookmark" >2010年03月 [4]</a></li>
+<li><a  href="/date/2010/02"  title="2010年02月归档"   rel="bookmark" >2010年02月 [31]</a></li>
+<li><a  href="/date/2010/01"  title="2010年01月归档"   rel="bookmark" >2010年01月 [19]</a></li>
+</ul>
+
+
+<h2>最新评论</h2>
+<dl>
+<dt>muroachanf在11:25:51评论了</dt><dd><a href="/a/use-gitosis-build-git-server-and-use-tortoisegit-build-windows-git-client" title="【原创】使用gitosis和tortoisegit打造自己的git服务">【原创】使用gitosis和tortoisegit打造自己的git服务</a></dd>
+<dt>abc在23:17:06评论了</dt><dd><a href="/a/linux-find-mtime-day" title="【原创】Linux中find命令mtime参数值的讲解">【原创】Linux中find命令mtime参数值的讲解</a></dd>
+<dt>逐风在09:40:36评论了</dt><dd><a href="/a/how-to-get-ajax-of-jquery-return-value" title="【原创】获取jQuery中Ajax函数的返回值的方法">【原创】获取jQuery中Ajax函数的返回值的方法</a></dd>
+<dt>陈小舟在12:06:49评论了</dt><dd><a href="/a/log4cplus-static-compile-but-cannot-find-pthread" title="【原创】C++程序静态链接编译log4cplus的问题小记">【原创】C++程序静态链接编译log4cplus的问题小记</a></dd>
+<dt>一路狂飙在16:29:53评论了</dt><dd><a href="/a/codemirror-shell-lib-bug-fix" title="【原创】CodeMirror中使用shell库ie不兼容解决方案">【原创】CodeMirror中使用shell库ie不兼容解决方案</a></dd>
+</dl>
+
+<h2>我看过的书</h2>
+<div class="mybook">
+
+</div>
+
+<h2>链接</h2>
+<ul>
+<li><a href="http://www.phpii.com" title="phpii" rel="friend met" target="_blank" >phpii</a></li>
+<li><a href="http://blog.mudkip.me" title="pokemon的终极fans" rel="friend met" target="_blank" >水跃の日记本</a></li>
+<li><a href="http://xiebiji.com" title="记录网络学习中的笔记、心得、体会" rel="friend met" target="_blank" >写笔记的小JOE</a></li>
+<li><a href="http://blog.bu-anjing.com" title="重构工程师" rel="friend met" target="_blank" >harika</a></li>
+<li><a href="http://www.zhangjingwei.com" title="来自Sina的前端工程师" rel="friend met" target="_blank" >张经纬的博客</a></li>
+<li><a href="http://blog.yokle.cn/" title="Thinking" rel="friend met" target="_blank" >Yokle</a></li>
+<li><a href="http://www.tianweier.com/" title="tianweier'blog" rel="friend met" target="_blank" >甜味儿</a></li>
+<li><a href="http://chen.bmforum.com" title="无聊小站的停靠站" rel="friend met" target="_blank" >无聊小站</a></li>
+<li><a href="http://bianjiang007.org/blog/" title="也许幸运是短暂的，而孤单才是长久的。" rel="friend met" target="_blank" >江边一鹤</a></li>
+<li><a href="http://hust21941.cnblogs.com" title="专注于计算机软件相关技术" rel="friend met" target="_blank" >纪念册de作坊</a></li>
+<li><a href="http://www.48da.com/" title="48da Tech News" rel="friend met" target="_blank" >48da</a></li>
+<li><a href="http://hi.baidu.com/skyzv/" title="苍穹幻想的hi百度" rel="friend met" target="_blank" >苍穹幻想</a></li>
+<li><a href="http://www.dbmail.org/" title="DBMail is an open-source project that enables storage of mail messages in a relational database. " rel="friend met" target="_blank" >dbmail</a></li>
+<li><a href="http://www.yuguodesign.com/" title="Yuguo Blog" rel="friend met" target="_blank" >@Yuguo</a></li>
+<li><a href="http://www.eit.name/" title="IT.Life.. 技术笔记,有部分是原创,有部分是引用,几乎所有的都经过测试和使用....鱼漂 (一直漂)" rel="friend met" target="_blank" >鱼漂 (一直漂)</a></li>
+<li><a href="http://www.bo-blog.com/" title="Bo-Blog 2.0是一款基于PHP的、以MySQL为数据库支持的免费blog程序。 " rel="friend met" target="_blank" >bo-blog官方站</a></li>
+<li><a href="http://www.linuxtone.org/" title="汇集最新的运维技术文档" rel="friend met" target="_blank" >IT运维专家网</a></li>
+<li><a href="http://www.cygwin.cn" title="推动Cygwin在国内的普及和发展，提供Cygwin国内镜像" rel="friend met" target="_blank" >Cygwin中文站</a></li>
+<li><a href="http://www.leeon.me/upload/other/swfupload.html" title="SWFUpload中文文档" rel="friend met" target="_blank" >SWFUpload中文文档</a></li>
+<li><a href="http://oss.org.cn/" title="OSS开源中国社区－最权威的中文开源社区" rel="friend met" target="_blank" >oss开源中国社区</a></li>
+<li><a href="http://www.kreny.com/pagerank_cn.htm" title="本文对作为评价甚高的搜索引擎 Google  的核心技术之一 PageRank (网页等级)的基本的概念和评价原理进行解释。" rel="friend met" target="_blank" >PageRank解说中文版</a></li>
+<li><a href="http://www.nioxiao.com/" title="PHP中文手册主要翻译者" rel="friend met" target="_blank" >肖理达</a></li>
+<li><a href="http://leeon.me/upload/other/sed.html" title="linux下的sed命令学习笔记" rel="friend met" target="_blank" >sed学习笔记</a></li>
+<li><a href="http://leeon.me/upload/other/awk.html" title="awk学习笔记" rel="friend met" target="_blank" >awk学习笔记</a></li>
+<li><a href="http://www.leeon.me/upload/other/bash/index.html" title="高级Bash脚本编程指南" rel="friend met" target="_blank" >高级Bash脚本编程指南</a></li>
+<li><a href="http://bbs.chinaunix.net/" title="中国最大的Linux/Unix技术社区" rel="friend met" target="_blank" >ChinaUnix</a></li>
+<li><a href="http://huchao.me" title="胡超不胡扯=，=" rel="friend met" target="_blank" >MR.扯</a></li>
+<li><a href="http://www.phpfans.org/" title="PHP 爱好者" rel="friend met" target="_blank" >深空</a></li>
+<li><a href="http://www.mengyan.org/blog/" title="Meng Yan ( 孟岩 )’s Weblog" rel="friend met" target="_blank" >孟岩</a></li>
+<li><a href="http://2simple.cn/" title="《结网:互联网产品经理改变世界》作者" rel="friend met" target="_blank" >2SIMPLE</a></li>
+<li><a href="http://msdn.itellyou.cn/" title="MSDN我告诉你" rel="friend met" target="_blank" >MSDN资讯</a></li>
+<li><a href="http://www.laruence.com/" title="深入浅出PHP文章作者" rel="friend met" target="_blank" >风雪之隅</a></li>
+<li><a href="http://blog.csdn.net/yzyangwanfu" title="DBA" rel="friend met" target="_blank" >杨万富的MySQL专栏</a></li>
+<li><a href="http://www.hiadmin.com/" title="这是一个多位知名IT公司的系统工程师共同撰写的博客" rel="friend met" target="_blank" >架构研究室</a></li>
+<li><a href="http://www.timyang.net/" title="Sina微薄架构师的博客" rel="friend met" target="_blank" >Sina微薄架构师</a></li>
+<li><a href="http://www.sudone.com/" title="网易系统工程师" rel="friend met" target="_blank" >网易Ayou</a></li>
+<li><a href="http://www.tech-q.cn/" title=" 关注互联网平台级架构设计,UNIX/LINUX系统管理,项目管理,个人职业规划及RIA,CSS/JS/XML,ASP,PHP,.NET,JSP,数据库性能提升" rel="friend met" target="_blank" >web思想社区</a></li>
+<li><a href="http://www.sapub.net/" title="盛大在线运维团队博客" rel="friend met" target="_blank" >盛大在线运维团队博客</a></li>
+<li><a href="http://vls-blog.appspot.com/" title="不沉之月 " rel="friend met" target="_blank" >不沉之月 </a></li>
+<li><a href="http://www.ideawu.net/blog/" title="百度牛人" rel="friend met" target="_blank" >ideawu`blog</a></li>
+<li><a href="http://www.wooyun.org/index.php" title="自由平等的漏洞报告平台" rel="friend met" target="_blank" >WooYun.org</a></li>
+<li><a href="http://blog.lzhaohao.info/" title="执迷不悔" rel="friend met" target="_blank" >执迷不悔</a></li>
+<li><a href="http://www.vimer.cn/" title="dante的技术主页" rel="friend met" target="_blank" >Vimer</a></li>
+<li><a href="http://blog.liuts.com/index.php" title="运维进行时" rel="friend met" target="_blank" >天涯社区刘天斯</a></li>
+<li><a href="http://blog.vvii.me/" title="VVii: When It Comes To Be " rel="friend met" target="_blank" >vvii</a></li>
+<li><a href="http://www.php-internal.com/" title="深入理解PHP内核" rel="friend met" target="_blank" >深入理解PHP内核</a></li>
+<li><a href="http://www.ha97.com/" title="服务器运维与架构|网站架构|互联网研究室" rel="friend met" target="_blank" >ha97</a></li>
+<li><a href="http://blog.csdn.net/gashero/archive/2006/04/03/649506.aspx" title="mod_python中文翻译" rel="friend met" target="_blank" >mod_python中文翻译</a></li>
+<li><a href="http://hi.baidu.com/algorithms" title="冲出宇宙" rel="friend met" target="_blank" >搜索引擎架构师</a></li>
+<li><a href="http://www.cnblogs.com/kpxu/" title="来自Tencent的前端工程师" rel="friend met" target="_blank" >Kpxu</a></li>
+<li><a href="http://www.leeon.me/upload/other/beautifulsoup-documentation-zh.html" title="python模块中解析html的利器" rel="friend met" target="_blank" >BeautifulSoup中文文档</a></li>
+<li><a href="http://code.lupaworld.com/code.php?mod=list&itemid=47&path=./" title="LUPA源码赏析" rel="friend met" target="_blank" >LUPA源码赏析</a></li>
+<li><a href="http://www.bobshen.com/" title="bo-blog作者" rel="friend met" target="_blank" >bobshen</a></li>
+<li><a href="http://www.whysearch.org/" title="腾讯电子商务搜索技术博客" rel="friend met" target="_blank" >WhySearch</a></li>
+<li><a href="http://www.ylkb.net/" title="一路狂飙" rel="friend met" target="_blank" >一路狂飙</a></li>
+<li><a href="http://chou.it/" title="lexchou" rel="friend met" target="_blank" >lexchou</a></li>
+</ul>
+<h2>其他</h2>
+<div class="other">
+<span class="other_1"><a href="/feed" title="本站聚合" >访问本站种子</a></span>
+<span class="other_2">本站平均热度：2262 c&deg;</span>
+<span class="other_3">本站链接数：56 个</span>
+<span class="other_4">本站标签数：311 个</span>
+<span class="other_5">本站被评论次数：49 次</span>
+</div>
+</div>
+</div>
+
+<div id="footer"><strong>Powered by leeon.Me</strong>&nbsp;&nbsp;<span id="sysinfo">Processed in  0.003969second(s) , 6 queries&nbsp;version: leoblog1.5Preview 2006-2013</span> </div>
+
+<div id="micro_info"><div id="m10"><span id="m8"></span><span id="m9"></span></div><div id="micro_c"></div></div>
+
+<div id="micro"><ul id="m4"><li id="m1"></li><li id="m2"></li></ul><a id="m3" href="javascript:void(0);" ></a><a id="m7" href="javascript:void(0);" title="最热文章"></a><a id="m6" href="javascript:void(0);" title="评论最多的文章"></a><a id="m5" href="javascript:void(0);" title="最近文章"></a><a id="m11" href="javascript:void(0);" title="更多心情"></a></div>
+</div>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-12424519-3");
+pageTracker._setDomainName(".leeon.me");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<div style="display:none">
+<script language="javascript" type="text/javascript" src="http://js.users.51.la/3529539.js"></script>
+<noscript><a href="http://www.51.la/?3529539" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/3529539.asp" style="border:none" /></a></noscript></div>
+<script type="text/javascript">
+loadbook();
+</script>
+<div style="display:none">
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9394293" charset="UTF-8"></script>
+</div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>The Basics of the mailcap file</title>
+</head>
+<body text="#000000" bgcolor="#ffffff">
+
+<a href="http://info.iqm.unicamp.br/manuais/mutt/manual.html"><em>The Mutt E-Mail Client</em></a>
+ <b>:</b> <a href="http://info.iqm.unicamp.br/manuais/mutt/manual56.html"><em>Mutt's MIME Support</em></a>
+ <b>:</b> <a href="http://info.iqm.unicamp.br/manuais/mutt/manual62.html"><em>MIME Viewer configuration with <code>mailcap</code></em></a>
+ <b>:</b> <em>The Basics of the mailcap file</em><br>
+<b>Previous:</b> <a href="http://info.iqm.unicamp.br/manuais/mutt/manual62.html"><em>MIME Viewer configuration with <code>mailcap</code></em></a><br>
+<b>Next:</b> <a href="http://info.iqm.unicamp.br/manuais/mutt/manual64.html"><em>Advanced mailcap Usage</em></a>
+
+
+<hr noshade="noshade">
+  <h2><a name="64"></a>5.3.1. The Basics of the mailcap file</h2>
+<p>A mailcap file consists of a series of lines which are comments, blank,
+or definitions.</p>
+<p>A comment line consists of a # character followed by anything you want.</p>
+<p>A blank line is blank.</p>
+<p>A definition line consists of a content type, a view command, and any
+number of optional fields.  Each field of a definition line is divided
+by a semicolon ';' character.</p>
+<p>The content type is specified in the MIME standard type/subtype method.
+For example,
+<code>text/plain, text/html, image/gif, </code>
+etc.  In addition, the mailcap format includes two formats for
+wildcards, one using the special '*' subtype, the other is the implicit
+wild, where you only include the major type.  For example, <code>image/*</code>, or
+<code>video,</code> will match all image types and video types,
+respectively.</p>
+<p>The view command is a Unix command for viewing the type specified. There
+are two different types of commands supported. The default is to send
+the body of the MIME message to the command on stdin. You can change
+this behaviour by using %s as a parameter to your view command.
+This will cause Mutt to save the body of the MIME message to a temporary
+file, and then call the view command with the %s replaced by
+the name of the temporary file. In both cases, Mutt will turn over the
+terminal to the view program until the program quits, at which time Mutt
+will remove the temporary file if it exists.</p>
+<p>So, in the simplest form, you can send a text/plain message to the
+external pager more on stdin:
+</p><blockquote><code>
+<pre>text/plain; more
+</pre>
+</code></blockquote>
+
+Or, you could send the message as a file:
+<blockquote><code>
+<pre>text/plain; more %s
+</pre>
+</code></blockquote>
+
+Perhaps you would like to use lynx to interactively view a text/html 
+message:
+<blockquote><code>
+<pre>text/html; lynx "%s"
+</pre>
+</code></blockquote>
+
+In this case, lynx does not support viewing a file from stdin, so you
+must use the %s syntax.
+<b>Note:</b> <em>Some older versions of lynx contain a bug where they
+will check the mailcap file for a viewer for text/html.  They will find
+the line which calls lynx, and run it.  This causes lynx to continuously
+spawn itself to view the object.</em><p></p>
+<p>On the other hand, maybe you don't want to use lynx interactively, you
+just want to have it convert the text/html to text/plain, then you can
+use:
+</p><blockquote><code>
+<pre>text/html; lynx -dump "%s" | more
+</pre>
+</code></blockquote>
+<p></p>
+<p>Perhaps you wish to use lynx to view text/html files, and a pager on
+all other text formats, then you would use the following:
+</p><blockquote><code>
+<pre>text/html; lynx "%s"
+text/*; more
+</pre>
+</code></blockquote>
+
+This is the simplest form of a mailcap file.<p></p>
+
+ <hr noshade="noshade">
+<a href="http://info.iqm.unicamp.br/manuais/mutt/manual.html"><em>The Mutt E-Mail Client</em></a>
+ <b>:</b> <a href="http://info.iqm.unicamp.br/manuais/mutt/manual56.html"><em>Mutt's MIME Support</em></a>
+ <b>:</b> <a href="http://info.iqm.unicamp.br/manuais/mutt/manual62.html"><em>MIME Viewer configuration with <code>mailcap</code></em></a>
+ <b>:</b> <em>The Basics of the mailcap file</em><br>
+<b>Previous:</b> <a href="http://info.iqm.unicamp.br/manuais/mutt/manual62.html"><em>MIME Viewer configuration with <code>mailcap</code></em></a><br>
+<b>Next:</b> <a href="http://info.iqm.unicamp.br/manuais/mutt/manual64.html"><em>Advanced mailcap Usage</em></a>
+
+
+
+
+
+</body></html>

@@ -1,0 +1,1898 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="zh-cn" xml:lang="zh-cn">
+<head>
+<link href="./mobiquo/smartbanner/jquery.smartbanner.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript" src="./mobiquo/smartbanner/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="./mobiquo/smartbanner/jquery.smartbanner.js"></script>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="content-language" content="zh-cn" />
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta name="resource-type" content="document" />
+<meta name="distribution" content="global" />
+<meta name="copyright" content="2000, 2002, 2005, 2007 phpBB Group" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+
+<title>重新认识xterm及我的配置详解 - 查看主题 &bull; Ubuntu中文论坛</title>
+
+
+<link rel="alternate" type="application/atom+xml" title="ATOM - Ubuntu中文论坛" href="http://forum.ubuntu.org.cn/feed.php" /><link rel="alternate" type="application/atom+xml" title="ATOM - 全部版面" href="http://forum.ubuntu.org.cn/feed.php?mode=forums" /><link rel="alternate" type="application/atom+xml" title="ATOM - { FEED_TOPICS_NEW }" href="http://forum.ubuntu.org.cn/feed.php?mode=topics" /><link rel="alternate" type="application/atom+xml" title="ATOM - { FEED_TOPICS_ACTIVE }" href="http://forum.ubuntu.org.cn/feed.php?mode=topics_active" /><link rel="alternate" type="application/atom+xml" title="ATOM - 版面 - 其它类软件" href="http://forum.ubuntu.org.cn/feed.php?f=122" /><link rel="alternate" type="application/atom+xml" title="ATOM - 主题 - 重新认识xterm及我的配置详解" href="http://forum.ubuntu.org.cn/feed.php?f=122&amp;t=143221" />
+
+
+<link rel="stylesheet" href="./styles/ubuntu/theme/stylesheet.css" type="text/css" />
+
+<script type="text/javascript">
+// <![CDATA[
+
+
+function popup(url, width, height, name)
+{
+	if (!name)
+	{
+		name = '_popup';
+	}
+
+	window.open(url.replace(/&amp;/g, '&'), name, 'height=' + height + ',resizable=yes,scrollbars=yes,width=' + width);
+	return false;
+}
+
+function jumpto()
+{
+	var page = prompt('填入您想前往的页数:', '1');
+	var perpage = '15';
+	var base_url = './viewtopic.php?f=122&amp;t=143221&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1';
+
+	if (page !== null && !isNaN(page) && page > 0)
+	{
+		document.location.href = base_url.replace(/&amp;/g, '&') + '&start=' + ((page - 1) * perpage);
+	}
+}
+
+/**
+* Find a member
+*/
+function find_username(url)
+{
+	popup(url, 760, 570, '_usersearch');
+	return false;
+}
+
+/**
+* Mark/unmark checklist
+* id = ID of parent container, name = name prefix, state = state [true/false]
+*/
+function marklist(id, name, state)
+{
+	var parent = document.getElementById(id);
+	if (!parent)
+	{
+		eval('parent = document.' + id);
+	}
+
+	if (!parent)
+	{
+		return;
+	}
+
+	var rb = parent.getElementsByTagName('input');
+	
+	for (var r = 0; r < rb.length; r++)
+	{
+		if (rb[r].name.substr(0, name.length) == name)
+		{
+			rb[r].checked = state;
+		}
+	}
+}
+
+
+
+	/**
+	* Play quicktime file by determining it's width/height
+	* from the displayed rectangle area
+	*
+	* Only defined if there is a file block present.
+	*/
+	function play_qt_file(obj)
+	{
+		var rectangle = obj.GetRectangle();
+
+		if (rectangle)
+		{
+			rectangle = rectangle.split(',')
+			var x1 = parseInt(rectangle[0]);
+			var x2 = parseInt(rectangle[2]);
+			var y1 = parseInt(rectangle[1]);
+			var y2 = parseInt(rectangle[3]);
+
+			var width = (x1 < 0) ? (x1 * -1) + x2 : x2 - x1;
+			var height = (y1 < 0) ? (y1 * -1) + y2 : y2 - y1;
+		}
+		else
+		{
+			var width = 200;
+			var height = 0;
+		}
+
+		obj.width = width;
+		obj.height = height + 16;
+
+		obj.SetControllerVisible(true);
+
+		obj.Play();
+	}
+
+
+// ]]>
+</script>
+
+<script type="text/javascript" src="./styles/ubuntu/theme/highslide/highslide-full.js"></script>
+<link rel="stylesheet" href="./styles/ubuntu/theme/highslide.css" type="text/css" />
+<script type="text/javascript" src="./styles/ubuntu/template/xs_bbcode_fn.js"></script>
+<script type="text/javascript" src="./classes/scripts/select_expand_bbcodes.js"></script>
+<link rel="stylesheet" href="./styles/ubuntu/theme/ul_syntaxhighlighter.css" type="text/css" />
+
+
+<script type="text/javascript">
+        hs.showCredits = 0;
+        hs.graphicsDir = './styles/ubuntu/theme/highslide/graphics/';
+        hs.align = 'center';
+        hs.transitions = ['expand', 'crossfade'];
+        hs.outlineType = 'glossy-dark';
+        hs.wrapperClassName = 'glossy-dark';
+        hs.fadeInOut = true;
+        hs.dimmingOpacity = 0.3;
+        //hs.padToMinWidth = true;
+
+        if (hs.addSlideshow) hs.addSlideshow({
+            interval: 5000,
+            repeat: false,
+            useControls: true,
+            fixedControls: 'fit',
+            overlayOptions: {
+                opacity: .6,
+                position: 'bottom center',
+                hideOnMouseOut: true
+            }
+        });
+
+</script>
+
+</head>
+<body class="ltr">
+<script type="text/javascript">tapatalkDetect()</script>
+<a name="top"></a>
+
+<div id="wrapheader">
+
+	<div id="logodesc">
+
+			 <div id="mastWrapper">
+			 <div id="masthead">	
+    <!--////////////////////////////////////////////////////////////-->
+    <a id="logo" href="./index.php?sid=799b5c8e83409843f3cfb06a7f8b45f1" style="position:absolute;display:block;width:454px;height:70px;"></a> 
+    <!--////////////////////////////////////////////////////////////-->
+				<div id="nav1">
+                                  <ul>
+				         <li><a href="http://www.ubuntu.org.cn/">Ubuntu</a></li>
+                                         <li id="current"><a href="http://forum.ubuntu.org.cn">Forum</a></li>
+                                         <li><a href="http://wiki.ubuntu.org.cn">Wiki</a></li>
+                                         <li><a href="http://linux.ubuntu.org.cn">Linux</a></li>
+                                         <li><a href="http://blog.ubuntu.org.cn/">Blog</a></li>
+                                         <li><a href="http://paste.ubuntu.org.cn">Paste</a></li>
+                                         <li><a href="http://webchat.freenode.net/?channels=ubuntu-cn">Chat</a></li>
+
+                                  </ul>
+                                </div></div></div>
+<div id='sitesearch'>
+<!-- SiteSearch Google -->
+<form method="get" action="http://www.google.com.hk/search" target="google_window">
+
+<input type="text" name="as_q" size="31" maxlength="255" value=""/>
+<input type="submit" name="sa" value="搜索"/>
+<input name="as_sitesearch" value="ubuntu.org.cn" type="hidden"/>
+<input name="newwindow" value="1" type="hidden"/>
+<input name="complete" value="1" type="hidden"/>
+<input name="forid" value="zh-CN" type="hidden"/>
+<input type="hidden" name="num" value="10"/>
+<input name="btnG" value="Google+%E6%90%9C%E7%B4%A2&" type="hidden"/>
+<input name="as_ft" value="1" type="hidden"/>
+<input name="as_qdr" value="all" type="hidden"/>
+<input name="as_occt" value="any" type="hidden"/>
+<input name="as_dt" value="i" type="hidden"/>
+</form>
+<!-- SiteSearch Google -->
+</div>
+
+
+
+
+	</div>
+
+	<div id="menubar">
+		<table width="100%" cellspacing="0">
+		<tr>
+			<td class="genmed">
+				<a href="./ucp.php?mode=login&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1"><img src="./styles/ubuntu/theme/images/icon_mini_login.gif" width="12" height="13" alt="*" /> 登录</a>&nbsp; &nbsp;<a href="./ucp.php?mode=register&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1"><img src="./styles/ubuntu/theme/images/icon_mini_register.gif" width="12" height="13" alt="*" /> 注册</a>
+					
+			</td>
+			<td class="genmed" align="right">
+				<a href="./faq.php?sid=799b5c8e83409843f3cfb06a7f8b45f1"><img src="./styles/ubuntu/theme/images/icon_mini_faq.gif" width="12" height="13" alt="*" /> FAQ</a>
+				
+			</td>
+		</tr>
+<!--
+		</table>
+	</div>
+
+	<div id="datebar">
+		<table width="100%" cellspacing="0">
+
+		<tr>
+			<td class="gensmall"></td>
+			<td class="gensmall" align="right">现在的时间是 2013-05-01  18:22<br /></td>
+		</tr>
+-->
+		</table>
+	</div>
+
+</div>
+
+<div id="wrapcentre">
+
+	
+
+	<br style="clear: both;" />
+
+	<table class="tablebg" width="100%" cellspacing="1" cellpadding="0" style="margin-top: 5px;">
+	<tr>
+		<td class="row1">
+			<p class="breadcrumbs"><a href="./index.php?sid=799b5c8e83409843f3cfb06a7f8b45f1">论坛首页</a> &#187; <a href="./viewforum.php?f=143&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">软件使用</a> &#187; <a href="./viewforum.php?f=122&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">其它类软件</a></p>
+			<p class="datetime">当前时区为 UTC + 8 小时</p>
+		</td>
+	</tr>
+	</table>
+
+	<br />
+
+<div id="pageheader">
+	<h2><a class="titles" href="./viewtopic.php?f=122&amp;t=143221&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">重新认识xterm及我的配置详解</a></h2>
+<!--
+
+-->
+	<p class="skills"><script type="text/javascript" src="./styles/ubuntu/template/skills.js" ></script></p>
+
+</div>
+
+<br clear="all" /><br />
+
+<div id="pagecontent">
+
+	<table width="100%" cellspacing="1">
+	<tr>
+		<td align="left" valign="middle" nowrap="nowrap">
+		<a href="./posting.php?mode=post&amp;f=122&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1"><img src="./styles/ubuntu/imageset/zh_cmn_hans/button_topic_new.gif" alt="发表新帖" title="发表新帖" /></a>&nbsp;<a href="./posting.php?mode=reply&amp;f=122&amp;t=143221&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1"><img src="./styles/ubuntu/imageset/zh_cmn_hans/button_topic_reply.gif" alt="回复这个主题" title="回复这个主题" /></a>
+		</td>
+
+		<td valign="middle" nowrap="nowrap" width="100%">
+<div class="bshare-custom"><a title="分享到" href="http://www.bShare.cn/" id="bshare-shareto" class="bshare-more">分享到</a><a title="分享到Facebook" class="bshare-facebook" href="javascript:void(0);"></a><a title="分享到Twitter" class="bshare-twitter" href="javascript:void(0);"></a><a title="分享到Google+" class="bshare-gplus" href="javascript:void(0);"></a><a title="分享到新浪微博" class="bshare-sinaminiblog" href="javascript:void(0);"></a><a title="分享到腾讯微博" class="bshare-qqmb" href="javascript:void(0);"></a><a title="分享到百度空间" class="bshare-baiduhi" href="javascript:void(0);"></a><a title="分享到QQ空间" class="bshare-qzone" href="javascript:void(0);"></a><a title="分享到豆瓣" class="bshare-douban" href="javascript:void(0);"></a><a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a><span style="float: none;" class="BSHARE_COUNT bshare-share-count">0</span></div><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/button.js#style=-1&amp;uuid=&amp;pophcol=1&amp;lang=zh"></script><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
+                </td>
+
+		
+			<td class="nav" valign="middle" nowrap="nowrap">&nbsp;分页： <strong>1</strong> / <strong>4</strong></td>
+			<td class="gensmall" nowrap="nowrap">&nbsp;[ 54 篇帖子 ]&nbsp;</td>
+			<td class="gensmall" align="right" nowrap="nowrap"><b><a href="#" onclick="jumpto(); return false;" title="点击前往页面…">前往页数</a> <strong>1</strong><span class="page-sep">, </span><a href="./viewtopic.php?f=122&amp;t=143221&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1&amp;start=15">2</a><span class="page-sep">, </span><a href="./viewtopic.php?f=122&amp;t=143221&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1&amp;start=30">3</a><span class="page-sep">, </span><a href="./viewtopic.php?f=122&amp;t=143221&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1&amp;start=45">4</a> &nbsp;<a href="./viewtopic.php?f=122&amp;t=143221&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1&amp;start=15">下一页</a></b></td>
+		
+	</tr>
+	</table>
+
+	<table class="tablebg" width="100%" cellspacing="1">
+	<tr>
+		<td class="cat">
+			<table width="100%" cellspacing="0">
+			<tr>
+				<td class="nav" nowrap="nowrap">&nbsp;
+				<a href="./viewtopic.php?f=122&amp;t=143221&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1&amp;view=print" title="打印预览">打印预览</a>
+				</td>
+				<td class="nav" align="right" nowrap="nowrap"><a href="./viewtopic.php?f=122&amp;t=143221&amp;view=previous&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">上一个主题</a> | <a href="./viewtopic.php?f=122&amp;t=143221&amp;view=next&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">下一个主题</a>&nbsp;</td>
+			</tr>
+			</table>
+		</td>
+	</tr>
+
+	</table>
+
+
+	<table class="tablebg" width="100%" cellspacing="1">
+	
+		<tr>
+			<th>作者</th>
+			<th>内容</th>
+		</tr>
+	<tr class="row1">
+
+			<td align="left" valign="middle">
+				<a name="p886489"></a>
+				1&nbsp;楼&nbsp;
+				<b class="postauthor">
+			
+				<a href="./memberlist.php?mode=viewprofile&amp;u=2022&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">roylez</a>			
+			
+
+			</b>
+			</td>
+			<td width="100%" height="25">
+				<table width="100%" cellspacing="0">
+				<tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>文章标题 :</b> 重新认识xterm及我的配置详解</div><div style="float: right;"><a href="./viewtopic.php?p=886489&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1#p886489"><img src="./styles/ubuntu/imageset/icon_post_target.gif" width="12" height="9" alt="帖子" title="帖子" /></a><b>发表于 :</b> 2008-08-16  22:10&nbsp;</div></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<tr class="row1">
+
+			<td valign="top" class="profile">
+				<table cellspacing="4" align="center" width="150">
+			
+				<tr>
+					<td><img src="./download/file.php?avatar=2022.jpg" width="120" height="127" alt="头像" /></td>
+				</tr>
+			
+				</table>
+
+				<span class="postdetails">
+					<br /><b>注册:</b> 2005-10-04  10:59<br /><b>帖子:</b> 1904<br /><b>地址:</b> 上海
+                        <br /><b>送出感谢:</b> 0 次
+                        <br /><b>接收感谢:</b> <a href="./thankslist.php?mode=givens&amp;author_id=2022&amp;give=false&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">1</a> 次
+
+				</span>
+
+			</td>
+			<td valign="top">
+				<table width="100%" cellspacing="5">
+				<tr>
+					<td>
+					
+
+						<div class="postbody">本来一直用rxvt-unicode好好的，发现xterm的utf8支持也不错，而且xterm下看monaco字体更加舒服些，然后就抱着试试看的心理用用看。现在的感觉是相当不错，估计短时间内不会换了。还有许多功能我还没有仔细挖掘。 <br /><br />先对rxvt-unicode和xterm的功能做个对比，都能行的我就不说了。<br /><div class="codetitle"><b>代码:</b></div><div class="codecontent">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;rxvt-unicode&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;xterm<br />速度&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;快&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;更快<br />背景透明&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 支持&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;不支持<br />图片背景&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 支持&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;不支持<br />字体渲染&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 一般&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;更好(两者程序实现上不同，我觉得xterm下更漂亮）<br />Client/Serve模式&nbsp; &nbsp; &nbsp; &nbsp;支持(urxvtc,urxvtd)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;不支持<br />脚本扩展&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; urxvtperl&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 无 <br />颜色&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;88(可以打256补丁)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;256<br /></div><br /><br />更新： urxvt有个bug，导致字体显示有问题，具体看<br /><!-- m --><a class="postlink" rel="nofollow" target="_blank" href="http://lists.schmorp.de/pipermail/rxvt-unicode/2007q4/000514.html">http://lists.schmorp.de/pipermail/rxvt- ... 00514.html</a><!-- m --><br /><br />我的xterm配置如下。<br /><br />外观：重要点的就xterm-256color那行。<br /><br /><div class="codetitle"><b>代码:</b></div><div class="codecontent">!look and feel<br />xterm.termName: xterm-256color<br />xterm.geometry: 80x36<br />xterm*scrollBar: false<br />xterm*rightScrollBar: true<br />xterm*loginshell: true<br />xterm*cursorBlink: true<br />xterm*background:&nbsp; black<br />xterm*foreground:&nbsp; gray<br />xterm.borderLess: true<br />xterm.cursorBlink: true<br />xterm*colorUL: yellow<br />xterm*colorBD: white</div><br /><br />修正Alt不能正常使用的问题。<br /><div class="codetitle"><b>代码:</b></div><div class="codecontent">!fix alt key input <br />xterm*eightBitInput: false<br />xterm*altSendsEscape: true</div><br /><br />拷贝屏幕内容，包含所有颜色控制符。可以用来做ASCIIART，也可以用脚本转成html放到网上，就好像鸟哥的主页里面的代码段一样。附件里面的perl脚本可以把拷屏输出转成html。<br /><div class="codetitle"><b>代码:</b></div><div class="codecontent">!print color and bold/underline attributes<br />xterm*printAttributes: 2<br />xterm*printerCommand: cat &gt; ~/xtermdump</div><br /><br />快捷键定义：鼠标选择自动复制，ctrl-v粘贴，ctrl-p拷屏。<br /><div class="codetitle"><b>代码:</b></div><div class="codecontent">!mouse selecting to copy, ctrl-v to paste<br />!Ctrl p to print screen content to file<br />XTerm*VT100.Translations: #override \<br />&nbsp; &nbsp; Ctrl &lt;KeyPress&gt; V: insert-selection(CLIPBOARD,PRIMARY,CUT_BUFFER0) \n\<br />&nbsp; &nbsp; &lt;BtnUp&gt;: select-end(CLIPBOARD,PRIMARY,CUT_BUFFER0) \n\<br />&nbsp; &nbsp; Ctrl &lt;KeyPress&gt; P: print() \n</div><br /><br />字体相关<br /><div class="codetitle"><b>代码:</b></div><div class="codecontent">!font and locale<br />xterm*locale: true<br />xterm.utf8:&nbsp; &nbsp; &nbsp;true<br />xterm*utf8Title: true<br />xterm*fontMenu*fontdefault*Label: Default<br />xterm*faceName: Monaco:antialias=True:pixelsize=15<br />!xterm*faceName: monofur:antialias=True:pixelsize=20<br />!xter*boldFont: DejaVu Sans Mono:style=Bold:pixelsize=15<br />xterm*faceNameDoublesize: wenquanyi bitmap song:pixelsize=16:antialias=True<br />xterm*xftAntialias: true<br />xterm*cjkWidth:false&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; !&lt;-----谢谢xeoc指正 </div><br /><br />Tango配色方案<br /><div class="codetitle"><b>代码:</b></div><div class="codecontent">!-- Tango color scheme<br />*xterm*color0: #2e3436<br />*xterm*color1: #cc0000<br />*xterm*color2: #4e9a06<br />*xterm*color3: #c4a000<br />*xterm*color4: #3465a4<br />*xterm*color5: #75507b<br />*xterm*color6: #0b939b<br />*xterm*color7: #d3d7cf<br />*xterm*color8: #555753<br />*xterm*color9: #ef2929<br />*xterm*color10: #8ae234<br />*xterm*color11: #fce94f<br />*xterm*color12: #729fcf<br />*xterm*color13: #ad7fa8<br />*xterm*color14: #00f5e9<br />*xterm*color15: #eeeeec</div><br /><br />附上我的xterm和urxvt对比图。同样的字体，同样的窗口大小，同样的配色。<br /><br />P.S.: 在此向在IRC中被我偷拍的无辜路人致以诚挚的谢意！</div>
+
+					
+						<br clear="all" /><br />
+
+						<table class="tablebg" width="100%" cellspacing="1">
+						<tr>
+							<td class="row3"><b class="genmed">附件: </b></td>
+						</tr>
+						
+							<tr>
+								<td class="row2">
+			<span class="gensmall"><b>文件注释:</b> 拷屏输出转html的perl脚本</span><br />
+		
+			<span class="genmed">
+				<img src="./styles/ubuntu/imageset/icon_topic_attach.gif" width="14" height="18" alt="" title="" /> 
+				<a href="./download/file.php?id=41363&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">ctlsqs2html.tar.gz</a> [5.18 KiB]
+			</span><br />
+			<span class="gensmall">被下载 260 次</span>
+		
+
+		<br />
+	</td>
+							</tr>
+						
+							<tr>
+								<td class="row1">
+			<span class="gensmall"><b>文件注释:</b> rxvt-unicode截图</span><br />
+		
+                <a href="./download/file.php?id=41364&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1&amp;mode=view/shot200808170004.png" id="" class="highslide" onclick="return hs.expand(this)"><img src="./download/file.php?id=41364&amp;t=1&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1" alt="shot200808170004.png" title="Click to enlarge" /></a>
+                <br /><span class="gensmall">shot200808170004.png [ 322.14 KiB | 被浏览 18632 次 ]</span><br />
+                
+
+		<br />
+	</td>
+							</tr>
+						
+							<tr>
+								<td class="row2">
+			<span class="gensmall"><b>文件注释:</b> xterm截图</span><br />
+		
+                <a href="./download/file.php?id=41365&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1&amp;mode=view/shot200808170003.png" id="" class="highslide" onclick="return hs.expand(this)"><img src="./download/file.php?id=41365&amp;t=1&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1" alt="shot200808170003.png" title="Click to enlarge" /></a>
+                <br /><span class="gensmall">shot200808170003.png [ 161.36 KiB | 被浏览 18521 次 ]</span><br />
+                
+
+		<br />
+	</td>
+							</tr>
+						
+						</table>
+					
+							<br /><br />
+							<span class="gensmall">最后由 <a href="./memberlist.php?mode=viewprofile&amp;u=2022&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">roylez</a> 编辑于 2008-12-26  7:09，总共编辑了 4 次</span>
+						
+
+						<table width="100%" cellspacing="0">
+                                                
+						<tr valign="middle">
+							<td class="gensmall" align="left">
+
+							</td>
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</table>
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile"><strong><a href="#wrapheader">页首</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="./memberlist.php?mode=viewprofile&amp;u=2022&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1"><img src="./styles/ubuntu/imageset/zh_cmn_hans/icon_user_profile.gif" alt="用户资料" title="用户资料" /></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="images/spacer.gif" alt="" width="1" height="1" /></td>
+	</tr>
+	</table>
+
+	<table class="tablebg" width="100%" cellspacing="1">
+	<tr class="row2">
+
+			<td align="left" valign="middle">
+				<a name="p886504"></a>
+				2&nbsp;楼&nbsp;
+				<b class="postauthor">
+			
+				<a href="./memberlist.php?mode=viewprofile&amp;u=1239&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">eexpress</a>			
+			
+
+			</b>
+			</td>
+			<td width="100%" height="25">
+				<table width="100%" cellspacing="0">
+				<tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>文章标题 :</b> </div><div style="float: right;"><a href="./viewtopic.php?p=886504&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1#p886504"><img src="./styles/ubuntu/imageset/icon_post_target.gif" width="12" height="9" alt="帖子" title="帖子" /></a><b>发表于 :</b> 2008-08-16  22:22&nbsp;</div></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<tr class="row2">
+
+			<td valign="top" class="profile">
+				<table cellspacing="4" align="center" width="150">
+			
+				<tr>
+					<td><img src="./download/file.php?avatar=1239_1340793189.png" width="110" height="90" alt="头像" /></td>
+				</tr>
+			
+				</table>
+
+				<span class="postdetails">
+					<br /><b>注册:</b> 2005-08-14  21:55<br /><b>帖子:</b> 55609<br /><b>地址:</b> 长沙
+                        <br /><b>送出感谢:</b> <a href="./thankslist.php?mode=givens&amp;author_id=1239&amp;give=true&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">2</a> 次
+                        <br /><b>接收感谢:</b> <a href="./thankslist.php?mode=givens&amp;author_id=1239&amp;give=false&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">149</a> 次
+
+				</span>
+
+			</td>
+			<td valign="top">
+				<table width="100%" cellspacing="5">
+				<tr>
+					<td>
+					
+
+						<div class="postbody">把拖放文件搞定，才是重要的。没perl扩展，估计没希望了?</div>
+
+					
+						<span class="signature"><br /><br />_________________<br /><span style="color: #4000BF">● 鸣学</span></span>
+					<br clear="all" /><br />
+
+						<table width="100%" cellspacing="0">
+                                                
+						<tr valign="middle">
+							<td class="gensmall" align="left">
+
+							</td>
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</table>
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile"><strong><a href="#wrapheader">页首</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="./memberlist.php?mode=viewprofile&amp;u=1239&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1"><img src="./styles/ubuntu/imageset/zh_cmn_hans/icon_user_profile.gif" alt="用户资料" title="用户资料" /></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="images/spacer.gif" alt="" width="1" height="1" /></td>
+	</tr>
+	</table>
+
+	<table class="tablebg" width="100%" cellspacing="1">
+	<tr class="row1">
+
+			<td align="left" valign="middle">
+				<a name="p886508"></a>
+				3&nbsp;楼&nbsp;
+				<b class="postauthor">
+			
+				<a href="./memberlist.php?mode=viewprofile&amp;u=33477&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">solcomo</a>			
+			
+
+			</b>
+			</td>
+			<td width="100%" height="25">
+				<table width="100%" cellspacing="0">
+				<tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>文章标题 :</b> </div><div style="float: right;"><a href="./viewtopic.php?p=886508&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1#p886508"><img src="./styles/ubuntu/imageset/icon_post_target.gif" width="12" height="9" alt="帖子" title="帖子" /></a><b>发表于 :</b> 2008-08-16  22:24&nbsp;</div></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<tr class="row1">
+
+			<td valign="top" class="profile">
+				<table cellspacing="4" align="center" width="150">
+			
+				<tr>
+					<td><img src="./download/file.php?avatar=33477_1235223102.gif" width="50" height="50" alt="头像" /></td>
+				</tr>
+			
+				</table>
+
+				<span class="postdetails">
+					<br /><b>注册:</b> 2007-04-25  13:12<br /><b>帖子:</b> 2838
+                        <br /><b>送出感谢:</b> 0 次
+                        <br /><b>接收感谢:</b> 0 次
+
+				</span>
+
+			</td>
+			<td valign="top">
+				<table width="100%" cellspacing="5">
+				<tr>
+					<td>
+					
+
+						<div class="postbody">支持 <img src="./images/smilies/icon_biggrin.gif" alt=":D" title="Very Happy" /></div>
+
+					
+						<span class="signature"><br /><br />_________________<br /><span style="font-size: 150%; line-height: normal">♜♞♝♛♚♝♞♜<br />♟♟♟♟♟♟♟♟<br />♙♙♙♙♙♙♙♙<br />♖♘♗♕♔♗♘♖</span><br /><span style="font-size: 156%; line-height: normal"><span style="font-weight: bold">☠☯⚔⚓☣☦☃☕</span></span><br /><span style="font-size: 156%; line-height: normal"><span style="font-weight: bold">☹☻☪☭☬⚖⚛⚜</span></span><br />ℜℳℬ™      ℋℯℓ℘ ℳℭ<br />sƂɐʍ рǀɹoʍ əɥʇ oS</span>
+					<br clear="all" /><br />
+
+						<table width="100%" cellspacing="0">
+                                                
+						<tr valign="middle">
+							<td class="gensmall" align="left">
+
+							</td>
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</table>
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile"><strong><a href="#wrapheader">页首</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="./memberlist.php?mode=viewprofile&amp;u=33477&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1"><img src="./styles/ubuntu/imageset/zh_cmn_hans/icon_user_profile.gif" alt="用户资料" title="用户资料" /></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="images/spacer.gif" alt="" width="1" height="1" /></td>
+	</tr>
+	</table>
+
+	<table class="tablebg" width="100%" cellspacing="1">
+	<tr class="row2">
+
+			<td align="left" valign="middle">
+				<a name="p886512"></a>
+				4&nbsp;楼&nbsp;
+				<b class="postauthor">
+			
+				<a href="./memberlist.php?mode=viewprofile&amp;u=2022&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">roylez</a>			
+			
+
+			</b>
+			</td>
+			<td width="100%" height="25">
+				<table width="100%" cellspacing="0">
+				<tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>文章标题 :</b> </div><div style="float: right;"><a href="./viewtopic.php?p=886512&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1#p886512"><img src="./styles/ubuntu/imageset/icon_post_target.gif" width="12" height="9" alt="帖子" title="帖子" /></a><b>发表于 :</b> 2008-08-16  22:28&nbsp;</div></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<tr class="row2">
+
+			<td valign="top" class="profile">
+				<table cellspacing="4" align="center" width="150">
+			
+				<tr>
+					<td><img src="./download/file.php?avatar=2022.jpg" width="120" height="127" alt="头像" /></td>
+				</tr>
+			
+				</table>
+
+				<span class="postdetails">
+					<br /><b>注册:</b> 2005-10-04  10:59<br /><b>帖子:</b> 1904<br /><b>地址:</b> 上海
+                        <br /><b>送出感谢:</b> 0 次
+                        <br /><b>接收感谢:</b> <a href="./thankslist.php?mode=givens&amp;author_id=2022&amp;give=false&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">1</a> 次
+
+				</span>
+
+			</td>
+			<td valign="top">
+				<table width="100%" cellspacing="5">
+				<tr>
+					<td>
+					
+
+						<div class="postbody"><div class="quotetitle">eexpress 写道:</div><div class="quotecontent">把拖放文件搞定，才是重要的。没perl扩展，估计没希望了?</div>
+<br />
+<br />都不懂你说的托放文件啥意思。我又不懂perl。。
+<br />
+<br />修正：
+<br />
+<br />如果EE说的是托放文件到命令行，其实好简单的……
+<br />
+<br />rox会把你选择的文件的完整地址都放到PRIMARY里面去，所以在xterm里面用shift+insert就出来了。你觉得麻烦，可以绑个别的什么键。
+<br />
+<br />别的文件管理器不清楚，应该都一样。</div>
+
+					<br clear="all" /><br />
+
+						<table width="100%" cellspacing="0">
+                                                
+						<tr valign="middle">
+							<td class="gensmall" align="left">
+
+							</td>
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</table>
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile"><strong><a href="#wrapheader">页首</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="./memberlist.php?mode=viewprofile&amp;u=2022&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1"><img src="./styles/ubuntu/imageset/zh_cmn_hans/icon_user_profile.gif" alt="用户资料" title="用户资料" /></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="images/spacer.gif" alt="" width="1" height="1" /></td>
+	</tr>
+	</table>
+
+	<table class="tablebg" width="100%" cellspacing="1">
+	<tr class="row1">
+
+			<td align="left" valign="middle">
+				<a name="p886556"></a>
+				5&nbsp;楼&nbsp;
+				<b class="postauthor">
+			
+				<a href="./memberlist.php?mode=viewprofile&amp;u=1239&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">eexpress</a>			
+			
+
+			</b>
+			</td>
+			<td width="100%" height="25">
+				<table width="100%" cellspacing="0">
+				<tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>文章标题 :</b> </div><div style="float: right;"><a href="./viewtopic.php?p=886556&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1#p886556"><img src="./styles/ubuntu/imageset/icon_post_target.gif" width="12" height="9" alt="帖子" title="帖子" /></a><b>发表于 :</b> 2008-08-16  22:54&nbsp;</div></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<tr class="row1">
+
+			<td valign="top" class="profile">
+				<table cellspacing="4" align="center" width="150">
+			
+				<tr>
+					<td><img src="./download/file.php?avatar=1239_1340793189.png" width="110" height="90" alt="头像" /></td>
+				</tr>
+			
+				</table>
+
+				<span class="postdetails">
+					<br /><b>注册:</b> 2005-08-14  21:55<br /><b>帖子:</b> 55609<br /><b>地址:</b> 长沙
+                        <br /><b>送出感谢:</b> <a href="./thankslist.php?mode=givens&amp;author_id=1239&amp;give=true&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">2</a> 次
+                        <br /><b>接收感谢:</b> <a href="./thankslist.php?mode=givens&amp;author_id=1239&amp;give=false&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">149</a> 次
+
+				</span>
+
+			</td>
+			<td valign="top">
+				<table width="100%" cellspacing="5">
+				<tr>
+					<td>
+					
+
+						<div class="postbody">让xterm接受从 fm 里面拖出来的文件名啊。通常，输入其他路径的中文名，带特殊字符的（多算是那些电影，带一堆符号），是非常麻烦的事情。
+<br />
+<br />其实， rxvt也不支持，只是有希望在perl扩展方面找。
+<br />
+<br />不支持拖放的，只能当2n。</div>
+
+					
+						<span class="signature"><br /><br />_________________<br /><span style="color: #4000BF">● 鸣学</span></span>
+					<br clear="all" /><br />
+
+						<table width="100%" cellspacing="0">
+                                                
+						<tr valign="middle">
+							<td class="gensmall" align="left">
+
+							</td>
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</table>
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile"><strong><a href="#wrapheader">页首</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="./memberlist.php?mode=viewprofile&amp;u=1239&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1"><img src="./styles/ubuntu/imageset/zh_cmn_hans/icon_user_profile.gif" alt="用户资料" title="用户资料" /></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="images/spacer.gif" alt="" width="1" height="1" /></td>
+	</tr>
+	</table>
+
+	<table class="tablebg" width="100%" cellspacing="1">
+	<tr class="row2">
+
+			<td align="left" valign="middle">
+				<a name="p886581"></a>
+				6&nbsp;楼&nbsp;
+				<b class="postauthor">
+			
+				<a href="./memberlist.php?mode=viewprofile&amp;u=2022&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">roylez</a>			
+			
+
+			</b>
+			</td>
+			<td width="100%" height="25">
+				<table width="100%" cellspacing="0">
+				<tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>文章标题 :</b> </div><div style="float: right;"><a href="./viewtopic.php?p=886581&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1#p886581"><img src="./styles/ubuntu/imageset/icon_post_target.gif" width="12" height="9" alt="帖子" title="帖子" /></a><b>发表于 :</b> 2008-08-16  23:06&nbsp;</div></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<tr class="row2">
+
+			<td valign="top" class="profile">
+				<table cellspacing="4" align="center" width="150">
+			
+				<tr>
+					<td><img src="./download/file.php?avatar=2022.jpg" width="120" height="127" alt="头像" /></td>
+				</tr>
+			
+				</table>
+
+				<span class="postdetails">
+					<br /><b>注册:</b> 2005-10-04  10:59<br /><b>帖子:</b> 1904<br /><b>地址:</b> 上海
+                        <br /><b>送出感谢:</b> 0 次
+                        <br /><b>接收感谢:</b> <a href="./thankslist.php?mode=givens&amp;author_id=2022&amp;give=false&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">1</a> 次
+
+				</span>
+
+			</td>
+			<td valign="top">
+				<table width="100%" cellspacing="5">
+				<tr>
+					<td>
+					
+
+						<div class="postbody">ee说脏话也没必要那么隐晦阿，崽崽学不来的。
+<br />
+<br />刚刚试了，选了一堆乱七八糟的片子，弄上去果然没有自动添加转义符号\。rxvt-unicode可以用先调用脚本预处理PRIMARY里面的东西，xterm还没想出来有什么办法。</div>
+
+					<br clear="all" /><br />
+
+						<table width="100%" cellspacing="0">
+                                                
+						<tr valign="middle">
+							<td class="gensmall" align="left">
+
+							</td>
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</table>
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile"><strong><a href="#wrapheader">页首</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="./memberlist.php?mode=viewprofile&amp;u=2022&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1"><img src="./styles/ubuntu/imageset/zh_cmn_hans/icon_user_profile.gif" alt="用户资料" title="用户资料" /></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="images/spacer.gif" alt="" width="1" height="1" /></td>
+	</tr>
+	</table>
+
+	<table class="tablebg" width="100%" cellspacing="1">
+	<tr class="row1">
+
+			<td align="left" valign="middle">
+				<a name="p886592"></a>
+				7&nbsp;楼&nbsp;
+				<b class="postauthor">
+			
+				<a href="./memberlist.php?mode=viewprofile&amp;u=53497&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">HuntXu</a>			
+			
+
+			</b>
+			</td>
+			<td width="100%" height="25">
+				<table width="100%" cellspacing="0">
+				<tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>文章标题 :</b> </div><div style="float: right;"><a href="./viewtopic.php?p=886592&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1#p886592"><img src="./styles/ubuntu/imageset/icon_post_target.gif" width="12" height="9" alt="帖子" title="帖子" /></a><b>发表于 :</b> 2008-08-16  23:10&nbsp;</div></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<tr class="row1">
+
+			<td valign="top" class="profile">
+				<table cellspacing="4" align="center" width="150">
+			
+				<tr>
+					<td><img src="./download/file.php?avatar=53497_1240994921.png" width="128" height="128" alt="头像" /></td>
+				</tr>
+			
+				</table>
+
+				<span class="postdetails">
+					<br /><b>注册:</b> 2007-09-29  3:09<br /><b>帖子:</b> 5721<br /><b>地址:</b> GDUFS-GD-PRC
+                        <br /><b>送出感谢:</b> 0 次
+                        <br /><b>接收感谢:</b> <a href="./thankslist.php?mode=givens&amp;author_id=53497&amp;give=false&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">2</a> 次
+
+				</span>
+
+			</td>
+			<td valign="top">
+				<table width="100%" cellspacing="5">
+				<tr>
+					<td>
+					
+
+						<div class="postbody">不支持扩展哦... <img src="./images/smilies/icon_redface.gif" alt=":oops:" title="Embarassed" /></div>
+
+					
+						<span class="signature"><br /><br />_________________<br />HUNT Unfortunately No Talent...</span>
+					<br clear="all" /><br />
+
+						<table width="100%" cellspacing="0">
+                                                
+						<tr valign="middle">
+							<td class="gensmall" align="left">
+
+							</td>
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</table>
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile"><strong><a href="#wrapheader">页首</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="./memberlist.php?mode=viewprofile&amp;u=53497&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1"><img src="./styles/ubuntu/imageset/zh_cmn_hans/icon_user_profile.gif" alt="用户资料" title="用户资料" /></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="images/spacer.gif" alt="" width="1" height="1" /></td>
+	</tr>
+	</table>
+
+	<table class="tablebg" width="100%" cellspacing="1">
+	<tr class="row2">
+
+			<td align="left" valign="middle">
+				<a name="p958232"></a>
+				8&nbsp;楼&nbsp;
+				<b class="postauthor">
+			
+				<a href="./memberlist.php?mode=viewprofile&amp;u=61013&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">nanshusu</a>			
+			
+
+			</b>
+			</td>
+			<td width="100%" height="25">
+				<table width="100%" cellspacing="0">
+				<tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>文章标题 :</b> Re: 重新认识xterm及我的配置详解</div><div style="float: right;"><a href="./viewtopic.php?p=958232&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1#p958232"><img src="./styles/ubuntu/imageset/icon_post_target.gif" width="12" height="9" alt="帖子" title="帖子" /></a><b>发表于 :</b> 2008-10-04  11:02&nbsp;</div></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<tr class="row2">
+
+			<td valign="top" class="profile">
+				<table cellspacing="4" align="center" width="150">
+			
+				</table>
+
+				<span class="postdetails">
+					<br /><b>注册:</b> 2007-11-16  21:11<br /><b>帖子:</b> 19
+                        <br /><b>送出感谢:</b> 0 次
+                        <br /><b>接收感谢:</b> 0 次
+
+				</span>
+
+			</td>
+			<td valign="top">
+				<table width="100%" cellspacing="5">
+				<tr>
+					<td>
+					
+
+						<div class="postbody">我把上面的配置保存到~/.Xresources中，然后在~/.xinitrc中加入xrdb ~/.Xresources<br />这样每次启动是xterm字体颜色相关的都生效了，但是鼠标选中拷贝、Ctrl+V粘贴这些没有生效。<br /><br />每次我都是先在xterm中执行xrdb ~/.Xresources，然后在xterm &amp;，这样新启动的xterm才有复制粘贴功能<br />请问下这个是怎么回事呢？</div>
+
+					<br clear="all" /><br />
+
+						<table width="100%" cellspacing="0">
+                                                
+						<tr valign="middle">
+							<td class="gensmall" align="left">
+
+							</td>
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</table>
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile"><strong><a href="#wrapheader">页首</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="./memberlist.php?mode=viewprofile&amp;u=61013&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1"><img src="./styles/ubuntu/imageset/zh_cmn_hans/icon_user_profile.gif" alt="用户资料" title="用户资料" /></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="images/spacer.gif" alt="" width="1" height="1" /></td>
+	</tr>
+	</table>
+
+	<table class="tablebg" width="100%" cellspacing="1">
+	<tr class="row1">
+
+			<td align="left" valign="middle">
+				<a name="p1053601"></a>
+				9&nbsp;楼&nbsp;
+				<b class="postauthor">
+			
+				<a href="./memberlist.php?mode=viewprofile&amp;u=1239&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">eexpress</a>			
+			
+
+			</b>
+			</td>
+			<td width="100%" height="25">
+				<table width="100%" cellspacing="0">
+				<tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>文章标题 :</b> Re: 重新认识xterm及我的配置详解</div><div style="float: right;"><a href="./viewtopic.php?p=1053601&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1#p1053601"><img src="./styles/ubuntu/imageset/icon_post_target.gif" width="12" height="9" alt="帖子" title="帖子" /></a><b>发表于 :</b> 2008-11-26  13:00&nbsp;</div></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<tr class="row1">
+
+			<td valign="top" class="profile">
+				<table cellspacing="4" align="center" width="150">
+			
+				<tr>
+					<td><img src="./download/file.php?avatar=1239_1340793189.png" width="110" height="90" alt="头像" /></td>
+				</tr>
+			
+				</table>
+
+				<span class="postdetails">
+					<br /><b>注册:</b> 2005-08-14  21:55<br /><b>帖子:</b> 55609<br /><b>地址:</b> 长沙
+                        <br /><b>送出感谢:</b> <a href="./thankslist.php?mode=givens&amp;author_id=1239&amp;give=true&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">2</a> 次
+                        <br /><b>接收感谢:</b> <a href="./thankslist.php?mode=givens&amp;author_id=1239&amp;give=false&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">149</a> 次
+
+				</span>
+
+			</td>
+			<td valign="top">
+				<table width="100%" cellspacing="5">
+				<tr>
+					<td>
+					
+
+						<div class="postbody"><div class="codetitle"><b>代码:</b></div><div class="codecontent">2008-11-26 12:42:33 三 ~/应用/脚本&nbsp; ☎ cat xterm2html.bash <br />#!/bin/bash<br /><br />cat|sed 's/\xef\xbf\xbf//g' &amp;gt; ~/xterm-screenshot.hardcopy<br />if &#91; -x ~/应用/脚本/ctlseqs2html.pl &#93;; then<br />&nbsp; &nbsp; &nbsp; &nbsp; ctlseqs2html.pl -width 100 ~/xterm-screenshot.hardcopy &amp;gt; ~/xterm-screenshot.html<br />&nbsp; &nbsp; &nbsp; &nbsp; rm ~/xterm-screenshot.hardcopy<br />fi<br /><br />2008-11-26 12:45:22 三 ~/应用/脚本&nbsp; ☎ grep printerCommand /home/exp/.Xdefaults <br />xterm*printerCommand: xterm2html.bash<br />!xterm*printerCommand: cat &amp;gt; ~/xtermdump</div><br /><br /><br />没事作搞的。下面的也可以改。<br /><br /><div class="codetitle"><b>代码:</b></div><div class="codecontent">2008-11-26 12:47:06 三 ~/应用/脚本&nbsp; ☎ grep -C 4 xef ctlseqs2html.pl <br /><br />sub txt2html($) {<br />&nbsp; &nbsp; $_ = $_&#91;0&#93;;<br />&nbsp; &nbsp; s/&amp;amp;/&amp;amp;/g;<br />&nbsp; &nbsp; s/\xef\xbf\xbf//g;<br />&nbsp; &nbsp; s//&amp;gt;/g;<br />&nbsp; &nbsp; s/ /&amp;nbsp;/g;<br />&nbsp; &nbsp; # s/"/&amp;quot;/g;</div></div>
+
+					
+						<br clear="all" /><br />
+
+						<table class="tablebg" width="100%" cellspacing="1">
+						<tr>
+							<td class="row3"><b class="genmed">附件: </b></td>
+						</tr>
+						
+							<tr>
+								<td class="row2">
+                <a href="./download/file.php?id=51154&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1&amp;mode=view/2008-11-26-130341_1280x800_scrot.png" id="" class="highslide" onclick="return hs.expand(this)"><img src="./download/file.php?id=51154&amp;t=1&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1" alt="2008-11-26-130341_1280x800_scrot.png" title="Click to enlarge" /></a>
+                <br /><span class="gensmall">2008-11-26-130341_1280x800_scrot.png [ 173.42 KiB | 被浏览 17308 次 ]</span><br />
+                
+
+		<br />
+	</td>
+							</tr>
+						
+						</table>
+					
+						<span class="signature"><br /><br />_________________<br /><span style="color: #4000BF">● 鸣学</span></span>
+					
+
+						<table width="100%" cellspacing="0">
+                                                
+						<tr valign="middle">
+							<td class="gensmall" align="left">
+
+							</td>
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</table>
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile"><strong><a href="#wrapheader">页首</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="./memberlist.php?mode=viewprofile&amp;u=1239&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1"><img src="./styles/ubuntu/imageset/zh_cmn_hans/icon_user_profile.gif" alt="用户资料" title="用户资料" /></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="images/spacer.gif" alt="" width="1" height="1" /></td>
+	</tr>
+	</table>
+
+	<table class="tablebg" width="100%" cellspacing="1">
+	<tr class="row2">
+
+			<td align="left" valign="middle">
+				<a name="p1053672"></a>
+				10&nbsp;楼&nbsp;
+				<b class="postauthor">
+			
+				<a href="./memberlist.php?mode=viewprofile&amp;u=2022&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">roylez</a>			
+			
+
+			</b>
+			</td>
+			<td width="100%" height="25">
+				<table width="100%" cellspacing="0">
+				<tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>文章标题 :</b> Re: 重新认识xterm及我的配置详解</div><div style="float: right;"><a href="./viewtopic.php?p=1053672&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1#p1053672"><img src="./styles/ubuntu/imageset/icon_post_target.gif" width="12" height="9" alt="帖子" title="帖子" /></a><b>发表于 :</b> 2008-11-26  14:10&nbsp;</div></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<tr class="row2">
+
+			<td valign="top" class="profile">
+				<table cellspacing="4" align="center" width="150">
+			
+				<tr>
+					<td><img src="./download/file.php?avatar=2022.jpg" width="120" height="127" alt="头像" /></td>
+				</tr>
+			
+				</table>
+
+				<span class="postdetails">
+					<br /><b>注册:</b> 2005-10-04  10:59<br /><b>帖子:</b> 1904<br /><b>地址:</b> 上海
+                        <br /><b>送出感谢:</b> 0 次
+                        <br /><b>接收感谢:</b> <a href="./thankslist.php?mode=givens&amp;author_id=2022&amp;give=false&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">1</a> 次
+
+				</span>
+
+			</td>
+			<td valign="top">
+				<table width="100%" cellspacing="5">
+				<tr>
+					<td>
+					
+
+						<div class="postbody">ee的terminal，还是一如既往的丑阿。刚刚乱整了下我的ls。<br /><a class="highslide" href="http://img357.imageshack.us/img357/4981/shot200811261609js7.png" onclick="return hs.expand(this)"><img src="http://img357.imageshack.us/img357/4981/shot200811261609js7.png" style="max-height:210px;" alt="图片" /></a></div>
+
+					
+						<span class="signature"><br /><br />_________________<br /><span style="color: #8000BF">✡</span> <span style="color: #008000">弄个<span style="font-weight: bold"><span style="text-decoration: underline"><a href="https://www.getdropbox.com/referrals/NTI0Mzk3OTk" class="postlink" rel="nofollow" target="_blank">dropbox</a></span></span>空间来备份文件或者做<span style="font-weight: bold"><span style="text-decoration: underline"><a href="http://roylez.heroku.com/2010/01/16/git-dropbox.html" class="postlink" rel="nofollow" target="_blank">私人代码服务器</a></span></span>？</span><br /><span style="color: #8000BF">✡</span> <span style="color: #008000">配置：</span><a href="git://github.com/roylez/dotfiles.git" class="postlink" rel="nofollow" target="_blank">git://github.com/roylez/dotfiles.git</a><br /><span style="color: #8000BF">✡</span> <span style="color: #008000">主页：</span><a href="http://roylez.heroku.com" class="postlink" rel="nofollow" target="_blank">http://roylez.heroku.com</a><br /><span style="color: #FF4000">✡</span> <span style="color: #008000">各种稀奇玩意儿：</span><a href="http://dooloo.info" class="postlink" rel="nofollow" target="_blank">http://dooloo.info</a></span>
+					<br clear="all" /><br />
+
+						<table width="100%" cellspacing="0">
+                                                
+						<tr valign="middle">
+							<td class="gensmall" align="left">
+
+							</td>
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</table>
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile"><strong><a href="#wrapheader">页首</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="./memberlist.php?mode=viewprofile&amp;u=2022&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1"><img src="./styles/ubuntu/imageset/zh_cmn_hans/icon_user_profile.gif" alt="用户资料" title="用户资料" /></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="images/spacer.gif" alt="" width="1" height="1" /></td>
+	</tr>
+	</table>
+
+	<table class="tablebg" width="100%" cellspacing="1">
+	<tr class="row1">
+
+			<td align="left" valign="middle">
+				<a name="p1053687"></a>
+				11&nbsp;楼&nbsp;
+				<b class="postauthor">
+			
+				<a href="./memberlist.php?mode=viewprofile&amp;u=1239&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">eexpress</a>			
+			
+
+			</b>
+			</td>
+			<td width="100%" height="25">
+				<table width="100%" cellspacing="0">
+				<tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>文章标题 :</b> Re: 重新认识xterm及我的配置详解</div><div style="float: right;"><a href="./viewtopic.php?p=1053687&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1#p1053687"><img src="./styles/ubuntu/imageset/icon_post_target.gif" width="12" height="9" alt="帖子" title="帖子" /></a><b>发表于 :</b> 2008-11-26  14:30&nbsp;</div></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<tr class="row1">
+
+			<td valign="top" class="profile">
+				<table cellspacing="4" align="center" width="150">
+			
+				<tr>
+					<td><img src="./download/file.php?avatar=1239_1340793189.png" width="110" height="90" alt="头像" /></td>
+				</tr>
+			
+				</table>
+
+				<span class="postdetails">
+					<br /><b>注册:</b> 2005-08-14  21:55<br /><b>帖子:</b> 55609<br /><b>地址:</b> 长沙
+                        <br /><b>送出感谢:</b> <a href="./thankslist.php?mode=givens&amp;author_id=1239&amp;give=true&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">2</a> 次
+                        <br /><b>接收感谢:</b> <a href="./thankslist.php?mode=givens&amp;author_id=1239&amp;give=false&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">149</a> 次
+
+				</span>
+
+			</td>
+			<td valign="top">
+				<table width="100%" cellspacing="5">
+				<tr>
+					<td>
+					
+
+						<div class="postbody">屁。没一个中文的，不如我的园体。<br /><!-- l --><a class="postlink-local" href="http://forum.ubuntu.org.cn/viewtopic.php?f=12&amp;t=170443">viewtopic.php?f=12&amp;t=170443</a><!-- l --><br />把这个搞定。</div>
+
+					
+						<span class="signature"><br /><br />_________________<br /><span style="color: #4000BF">● 鸣学</span></span>
+					<br clear="all" /><br />
+
+						<table width="100%" cellspacing="0">
+                                                
+						<tr valign="middle">
+							<td class="gensmall" align="left">
+
+							</td>
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</table>
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile"><strong><a href="#wrapheader">页首</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="./memberlist.php?mode=viewprofile&amp;u=1239&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1"><img src="./styles/ubuntu/imageset/zh_cmn_hans/icon_user_profile.gif" alt="用户资料" title="用户资料" /></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="images/spacer.gif" alt="" width="1" height="1" /></td>
+	</tr>
+	</table>
+
+	<table class="tablebg" width="100%" cellspacing="1">
+	<tr class="row2">
+
+			<td align="left" valign="middle">
+				<a name="p1068670"></a>
+				12&nbsp;楼&nbsp;
+				<b class="postauthor">
+			
+				<a href="./memberlist.php?mode=viewprofile&amp;u=34602&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">xeoc</a>			
+			
+
+			</b>
+			</td>
+			<td width="100%" height="25">
+				<table width="100%" cellspacing="0">
+				<tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>文章标题 :</b> Re: 重新认识xterm及我的配置详解</div><div style="float: right;"><a href="./viewtopic.php?p=1068670&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1#p1068670"><img src="./styles/ubuntu/imageset/icon_post_target.gif" width="12" height="9" alt="帖子" title="帖子" /></a><b>发表于 :</b> 2008-12-07  5:28&nbsp;</div></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<tr class="row2">
+
+			<td valign="top" class="profile">
+				<table cellspacing="4" align="center" width="150">
+			
+				</table>
+
+				<span class="postdetails">
+					<br /><b>注册:</b> 2007-05-06  10:12<br /><b>帖子:</b> 1995
+                        <br /><b>送出感谢:</b> 0 次
+                        <br /><b>接收感谢:</b> 0 次
+
+				</span>
+
+			</td>
+			<td valign="top">
+				<table width="100%" cellspacing="5">
+				<tr>
+					<td>
+					
+
+						<div class="postbody">放弃xterm了,主要原因是unicode的支持不好,起码我这里显示不出℃</div>
+
+					<br clear="all" /><br />
+
+						<table width="100%" cellspacing="0">
+                                                
+						<tr valign="middle">
+							<td class="gensmall" align="left">
+
+							</td>
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</table>
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile"><strong><a href="#wrapheader">页首</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="./memberlist.php?mode=viewprofile&amp;u=34602&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1"><img src="./styles/ubuntu/imageset/zh_cmn_hans/icon_user_profile.gif" alt="用户资料" title="用户资料" /></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="images/spacer.gif" alt="" width="1" height="1" /></td>
+	</tr>
+	</table>
+
+	<table class="tablebg" width="100%" cellspacing="1">
+	<tr class="row1">
+
+			<td align="left" valign="middle">
+				<a name="p1091913"></a>
+				13&nbsp;楼&nbsp;
+				<b class="postauthor">
+			
+				<a href="./memberlist.php?mode=viewprofile&amp;u=34602&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">xeoc</a>			
+			
+
+			</b>
+			</td>
+			<td width="100%" height="25">
+				<table width="100%" cellspacing="0">
+				<tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>文章标题 :</b> Re: 重新认识xterm及我的配置详解</div><div style="float: right;"><a href="./viewtopic.php?p=1091913&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1#p1091913"><img src="./styles/ubuntu/imageset/icon_post_target.gif" width="12" height="9" alt="帖子" title="帖子" /></a><b>发表于 :</b> 2008-12-25  23:21&nbsp;</div></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<tr class="row1">
+
+			<td valign="top" class="profile">
+				<table cellspacing="4" align="center" width="150">
+			
+				</table>
+
+				<span class="postdetails">
+					<br /><b>注册:</b> 2007-05-06  10:12<br /><b>帖子:</b> 1995
+                        <br /><b>送出感谢:</b> 0 次
+                        <br /><b>接收感谢:</b> 0 次
+
+				</span>
+
+			</td>
+			<td valign="top">
+				<table width="100%" cellspacing="5">
+				<tr>
+					<td>
+					
+
+						<div class="postbody"><div class="quotetitle">xeoc 写道:</div><div class="quotecontent">放弃xterm了,主要原因是unicode的支持不好,起码我这里显示不出℃</div><br /><br />奇怪的是如果xterm不配置按默认来就一切OK....<br /><br />看来对虚拟终端不能要求太多,urxvt不能显示℡等等宽符,又用回来了,实在是受不了urxvt那么宽的字体<br /><br />PS:楼主的xterm.都没有起作用其实,xterm*的才起作用,不知道为什么,手动试出来的,而且如果cjkwidth起效果,中文字反而会出错误(至少最小化再回来会显示错误)...改天一行一行看透man.....</div>
+
+					<br clear="all" /><br />
+
+						<table width="100%" cellspacing="0">
+                                                
+						<tr valign="middle">
+							<td class="gensmall" align="left">
+
+							</td>
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</table>
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile"><strong><a href="#wrapheader">页首</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="./memberlist.php?mode=viewprofile&amp;u=34602&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1"><img src="./styles/ubuntu/imageset/zh_cmn_hans/icon_user_profile.gif" alt="用户资料" title="用户资料" /></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="images/spacer.gif" alt="" width="1" height="1" /></td>
+	</tr>
+	</table>
+
+	<table class="tablebg" width="100%" cellspacing="1">
+	<tr class="row2">
+
+			<td align="left" valign="middle">
+				<a name="p1092085"></a>
+				14&nbsp;楼&nbsp;
+				<b class="postauthor">
+			
+				<a href="./memberlist.php?mode=viewprofile&amp;u=2022&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">roylez</a>			
+			
+
+			</b>
+			</td>
+			<td width="100%" height="25">
+				<table width="100%" cellspacing="0">
+				<tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>文章标题 :</b> Re: 重新认识xterm及我的配置详解</div><div style="float: right;"><a href="./viewtopic.php?p=1092085&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1#p1092085"><img src="./styles/ubuntu/imageset/icon_post_target.gif" width="12" height="9" alt="帖子" title="帖子" /></a><b>发表于 :</b> 2008-12-26  7:07&nbsp;</div></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<tr class="row2">
+
+			<td valign="top" class="profile">
+				<table cellspacing="4" align="center" width="150">
+			
+				<tr>
+					<td><img src="./download/file.php?avatar=2022.jpg" width="120" height="127" alt="头像" /></td>
+				</tr>
+			
+				</table>
+
+				<span class="postdetails">
+					<br /><b>注册:</b> 2005-10-04  10:59<br /><b>帖子:</b> 1904<br /><b>地址:</b> 上海
+                        <br /><b>送出感谢:</b> 0 次
+                        <br /><b>接收感谢:</b> <a href="./thankslist.php?mode=givens&amp;author_id=2022&amp;give=false&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">1</a> 次
+
+				</span>
+
+			</td>
+			<td valign="top">
+				<table width="100%" cellspacing="5">
+				<tr>
+					<td>
+					
+
+						<div class="postbody"><div class="quotetitle">xeoc 写道:</div><div class="quotecontent"><div class="quotetitle">xeoc 写道:</div><div class="quotecontent">放弃xterm了,主要原因是unicode的支持不好,起码我这里显示不出℃</div><br /><br />奇怪的是如果xterm不配置按默认来就一切OK....<br /><br />看来对虚拟终端不能要求太多,urxvt不能显示℡等等宽符,又用回来了,实在是受不了urxvt那么宽的字体<br /><br />PS:楼主的xterm.都没有起作用其实,xterm*的才起作用,不知道为什么,手动试出来的,而且如果cjkwidth起效果,中文字反而会出错误(至少最小化再回来会显示错误)...改天一行一行看透man.....</div><br /><br />cjkWidth其实是VT100下面的一个类，所以说全名应该是xterm.VT100.cjkWidth，用*可以匹配，用 . 是错的！默认值是false，可见网上那些写xterm.cjkWidth: true的，全都啥也没改。<br /><br />我也没有找到让那些符号显示正确的方法。</div>
+
+					
+						<span class="signature"><br /><br />_________________<br /><span style="color: #8000BF">✡</span> <span style="color: #008000">弄个<span style="font-weight: bold"><span style="text-decoration: underline"><a href="https://www.getdropbox.com/referrals/NTI0Mzk3OTk" class="postlink" rel="nofollow" target="_blank">dropbox</a></span></span>空间来备份文件或者做<span style="font-weight: bold"><span style="text-decoration: underline"><a href="http://roylez.heroku.com/2010/01/16/git-dropbox.html" class="postlink" rel="nofollow" target="_blank">私人代码服务器</a></span></span>？</span><br /><span style="color: #8000BF">✡</span> <span style="color: #008000">配置：</span><a href="git://github.com/roylez/dotfiles.git" class="postlink" rel="nofollow" target="_blank">git://github.com/roylez/dotfiles.git</a><br /><span style="color: #8000BF">✡</span> <span style="color: #008000">主页：</span><a href="http://roylez.heroku.com" class="postlink" rel="nofollow" target="_blank">http://roylez.heroku.com</a><br /><span style="color: #FF4000">✡</span> <span style="color: #008000">各种稀奇玩意儿：</span><a href="http://dooloo.info" class="postlink" rel="nofollow" target="_blank">http://dooloo.info</a></span>
+					<br clear="all" /><br />
+
+						<table width="100%" cellspacing="0">
+                                                
+						<tr valign="middle">
+							<td class="gensmall" align="left">
+
+							</td>
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</table>
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+
+		<tr class="row2">
+
+			<td class="profile"><strong><a href="#wrapheader">页首</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="./memberlist.php?mode=viewprofile&amp;u=2022&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1"><img src="./styles/ubuntu/imageset/zh_cmn_hans/icon_user_profile.gif" alt="用户资料" title="用户资料" /></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="images/spacer.gif" alt="" width="1" height="1" /></td>
+	</tr>
+	</table>
+
+	<table class="tablebg" width="100%" cellspacing="1">
+	<tr class="row1">
+
+			<td align="left" valign="middle">
+				<a name="p1092868"></a>
+				15&nbsp;楼&nbsp;
+				<b class="postauthor">
+			
+				<a href="./memberlist.php?mode=viewprofile&amp;u=138345&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">yunhai</a>			
+			
+
+			</b>
+			</td>
+			<td width="100%" height="25">
+				<table width="100%" cellspacing="0">
+				<tr>
+				
+					<td class="gensmall" width="100%"><div style="float: left;">&nbsp;<b>文章标题 :</b> Re: 重新认识xterm及我的配置详解</div><div style="float: right;"><a href="./viewtopic.php?p=1092868&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1#p1092868"><img src="./styles/ubuntu/imageset/icon_post_target.gif" width="12" height="9" alt="帖子" title="帖子" /></a><b>发表于 :</b> 2008-12-26  18:46&nbsp;</div></td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<tr class="row1">
+
+			<td valign="top" class="profile">
+				<table cellspacing="4" align="center" width="150">
+			
+				</table>
+
+				<span class="postdetails">
+					<br /><b>注册:</b> 2008-12-12  16:13<br /><b>帖子:</b> 87
+                        <br /><b>送出感谢:</b> 0 次
+                        <br /><b>接收感谢:</b> 0 次
+
+				</span>
+
+			</td>
+			<td valign="top">
+				<table width="100%" cellspacing="5">
+				<tr>
+					<td>
+					
+
+						<div class="postbody">我这里xterm可以显示℃，但是urxvt却不行。<br /><br />看了xterm的中文效果之后，觉得urxvt显示中文实在太宽了，也有点想转xterm了。<br /><br />有两个问题比较烦火：<br />一个是xeoc提到的，最小化回来中文就乱了。<br /><br />还有一个是英文字挤在一起了。用dejavu sans mono的话，中文就成方块。用vera sans yuanti mono, wenquanyi zen hei, dejavu sans yuanti mono都是中文好好的，英文只能看到半个。</div>
+
+					
+							<br /><br />
+							<span class="gensmall">最后由 <a href="./memberlist.php?mode=viewprofile&amp;u=138345&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">yunhai</a> 编辑于 2008-12-26  18:51，总共编辑了 1 次</span>
+						<br clear="all" /><br />
+
+						<table width="100%" cellspacing="0">
+                                                
+						<tr valign="middle">
+							<td class="gensmall" align="left">
+
+							</td>
+							<td class="gensmall" align="right">
+							
+							</td>
+						</tr>
+						</table>
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+
+		<tr class="row1">
+
+			<td class="profile"><strong><a href="#wrapheader">页首</a></strong></td>
+			<td><div class="gensmall" style="float: left;">&nbsp;<a href="./memberlist.php?mode=viewprofile&amp;u=138345&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1"><img src="./styles/ubuntu/imageset/zh_cmn_hans/icon_user_profile.gif" alt="用户资料" title="用户资料" /></a> &nbsp;</div> <div class="gensmall" style="float: right;">&nbsp;</div></td>
+	
+		</tr>
+
+	<tr>
+		<td class="spacer" colspan="2" height="1"><img src="images/spacer.gif" alt="" width="1" height="1" /></td>
+	</tr>
+	</table>
+
+
+	<table width="100%" cellspacing="1" class="tablebg">
+	<tr align="center">
+		<td class="cat"><form name="viewtopic" method="post" action="./viewtopic.php?f=122&amp;t=143221&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1"><span class="gensmall">显示帖子 :</span> <select name="st" id="st"><option value="0" selected="selected">全部帖子</option><option value="1">1天</option><option value="7">7天</option><option value="14">2周</option><option value="30">1个月</option><option value="90">3个月</option><option value="180">6个月</option><option value="365">1年</option></select>&nbsp;<span class="gensmall">排序</span> <select name="sk" id="sk"><option value="a">作者</option><option value="t" selected="selected">发表时间</option><option value="s">文章标题</option></select> <select name="sd" id="sd"><option value="a" selected="selected">升序</option><option value="d">降序</option></select>&nbsp;<input class="btnlite" type="submit" value="GO" name="sort" /></form></td>
+	</tr>
+	</table>
+
+	<table width="100%" cellspacing="1">
+	<tr>
+		<td align="left" valign="middle" nowrap="nowrap">
+		<a href="./posting.php?mode=post&amp;f=122&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1"><img src="./styles/ubuntu/imageset/zh_cmn_hans/button_topic_new.gif" alt="发表新帖" title="发表新帖" /></a>&nbsp;<a href="./posting.php?mode=reply&amp;f=122&amp;t=143221&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1"><img src="./styles/ubuntu/imageset/zh_cmn_hans/button_topic_reply.gif" alt="回复这个主题" title="回复这个主题" /></a>
+		</td>
+		
+			<td class="nav" valign="middle" nowrap="nowrap">&nbsp;分页： <strong>1</strong> / <strong>4</strong><br /></td>
+			<td class="gensmall" nowrap="nowrap">&nbsp;[ 54 篇帖子 ]&nbsp;</td>
+			<td class="gensmall" width="100%" align="right" nowrap="nowrap"><b><a href="#" onclick="jumpto(); return false;" title="点击前往页面…">前往页数</a> <strong>1</strong><span class="page-sep">, </span><a href="./viewtopic.php?f=122&amp;t=143221&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1&amp;start=15">2</a><span class="page-sep">, </span><a href="./viewtopic.php?f=122&amp;t=143221&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1&amp;start=30">3</a><span class="page-sep">, </span><a href="./viewtopic.php?f=122&amp;t=143221&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1&amp;start=45">4</a> &nbsp;<a href="./viewtopic.php?f=122&amp;t=143221&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1&amp;start=15">下一页</a></b></td>
+		
+	</tr>
+	</table>
+
+</div>
+
+
+
+<div id="pagefooter"></div>
+
+<br clear="all" />
+
+<table class="tablebg" width="100%" cellspacing="1" cellpadding="0" style="margin-top: 5px;">
+	<tr>
+		<td class="row1">
+			<p class="breadcrumbs"><a href="./index.php?sid=799b5c8e83409843f3cfb06a7f8b45f1">论坛首页</a> &#187; <a href="./viewforum.php?f=143&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">软件使用</a> &#187; <a href="./viewforum.php?f=122&amp;sid=799b5c8e83409843f3cfb06a7f8b45f1">其它类软件</a></p>
+			<p class="datetime">当前时区为 UTC + 8 小时</p>
+		</td>
+	</tr>
+	</table>
+	<br clear="all" />
+
+	<table class="tablebg" width="100%" cellspacing="1">
+	<tr>
+		<td class="cat"><h4>在线用户</h4></td>
+	</tr>
+	<tr>
+		<td class="row1"><p class="gensmall">正在浏览此版面的用户：没有注册用户 和 0 位游客</p></td>
+	</tr>
+	</table>
+
+
+<br clear="all" />
+
+<table width="100%" cellspacing="1">
+<tr>
+	<td width="40%" valign="top" nowrap="nowrap" align="left"></td>
+	<td align="right" valign="top" nowrap="nowrap"><span class="gensmall">您 <strong>不能</strong> 在这个版面发表主题<br />您 <strong>不能</strong> 在这个版面回复主题<br />您 <strong>不能</strong> 在这个版面编辑帖子<br />您 <strong>不能</strong> 在这个版面删除帖子<br />您 <strong>不能</strong> 在这个版面提交附件<br /></span></td>
+</tr>
+</table>
+
+<br clear="all" />
+
+<table width="100%" cellspacing="0">
+<tr>
+	<td></td>
+	<td align="right">
+	<form method="post" name="jumpbox" action="./viewforum.php?sid=799b5c8e83409843f3cfb06a7f8b45f1" onsubmit="if(document.jumpbox.f.value == -1){return false;}">
+
+	<table cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td nowrap="nowrap"><span class="gensmall">前往 :</span>&nbsp;<select name="f" onchange="if(this.options[this.selectedIndex].value != -1){ document.forms['jumpbox'].submit() }">
+
+		
+			<option value="-1">选择一个版面</option>
+		<option value="-1">------------------</option>
+			<option value="140">公告/注意事项</option>
+		
+			<option value="1">&nbsp; &nbsp;新闻和通知</option>
+		
+			<option value="127">&nbsp; &nbsp;校园社团支持</option>
+		
+			<option value="128">&nbsp; &nbsp;&nbsp; &nbsp;华东校区</option>
+		
+			<option value="129">&nbsp; &nbsp;&nbsp; &nbsp;华南校区</option>
+		
+			<option value="130">&nbsp; &nbsp;&nbsp; &nbsp;华北校区</option>
+		
+			<option value="131">&nbsp; &nbsp;&nbsp; &nbsp;华中校区</option>
+		
+			<option value="132">&nbsp; &nbsp;&nbsp; &nbsp;东北校区</option>
+		
+			<option value="134">&nbsp; &nbsp;&nbsp; &nbsp;西北校区</option>
+		
+			<option value="135">&nbsp; &nbsp;&nbsp; &nbsp;港澳台校区</option>
+		
+			<option value="136">&nbsp; &nbsp;&nbsp; &nbsp;国外校区</option>
+		
+			<option value="95">&nbsp; &nbsp;软件推荐</option>
+		
+			<option value="163">&nbsp; &nbsp;非常任务</option>
+		
+			<option value="141">系统安装区</option>
+		
+			<option value="120">&nbsp; &nbsp;教学和常见问答</option>
+		
+			<option value="48">&nbsp; &nbsp;初学者园地</option>
+		
+			<option value="77">&nbsp; &nbsp;系统安装和升级</option>
+		
+			<option value="52">&nbsp; &nbsp;&nbsp; &nbsp;新立得和软件源</option>
+		
+			<option value="159">&nbsp; &nbsp;&nbsp; &nbsp;Wubi安装讨论</option>
+		
+			<option value="139">&nbsp; &nbsp;启动和引导</option>
+		
+			<option value="116">&nbsp; &nbsp;网卡问题以及网络和拨号</option>
+		
+			<option value="156">&nbsp; &nbsp;&nbsp; &nbsp;校园网拨号</option>
+		
+			<option value="126">&nbsp; &nbsp;笔记本、UMPC、MID支持</option>
+		
+			<option value="42">&nbsp; &nbsp;常用硬件支持</option>
+		
+			<option value="85">&nbsp; &nbsp;系统架构支持</option>
+		
+			<option value="142">配置美化区</option>
+		
+			<option value="8">&nbsp; &nbsp;字体美化和中文支持</option>
+		
+			<option value="24">&nbsp; &nbsp;&nbsp; &nbsp;个人配置文件存放点</option>
+		
+			<option value="94">&nbsp; &nbsp;桌面特效</option>
+		
+			<option value="168">&nbsp; &nbsp;窗口管理器</option>
+		
+			<option value="12">&nbsp; &nbsp;屏幕抓图</option>
+		
+			<option value="143">软件使用</option>
+		
+			<option value="35">&nbsp; &nbsp;办公、图像、机械电子设计等</option>
+		
+			<option value="68">&nbsp; &nbsp;&nbsp; &nbsp;Vim和Emacs</option>
+		
+			<option value="73">&nbsp; &nbsp;因特网相关软件</option>
+		
+			<option value="74">&nbsp; &nbsp;影音多媒体</option>
+		
+			<option value="121">&nbsp; &nbsp;Wine及其分支</option>
+		
+			<option value="34">&nbsp; &nbsp;游戏和游戏模拟器</option>
+		
+			<option value="65">&nbsp; &nbsp;虚拟机和虚拟化</option>
+		
+			<option value="122" selected="selected">&nbsp; &nbsp;其它类软件</option>
+		
+			<option value="144">服务器管理</option>
+		
+			<option value="54">&nbsp; &nbsp;服务器基础应用</option>
+		
+			<option value="44">&nbsp; &nbsp;数据库管理</option>
+		
+			<option value="124">&nbsp; &nbsp;服务器维护和硬件相关</option>
+		
+			<option value="166">&nbsp; &nbsp;Ubuntu VPS</option>
+		
+			<option value="160">参与Ubuntu开发</option>
+		
+			<option value="17">&nbsp; &nbsp;软件和文档翻译</option>
+		
+			<option value="56">&nbsp; &nbsp;编译或打包</option>
+		
+			<option value="80">&nbsp; &nbsp;Ubuntu错误报告</option>
+		
+			<option value="145">程序设计区</option>
+		
+			<option value="21">&nbsp; &nbsp;Shell脚本</option>
+		
+			<option value="162">&nbsp; &nbsp;GTK+和QT</option>
+		
+			<option value="88">&nbsp; &nbsp;软件/网站开发</option>
+		
+			<option value="63">&nbsp; &nbsp;&nbsp; &nbsp;Python/Php/Perl</option>
+		
+			<option value="70">&nbsp; &nbsp;&nbsp; &nbsp;C/C++/Java</option>
+		
+			<option value="97">&nbsp; &nbsp;内核及嵌入式开发</option>
+		
+			<option value="137">&nbsp; &nbsp;开源小工具</option>
+		
+			<option value="146">版本支持</option>
+		
+			<option value="49">&nbsp; &nbsp;Ubuntu 13.10</option>
+		
+			<option value="171">&nbsp; &nbsp;Ubuntu 12.04 LTS</option>
+		
+			<option value="169">&nbsp; &nbsp;Ubuntu 10.04 LTS</option>
+		
+			<option value="50">&nbsp; &nbsp;Ubuntu 8.04 LTS</option>
+		
+			<option value="86">&nbsp; &nbsp;老旧版本支持</option>
+		
+			<option value="147">衍生发行版</option>
+		
+			<option value="38">&nbsp; &nbsp;Kubuntu</option>
+		
+			<option value="39">&nbsp; &nbsp;Xubuntu &amp; Lubuntu</option>
+		
+			<option value="28">&nbsp; &nbsp;Ubuntu中文衍生版</option>
+		
+			<option value="174">&nbsp; &nbsp;&nbsp; &nbsp;Deepin</option>
+		
+			<option value="173">&nbsp; &nbsp;&nbsp; &nbsp;Kylin</option>
+		
+			<option value="103">&nbsp; &nbsp;Ubuntu国外衍生版</option>
+		
+			<option value="161">&nbsp; &nbsp;Ubuntu衍生版制作</option>
+		
+			<option value="105">&nbsp; &nbsp;其它类Unix OS发行版</option>
+		
+			<option value="155">&nbsp; &nbsp;&nbsp; &nbsp;Arch发行版</option>
+		
+			<option value="165">&nbsp; &nbsp;&nbsp; &nbsp;Debian发行版</option>
+		
+			<option value="172">&nbsp; &nbsp;&nbsp; &nbsp;OpenSUSE发行版</option>
+		
+			<option value="148">感想区</option>
+		
+			<option value="101">&nbsp; &nbsp;深度PK版</option>
+		
+			<option value="112">&nbsp; &nbsp;Ubuntu故事和感慨</option>
+		
+			<option value="153">&nbsp; &nbsp;Full Circle开源杂志</option>
+		
+			<option value="149">分享交流区</option>
+		
+			<option value="31">&nbsp; &nbsp;同城交流</option>
+		
+			<option value="152">&nbsp; &nbsp;线下活动专版</option>
+		
+			<option value="150">归档区</option>
+		
+			<option value="123">&nbsp; &nbsp;归档贴</option>
+		
+			<option value="151">站务区</option>
+		
+			<option value="100">&nbsp; &nbsp;Ubuntu中文网上商店</option>
+		
+			<option value="157">&nbsp; &nbsp;Ubuntu宣传推广</option>
+		
+			<option value="16">&nbsp; &nbsp;论坛管理</option>
+		
+
+		</select>&nbsp;<input class="btnlite" type="submit" value="GO" /></td>
+	</tr>
+	</table>
+
+	</form>
+</td>
+</tr>
+</table>
+
+
+</div>
+
+<!--
+	We request you retain the full copyright notice below including the link to www.phpbb.com.
+	This not only gives respect to the large amount of time given freely by the developers
+	but also helps build interest, traffic and use of phpBB3. If you (honestly) cannot retain
+	the full copyright we ask you at least leave in place the "Powered by phpBB" line, with
+	"phpBB" linked to www.phpbb.com. If you refuse to include even this then support on our
+	forums may be affected.
+
+	The phpBB Group : 2006
+//-->
+
+<div id="wrapfooter">
+	
+        <span class="gensmall">本站点为公益性站点，用于推广开源自由软件，由 <a href="http://www.diahosting.com/client/aff.php?aff=531">DiaHosting VPS</a> 和 <a href="https://service.burst.net/aff2.php?aff=459&affurl=5">BurstNet VPS</a> 和 <a href="https://www.budgetvm.com/account/aff.php?aff=490">BudgetVM VPS</a> 提供服务。</span><br />
+	<span class="gensmall">我们认为：软件应可免费取得，软件工具在各种语言环境下皆可使用，且不会有任何功能上的差异；<br />人们应有定制和修改软件的自由，且方式不受限制，只要他们自认为合适。</span><br />
+	<span class="copyright">Powered by <a href="http://www.phpbb.com/">phpBB</a> &copy; 2000, 2002, 2005, 2007 phpBB Group
+	<br />简体中文语系由 <a href="http://www.phpbbchina.com/creditinfo">PHPBB中文翻译小组</a> 维护制作</span>
+</div>
+
+</body>
+</html>

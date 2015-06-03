@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" lang="zh" dir="ltr">
+<head>
+               <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="verify-v1" content="tQmdIA0A40oxMSeeRiXDaxmk+ZMoOvRptLxa4dt7C+w=" />
+                <meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.15.3" />
+		<meta name="keywords" content="UFW防火墙简单设置" />
+		<link rel="alternate" type="application/x-wiki" title="编辑" href="/index.php?title=UFW%E9%98%B2%E7%81%AB%E5%A2%99%E7%AE%80%E5%8D%95%E8%AE%BE%E7%BD%AE&amp;action=edit" />
+		<link rel="edit" title="编辑" href="/index.php?title=UFW%E9%98%B2%E7%81%AB%E5%A2%99%E7%AE%80%E5%8D%95%E8%AE%BE%E7%BD%AE&amp;action=edit" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Ubuntu中文 (zh)" />
+		<link rel="alternate" type="application/rss+xml" title="Ubuntu中文的RSS订阅" href="/index.php?title=Special:%E6%9C%80%E8%BF%91%E6%9B%B4%E6%94%B9&amp;feed=rss" />
+		<link rel="alternate" type="application/atom+xml" title="Ubuntu中文的Atom订阅" href="/index.php?title=Special:%E6%9C%80%E8%BF%91%E6%9B%B4%E6%94%B9&amp;feed=atom" />
+                <title>UFW防火墙简单设置 - Ubuntu中文</title>
+                <link rel="stylesheet" href="/skins/common/shared.css?207" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/skins/common/commonPrint.css?207" type="text/css" media="print" />
+		<link rel="stylesheet" href="/skins/ubuntuchina/main.css?207" type="text/css" media="screen" />
+		<!--[if lt IE 5.5000]><link rel="stylesheet" href="/skins/monobook/IE50Fixes.css?207" type="text/css" media="screen" /><![endif]-->
+		<!--[if IE 5.5000]><link rel="stylesheet" href="/skins/monobook/IE55Fixes.css?207" type="text/css" media="screen" /><![endif]-->
+		<!--[if IE 6]><link rel="stylesheet" href="/skins/monobook/IE60Fixes.css?207" type="text/css" media="screen" /><![endif]-->
+		<!--[if IE 7]><link rel="stylesheet" href="/skins/monobook/IE70Fixes.css?207" type="text/css" media="screen" /><![endif]-->
+		<link rel="stylesheet" href="/index.php?title=MediaWiki:Common.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" type="text/css" />
+		<link rel="stylesheet" href="/index.php?title=MediaWiki:Print.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" type="text/css" media="print" />
+		<link rel="stylesheet" href="/index.php?title=MediaWiki:Ubuntuchina.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" type="text/css" />
+		<link rel="stylesheet" href="/index.php?title=-&amp;action=raw&amp;maxage=18000&amp;gen=css" type="text/css" />
+                <!--[if lt IE 7]><script type="text/javascript" src="/skins/common/IEFixes.js?207"></script>
+                <meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
+                <script type= "text/javascript">/*<![CDATA[*/
+		var skin = "ubuntuchina";
+		var stylepath = "/skins";
+		var wgArticlePath = "/$1";
+		var wgScriptPath = "";
+		var wgScript = "/index.php";
+		var wgVariantArticlePath = false;
+		var wgActionPaths = {};
+		var wgServer = "http://wiki.ubuntu.org.cn";
+		var wgCanonicalNamespace = "";
+		var wgCanonicalSpecialPageName = false;
+		var wgNamespaceNumber = 0;
+		var wgPageName = "UFW防火墙简单设置";
+		var wgTitle = "UFW防火墙简单设置";
+		var wgAction = "view";
+		var wgArticleId = "29059";
+		var wgIsArticle = true;
+		var wgUserName = null;
+		var wgUserGroups = null;
+		var wgUserLanguage = "zh";
+		var wgContentLanguage = "zh";
+		var wgBreakFrames = false;
+		var wgCurRevisionId = 141206;
+		var wgVersion = "1.15.3";
+		var wgEnableAPI = true;
+		var wgEnableWriteAPI = true;
+		var wgSeparatorTransformTable = ["", ""];
+		var wgDigitTransformTable = ["", ""];
+		var wgRestrictionEdit = [];
+		var wgRestrictionMove = [];
+		/*]]>*/</script>
+                
+                <script type="text/javascript" src="/skins/common/wikibits.js?207"><!-- wikibits js --></script>
+                <script type="text/javascript" src="/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=ubuntuchina"><!-- site js --></script>
+                <!-- Head Scripts -->
+		<script type="text/javascript" src="/skins/common/ajax.js?207"></script>
+</head>
+
+<body >
+<div id="container">
+	<div id="mastWrapper">
+        <div id="masthead">
+            <div id="nav1">
+                <ul>
+
+				         <li><a href="http://www.ubuntu.org.cn/">Ubuntu</a></li>
+                                         <li><a href="http://forum.ubuntu.org.cn">Forum</a></li>
+                                         <li id="current"><a href="http://wiki.ubuntu.org.cn">Wiki</a></li>
+                                         <li><a href="http://linux.ubuntu.org.cn">Linux</a></li>
+                                         <li><a href="http://paste.ubuntu.org.cn">Paste</a></li>
+                                         <li><a href="http://webchat.freenode.net/?channels=ubuntu-cn">Chat</a></li>
+
+                </ul>
+            </div>
+        		<form name="searchform" action="/Special:%E6%90%9C%E7%B4%A2" id="search">
+    			<div style="text-align:right">
+    			<label for="q">搜索</label>
+    			<input id="q" name="search" type="text"
+    			accesskey="f" value="" />
+    			<input type="submit" name="go" class="searchButton" id="searchGoButton"
+    	        value="进入"
+    	        />&nbsp;<input type="submit" name="fulltext"
+    	        class="searchButton"
+    	        value="搜索" />
+    	       </div>
+    		</form>
+    	</div>
+    	<div id="bar">
+    		<ul>
+    		   	<li
+    		       class="selected"    		       ><a href="/UFW%E9%98%B2%E7%81%AB%E5%A2%99%E7%AE%80%E5%8D%95%E8%AE%BE%E7%BD%AE">页面</a></li><li
+    		       class="new"    		       ><a href="/index.php?title=Talk:UFW%E9%98%B2%E7%81%AB%E5%A2%99%E7%AE%80%E5%8D%95%E8%AE%BE%E7%BD%AE&amp;action=edit&amp;redlink=1">讨论</a></li><li
+    		           		       ><a href="/index.php?title=UFW%E9%98%B2%E7%81%AB%E5%A2%99%E7%AE%80%E5%8D%95%E8%AE%BE%E7%BD%AE&amp;action=edit">编辑</a></li><li
+    		           		       ><a href="/index.php?title=UFW%E9%98%B2%E7%81%AB%E5%A2%99%E7%AE%80%E5%8D%95%E8%AE%BE%E7%BD%AE&amp;action=history">历史</a></li><li
+    		           		       ><a href="/index.php?title=UFW%E9%98%B2%E7%81%AB%E5%A2%99%E7%AE%80%E5%8D%95%E8%AE%BE%E7%BD%AE&amp;variant=zh-hans">简体</a></li><li
+    		           		       ><a href="/index.php?title=UFW%E9%98%B2%E7%81%AB%E5%A2%99%E7%AE%80%E5%8D%95%E8%AE%BE%E7%BD%AE&amp;variant=zh-hant">繁体</a></li>    		</ul>
+        </div>
+    </div>
+    <p>&nbsp;</p>
+	<div id="mBody">
+	
+		<div id="side">
+			<ul id="nav">
+								<li><span>导航</span>
+						<ul>
+										<li id="n-mainpage-description"><a href="/%E9%A6%96%E9%A1%B5">首页</a></li>
+										<li id="n-recentchanges"><a href="/Special:%E6%9C%80%E8%BF%91%E6%9B%B4%E6%94%B9">最近更改</a></li>
+										<li id="n-randompage"><a href="/Special:%E9%9A%8F%E6%9C%BA%E9%A1%B5%E9%9D%A2">随机页面</a></li>
+										<li id="n-页面分类"><a href="/Category:%E9%A1%B5%E9%9D%A2%E5%88%86%E7%B1%BB">页面分类</a></li>
+										<li id="n-help"><a href="/Help:%E7%9B%AE%E5%BD%95">帮助</a></li>
+									</ul>
+					</li>
+								<li><span>编辑</span>
+						<ul>
+										<li id="n-编辑指南"><a href="/Category:%E8%B4%A1%E7%8C%AE">编辑指南</a></li>
+										<li id="n-沙盒"><a href="/%E6%B2%99%E7%9B%92">沙盒</a></li>
+										<li id="n-currentevents"><a href="/Ubuntu%E4%B8%AD%E6%96%87:%E5%BD%93%E5%89%8D%E4%BA%8B%E4%BB%B6">当前事件</a></li>
+										<li id="n-字词处理"><a href="/MediaWiki:Conversiontable/zh-hant">字词处理</a></li>
+									</ul>
+					</li>
+								<li><span>工具箱</span>
+					<ul>
+					  					  <li id="t-whatlinkshere"><a href="/Special:%E9%93%BE%E5%85%A5%E9%A1%B5%E9%9D%A2/UFW%E9%98%B2%E7%81%AB%E5%A2%99%E7%AE%80%E5%8D%95%E8%AE%BE%E7%BD%AE">链入页面</a></li>
+					  					  <li id="t-recentchangeslinked"><a href="/Special:%E9%93%BE%E5%87%BA%E6%9B%B4%E6%94%B9/UFW%E9%98%B2%E7%81%AB%E5%A2%99%E7%AE%80%E5%8D%95%E8%AE%BE%E7%BD%AE">链出更改</a></li>
+					  				      				      				      				      				      				      				      				      				      <li id="t-specialpages"><a href="/Special:%E7%89%B9%E6%AE%8A%E9%A1%B5%E9%9D%A2">所有特殊页面</a></li>				      					</ul>
+				</li>
+				<li><span>个人工具</span>
+					<ul>
+					<li id="pt-login"><a href="/index.php?title=Special:%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95&amp;returnto=UFW%E9%98%B2%E7%81%AB%E5%A2%99%E7%AE%80%E5%8D%95%E8%AE%BE%E7%BD%AE">登录</a></li>					</ul>
+				</li>
+							</ul>
+		</div><!-- end of SIDE div -->
+		
+		<div id="mainContent">
+			
+			<h1>UFW防火墙简单设置</h1>
+			<h3 id="siteSub">出自Ubuntu中文</h3>
+			<div id="contentSub"></div>
+									<!-- start content -->
+			<p>ufw是一个主机端的iptables类防火墙配置工具，比较容易上手。一般桌面应用使用ufw已经可以满足要求了。
+</p><p><br />
+</p>
+<table id="toc" class="toc" summary="目录"><tr><td><div id="toctitle"><h2>目录</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#.E5.AE.89.E8.A3.85.E6.96.B9.E6.B3.95"><span class="tocnumber">1</span> <span class="toctext">安装方法</span></a></li>
+<li class="toclevel-1"><a href="#.E4.BD.BF.E7.94.A8.E6.96.B9.E6.B3.95"><span class="tocnumber">2</span> <span class="toctext">使用方法</span></a></li>
+<li class="toclevel-1"><a href="#.E6.8E.A8.E8.8D.90.E8.AE.BE.E7.BD.AE"><span class="tocnumber">3</span> <span class="toctext">推荐设置</span></a></li>
+<li class="toclevel-1"><a href="#.E8.AF.A6.E7.BB.86.E4.BD.BF.E7.94.A8.E8.AF.B4.E6.98.8E"><span class="tocnumber">4</span> <span class="toctext">详细使用说明</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "显示"; var tocHideText = "隐藏"; showTocToggle(); } </script>
+<a name=".E5.AE.89.E8.A3.85.E6.96.B9.E6.B3.95" id=".E5.AE.89.E8.A3.85.E6.96.B9.E6.B3.95"></a><h2><span class="editsection">[<a href="/index.php?title=UFW%E9%98%B2%E7%81%AB%E5%A2%99%E7%AE%80%E5%8D%95%E8%AE%BE%E7%BD%AE&amp;action=edit&amp;section=1" title="编辑段落：安装方法">编辑</a>]</span> <span class="mw-headline"> 安装方法 </span></h2>
+<pre> sudo apt-get install ufw
+</pre>
+<p>当然，这是有图形界面的(比较简陋)，在新立得里搜索gufw试试……
+</p>
+<a name=".E4.BD.BF.E7.94.A8.E6.96.B9.E6.B3.95" id=".E4.BD.BF.E7.94.A8.E6.96.B9.E6.B3.95"></a><h2><span class="editsection">[<a href="/index.php?title=UFW%E9%98%B2%E7%81%AB%E5%A2%99%E7%AE%80%E5%8D%95%E8%AE%BE%E7%BD%AE&amp;action=edit&amp;section=2" title="编辑段落：使用方法">编辑</a>]</span> <span class="mw-headline"> 使用方法 </span></h2>
+<p>1 启用
+</p>
+<pre> sudo ufw enable
+</pre>
+<pre> sudo ufw default deny 
+</pre>
+<p>作用：开启了防火墙并随系统启动同时关闭所有外部对本机的访问（本机访问外部正常）。
+</p><p>2 关闭
+</p>
+<pre> sudo ufw disable 
+</pre>
+<p>2 查看防火墙状态
+</p>
+<pre> sudo ufw status 
+</pre>
+<p>3 开启/禁用相应端口或服务举例 
+</p>
+<pre> sudo ufw allow 80 允许外部访问80端口
+</pre>
+<pre> sudo ufw delete allow 80 禁止外部访问80 端口
+</pre>
+<pre> sudo ufw allow from 192.168.1.1 允许此IP访问所有的本机端口
+</pre>
+<pre> sudo ufw deny smtp 禁止外部访问smtp服务
+</pre>
+<pre> sudo ufw delete allow smtp 删除上面建立的某条规则
+</pre>
+<pre> ufw deny proto tcp from 10.0.0.0/8 to 192.168.0.1 port 要拒绝所有的流量从TCP的10.0.0.0/8 到端口22的地址192.168.0.1
+</pre>
+<pre> 可以允许所有RFC1918网络（局域网/无线局域网的）访问这个主机（/8,/16,/12是一种网络分级）：
+sudo ufw allow from 10.0.0.0/8
+sudo ufw allow from 172.16.0.0/12
+sudo ufw allow from 192.168.0.0/16
+</pre>
+<a name=".E6.8E.A8.E8.8D.90.E8.AE.BE.E7.BD.AE" id=".E6.8E.A8.E8.8D.90.E8.AE.BE.E7.BD.AE"></a><h2><span class="editsection">[<a href="/index.php?title=UFW%E9%98%B2%E7%81%AB%E5%A2%99%E7%AE%80%E5%8D%95%E8%AE%BE%E7%BD%AE&amp;action=edit&amp;section=3" title="编辑段落：推荐设置">编辑</a>]</span> <span class="mw-headline"> 推荐设置 </span></h2>
+<pre> sudo apt-get install ufw
+</pre>
+<pre> sudo ufw enable
+</pre>
+<pre> sudo ufw default deny 
+</pre>
+<p>这样设置已经很安全，如果有特殊需要，可以使用sudo ufw allow开启相应服务。
+</p>
+<a name=".E8.AF.A6.E7.BB.86.E4.BD.BF.E7.94.A8.E8.AF.B4.E6.98.8E" id=".E8.AF.A6.E7.BB.86.E4.BD.BF.E7.94.A8.E8.AF.B4.E6.98.8E"></a><h2><span class="editsection">[<a href="/index.php?title=UFW%E9%98%B2%E7%81%AB%E5%A2%99%E7%AE%80%E5%8D%95%E8%AE%BE%E7%BD%AE&amp;action=edit&amp;section=4" title="编辑段落：详细使用说明">编辑</a>]</span> <span class="mw-headline"> 详细使用说明 </span></h2>
+<p><a href="http://wiki.ubuntu.org.cn/Ufw使用指南" class="external text" title="http://wiki.ubuntu.org.cn/Ufw使用指南" rel="nofollow">Ufw中文使用指南</a>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 5/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key ubuntuwiki:pcache:idhash:29059-0!1!0!!zh!2!zh and timestamp 20140417043529 -->
+<div class="printfooter">
+取自“<a href="http://wiki.ubuntu.org.cn/UFW%E9%98%B2%E7%81%AB%E5%A2%99%E7%AE%80%E5%8D%95%E8%AE%BE%E7%BD%AE">http://wiki.ubuntu.org.cn/UFW%E9%98%B2%E7%81%AB%E5%A2%99%E7%AE%80%E5%8D%95%E8%AE%BE%E7%BD%AE</a>”</div>
+			<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks"><a href="/Special:%E9%A1%B5%E9%9D%A2%E5%88%86%E7%B1%BB" title="Special:页面分类">1个分类</a>:&#32;<span dir='ltr'><a href="/Category:%E6%9C%8D%E5%8A%A1%E5%99%A8" title="Category:服务器">服务器</a></span></div></div>			<!-- end content -->
+
+		</div><!-- end of MAINCONTENT div -->	
+	
+	</div><!-- end of MBODY div -->
+
+	<div id="footer"><table><tr><td align="left" width="1%" nowrap="nowrap">
+		</td><td align="center">
+		<span id="f-viewcount">此页面已被浏览过36,981次。 </span>		<ul id="f-list">
+			<li id="f-credits">此页由<a href="/User:Cat650" title="User:Cat650">cat650</a>于2010年9月5日 (星期日) 12:34的最后更改。 在<a href="/User:Qiii2006" title="User:Qiii2006">qiii2006</a>和Ubuntu中文用户<a href="/User:Zhexuezhuzi" title="User:Zhexuezhuzi">Zhexuezhuzi</a>的工作基础上。</li>						<li id="f-about"><a href="/Ubuntu%E4%B8%AD%E6%96%87:%E5%85%B3%E4%BA%8E" title="Ubuntu中文:关于">关于Ubuntu中文</a></li>			<li id="f-disclaimer"><a href="/Ubuntu%E4%B8%AD%E6%96%87:%E5%85%8D%E8%B4%A3%E5%A3%B0%E6%98%8E" title="Ubuntu中文:免责声明">免责声明</a></li>		</ul></td><td align="right" width="1%" nowrap="nowrap"><div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div></td></tr></table>
+
+	</div><!-- end of the FOOTER div -->
+</div><!-- end of the CONTAINER div -->
+
+<!-- Served in 0.249 secs. -->
+</body>
+</html>

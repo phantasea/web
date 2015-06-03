@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/Blog">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="application-name" content="Looking-Glass" />
+    <meta name="author" content="Mort" />
+    <meta name="generator" content="Jekyll 1.4.2" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    
+    <meta itemprop="name" content="Markdown+Pandoc→HTML幻灯片速成" />
+    <meta itemprop="description" content="" />
+    <meta itemprop="image" content="/images/m.png" />
+    
+    <title>Mort | Markdown+Pandoc→HTML幻灯片速成</title>
+    
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" />
+    <link rel="icon" type="image/x-icon" href="http://www.soimort.org/favicon.ico" />
+    
+    <link rel="author" type="text/html" href="https://plus.google.com/100974147585154622588/about" />
+    <link rel="license" type="text/html" href="http://creativecommons.org/licenses/by-sa/4.0/" />
+    
+    <!-- Google Web Fonts (not in use) -->
+    <!-- link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Droid+Sans' / -->
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/css/mobile.css" media="all and (max-width:1023px)" />
+    
+    <!-- Highlight.js -->
+    <link rel="stylesheet" href="/css/tomorrow-night.min.css">
+    <script src="/js/highlight.pack.js"></script>
+    <!-- script>hljs.initHighlightingOnLoad();</script -->
+    
+    <!-- Pygments -->
+    <link rel="stylesheet" type="text/css" href="/css/pygments.css" media="all" />
+    
+    <!-- jQuery & Galleria -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+    <script src="/plugins/galleria/galleria-1.2.8.min.js"></script>
+    
+    <!-- MathJax (not in use) -->
+    <!-- script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+    </script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script -->
+    
+    <!-- ShareThis (not in use) -->
+    <!-- script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">stLight.options({publisher: "9aabed9c-ac3f-4f96-8f5a-8e7a27307543"}); </script -->
+    
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-27086900-1']);
+        _gaq.push(['_setDomainName', '.soimort.org']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    
+    <script type="text/javascript" src="/js/main.js"></script>
+    
+</head>
+
+<body>
+    <!-- load background image (must be put in body) -->
+    <script type="text/javascript">
+        document.body.style.backgroundImage = "url('http://i.imgur.com/0eQ5v.jpg')";
+    </script>
+    
+    <nav id="navBarTop">
+        <ul class="navBarListLeft">
+            <li><a href="/"><img src="/images/home.png" alt="home" title="Home" class="navDock" height="32" /></a></li>
+            <li><a href="/atom.xml" target="_blank"><img src="/images/feed.png" alt="feed" title="Feed" class="navDock" height="32" /></a></li>
+            <span id="spanBadges">
+                <li style="position: relative; top: -12px; font-size: 16px"><code>(badges</code></li>
+                <li style="position: relative; top: 0px; font-size: 16px" id="coderwall"></li>
+                <li style="position: relative; top: -12px; font-size: 16px"><code>)</code></li>
+            </span>
+            <!-- li style="position: relative; top: -12px; font-size: 16px"><a href="/" title="Hello world" target="_blank">Hello world</a></li -->
+        </ul>
+        
+        <ul class="navBarListRight">
+            <li style="position: relative; top: -12px"><b>Mort</b> on </li>
+            <!-- Google+ --><li><a href="https://plus.google.com/100974147585154622588" target="_blank"><img src="https://ssl.gstatic.com/images/icons/gplus-32.png" alt="gplus" title="Google+" class="navDock" height="32" /></a></li>
+            <!-- Twitter --><li><a href="https://twitter.com/soimort" target="_blank"><img src="/images/twitter.png" alt="twitter" title="Twitter" class="navDock" height="32" /></a></li>
+            <!-- Facebook --><!-- li><a href="https://www.facebook.com/soimort" target="_blank"><img src="/images/facebook.png" alt="facebook" title="Facebook" class="navDock" height="32" /></a></li -->
+            <!-- LinkedIn --><li><a href="http://www.linkedin.com/in/soimort" target="_blank"><img src="/images/linkedin.png" alt="linkedin" title="Linkedin" class="navDock" height="32" /></a></li>
+            <!-- Blogger --><!-- li><a href="http://blog.soimort.org" target="_blank"><img src="/images/blogger.png" alt="blog" title="Blogger" class="navDock" height="32" /></a></li -->
+            <!-- Tumblr --><li><a href="http://microblog.soimort.org" target="_blank"><img src="/images/tumblr.png" alt="microblog" title="Tumblr" class="navDock" height="32" /></a></li>
+            <!-- Ameba --><!-- li><a href="http://ameblo.jp/soimort/" target="_blank"><img src="/images/ameba.png" alt="ameba" title="Ameba" class="navDock" height="32" /></a></li -->
+            <!-- deviantArt --><!-- li><a href="http://soimort.deviantart.com" target="_blank"><img src="/images/deviantart.png" alt="deviantart" title="deviantART" class="navDock" height="32" /></a></li -->
+            <!-- pixiv --><!-- li><a href="http://www.pixiv.net/member.php?id=5106162" target="_blank"><img src="/images/pixiv.png" alt="pixiv" title="Pixiv" class="navDock" height="32" /></a></li -->
+            <!-- Coderwall --><li><a href="http://coderwall.com/soimort" target="_blank"><img src="/images/coderwall.png" alt="coderwall" title="Coderwall" class="navDock" height="32" /></a></li>
+            <!-- GitHub --><li><a href="http://github.com/soimort" target="_blank"><img src="/images/github.png" alt="github" title="GitHub" class="navDock" height="32" /></a></li>
+        </ul>
+    </nav>
+    
+    <nav id="navBarBottom">
+        <div class="navBarListLeft">
+            <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank"><img src="http://i.creativecommons.org/l/by-sa/4.0/88x31.png" height="28" alt="CC BY-SA 4.0 License" title="CC BY-SA 4.0 License" /></a>
+            <br />
+            <div style="position: relative; top: 4px; width: 60%">
+                © 2014 <a href="https://plus.google.com/100974147585154622588/about" target="_blank"><b>Mort Yao</b></a>. Unless otherwise stated, all contents on this site are released under a <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank"><b>CC BY-SA 4.0 International License</b></a>.
+            </div>
+        </div>
+        
+        <div class="navBarListRight">
+            <a href="http://www.w3.org/html/logo/" target="_blank" style="position: absolute; right: 0"><img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-semantics.png" height="36" alt="HTML5 Powered with CSS3 / Styling, and Semantics" title="HTML5 Powered with CSS3 / Styling, and Semantics" /></a>
+            <br />
+            <div style="position: relative; top: 20px; right: 0">
+                Designed by <a href="https://github.com/soimort" target="_blank"><b>Mort</b></a> | Powered by <a href="http://jekyllrb.com/" target="_blank"><b>Jekyll</b></a>
+            </div>
+        </div>
+    </nav>
+    
+    <div id="divTitle">
+    <h1>Markdown+Pandoc→HTML幻灯片速成</h1>
+    <p><div class="g-plusone" data-size="medium" data-annotation="none"></div></p>
+    <p><b>02 Dec 2013</b>, by <b>Mort</b></p>
+    <p></p>
+    <div id="divTitleNav">
+        <a href="/"><img src="/images/left-arrow.png" class="navDock" /></a>
+    </div>
+</div>
+
+<div id="divPost">
+    <article id="articlePost">
+        <p>学期末将近，熬夜做slides的时候又变多了。</p>
+
+<p>所见即所得的PPT是一个比较低效的东西，因为没有做到内容与样式相分离，在做幻灯片的时候要把一半的精力放在外观而不是内容上；复杂庞大的文件格式，不符合Unix的纯文本哲学，只适合在特定的GUI下通过鼠标操作，无法通过文本编辑器修改，更难以用文本工具脚本处理；再加上微软他家的格式不开放，各路开源不开源的Office产品搞出来了各种程度不同的兼容性，非常分裂。</p>
+
+<p>所以，有Web这样一个开放的、纯粹基于文本的业界标准就很重要。</p>
+
+<p>这篇主要讲如何用Markdown这样的轻量级标记语言在编辑器中书写文本内容，用Pandoc迅速将其转换成<a href="https://en.wikipedia.org/wiki/Web-based_slideshow">基于Web的演示文稿</a>。如是，可以在开会前十分钟根据事务提纲炮制出几十页的幻灯片，且不失美观。</p>
+
+<h2>准备工作：安装Pandoc</h2>
+
+<p>首先，你需要安装文本转换的神器Pandoc：<a href="http://johnmacfarlane.net/pandoc/installing.html">http://johnmacfarlane.net/pandoc/installing.html</a></p>
+
+<p>具体安装方法参见文档，在此不再赘述。</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ cabal update
+$ cabal install pandoc
+</code></pre></div>
+<h2>书写内容</h2>
+
+<p>内容是演示文稿的主体。PowerPoint或OpenOffice Impress里面的“大纲”就是用来把握这个主体的视图。这可以让写作者暂时忘记幻灯片的具体外观、排版这些表面化的东西，把集中力放到整个演讲的逻辑流程和提纲要领上。</p>
+
+<p>书写HTML幻灯片可以像日常记笔记一样简捷快速。实际上，这些幻灯片本身就是用轻量级标记语言写成的纯文本，你可以用任何一种Pandoc支持的标记语言（Markdown、org-mode、reST、Textile……）来书写其内容。在此以Markdown为例：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">% Nonsense Stuff
+% John Doe
+% March 22, 2005
+
+# In the morning
+
+## Getting up
+
+- Turn off alarm
+- Get out of bed
+
+## Breakfast
+
+- Eat eggs
+- Drink coffee
+
+# In the evening
+
+## Dinner
+
+- Eat spaghetti
+- Drink wine
+
+------------------
+
+![picture of spaghetti](images/spaghetti.jpg)
+
+## Going to sleep
+
+- Get in bed
+- Count sheep
+</code></pre></div>
+<p>分级标题、列表、插入图片……等标准的Markdown语法均被支持，和平常用Markdown记笔记写博客无异。</p>
+
+<p>为了让Pandoc对不包含任何元信息的Markdown文本进行处理生成幻灯片，在文本开头需要包含三行以<code>%</code>打头的元信息：标题、作者和日期。</p>
+
+<p>为了生成合适的用于演示的HTML文档，需要记住的另一点是：在默认情况下每个二级标题是一张独立的幻灯片。这样在写作的时候，只需注意把每个二级标题下的内容控制在适当的长度。</p>
+
+<p>列表的显示效果可以人为设定，例如在幻灯片演示的时候逐条渐入，后文会提到。也可以使用<code>$</code>插入 TeX公式，Pandoc可以将其转换为被大部分现代浏览器支持的MathML，或借助MathJax在较旧浏览器中显示。</p>
+
+<p>也可以直接在文本中嵌入HTML，用于显示Markdown等标记语言不支持的表格，或控制字体大小，以及进行其他更加复杂的排版。当然，如果用到的HTML标签过多，这不是Markdown这些轻量级标记语言的错，也许是做幻灯片的方式出了问题。因为演示本身要传达的是内容，复杂的排版没有任何意义。想一想<a href="https://zh.wikipedia.org/wiki/%E9%AB%98%E6%A9%8B%E6%B5%81%E7%B0%A1%E5%A0%B1%E6%B3%95">高桥流简报法</a>。</p>
+
+<h2>定义样式</h2>
+
+<p>目前Pandoc包含了对五种HTML幻灯片框架的支持：</p>
+
+<ul>
+<li><a href="https://github.com/paulrouget/dzslides">DZSlides</a></li>
+<li><a href="http://www.w3.org/Talks/Tools/Slidy2/">Slidy</a></li>
+<li><a href="http://meyerweb.com/eric/tools/s5/">S5</a></li>
+<li><a href="http://goessner.net/articles/slideous/slideous.html">Slideous</a></li>
+<li><a href="http://lab.hakim.se/reveal-js">reveal.js</a></li>
+</ul>
+
+<p>当然，你实际上可以使用任何喜欢的幻灯片框架（比如<a href="https://code.google.com/p/io-2012-slides/">Google I/O HTML5 slide template</a>），只要让Pandoc在渲染HTML时使用你指定的模板即可。</p>
+
+<h3>自定义HTML模板</h3>
+
+<p>首先，如果你知道如何写CSS去定义页面外观、如何写JavaScript让<code>&lt;div&gt;</code>元素动起来，或者已经有了一个不错的HTML幻灯片模板，你就可以直接让Pandoc把Markdown转换成纯HTML片段，用来嵌到自己的模板里：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ pandoc slides.md -o slides.html
+</code></pre></div>
+<p>生成一个完整的HTML页面（包含<code>&lt;html&gt;</code>、<code>&lt;head&gt;</code>、<code>&lt;body&gt;</code>标签和各种元信息）：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ pandoc slides.md -o slides.html -s
+</code></pre></div>
+<h3><a href="https://github.com/paulrouget/dzslides">DZSlides</a></h3>
+
+<p>当然，我们完全没有必要写自己的HTML模板，因为Pandoc已经提供了对多种幻灯片模板的支持。<strong>DZSlides</strong>便是其中最简单的一种，支持键盘操作→/←翻页，PgUp/PgDn，Home/End。</p>
+
+<p>Pandoc生成的DZSlides幻灯片中自包含了所需CSS和JavaScript，无需依赖任何外部文件。</p>
+
+<p>采用默认模板渲染一个独立的DZSlides幻灯片：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ pandoc slides.md -o slides.html -t dzslides -s
+</code></pre></div>
+<p>若要对模板的样式进行调整，可以用<code>--template</code>指定自定义模板。默认的模板为<code>default.dzslides</code>，因此上述命令等效于：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ pandoc slides.md -o slides.html -t dzslides --template default.dzslides
+</code></pre></div>
+<p>可以从这里<a href="https://github.com/jgm/pandoc-templates">https://github.com/jgm/pandoc-templates</a>找到原来的模板，自行修改后替换掉原先的模板。其余幻灯片框架与此相仿，以后不再赘述。</p>
+
+<h3><a href="http://www.w3.org/Talks/Tools/Slidy2/">Slidy</a></h3>
+
+<p><a href="http://www.w3.org/Talks/Tools/Slidy2/">HTML Slidy</a>是W3C开发的一个极简主义HTML幻灯片模板，没有任何多余的样式，支持鼠标单击翻页，键盘操作→/←，PgUp/PgDn，Home/End。</p>
+
+<p>采用默认模板渲染一个独立的Slidy幻灯片：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ pandoc slides.md -o slides.html -t slidy -s
+</code></pre></div>
+<p>或指定自定义模板：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ pandoc slides.md -o slides.html -t slidy --template default.slidy
+</code></pre></div>
+<p>Pandoc生成的Slidy HTML依赖于http://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css和http://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js这两个外部文件。若不想依赖<a href="http://www.w3.org/">http://www.w3.org/</a>，可以将它们保存为本地文件。</p>
+
+<h3><a href="http://meyerweb.com/eric/tools/s5/">S5</a></h3>
+
+<p><a href="https://en.wikipedia.org/wiki/S5_(file_format)">S5（Simple Standards-Based Slide Show System）</a>是一个公有领域的HTML幻灯片规范。它支持鼠标单击翻页，键盘操作→/←，PgUp/PgDn，Home/End。</p>
+
+<p>为了使用S5作为幻灯片框架，需要从<a href="http://meyerweb.com/eric/tools/s5/">这里</a>下载S5。解压之后把S5文件夹中的<code>ui/default</code>拷贝到幻灯片所在路径下，改名为<code>s5/default</code>即可。</p>
+
+<p>渲染幻灯片：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ pandoc slides.md -o slides.html -t s5 -s
+</code></pre></div>
+<p>在S5的幻灯片界面上，鼠标移到右下角可以看到若干控制选项。</p>
+
+<h3><a href="http://goessner.net/articles/slideous/slideous.html">Slideous</a></h3>
+
+<p><strong>Slideous</strong>是另一个有些年头的HTML幻灯片框架。支持鼠标单击翻页，键盘操作→/←，PgUp/PgDn，Home/End。</p>
+
+<p>下载http://goessner.net/download/prj/slideous/slideous.js和http://goessner.net/download/prj/slideous/slideous.css这两个文件，放到本地目录<code>slideous/</code>下即可。</p>
+
+<p>渲染幻灯片：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ pandoc slides.md -o slides.html -t slideous -s
+</code></pre></div>
+<p>Slideous的界面上提供了比较丰富的控制选项。</p>
+
+<h3><a href="http://lab.hakim.se/reveal-js">reveal.js</a></h3>
+
+<p><strong>reveal.js</strong>这东西已经红得不能更红了，最近开始火起来的WYSIWYG在线幻灯片工具<a href="http://slid.es">slid.es</a>也是基于它。</p>
+
+<p>reveal.js的设计风格（字体、HTML5/CSS3效果）比起前面几个框架更加现代，所以如果没有特别的理由（旧浏览器兼容性）的话，reveal.js果然还是最应该推荐的一个。</p>
+
+<p>虽说reveal.js本身就提供对Markdown语法的支持，不过Pandoc的好处很明显，那就是一条命令解决问题，不需要用户接触任何HTML。</p>
+
+<p>首先需要从GitHub上获取<a href="https://github.com/hakimel/reveal.js">https://github.com/hakimel/reveal.js</a>，将<code>reveal.js</code>同名的文件夹放在幻灯片所在目录下即可：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ git clone https://github.com/hakimel/reveal.js
+</code></pre></div>
+<p>渲染幻灯片：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ pandoc slides.md -o slides.html -t revealjs -s
+</code></pre></div>
+<p>除了默认的外观主题以外，reveal.js还提供了多个主题可供选择，</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ pandoc slides.md -o slides.html -t revealjs -s -V theme=beige
+</code></pre></div>
+<ul>
+<li><code>default</code>：（默认）深灰色背景，白色文字</li>
+<li><code>beige</code>：米色背景，深色文字</li>
+<li><code>sky</code>：天蓝色背景，白色细文字</li>
+<li><code>night</code>：黑色背景，白色粗文字</li>
+<li><code>serif</code>：浅色背景，灰色衬线文字</li>
+<li><code>simple</code>：白色背景，黑色文字</li>
+<li><code>solarized</code>：奶油色背景，深青色文字</li>
+</ul>
+
+<h3>LaTeX Beamer</h3>
+
+<p>最后，虽然不是HTML，Pandoc也可以用来将Markdown文件渲染成<a href="https://en.wikipedia.org/wiki/Beamer_(LaTeX)">LaTeX beamer</a>样式的PDF幻灯片。如需要打印而不是演示时特别有用。</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ pandoc slides.md -o slides.pdf -t beamer
+</code></pre></div>
+<h2>更多设置</h2>
+
+<h3>幻灯片级别（Slide level）</h3>
+
+<p>在前文的例子里看到，</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text"># In the morning
+
+## Getting up
+
+- Turn off alarm
+- Get out of bed
+</code></pre></div>
+<p>1级标题<code>In the morning</code>后面紧跟2级标题<code>Getting up</code>，而2级标题<code>Getting up</code>后面的内容是显示在幻灯片上的主体内容，因此这里的Slide level为2。这意味着每个2级标题生成一张幻灯片。高于2级的标题（1级标题）生成一张独立的仅包含标题的幻灯片，而低于2级的标题（3级标题）将存在于上一级标题的幻灯片中，不单独生成新的幻灯片。</p>
+
+<p>可以使用<code>--slide-level</code>选项覆盖默认的Slide level。</p>
+
+<p>在reveal.js模板下，由于幻灯片的滚动方向可以是二维的（键盘→←↑↓），所以1级标题渲染为水平方向的幻灯片，2级标题渲染为竖直方向的幻灯片。</p>
+
+<p>“华丽丽的分割线”：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">------------------
+</code></pre></div>
+<p>用来强制生成新的幻灯片。</p>
+
+<h3>渐进显示</h3>
+
+<p>生成幻灯片时加入<code>-i</code>选项，用于控制列表的显示效果（逐条渐入）。</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$ pandoc slides.md -o slides.html -t slidy -s -i
+</code></pre></div>
+<p>两段文字显示之间的人为停顿，用如下分割线：</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">. . .
+</code></pre></div>
+<h3>TeX公式</h3>
+
+<p>可以直接插入TeX公式：</p>
+<div class="highlight"><pre><code class="tex language-tex" data-lang="tex"><span class="s">$</span><span class="nb">e^x </span><span class="o">=</span><span class="nb"> </span><span class="nv">\sum</span><span class="nb">_{n</span><span class="o">=</span><span class="m">0</span><span class="nb">}^</span><span class="nv">\infty</span><span class="nb"> </span><span class="nv">\frac</span><span class="nb">{x^n}{n</span><span class="o">!</span><span class="nb">} </span><span class="o">=</span><span class="nb"> </span><span class="nv">\lim</span><span class="nb">_{n</span><span class="nv">\rightarrow\infty</span><span class="nb">} </span><span class="o">(</span><span class="m">1</span><span class="o">+</span><span class="nb">x</span><span class="o">/</span><span class="nb">n</span><span class="o">)</span><span class="nb">^n</span><span class="s">$</span>
+</code></pre></div>
+<p>MathML的渲染效果为：</p>
+
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mi>e</mi><mi>x</mi></msup><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow><mo>∞</mo></msubsup><mfrac><msup><mi>x</mi><mi>n</mi></msup><mrow><mi>n</mi><mo>!</mo></mrow></mfrac><mo>=</mo><msub><mi>lim</mi><mrow><mi>n</mi><mo>→</mo><mo>∞</mo></mrow></msub><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>x</mi><mo>/</mo><mi>n</mi><msup><mo stretchy="false">)</mo><mi>n</mi></msup></mrow></math>
+
+<p>控制TeX公式渲染方式的选项有<code>--mathml</code>，<code>--webtex</code>，<code>--mathjax</code>和<code>--latexmathml</code>。（Chrome和Firefox均支持MathML）</p>
+
+<h3>代码高亮风格</h3>
+
+<p>控制代码高亮风格的选项有：</p>
+
+<ul>
+<li><code>--highlight-style pygments</code></li>
+<li><code>--highlight-style kate</code></li>
+<li><code>--highlight-style monochrome</code></li>
+<li><code>--highlight-style espresso</code></li>
+<li><code>--highlight-style haddock</code></li>
+<li><code>--highlight-style tango</code></li>
+<li><code>--highlight-style zenburn</code></li>
+</ul>
+
+<h3>自定义CSS</h3>
+
+<p>你当然可以通过修改相应模板文件夹下的CSS来实现自定义外观，不过也可以使用<code>--css</code>指定任何现成的CSS文件。</p>
+
+<h3>提示板</h3>
+
+<p>首先，提示板的功能仅适用于reveal.js。</p>
+
+<p>其次，由于浏览器的本地安全策略，需使用该功能的幻灯片必须在HTTP服务器上运行。</p>
+
+<p>在Markdown中插入标签<code>&lt;div class=&quot;notes&quot;&gt;</code>的小抄：</p>
+<div class="highlight"><pre><code class="xml language-xml" data-lang="xml"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;notes&quot;</span><span class="nt">&gt;</span>
+This is my note.
+
+- It can contain markdown
+- like this list
+
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+<p>使用键盘<code>s</code>键打开提示板。当然，这个提示板是用来给演讲者自己看的，是不用mirror到外接投影仪的。</p>
+
+<p><img src="http://i.imgur.com/J0QtnOB.png" width="100%"/></p>
+
+    </article>
+    
+    
+    <article id="articlePost" style="padding-bottom: 0">
+        <div id="divDisqus">
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'soimort';
+                
+                var disqus_url = 'http://www.soimort.org/posts/165/index.html';
+                
+                
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </article>
+    
+</div>
+
+    
+</body>
+</html>

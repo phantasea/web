@@ -1,0 +1,368 @@
+<!DOCTYPE html PUBLIC "-//W3C//dtD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/dtD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<link rel="stylesheet" href="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/article.css" type="text/css">
+
+<link href="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/dialog.css" rel="stylesheet" type="text/css">
+<title>主机ubuntu与虚拟机virtualbox中的xp怎么样实现文件共享 - 虚拟机教程文章_推动虚拟化发展 - 红黑联盟</title>
+<meta name="keywords" content="主机,ubuntu,虚拟机">
+<meta name="description" content="主机ubuntu与虚拟机virtualbox中的xp怎么样实现文件共享首先要说的就是想要把鼠标键盘从虚拟机里解放出来，只要按住：Ctrl+Alt+Del就可以了！十来分钟的样子系统安装好了，现在设备管理器里看看是不是驱动没有装...">
+<script src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/log.js" async="" charset="utf-8"></script><script src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/cf.js" async="" charset="utf-8"></script><script src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/cc.js" async="" charset="utf-8"></script><script type="text/javascript" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/jquery.js"></script>
+<script type="text/javascript" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/jquery_002.js"></script>
+<script type="text/javascript" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/search_common.js"></script>
+<script type="text/javascript" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/m.js"></script>
+<script type="text/javascript" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/json.js"></script>
+<script language="javascript" type="text/javascript" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/dialog.js"></script>
+</head>
+
+<body>
+<div class="line_top_box">
+	<dl class="top_box_left">
+		<dd class="left_logo"><a href="http://www.2cto.com/"></a></dd>
+		<dd class="left_menu_link">
+													<a class="Channel" href="http://www.2cto.com/News/">资讯</a>&nbsp;|&nbsp;
+													<a class="Channel" href="http://www.2cto.com/Article/">安全</a>&nbsp;|&nbsp;
+													<a class="Channel" href="http://bbs.2cto.com/">论坛</a>&nbsp;|&nbsp;
+													<a class="Channel" href="http://www.2cto.com/Soft/">下载</a>&nbsp;|&nbsp;
+													<a class="Channel" href="http://www.2cto.com/kf/">程序开发</a>&nbsp;|&nbsp;
+													<a class="Channel" href="http://www.2cto.com/ym/">源码</a>&nbsp;|&nbsp;
+													<a class="Channel" href="http://www.2cto.com/zz/">站长学院</a>&nbsp;|&nbsp;
+													<a class="Channel" href="http://www.2cto.com/ebook/">电子书</a>&nbsp;|&nbsp;
+													<a class="Channel" href="http://www.2cto.com/QQ/">QQ</a>&nbsp;|&nbsp;
+													<a class="Channel" href="http://www.2cto.com/net/">网络</a>&nbsp;|&nbsp;
+													<a class="Channel" href="http://www.2cto.com/os/">系统</a>&nbsp;|&nbsp;
+													<a class="Channel" href="http://www.2cto.com/kaoshi/">考试认证</a>&nbsp;|&nbsp;
+													<a class="Channel" href="http://www.2cto.com/database/">数据库</a>&nbsp;|&nbsp;
+													<a class="Channel" href="http://book.2cto.com/">读书</a>&nbsp;|&nbsp;
+													<a class="Channel" href="http://www.2cto.com/px/">考试</a>&nbsp;|&nbsp;
+													<a class="Channel" href="http://www.2cto.com/shouce/">手册</a>&nbsp;|&nbsp;
+											</dd>
+	</dl>
+</div>
+<div class="line_top_lmbox">
+	<dl class="lmpic"></dl>
+	<dl class="lmlinkbox"><dd>
+										<a class="Channel" href="http://www.2cto.com/os/linux/">Linux</a>|
+							<a class="Channel" href="http://www.2cto.com/os/windows/">Windows</a>|
+							<a class="Channel" href="http://www.2cto.com/os/dos/">Dos命令行</a>|
+							<a class="Channel" href="http://www.2cto.com/os/liulanqi/">浏览器</a>|
+							<a class="Channel" href="http://www.2cto.com/os/xuniji/">虚拟机</a>|
+							<a class="Channel" href="http://www.2cto.com/os/qita/">其他</a>|
+								</dd></dl>
+	<dl class="LoginBox"><dd><script type="text/javascript">document.write('<iframe src="http://www.2cto.com/index.php?m=member&c=index&a=mini&forward='+encodeURIComponent(location.href)+'&siteid=1" allowTransparency="true"  width="150" height="32" frameborder="0" scrolling="no"></iframe>')</script><iframe src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/index.html" allowtransparency="true" frameborder="0" height="32" scrolling="no" width="150"></iframe></dd></dl>
+</div>
+<div class="divline8"></div>
+<div class="tadv">
+
+<a target="_blank" href="http://vip.2cto.com/"><img src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/980-80.gif" height="90" width="980"></a>
+<!-- 广告位：顶部banner -->
+<script type="text/javascript">BAIDU_CLB_fillSlot("298612");</script><script charset="utf-8" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/ecom_004"></script><div style="padding-top:0px;width:980px;margin:auto;padding-bottom:0px;clear:both;overflow:hidden">
+<a style="margin-right:4px" target="_blank" href="http://www.baidu.com/cb.php?c=IgF_pyfqnWR1rjnLP0KYTjYk0A7b5HmYP1f1PfKbuHYdrjm3P1m0TAq15Hc4rjmkn6K15HfYnH64rHRsnH-9mWmkrHf0uZfqnHnvPWcknHD3r0KdThsqpZwYTjCEQLILIz4CpZP9uhR8mvqV0ZFb5Hc40AFV5H00TZcqn0KdpyfqnHRLPHRsPsKEpyfqPHbs0APGujYdrj60ULI85HRLn0KWThnqPHn3nW6"><img src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/n1.jpg" height="60" width="320"></a>
+<a style="margin-right:4px" target="_blank" href="http://www.baidu.com/cb.php?c=IgF_pyfqnWR1rjnLPfKYTjYk0A7b5HmYP1f1PfKbuHYdrjm3P1m0TAq15Hc4rjmkn6K15HfYnH64rHRsnH-9mWmkrHf0uZfqnHnvPWcknHD3r0KdThsqpZwYTjCEQLILIz4CUv4Cuyb8mvqV0ZFb5Hc40AFV5H00TZcqn0KdpyfqnHRLPHRsPsKEpyfqPHbs0APGujYdrj60ULI85HRLn0KWThnqPH0Ln1R"><img src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/n2.jpg" height="60" width="320"></a>
+<a target="_blank" href="http://www.baidu.com/cb.php?c=IgF_pyfqnWR1rjnLP6KYTjYk0A7b5HmYP1f1PfKbuHYdrjm3P1m0TAq15Hc4rjmkn6K15HfYnH64rHRsnH-9mWmkrHf0uZfqnHnvPWcknHD3r0KdThsqpZwYTjCEQLILIz4kuAw_XAm8mvqVQLI-m6KzujYzrfKBUHYs0ZKz5H00Iy-b5HDdP1RdnjT0Uv-b5HR4n0KWpyfqPH630AqLUWYdP100mLFW5HmsPHDs"><img src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/n3.jpg" height="60" width="320"></a>
+</div>
+
+<div style="padding-top:0px;width:980px;margin:auto;padding-bottom:0px;clear:both;overflow:hidden">
+<a target="_blank" href="http://www.baidu.com/cb.php?c=IgF_pyfqn1DsrHDYPfKYTjYk0A7b5HmYP1f1PfKbuHYdrjm3P1m0TAq15Hc4rjmkn6K15HfYnH64rHRsnH-9mWmkrHf0uZfqnHnvPWcknHD3r0KdThsqpZwYTjCEQLILIz3zmLwEQhPEUiqsuy-3Iy30ThfqnWb0mhYqn0KsTWYs0ZNGujYkPHTdPH0L0AqGujYdrH00mv-b5HR3r0KEIv3qPHTs0APzm1YzPH0drf"><img src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/xc.jpg" height="60" width="980"></a>
+</div>
+
+</div>
+
+
+<div class="divline8"></div>
+<div class="it165_box">
+	<div class="box_left">
+		
+		<dl class="box_p">
+			<dd class="pRight"><a href="http://www.2cto.com/">首页</a><span> &gt; </span><a href="http://www.2cto.com/os/">系统</a> &gt; <a href="http://www.2cto.com/os/xuniji/">虚拟机</a> &gt;  正文</dd>
+			<form name="search" target="_blank" action="http://www.2cto.com/index.php" method="get">
+			<dd class="pRSearch">
+					<input name="m" value="search" type="hidden">
+					<input name="c" value="index" type="hidden">
+					<input name="a" value="init" type="hidden">
+					<input name="typeid" value="1" id="typeid" type="hidden">
+					<input name="siteid" value="1" id="siteid" type="hidden">
+					<input name="Submit1" value=" " type="submit"></dd>
+					<dd class="pRKeyWork"><input id="Keyword" name="q" type="text"></dd>
+			</form>
+			</dl>
+		<dl class="box_t"><dd>主机ubuntu与虚拟机virtualbox中的xp怎么样实现文件共享</dd></dl>
+																										<dl class="box_INFO">
+			<dd class="frinfo line_blue">2012-07-18 09:36:44  &nbsp;&nbsp;&nbsp;&nbsp;<a style="font-weight:bold;padding:5px 0px 5px 20px;background:url('http://www.2cto.com/statics/images/icon/user_comment.png') left center no-repeat" href="#comment_iframe">我来说两句&nbsp;</a>&nbsp;&nbsp;  &nbsp;&nbsp;  </dd>
+			<dd class="frsize line_blue">
+			<span id="favorite">
+				<a href="javascript:;" onclick="add_favorite('主机ubuntu与虚拟机virtualbox中的xp怎么样实现文件共享');" class="t6">收藏</a>
+			</span>&nbsp;&nbsp;
+				<a target="_blank" href="http://www.2cto.com/tg.html"><img src="index_data/dl.jpg" border="0">我要投稿</a>
+			</dd>
+			
+		</dl>
+		<dl class="box_body" id="fontzoom"><dd id="Article">
+		<div><br>
+主机ubuntu与<a href="http://www.2cto.com/os/xuniji/" target="_blank" class="keylink">虚拟机</a>virtualbox中的xp怎么样实现文件共享</div>
+<div>&nbsp;</div>
+<div>首先要说的就是想要把鼠标键盘从虚拟机里“解放出来，只要按住：Ctrl+Alt+Del就可以了！十来分钟的样子系统安装好了，现在设备管理器里看看是不是驱动没有装齐，没装完备也无所谓的。</div>
+<div>这时候点击VirtualBox虚拟机上的：设备——安装增强功能: &nbsp;www.2cto.com &nbsp;</div>
+<div>&nbsp;</div>
+<div><img style="width: 630px; height: 530.237px;" alt="VirtualBox虚拟机XP与宿主机Ubuntu互访共享文件夹" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/20120718094140543.jpg"><br>
+&nbsp;</div>
+<div>一步一步按下去</div>
+<div><br>
+<img style="display: inline; width: 630px; height: 530.237px;" alt="VirtualBox虚拟机XP与宿主机Ubuntu互访共享文件夹" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/20120718094140947.jpg"><br>
+&nbsp;</div>
+<div>到这一步的时候自己选择：</div>
+<div><br>
+<img style="display: inline; width: 630px; height: 530.237px;" alt="VirtualBox虚拟机XP与宿主机Ubuntu互访共享文件夹" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/20120718094141670.jpg"></div>
+<div>&nbsp;</div>
+<div>是否开启3D加速，玩游戏的话建议选中，不玩的话完全没必要了～～安装完成后再看设备管理器驱动应该都装上了，装不上的话再回去检测步骤～～下
+面说下安装 
+后增强软件的好处：鼠标可以在虚拟机和宿主机之间自由转换；驱动安装完全；可以共享宿主机文件，并且是以映射网络硬盘的方式，很爽的，所有原先装在 
+Windows下的东西都可以在虚拟机里用不用重新安装。</div>
+<div>&nbsp;</div>
+<div>下面就说下怎么共享宿主机文件，先关闭虚拟机，打开虚拟机设置，切换到数据空间，点击右边的添加按钮，进入这个界面：</div>
+<div><br>
+<img style="width: 629px; height: 532px;" alt="VirtualBox虚拟机XP与宿主机Ubuntu互访共享文件夹" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/20120718094142425.jpg"><br>
+&nbsp;</div>
+<div>数据空间位置定位到你的Windows分区，数据空间名称尽量简单，最好就是你的Windows下的盘符，灯下你就知道好处了，设置好了点击确定。可以添加多个的。 &nbsp;www.2cto.com &nbsp;</div>
+<div>&nbsp;</div>
+<div>现在打开虚拟机，在我的电脑上单击右键，选择映射网络驱动器，打开如图界面：</div>
+<div>&nbsp;</div>
+<div><img style="width: 630px; height: 544.626px;" alt="VirtualBox虚拟机XP与宿主机Ubuntu互访共享文件夹" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/20120718094142555.jpg"></div>
+<div><img style="width: 630px; height: 544.626px;" alt="驱动器是指映射以后显示在虚拟机里我的电脑里的盘符，只要不被占用随便选择；文件夹就是这个格式：\vb" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/20120718094143429.jpg"></div>
+<div>&nbsp;</div>
+<div>驱动器是指映射以后显示在虚拟机里我的电脑里的盘符，只要不被占用随便选择；文件夹就是这个格式：\\vboxsvr\x 前面都是一样的，最后的x改成刚才设置的数据空间名称。设置完成后点击完成就可以了。请看效果图：</div>
+<div><br>
+<img style="display: inline; width: 630px; height: 544.626px;" alt="驱动器是指映射以后显示在虚拟机里我的电脑里的盘符，只要不被占用随便选择；文件夹就是这个格式：\vb" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/20120718094144620.jpg"><br>
+&nbsp;</div>
+<div>至此，教程就基本结束了！</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>作者 赤脚大仙~</div>
+						</dd></dl>
+		<script type="text/javascript">
+		<!--
+		$(function(){
+		  $('#Article img').LoadImage(true, 630, 560,'http://www.2cto.com/statics/images/s_nopic.gif');    
+		})
+		
+		//-->
+		</script>
+	<div id="pages" class="box_body">	</div>
+	<dl class="box_Nsc">
+		<dd class="lcopy"><a class="ckcopy" onclick="copyToClipBoard()">点击复制链接 与QQ/MSN好友分享!</a></dd>
+		<script> 
+		function copyToClipBoard(){ 
+		var clipBoardContent=document.title + '\r\n' + document.location; 
+		clipBoardContent+='\r\n'; 
+		window.clipboardData.setData("Text",clipBoardContent); 
+		alert("恭喜您！复制成功"); 
+		} 
+		</script>
+
+		<div class="Article-Tool">
+          <span class="fxd">分享到：
+		  <img src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/weiboicon16.png" style="padding-bottom:3px;" onclick="postToWb();" class="cu" title="分享到腾讯微博"></span><script type="text/javascript">
+	function postToWb(){
+		var _t = encodeURI(document.title);
+		var _url = encodeURIComponent(document.location);
+		var _appkey = encodeURI("5e544a8fdea646c5a5f3967871346eb8");
+		var _pic = encodeURI('http://www.2cto.com/uploadfile/2012/0718/20120718094140543.jpg');
+		var _site = '';
+		var _u = 'http://v.t.qq.com/share/share.php?url='+_url+'&appkey='+_appkey+'&site='+_site+'&pic='+_pic+'&title='+_t;
+		window.open( _u,'', 'width=700, height=680, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no' );
+	}
+</script>
+          <script type="text/javascript">document.write('<a href="http://v.t.sina.com.cn/share/share.php?url='+encodeURIComponent(location.href)+'&appkey=2386826374&title='+encodeURIComponent('主机ubuntu与虚拟机virtualbox中的xp怎么样实现文件共享')+'" title="分享到新浪微博" class="t1" target="_blank">&nbsp;</a>');</script><a href="http://v.t.sina.com.cn/share/share.php?url=http%3A%2F%2Fwww.2cto.com%2Fos%2F201207%2F141382.html&amp;appkey=2386826374&amp;title=%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB" title="分享到新浪微博" class="t1" target="_blank">&nbsp;</a>
+		  <script type="text/javascript">document.write('<a href="http://www.douban.com/recommend/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent('主机ubuntu与虚拟机virtualbox中的xp怎么样实现文件共享')+'" title="分享到豆瓣" class="t2" target="_blank">&nbsp;</a>');</script><a href="http://www.douban.com/recommend/?url=http%3A%2F%2Fwww.2cto.com%2Fos%2F201207%2F141382.html&amp;title=%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB" title="分享到豆瓣" class="t2" target="_blank">&nbsp;</a>
+		  <script type="text/javascript">document.write('<a href="http://share.renren.com/share/buttonshare.do?link='+encodeURIComponent(location.href)+'&title='+encodeURIComponent('主机ubuntu与虚拟机virtualbox中的xp怎么样实现文件共享')+'" title="分享到人人" class="t3" target="_blank">&nbsp;</a>');</script><a href="http://share.renren.com/share/buttonshare.do?link=http%3A%2F%2Fwww.2cto.com%2Fos%2F201207%2F141382.html&amp;title=%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB" title="分享到人人" class="t3" target="_blank">&nbsp;</a>
+		  <script type="text/javascript">document.write('<a href="http://www.kaixin001.com/repaste/share.php?rtitle='+encodeURIComponent('主机ubuntu与虚拟机virtualbox中的xp怎么样实现文件共享')+'&rurl='+encodeURIComponent(location.href)+'&rcontent=" title="分享到开心网" class="t4" target="_blank">&nbsp;</a>');</script><a href="http://www.kaixin001.com/repaste/share.php?rtitle=%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB&amp;rurl=http%3A%2F%2Fwww.2cto.com%2Fos%2F201207%2F141382.html&amp;rcontent=" title="分享到开心网" class="t4" target="_blank">&nbsp;</a>
+		  <script type="text/javascript">document.write('<a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+encodeURIComponent(location.href)+'" title="分享到QQ空间" class="t5" target="_blank">&nbsp;</a>');</script><a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http%3A%2F%2Fwww.2cto.com%2Fos%2F201207%2F141382.html" title="分享到QQ空间" class="t5" target="_blank">&nbsp;</a>
+      
+	  
+
+	  </div>
+
+		
+		
+		<dd class="bbstt">您对本文章有什么意见或着疑问吗？请到<a href="http://bbs.2cto.com/">论坛讨论</a>您的关注和建议是我们前行的参考和动力&nbsp;&nbsp; </dd>
+	</dl>
+	<dl class="box_NPre">
+		<dd class="TLineX"><strong>上一篇：</strong><a href="http://www.2cto.com/os/201207/141368.html">ubuntu12.04虚拟机硬盘扩容</a></dd>
+		<dd><strong>下一篇：</strong><a href="http://www.2cto.com/os/201207/141410.html">在Vmware中安装MacOS X 10.6.3（无需VT-X）</a></dd>
+	</dl>
+	<dl style="width:650px;height:70px;padding-top:10px;float:left;padding-left:10px">
+		<dd><script type="text/javascript">BAIDU_CLB_fillSlot("182716");</script><script charset="utf-8" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/ecom_006"></script><div id="baidu_clb_slot_182716"><div style="display:none">-</div> <iframe id="cproIframe1" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/uijs.html" marginwidth="0" marginheight="0" allowtransparency="true" frameborder="0" height="60" scrolling="no" width="640" align="center,center"></iframe></div></dd>
+	</dl>
+	<dl class="about"><dd>相关文章</dd></dl>
+				<div class="alistline"><a href="http://www.2cto.com/kf/200410/428.html" target="blank">利用ASP实现对Web主机硬盘文件的读写</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/kf/200410/689.html" target="blank">W2K主机ARP表操作的实现</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/kf/200410/1091.html" target="blank">主机扫描程序实现方法</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/Article/200410/1369.html" target="blank">虚拟主机设置</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/net/200411/1759.html" target="blank">虚拟主机原理</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/Article/200411/2053.html" target="blank">目标主机操作系统识别技术</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/net/200411/2054.html" target="blank">ping命令检测目标主机：利用TTL值来鉴</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/net/200411/2055.html" target="blank">利用ARP探测以太网中的活动主机</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/Article/200411/2072.html" target="blank">构建免受 FSO 威胁虚拟主机</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/net/200411/2643.html" target="blank">虚拟主机如何提高整体性能-applicatio</a></div>
+			<dl class="linetb"></dl>
+	<dl class="about"><dd>图文推荐</dd></dl>
+	<div class="picbox">
+						<dl class="wbox">
+			<dd class="npicbox"><a target="_blank" href="http://www.2cto.com/os/201209/158200.html"><img src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/thumb_126_90_20120928093011407.png" height="90" width="126" border="0"></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/os/201209/158200.html">VMWare虚拟机下为Ubu</a></dd>
+		</dl>
+				<dl class="wbox">
+			<dd class="npicbox"><a target="_blank" href="http://www.2cto.com/os/201209/157929.html"><img src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/1.jpg" height="90" width="126" border="0"></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/os/201209/157929.html">Freebsd系统故障不能</a></dd>
+		</dl>
+				<dl class="wbox">
+			<dd class="npicbox"><a target="_blank" href="http://www.2cto.com/os/201209/157596.html"><img src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/thumb_126_90_20120925024542722.jpg" height="90" width="126" border="0"></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/os/201209/157596.html">给虚拟机提速的方法</a></dd>
+		</dl>
+				<dl class="wbox">
+			<dd class="npicbox"><a target="_blank" href="http://www.2cto.com/os/201209/157572.html"><img src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/thumb_126_90_20120925011334961.jpg" height="90" width="126" border="0"></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/os/201209/157572.html">Hyper-V虚拟机使用教</a></dd>
+		</dl>
+					</div>
+		<dl class="linetb"></dl>
+	<div id="pl" style="float:left;width:650px;padding:10px 10px 0px 10px;overflow:hidden;background-color:white">
+		<iframe src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/uapi.html" id="comment_iframe" name="comment_iframe" frameborder="0" height="309" scrolling="no" width="100%"></iframe>
+	</div>
+	
+	</div>
+	<div class="box_right">
+		<div style="float:left;width:300px;background:white;padding-left:10px;height:250px">
+			<a target="_blank" href="http://vip.2cto.com/"><img class="zjaguvcgprheniwymyyz" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/300-250.gif" height="250" width="300"></a></div>
+		<div class="box_right_line"><div class="xline"></div></div>
+		<div class="box_right_box">
+			<dl class="bTitle"><dd onmousemove="m_tab(1)" id="indexW" class="tablinkschecked">排行</dd><dd onmousemove="m_tab(2)" id="hotW" class="tablinkscheck">热门</dd></dl>
+		</div>
+		<div class="box_right_box">
+			<div class="paddingbox">
+				<dl class="index" id="index">
+					<dd class="picline"></dd>
+															<dd class="list">257 | <a title="Vmware磁盘优化深度解析-如何才能提高工作性能" href="http://www.2cto.com/os/201205/133714.html">Vmware磁盘优化深度解析-如何才能提高</a></dd>
+										<dd class="list">227 | <a title="解决安装VirtualBox 4.1失败的问题" href="http://www.2cto.com/os/201208/148485.html">解决安装VirtualBox 4.1失败的问题</a></dd>
+										<dd class="list">211 | <a title="最小化安装CentOS6 VMware-tools安装几点注意事项 " href="http://www.2cto.com/os/201111/112284.html">最小化安装CentOS6 VMware-tools安装</a></dd>
+										<dd class="list">179 | <a title="VirtualBox 4.1.16之共享文件夹" href="http://www.2cto.com/os/201206/136400.html">VirtualBox 4.1.16之共享文件夹</a></dd>
+										<dd class="list">173 | <a title="CentOS 6安装配置KVM简析" href="http://www.2cto.com/os/201203/125709.html">CentOS 6安装配置KVM简析</a></dd>
+										<dd class="list">158 | <a title="Citrix Xenserver之二安装Xenserver 5.6 SP2" href="http://www.2cto.com/os/201108/101438.html">Citrix Xenserver之二安装Xenserver </a></dd>
+										<dd class="list">158 | <a title="VirtualBox增大硬盘容量（guest为Linux）" href="http://www.2cto.com/os/201202/120136.html">VirtualBox增大硬盘容量（guest为Linu</a></dd>
+										<dd class="list">140 | <a title="调整VMware中Linux虚拟机屏幕分辨率" href="http://www.2cto.com/os/201207/138957.html">调整VMware中Linux虚拟机屏幕分辨率</a></dd>
+														</dl>
+				<dl class="index" id="hot" style="display:none">
+					<dd class="picline"></dd>
+															<dd class="list"><a title="VMware 8安装苹果操作系统Mac OS X 10.7 Lion正式版" href="http://www.2cto.com/os/201201/116746.html">VMware 8安装苹果操作系统Mac OS X</a></dd>
+										<dd class="list"><a title="在VMware Workstation 8.0.1中安装苹果MAC OS X Lion（狮子）系统" href="http://www.2cto.com/os/201112/114230.html">在VMware Workstation 8.0.1中安装苹</a></dd>
+										<dd class="list"><a title="VMware ESXI5.0的安装配置" href="http://www.2cto.com/os/201109/102806.html">VMware ESXI5.0的安装配置</a></dd>
+										<dd class="list"><a title="启动VMware出现报错：The VMware Authorization Service is not running " href="http://www.2cto.com/os/201111/112418.html">启动VMware出现报错：The VMware Au</a></dd>
+										<dd class="list"><a title="VMware虚拟机安装Mac OS X Lion " href="http://www.2cto.com/os/201202/118888.html">VMware虚拟机安装Mac OS X Lion </a></dd>
+										<dd class="list"><a title="关于虚拟机无法启动（The VMware Authorization Service is not running）" href="http://www.2cto.com/os/201203/123501.html">关于虚拟机无法启动（The VMware Au</a></dd>
+										<dd class="list"><a title="VMware ESXi 5安装图文教程" href="http://www.2cto.com/os/201201/117743.html">VMware ESXi 5安装图文教程</a></dd>
+										<dd class="list"><a title="VMware View 5.0从菜鸟到高手系列 -环境准备篇" href="http://www.2cto.com/os/201110/107161.html">VMware View 5.0从菜鸟到高手系列 </a></dd>
+														</dl>
+			</div>
+			<script type="text/javascript">
+			<!--
+				function m_tab(index)
+				{
+					if (index == 1){
+						document.getElementById("indexW").className = "tablinkschecked";
+						document.getElementById("hotW").className = "tablinkscheck";
+						document.getElementById("index").style.display = "block";
+						document.getElementById("hot").style.display = "none";
+					}
+					else{
+						document.getElementById("hotW").className = "tablinkschecked";
+						document.getElementById("indexW").className = "tablinkscheck";
+						document.getElementById("index").style.display = "none";
+						document.getElementById("hot").style.display = "block";
+					}
+				}
+			//-->
+			</script>
+		</div>
+		<div class="rightlineT"><div class="rxline"></div></div>
+		<div style="float:left;width:300px;background:white;padding-left:10px;height:60px">
+		<!-- 广告位：内容页右侧小广告位 -->
+<script type="text/javascript">BAIDU_CLB_fillSlot("406189");</script><script charset="utf-8" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/ecom_005"></script><div id="baidu_clb_slot_406189"><iframe id="baidu_clb_slot_iframe_406189" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/a_002.html" onload="BAIDU_CLB_renderFrame('406189')" vspace="0" hspace="0" allowtransparency="true" marginheight="0" marginwidth="0" style="border: 0; vertical-align: bottom; margin: 0; display: block;" frameborder="0" height="60" scrolling="no" width="300"></iframe></div>
+ </div>
+		<div class="rightlineNo"></div>
+		<div class="box_right_box">
+			<dl class="bTitle borT"><dd class="newarc"></dd></dl>
+		</div>
+		<div class="box_right_box">
+			<div class="paddingbox">
+				<dl class="index">
+					<iframe name="Iframe1" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/index_002.html" frameborder="0" height="200" width="100%">
+				您的浏览器不支持嵌入式框架，或者当前配置为不显示嵌入式框架。
+			</iframe>
+				</dl>
+			</div>
+		</div>
+		<div class="rightlineT"><div class="rxline"></div></div>
+
+		<div style="float:left;width:300px;background:white;padding-left:10px;height:250px"><script type="text/javascript">BAIDU_CLB_fillSlot("182692");</script><script charset="utf-8" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/ecom_002"></script><div style="display:none">-</div> <iframe id="cproIframe2" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/uijs_002.html" marginwidth="0" marginheight="0" allowtransparency="true" frameborder="0" height="250" scrolling="no" width="300" align="center,center"></iframe> </div>
+		<div class="rightlineNo"></div>
+		<div class="box_right_box">
+			<dl class="bTitle borT"><dd class="newdown"></dd></dl>
+		</div>
+		<div class="box_right_box">
+			<div class="paddingbox">
+				<dl class="index">
+															<dd class="picbox"><a class="plink" href="http://www.2cto.com/os/201207/142142.html"><img class="pic1" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/thumb_126_90_20120720095047685.jpg" height="90" width="126" border="0"></a><span><a href="http://www.2cto.com/os/201207/142142.html">虚拟机和主机文件共享</a></span></dd>
+															<dd class="picline"></dd>
+															<dd class="list">&#9642;&nbsp;<a href="http://www.2cto.com/os/201207/142142.html">虚拟机和主机文件共享的四种方法</a></dd>
+														</dl>
+			</div>
+			<div class="xline"></div>
+		</div>
+
+	</div>
+</div>
+<script type="text/javascript">
+<!--
+function showLogin(){
+	window.art.dialog({id:'Login',iframe:'http://www.2cto.com/index.php?m=member&c=index&a=login&tupe=mini', title:'快捷登陆', width:'450', height:'310', lock:true}, function(){var d = window.art.dialog({id:'Login'}).data.iframe;var form = d.document.getElementById('dosubmit');form.click();return false;}, function(){window.art.dialog({id:'Login'}).close()});void(0);
+}
+function add_favorite(title) {
+		$.getJSON('http://www.2cto.com/api.php?op=add_favorite&title='+encodeURIComponent(title)+'&url='+encodeURIComponent(location.href)+'&'+Math.random()+'&callback=?', function(data){
+			if(data.status==1)	{
+				$("#favorite").html('收藏成功');
+			} else {
+				alert('请登陆');
+				window.location.href='http://home.2cto.com/?forward='+encodeURIComponent(location.href);
+			}
+		});
+	}
+//-->
+</script>
+<script language="JavaScript" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/api.html"></script>
+<!-- 广告位：右侧漂浮 -->
+<script type="text/javascript">BAIDU_CLB_fillSlot("137946");</script><script charset="utf-8" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/ecom_003"></script>
+
+<div style="width:980px;padding:8px 0px 8px 0px;margin:auto"><script type="text/javascript">BAIDU_CLB_fillSlot("333829");</script><script charset="utf-8" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/ecom"></script><div id="baidu_clb_slot_333829"><iframe id="baidu_clb_slot_iframe_333829" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/a_002.html" onload="BAIDU_CLB_renderFrame('333829')" vspace="0" hspace="0" allowtransparency="true" marginheight="0" marginwidth="0" style="border: 0; vertical-align: bottom; margin: 0; display: block;" frameborder="0" height="60" scrolling="no" width="980"></iframe></div></div>
+<div class="foot">
+<p>
+<a target="_blank" href="http://www.2cto.com/about">关于我们</a> |
+<a target="_blank" href="http://www.2cto.com/about/contact.html">联系我们</a> |
+<a target="_blank" href="http://www.2cto.com/about/ads.html">广告服务</a> |
+<a target="_blank" href="http://www.2cto.com/about/touzi.html">投资合作</a> |
+<a target="_blank" href="http://www.2cto.com/about/Copyright.html">版权申明</a> |
+<a target="_blank" href="http://www.2cto.com/about/faq.html">在线帮助</a> |
+<a target="_blank" href="http://www.2cto.com/about/map.html">网站地图</a> |
+<a target="_blank" href="http://www.2cto.com/about/tg.html">作品发布</a> |
+<a target="_blank" href="http://vip.2cto.com/"><span style="COLOR: red">Vip技术培训</span></a>
+<br>
+<span class="style4">版权所有: <a href="http://www.2cto.com/" target="_blank">红黑联盟</a>--致力于做最好的IT技术学习网站<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F1898984a3d796e86ad73ad1f4bc9f240' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/h.js" type="text/javascript"></script>    <script language="javascript" type="text/javascript" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/331738.js"></script><a href="http://www.51.la/?331738" target="_blank" title="我要啦免费统计 VIP 用户">贵宾统计</a>
+<img style="width:0px;height:0px" src="%E4%B8%BB%E6%9C%BAubuntu%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BAvirtualbox%E4%B8%AD%E7%9A%84xp%E6%80%8E%E4%B9%88%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB_files/go2.html">
+
+<noscript><a href="http://www.51.la/?331738" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/331738.asp" style="border:none" /></a></noscript>
+</span>
+</p></div>
+
+
+<div class="" style="display: none; position: absolute;"><div class="aui_outer"><table class="aui_border"><tbody><tr><td class="aui_nw"></td><td class="aui_n"></td><td class="aui_ne"></td></tr><tr><td class="aui_w"></td><td class="aui_c"><div class="aui_inner"><table class="aui_dialog"><tbody><tr><td colspan="2" class="aui_header"><div class="aui_titleBar"><div style="cursor: move;" class="aui_title"></div><a class="aui_close" href="javascript:/*artDialog*/;">×</a></div></td></tr><tr><td style="display: none;" class="aui_icon"><div style="background: none repeat scroll 0% 0% transparent;" class="aui_iconBg"></div></td><td style="width: auto; height: auto;" class="aui_main"><div style="padding: 20px 25px;" class="aui_content"></div></td></tr><tr><td colspan="2" class="aui_footer"><div style="display: none;" class="aui_buttons"></div></td></tr></tbody></table></div></td><td class="aui_e"></td></tr><tr><td class="aui_sw"></td><td class="aui_s"></td><td style="cursor: se-resize;" class="aui_se"></td></tr></tbody></table></div></div></body></html>

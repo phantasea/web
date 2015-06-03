@@ -1,0 +1,1040 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><script charset="utf-8" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/a"></script><script id="uyan_script" charset="utf-8" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/ujian.js"></script><script id="uyan_script" charset="utf-8" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/style7.js"></script><script async="" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/ex"></script><script mod_name="tanxssp-main" async="" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/main.js" charset="gbk"></script><script src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/tanxssp.js" async="" charset="gbk"></script><script id="uyan_script" charset="utf-8" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/a_002"></script><script charset="utf-8" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/shares.php"></script><script src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/ex.js" async="" id="tanx-s-mm_10037253_875322_13174833" charset="gbk" type="text/javascript"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+<title>VIM之魅（下）：Vim的方法_开发工具_酷勤网</title>
+<meta name="keywords" content="VIM,之魅,Vim,方法,如果说,Vim,理念,减字,那么">
+<meta name="description" content="如果说Vim的理念是减字诀，那么实现这些理念的方法便是增字诀： 增加模式种类、增加移动方式、增加操作对象、增加操作方式、增加定制方式。 1. 增加模式种类 前文提到引入普通模式的重要意义，但Vim并未就此止步，还提供了另外四种基本模式： 选择模式（sele">
+<link href="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/style.css" rel="stylesheet" type="text/css" media="screen">
+<link rel="alternate" type="application/rss+xml" title="酷勤网_程序员的那点事" href="http://rss.kuqin.com/">
+<script type="text/javascript" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/head.js"></script>
+<script src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/related_items_v2" type="text/javascript"></script><style type="text/css">.uyan_cmt_uname{color: #2B8CE6 !important;}#uyan_cmt_box{width: 100% !important;}#uyan_cmty_btn{display: block !important;}#uyan_login_btn{display: block !important;}#uyan_usp{display: none !important;}.uyan_st_slog{right: 162px !important;}#uyan_info_sync{display: none !important;}</style></head>
+<body><link type="text/css" rel="stylesheet" href="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/jiathis_counter.css"><script charset="utf-8" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/jiathis.php"></script><link type="text/css" rel="stylesheet" href="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/jiathis_share.css"><iframe style="position: fixed; display: none; opacity: 0;" frameborder="0"></iframe><div style="position: absolute; z-index: 1000000000; display: none; top: 50%; left: 50%; overflow: auto;" class="jiathis_style"></div><div style="position: absolute; z-index: 1000000000; display: none; overflow: auto;" class="jiathis_style"></div><iframe src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/jiathis_utility.html" style="display: none;" frameborder="0"></iframe>
+<!-- ShortCut begin -->
+<div class="shortcut">
+	<div class="vmid">
+		<!-- SiteDescription begin -->
+			<p class="description">酷勤网 – 程序员的那点事！</p>
+		<!-- SiteDescription end -->
+	</div>
+</div>
+<!-- ShortCut end -->
+<!-- Wrapper begin -->
+<div class="wrapper vmid">
+	<!-- Header begin -->
+    <div class="header">
+		<div class="toplb">
+			<!-- Logo begin -->
+			<div class="logo"><a href="http://www.kuqin.com/" title="酷勤网-程序员的那点事">酷勤网</a></div>
+			<!-- Logo end -->
+			<!-- AD_LogoBanner begin -->
+			<div class="ad_logobanner">
+				<script src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/ad_js.html" language="javascript"></script>                
+				<div class="clear"></div>
+			</div>
+			<!-- AD_LogoBanner end -->
+			
+			<!-- TopFunction begin -->
+			<div class="toptxt">
+				<div>
+					<a rel="external nofollow" href="#" onclick="this.style.behavior='url(#default#homepage)';this.setHomePage('http://www.kuqin.com');">设为首页</a><br>
+					<a rel="external nofollow" href="javascript:window.external.AddFavorite('http://www.kuqin.com','%E9%85%B7%E5%8B%A4%E7%BD%91')">加入收藏</a><br>
+					<a href="http://rss.kuqin.com/" title="订阅本站" target="_blank">订阅本站</a>
+				</div>
+			</div>
+			<!-- TopFunction end -->
+		</div>
+		<div class="clear"></div>
+		<!-- Navigation begin -->
+		<div id="menu_out" style="margin-bottom:10px;">
+<div id="menu_in">
+
+<div id="menu">
+<ul id="nav">
+<li><a href="http://www.kuqin.com/" onmouseover="javascript:qiehuan(0)" id="mynav0" class=""><span>首页</span></a></li>
+<li class="menu_line"></li>
+<li><a href="http://www.kuqin.com/jingyan/" onmouseover="javascript:qiehuan(1)" id="mynav1" class=""><span>编程</span></a></li>
+<li class="menu_line"></li>
+<li><a href="http://www.kuqin.com/product/" onmouseover="javascript:qiehuan(2)" id="mynav2" class=""><span>产品</span></a></li>
+<li class="menu_line"></li>
+<li><a href="http://www.kuqin.com/career/" onmouseover="javascript:qiehuan(3)" id="mynav3" class=""><span>职业</span></a></li>
+<li class="menu_line"></li>
+<li><a href="http://www.kuqin.com/manage/" onmouseover="javascript:qiehuan(4)" id="mynav4" class=""><span>管理</span></a></li>
+<li class="menu_line"></li>
+<li><a href="http://www.kuqin.com/shuoit/" onmouseover="javascript:qiehuan(5)" id="mynav5" class="nav_on"><span>资讯</span></a></li>
+<li class="menu_line"></li>
+<li><a href="http://www.kuqin.com/kaoshi/" onmouseover="javascript:qiehuan(6)" id="mynav6" class=""><span>考试</span></a></li>
+<li class="menu_line"></li>
+<li><a href="http://game.kuqin.com/" onmouseover="javascript:qiehuan(7)" id="mynav7" class=""><span>游戏</span></a></li>
+<li class="menu_line"></li>
+<li><a href="http://www.kuqin.com/book/" onmouseover="javascript:qiehuan(8)" id="mynav8" class=""><span>读书</span></a></li>
+<li class="menu_line"></li>
+<li><a href="http://www.kuqin.com/topics/" onmouseover="javascript:qiehuan(9)" id="mynav9" class=""><span>主题</span></a></li>
+<li class="menu_line"></li>
+<li><a target="_blank" href="http://www.ithao123.com/" onmouseover="javascript:qiehuan(10)" id="mynav10" class=""><span>导航</span></a></li>
+<li class="menu_line"></li>
+<li><a href="http://www.kuqin.com/down/" onmouseover="javascript:qiehuan(11)" id="mynav11" class=""><span>下载</span></a></li>
+</ul>
+
+<div id="menu_con">
+<div id="qh_con0" style="display:none">
+<ul>
+  
+  <li><a href="http://www.kuqin.com/topics/12306.html" target="_blank"><span>12306火车票系统</span></a></li>
+  <li class="menu_line2"></li>
+  
+  <li><a href="http://www.kuqin.com/topics/google.html" target="_blank"><span>Google谷歌</span></a></li>
+  <li class="menu_line2"></li>
+  
+  <li><a href="http://www.kuqin.com/topics/miliao.html" target="_blank"><span>米聊</span></a></li>
+  <li class="menu_line2"></li>
+  
+  <li><a href="http://www.kuqin.com/topics/Eclipse.html" target="_blank"><span>Eclipse</span></a></li>
+  <li class="menu_line2"></li>
+  
+  <li><a href="http://www.kuqin.com/topics/Apache.html" target="_blank"><span>Apache</span></a></li>
+  <li class="menu_line2"></li>
+  
+  <li><a href="http://www.kuqin.com/topics/Hadoop.html" target="_blank"><span>Hadoop</span></a></li>
+  <li class="menu_line2"></li>
+  
+</ul>
+</div>
+ 
+<div id="qh_con1" style="display:none">
+<ul>
+  	
+	<li><a href="http://www.kuqin.com/gamedev/" target="_blank"><span>游戏开发</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/cio/" target="_blank"><span>企业信息化</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/system-analysis/" target="_blank"><span>系统架构</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/web/" target="_blank"><span>Web开发</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/java/" target="_blank"><span>Java技术</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/dotnet/" target="_blank"><span>.Net技术</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/linux/" target="_blank"><span>Linux社区</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/mobile/" target="_blank"><span>移动开发</span></a></li>
+	<li class="menu_line2"></li>
+	
+</ul>
+</div> 
+
+<div id="qh_con2" style="display:none">
+<ul>
+	
+	<li><a href="http://www.kuqin.com/uidesign/" target="_blank"><span>交互设计</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/artdesign/" target="_blank"><span>视觉设计</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/webpagedesign/" target="_blank"><span>网页设计</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/shuoit/web-marketing/" target="_blank"><span>网络营销</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/shuoit/advertisement/" target="_blank"><span>网络广告</span></a></li>
+	<li class="menu_line2"></li>
+	
+</ul>
+</div> 
+
+<div id="qh_con3" style="display:none">
+<ul>
+	
+	<li><a href="http://www.kuqin.com/law/" target="_blank"><span>IT法律</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/humor/" target="_blank"><span>IT幽默</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/itlife/" target="_blank"><span>程序人生</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/job/" target="_blank"><span>求职招聘</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/itman/" target="_blank"><span>IT人物</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/chuangye/" target="_blank"><span>IT人创业</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/zhanz/" target="_blank"><span>站长经验</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/editor/" target="_blank"><span>网络编辑</span></a></li>
+	<li class="menu_line2"></li>
+	
+</ul>
+</div> 
+<div id="qh_con4" style="display: none;">
+<ul>
+	
+	<li><a href="http://www.kuqin.com/ruhe/" target="_blank"><span>如何学习</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/pragmatic/" target="_blank"><span>修炼之道</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/managetool/" target="_blank"><span>管理工具</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/developtool/" target="_blank"><span>开发工具</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/projectmanage/" target="_blank"><span>项目管理</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/software-engineer/" target="_blank"><span>软件工程</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/health/" target="_blank"><span>程序员健康</span></a></li>
+	<li class="menu_line2"></li>
+	
+</ul>
+</div>
+
+<div id="qh_con5" style="display: block;">
+<ul>
+	
+	<li><a href="http://www.kuqin.com/shuoit/it/" target="_blank"><span>业界</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/shuoit/telecom/" target="_blank"><span>通信与电信</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/shuoit/digital/" target="_blank"><span>数码与手机</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/shuoit/data/" target="_blank"><span>数据中心</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/shuoit/elec/" target="_blank"><span>家电</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/shuoit/web/" target="_blank"><span>互联网</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/shuoit/service/" target="_blank"><span>网络服务</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/shuoit/it-history/" target="_blank"><span>IT史记</span></a></li>
+	<li class="menu_line2"></li>
+	
+</ul>
+</div>
+
+<div id="qh_con6" style="display:none">
+<ul>
+	
+	<li><a href="http://www.kuqin.com/baike/" target="_blank"><span>IT知识百科</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/itkaoyan/" target="_blank"><span>IT考研</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/contest/" target="_blank"><span>竞赛比赛</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/kaozheng/" target="_blank"><span>培训考证</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/tiku/" target="_blank"><span>题库中心</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/english/" target="_blank"><span>程序员英语</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/math/" target="_blank"><span>程序员数学</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/CET4-CET6/" target="_blank"><span>英语四六级</span></a></li>
+	<li class="menu_line2"></li>
+	
+</ul>
+</div>
+
+<div id="qh_con7" style="display:none">
+<ul>
+	
+	<li><a href="http://www.kuqin.com/game/51mole/" target="_blank"><span>摩尔庄园</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/game/haidi001/" target="_blank"><span>海宝彩虹城</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/game/gogo517/" target="_blank"><span>网娃乐园</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/game/haqi/" target="_blank"><span>哈奇小镇</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/news/" target="_blank"><span>游戏资讯</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/pc/" target="_blank"><span>单机游戏</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/tv/" target="_blank"><span>电视游戏</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/m/" target="_blank"><span>手机游戏</span></a></li>
+	<li class="menu_line2"></li>
+	
+</ul>
+</div>
+
+<div id="qh_con8" style="display:none">
+<ul>
+  <li><a href="http://www.kuqin.com/book/" target="_blank"><span>书籍百科</span></a></li>
+  <li class="menu_line2"></li>
+  <li><a href="http://www.kuqin.com/shuping/" target="_blank"><span>书籍书评</span></a></li>
+  <li class="menu_line2"></li>
+</ul>
+</div>
+
+<div id="qh_con9" style="display:none">
+<ul>
+  
+  <li><a href="http://www.kuqin.com/topics/163.html" target="_blank"><span>网易163</span></a></li>
+  <li class="menu_line2"></li>
+  
+  <li><a href="http://www.kuqin.com/topics/360buy.html" target="_blank"><span>京东商城</span></a></li>
+  <li class="menu_line2"></li>
+  
+  <li><a href="http://www.kuqin.com/topics/youku.html" target="_blank"><span>优酷网</span></a></li>
+  <li class="menu_line2"></li>
+  
+  <li><a href="http://www.kuqin.com/topics/jutaobao.html" target="_blank"><span>聚划算</span></a></li>
+  <li class="menu_line2"></li>
+  
+  <li><a href="http://www.kuqin.com/topics/tianmao.html" target="_blank"><span>天猫</span></a></li>
+  <li class="menu_line2"></li>
+  
+  <li><a href="http://www.kuqin.com/topics/tmall.html" target="_blank"><span>淘宝商城</span></a></li>
+  <li class="menu_line2"></li>
+  
+</ul>
+</div>
+
+<div id="qh_con10" style="display:none">
+<ul>
+  <li><span>ITHao123.COM - 导航计算机优秀网站</span></li>
+</ul>
+</div>
+
+<div id="qh_con11" style="display:none">
+<ul>
+	
+	<li><a href="http://www.kuqin.com/book/" target="_blank"><span>电子书下载</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/soft/" target="_blank"><span>常用软件下载</span></a></li>
+	<li class="menu_line2"></li>
+	
+	<li><a href="http://www.kuqin.com/code/" target="_blank"><span>源码下载</span></a></li>
+	<li class="menu_line2"></li>
+	
+</ul>
+</div>
+	<!-- Search begin -->
+	<div style="float:right; margin-top:7px;">
+	<form action="http://www.google.com/cse" id="cse-search-box" target="_blank">
+	<input name="cx" value="003441317781501573535:of4gx8okfgw" type="hidden">
+	<input name="ie" value="gb2312" type="hidden">
+	<input name="q" class="search_k" type="text">
+	<input name="sa" value="" class="search_s" type="submit">
+	</form>
+	</div>
+	<!-- Search end -->
+
+</div>
+</div></div></div> 
+		<!-- Navigation end -->
+		<div class="clear"></div>
+	</div>
+	<!-- Header end -->
+	<!-- Container begin -->
+	<div class="container">
+		<!-- Content begin -->
+		<div class="content">
+		
+		<div class="ccca">
+		
+		  <div class="breadcrumb article_dq">
+				当前位置：<a href="http://www.kuqin.com/">首页</a> &gt; <a href="http://www.kuqin.com/manage/">管理</a> &gt; <a href="http://www.kuqin.com/developtool/">开发工具</a> &gt; 正文
+			</div>
+			<!-- SinglePost begin -->
+			<div class="single">
+				<h1><a href="http://www.kuqin.com/developtool/20111213/316169.html" target="_blank">VIM之魅（下）：Vim的方法</a></h1>
+				<div class="meta singlemeta">
+					<span>浏览次数：<script src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/count.html" type="text/javascript" language="javascript"></script>2089次</span>
+					<span>2011年12月13日</span>
+					<span class="cmts"><a rel="external nofollow" href="#source" title="点击跳到来源地址">冒号空间</a></span>
+					<span>字号: <a rel="external nofollow" class="mfbig" href="javascript:void(0)">大</a> <a rel="external nofollow" class="mfmid" href="javascript:void(0)">中</a> <a rel="external nofollow" class="mfsml mfcurrent" href="javascript:void(0)">小</a> </span>
+				</div>
+				<!-- JiaThis Button BEGIN -->
+				<script language="JavaScript" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/jia1.js" type="text/JavaScript"></script><div id="ckepop">
+	<span class="jiathis_txt">分享到：</span>
+	<a title="分享到QQ空间" class="jiathis_button_qzone"><span class="jiathis_txt jiathis_separator jtico jtico_qzone">QQ空间</span></a>
+	<a title="分享到新浪微博" class="jiathis_button_tsina"><span class="jiathis_txt jiathis_separator jtico jtico_tsina">新浪微博</span></a>
+	<a title="分享到腾讯微博" class="jiathis_button_tqq"><span class="jiathis_txt jiathis_separator jtico jtico_tqq">腾讯微博</span></a>
+	<a title="分享到人人网" class="jiathis_button_renren"><span class="jiathis_txt jiathis_separator jtico jtico_renren">人人网</span></a>
+	<a title="分享到豆瓣" class="jiathis_button_douban"><span class="jiathis_txt jiathis_separator jtico jtico_douban">豆瓣网</span></a>
+	<a title="分享到开心网" class="jiathis_button_kaixin001"><span class="jiathis_txt jiathis_separator jtico jtico_kaixin001">开心网</span></a>
+	<a href="http://www.jiathis.com/share?uid=1531230" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+	<a class="jiathis_counter_style"><span title="累计分享2次" id="jiathis_counter_101" class="jiathis_button_expanded jiathis_counter jiathis_bubble_style">2</span></a>
+</div>
+
+				<!-- JiaThis Button END -->
+				<div class="clear"></div>
+				<!-- PostContent begin -->
+				<div class="entry">
+					<div class="entrycontent">
+						<div style="float:right;margin-top:20px;margin-left:0px">
+						<script type="text/javascript"><!--
+						google_ad_client = "ca-pub-9317413389774415";
+						/* 2012年文章页头部336&#42;280 */
+						google_ad_slot = "9598016854";
+						google_ad_width = 336;
+						google_ad_height = 280;
+						//-->
+						</script>
+						<script type="text/javascript" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/show_ads.js">
+						</script>
+						</div>
+						<p>如果说Vim的理念是“减”字诀，那么实现这些理念的方法便是“增”字诀： 增加模式种类、增加移动方式、增加操作对象、增加操作方式、增加定制方式。</p>
+<h4>1. 增加模式种类</h4>
+<p>前文提到引入普通模式的重要意义，但Vim并未就此止步，还提供了另外四种基本模式： 选择模式（select mode）、可视化模式、命令行模式和ex模式。</p>
+<p>选择模式与可视化模式的目的均是选择文本以备后续操作。前者类似Windows下的选择模式， 在方便程度与威力上远不及后者，故略去不谈。</p>
+<p>在普通模式下，按下 <tt class="docutils literal">v</tt> 、 <tt class="docutils literal">V</tt> 、 <tt class="docutils literal">Ctrl-V</tt> 将分别开启以字符、行或块为单位 的可视化模式，此后用户可以通过多次使用Vim的移动命令来选定所需文本。 例如，在普通模式下输入 <tt class="docutils literal">v/the</tt> 并回车后，从光标初始处到此后最近的 <tt class="docutils literal">the</tt> 之前都将被高亮。如发现并非所求，继续按 <tt class="docutils literal">n</tt> 将使选择区域扩大到下一处 的 <tt class="docutils literal">the</tt> 之前，以后还可多次用 <tt class="docutils literal">j</tt> 或 <tt class="docutils literal">k</tt> 来延伸或压缩所选区域的行，或者 反复用 <tt class="docutils literal">h</tt> 或 <tt class="docutils literal">l</tt> 进行左右微调，用 <tt class="docutils literal">w</tt> 或 <tt class="docutils literal">b</tt> 来增减被选单词， 用 <tt class="docutils literal">f</tt> 或 <tt class="docutils literal">t</tt>
+ 确定字符，等等。 相比直接通过正常模式操作，可视化模式允许用户在对文本片段进行编辑 
+之前加以检视、调整和确认，因而更加直观、准确和安全，并且让所选文本成为 批处理的整体对象，增加了编辑效率，同时减少了操作的碎片化。 
+与用鼠标相比，若是操作短文本或规律明显的文本，速度多不及普通模式下的操作； 若是操作文本较长且不太规律的文本，则往往不及可视化模式下的操作。 
+比如，要选中从当前行到倒数第二行的文本，若中间相距较远，用鼠标定然慢而不便。 性急如我者，一不留神就可能把鼠标拖出桌面之外。 
+使用可视化模式则异常轻松： <tt class="docutils literal">VGk</tt> ，完毕。</p>
+<p>可视化模式不仅支持行操作，还支持列操作，这也是比普通模式更便利之处。 比如要交换文件中头两列的字符， 可键入 <tt class="docutils literal">gg&lt;Ctrl-V&gt;Gdp</tt> 。</p>
+<p>命令行模式与ex模式均可执行ex命令，只是后者在执行后不像前者那样返回正常模式。 
+普通命令虽然丰富，但远远谈不上完备。比如，无法同时编辑多处文本片段， 无法在不离开当前编辑窗口的条件下操作其他文件，无法获取其他文件中的内容， 
+无法读取环境变量，无法执行外部命令，等等。 有了ex命令，Vim的潜能开始无限释放，一方面充分地利用了外部资源， 
+另一方面大大减少了用户离开Vim的概率，从而提高编辑效率。</p>
+<p>ex命令源自Unix下的行编辑器（line editor） <a class="reference external" href="http://en.wikipedia.org/wiki/Ex_%28text_editor%29"><strong>ex</strong></a> ，Vim将其扩充为 Vimscript语言，成为第三方开发插件的主要工具（也可用Perl、Python、Ruby等语言）。 由于在ex模式下可通过 <tt class="docutils literal">:normal</tt> 执行普通模式下的命令，故而实际上完全涵盖了 后者。只是执行ex命令时前面需要冒号，后面需要回车，效率上有所不及。 根据个人需要，用户可自定义ex命令，也可把常用的ex命令通过 <tt class="docutils literal">nmap</tt> 、 <tt class="docutils literal">vmap</tt> 、 <tt class="docutils literal">imap</tt> 等映射为其他模式下的命令，以期最大限度地减少键击次数。</p>
+<p>命令行模式除用 <tt class="docutils literal">:</tt> 开启以执行ex命令外，还可用 <tt class="docutils literal">/</tt> 或 <tt class="docutils literal">?</tt> 来启动正向 或反向的模式搜索，可用 <tt class="docutils literal">!</tt> 进行文本过滤（filter） （即：将所选文本输入给外部程序，并替之以输出结果），大大增强了Vim的 移动和编辑效率。</p>
+<p>此外，在基本模式的基础上，还有六种衍生模式，暂略不提。 从以上可以看出，多种模式的并存令Vim鱼与熊掌兼得——功能上强大而灵活， 使用上便利而快捷。</p>
+<h4>2. 增加移动方式</h4>
+<p>真正让Vim有飞一般感觉的是其快速多变的移动能力。可谓上天入地，无所不至，无至不速。 
+上文提到HJKL代替方向键的意义，但那只能让光标偏移最小单位，并不适宜频繁地单独使用。 
+否则，那便不是飞行，而是爬行。由于Vim提供的移动命令过多，难免令人眼花缭乱， 为便于说明，特做如下分类，并列举一些典型但远非完备的实例。</p>
+<h4>行间移动：</h4>
+<p>行间移动是一种常见的需求，Vim提供了绝对行数和相对行数两种跳转方式。 这里有一个小窍门，为了便于确定移动行数，可通过 <tt class="docutils literal">:set number</tt> 显示绝对行号， 或 <tt class="docutils literal">:set relativenumber</tt> 显示相对行号。建议定制一个功能键（如F6）， 让行号随时可以在相对、绝对和隐藏之间循环切换。平时默认为相对行号或许更高效些， 一是相对行号比绝对行号小，通常键入更快；二是相对移动的 <tt class="docutils literal">j</tt> 、 <tt class="docutils literal">k</tt> 命令比绝对移动的 <tt class="docutils literal">G</tt> 命令少用一个shift键。</p>
+<pre class="literal-block">H            ——移至屏首
+L            ——移至屏末
+M            ——移至屏中
+5H           ——移至屏首起第5行
+5L           ——移至屏末起倒数第5行
+gg           ——移至页首
+G            ——移至页末
+50%          ——移至页中
+20G          ——移至页首起第20行
+20j          ——下移20行
+20k          ——上移20行
+5gj          ——下移5个显示行（与文件行不同，显示行考虑折行）
+5gk          ——上移5个显示行（同上注）</pre>
+<h4>列间移动：</h4>
+<p>作为一种近距离微调，列间移动非常实用。除了跳至行首或行末以外，最有用的便是 <tt class="docutils literal">f/F/t/T/;/,</tt> 系列命令了。可惜中文是多字节的，无法享用此功能。</p>
+<pre class="literal-block">0            ——移至行首
+$            ——移至行末
+^            ——移至软行首（即忽略首空白）
+g_           ——移至软行末（即忽略尾空白）
+g0           ——移至屏幕行首（考虑折行）
+gm           ——移至屏幕行中（同上注）
+g$           ——移至屏幕行末（同上注）
+20|          ——移至第20列
+
+fx           ——移至本行下一个字符“x”处
+Fx           ——移至本行上一个字符“x”处
+tx           ——移至本行下一个字符“x”前
+Tx           ——移至本行上一个字符“x”后
+;            ——重复上次 f/F/t/T 命令
+,            ——反向重复上次 f/F/t/T 命令</pre>
+<h4>结构移动：</h4>
+<p>在用户眼中，文本不是单纯的字符集合，不仅具有行列差别，更有结构差别。 
+常见的结构划分有：单词（word），句子（sentence），段落（paragraph） 和区块（section）等。 
+除了系统的默认设定外，Vim还允许用户自定义结构的界定方式。 有些遗憾的是，由于中文词与词之间没有分界，无法利用单词的跳转功能。</p>
+<pre class="literal-block">w            ——右移至最近词首
+W            ——同上，但忽略非空白单词分隔符
+b            ——左移至最近词首
+B            ——同上，但忽略非空白单词分隔符
+e            ——右移至最近词尾
+E            ——同上，但忽略非空白单词分隔符
+ge           ——左移至最近词尾
+gE           ——同上，但忽略非空白单词分隔符
+
+(            ——前移至最近句首
+)            ——后移至最近句首
+{            ——前移至最近段首
+}            ——后移至最近段首</pre>
+<p>除基本的文本结构外，程序员还对语法结构感兴趣。 <tt class="docutils literal">%</tt> 是一个方便的命令，它能让光标在匹配项之间来回游走。 除了 <tt class="docutils literal">(</tt> 与 <tt class="docutils literal">)</tt> 、 <tt class="docutils literal">[</tt> 与 <tt class="docutils literal">]</tt> 、 <tt class="docutils literal">{</tt> 与 <tt class="docutils literal">}</tt> 的括号匹配外， 还支持C风格的注释（ <tt class="docutils literal">/*</tt> 与 <tt class="docutils literal">*/</tt> ）与宏（ <tt class="docutils literal">#if</tt> 、 <tt class="docutils literal">#ifdef</tt> 、 <tt class="docutils literal">#else</tt> 、 <tt class="docutils literal">#elif</tt> 、 <tt class="docutils literal">#endif</tt> 等）匹配。 Vim更提供了matchit的插件（但并未默认安装），支持其他编程语言的匹配结构。 若仍嫌不满，用户也可自定义其他的匹配方式。 下面的命令是给程序员额外的福利——</p>
+<pre class="literal-block">[[           ——前移至最近区首（常用于跳至C类型的函数头）
+]]           ——后移至最近区首（同上注）
+[{           ——前移至最近代码区的首部（C类型语法）
+]}           ——后移至最近代码区的尾部（同上注）
+[m           ——前移至最近方法的首部（Java类型语法）
+]m           ——后移至最近方法的首部（同上注）
+[M           ——前移至最近方法的尾部（同上注）
+]M           ——后移至最近方法的尾部（同上注）
+gd           ——跳至当前变量的局部声明处
+gD           ——跳至当前变量的全局声明处</pre>
+<p>Vim具有折叠功能，故而支持折叠结构的跳转。</p>
+<pre class="literal-block">[z           ——移至当前展开的折叠区的首部
+]z           ——移至当前展开的折叠区的尾部
+zj           ——移至下一折叠区的首部
+zk           ——移至上一折叠区的尾部</pre>
+<h4>屏幕移动：</h4>
+<p>在浏览文件时，用户往往更希望调整的是屏幕而不是光标。</p>
+<pre class="literal-block">Ctrl+F       ——向下滚动一屏
+Ctrl+B       ——向上滚动一屏
+Ctrl+D       ——向下滚动一个单位（默认半屏）
+Ctrl+U       ——向上滚动一个单位（默认半屏）
+Ctrl+E       ——向下滚动一行
+Ctrl+Y       ——向上滚动一行
+zl           ——向右滚动一列（仅在禁用折行时有效）
+zh           ——向左滚动一列（同上注）
+zt           ——置当前行于屏首
+zt           ——置当前行于屏末
+zz           ——置当前行于屏中
+10z.         ——置第10行于屏中
+50z-         ——置第50行于屏末</pre>
+<p>鉴于滚屏操作十分常用而Ctrl键不便，建议用 <tt class="docutils literal">nmap</tt> 将^f/^b/^d/^u/^e/^y 分别替换为空格键、Shift+空格键、Enter键、Backspace键、下方向键、上方向键。</p>
+<h4>搜索移动：</h4>
+<p>几乎所有的编辑器都有搜索功能，但很少有Vim这般强大和方便。 强大体现在它不仅支持最基本的正则表达式，还支持懒惰模式 （ <a class="reference external" href="http://en.wikipedia.org/wiki/Regular_expression#Lazy_quantification"><strong>lazy mode</strong></a> ）， 甚至可以 <em>跨行</em> 匹配。方便则体现在搜索过程对用户友好，没有讨厌的弹出窗口， 支持高亮匹配，支持增量搜索（光标在关键词输入过程中即开始运动，不必等待回车键）， 支持智能大小写判断，一键重复正向或反向搜索，等等。另外，特别推荐四个诱人的命令：:</p>
+<pre class="literal-block">*            ——正向搜索光标所在的单词（精确匹配）
+#            ——反向搜索光标所在的单词（精确匹配）
+g*           ——正向搜索光标所在的单词（模糊匹配）
+g#           ——反向搜索光标所在的单词（模糊匹配）</pre>
+<p>如果要在多个文件中搜索，可以用内部命令 <tt class="docutils literal">vimgrep</tt> 或外部命令 <tt class="docutils literal">grep</tt> 。 前者在正则表达式上更强大，也更通用（Windows下没有自带的grep），但速度不及后者。 我个人的选择是在配置中加上一行： <tt class="docutils literal">set grepprg=ack -a</tt> ，以便让更好用的 <a class="reference external" href="http://betterthangrep.com/"><strong>ack</strong></a> 来取代grep。</p>
+<h4>定点移动</h4>
+<p>定点移动是Vim又一特色，迅速而精确的远程移动让浏览和编辑变得前所未有的轻松。</p>
+<p>Vim的标记（mark）相当于一种书签，用来记录用户关注的热点位置。 假设用户对当前光标所处位置感兴趣，可输入命令 <cite>mx</cite> （x可以是任何字母）。 以后只要输入 <cite>`x</cite> 即可返回原标记处，或用 <cite>‘x</cite> 返回原标记处所在的行首。 用作标记的字母有大小写之别。小写为局部标记，用于缓冲区内部跳转， 仅对当前编辑的文件有效，且在缓冲区关闭后失效。 大写为全局标记，可在不同的文件之间跳转，不因缓冲区关闭而失效（需设定 <tt class="docutils literal">viminfo</tt> ）。</p>
+<p>比用户标记更有用的是系统标记。Vim贴心地在一些热点上留下暗记，以便用户回访。 例如，用户每次退出Vim时的光标位置都会被保留，最近十个分别用数字0到9来命名。 下面是其他一些实用的标记跳转：</p>
+<pre class="literal-block">``           ——跳转至当前缓冲区最近跳转点（可实现两点之间的来回跳转）
+''           ——同上，但仅精确到行
+`.           ——跳转至当前缓冲区最近修改处
+`[           ——跳转至上次改动或拷贝处的首部
+`]           ——跳转至上次改动或拷贝处的尾部
+`&lt;           ——跳转至最近可视化选择区的首部
+`&gt;           ——跳转至最近可视化选择区的尾部
+`"           ——跳转至上次退出当前缓冲区时光标的最后位置（在普通模式下）
+`^           ——跳转至上次退出当前缓冲区时光标的最后位置（在插入模式下）</pre>
+<p>所有标记均可通过命令 <tt class="docutils literal">:marks</tt> 来显示，以供查询。要获得更好的视觉效果， 不妨试试 <a class="reference external" href="http://www.vim.org/scripts/script.php?script_id=152"><strong>ShowMarks</strong></a> 插件，它利用Vim的sign功能将隐性标记显性化了。</p>
+<p>除了标记列表外，Vim还维护了一张变化列表。 该表记录了用户每次修改文本的位置，运行命令 <tt class="docutils literal">:changes</tt> 即可察看。 相应的跳转命令是：</p>
+<pre class="literal-block">g;           ——跳转至变化列表中的较旧处（支持数字前缀）
+g，           ——跳转至变化列表中的较新处（支持数字前缀）</pre>
+<p>程序员在浏览代码时经常需要在不同的源文件中跳转（比如察看某个函数的定义）， Vim为此提供了标签（tag）支持。 与标记不同，标签需要依赖外部工具如 <a class="reference external" href="http://ctags.sourceforge.net/"><strong>ctags</strong></a> 、 <a class="reference external" href="http://cscope.sourceforge.net/"><strong>cscope</strong></a> 等来产生。 使用命令 <tt class="docutils literal">:tag &lt;tagname&gt;</tt> 可实现标签跳转，不过更简便的还是将光标置于 关键词之上，然后通过 <tt class="docutils literal">Ctrl-]</tt> 转至其定义处，必要时可用 <tt class="docutils literal">Ctrl-T</tt> 返回。 用鼠标亦可完成以上任务，但并不推荐。</p>
+<p>最后，上述各种移动命令所产生的跳跃点均保存于跳转列表中（最多不超过100个）， 可通过命令 <tt class="docutils literal">:jumps</tt> 检视。这意味着用户可以在原来的轨迹上来回跃迁——</p>
+<pre class="literal-block">Ctrl-O       ——跳转至跳转列表中的较旧处（支持数字前缀）
+Tab或Ctrl-I  ——跳转至跳转列表中的较新处（支持数字前缀）</pre>
+<h4>其他移动</h4>
+<p>还有一些其他类型的移动，试列举一二：</p>
+<pre class="literal-block">gf           ——跳转至光标之上或之后的路径所对应的文件
+gF           ——同上，但跳至文件后所指定的行数
+]s           ——跳转至下个错误拼写处
+[s           ——跳转至上个错误拼写处</pre>
+<h4>3. 增加操作对象</h4>
+<p>Vim丰富的移动方式让用户以最小的代价——包括手指、目光、时间和精力——把所感兴趣的 文本带入视线范围并将光标精确定位。 
+这只是编辑的第一步，下一步是在当前位置进行文本操作。 
+一般编辑器修改文本多通过Backspace键、Delete键、方向键并结合鼠标完成，效率低下。 
+究其原因，主要在于操作对象太过单一：要么是以字符为单位，粒度太小； 要么以高亮区域为单位，选定太慢。 
+Vim则不同，提供了各种粒度的操作对象，供用户在不同需求下选择，大大提高了编辑效率。</p>
+<p>Vim的编辑命令具有统一的形式：数字 + 操作符（operator） + 文本对象， 
+表示对某一文本对象进行指定次数的操作。其中，数字部分为可选项，默认为1； 有些操作符后不接对象，正如不及物动词后不接宾语。 
+一切似乎都平淡无奇，直到文本对象与移动命令自然而奇妙地结合在一起，瞬时光芒四射。 具体地说，文本对象可由移动命令所扫过的字符片段来定义。 
+于是，有多少移动方式，便对应多少文本对象。 这已经是我们第二次看到移动命令的重用（reuse）了（前一次用于可视化模式下）。</p>
+<p>举例来说，操作符 <tt class="docutils literal">d</tt> 表示删除，移动命令 <tt class="docutils literal">w</tt> 表示前进到下一单词，则 <tt class="docutils literal">dw</tt> 将删除从当前光标至下一单词之前的所有字符。 假设当前光标处于某单词的首部， <tt class="docutils literal">2dw</tt> 将删除该单词及其后一单词。 如果知道移动命令本身也可加数字前缀，则 <tt class="docutils literal">2d3w</tt> 将删除6个单词，与 <tt class="docutils literal">3d2w</tt> 、 <tt class="docutils literal">6dw</tt> 、 <tt class="docutils literal">d6w</tt> 的效果相同。 类似地，操作还可以句子、段落、语法结构为单位， 以行或列为单位，以屏幕为单位，以匹配模式为单位，或以定点为界限，等等。</p>
+<p>进一步地，Vim在Vi的基础上新增了其他的文本对象，用于可视化模式下的选择 和普通模式下的编辑。兹列几项如下——</p>
+<pre class="literal-block">aw           ——一个单词（支持数字前缀）
+is           ——一个句子内部（支持数字前缀）
+ap           ——一个段落（支持数字前缀）
+a"           ——一个双引号区域
+i}或i{或iB   ——一个“{}”块内部（支持数字前缀）
+a&gt;或a&lt;       ——一个“&lt;&gt;”块（支持数字前缀）
+at           ——一个标签块（支持数字前缀）</pre>
+<p>不妨看一个典型用例。假设有一段文字：</p>
+<pre class="literal-block">String name = "Shen Xin";</pre>
+<p>用户希望将 <tt class="docutils literal">Shen Xin</tt> 换成 <tt class="docutils literal">Zhang Ming</tt> ，此时光标位于该行的头部。 Vi（不是Vim）的常见做法是： <tt class="docutils literal">f"</tt> 到达第一个引号， <tt class="docutils literal">l</tt> 右移一个字符， 然后 <tt class="docutils literal">ct"</tt> 清空人名并进入插入模式。 而在Vim下，只要键入 <tt class="docutils literal">ci"</tt> 即可达到同样效果，节省了一半键击。</p>
+<p>再看一个HTML片段：:</p>
+<pre class="literal-block">&lt;tr&gt;
+    &lt;td&gt;
+        ...
+    &lt;/td&gt;
+
+    &lt;td&gt;
+        ...
+    &lt;/td&gt;
+
+    .
+    .
+    .
+
+    &lt;td&gt;
+        ...
+    &lt;/td&gt;
+&lt;/tr&gt;</pre>
+<p>假定光标位于某个 <tt class="docutils literal">td</tt> 标签内部，要拷贝整个HTML行（即 <tt class="docutils literal">tr</tt> 标签块），Vi的一种做法是： <tt class="docutils literal">?&lt;tr</tt> 并回车到达行首， <tt class="docutils literal">y</tt> 开启拷贝操作， <tt class="docutils literal">//tr&gt;/e</tt> 指定行尾，再回车完成任务，共需十多次按键。 利用行数或段落移动可能会省一些键，但都不如Vim来得惬意： <tt class="docutils literal">y2at</tt> 。</p>
+<p>还不止于此，Vim甚至允许用户自定义文本对象。比如设置一个操作符待定模式 （opeator-pending mode，Vim的六种衍生模式之一）下的映射： <tt class="docutils literal">omap af :normal [[v%&lt;CR&gt;</tt> （af意指“a function”） ，便建立了一个C语言风格 的函数对象。若觉得晦涩，不妨回顾一下， <tt class="docutils literal">:normal</tt> 表示执行普通模式命令， <tt class="docutils literal">[[</tt> 跳至函数头部的 <tt class="docutils literal">{</tt> 处， <tt class="docutils literal">v</tt> 开启可视化模式， <tt class="docutils literal">%</tt> 表示选择区的 末端为与 <tt class="docutils literal">{</tt> 匹配的 <tt class="docutils literal">}</tt> ，由此定义了一块函数区域，用 <tt class="docutils literal">af</tt> 来命名。 同样地，用户可按缩进、折叠、语法或其他区域划分方式来定义文本对象。</p>
+<p>除文本对象外，用鼠标或键盘产生的选择区域、用折叠命令隐藏的文本片段等皆可 作为整体的操作对象。</p>
+<p>在命令行模式下，还可按行数范围或模式匹配来指定操作对象。 比如， <tt class="docutils literal">%s/x/y</tt> 将所有行（ <tt class="docutils literal">%</tt> ）中的第一个 <tt class="docutils literal">x</tt> 换成 <tt class="docutils literal">y</tt> ， <tt class="docutils literal">/第一章/+1,/第二章/-1d</tt> 将删除光标后“第一章”与“第二章”之间的所有文字， <tt class="docutils literal">.-5,.+5w a.txt</tt> 把以光标为中心的11行文字保存到名为 <tt class="docutils literal">a.txt</tt> 的文件中。</p>
+<p>通过增加文本对象，Vim使文本操作的粒度更加多样化，从而提高了批量处理的概率。 同时，由于文本对象更趋结构化与语义化，让思维与文字之间的转换更加流畅自然， 从而减少了编辑失误的概率。</p>
+<h4>4. 增加操作方式</h4>
+<p>当用户把光标移至合适的位置，并选定合适的操作对象以后，剩下的就是执行具体操作了。</p>
+<h4>新增文本</h4>
+<p>最常用的操作是增加新文本。Vi在普通模式下用 <tt class="docutils literal">a</tt> 、 <tt class="docutils literal">A</tt> 、 <tt class="docutils literal">i</tt> 、 <tt class="docutils literal">I</tt> 、 <tt class="docutils literal">o</tt> 或 <tt class="docutils literal">O</tt> 切换到插入模式。Vim新增了 <tt class="docutils literal">gI</tt> ，与 <tt class="docutils literal">I</tt> 的区别是，它保证将 光标置于首列。此外Vim还增加了 <tt class="docutils literal">gi</tt> ，便于从上回退出缓冲区的插入点继续工作。 一个貌似简单的插入操作便有这么多的花样，目的很明确，那就是尽量减少键击次数。 另外，恐怕很少人意识到以上命令均支持数字前缀。如在普通模式下输入 <tt class="docutils literal">100a</tt> ， 然后插入一些文字，当用户再次回到普通模式下时，方才输入的文字将自动重复一百次。 从这里再次印证两件事：一是Vim为减少按键可谓处心积虑——本来复制操作就支持数字前缀， 但仍为插入操作加此功能；二是插入模式的确被视为暂态，随时等待退出。</p>
+<p>一般不建议在插入模式下使用命令，但 <tt class="docutils literal">Ctrl-Y</tt> 与 <tt class="docutils literal">Ctrl-E</tt> 有时还是有用的。 它们分别在插入模式下重复光标上行或下行对应列的字符。 这么做并不省手，但省眼省心，符合Vim的理念。</p>
+<p>插入模式下另一对命令 <tt class="docutils literal">Ctrl-P</tt> 与 <tt class="docutils literal">Ctrl-N</tt> 可实现文本的自动补全， 以 <tt class="docutils literal">Ctrl-X</tt> 开启的子模式可产生更具体的完成提示，如后接 <tt class="docutils literal">Ctrl-F</tt> 指 文件名匹配， 后接 <tt class="docutils literal">Ctrl-K</tt> 指字典匹配，后接 <tt class="docutils literal">Ctrl-S</tt> 指拼写建议， 后接 <tt class="docutils literal">Ctrl-O</tt> 指万能补全（omnicompletion）等。 不过经设置或安装插件，可尽量通过Tab键或Shift-Tab来完成， 如此更符合减少手指移动的原则。</p>
+<h4>删除文本</h4>
+<p>与插入操作相对的是删除操作。最普通也是最低效的方式是在插入模式下使用删除键。 使用 <tt class="docutils literal">x</tt> 或 <tt class="docutils literal">X</tt> 同样可删除字符，但不需退出普通模式，还支持数字前缀。 <tt class="docutils literal">d</tt> 命令既可前接可视化区域，又可后接文本对象，是万能的删除方式。 作为频繁使用的行删除命令， <tt class="docutils literal">dd</tt> 被设计为叠字无疑是明智的，而用 <tt class="docutils literal">D</tt> 命令 代替另一常用的 <tt class="docutils literal">d$</tt> 也是省键之举。 除此之外，如前例所示，命令行下也能完成删除操作。</p>
+<h4>替换文本</h4>
+<p>替换操作的方式更加多样。最简单的是以字符为单位的 <tt class="docutils literal">r</tt> （在可视化模式下也可批量替换）， 如需连续替换可用 <tt class="docutils literal">R</tt> 进入替换模式，如需删除若干字符后进入插入模式，可用 <tt class="docutils literal">s</tt> 。 与负责删除操作的 <tt class="docutils literal">d</tt> 命令相对应的是负责改动操作的 <tt class="docutils literal">c</tt> 命令： <tt class="docutils literal">{可视化模式}c</tt> 、 <tt class="docutils literal">c + 文本对象</tt> 、 <tt class="docutils literal">cc</tt> 与 <tt class="docutils literal">C</tt> 。</p>
+<p>文本编辑经常涉及大小写变换，Vim对此当然不会视而不见。 <tt class="docutils literal">~</tt> 是大小写转换符，可将若干字符的大小写对换。如 <tt class="docutils literal">6~</tt> 作用于 <tt class="docutils literal">aBcDeF</tt> 的结果是： <tt class="docutils literal">AbCdEf</tt> 。 <tt class="docutils literal">g~</tt> 更强大，后可接文本对象。于是前面的命令可用 <tt class="docutils literal">g~e</tt> 代替，虽然多敲一字符，却不必数字符，以手动换心动，效率只高不低。 利用可视化模式 <tt class="docutils literal">ve~</tt> 也可完成任务，但产生了可视化区域的副作用。 不出意料地， <tt class="docutils literal">g~~</tt> 将当前行所有字母进行大小写转换。 如果希望将目标字符固定为大写或小写，则用 <tt class="docutils literal">gU</tt> 或 <tt class="docutils literal">gu</tt> 命令。 类似地， <tt class="docutils literal">gUU</tt> 将当前行所有字母变成大写， <tt class="docutils literal">guu</tt> 将当前行所有字母变成小写。</p>
+<p>对文本进行格式上的调整也是一项常规需求。 Vim提供了 <tt class="docutils literal">J</tt> 与 <tt class="docutils literal">gJ</tt> ，能将多行文字并为一行，极为实用。 <tt class="docutils literal">&lt;</tt> 、 <tt class="docutils literal">&gt;</tt> 分别将文本左移或右移一个缩进单位 （在插入模式下用 <tt class="docutils literal">Ctrl-T</tt> 或 <tt class="docutils literal">Ctrl-D</tt> ）。 <tt class="docutils literal">=</tt> 命令能自动调节缩进， <tt class="docutils literal">gq</tt> 命令能格式化选定的文本。 按惯例，以上命令在应用于行时，均采用叠字： <tt class="docutils literal">&lt;&lt;</tt> 、 <tt class="docutils literal">&gt;&gt;</tt> 、 <tt class="docutils literal">==</tt> 、 <tt class="docutils literal">gqq</tt> 。 若需左、中、右对齐，则分别使用 <tt class="docutils literal">:left</tt> 、 <tt class="docutils literal">:center</tt> 、 <tt class="docutils literal">:right</tt> 。</p>
+<p><tt class="docutils literal">Ctrl-A</tt> 、 <tt class="docutils literal">Ctrl-X</tt> 是一对鲜为人知但却非常有用的命令， 它们能分别 对光标之上或之后的数字进行增减运算，并且不仅支持十进制，还默认支持八进制和十六进制。 假设光标后有一个字串 <tt class="docutils literal">0x2a</tt> ，输入 <tt class="docutils literal">2&lt;Ctrl-X&gt;</tt> 后它将变成 <tt class="docutils literal">0x28</tt> ， 且光标也移至 <tt class="docutils literal">8</tt> 处。适当设置后，此二命令甚至能对单字母进行增减。</p>
+<p>在命令行模式下可执行更复杂的替换操作。 命令 <tt class="docutils literal">:s</tt> 可充分利用正则表达式的威力进行文本替换， 若要重复上次替换，只需键入 <tt class="docutils literal">&amp;</tt> , 若要对所有行重复上次替换，只需键入 <tt class="docutils literal">g&amp;</tt> 。 前面还提到，通过 <tt class="docutils literal">!</tt> 能调用外部程序进行过滤操作。 比如 <tt class="docutils literal">!apsort</tt> 将当前段落（ 即 <tt class="docutils literal">ap</tt> 对象）中的所有行按字母进行排序 （即 <tt class="docutils literal">sort</tt> ）。 由于过滤程序毫不受限，这便意味着用户能随心所欲地对文本进行任何替换。</p>
+<h4>复制、移动与粘贴</h4>
+<p>对于编辑器都支持的复制、移动、粘贴等功能，Vim也是花样百出。 一般编辑器的剪贴板只保存用户显式剪切或拷贝的文字，而Vim把任何被改动、删除或 拷贝（yank）的文字都存于相当于剪贴板的寄存器中。 利用此特点，组合命令 <tt class="docutils literal">xp</tt> 轻易实现了两个相邻字符的交换， 不仅比输入模式下少一次按键，而且手指不会因方向键而离开主键区。</p>
+<p>更美好的是，用户可指定具体的寄存器。比如 <tt class="docutils literal">"a5dd</tt> 将删除的5行存于名为 <tt class="docutils literal">a</tt> 的寄存器中，以后可用 <tt class="docutils literal">"ap</tt> 粘贴到其他地方。 指定寄存器虽增加了按键次数，但也保证了重要的文本不被轻易覆盖。 另一有趣的用法是，以大写字母命名的寄存器会将新内容追加（而不是覆盖）到 对应小写字母的寄存器中。比如继刚才的操作之后，用户在某处敲入 <tt class="docutils literal">"A2yy</tt> ， 则此时寄存器中将有7行文字。</p>
+<p>Vim的寄存器不仅不止一个，而且不止一种。 例如，最近的修改、删除或拷贝的文本存在 <em>无名寄存器</em> （说是无名，实则有名： <tt class="docutils literal">"</tt> ）中， 最近拷贝的存在 <em>数字寄存器</em> <tt class="docutils literal">0</tt> 中， 最近修改或删除的存在寄存器 <tt class="docutils literal">1</tt> 至 <tt class="docutils literal">9</tt> 中。 对于少于一行的删除（如 <tt class="docutils literal">dw</tt> ）还专门有个名为 <tt class="docutils literal">-</tt> 的 <em>微删除寄存器</em> 。 如果不希望改变寄存器内容，可使用名为 <tt class="docutils literal">_</tt> 的 <em>黑洞寄存器</em> 。 为便于与Vim的外部环境交流， <em>系统寄存器</em> <tt class="docutils literal">*</tt> 与 <tt class="docutils literal">+</tt> 对应系统剪贴板，寄存器 <tt class="docutils literal">~</tt> 保存最近一次从外部程序（如Word）拖放（Drag-and-Drop）过来的文本。 此外，还有 <em>只读寄存器</em> <tt class="docutils literal">%</tt> 、 <tt class="docutils literal">#</tt> 、 <tt class="docutils literal">.</tt> 和 <tt class="docutils literal">:</tt> ， 以及记录最近搜索模式名为 <tt class="docutils literal">/</tt> 的寄存器。 依然是惯例， <tt class="docutils literal">:registers</tt> 列出重要寄存器的名字及内容。</p>
+<p>最后，如果用户不愿意移动光标或屏幕，也可在命令行模式下完成复制、移动与粘贴的任务。</p>
+<h4>重复</h4>
+<p>Vim让人觉得重复不再是一件令人乏味的事，有时甚至是一种享受。</p>
+<p>命令 <tt class="docutils literal">.</tt> 重复上次的变化，但不包括命令行命令。 若要重复上次的命令行命令，可用 <tt class="docutils literal">@:</tt> 。 如同在unix shell中一样，在命令行模式下用 <tt class="docutils literal">!!</tt> 重复上次的shell命令。 若要在一定范围内重复多次命令，可用 <tt class="docutils literal">范围:g/模式/Ex命令</tt> 或 <tt class="docutils literal">范围:g/模式/normal 普通命令</tt> ， 即在指定范围内对匹配某一模式的行重复执行给定的命令。 将其中的 <tt class="docutils literal">g</tt> 换成 <tt class="docutils literal">g!</tt> 或 <tt class="docutils literal">v</tt> 则将命令作用于非匹配行。</p>
+<p>复杂的重复可使用Vim的宏（macro）。比如用 <tt class="docutils literal">qq</tt> 将记录接下来的按键，用 <tt class="docutils literal">q</tt> 结束。 以后可用 <tt class="docutils literal">@q</tt> 重放，再后来可用 <tt class="docutils literal">@@</tt> 重放。 与简单的拷贝不同，宏不仅能复制插入模式下的按键，还能记录普通模式下的按键。 举个稍微复杂的例子，假设光标所在行的文字是 <tt class="docutils literal">(1)</tt> ， 在普通模式下依次键入 <tt class="docutils literal">qqYp&lt;Ctrl-A&gt;q8@q</tt> ，便能产生从一到十的编号列表 （提示： <tt class="docutils literal">Y</tt> 表示行复制， <tt class="docutils literal">p</tt> 表示粘贴， <tt class="docutils literal">Ctrl-A</tt> 是前述的数字增加命令）。</p>
+<p>即使更复杂的重复在Vim下也是可能的，命令 <tt class="docutils literal">:source</tt> 或 <tt class="docutils literal">:runtime</tt> 可调用 Vimscript脚本，不过那主要是程序员们大展身手的地方了。</p>
+<h4>撤销与恢复</h4>
+<p>在撤销与恢复的操作方面，Vim再度显示其独到之处。</p>
+<p>首先，在基本的撤销命令 <tt class="docutils literal">u</tt> 与 恢复命令 <tt class="docutils literal">Ctrl-R</tt> 之外，还有 行撤销命令 <tt class="docutils literal">U</tt>
+ ，即撤销对某行最近进行的所有修改。 其次，以上命令与其他普通命令一样，也支持数字前缀，即可一次性执行多次 撤销或恢复。 
+更有特色的是，Vim的撤销与恢复状态不是堆栈（stack）结构，而是树（tree）结构。 
+通俗地举例来说，在一般编辑器中，如果在作出某种修改后发布撤销命令， 然后再作另一种修改，再撤销。此时用户若执行恢复命令，将恢复第二次修改的内容，
+ 而第一次修改的痕迹完全被抹去。一旦用户意识到操作错误，很可能会后悔不迭。 
+为避免此类事件发生，Vim提供了撤销列表，保留了各个时刻的文本状态，用户随时 可通过命令 <tt class="docutils literal">g-</tt> 和 <tt class="docutils literal">g+</tt> 来前后遍历，也可用命令 <tt class="docutils literal">:earlier</tt> 或 <tt class="docutils literal">:later</tt> 根据修改时间的范围来恢复状态，还可用命令 <tt class="docutils literal">:undo</tt> 跳到状态树的某个分支 （此后再用 <tt class="docutils literal">u</tt> 与 <tt class="docutils literal">Ctrl-R</tt> 前后遍历）。在此推荐插件<a href="http://sjl.bitbucket.org/gundo.vim/"><strong>Gundo</strong></a>，它不仅清晰地展示了撤销与恢复的树形结构，实现快速恢复，还能预览各个修改版本之间的差别。</p>
+<p>一般编辑器在文件关闭后无法撤销或恢复上次的修改，Vim则不然。 用户只要略加设置，便能实现文件修改状态的持久化。</p>
+<h4>文件操作</h4>
+<p>Vim提高文件操作效率的关键在一个字—— <em>多</em> ，即多分区、多缓冲区（buffer）、 多窗口、多标签页、多文件浏览、多文件读写与多类型文件处理。</p>
+<p>多分区指通过文本折叠将一个文件分为多个折叠区，让文件的结构层次更加清晰， 并且减少了因文件过长而带来的频繁的手指移动和目光移动。 Vim中以 <tt class="docutils literal">z</tt> 开头的折叠命令超过20个，足见其丰。</p>
+<p>多缓冲区（buffer）指在一个窗口内可同时编辑多个文件。 缓冲区之间的切换方式很多，如用 <tt class="docutils literal">:bn</tt> 或 <tt class="docutils literal">:bp</tt> 进行缓冲区翻页， 用 <tt class="docutils literal">Ctrl-^</tt> 在两个缓冲区之间来回切换，用 <tt class="docutils literal">:e #N</tt> 按缓冲区编号编辑， 用 <tt class="docutils literal">:b 文件名</tt> 按缓冲区的文件名选择编辑对象 （文件名支持自动完成，且不必输全，如 <tt class="docutils literal">:b R</tt> 可转至文件README.txt）。 如果同时载入缓冲区的文件过多，还有大量优秀的管理缓冲区的插件可资利用，比如 <a href="https://wincent.com/products/command-t"><strong>command-t</strong></a>、<a href="http://www.vim.org/scripts/script.php?script_id=1984"><strong>FuzzyFinder</strong></a>、<a href="http://www.vim.org/scripts/script.php?script_id=42"><strong>bufexplorer</strong></a>等。</p>
+<p>要想充分利用屏幕资源，减少缓冲区切换的代价，或希望在多个文件之间进行对比编辑， 可利用Vim的多窗口功能。Vim可对窗口进行横向和纵向多次切分， 还能调整窗口的大小、位置、焦点等。</p>
+<p>当多缓冲区、多窗口仍不满足需求时，可开启多标签窗口（tabbed window）， 以提高对多文件的处理能力。</p>
+<p>大多用户习惯用文件浏览器来选择或管理文件，幸好在Vim中可不假他求，其内置的 netrw插件便具备此功能。不过，非内置的 <a class="reference external" href="http://www.vim.org/scripts/script.php?script_id=1658"><strong>NERD tree</strong></a> 插件 似乎更受欢迎。</p>
+<p>读取和写入文件是编辑器最基本的功能。Vim的特点是能在不离开当前缓冲区的条件下， 读取其他文件的内容，或把缓冲区中的部分文本写入其他文件中。 如 <tt class="docutils literal">:35r infile</tt> 将名为 <tt class="docutils literal">infile</tt> 的文件内容插入到当前文件的第35行下， <tt class="docutils literal">1,7w outfile</tt> 把当前文件的头7行保存到名为 <tt class="docutils literal">outfile</tt> 的文件中。</p>
+<p>最后，为减少用户离开的机会，Vim能透明读写多种类型的远程文件、压缩文件和加密文件。 如果利用插件或其他第三方工具，还可对更多类型的文件进行读写操作。</p>
+<h4>自动操作</h4>
+<p>贴心的编辑器应当尽可能地减少用户不必要的操作。 Vim可根据用户设置，完成自动换行，自动缩进，自动将Tab换成空格、自动折叠、 自动读取、自动保存等任务。 不过真正“懒惰”的Vim用户是不会满足于此的，他们会“辛勤”地端起终极武器 <tt class="docutils literal">autocmd</tt> 。</p>
+<p>简单地说， <tt class="docutils literal">autocmd</tt> 是一种事件驱动式（event-driven）的命令， 能在某些用户感兴趣的事件发生之时自动执行预先指定的命令。例如， <tt class="docutils literal">autocmd BufLeave,FocusLost * wa</tt> 将在用户离开当前缓冲区时自动保存当前文件， <tt class="docutils literal">autocmd BufNewFile *.html 0r template.html</tt> 将在用户编辑一个全新的HTML文件 时自动加载模版文件 <tt class="docutils literal">template.html</tt> ， <tt class="docutils literal">autocmd BufReadPost *.doc %!antiword %</tt> 可在打开Word文档后利用 <a class="reference external" href="http://en.wikipedia.org/wiki/Antiword"><strong>Antiword</strong></a> 将其转化为文本格式，等等。 考虑到适用于autocmd的事件多达近80种，涵盖了与编辑相关的各个阶段和行为，用户 足以借此打造一个高度自动化的编辑平台。</p>
+<h4>其他操作</h4>
+<p>Vim的操作方式还有许多，比如通过一系列的 <tt class="docutils literal">z</tt> 命令操作拼写列表； 通过 <tt class="docutils literal">:help</tt> 或 <tt class="docutils literal">K</tt> 显示在线帮助；通过 <tt class="docutils literal">:sh</tt> 开启一个shell； 通过 <tt class="docutils literal">:redir</tt> 将命令行或shell的执行结果导入文件、寄存器或变量； 用命令 <tt class="docutils literal">:hardcopy</tt> 和 <tt class="docutils literal">:TOhtml</tt> 将所选文字分别以PostScript和HTML的形式输出； 用命令 <tt class="docutils literal">ga</tt> <tt class="docutils literal">g8</tt> 或 <tt class="docutils literal">:list</tt> 显示非打印字符； 用命令 <tt class="docutils literal">g Ctrl-G</tt> 显示行、列、字符、词等统计数据，等等。 此外，用户还能计算表达式、显示各种变量、设置和状态，并能实时改变各种设置或状态， 包括文件类型、界面格式、键盘映射、高亮设置、配色方案（colorscheme），等等。</p>
+<p>最后，Vim虽不推荐用鼠标，但仍在Vi之上增加了鼠标操作，并且提供了菜单和工具条。 一方面，这降低了学习难度，对初学者显得更加友好。 
+另一方面，毋庸讳言，鼠标也有优于键盘的时候。 例如，在双手离开主键区时，用鼠标定位视线所及的区域往往更快捷； 
+在浏览长文件时，用鼠标滑轮前后滚屏通常更轻松。</p>
+<h4>5. 增加定制方式</h4>
+<p>窥一斑而知全豹。上述简介虽远未穷尽Vim的功能，但其丰富与强大已是彰显无遗。 难能可贵的是，Vim的灵活性与可扩展性并不因此而稍减，这让用户拥有足够的控制权。</p>
+<h4>启动定制</h4>
+<p>启动Vim需要一系列步骤，每步皆可由用户定制。以从命令行启动为例， 
+可供选择程序的就有：vi、vim、gvim、view、gview、rvim、rgvim、evim、eview、 
+vimdiff、gvimdiff等。其中，以g打头的是图形（graphic）模式；以e打头的是简易 
+（easy）模式，即与其他编辑器一样，只有输入模式（除非按 <tt class="docutils literal">Ctrl-L</tt> 进入普通模式）； 以r打头的是限制（restricted）模式，该模式下无法启动shell命令； 以view结尾的是只读（read-only）模式；以diff结尾的是比较模式。 每个程序又可接不同的参数，进一步控制Vim的行为。</p>
+<p>Vim最重要的配置是vimrc文件，实为一些ex命令的集合，在Vim初始化时自动执行。 
+图形模式下的Vim还会追加执行gvimrc文件中的命令。除了缺省的 
+.vimrc（Windows下是_vimrc）和.gvimrc（Windows下是_gvimrc）外， 
+用户也可通过命令行参数来指定其他文件，或用特殊文件名 <tt class="docutils literal">NONE</tt> 跳过初始化。</p>
+<p>此外，除非在命令行参数中指明禁用插件，Vim启动时还会在运行时路径（runtimepath） 下寻找并执行插件，包括plugin目录下的 <em>全局插件</em> 与ftplugin目录下的 <em>文件类型插件</em> 。 所谓插件，无非是一些可重用的能完成某种特定功能的Vim脚本。 用户可以自己编写，也可利用他人的成果。 Vim的 <a class="reference external" href="http://www.vim.org/scripts/index.php"><strong>官方网站</strong></a> 有近4千种插件供人下载， 极大地扩展了Vim的现有功能。</p>
+<p>正常情况下，Vim启动时还会执行viminfo文件中的命令。该文件保留了以前命令行历史、 搜索字符串历史、 搜索与替换模式、寄存器内容、标记、缓冲区列表、全局变量等等， 使得一些重要编辑历史不因退出而消失。</p>
+<p>viminfo储存的是一些全局信息，如果希望保留某一窗口的设置，可以利用view文件； 
+如果希望保留所有窗口的设置，可以利用session文件；如果希望保留撤销与恢复信息， 
+可以利用undo文件。这些文件均为自动生成，但用户也可手工修改。 它们在Vim下次启动之时将被加载，以恢复原先的窗口、 
+标签页、折叠区域、光标位置、 标记位置、跳转位置以及其他设置。 
+毫无疑问，这种持久化（persistence）有效地减少了因关闭Vim而带来的重复操作。</p>
+<p>对Vim最重要的定制均应在启动之前完成，以下略加展开。</p>
+<h4>命令定制</h4>
+<p>Vim尽管提供了足够多的命令，依然给予用户充分的定制空间。</p>
+<p>一种定制方式是：用户为原有的命令赋予新的行为。 比如，对于缩进命令 <tt class="docutils literal">=</tt> 和格式化命令 <tt class="docutils literal">gq</tt> ，用户可分别通过定义 <tt class="docutils literal">equalprg</tt> 或 <tt class="docutils literal">formatprg</tt> 调用指定的外部程序， 也可分别通过定义 <tt class="docutils literal">indentexpr</tt> 或 <tt class="docutils literal">formatexpr</tt> 调用自定义的表达式。</p>
+<p>另一种定制方式是：通过 <tt class="docutils literal">nmap</tt> 、 <tt class="docutils literal">vmap</tt> 、 <tt class="docutils literal">omap</tt> 等命令建立各种模式下的键盘映射。 用户借此可自定义各种实用的组合命令，定义新的文本对象（见前例），也可改变原命令的定义。 只要用户愿意，他甚至可以将原有的命令集合改得体无完肤，重建一套截然不同的命令体系。</p>
+<p>最强大的定制方式，当然是利用VimScript或其他脚本语言及外部程序来定义全新的命令， 这也是许多插件所做的工作。</p>
+<h4>编辑定制</h4>
+<p>Vim能根据文件的后缀或内容自动识别上百种文件类型，并据此选用相应的预处理机制、 语法高亮机制、文本宽度、缩进风格、折叠方式等。 
+在此基础上，用户可新增或修改文件类型、语法结构、处理机制以及各种格式选项。 通过这类定制，为用户创造良好的编辑环境，有利于提高编辑效率。</p>
+<p>针对不同类型的文件结构，用户可进一步量身定制，以期最大限度地减少按键。 比如对于冗余度较高的XML、HTML类型的文件，可通过安装插件 <a class="reference external" href="http://www.vim.org/scripts/script.php?script_id=301"><strong>xmledit</strong></a> 、 <a class="reference external" href="http://www.vim.org/scripts/script.php?script_id=2981"><strong>ZenCoding</strong></a> 或 <a class="reference external" href="https://github.com/rstacruz/sparkup/"><strong>sparkup</strong></a> 来减轻编辑负担。</p>
+<p>一个常用节省键击的方式是通过 <tt class="docutils literal">iabbrev</tt> 来定制输入模式下的缩写。 要想实现更高级的类似TextMate的片段（snippet）功能，可安装插件 <a class="reference external" href="http://www.vim.org/scripts/script.php?script_id=2540"><strong>snipMate</strong></a> 。</p>
+<p>自动补全（autocomplete）能大大提高输入的效率和准确度。 Vim根据用户对 <tt class="docutils literal">complete</tt> 选项的设置， 从当前缓冲区、其他窗口缓冲区、加载缓冲区、 字典（dictionary）、词典（thesaurus）、包含文件（included files）、 标签文件等中选择，也可通过设置 <tt class="docutils literal">omnifunc</tt> 调用万能补全函数。</p>
+<p>另外，要避免文本的拼写错误，用户可设置语种及其相应的拼写文件。 同理，要避免代码的语法错误，用户也可通过定制或安装插件来完成。</p>
+<h4>其他定制</h4>
+<p>Vim提供给用户的选择还有很多。比如，用户可打造完全个性化的界面，包括鼠标、 菜单、 
+工具栏、光标、状态栏、标签页、滚动条、提示框（tooltip）、字体、配色方案，等等； 
+可定制折叠方式（foldmethod）、折叠级别（foldlevel）、折叠文本（foldtext）等； 
+可定制搜索是否高亮匹配、增量移动、大小写敏感、智能判断、循环扫描等； 
+可定制交换（swap）文件以及备份（backup）文件的保存路径、后缀名以及是否禁用； 
+可定制错误格式（errorformat）以利用QuickFix来调试程序； 
+可定制文件的编码、格式（dos、unix或mac）、加密方法（zip或blowfish）； 
+可定制个人的帮助文件、笔记乃至知识管理系统；如此等等，恕难一一列举。</p>
+<h3>结语</h3>
+<p>本文不是对Vim功能简单的堆砌和罗列——那只会让初学者更加望而却步—— 
+而是试图总结它的设计理念和实现方法，以此来说明其“编辑器之神”之誉既非过词， 
+亦非幸致。与之相应地，Emacs有“神之编辑器”的称号。假如果真如此，那说明 
+人类用户还是选择Vim为好——他们不是神，无法变出第三只手去hold住修饰键 （此为戏言，还请Emacs的拥趸勿恼）。</p>
+<p>或许有人认为编辑器效率对工作效率的影响十分有限，毕竟人们大部分时间是花在思考上， 
+而不是花在编辑上。但不要忘记，用户的大部分思考需要参考不同的文件以及同一文件的不同 
+片段，有时还需要对文本进行必要的调整或修改，如果编辑器不能给予用户 
+“移动如飞、改动如电”的能力，必然频繁消耗用户的目光、手指和注意力，最终降低工作效率。 
+换言之，“快”的意义绝不仅仅在于节省的那些浏览或修改的时间，更重要的是 节省思维与文字之间的转换开销，让思考活动与编辑行为尽可能地交融无碍。</p>
+<p>有种说法是“程序高手都用Vim”，还有种说法是“用Vim的都是程序高手”。 
+说实话，程序高手与是否用Vim并无必然联系。但有一点可以肯定，优秀的程序员总会不断 追求更加高效的工作方式，就像不断追求更加高效的代码一样。 
+无论是开源的Vim、Emacs、Eclipse或NetBeans，还是闭源的Visual Studio、Xcode、 
+SlickEdit或TextMate，各有其长，关键在于使用者能否做到“运用之妙，存乎一心”。 
+话说回来，见到那些声称只用Notepad来写代码的“高手”，心头还是不免为之一紧： 这是怎样的自虐啊。</p>
+<p>惯用Vim者会发现它有一个副作用：一旦换到其他编辑器下，就像一个习惯奔跑的人 不得不停下来踱步一样，那种感受直可用“兔心龟步”来形容。 
+不过仅仅用“快”来形容Vim还是不够的，还得加上一个“柔”字，即它具有高度的灵活性和 
+可扩展性。毫不夸张地说，正是Vim的高可定制化让其原本已极其巨大的威力变得几无极限。 
+假如用户艳羡其他编辑器中的某项功能，大可利用Vim的柔性复制过来。</p>
+<p>Vim丰富的命令与灵活的定制为熟手津津乐道，也让生手视为畏途。 实际上，正如此前所指出的那样，Vim的多模式特征让其命令更有意义也更易记忆。 下面以普通模式下的命令为例（注意箭头后的首字母）：</p>
+<pre class="literal-block">a(A) =&gt; Append                       b(B) =&gt; Backward word
+c(C) =&gt; Change                       d(D) =&gt; Delete
+e(E) =&gt; End of word                  f(F) =&gt; Find
+g(G) =&gt; Go                           H    =&gt; Home of window
+i(I) =&gt; Insert                       J    =&gt; Join
+K    =&gt; Keyword under the cursor     L    =&gt; Last line of window
+m    =&gt; Mark                         M    =&gt; Middle line of window
+n(N) =&gt; Next find                    o(O) =&gt; Open a new line
+p    =&gt; Paste                        r(R) =&gt; Replace
+s(S) =&gt; Substitue                    t(T) =&gt; Till
+u(U) =&gt; Undo                         v(V) =&gt; Visual mode
+w(W) =&gt; Word move                    y(Y) =&gt; Yank</pre>
+<p>由上可见，除了代替方向键的 <tt class="docutils literal">hjkl</tt> 四小写字母外，剩下只有三对字母 <tt class="docutils literal">Q(q)</tt> 、 <tt class="docutils literal">z(Z)</tt> 和 <tt class="docutils literal">x(X)</tt> 了。这三个均属最难组词的字母， 其中 <tt class="docutils literal">x(X)</tt> 代表删除或剪切，与以前打字机删除字符相同，形状上也像剪刀； <tt class="docutils literal">z</tt> 主要用于折叠命令，可以理解为 <strong>Z</strong> ip（拉链），形状上也具折叠态。 其他如 <tt class="docutils literal">|</tt> 代表列、 <tt class="docutils literal">&gt;</tt> 代表缩进、 <tt class="docutils literal">(</tt> 代表句首， <tt class="docutils literal">{</tt> 代表段首等 皆极具象征意义。至于命令行模式下的就更不用说，大多都是单词或词组的简写。</p>
+<p>除了富有涵义的单词和隐喻之外，Vim的命令和选项的设计还处处透着一致性， 进一步减少了记忆的负担。事实上，这也是Vim的 <strong>宗旨</strong> 之一。 比如，移动命令与文本对象相一致；相同字母的大小写 命令之间通常是对应的，且小写的更常用；相同首字母的命令中叠字者更常用， 且多表示行操作；代表方向的 <tt class="docutils literal">hjkl</tt> 应用于折叠移动（ <tt class="docutils literal">zj</tt> 、 <tt class="docutils literal">zk</tt> ）、 窗口移动（ <tt class="docutils literal">Ctrl-W-J</tt> 、 <tt class="docutils literal">Ctrl-W-K</tt> 、 <tt class="docutils literal">Ctrl-W-H</tt> 、 <tt class="docutils literal">Ctrl-W-L</tt> ）、 插入模式下的移动（ <tt class="docutils literal">Ctrl-G-J</tt> 、 <tt class="docutils literal">Ctrl-G-K</tt> ）等 以及ex命令中 <tt class="docutils literal">!</tt> 的用法，等等。</p>
+<p>至于定制方面，网上有大量的Vim配置可供参考。初学者可先行“拿来主义”， 挑一个合适自己的来用，以后慢慢学习领会，渐进改造直至称心如意。</p>
+<p>Vim虽以难著称，其实有一个宗旨：让新手尽快上路，然后在使用中逐步累积知识。 对于老手而言，Vim又是常学常新的。纵是在Vim世界里浸淫十余年者，也随时可 享俯拾遗珠之乐。</p>
+<p>人们常常强调Vim陡峭的学习曲线，却忽略事情的另一面，即它的效率曲线也是陡峭的。 
+当然Vim的独特性决定了它永远成不了最流行的编辑器，但这实在不重要， 重要的是凡窥其门径者，无一不留恋难舍，大有“除却巫山不是云”之感。 
+好在即使离开了Vim，手指依旧可以在别处弹奏着同样独特的韵律。 在许多编辑器或IDE下，都可使用Vi或Vim的键盘绑定，其中包括：Emacs、 
+Eclipse、 NetBeans、IntelliJ、Visual 
+Studio、SlickEdit、XCode、TextMate、Komodo等。 在非编辑器的环境中，同样有Vi（Vim）的身影。 
+在Firefox、Chrome、Safari等浏览器中都有类Vim的插件， 在*nix的命令行终端下经配置也可使用Vi， 
+在Mac下有一些软件可以为大多数应用程序（Cocoa Application）的文本框绑定Vi输入法。 
+所有这些的背后，都站着一大批受到Vim魅力感召的人们。</p>
+<p>回到本文开篇的问题：Vim的魅力何在？我的答案是：表面上在于快和柔， 
+本质上则在于对用户的最大尊重——尊重用户的体验与感受，尊重用户的自由与智慧。 
+Vim以其独有的理念充分地发挥了用户的能动性与想象力，从而营造出一个空寂的世界， 在那里无按钮菜单之分神，无弹出窗口之聒噪，无鼠标之不便， 
+只有意念在键盘上静静而自然地流淌，让人沉浸其中而不愿自拔。 最后，请允许我用一段绝非刻意而为之的对比来重述自己的观点：</p>
+<pre class="literal-block">Vim最大的障碍不在于其本身，而在于用户的自我束缚。
+Vim最大的魅力不在于其本身，而在于用户的自我解放。</pre>
+<p>（全文完）</p>
+<p>附：本人的 <a class="reference external" href="https://github.com/hzheng/vimconf"><strong>Vim配置</strong></a> 。</p>
+<h3>参考文献</h3>
+<ol class="arabic simple">
+    <li>Bram Moolenaar. VIM USER MANUAL</li>
+    <li>Arnold Robbins, et al. Learning the vi and Vim Editors(7ed)</li>
+    <li>Kim Schulz. Hacking Vim 7.2</li>
+    <li><a class="reference external" href="http://en.wikipedia.org/wiki/Vim_%28text_editor%29"><strong>Wikipedia: Vim</strong></a></li>
+    <li><a class="reference external" href="http://en.wikipedia.org/wiki/Vi"><strong>Wikipedia: Vi</strong></a></li>
+    <li><a class="reference external" href="http://en.wikipedia.org/wiki/Markup_language"><strong>Wikipedia: Markup Language</strong></a></li>
+    <li><a class="reference external" href="http://en.wikipedia.org/wiki/Lightweight_markup_language"><strong>Wikipedia: Lightweight Markup Language</strong></a></li>
+    <li><a class="reference external" href="http://www.moolenaar.net/habits.html"><strong>Seven habits of effective text editing</strong></a></li>
+    <li><a class="reference external" href="http://arstechnica.com/open-source/news/2011/11/two-decades-of-productivity-vims-20th-anniversary.ars"><strong>Two decades of productivity: Vim’s 20th anniversary</strong></a></li>
+    <li><a class="reference external" href="http://www.viemu.com/a_vi_vim_graphical_cheat_sheet_tutorial.html"><strong>Graphical vi-vim Cheat Sheet and Tutorial</strong></a></li>
+    <li><a class="reference external" href="http://www.viemu.com/a-why-vi-vim.html"><strong>Why, oh WHY, do those #?@! nutheads use vi?</strong></a></li>
+</ol>
+						<div style="float: left;margin-top:0px;margin-right:0px">
+						<script type="text/javascript"><!--
+						google_ad_client = "ca-pub-9317413389774415";
+						/* 2012年底部广告336x280, */
+						google_ad_slot = "9618407928";
+						google_ad_width = 336;
+						google_ad_height = 280;
+						//-->
+						</script>
+						<script type="text/javascript" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/show_ads.js">
+						</script>
+						</div>
+					</div>
+					<div class="clear"></div>
+					<!-- topics begin -->
+					<div class="otherContent_01" style="margin-top:10px;">
+						<div class="cMovie_01" style="position:relative">
+							<div class="cM01_tit">&gt; <strong>相关主题：</strong><span style="position:absolute;right:30px;top:1px"><a target="_blank" href="http://www.kuqin.com/topics/">学习编程，上酷勤网&gt;&gt;</a></span></div>
+						 
+						 <div class="cM01_cont">
+						  
+							<div class="cM01_item">
+							  <div class="cM01_pic">
+							  <a href="http://www.kuqin.com/topics/vim.html" target="_blank"><img src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/vim.png" alt="Vim编辑器" height="90" width="90"></a>
+							  </div>
+							   <div class="cM01_txt"><a href="http://www.kuqin.com/topics/vim.html" target="_blank">Vim编辑器</a></div>
+							</div>
+							 
+							<div class="cM01_item">
+							  <div class="cM01_pic">
+							  <a href="http://www.kuqin.com/topics/163.html" target="_blank"><img src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/163.jpg" alt="网易163" height="90" width="90"></a>
+							  </div>
+							   <div class="cM01_txt"><a href="http://www.kuqin.com/topics/163.html" target="_blank">网易163</a></div>
+							</div>
+							 
+							<div class="cM01_item">
+							  <div class="cM01_pic">
+							  <a href="http://www.kuqin.com/topics/360buy.html" target="_blank"><img src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/360buy.jpg" alt="京东商城" height="90" width="90"></a>
+							  </div>
+							   <div class="cM01_txt"><a href="http://www.kuqin.com/topics/360buy.html" target="_blank">京东商城</a></div>
+							</div>
+							 
+							<div class="cM01_item">
+							  <div class="cM01_pic">
+							  <a href="http://www.kuqin.com/topics/youku.html" target="_blank"><img src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/youku.jpg" alt="优酷网" height="90" width="90"></a>
+							  </div>
+							   <div class="cM01_txt"><a href="http://www.kuqin.com/topics/youku.html" target="_blank">优酷网</a></div>
+							</div>
+							
+							
+						</div>
+					   </div>
+					</div>
+					<!-- topics end -->
+					<!-- source begin -->
+					<div style="margin:0 auto;text-align:right;padding:10px 25px 0 25px; font-size:12px;">
+					本文来源：<a name="source" target="_blank" href="http://blog.zhenghui.org/2011/12/13/charm-of-vim-2/" rel="external nofollow">原文链接</a> 
+					
+					</div>
+					<!-- source end -->
+					<div class="clear"></div>
+					<div class="entrycontent">
+						<!-- Wumi Button BEGIN -->
+						<p>
+							</p><div class="wumii-hook"><div id="wumiiBtnDiv" style="clear:both;overflow:visible;position:relative;left:0;top:0;height:28px;margin:0;padding:10px 0 0;text-shadow: none;text-indent:0;">
+    <div id="wumiiLikeBtnDiv" style="position: static; float: left; display: inline; width: 89px; height: 28px; margin: 0px 0px 0px 218px; padding: 0px; background: url(&quot;http://static.wumii.cn/images/blogWidget/widget_buttons_red.png&quot;) no-repeat scroll 0px 0px transparent; text-indent: 0px;" onmouseover="this.style.backgroundPosition='-89px 0';" onmouseout="this.style.backgroundPosition='0 0';">
+        <a href="http://www.wumii.com/item/1Hxeg5p2" target="_blank" id="wumiiNumLikes" style="float:left;width:38px;height:20px;line-height:21px;margin:4px 0 0 4px;padding:0;border:none;background-color:#fff;color:#943939;letter-spacing:0;text-decoration:none;text-align:center;text-indent:0;font-size:12px;" onmouseover="this.style.fontWeight='bold';" onmouseout="this.style.fontWeight='normal';">0</a>
+        <span style="float:left;width:40px;height:29px;margin:0;padding:0;outline:none;cursor:pointer;" id="wumiiLikeBtn" hidefocus="true"></span>
+    </div>
+    <div id="wumiiRecommendBtnDiv" style="position:static;clear:none;float:left;display:inline;height:28px;margin:0;padding:0 5px;text-indent:0;">
+        <span id="wumiiRecommendBtn" hidefocus="true" style="float:left;display:inline;width:60px;height:28px;margin:0 0 0 5px;padding:0;background:url('http://static.wumii.cn/images/blogWidget/widget_buttons_red.png') no-repeat -267px 0;cursor:pointer;outline:none;" onmouseover="this.style.backgroundPosition='-328px 0';" onmouseout="this.style.backgroundPosition='-267px 0';"></span>
+        <img src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/loading.gif" id="wumiiLoading" style="clear:none;display:none;height:15px;margin:7px 0 0 8px;padding:0;border:0;background:none;cursor:default;" alt="正在加载推荐文章">
+    </div>
+</div>
+<div class="wumii-related-items-div" wmode="2" style="margin: 0; border: none; padding: 0; clear: both; overflow: hidden; *zoom: 1; *position: relative;">
+    
+    
+    
+        <div class="wumii-internal" style="padding: 0; margin: 0; border: none; clear: both; display: block;">
+        <div class="wumii-widget-title" style="margin: 0; border: none; padding: 20px 0 5px; _padding-top:10px; text-indent: 0; text-align: left; font-weight: bold; ">您可能也喜欢：</div>
+                <div class="wumii-image-row" style="clear: both; overflow: hidden; border: none; padding: 0;margin: 0;_zoom: 1;" fromurl="http%3A%2F%2Fwww.kuqin.com%2Fdeveloptool%2F20111213%2F316169.html"><a origlink="http://www.kuqin.com/developtool/20091229/76779.html" class="wumii-image-block" hidefocus="true" title="Vim命令图和Vim键盘图" onmouseout="this.style.backgroundColor=''" onmouseover="this.style.backgroundColor='#E3E4FA'" style="display: block; float: left; text-decoration: none; border-bottom: medium none; cursor: pointer; position: relative; margin: 5px 0px 0px -1px; padding: 5px; text-align: left; outline: medium none; background-image: none; border-left: 1px solid rgb(221, 221, 221) ! important; background-color: rgb(227, 228, 250);" href="http://www.kuqin.com/developtool/20091229/76779.html" redirecturl="">
+    <span class="wumii-image-clip" style="overflow: hidden; position: relative; display: block; width: 100px; height: 100px; margin: 0 0 5px; padding: 0; border: 1px solid #DDDDDD;">
+        <img src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/3hn6XktC.png" image-url="http://static.wumii.cn/site_images/ti/3hn6XktC.png?i=CXj41fln" class="wumii-image" style="position: absolute; margin: 0px; padding: 0px; border: medium none; background: none repeat scroll 0% 0% transparent; left: 2px; top: 2px; width: 96px; height: 96px; clip: rect(0px, 96px, 96px, 0px); visibility: visible;">
+    </span>
+    <div class="wumii-image-title" style="width: 102px; height: 60px; margin: 3px 0 0 0; padding: 0; text-indent: 0; text-align: left; border: none; font: 12px/15px arial; color: #333333; overflow: hidden; white-space: normal; clear: both;">Vim命令图和Vim键盘图</div>
+</a><a class="wumii-image-block" hidefocus="true" title="VIM命令备忘" onmouseout="this.style.backgroundColor=''" onmouseover="this.style.backgroundColor='#E3E4FA'" style="display: block; float: left; text-decoration: none; border-bottom: none; cursor: pointer; position: relative; margin: 5px 0 0 -1px; padding: 5px; text-align: left; outline: none; background-image: none; border-left: 1px solid #DDDDDD !important;" href="http://www.kuqin.com/developtool/20110821/263919.html" redirecturl="">
+    <span class="wumii-image-clip" style="overflow: hidden; position: relative; display: block; width: 100px; height: 100px; margin: 0 0 5px; padding: 0; border: 1px solid #DDDDDD;">
+        <img src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/IY7fJVJb.png" image-url="http://static.wumii.cn/site_images/ti/IY7fJVJb.png?i=l1vnjm1p" class="wumii-image" style="position: absolute; margin: 0px; padding: 0px; border: medium none; background: none repeat scroll 0% 0% transparent; left: 2px; top: 2px; width: 96px; height: 96px; clip: rect(0px, 96px, 96px, 0px); visibility: visible;">
+    </span>
+    <div class="wumii-image-title" style="width: 102px; height: 60px; margin: 3px 0 0 0; padding: 0; text-indent: 0; text-align: left; border: none; font: 12px/15px arial; color: #333333; overflow: hidden; white-space: normal; clear: both;">VIM命令备忘</div>
+</a><a class="wumii-image-block" hidefocus="true" title="vim命令大全图" onmouseout="this.style.backgroundColor=''" onmouseover="this.style.backgroundColor='#E3E4FA'" style="display: block; float: left; text-decoration: none; border-bottom: none; cursor: pointer; position: relative; margin: 5px 0 0 -1px; padding: 5px; text-align: left; outline: none; background-image: none; border-left: 1px solid #DDDDDD !important;" href="http://www.kuqin.com/developtool/20111113/314831.html" redirecturl="">
+    <span class="wumii-image-clip" style="overflow: hidden; position: relative; display: block; width: 100px; height: 100px; margin: 0 0 5px; padding: 0; border: 1px solid #DDDDDD;">
+        <img src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/mV7gDH67.jpg" image-url="http://static.wumii.cn/site_images/ti/mV7gDH67.jpg?i=Z1lMvwmu" class="wumii-image" style="position: absolute; margin: 0px; padding: 0px; border: medium none; background: none repeat scroll 0% 0% transparent; left: 2px; top: 2px; width: 96px; height: 96px; clip: rect(0px, 96px, 96px, 0px); visibility: visible;">
+    </span>
+    <div class="wumii-image-title" style="width: 102px; height: 60px; margin: 3px 0 0 0; padding: 0; text-indent: 0; text-align: left; border: none; font: 12px/15px arial; color: #333333; overflow: hidden; white-space: normal; clear: both;">vim命令大全图</div>
+</a><a class="wumii-image-block" hidefocus="true" title="Vim命令速查卡" onmouseout="this.style.backgroundColor=''" onmouseover="this.style.backgroundColor='#E3E4FA'" style="display: block; float: left; text-decoration: none; border-bottom: none; cursor: pointer; position: relative; margin: 5px 0 0 -1px; padding: 5px; text-align: left; outline: none; background-image: none; border-left: 1px solid #DDDDDD !important;" href="http://www.kuqin.com/developtool/20110917/264891.html" redirecturl="">
+    <span class="wumii-image-clip" style="overflow: hidden; position: relative; display: block; width: 100px; height: 100px; margin: 0 0 5px; padding: 0; border: 1px solid #DDDDDD;">
+        <img src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/kDQsF4RV.png" image-url="http://static.wumii.cn/site_images/ti/kDQsF4RV.png?i=W2n3QCgf" class="wumii-image" style="position: absolute; margin: 0px; padding: 0px; border: medium none; background: none repeat scroll 0% 0% transparent; left: 2px; top: 2px; width: 96px; height: 96px; clip: rect(0px, 96px, 96px, 0px); visibility: visible;">
+    </span>
+    <div class="wumii-image-title" style="width: 102px; height: 60px; margin: 3px 0 0 0; padding: 0; text-indent: 0; text-align: left; border: none; font: 12px/15px arial; color: #333333; overflow: hidden; white-space: normal; clear: both;">Vim命令速查卡</div>
+</a><a class="wumii-image-block" hidefocus="true" title="使用VIM开发软件项目6：文件浏览和缓冲区浏览" onmouseout="this.style.backgroundColor=''" onmouseover="this.style.backgroundColor='#E3E4FA'" style="display: block; float: left; text-decoration: none; border-bottom: medium none; cursor: pointer; position: relative; margin: 5px 0px 0px -1px; padding: 5px; text-align: left; outline: medium none; background-image: none; border-left: 1px solid rgb(221, 221, 221) ! important;" href="http://www.kuqin.com/developtool/20080601/9142.html" redirecturl="">
+    <span class="wumii-image-clip" style="overflow: hidden; position: relative; display: block; width: 100px; height: 100px; margin: 0 0 5px; padding: 0; border: 1px solid #DDDDDD;">
+        <img src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/PhQLtInq.jpg" image-url="http://static.wumii.cn/site_images/ti/PhQLtInq.jpg?i=104LLP8rJ" class="wumii-image" style="position: absolute; margin: 0px; padding: 0px; border: medium none; background: none repeat scroll 0% 0% transparent; left: 2px; top: 2px; width: 96px; height: 96px; clip: rect(0px, 96px, 96px, 0px); visibility: visible;">
+    </span>
+    <div class="wumii-image-title" style="width: 102px; height: 60px; margin: 3px 0 0 0; padding: 0; text-indent: 0; text-align: left; border: none; font: 12px/15px arial; color: #333333; overflow: hidden; white-space: normal; clear: both;">使用VIM开发软件项目6：文件浏览和缓冲区浏览</div>
+</a></div>
+    </div><div class="wumii-footer" style="margin: 0px; border: medium none; padding: 5px 0px; clear: both; text-align: right; width: 564px;">
+            <a href="http://www.wumii.com/widget/relatedItems" target="_blank" title="无觅关联推荐" style="font: 12px arial; color: rgb(187, 187, 187); border-bottom: medium none; word-wrap: normal; display: inline; cursor: pointer;">无觅关联推荐[?]</a>
+                
+        </div>
+</div></div>
+							<script>
+								var wumiiSitePrefix = "http://www.kuqin.com//";
+							</script>
+						<p></p>
+						<!-- Wumi Button END -->
+						<!-- JiaThis Button BEGIN -->
+						<script language="JavaScript" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/jia3.js" type="text/JavaScript"></script><div id="jiathis_style_32x32">
+	<a title="分享到QQ空间" class="jiathis_button_qzone"><span class="jiathis_txt jtico jtico_qzone"></span></a>
+	<a title="分享到新浪微博" class="jiathis_button_tsina"><span class="jiathis_txt jtico jtico_tsina"></span></a>
+	<a title="分享到腾讯微博" class="jiathis_button_tqq"><span class="jiathis_txt jtico jtico_tqq"></span></a>
+	<a title="分享到人人网" class="jiathis_button_renren"><span class="jiathis_txt jtico jtico_renren"></span></a>
+	<a title="分享到开心网" class="jiathis_button_kaixin001"><span class="jiathis_txt jtico jtico_kaixin001"></span></a>
+	<a title="分享到豆瓣" class="jiathis_button_douban"><span class="jiathis_txt jtico jtico_douban"></span></a>
+	<a class="jiathis_button_googlereader"></a>
+	<a title="分享到搜狐微博" class="jiathis_button_tsohu"><span class="jiathis_txt jtico jtico_tsohu"></span></a>
+	<a title="分享到网易微博" class="jiathis_button_t163"><span class="jiathis_txt jtico jtico_t163"></span></a>
+	<a title="分享到Twitter" class="jiathis_button_twitter"><span class="jiathis_txt jtico jtico_twitter"></span></a>
+	<a title="分享到Gmail邮箱" class="jiathis_button_gmail"><span class="jiathis_txt jtico jtico_gmail"></span></a>
+	<a title="分享到QQ书签" class="jiathis_button_qq"><span class="jiathis_txt jtico jtico_qq"></span></a>
+	<a href="http://www.jiathis.com/share?uid=1531230" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank">更多</a>
+	<a class="jiathis_counter_style"><span title="累计分享2次" id="jiathis_counter_151" class="jiathis_button_expanded jiathis_counter jiathis_bubble_style">2</span></a>
+</div>
+
+						<script language="JavaScript" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/jia2.js" type="text/JavaScript"></script><script type="text/javascript" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/jia.js" charset="utf-8"></script><script type="text/javascript" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/plugin.js" charset="utf-8"></script><div style="position:absolute;width:0px;height:0px;"><div role="button" tabindex="0" title="http://www.jiathis.com/code/swf/m.swf" style="background: url(&quot;chrome://flashblock/content/flash.png&quot;) no-repeat scroll center center transparent ! important; min-width: 32px ! important; min-height: 32px ! important; width: 32px; height: 32px; border: 1px solid rgb(223, 223, 223); cursor: pointer; overflow: hidden; display: inline-block; visibility: visible ! important; opacity: 100 ! important; -moz-box-sizing: border-box;" bgactive="url(chrome://flashblock/content/flashplay.png) no-repeat center" bginactive="url(chrome://flashblock/content/flash.png) no-repeat center"></div></div>
+
+						<!-- JiaThis Button END -->
+					</div>
+				</div>
+				<!-- PostContent end -->
+				<!-- PageNavigation begin -->
+				<div class="clear"></div>
+				<div class="postnavi">
+					<div class="previous_post">上一篇：<a href="http://www.kuqin.com/developtool/20111212/316144.html">gVim配色方案</a> </div>
+					<div class="next_post">下一篇：<a href="http://www.kuqin.com/developtool/20111214/316244.html">软件开发工具Gow：轻量级的Cygwin替代软件</a>  </div>
+				</div>
+				<!-- PageNavigation end -->
+			</div>
+			<!-- SinglePost end -->
+			<!-- PostComment begin -->
+			<div class="postcomment">
+				<!-- PingLun.La Begin -->
+				<!-- UY BEGIN -->
+				<div id="uyan_frame"><div id="uyan_cmt_box" style="width: 100%; font-family: 'Microsoft YaHei',arial,tahoma,宋体,sans-serif; position: relative; float: left;"><div id="uyan_top" style="height: 33px; overflow: hidden; font-size: 12px; font-weight: bold;"><div id="uyan_cmt_tit" style="float: left; padding-right: 13px; padding-top: 0px; font-size: 16px; color: #424242; font-weight: 600; line-height: 30px;">用户评论<div style="clear: both;"></div></div><div id="uyan_star" style="height: 22px; width: 120px; float:left; margin-top:7px; overflow: hidden;"><div style="float: left;"><a id="uyan_vs_1" onclick="UYAN.voteStar(1);" onmouseover="UYAN.cagStar(1);" onmouseout="UYAN.cagStar(0);" style="background: url('http://v2.uyan.cc/code/images/star_un.png') no-repeat scroll 0 0 transparent; cursor: pointer; float: left; height: 16px; padding-right: 5px; width: 16px;"></a><a id="uyan_vs_2" onclick="UYAN.voteStar(2);" onmouseover="UYAN.cagStar(2);" onmouseout="UYAN.cagStar(0);" style="background: url('http://v2.uyan.cc/code/images/star_un.png') no-repeat scroll 0 0 transparent; cursor: pointer; float: left; height: 16px; padding-right: 5px; width: 16px;"></a><a id="uyan_vs_3" onclick="UYAN.voteStar(3);" onmouseover="UYAN.cagStar(3);" onmouseout="UYAN.cagStar(0);" style="background: url('http://v2.uyan.cc/code/images/star_un.png') no-repeat scroll 0 0 transparent; cursor: pointer; float: left; height: 16px; padding-right: 5px; width: 16px;"></a><a id="uyan_vs_4" onclick="UYAN.voteStar(4);" onmouseover="UYAN.cagStar(4);" onmouseout="UYAN.cagStar(0);" style="background: url('http://v2.uyan.cc/code/images/star_un.png') no-repeat scroll 0 0 transparent; cursor: pointer; float: left; height: 16px; padding-right: 5px; width: 16px;"></a><a id="uyan_vs_5" onclick="UYAN.voteStar(5);" onmouseover="UYAN.cagStar(5);" onmouseout="UYAN.cagStar(0);" style="background: url('http://v2.uyan.cc/code/images/star_un.png') no-repeat scroll 0 0 transparent; cursor: pointer; float: left; height: 16px; padding-right: 5px; width: 16px;"></a><div style="clear: both;"></div></div></div><div id="uyan_cmty_btn" style="height: 23px; overflow: hidden; background: url('http://v2.uyan.cc/code/images/linkbg.png') repeat-x; border: 1px solid #D7D7D7; border-radius: 3px; float: right; line-height: 23px; margin-left: 10px; padding: 0 8px; margin-top: 3px;"><a onclick="UYAN.cmty();" style="cursor: pointer; color: #424242; text-decoration: none; font-size: 12px; font-weight: bold;">社区</a></div><div id="uyan_like" style="height: 23px; overflow: hidden; background: url('http://v2.uyan.cc/code/images/linkbg.png') repeat-x; border: 1px solid #D7D7D7; border-radius: 3px; float: right; line-height: 23px; padding: 0 8px; margin-top: 3px;"><span id="uyan_vun" style="font-size: 11px; font-weight: bold; color: #303030;">0</span><a id="uyan_vu" onclick="UYAN.voteUD('uu');" style="cursor: pointer; font-size: 12px; font-weight: bold; color: #424242; text-decoration: none;">&nbsp;喜欢</a></div><div style="clear: both;"></div></div><div id="uyan_usp" style="margin-bottom: 10px;"><div style="font-size: 13px; height: 26px; overflow: hidden;"><a id="uyan_uname_txt_t" style="color: #2B8CE6; cursor: pointer; display: block; float: left; font-weight: bold; margin: 6px 0 0 0; text-decoration: none; font-size: 16px; line-height: 17px;" href="javascript:;"></a><div style="background: url('http://v2.uyan.cc/code/images/medalIcon.png') no-repeat scroll 0 2px transparent; float: left; height: 20px; margin: 6px 0 0 10px; padding-left: 15px; line-height: 18px;"><div id="uyan_utname_edit" style="display: none;"><div style="color: #333333; float: left; padding-right: 4px;">头衔:</div><input id="uyan_utname" style="color: #777777; float: left; height: 12px; padding: 1px 3px; width: 100px;" type="text"><a onclick="UYAN.setUtname();" style="background-color: #8BAD50; border: 1px solid #799E3C; border-radius: 3px 3px 3px 3px; color: #FFFFFF; cursor: pointer; float: left; margin-left: 3px; padding: 0 10px; text-align: center; text-decoration: none;">确定</a><a onclick="UYAN.changeUtname();" style="color: #AAAAAA; cursor: pointer; float: left; margin-left: 6px;">取消</a></div><div id="uyan_utname_txt"><div id="uyan_utname_show" style="color: #444444; float: left; padding-right: 5px;"></div><a onclick="UYAN.changeUtname();" style="color: #2B8CE6; cursor: pointer; float: left; text-decoration: none;">编辑头衔</a></div></div><div style="background: url('http://v2.uyan.cc/code/images/emailIcon.png') no-repeat scroll 0 0 transparent; float: left; height: 20px; margin: 6px 0 0 10px; padding-left: 19px; line-height: 18px;"><div id="uyan_femail_edit" style="display: none;"><div style="color: #333333; float: left; padding-right: 4px;">邮箱:</div><input id="uyan_femail" style="color: #777777; float: left; height: 12px; padding: 1px 3px; width: 100px;" type="text"><a onclick="UYAN.setFemail();" style="background-color: #8BAD50; border: 1px solid #799E3C; border-radius: 3px 3px 3px 3px; color: #FFFFFF; cursor: pointer; float: left; margin-left: 3px; padding: 0 10px; text-align: center; text-decoration: none;">确定</a><a onclick="UYAN.changeFemail();" style="color: #AAAAAA; cursor: pointer; float: left; margin-left: 6px;">取消</a></div><div id="uyan_femail_txt"><div id="uyan_femail_show" style="color: #444444; float: left; padding-right: 5px;"></div><a onclick="UYAN.changeFemail();" style="color: #2B8CE6; cursor: pointer; float: left; text-decoration: none;">跟踪回复</a></div></div><div id="uyan_uacn" style="float: left; height: 20px; margin: 6px 0 0 10px; padding-left: 0px; line-height: 18px; color: #2B8CE6;">0条评论</div><div id="uyan_uvon" style="float: left; height: 20px; margin: 6px 0 0 10px; padding-left: 2px; line-height: 18px; color: #2B8CE6;">0次被喜欢</div><div style="clear: both;"></div></div><div style="clear: both;"></div></div><div id="uyan_loginot" style="padding: 0 0 3px 60px;"><div style="clear: both;"></div></div><div style="height: 58px; overflow: hidden; padding: 0 0 30px 0;"><div style="float: left; border-radius: 6px 6px 6px 6px; width: 50px; height: 60px; margin-right: 10px;"><img id="uyan_uface" style="box-shadow: 0 1px 5px rgba(0, 0, 0, 0.22); border-radius: 4px; width: 50px; height: 50px;" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/duface.png"></div><div style="padding: 0 0 0 60px; overflow: visible;"><div onclick="UYAN.hidIntro(this.firstChild);" style="height: 40px; background: url('http://v2.uyan.cc/code/images/textareabg.png') repeat-x scroll 0 0 #FFFFFF; border-top: 1px solid #b8b8b8; border-left: 1px solid #b8b8b8; border-right: 1px solid #b8b8b8; background-color: #ffffff; background-repeat: repeat-x; border-radius: 3px 3px 0 0; box-shadow: 0 0; padding: 7px; position: relative; overflow: hidden; cursor: text;"><textarea id="uyan_comment" onkeyup="UYAN.checkTxt(this, 140);" onkeydown="UYAN.checkTxt(this, 140);" onfocus="UYAN.hidIntro(this);" onblur="UYAN.shoIntro(this);" style="background: none repeat scroll 0 0 #FFFFFF; padding: 0; box-shadow: 0 0; color: #BDBBBB; border: 0; z-index: 90; overflow: hidden; float: left; font-size: 13px; font-family: 'Microsoft YaHei',arial,tahoma,宋体,sans-serif; resize: none; height: 40px; display: block; outline: none; word-wrap: break-word; margin: 0;">请输入你的评论</textarea><pre style="width: 100%; font-size: 13px; left: 0; line-height: 18px; position: absolute; top: 0; visibility: hidden; word-wrap: break-word; white-space: pre-wrap;" id="uyan_cmt_cnt"></pre></div><div style="opacity: 1; visibility: visible; border-top: 1px dotted #C6CDD6; border-bottom: 1px solid #b8b8b8; border-left: 1px solid #b8b8b8; border-right: 1px solid #b8b8b8; bottom: 0; height: 28px; left: 0; right: 0; padding: 0 10px; background-color: #FFFFFF;"><div id="uyan_smile" title="表情" onclick="UYAN.shoSmile(this);" onmouseover="UYAN.mouseOO(this, 'on');" onmouseout="UYAN.mouseOO(this, 'out');" style="cursor: pointer; width: 18px; height: 16px; float: left; overflow: hidden; background: url('http://v2.uyan.cc/code/images/emotion2.png') no-repeat; margin-top: 6px; margin-right: 6px;"></div><div style="font-size: 14px; float: right; line-height: 28px; font-family: Georgia,Constantia; color: #cecece;"><span id="uyan_tts">140</span></div></div><div style="clear:both;"></div></div></div><div id="uyan_ssmile" style="margin-left: 60px; position: absolute; z-index: 9999; display: none;"><div style="border: 1px solid #989999; border-radius: 5px; width: 322px; height: 160px; background: #fff; font-size: 12px; padding: 6px;"><ul style="margin: 5px 0 0 0; padding: 0; height: 24px;"><li id="uyan_ssmile_df" onclick="UYAN.shoSmile(this, 'df');" style="float: left; list-style: none; line-height: 22px; background: url('http://v2.uyan.cc/code/images/smileb.gif') no-repeat scroll 0 center transparent; color: #ffffff; width: 68px; height: 24px; overflow: hidden; text-align: center; margin: 0 5px; display: inline; cursor: pointer; padding: 0;">默认表情</li><li id="uyan_ssmile_al" onclick="UYAN.shoSmile(this, 'al');" style="float: left; list-style: none; line-height: 22px; background: none repeat scroll 0 center transparent; width: 68px; height: 24px; overflow: hidden; text-align: center; margin: 0 5px; display: inline; cursor: pointer; padding: 0;">阿狸</li></ul><ul id="uyan_ssmile_list" style="margin: 0; padding: 0; width: 310px; border-top: 1px solid #d3e4f0; border-left: 1px solid #d3e4f0; margin: 5px 0 0 5px;"></ul></div></div><div id="uyan_stat_btn" style="position: relative; overflow: hidden; margin-bottom: 5px; margin-top: 0px; line-height: 15px;"><div style="font-size: 12px; float: right; margin-top: 5px; width: 72px;"><a id="uyan_cmt_btn" onclick="UYAN.addCmt(this);" onmouseover="UYAN.cagBtn('on', this);" onmouseout="UYAN.cagBtn('out', this);" style="cursor: pointer; font-family: 'Microsoft YaHei',arial,tahoma,宋体,sans-serif; padding: 0px; border-radius: 3px 3px 3px 3px; color: #666666; display: inline-block; font-weight: 600; text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.6); float: right; background: url('http://v2.uyan.cc/code/images/buttonLarge.png') repeat-x scroll 0px 0px transparent; text-align: center; width: 70px; border: 1px solid #B8B8B8; font-size: 12px; line-height: 22px; height: 22px;">发&nbsp;&nbsp;布</a></div><div id="uyan_vis" style="float: right; margin-right: 10px; min-height: 32px; padding-left: 5px; width: 116px;"><p id="uyan_lb_uname" style="height: 26px; text-indent: 0; margin: 5px 0 0px; width: 100px; padding: 0;"><input maxlength="20" onfocus="UYAN.changeBn(this, '昵称（必填）');" onblur="UYAN.changeBn(this, '昵称（必填）');" id="uyan_l_uname" style="font-family: 'Microsoft YaHei',arial,tahoma,宋体,sans-serif; background-color: rgba(255, 255, 255, 0.45); background-repeat: repeat-x; border: 1px solid #b8b8b8; border-radius: 3px 3px 3px 3px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) inset; font-size: 12px; height: 22px; line-height: 22px;  margin: 0; padding: 0px 8px; width: 100%; vertical-align: top; color: #999999;" value="昵称（必填）" type="text"><a onclick="UYAN.changeLB(this, 's');" title="加入邮箱和网址信息" style="cursor: pointer; background: url('http://v2.uyan.cc/code/images/sorttype.png') no-repeat; width: 10px; height: 5px; display: block; float: right; top: -15px; _margin-top: -15px; right: -9px; _margin-right: -15px; position: relative; _position: none;"></a></p><p id="uyan_lb_email" style="height: 26px; text-indent: 0; margin: 5px 0 0px; width: 100px; display: none; padding: 0;"><input maxlength="50" onfocus="UYAN.changeBn(this, '邮箱');" onblur="UYAN.changeBn(this, '邮箱');" id="uyan_l_email" style="font-family: 'Microsoft YaHei',arial,tahoma,宋体,sans-serif; background-color: rgba(255, 255, 255, 0.45); background-repeat: repeat-x; border: 1px solid #b8b8b8; border-radius: 3px 3px 3px 3px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) inset; font-size: 12px; height: 22px; line-height: 22px; margin: 0; padding: 0px 8px; width: 100%; vertical-align: top; color: #999999;" value="邮箱" type="text"></p><p id="uyan_lb_ulink" style="height: 26px; text-indent: 0; margin: 5px 0 0px; width: 100px; display: none; padding: 0;"><input maxlength="100" onfocus="UYAN.changeBn(this, '网址');" onblur="UYAN.changeBn(this, '网址');" id="uyan_l_ulink" style="font-family: 'Microsoft YaHei',arial,tahoma,宋体,sans-serif; background-color: rgba(255, 255, 255, 0.45); background-repeat: repeat-x; border: 1px solid #b8b8b8; border-radius: 3px 3px 3px 3px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) inset; font-size: 12px; height: 22px; line-height: 22px; margin: 0; padding: 0px 8px; width: 100%; vertical-align: top; color: #999999;" value="网址" type="text"></p><input id="uyan_sync" class="uyan_st_sync" type="hidden"></div><div id="uyan_ottype" style="float: right; width: 160px;"><span style="display: block;"><a onclick="UYAN.loginTSina();" onmouseover="UYAN.mouseOO(this, 'tsinambtn.png');" onmouseout="UYAN.mouseOO(this, 'tsinambtn2.png');" title="使用新浪微博账号登陆" style="cursor: pointer; background: url('http://v2.uyan.cc/code/images/tsinambtn2.png') no-repeat; width: 24px; height: 24px; display: block; float: left; overflow: hidden; margin-right: 5px; margin-top: 5px;"></a><a onclick="UYAN.loginQq();" onmouseover="UYAN.mouseOO(this, 'qqmbtn.png');" onmouseout="UYAN.mouseOO(this, 'qqmbtn2.png');" title="使用QQ账号账号登陆" style="cursor: pointer; background: url('http://v2.uyan.cc/code/images/qqmbtn2.png') no-repeat; width: 24px; height: 24px; display: block; float: left; overflow: hidden; margin-right: 5px; margin-top: 5px;"></a><a onclick="UYAN.loginTQq();" onmouseover="UYAN.mouseOO(this, 'tqqmbtn.png');" onmouseout="UYAN.mouseOO(this, 'tqqmbtn2.png');" title="使用腾讯微博账号登陆" style="cursor: pointer; background: url('http://v2.uyan.cc/code/images/tqqmbtn2.png') no-repeat; width: 24px; height: 24px; display: block; float:left; overflow:hidden; margin-right:5px; margin-top:5px;"></a><a onclick="UYAN.loginRenren();" onmouseover="UYAN.mouseOO(this, 'renrenmbtn.png');" onmouseout="UYAN.mouseOO(this, 'renrenmbtn2.png');" title="使用人人账号登陆" style="cursor: pointer; background: url('http://v2.uyan.cc/code/images/renrenmbtn2.png') no-repeat; width: 24px; height: 24px; display: block; float: left; overflow: hidden; margin-right: 5px; margin-top: 5px;"></a><a onclick="UYAN.loginTSohu();" onmouseover="UYAN.mouseOO(this, 'tsohumbtn.png');" onmouseout="UYAN.mouseOO(this, 'tsohumbtn2.png');" title="使用搜狐微博账号登陆" style="cursor: pointer; background: url('http://v2.uyan.cc/code/images/tsohumbtn2.png') no-repeat; width: 24px; height: 24px; display: block; float: left; overflow: hidden; margin-right: 5px; margin-top: 5px;"></a><a onclick="UYAN.changeML(this, 's');" title="选择更多登陆账号" style="cursor: pointer; background: url('http://v2.uyan.cc/code/images/sorttype.png') no-repeat scroll right 11px transparent; width: 10px; height: 20px; display: block; float: left; overflow: hidden; margin-right: 5px; margin-top: 5px;"></a><a id="uyan_ml_kaixin001" onmouseover="UYAN.mouseOO(this, 'kaixin001mbtn.png');" onmouseout="UYAN.mouseOO(this, 'kaixin001mbtn2.png');" title="kaixin001" onclick="UYAN.loginKaixin001();" style="cursor: pointer; background: url('http://v2.uyan.cc/code/images/kaixin001mbtn2.png') no-repeat; width: 24px; height: 24px; display: none; float: left; overflow: hidden; margin-right: 5px; margin-top: 5px;"></a><a id="uyan_ml_t163" onmouseover="UYAN.mouseOO(this, 't163mbtn.png');" onmouseout="UYAN.mouseOO(this, 't163mbtn2.png');" title="163" onclick="UYAN.loginT163();" style="cursor: pointer; background: url('http://v2.uyan.cc/code/images/t163mbtn2.png') no-repeat; width: 24px; height: 24px; display: none; float: left; overflow: hidden; margin-right: 5px; margin-top: 5px;"></a></span></div><div style="clear: both;"></div></div><div id="uyan_slog" class="uyan_st_slog" onmouseover="UYAN.show(this);" onmouseout="UYAN.hide(this);" style="background-color: #FFFFFF; border-color: #d3d2d2; border-width: 1px 1px 2px; border-style: solid; position: absolute; z-index: 90000; padding: 1px 3px; display: none; width: 20px;"><div onclick="UYAN.loginKaixin001();" style="color: #9797C4;  font-size: 12px; font-weight: normal; width:16px; margin:0 auto; padding:2px 0; cursor: pointer; height: 17px; overflow: hidden;"><img src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/kaixin001.png"></div><div onclick="UYAN.loginTSohu();" style="color: #9797C4;  font-size: 12px; font-weight: normal; width:16px; margin:0 auto; padding:2px 0; cursor: pointer; height: 17px; overflow: hidden;"><img src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/tsohu.png"></div><div onclick="UYAN.loginT163();" style="color: #9797C4;  font-size: 12px; font-weight: normal; width:16px; margin:0 auto; padding:2px 0; cursor: pointer; height: 17px; overflow: hidden;"><img src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/t163.png"></div></div><div id="uyan_sort" style="color: #424242; font-size: 12px; margin: 0px; padding: 0px;"><div style="height: 28px; overflow: hidden; float: left;"><div style="float: left; padding: 4px 8px 5px; text-shadow: 0px 1px 0px #FFFFFF; border-bottom: 2px solid #2B8CE6;"><a id="uyan_sort_name" onclick="UYAN.cmtSort();" style="line-height: 17px; background: url('http://v2.uyan.cc/code/images/sorttype.png') no-repeat scroll right 7px transparent; color: #787878; cursor: pointer; display: block; float: left; font-size: 12px; padding-right: 15px; font-weight:600;">按时间排序</a></div><div style="float: left; font-size:11px; color: #999999; padding: 4px 1px;">|</div><div style="text-shadow: 0 1px 0 #FFFFFF; float:left; padding:4px 8px 5px;"><a id="uyan_sort_tsina" onclick="UYAN.cmtSort(0, 'tsina');" style="line-height: 17px; color: #787878; cursor: pointer; display: block; float: left; font-size: 12px;">新浪微博</a></div><div style="float: left; font-size: 11px; color: #999999; padding: 4px 1px;">|</div><div style="text-shadow: 0 1px 0 #FFFFFF; float: left; padding: 4px 8px 5px;"><a id="uyan_sort_tqq" onclick="UYAN.cmtSort(0, 'tqq');" style="line-height: 17px; color: #787878; cursor: pointer; display: block; float: left; font-size: 12px;">腾讯微博</a></div></div><div style="clear: both;"></div></div><div id="uyan_sort_box" style="background-color: #FFFFFF; border-color: #d3d2d2; border-width: 1px 1px 2px; border-style: solid; left: 15px; position: absolute; width: 115px; z-index: 90000; display: none;"><div style="color: #9797C4; font-size: 12px; font-weight: normal; padding-bottom: 2px; padding-left: 21px; padding-top: 4px; height: 16px;">排序方式:</div><a id="uyan_sort_time" onclick="UYAN.cmtSort(0);" style="color: rgb(28, 28, 28); cursor: pointer; display: block; font-size: 12px; padding-bottom: 2px; padding-left: 21px; padding-top: 2px; height: 16px; background: url(&quot;http://v2.uyan.cc/code/images/currentSort.png&quot;) no-repeat scroll 8px 8px transparent; font-weight: bold;">按时间排序</a><a id="uyan_sort_hot" onclick="UYAN.cmtSort(1);" style="color: rgb(28, 28, 28); cursor: pointer; display: block; font-size: 12px; padding-bottom: 2px; padding-left: 21px; padding-top: 2px; height: 16px;">按热度排序</a></div><div id="uyan_cmt_list"><div id="uyan_cmt_list_warn" style="margin-top: 10px; padding-top: 10px; font-size: 12px; color: #303030; text-align: center;">还没有评论内容</div></div><div class="ujian-uyan"><div style="margin: 0; border: none; padding: 0; clear: both; overflow: hidden; *zoom: 1; *position: relative;"><div style="padding: 0; margin: 0; border: none; clear: both; display: block;"><div style="font-family:'Helvetica Neue',helvetica,arial,sans-serif;font-size:16px;margin: 0; border: none; padding: 10px 0 5px 5px; _padding-top:10px; text-indent: 0; text-align: left; font-weight: bold;color:#333333;"><div style="border-bottom:1px dashed #CCCCCC; padding-bottom:5px;">更多热评文章</div></div><div style="clear: both; border: none; margin: 0 0 0 -1px; padding: 0; overflow: hidden; _zoom: 1;"><div style="width:47%; float:left;margin-right:2%;"><a href="http://www.kuqin.com/shuoit/20140215/338001.html" onmouseup="t=this; setTimeout(function() {t.href='http://www.kuqin.com/shuoit/20140215/338001.html';}, 50); return true;" onmousedown="this.href='http://t.ujian.cc/?code=53a9Q1U6oT85vmCXjcUNkm0XxIkiR9hYIh7K9nJXCIoGvZBPrCHgcSHqx2byaeOGIoE9fikx4%2FYcH1awnGIWHh1n92dN4MZZX35uYG%2B%2BqwkVRM%2F%2F6dzW%2B2bsvB8jVmMwi44NOWiJf9BroMZOWXy%2FQcEpvHC8BQf%2Fcc%2BB8Tmp04c8%2BnlXHyuTsDPUMLG6n%2BTJxt%2FGXvFyXxVOEPj9s0OKYTnJ13Ic27A9trgxMM8QHQ%2F4H4yc5FE%2Fk8e7tNxFQFY'; return true;" onmouseover="this.getElementsByTagName('li')[0].style.backgroundColor='#E6F3DE';this.getElementsByTagName('div')[1].style.color='#333333';" onmouseout="this.getElementsByTagName('li')[0].style.backgroundColor='';this.getElementsByTagName('div')[1].style.color='#333333';" title="在Vim里精通Vim" style="text-decoration:none;"><li style="margin:5px 0 5px 5px; list-style:none; font-size:12px; line-height:20px; width:100%; float:left; display:block;height:41px;background:none;padding:0;"><div style="padding:2px; border:1px solid #dddddd; width:35px; margin-right:4px; float:left;border-radius:3px;"><img class="JIATHIS_IMG_NO BSHARE_IMAGE_NO" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/30.jpg" style="width:35px;height:35px; overflow:hidden;border-radius:3px;"></div><div style="font-family:'Helvetica Neue',helvetica,arial,sans-serif;text-align:left;position:relative; height:41px; overflow:hidden;color:#333333">在Vim里精通Vim</div></li></a><div style="clear:both"></div></div><div style="width:47%; float:left;"><a href="http://www.kuqin.com/developtool/20120121/317528.html" onmouseup="t=this; setTimeout(function() {t.href='http://www.kuqin.com/developtool/20120121/317528.html';}, 50); return true;" onmousedown="this.href='http://t.ujian.cc/?code=1ddcdsO02dpFuJOZX%2FvJVQixqeKdKzKPvnv5cWzWR7ZmrNsVZVoOX3dBtkIbZx8WjZVHUKYM6djgqQUPaS0vgVKUjji9G2rNgUuTa1eymAZNf%2BVeGoMP4fvvmaFWuvbGaYk2foTq4y2QzxZyVrt52k6XlaVo8VNW8hqWGCq%2BWyJtIQNW85OiSZRz81nqdWh4%2BHTZ35SmJ5W6F5p%2BF3Nps9bOFk2zFrYwnymLN%2BZHwgZwtofP4hlyXQavzpYYfhaibgo2%2Bg'; return true;" onmouseover="this.getElementsByTagName('li')[0].style.backgroundColor='#E6F3DE';this.getElementsByTagName('div')[1].style.color='#333333';" onmouseout="this.getElementsByTagName('li')[0].style.backgroundColor='';this.getElementsByTagName('div')[1].style.color='#333333';" title="Vim for iOS：iOS 平台下的 Vim 编辑器" style="text-decoration:none;"><li style="margin: 5px 0px 5px 5px; list-style: none outside none; font-size: 12px; line-height: 20px; width: 100%; float: left; display: block; height: 41px; background-image: none; background-repeat: repeat; background-attachment: scroll; background-position: 0% 0%; background-clip: border-box; background-origin: padding-box; background-size: auto auto; padding: 0px;"><div style="padding:2px; border:1px solid #dddddd; width:35px; margin-right:4px; float:left;border-radius:3px;"><img class="JIATHIS_IMG_NO BSHARE_IMAGE_NO" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/mini_0b86357f4c1e9d508223_120_120.jpg" style="width:35px;height:35px; overflow:hidden;border-radius:3px;"></div><div style="font-family:'Helvetica Neue',helvetica,arial,sans-serif;text-align:left;position:relative; height:41px; overflow:hidden;color:#333333">Vim for iOS：iOS 平台下的 Vim 编辑器</div></li></a><div style="clear:both"></div></div><div style="width:47%; float:left;margin-right:2%;"><a href="http://www.kuqin.com/developtool/20091229/76779.html" onmouseup="t=this; setTimeout(function() {t.href='http://www.kuqin.com/developtool/20091229/76779.html';}, 50); return true;" onmousedown="this.href='http://t.ujian.cc/?code=85acmDwm7sx9WeS7WEYZ%2FIVmQfZMhtGi5J8fYxUj08zwjOXQLwq3Zn%2BXWJlzkQo2pj0rrt8sNqjaTtVWGZbShzUPBzqhhWuL9v8x%2FZJdVg6ctSPDF1Gav6awj6kRWFr2Xswur2ciltII%2B6Xszm0qFlYFLZCoU%2FP%2F7UBRmSgs5uaGIauVkzxl0pCgyQ6sQSyxu%2FX%2BFnrCOAXSULkxDCFzw1I3JHHm8Ft0GnIAY6tDUsL%2FhVzY3OVIAP3hvtx1PESvufLT'; return true;" onmouseover="this.getElementsByTagName('li')[0].style.backgroundColor='#E6F3DE';this.getElementsByTagName('div')[1].style.color='#333333';" onmouseout="this.getElementsByTagName('li')[0].style.backgroundColor='';this.getElementsByTagName('div')[1].style.color='#333333';" title="Vim命令图和Vim键盘图" style="text-decoration:none;"><li style="margin:5px 0 5px 5px; list-style:none; font-size:12px; line-height:20px; width:100%; float:left; display:block;height:41px;background:none;padding:0;"><div style="padding:2px; border:1px solid #dddddd; width:35px; margin-right:4px; float:left;border-radius:3px;"><img class="JIATHIS_IMG_NO BSHARE_IMAGE_NO" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/mini_306246c346e222976a5d_120_120.jpg" style="width:35px;height:35px; overflow:hidden;border-radius:3px;"></div><div style="font-family:'Helvetica Neue',helvetica,arial,sans-serif;text-align:left;position:relative; height:41px; overflow:hidden;color:#333333">Vim命令图和Vim键盘图</div></li></a><div style="clear:both"></div></div><div style="width:47%; float:left;"><a href="http://www.kuqin.com/developtool/20091205/74935.html" onmouseup="t=this; setTimeout(function() {t.href='http://www.kuqin.com/developtool/20091205/74935.html';}, 50); return true;" onmousedown="this.href='http://t.ujian.cc/?code=ee2e5xJ%2BgeJaUkq0ZLtQckyzqPMY7FiG2tuQ4Fapg6ZiFuBVw2G%2FO9eKrds%2F9wOLp0%2BfL5JPskeNc0tAajYPCFmBdoE6DaIULACDZwpqpP8Jk5iwdoTBQ3Bin7KwxG%2FJU7kAD6cDuNhiZzOqo60Umvs1KLljQmFGU4aNvh%2FKXXbAvpo8nxIJBzFm%2FsmPaM2EWaiBjZKBmdYQHHNQcG09yQzMPoJDFePR5pqE4IyCqXnsm5kgKMevQAP9eYuhTKM0xrxm'; return true;" onmouseover="this.getElementsByTagName('li')[0].style.backgroundColor='#E6F3DE';this.getElementsByTagName('div')[1].style.color='#333333';" onmouseout="this.getElementsByTagName('li')[0].style.backgroundColor='';this.getElementsByTagName('div')[1].style.color='#333333';" title="Vim有Eclipse功能，Eclipse有Vim功能" style="text-decoration:none;"><li style="margin:5px 0 5px 5px; list-style:none; font-size:12px; line-height:20px; width:100%; float:left; display:block;height:41px;background:none;padding:0;"><div style="padding:2px; border:1px solid #dddddd; width:35px; margin-right:4px; float:left;border-radius:3px;"><img class="JIATHIS_IMG_NO BSHARE_IMAGE_NO" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/mini_de5fbc12fbf2cfc54ce5_120_120.jpg" style="width:35px;height:35px; overflow:hidden;border-radius:3px;"></div><div style="font-family:'Helvetica Neue',helvetica,arial,sans-serif;text-align:left;position:relative; height:41px; overflow:hidden;color:#333333">Vim有Eclipse功能，Eclipse有Vim功能</div></li></a><div style="clear:both"></div></div></div></div></div></div><div style="float: right; font-size: 12px; padding: 20px 8px 10px 0;">    <a style="color: #aaaaaa; text-decoration: none;" target="_blank" title="社会化评论是什么？" href="http://www.uyan.cc/">友言[?]</a>    </div>    <div style="clear: both;"></div></div><div id="uyan_rpy" style="display: none; padding-left: 60px; padding-top: 10px;"><div style="height: 58px; overflow: hidden; padding: 0 0 30px 0;"><div style="float: left; border-radius: 6px 6px 6px 6px; width: 38px; height: 60px; margin-right: 10px;"><img id="uyan_uface_r" style="box-shadow: 0 1px 5px rgba(0, 0, 0, 0.22); border-radius: 4px; width: 38px; height: 38px;" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/duface.png"></div><div style="padding: 0 0 0 48px; overflow: visible;"><div onclick="UYAN.hidIntro(this.firstChild, uyan_smile_region);" style="height: 40px; background: url('http://v2.uyan.cc/code/images/textareabg.png') repeat-x scroll 0 0 #FFFFFF; border-top: 1px solid #b8b8b8; border-left: 1px solid #b8b8b8; border-right: 1px solid #b8b8b8; background-color: #ffffff; background-repeat: repeat-x; border-radius: 3px 3px 0 0; box-shadow: 0 0; padding: 7px; position: relative; overflow: hidden; cursor: text;"><textarea id="uyan_comment" onkeyup="UYAN.checkTxt(this, 140, uyan_tts_region);" onkeydown="UYAN.checkTxt(this, 140, uyan_tts_region);" onfocus="UYAN.hidIntro(this, uyan_smile_region);" onblur="UYAN.shoIntro(this, uyan_smile_region);" style="background: none repeat scroll 0 0 #FFFFFF; padding: 0; box-shadow: 0 0; color: #BDBBBB; border: 0; z-index: 90; overflow: hidden; float: left; font-size: 13px; font-family: 'Microsoft YaHei',arial,tahoma,宋体,sans-serif; resize: none; height: 40px; display: block; outline: none; word-wrap: break-word; margin: 0;">请输入你的评论</textarea><pre style="width: 100%; font-size: 13px; left: 0; line-height: 18px; position: absolute; top: 0; visibility: hidden; word-wrap: break-word; white-space: pre-wrap;" id="uyan_cmt_cnt"></pre></div><div style="opacity: 1; visibility: visible; border-top: 1px dotted #C6CDD6; border-bottom: 1px solid #b8b8b8; border-left: 1px solid #b8b8b8; border-right: 1px solid #b8b8b8; bottom: 0; height: 28px; left: 0; right: 0; padding: 0 10px; background-color: #FFFFFF;"><div id="uyan_smile" title="表情" onclick="UYAN.shoSmile(this, '', uyan_smile_region);" onmouseover="UYAN.mouseOO(this, 'on');" onmouseout="UYAN.mouseOO(this, 'out');" style="cursor: pointer; width: 18px; height: 16px; float: left; overflow: hidden; background: url('http://v2.uyan.cc/code/images/emotion2.png') no-repeat; margin-top: 6px; margin-right: 6px;"></div><div style="font-size: 14px; float: right; line-height: 28px; font-family: Georgia,Constantia; color: #cecece;"><span id="uyan_tts">140</span></div></div><div style="clear:both;"></div></div></div><div id="uyan_ssmile" style="margin-left: 48px; position: absolute; z-index: 9999; display: none;"><div style="border: 1px solid #989999; border-radius: 5px; width: 322px; height: 160px; background: #fff; font-size: 12px; padding: 6px;"><ul style="margin: 5px 0 0 0; padding: 0; height: 24px;"><li id="uyan_ssmile_df" onclick="UYAN.shoSmile(this, 'df', uyan_smile_region);" style="float: left; list-style: none; line-height: 22px; background: url('http://v2.uyan.cc/code/images/smileb.gif') no-repeat scroll 0 center transparent; color: #fff; width: 68px; height: 24px; overflow: hidden; text-align: center; margin: 0 5px; display: inline; cursor: pointer; padding: 0;">默认表情</li><li id="uyan_ssmile_al" onclick="UYAN.shoSmile(this, 'al', uyan_smile_region);" style="float: left; list-style: none; line-height: 22px; background: none repeat scroll 0 center transparent; width: 68px; height: 24px; overflow: hidden; text-align: center; margin: 0 5px; display: inline; cursor: pointer; padding: 0;">阿狸</li></ul><ul id="uyan_ssmile_list" style="margin: 0; padding: 0; width: 310px; border-top: 1px solid #d3e4f0; border-left: 1px solid #d3e4f0; margin: 5px 0 0 5px;"></ul></div></div><div id="uyan_stat_btn_r" style="position: relative; overflow: hidden; margin-bottom: 5px; margin-top: 0px; line-height: 15px;"><div style="font-size: 12px; float: right; margin-top: 5px; width: 72px;"><a id="uyan_cmt_btn" onclick="UYAN.addCmt(this, uyan_comment_region);" onmouseover="UYAN.cagBtn('on', this);" onmouseout="UYAN.cagBtn('out', this);" style="cursor: pointer; font-family: 'Microsoft YaHei',arial,tahoma,宋体,sans-serif; padding: 0px; border-radius: 3px 3px 3px 3px; color: #666666; display: inline-block; font-weight: 600; text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.6); float: right; background: url('http://v2.uyan.cc/code/images/buttonLarge.png') repeat-x scroll 0px 0px transparent; text-align: center; width: 70px; border: 1px solid #B8B8B8; font-size: 12px; line-height: 22px; height: 22px;">回&nbsp;&nbsp;复</a></div><div id="uyan_vis" style="float: right; margin-right: 10px; min-height: 32px; padding-left: 5px; width: 116px;"><p id="uyan_lb_uname" style="height: 26px; text-indent: 0; margin: 5px 0 0px; width: 100px; padding: 0;"><input maxlength="20" onfocus="UYAN.changeBn(this, '昵称（必填）');" onblur="UYAN.changeBn(this, '昵称（必填）');" id="uyan_l_uname" style="font-family: 'Microsoft YaHei',arial,tahoma,宋体,sans-serif; background-color: rgba(255, 255, 255, 0.45); background-repeat: repeat-x; border: 1px solid #b8b8b8; border-radius: 3px 3px 3px 3px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) inset; font-size: 12px; height: 22px; line-height: 22px;  margin: 0; padding: 0px 8px; width: 100%; vertical-align: top; color: #999999;" value="昵称（必填）" type="text"><a onclick="UYAN.changeLB(this, 's', uyan_lb_region);" title="加入邮箱和网址信息" style="cursor: pointer; background: url('http://v2.uyan.cc/code/images/sorttype.png') no-repeat; width: 10px; height: 5px; display: block; float: right; top: -15px; _margin-top: -15px; right: -9px; _margin-right: -15px; position: relative; _position: none;"></a></p><p id="uyan_lb_email" style="height: 26px; text-indent: 0; margin: 5px 0 0px; width: 100px; display: none; padding: 0;"><input maxlength="50" onfocus="UYAN.changeBn(this, '邮箱');" onblur="UYAN.changeBn(this, '邮箱');" id="uyan_l_email" style="font-family: 'Microsoft YaHei',arial,tahoma,宋体,sans-serif; background-color: rgba(255, 255, 255, 0.45); background-repeat: repeat-x; border: 1px solid #b8b8b8; border-radius: 3px 3px 3px 3px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) inset; font-size: 12px; height: 22px; line-height: 22px; margin: 0; padding: 0px 8px; width: 100%; vertical-align: top; color: #999999;" value="邮箱" type="text"></p><p id="uyan_lb_ulink" style="height: 26px; text-indent: 0; margin: 5px 0 0px; width: 100px; display: none; padding: 0;"><input maxlength="100" onfocus="UYAN.changeBn(this, '网址');" onblur="UYAN.changeBn(this, '网址');" id="uyan_l_ulink" style="font-family: 'Microsoft YaHei',arial,tahoma,宋体,sans-serif; background-color: rgba(255, 255, 255, 0.45); background-repeat: repeat-x; border: 1px solid #b8b8b8; border-radius: 3px 3px 3px 3px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) inset; font-size: 12px; height: 22px; line-height: 22px; margin: 0; padding: 0px 8px; width: 100%; vertical-align: top; color: #999999;" value="网址" type="text"></p><input id="uyan_sync" class="uyan_st_sync" type="hidden"></div><div style="float: right; width: 160px;"><span style="display: block;"><a onclick="UYAN.loginTSina();" onmouseover="UYAN.mouseOO(this, 'tsinambtn.png');" onmouseout="UYAN.mouseOO(this, 'tsinambtn2.png');" title="使用新浪微博账号登陆" style="cursor: pointer; background: url('http://v2.uyan.cc/code/images/tsinambtn2.png') no-repeat; width: 24px; height: 24px; display: block; float: left; overflow: hidden; margin-right: 5px; margin-top: 5px;"></a><a onclick="UYAN.loginQq();" onmouseover="UYAN.mouseOO(this, 'qqmbtn.png');" onmouseout="UYAN.mouseOO(this, 'qqmbtn2.png');" title="使用QQ账号账号登陆" style="cursor: pointer; background: url('http://v2.uyan.cc/code/images/qqmbtn2.png') no-repeat; width: 24px; height: 24px; display: block; float: left; overflow: hidden; margin-right: 5px; margin-top: 5px;"></a><a onclick="UYAN.loginTQq();" onmouseover="UYAN.mouseOO(this, 'tqqmbtn.png');" onmouseout="UYAN.mouseOO(this, 'tqqmbtn2.png');" title="使用腾讯微博账号登陆" style="cursor: pointer; background: url('http://v2.uyan.cc/code/images/tqqmbtn2.png') no-repeat; width: 24px; height: 24px; display: block; float:left; overflow:hidden; margin-right:5px; margin-top:5px;"></a><a onclick="UYAN.loginRenren();" onmouseover="UYAN.mouseOO(this, 'renrenmbtn.png');" onmouseout="UYAN.mouseOO(this, 'renrenmbtn2.png');" title="使用人人账号登陆" style="cursor: pointer; background: url('http://v2.uyan.cc/code/images/renrenmbtn2.png') no-repeat; width: 24px; height: 24px; display: block; float: left; overflow: hidden; margin-right: 5px; margin-top: 5px;"></a><a onclick="UYAN.loginTSohu();" onmouseover="UYAN.mouseOO(this, 'tsohumbtn.png');" onmouseout="UYAN.mouseOO(this, 'tsohumbtn2.png');" title="使用搜狐微博账号登陆" style="cursor: pointer; background: url('http://v2.uyan.cc/code/images/tsohumbtn2.png') no-repeat; width: 24px; height: 24px; display: block; float: left; overflow: hidden; margin-right: 5px; margin-top: 5px;"></a><a onclick="UYAN.changeML(this, 's', uyan_ml_region);" title="选择更多登陆账号" style="cursor: pointer; background: url('http://v2.uyan.cc/code/images/sorttype.png') no-repeat scroll right 11px transparent; width: 10px; height: 20px; display: block; float: left; overflow: hidden; margin-right: 5px; margin-top: 5px;"></a><a id="uyan_ml_kaixin001" onmouseover="UYAN.mouseOO(this, 'kaixin001mbtn.png');" onmouseout="UYAN.mouseOO(this, 'kaixin001mbtn2.png');" title="kaixin001" onclick="UYAN.loginKaixin001();" style="cursor: pointer; background: url('http://v2.uyan.cc/code/images/kaixin001mbtn2.png') no-repeat; width: 24px; height: 24px; display: none; float: left; overflow: hidden; margin-right: 5px; margin-top: 5px;"></a><a id="uyan_ml_t163" onmouseover="UYAN.mouseOO(this, 't163mbtn.png');" onmouseout="UYAN.mouseOO(this, 't163mbtn2.png');" title="163" onclick="UYAN.loginT163();" style="cursor: pointer; background: url('http://v2.uyan.cc/code/images/t163mbtn2.png') no-repeat; width: 24px; height: 24px; display: none; float: left; overflow: hidden; margin-right: 5px; margin-top: 5px;"></a></span></div><div style="clear: both;"></div></div><div id="uyan_slog" class="uyan_st_slog" onmouseover="UYAN.show(this);" onmouseout="UYAN.hide(this);" style="background-color: #FFFFFF; border-color: #d3d2d2; border-width: 1px 1px 2px; border-style: solid; position: absolute; z-index: 90000; padding: 1px 3px; display: none; width: 20px;"><div onclick="UYAN.loginKaixin001();" style="color: #9797C4;  font-size: 12px; font-weight: normal; width:16px; margin:0 auto; padding:2px 0; cursor: pointer; height: 17px; overflow: hidden;"><img src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/kaixin001.png"></div><div onclick="UYAN.loginTSohu();" style="color: #9797C4;  font-size: 12px; font-weight: normal; width:16px; margin:0 auto; padding:2px 0; cursor: pointer; height: 17px; overflow: hidden;"><img src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/tsohu.png"></div><div onclick="UYAN.loginT163();" style="color: #9797C4;  font-size: 12px; font-weight: normal; width:16px; margin:0 auto; padding:2px 0; cursor: pointer; height: 17px; overflow: hidden;"><img src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/t163.png"></div></div></div><div style="clear: both;"></div><div id="uyan_box" style="font-family: 'Microsoft YaHei'; display: none; top: 0px; left: 0px; z-index: 9999999; opacity: 1; empty-cells: show; position: absolute; background: none repeat scroll 0 0 #FFFFFF; text-align: left;"><table style="border: none; width: auto; line-height: normal;" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td style="background: url('http://v2.uyan.cc/code/images/boxnw.png') repeat scroll 0 0 transparent; height: 10px; padding: 0; width: 10px; opacity: 0.5;"></td><td style="background-color: black; height: 10px; opacity: 0.3; padding: 0; filter: alpha(opacity=60);"></td><td onclick="UYAN.hideBox();" style="background: url('http://v2.uyan.cc/code/images/boxclose.png') no-repeat scroll 0 0 transparent; _background: url('http://v2.uyan.cc/code/images/boxclose.gif') no-repeat scroll 0 0 transparent; cursor: pointer; display: block; height: 23px; position: absolute; right: -8px; top: -8px; width: 23px; z-index: 100000; padding: 0;"></td></tr><tr><td style="background-color: black; opacity: 0.6; padding: 0; width: 10px; opacity: 0.3; filter: alpha(opacity=60);"></td><td style="background-color: white; padding: 0;"><div id="uyan_box_cnt"></div></td><td style="background-color: black; opacity: 0.6; padding: 0; width: 10px; opacity: 0.3; filter: alpha(opacity=60);"></td></tr><tr><td style="background: url('http://v2.uyan.cc/code/images/boxsw.png') repeat scroll 0 0 transparent; height: 10px; padding: 0; width: 10px; opacity: 0.5;"></td><td style="background-color: black; height: 10px; opacity: 0.3; padding: 0; filter: alpha(opacity=60);"></td><td style="background: url('http://v2.uyan.cc/code/images/boxse.png') repeat scroll 0 0 transparent; height: 10px; padding: 0; width: 10px; opacity: 0.5;"></td></tr></tbody></table></div><div id="uyan_cmty" style="display: none;"><div style="width: 520px;"><div style="border-bottom: 1px solid #b6b5b5; background: #eeeeee; color: #666; font-size: 16px; height: 22px; padding: 10px 0;"><span id="uyan_sdm_name" style="float: left; padding-left: 25px; text-shadow: 0 1px 0 #fff;">www.kuqin.com</span></div><div style="color: #666;"><div style="background: url('http://v2.uyan.cc/code/images/commentWeb.png') no-repeat 20px 13px; border-right: 1px solid #EEEEEE; float: left; height: 49px; padding-left: 70px; padding-top: 6px; width: 102px;"><span id="uyan_dacn" style="font-size: 18px;">2838</span><br><span style="font-size: 12px;">评论数</span></div><div style="background: url('http://v2.uyan.cc/code/images/likeWeb.png') no-repeat 24px 10px; border-right: 1px solid #EEEEEE; float: left; height: 49px; padding-left: 70px; padding-top: 6px; width: 102px;"><span id="uyan_dvun" style="font-size: 18px;">997</span><br><span style="font-size: 12px;">喜欢数</span></div><div style="background: url('http://v2.uyan.cc/code/images/humanWeb.png') no-repeat 27px 13px; border-right: 1px solid #EEEEEE; float: left; height: 49px; padding-left: 70px; padding-top: 6px; width: 102px;"><span id="uyan_daun" style="font-size: 18px;">465</span><br><span style="font-size: 12px;">用户数</span></div><div style="clear: both;"></div></div><div id="uyan_cmty_info_tmp" style="border-top: 1px solid #CCCCCC; padding: 10px 20px; font-size: 15px; color: #555555;">数据正在加载中...</div><div style="background-color: #F0F0F0; border-top: 1px solid #CCCCCC; height: 20px; padding-top: 6px;"><a target="_blank" href="http://www.uyan.cc/" style="color: #6B6B6B; cursor: pointer; display: block; float: right; font-family: Arial, Helvetica, sans-serif; font-size: 11px; margin-right: 15px; text-decoration: none;">友言</a><div style="clear: both;"></div></div></div></div><div id="uyan_login" style="display: none;"><div style="border-bottom: 1px solid #b6b5b5; background: #eeeeee; color: #666; font-size: 16px; height: 22px; padding: 10px 0;"><span style="padding-left: 25px; text-shadow: 0 1px 0 #fff; font-weight: 600;">社会化帐号登录</span></div><div style="width: 429px; padding: 22px;"><h2 style="margin: 0; font-size: 14px; font-weight: normal; color: #666; padding-left: 25px; padding-bottom: 5px; background: none repeat scroll 0 center transparent;">点击按钮，使用社交帐号评论</h2><div id="uyan_loginom" style="padding-bottom: 20px;"><span style="height: 16px; float: left; display: block; line-height: 16px; overflow: hidden; width: 60px; margin: 15px 22px 0 25px; display: inline;"><a title="用新浪微博账号登陆" onclick="UYAN.loginTSina();" style="cursor: pointer; font-size: 14px; color: #666; text-decoration: none;"><img title="用新浪微博账号登陆" style="display: block; float: left; width: 16px; height: 16px;" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/tsina.png" border="0">&nbsp;&nbsp;新浪微博</a></span><span style="height: 16px; float: left; display: block; line-height: 16px; overflow: hidden; width: 60px; margin: 15px 22px 0 25px; display: inline;"><a title="用腾讯微博账号登陆" onclick="UYAN.loginTQq();" style="cursor: pointer; font-size: 14px; color: #666; text-decoration: none;"><img title="用腾讯微博账号登陆" style="display: block; float: left; width: 16px; height: 16px;" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/tqq.png" border="0">&nbsp;&nbsp;腾讯微博</a></span><span style="height: 16px; float: left; display: block; line-height: 16px; overflow: hidden; width: 60px; margin: 15px 22px 0 25px; display: inline;"><a title="用QQ账号登陆" onclick="UYAN.loginQq();" style="cursor: pointer; font-size: 14px; color: #666; text-decoration: none;"><img title="用QQ账号登陆" style="display: block; float: left; width: 16px; height: 16px;" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/qq.png" border="0">&nbsp;&nbsp;QQ</a></span><span style="height: 16px; float: left; display: block; line-height: 16px; overflow: hidden; width: 60px; margin: 15px 22px 0 25px; display: inline;"><a title="用人人网账号登陆" onclick="UYAN.loginRenren();" style="cursor: pointer; font-size: 14px; color: #666; text-decoration: none;"><img title="用人人网账号登陆" style="display: block; float: left; width: 16px; height: 16px;" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/renren.png" border="0">&nbsp;&nbsp;人人网</a></span><span style="height: 16px; float: left; display: block; line-height: 16px; overflow: hidden; width: 60px; margin: 15px 22px 0 25px; display: inline;"><a title="用开心网账号登陆" onclick="UYAN.loginKaixin001();" style="cursor: pointer; font-size: 14px; color: #666; text-decoration: none;"><img title="用开心网账号登陆" style="display: block; float: left; width: 16px; height: 16px;" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/kaixin001.png" border="0">&nbsp;&nbsp;开心网</a></span><span style="height: 16px; float: left; display: block; line-height: 16px; overflow: hidden; width: 60px; margin: 15px 22px 0 25px; display: inline;"><a title="用搜狐微博账号登陆" onclick="UYAN.loginTSohu();" style="cursor: pointer; font-size: 14px; color: #666; text-decoration: none;"><img title="用搜狐微博账号登陆" style="display: block; float: left; width: 16px; height: 16px;" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/tsohu.png" border="0">&nbsp;&nbsp;搜狐微博</a></span><span style="height: 16px; float: left; display: block; line-height: 16px; overflow: hidden; width: 60px; margin: 15px 22px 0 25px; display: inline;"><a title="用网易微博账号登陆" onclick="UYAN.loginT163();" style="cursor: pointer; font-size: 14px; color: #666; text-decoration: none;"><img title="用网易微博账号登陆" style="display: block; float: left; width: 16px; height: 16px;" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/t163.png" border="0">&nbsp;&nbsp;网易微博</a></span><div style="clear: both;"></div></div><div id="uyan_vis_login"><h2 style="padding-top: 10px; border-top: 1px solid #ccc; margin: 0; font-size: 14px; font-weight: normal; color: #666; padding-left: 25px; margin-top: 15px; background: none repeat scroll 0 center transparent;">作为游客留言</h2><span style="height: 30px; display: block; padding-left: 54px; overflow: hidden; margin-top: 15px;"><p style="text-indent: 0; display: block; float: left; width: 58px; line-height: 30px; text-align: left; margin: 0; font-size: 14px; color: #666;">Email <span style="color: #ff0000;">*</span></p><input onkeyup="UYAN.syncEN();" onkeydown="UYAN.syncEN();" id="uyan_email_tmp" style="margin: auto; border: 1px solid #c1c1c1; color: #687793; float: left; height: 24px; line-height: 24px; padding: 2px 8px; width: 230px; border-radius: 5px;" type="text"></span><span style="height: 30px; display: block; padding-left: 54px; overflow: hidden; margin-top: 18px;"><p style="text-indent: 0; display: block; float: left; width: 58px; line-height: 30px; text-align: left; margin: 0; font-size: 14px; color: #666;">昵&nbsp;&nbsp;称</p><input onfocus="UYAN.nnbg('h');" onblur="UYAN.nnbg('s');" id="uyan_uname_tmp" style="margin: auto; background: #f2f2f2; border: 1px solid #c1c1c1; color: #687793; float: left; height: 24px; line-height: 24px; padding: 2px 8px; width: 230px; border-radius: 5px; box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15) inset;" type="text"></span><span style="height: 30px; display: block; padding-left: 54px; overflow: hidden; margin-top: 15px; width: 306px;"><div id="uyan_login_warn_tmp" style="color: #ff0000; float: left; font-family: Arial, Helvetica, sans-serif; font-size: 13px; padding-right: 15px; padding-top: 8px; text-align: right; width: 150px;"></div><input onclick="UYAN.loginEmail();" style="margin: auto; background: url('http://v2.uyan.cc/code/images/btn.jpg') no-repeat; width: 86px; height: 26px; border: none; font-size: 14px; font-weight: bold; color: #666; float: right; cursor: pointer;" value="登录" type="submit"></span></div></div></div><div style="background-color: #FFFFFF; border-color: #D3D2D2; border-style: solid; border-width: 1px 1px 2px; height: 130px; position: absolute; top: 23px; width: 135px; z-index: 99999; display: none;"><div style="color: #9797C4; font-size: 12px; font-weight: normal; padding: 4px 0 4px 10px; line-height: 18px;">顶并分享到:</div><div style="padding: 3px 0;"><input id="sinaShareBox" style="float: left; margin: 2px 5px 0 10px; padding: 0;" type="checkbox"><div style="background: url('http://v2.uyan.cc/code/images/tsina.png') no-repeat scroll 0 0 transparent; color: #494949; float: left; height: 18px; line-height: 18px; font-size: 12px; font-weight: normal; padding-left: 18px;">新浪微博</div><div style="clear: both;"></div></div><div style="padding: 3px 0;"><input id="sinaShareBox" style="float: left; margin: 2px 5px 0 10px; padding: 0;" type="checkbox"><div style="background: url('http://v2.uyan.cc/code/images/tsina.png') no-repeat scroll 0 0 transparent; color: #494949; float: left; height: 18px; line-height: 18px; font-size: 12px; font-weight: normal; padding-left: 18px;">新浪微博</div><div style="clear: both;"></div></div><div style="padding: 3px 0;"><input id="sinaShareBox" style="float: left; margin: 2px 5px 0 10px; padding: 0;" type="checkbox"><div style="background: url('http://v2.uyan.cc/code/images/tsina.png') no-repeat scroll 0 0 transparent; color: #494949; float: left; height: 18px; line-height: 18px; font-size: 12px; font-weight: normal; padding-left: 18px;">新浪微博</div><div style="clear: both;"></div></div><div style="padding: 5px 0 0 10px;"><a style="border: 1px solid #D0CFCF; background: url('http://v2.uyan.cc/code/images/buttonLarge.png') repeat-x; border-radius: 3px 3px 3px 3px; color: #666; font-weight: bold; cursor: pointer; font-weight: normal; float: left; font-size: 12px; height: 20px; line-height: 22px; overflow: hidden; padding: 0 18px;">顶</a><a style="background-color: #FFFFFF; border: 1px solid #FFFFFF; color: #737373; height: 20px; line-height: 22px; overflow: hidden; cursor: pointer; display: block; float: left; font-size: 12px; font-weight: normal; padding: 0 18px;">取消</a><div style="clear: both; height: 1px; overflow: hidden;"></div></div></div></div>
+				<script type="text/javascript" id="UYScript" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/iframe.js" async=""></script>
+				<!-- UY END -->
+				<!-- PingLun.La End -->
+				<div class="clear"></div>
+			</div>
+			<!-- PostComment end -->
+		</div>
+		</div>
+		<!-- Content end -->
+		<!-- Sidebar begin -->
+		<div class="sidebar">
+			<script language="JavaScript" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/right.js" type="text/JavaScript"></script><script type="text/javascript">
+     document.write('<a style="display:none!important" id="tanx-a-mm_10037253_875322_13174833"></a>');
+     tanx_s = document.createElement("script");
+     tanx_s.type = "text/javascript";
+     tanx_s.charset = "gbk";
+     tanx_s.id = "tanx-s-mm_10037253_875322_13174833";
+     tanx_s.async = true;
+     tanx_s.src = "http://p.tanx.com/ex?i=mm_10037253_875322_13174833";
+     tanx_h = document.getElementsByTagName("head")[0];
+     if(tanx_h)tanx_h.insertBefore(tanx_s,tanx_h.firstChild);
+</script><div id="tanxssp_con_mm_10037253_875322_13174833" style="display:inline-block;position:relative;width:300px;height:250px;*display:inline;*zoom:1"><iframe marginheight="0" marginwidth="0" border="0" style="width:300px;height:250px;" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/300x250danpin0911.html" frameborder="0" scrolling="no"></iframe><a id="iconmm_10037253_875322_13174833" title="我也要申请橱窗推广" target="_blank" href="http://c.alimama.com/" style="width:26px;height:17px;right:0px;bottom:0px;display:block;position:absolute;cursor:pointer;z-index:250;">   <span id="icon_smallmm_10037253_875322_13174833" style="float:none;width:26px;display:block;height:17px;background-repeat:no-repeat;background-image: url('http://gtms02.alicdn.com/tps/i2/T1oY3VXmNbXXXb8qDc-26-18.png');*background-image:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img02.taobaocdn.com/tps/i2/T1oY3VXmNbXXXb8qDc-26-18.png');"></span>   <span id="icon_bigmm_10037253_875322_13174833" style="float:none;width:110px;height:17px;display: none;background-repeat:no-repeat;background-image: url('http://img03.taobaocdn.com/tps/i3/T1dt7VXiRaXXbd25o5-110-18.png');*background-image:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img03.taobaocdn.com/tps/i3/T1dt7VXiRaXXbd25o5-110-18.png');"></span></a></div><a style="display:none!important" id="tanx-a-mm_10037253_875322_13174833"></a>
+
+			<ul>
+				<li class="mostviews archivemostviews">
+					<h3>&nbsp;<span class="mon">最火爆</span><span>最新鲜</span><span>最相关</span></h3>
+
+					<ul>
+					<li><a target="_blank" title="超强文本编辑器Emurasoft EmEditor Professional v10注册" href="http://www.kuqin.com/developtool/20110725/92697.html">超强文本编辑器Emurasoft EmEditor Professional v10注册</a></li>
+<li><a target="_blank" title="Eclipse快捷键大全" href="http://www.kuqin.com/developtool/20111215/316274.html">Eclipse快捷键大全</a></li>
+<li><a target="_blank" title="Vim for iOS：iOS 平台下的 Vim 编辑器" href="http://www.kuqin.com/developtool/20120121/317528.html">Vim for iOS：iOS 平台下的 Vim 编辑器</a></li>
+<li><a target="_blank" title="微软正式发布Visual Studio LightSwitch 2011" href="http://www.kuqin.com/developtool/20110730/92826.html">微软正式发布Visual Studio LightSwitch 2011</a></li>
+<li><a target="_blank" title="11款用于优化、分析源代码的Java工具" href="http://www.kuqin.com/developtool/20110807/93152.html">11款用于优化、分析源代码的Java工具</a></li>
+<li><a target="_blank" title="Codify：专为iPad打造的代码编辑器" href="http://www.kuqin.com/developtool/20111101/314185.html">Codify：专为iPad打造的代码编辑器</a></li>
+<li><a target="_blank" title="Eclipse使用笔记" href="http://www.kuqin.com/developtool/20111215/316275.html">Eclipse使用笔记</a></li>
+<li><a target="_blank" title="软件开发工具Gow：轻量级的Cygwin替代软件" href="http://www.kuqin.com/developtool/20111214/316244.html">软件开发工具Gow：轻量级的Cygwin替代软件</a></li>
+<li><a target="_blank" title="Vim的snipMate插件" href="http://www.kuqin.com/developtool/20110725/92706.html">Vim的snipMate插件</a></li>
+<li><a target="_blank" title="25个Vim教程、视频和资源" href="http://www.kuqin.com/developtool/20111225/316698.html">25个Vim教程、视频和资源</a></li>
+
+					</ul>
+					<ul style="display:none;">
+					<li><a target="_blank" title="Eclipse Virgo 3.0发布了" href="http://www.kuqin.com/developtool/20120207/317920.html">Eclipse Virgo 3.0发布了</a></li>
+<li><a target="_blank" title="软件开发工具推荐：impress.js" href="http://www.kuqin.com/developtool/20120207/317914.html">软件开发工具推荐：impress.js</a></li>
+<li><a target="_blank" title="编程珠玑番外篇 -M. 软件工具的设计哲学1" href="http://www.kuqin.com/developtool/20120205/317847.html">编程珠玑番外篇 -M. 软件工具的设计哲学1</a></li>
+<li><a target="_blank" title="Vim for iOS 正式上架 App Store" href="http://www.kuqin.com/developtool/20120128/317631.html">Vim for iOS 正式上架 App Store</a></li>
+<li><a target="_blank" title="预览Visual Studio11: 敏捷的支持、团队协作以及代码克隆监测" href="http://www.kuqin.com/developtool/20120128/317604.html">预览Visual Studio11: 敏捷的支持、团队协作以及代码克隆监测</a></li>
+<li><a target="_blank" title="Vim for iOS：iOS 平台下的 Vim 编辑器" href="http://www.kuqin.com/developtool/20120121/317528.html">Vim for iOS：iOS 平台下的 Vim 编辑器</a></li>
+<li><a target="_blank" title="vim中的tab和space" href="http://www.kuqin.com/developtool/20120112/317357.html">vim中的tab和space</a></li>
+<li><a target="_blank" title="NetBeans 7.1发布，支持JavaFX 2.0及CSS3" href="http://www.kuqin.com/developtool/20120110/317267.html">NetBeans 7.1发布，支持JavaFX 2.0及CSS3</a></li>
+<li><a target="_blank" title="软件开发工具推荐：Eclipse Color Themes" href="http://www.kuqin.com/developtool/20111229/316901.html">软件开发工具推荐：Eclipse Color Themes</a></li>
+<li><a target="_blank" title="25个Vim教程、视频和资源" href="http://www.kuqin.com/developtool/20111225/316698.html">25个Vim教程、视频和资源</a></li>
+
+					</ul>
+					<ul style="display:none;">
+					<li><a target="_blank" title="Vim for iOS 正式上架 App Store" href="http://www.kuqin.com/developtool/20120128/317631.html">Vim for iOS 正式上架 App Store</a></li>
+<li><a target="_blank" title="Vim for iOS：iOS 平台下的 Vim 编辑器" href="http://www.kuqin.com/developtool/20120121/317528.html">Vim for iOS：iOS 平台下的 Vim 编辑器</a></li>
+<li><a target="_blank" title="vim中的tab和space" href="http://www.kuqin.com/developtool/20120112/317357.html">vim中的tab和space</a></li>
+<li><a target="_blank" title="25个Vim教程、视频和资源" href="http://www.kuqin.com/developtool/20111225/316698.html">25个Vim教程、视频和资源</a></li>
+<li><a target="_blank" title="gVim配色方案" href="http://www.kuqin.com/developtool/20111212/316144.html">gVim配色方案</a></li>
+<li><a target="_blank" title="VIM之魅" href="http://www.kuqin.com/developtool/20111130/315614.html">VIM之魅</a></li>
+<li><a target="_blank" title="vim命令大全图" href="http://www.kuqin.com/developtool/20111113/314831.html">vim命令大全图</a></li>
+<li><a target="_blank" title="Vi/Vim小技巧" href="http://www.kuqin.com/developtool/20111113/314829.html">Vi/Vim小技巧</a></li>
+<li><a target="_blank" title="给程序员的VIM速查卡" href="http://www.kuqin.com/developtool/20110917/264892.html">给程序员的VIM速查卡</a></li>
+<li><a target="_blank" title="Vim命令速查卡" href="http://www.kuqin.com/developtool/20110917/264891.html">Vim命令速查卡</a></li>
+
+					</ul>
+					
+				</li>		
+				<li id="text-2" style="border:1px solid #F0C8C8;">
+					<script type="text/javascript"><!--
+					google_ad_client = "pub-9317413389774415";
+					/* 2011文章右上角300&#42;250 */
+					google_ad_slot = "7885739204";
+					google_ad_width = 300;
+					google_ad_height = 250;
+					//-->
+					</script>
+					<script type="text/javascript" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/show_ads.js">
+					</script>
+				</li>
+				<li id="specialcatposts-3" class="widget wpyou_widget_SpecialCatPosts">
+					<h3>&nbsp;&nbsp;<span>推荐阅读</span></h3>
+					<ul>
+					
+					</ul>
+				</li>
+				<li id="text-2" style="border:1px solid #F0C8C8;">
+					<script type="text/javascript">/*120*270，创建于2011-2-9*/ var cpro_id = 'u371492';</script><script src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/f.js" type="text/javascript"></script>
+					<script type="text/javascript">/*右侧顶部300*250，创建于2012-1-2*/ var cpro_id = 'u730982';</script><script src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/c.js" type="text/javascript"></script>
+				</li>
+			</ul>
+		</div>
+		<!-- Sidebar end -->
+		<!--cos-html-cache-safe-tag-->
+	</div>
+	<!-- Container end -->
+	<!-- FriendLink begin -->
+	<!-- FriendLink end -->
+	<!-- Footer begin -->
+	<div class="footer">
+		<div class="footpage">
+			<ul>
+			<script language="JavaScript" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/aboutus.js" type="text/JavaScript"></script><li class="page_item page-item-24260"><a href="http://www.kuqin.com/common/aboutus.html" title="关于酷勤" rel="nofollow">关于酷勤</a></li>
+<li class="page_item page-item-53286"><a href="http://www.kuqin.com/teshulanmu/link.html" title="友情链接">友情链接</a></li>
+<li class="page_item page-item-53290"><a href="http://www.kuqin.com/common/66427.html" title="广告合作" rel="nofollow">广告合作</a></li>
+<li class="page_item page-item-53996"><a href="http://www.kuqin.com/common/mianze.html" title="免责声明" rel="nofollow">免责声明</a></li>
+<li class="page_item page-item-53301"><a href="http://www.kuqin.com/common/connectus.html" title="联系我们" rel="nofollow">联系我们</a></li>
+</ul>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!-- Footer end -->
+	<div class="clear"></div>
+</div>
+<!-- Wrapper end -->
+<!-- Footer JavaScript begin -->
+<div style="display:none"><script language="JavaScript" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/tongji20120203.js" type="text/JavaScript"></script><script src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/stat.js" language="JavaScript"></script><script src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/core.js" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=3349935" target="_blank" title="站长统计">站长统计</a>
+</div>
+<script type="text/javascript">
+	var wumiiParams = "&num=5&mode=2&pf=DedeCMS_V57_GBK";
+</script>
+<script type="text/javascript" id="wumiiRelatedItems" src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/relatedItemsWidget.htm"></script>
+<a href="http://www.wumii.com/widget/relatedItems.htm" rel="external nofollow" style="border:0;">
+	<img src="VIM%E4%B9%8B%E9%AD%85%EF%BC%88%E4%B8%8B%EF%BC%89_files/pixel.png" alt="无觅相关文章插件，快速提升流量" style="border:0;padding:0;margin:0;">
+</a>
+<!-- Footer JavaScript end -->
+
+
+</body></html>

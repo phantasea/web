@@ -1,0 +1,326 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="verify-v1" content="8U9SYLG6LG1GNGwnCIXr0eiKc49oZ9f3FwqFM5uk+K8=">
+<meta name="msvalidate.01" content="002062DED1C7E96874A610DDA4D03734">
+<meta name="y_key" content="75c42a0fb42433cb">
+
+<title>使用 mutt, fetchmail, maildrop, msmtp 收发邮件 | vpsee.com</title>
+
+<link rel="stylesheet" href="%E4%BD%BF%E7%94%A8%20mutt,%20fetchmail,%20maildrop,%20msmtp%20%E6%94%B6%E5%8F%91%E9%82%AE%E4%BB%B6%20%7C%20vpsee.com_files/style.css" type="text/css" media="screen">
+<link rel="alternate" type="application/rss+xml" title="vpsee.com RSS2 Feed" href="http://www.vpsee.com/feed/">
+<link rel="pingback" href="http://www.vpsee.com/xmlrpc.php">
+
+<link rel="alternate" type="application/rss+xml" title="vpsee.com » 使用 mutt, fetchmail, maildrop, msmtp 收发邮件 Comments Feed" href="http://www.vpsee.com/2012/06/send-and-receive-email-using-mutt-fetchmail-maildrop-msmtp/feed/">
+<link rel="stylesheet" id="woocommerce_frontend_styles-css" href="%E4%BD%BF%E7%94%A8%20mutt,%20fetchmail,%20maildrop,%20msmtp%20%E6%94%B6%E5%8F%91%E9%82%AE%E4%BB%B6%20%7C%20vpsee.com_files/woocommerce.css" type="text/css" media="all">
+<script type="text/javascript" src="%E4%BD%BF%E7%94%A8%20mutt,%20fetchmail,%20maildrop,%20msmtp%20%E6%94%B6%E5%8F%91%E9%82%AE%E4%BB%B6%20%7C%20vpsee.com_files/jquery.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.vpsee.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.vpsee.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="分享一些程序员的办公桌" href="http://www.vpsee.com/2012/06/share-some-geeks-desks/">
+<link rel="next" title="在 Ubuntu 12.04 上安装和配置邮件服务" href="http://www.vpsee.com/2012/06/install-mail-server-on-ubuntu-12-04/">
+<link rel="shortlink" href="http://www.vpsee.com/?p=1797">
+
+<!-- All in One SEO Pack 1.6.15.2 by Michael Torbert of Semper Fi Web Design[491,592] -->
+<meta name="description" content="现在已经有了 Mail.app, Thunderbird, Outlook 这些图形化工具能很方便的处理邮件，为啥还需要 mutt">
+<link rel="canonical" href="http://www.vpsee.com/2012/06/send-and-receive-email-using-mutt-fetchmail-maildrop-msmtp/">
+<!-- /all in one seo pack -->
+
+
+<!-- WooCommerce Version -->
+<meta name="generator" content="WooCommerce 1.6.5.2">
+
+<script src="%E4%BD%BF%E7%94%A8%20mutt,%20fetchmail,%20maildrop,%20msmtp%20%E6%94%B6%E5%8F%91%E9%82%AE%E4%BB%B6%20%7C%20vpsee.com_files/in.php" async="" type="text/javascript"></script></head>
+
+<body>
+<div class="header">
+<div id="page">
+<div id="header-main">
+        <div id="headerlogo">
+	        [hi@<a href="http://www.vpsee.com/">vpsee.com</a>]$ su root - 
+        </div> 
+        <div id="headermenu">
+        <ul> 
+		<li><a href="http://www.vpsee.com/uptime.html" title="Uptime">Uptime</a></li>
+		<li><a href="http://www.vpsee.com/showcase/" title="Showcase">Showcase</a></li>
+		<li><a href="http://www.vpsee.com/faq/" title="FAQ">FAQ</a></li>
+		<li><a href="http://www.vpsee.com/services/" title="Services">Services</a></li>
+		<li><a href="http://www.vpsee.com/vps-plans/" title="VPS Plans">VPS Plans</a></li>
+		<li><a href="http://www.vpsee.com/" title="Home">Home</a></li>
+        </ul> 
+        </div> 
+</div>
+<div id="content">
+		
+			
+		<div class="post" id="post-1797">
+
+			<h2 class="posttitle"><a href="http://www.vpsee.com/2012/06/send-and-receive-email-using-mutt-fetchmail-maildrop-msmtp/" rel="bookmark" title="到《使用 mutt, fetchmail, maildrop, msmtp 收发邮件》的永久链接">使用 mutt, fetchmail, maildrop, msmtp 收发邮件</a></h2>
+			<p class="postdate">
+				<span>2012年06月21日 | 标签: <a href="http://www.vpsee.com/tag/fetchmail/" rel="tag">fetchmail</a>, <a href="http://www.vpsee.com/tag/freebsd/" rel="tag">freebsd</a>, <a href="http://www.vpsee.com/tag/msmtp/" rel="tag">msmtp</a>, <a href="http://www.vpsee.com/tag/mutt/" rel="tag">mutt</a>, <a href="http://www.vpsee.com/tag/ubuntu/" rel="tag">ubuntu</a> | 作者：<a href="http://www.vpsee.com/author/admin/" title="Posts by vpsee" rel="author">vpsee</a></span>
+			</p>
+
+			<div class="entry">
+				<p>现在已经有了 Mail.app, Thunderbird, Outlook 这些图形化工具能很方便的处理邮件，为啥还需要 mutt 这种命令行文本方式的邮件工具呢？mutt 的一个优势是占用资源小，可以很好的运行在低配置的虚拟机或<a href="http://www.vpsee.com/2009/08/install-freebsd-on-thinkpad-600e/">古老的电脑</a>上
+（应该不会有人想在 256MB 内存的虚拟机或 VPS 上用 X Window/Gnome/Thunderbird 
+这种组合吧）。那为什么要在虚拟机上收发邮件呢，不能在自己电脑上处理邮件吗？可能有多个电脑而且电脑经常换，电脑可能被盗，硬盘可能坏、数据可能丢，邮
+件放在本地电脑不太方便，有些电脑可能是共用的，在共用电脑上保留自己的邮件帐号不爽。那为啥不直接用 Gmail 收发 POP/IMAP 
+工作邮件呢？有时候可能需要在别人的电脑上打开工作邮件，比如核对一些事情、计划、会议记录之类的，在公共电脑或者别人电脑上开自己的私人邮箱是件很危险
+的事情，谁知道电脑上有没有病毒、木马或者键盘纪录程序？</p>
+<p>建议经常使用 Gmail 的用户激活 <a href="http://support.google.com/accounts/bin/answer.py?hl=en&amp;topic=1056283&amp;answer=185839">2-step verification</a> 增加安全性。</p>
+<p>总之吧，现在的需求是：ssh 到一台服务器或虚拟机上，用 mutt 处理邮件。</p>
+<h2>在 Ubuntu 上</h2>
+<p>在 Ubuntu 上安装 mutt + fetchmail + maildrop + msmtp：</p>
+<pre class="code"># apt-get install mutt fetchmail maildrop msmtp
+</pre>
+<h2>在 FreeBSD 上</h2>
+<p>在 FreeBSD 上安装 mutt + fetchmail + maildrop + msmtp：</p>
+<pre class="code"># pkg_add -r mutt
+# pkg_add -r fetchmail
+# pkg_add -r maildrop
+# pkg_add -r msmtp
+</pre>
+<h2>配置 mutt</h2>
+<p>touch 一个文件用来存放邮件：</p>
+<pre class="code"># mkdir /var/spool/mail
+# touch /var/spool/mail/vpsee
+</pre>
+<p>配置 fetchmail 通过 POP 收邮件：</p>
+<pre class="code">$ vi .fetchmailrc
+poll "mail.vpsee.com"
+protocol pop3
+username "vpsee"
+password "password"
+mimedecode                      # 自动处理 mime 
+mda "/usr/bin/maildrop"         # 告诉 fetchmail 使用哪个 MDA (for Ubuntu)
+#mda "/usr/local/bin/maildrop"  # 告诉 fetchmail 使用哪个 MDA (for FreeBSD)
+
+$ chmod 0700 .fetchmailrc
+</pre>
+<p>配置 maildrop，告诉 maildrop 把邮件分发到哪里（其实是一个 /var/spool/mail/ 
+下的一个文件），注意这个时候要处理一下权限问题，否则用户登陆执行 fetchmail 后由 maildrop 分发到邮箱（ 
+/var/spool/mail/vpsee）的时候会出现权限错误（因为 maildrop 没有权限写那个文件）：</p>
+<pre class="code"># touch /var/spool/mail/vpsee
+# chown vpsee:vpsee /var/spool/mail/vpsee
+
+$ vi .mailfilter
+HOME=/home/vpsee              # 指定 home 目录
+DEFAULT=/var/spool/mail/vpsee # 想在哪里保持邮件
+logfile "$HOME/.maillog"      # 日志
+</pre>
+<p>配置 msmtp 用 SMTP 发邮件：</p>
+<pre class="code">$ vi .msmtprc
+account default
+host mail.vpsee.com
+from vpsee@vpsee.com
+auth off
+</pre>
+<p>配置 mutt，在 mutt 配置文件里面指明 msmtp 路径，注意 Ubuntu 和 FreeBSD 的默认安装路径不同（/usr/bin vs /usr/local/bin）</p>
+<pre class="code">$ vi .muttrc
+set realname            = "vpsee"
+set from                = "vpsee@vpsee.com"
+set use_from            = yes
+set envelope_from       = yes
+set spoolfile           = /var/spool/mail/vpsee
+set sendmail="/usr/bin/msmtp" # for Ubuntu
+#set sendmail="/usr/local/bin/msmtp" # for FreeBSD
+</pre>
+<h2>使用 mutt</h2>
+<p>执行 fetchmail 收邮件，然后就可以用 mutt 读、写、回复邮件了：</p>
+<pre class="code">$ fetchmail -v
+
+$ mutt
+</pre>
+<p><img style="clear: both; float: left; width: 502px; display: block;" src="%E4%BD%BF%E7%94%A8%20mutt,%20fetchmail,%20maildrop,%20msmtp%20%E6%94%B6%E5%8F%91%E9%82%AE%E4%BB%B6%20%7C%20vpsee.com_files/mutt.png" alt="mutt"></p>
+<p class="clr">
+			</p></div>
+
+			<p class="postmeta">
+				<span style="float: right;color: #999;"><a href="#comments" style="font-size: 14px;">发表评论</a>(4 Comments)</span> 分类：<a href="http://www.vpsee.com/category/os/" title="View all posts in Linux | BSD | Solaris" rel="category tag">Linux | BSD | Solaris</a> 			</p>
+			</div>
+
+			
+<div id="interact">
+
+	
+	<h3 id="comments">评论(4 Comments)</h3>
+	<ol class="commentlist">
+
+		
+		<li class="alt" id="comment-14145">
+			<div class="commentmetadata"><span><a href="http://nil.com/" rel="external nofollow" class="url">cxi</a></span> - June 21st, 2012 6:31 am </div>
+			<p>Interestingly, 如果有键盘记录软件那登陆ssh不是会损失更大么</p>
+		</li>
+
+		
+		
+		<li class="" id="comment-14150">
+			<div class="commentmetadata"><span><a href="http://www.vpsee.com/" rel="external nofollow" class="url">vpsee</a></span> - June 21st, 2012 3:15 pm </div>
+			<p>@cxi<br>
+不会，那要看这个虚拟机是拿来干嘛用的。<br>
+1、ssh 看邮件的普通帐号有限制，就算能拿到普通帐号密码距离 root 还很远，估计只能看看邮件；<br>
+2、这个虚拟机上运行在内部，除了工作邮件没啥东西，就算拿到 root 也不重要，如果被黑，换个虚拟机就行（只需30秒）。</p>
+		</li>
+
+		
+		
+		<li class="alt" id="comment-14152">
+			<div class="commentmetadata"><span>zzzft</span> - June 21st, 2012 3:39 pm </div>
+			<p>技术宅玩的</p>
+		</li>
+
+		
+		
+		<li class="" id="comment-14245">
+			<div class="commentmetadata"><span><a href="http://my.oschina.net/u/177808" rel="external nofollow" class="url">gangxueuser</a></span> - June 26th, 2012 11:21 am </div>
+			<p>玩到极致也值了</p>
+		</li>
+
+		
+			</ol>
+
+	
+		<h3 id="respond">发表评论</h3>
+		<form action="http://www.vpsee.com/wp-comments-post.php" method="post" id="commentform">
+				<p><label for="author">昵称：</label><input name="author" id="author" size="22" tabindex="1" type="text"></p>
+		<p><label for="url">网站：</label><input name="url" id="url" size="22" tabindex="3" type="text"></p>
+				<p><textarea name="comment" id="comment" style="width: 100%;" rows="10" tabindex="4"></textarea></p>
+		<p><input name="submit" id="submit" tabindex="5" value="发表" type="submit">
+
+		<input name="comment_post_ID" value="1797" type="hidden"></p>
+		<p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="c3ebb8dec3" type="hidden"></p>	</form>
+		
+</div>
+	
+</div>
+
+<div id="sidebar">
+	<ul><li><form method="get" id="searchform" action="http://www.vpsee.com/">
+<p><input class="querytext" onfocus="if(value=='Search'){this.value=''};this.style.color='#000';" onblur="if(this.value==''){this.value='Search'};this.style.color='#000';" value="Search" size="24" name="s" id="s" type="text">
+<input id="searchsubmit" value="search" style="display: none;" type="submit"></p>
+</form>
+</li></ul>
+
+	<h3>广告</h3>
+	<ul>
+<a href="http://vps.42qu.com/by/10266230" target="_blank"><img src="%E4%BD%BF%E7%94%A8%20mutt,%20fetchmail,%20maildrop,%20msmtp%20%E6%94%B6%E5%8F%91%E9%82%AE%E4%BB%B6%20%7C%20vpsee.com_files/42qu-vps.png"></a>
+        </ul>
+
+	<h3>消息（
+<font color="#390"><span class="email">moc.liamg@moceespv</span> 在线</font>）
+	</h3>
+
+	<ul>
+<iframe class="share_self" src="%E4%BD%BF%E7%94%A8%20mutt,%20fetchmail,%20maildrop,%20msmtp%20%E6%94%B6%E5%8F%91%E9%82%AE%E4%BB%B6%20%7C%20vpsee.com_files/index.html" frameborder="0" height="550" scrolling="no" width="100%"></iframe>
+	</ul>
+
+	<h3>分类</h3>
+	<ul>	<li class="cat-item cat-item-20"><a href="http://www.vpsee.com/category/host/" title="View all posts filed under 10美元以下的 VPS">10美元以下的 VPS</a> (215)
+</li>
+	<li class="cat-item cat-item-18"><a href="http://www.vpsee.com/category/coding/" title="View all posts filed under C | Python | Bash">C | Python | Bash</a> (14)
+</li>
+	<li class="cat-item cat-item-61"><a href="http://www.vpsee.com/category/cloud/" title="View all posts filed under Cloud | Virtualization | Thin">Cloud | Virtualization | Thin</a> (106)
+</li>
+	<li class="cat-item cat-item-27"><a href="http://www.vpsee.com/category/os/" title="View all posts filed under Linux | BSD | Solaris">Linux | BSD | Solaris</a> (86)
+</li>
+	<li class="cat-item cat-item-37"><a href="http://www.vpsee.com/category/mac/" title="View all posts filed under Mac">Mac</a> (21)
+</li>
+	<li class="cat-item cat-item-81"><a href="http://www.vpsee.com/category/minix-kernel/" title="View all posts filed under Minix Kernel">Minix Kernel</a> (2)
+</li>
+	<li class="cat-item cat-item-3"><a href="http://www.vpsee.com/category/site/" title="View all posts filed under Site Reliability | Performance">Site Reliability | Performance</a> (37)
+</li>
+	<li class="cat-item cat-item-1"><a href="http://www.vpsee.com/category/uncategorized/" title="View all posts filed under Uncategorized">Uncategorized</a> (53)
+</li>
+	<li class="cat-item cat-item-36"><a href="http://www.vpsee.com/category/voip/" title="View all posts filed under VoIP">VoIP</a> (10)
+</li>
+</ul>
+
+	<h3>随机</h3>
+	<ul>
+		<li><a href="http://www.vpsee.com/2010/08/reboot-linux-after-a-kernel-panic/" rel="bookmark">Linux 遇到 kernel panic 后可自动重启</a></li>
+		<li><a href="http://www.vpsee.com/2010/07/compile-linux-xen-kernel-on-archlinux-vps/" rel="bookmark">在 ArchLinux VPS 上编译内核</a></li>
+		<li><a href="http://www.vpsee.com/2010/12/sshd-must-be-owned-by-root-problem-when-starting-ssh/" rel="bookmark">Debian 上 /var/run/sshd/ 的所属问题导致 SSH 不能启动</a></li>
+		<li><a href="http://www.vpsee.com/2009/11/centos-install-redmine-git/" rel="bookmark">CentOS 5 上配置 Redmine 和 Git</a></li>
+		<li><a href="http://www.vpsee.com/2010/02/install-ddclient-on-pfsense/" rel="bookmark">在 pfSense 上安装 DDclient</a></li>
+		<li><a href="http://www.vpsee.com/2009/11/adding-a-mirror-to-a-device-in-zfs-pool/" rel="bookmark">ZFS Pool 里增加硬盘做镜像</a></li>
+		<li><a href="http://www.vpsee.com/2012/11/install-real-time-log-monitoring-tool-log-io/" rel="bookmark">安装 log.io 实时日志监控工具</a></li>
+		<li><a href="http://www.vpsee.com/2009/11/install-nginx-mongrel-rails-on-centos/" rel="bookmark">CentOS 5 上部署 Nginx、Mongrel 和 Rails</a></li>
+		<li><a href="http://www.vpsee.com/2009/07/nginx-wordpressmu-rewrite-rules/" rel="bookmark">Nginx 上配置 WordPress Mu 的重写规则</a></li>
+		<li><a href="http://www.vpsee.com/2009/07/a-regular-expression-to-match-url/" rel="bookmark">一个用来匹配 URL 的正则表达式</a></li>
+		</ul>
+
+	<h3>评论</h3>
+
+<ul>
+<li>Dr.Quest：<a href="http://www.vpsee.com/2009/09/install-sun-ray-server-software-on-centos/#comment-25659" title="on 在 CentOS 上安装和配置 Sun Ray Server Software">@jplele Sun Ray有RDP Connector和VMWare View Connector，所以也可以用微软或者VMWare的VDI</a></li>
+<li>oqueue：<a href="http://www.vpsee.com/2011/06/create-ubuntu-kvm-image-for-openstack-nova/#comment-25042" title="on 为 OpenStack Nova 制作 Ubuntu 镜像">@vpsee 
+我按照你的教程没有创建成功，问题还是
+failed to check for existing manifest
+failed to re</a></li>
+<li>vpsee：<a href="http://www.vpsee.com/2009/07/use-kannel-to-send-sms/#comment-24900" title="on 用 Kannel 短信网关发送 SMS">@hwz0103
+嗯，需要一个 3G 卡就可以了。</a></li>
+<li>vpsee：<a href="http://www.vpsee.com/2012/11/use-python-ldap-to-create-read-delete-upgrade-ldap-entries/#comment-24899" title="on 使用 Python-LDAP 操作 LDAP">@花舞花落泪
+只显示标题适合新闻类网站，大部分读者都喜欢在首页直接阅读文章，不喜欢看了标题还要点击才能看文章（多点击一次多麻烦一次，我们和读者都喜欢简单。）</a></li>
+<li>vpsee：<a href="http://www.vpsee.com/2012/08/play-rackspace-openstack-private-cloud-software/#comment-24897" title="on 试玩 Rackspace 的 OpenStack 私有云系统">@thinktrance
+可以用 ceph, glusterfs, moosefs 等分布式文件系统。</a></li>
+<li>：<a href="http://www.vpsee.com/2009/11/a-fan-in-sunfire-v440-is-broken/#comment-24695" title="on Sun Fire V440 的风扇坏了">最后怎么处理了？</a></li>
+<li>Dcj：<a href="http://www.vpsee.com/2012/11/install-openvswitch-on-ubuntu-12-04/#comment-24243" title="on 在 Ubuntu 12.04 上安装 Open vSwitch">有点疑问：Hypervisor上的虚拟机是否仍需要通过自身的物理接口走流量？</a></li>
+<li>hwz0103：<a href="http://www.vpsee.com/2009/07/use-kannel-to-send-sms/#comment-23170" title="on 用 Kannel 短信网关发送 SMS">我是一个小白，请问各位大神，安装、配置好网关后，再需要一个无线上网卡就可以在网页发短信吗</a></li>
+<li>hwz0103：<a href="http://www.vpsee.com/2009/07/use-kannel-to-send-sms/#comment-23168" title="on 用 Kannel 短信网关发送 SMS">thanks</a></li>
+<li>花舞花落泪：<a href="http://www.vpsee.com/2012/11/use-python-ldap-to-create-read-delete-upgrade-ldap-entries/#comment-23003" title="on 使用 Python-LDAP 操作 LDAP">看了一下你的博客,收藏了很多文章,总算可以说下建议了^_^
+第一印象是网站够简洁,我喜欢,哈哈;
+而第二印象则是看的比较繁琐.
+每一页都是那么长,我看文章</a></li>
+</ul>
+	<h3>友链</h3>
+	<ul><li><a href="http://www.casparant.com/">Caspar Ant</a></li>
+<li><a href="http://www.fwolf.com/">Fwolf's Blog</a></li>
+<li><a href="http://luy.li/" title="all linux">I am LAZY bones</a></li>
+<li><a href="http://linuxtoy.org/" title="LinuxTOY 是一个致力于提供 Linux 相关资讯的专题站点。">LinuxTOY</a></li>
+<li><a href="http://blog.nosqlfan.com/" title="关注 NoSQL 相关技术、新闻">NoSQLFan</a></li>
+<li><a href="http://ownlinux.org/">OwnLinux</a></li>
+<li><a href="http://blog.solrex.org/" title="Engineering a better life, programming a great future.">Solrex Shuffling</a></li>
+<li><a href="http://www.vimer.cn/">Vimer 的程序世界</a></li>
+<li><a href="http://blog.linjian.org/" title="林健的 BLOG">林健的 BLOG</a></li>
+<li><a href="http://smilejay.com/" title="Linux, C, Shell, Python，虚拟化，云计算，开源社区，互联网 — Just For Fun.">笑遍世界</a></li>
+</ul>
+
+	<h3>关于</h3>
+	<ul>
+	<li><a href="http://www.vpsee.com/about/" title="About">关于</a></li>
+	<li><a href="http://www.vpsee.com/projects/" title="Projects">开源</a></li>
+	<li><a href="http://www.vpsee.com/vps-plans/" title="VPS plans and pricing">购买 VPS</a></li>
+	<li><a href="http://feeds.feedburner.com/vpsee">订阅 RSS</a></li>
+	</ul>
+</div>
+	<div id="footer">
+		 <p> © 2012 vpsee.com</p>
+		<script type="text/javascript" src="%E4%BD%BF%E7%94%A8%20mutt,%20fetchmail,%20maildrop,%20msmtp%20%E6%94%B6%E5%8F%91%E9%82%AE%E4%BB%B6%20%7C%20vpsee.com_files/add-to-cart.js"></script>
+<script type="text/javascript" src="%E4%BD%BF%E7%94%A8%20mutt,%20fetchmail,%20maildrop,%20msmtp%20%E6%94%B6%E5%8F%91%E9%82%AE%E4%BB%B6%20%7C%20vpsee.com_files/jquery-plugins.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var woocommerce_params = {"countries":"{\"AU\":{\"ACT\":\"Australian Capital Territory\",\"NSW\":\"New South Wales\",\"NT\":\"Northern Territory\",\"QLD\":\"Queensland\",\"SA\":\"South Australia\",\"TAS\":\"Tasmania\",\"VIC\":\"Victoria\",\"WA\":\"Western Australia\"},\"AF\":[],\"AT\":[],\"BE\":[],\"BI\":[],\"BR\":{\"AM\":\"Amazonas\",\"AC\":\"Acre\",\"AL\":\"Alagoas\",\"AP\":\"Amap\u00e1\",\"CE\":\"Cear\u00e1\",\"DF\":\"Distrito Federal\",\"ES\":\"Esp\u00edrito Santo\",\"MA\":\"Maranh\u00e3o\",\"PR\":\"Paran\u00e1\",\"PE\":\"Pernambuco\",\"PI\":\"Piau\u00ed\",\"RN\":\"Rio Grande do Norte\",\"RS\":\"Rio Grande do Sul\",\"RO\":\"Rond\u00f4nia\",\"RR\":\"Roraima\",\"SC\":\"Santa Catarina\",\"SE\":\"Sergipe\",\"TO\":\"Tocantins\",\"PA\":\"Par\u00e1\",\"BH\":\"Bahia\",\"GO\":\"Goi\u00e1s\",\"MT\":\"Mato Grosso\",\"MS\":\"Mato Grosso do Sul\",\"RJ\":\"Rio de Janeiro\",\"SP\":\"S\u00e3o Paulo\",\"MG\":\"Minas Gerais\",\"PB\":\"Para\u00edba\"},\"CA\":{\"AB\":\"Alberta\",\"BC\":\"British Columbia\",\"MB\":\"Manitoba\",\"NB\":\"New Brunswick\",\"NF\":\"Newfoundland\",\"NT\":\"Northwest Territories\",\"NS\":\"Nova Scotia\",\"NU\":\"Nunavut\",\"ON\":\"Ontario\",\"PE\":\"Prince Edward Island\",\"QC\":\"Quebec\",\"SK\":\"Saskatchewan\",\"YT\":\"Yukon Territory\"},\"CZ\":[],\"DE\":[],\"DK\":[],\"FI\":[],\"FR\":[],\"HK\":{\"HONG KONG\":\"Hong Kong Island\",\"KOWLOON\":\"Kowloon\",\"NEW TERRITORIES\":\"New Territories\"},\"HU\":[],\"IS\":[],\"IL\":[],\"NL\":{\"DR\":\"Drenthe\",\"FL\":\"Flevoland\",\"FR\":\"Friesland\",\"GLD\":\"Gelderland\",\"GRN\":\"Groningen\",\"LB\":\"Limburg\",\"NB\":\"Noord-Brabant\",\"NH\":\"Noord-Holland\",\"OV\":\"Overijssel\",\"UT\":\"Utrecht\",\"ZLD\":\"Zeeland\",\"ZH\":\"Zuid-Holland\"},\"NZ\":{\"NL\":\"Northland\",\"AK\":\"Auckland\",\"WA\":\"Waikato\",\"BP\":\"Bay of Plenty\",\"TK\":\"Taranaki\",\"HB\":\"Hawke\u2019s Bay\",\"MW\":\"Manawatu-Wanganui\",\"WE\":\"Wellington\",\"NS\":\"Nelson\",\"MB\":\"Marlborough\",\"TM\":\"Tasman\",\"WC\":\"West Coast\",\"CT\":\"Canterbury\",\"OT\":\"Otago\",\"SL\":\"Southland\"},\"NO\":[],\"PL\":[],\"SG\":[],\"SK\":[],\"SI\":[],\"LK\":[],\"SE\":[],\"US\":{\"AL\":\"Alabama\",\"AK\":\"Alaska\",\"AZ\":\"Arizona\",\"AR\":\"Arkansas\",\"CA\":\"California\",\"CO\":\"Colorado\",\"CT\":\"Connecticut\",\"DE\":\"Delaware\",\"DC\":\"District Of Columbia\",\"FL\":\"Florida\",\"GA\":\"Georgia\",\"HI\":\"Hawaii\",\"ID\":\"Idaho\",\"IL\":\"Illinois\",\"IN\":\"Indiana\",\"IA\":\"Iowa\",\"KS\":\"Kansas\",\"KY\":\"Kentucky\",\"LA\":\"Louisiana\",\"ME\":\"Maine\",\"MD\":\"Maryland\",\"MA\":\"Massachusetts\",\"MI\":\"Michigan\",\"MN\":\"Minnesota\",\"MS\":\"Mississippi\",\"MO\":\"Missouri\",\"MT\":\"Montana\",\"NE\":\"Nebraska\",\"NV\":\"Nevada\",\"NH\":\"New Hampshire\",\"NJ\":\"New Jersey\",\"NM\":\"New Mexico\",\"NY\":\"New York\",\"NC\":\"North Carolina\",\"ND\":\"North Dakota\",\"OH\":\"Ohio\",\"OK\":\"Oklahoma\",\"OR\":\"Oregon\",\"PA\":\"Pennsylvania\",\"RI\":\"Rhode Island\",\"SC\":\"South Carolina\",\"SD\":\"South Dakota\",\"TN\":\"Tennessee\",\"TX\":\"Texas\",\"UT\":\"Utah\",\"VT\":\"Vermont\",\"VA\":\"Virginia\",\"WA\":\"Washington\",\"WV\":\"West Virginia\",\"WI\":\"Wisconsin\",\"WY\":\"Wyoming\"},\"USAF\":{\"AA\":\"Americas\",\"AE\":\"Europe\",\"AP\":\"Pacific\"},\"VN\":[]}","select_state_text":"Select an option\u2026","plugin_url":"http:\/\/www.vpsee.com\/wp-content\/plugins\/woocommerce","ajax_url":"\/\/www.vpsee.com\/wp-admin\/admin-ajax.php","ajax_loader_url":"http:\/\/www.vpsee.com\/wp-content\/plugins\/woocommerce\/assets\/images\/ajax-loader.gif","required_rating_text":"Please select a rating","review_rating_required":"yes","required_text":"required","update_order_review_nonce":"fbffb35a3b","apply_coupon_nonce":"ae8576dbf2","option_guest_checkout":"yes","checkout_url":"\/\/www.vpsee.com\/wp-admin\/admin-ajax.php?action=woocommerce-checkout","is_checkout":"0","update_shipping_method_nonce":"763c46f105","add_to_cart_nonce":"3932beb854"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="%E4%BD%BF%E7%94%A8%20mutt,%20fetchmail,%20maildrop,%20msmtp%20%E6%94%B6%E5%8F%91%E9%82%AE%E4%BB%B6%20%7C%20vpsee.com_files/woocommerce.js"></script>
+	</div>
+</div>
+
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="%E4%BD%BF%E7%94%A8%20mutt,%20fetchmail,%20maildrop,%20msmtp%20%E6%94%B6%E5%8F%91%E9%82%AE%E4%BB%B6%20%7C%20vpsee.com_files/ga.js" type="text/javascript"></script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-8848880-2");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+<script src="%E4%BD%BF%E7%94%A8%20mutt,%20fetchmail,%20maildrop,%20msmtp%20%E6%94%B6%E5%8F%91%E9%82%AE%E4%BB%B6%20%7C%20vpsee.com_files/js.js" type="text/javascript"></script>
+<script type="text/javascript">clicky.init(215064);</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="http://in.getclicky.com/215064ns.gif" /></p></noscript>
+
+
+
+</body></html>

@@ -1,0 +1,883 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+     
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    
+<head>
+    <title>git使用详细介绍 - yulongfei的专栏
+        - 博客频道 - CSDN.NET</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="1. Git概念&#160;1.1. Git库中由三部分组成&#160;&#160;&#160;&#160;&#160;&#160;&#160; Git 仓库就是那个.git 目录，其中存放的是我们所提交的文档索引内容，Git 可基于文档索引内容对其所管理的文档进行内容追踪，从而实现文档的版本控制。.git目录位于工作目录内。&#160;1） 工作目录：用户本地的目录；&#160;2） Index（索引）：将工作目录下所有文件（包含子目录）生成快照，存放到一个临时的存储区域，Gi" />
+    <script src="http://static.blog.csdn.net/scripts/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://static.blog.csdn.net/scripts/ad.js?v=1.1"></script>
+        <!--new top-->
+               <link rel="stylesheet" href="http://static.csdn.net/public/common/toolbar/css/index.css">        <!--new top-->
+
+    <link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/default/css/style.css?v=1.1" />
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/gemmem/rss/list" />
+    <link rel="shortcut icon" href="http://csdnimg.cn/public/favicon.ico" />
+    <link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/default.css" />
+ 
+
+</head>
+<body>
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="http://static.csdn.net/public/common/toolbar/js/html.js" type="text/javascript"></script>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/gemmem">yulongfei的专栏</a></h2>
+            <h3>不积跬步，无以至千里。</h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>
+                <li id="btnContents"><a href="http://blog.csdn.net/gemmem?viewmode=contents"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_mulu'])">
+                    <img src="http://static.blog.csdn.net/images/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/gemmem?viewmode=list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_zhaiyao'])">
+                    <img src="http://static.blog.csdn.net/images/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/gemmem/rss/list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_RSS'])">
+                    <img src="http://static.blog.csdn.net/images/ico_rss.gif">订阅</span></a></li>
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "gemmem";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/gemmem";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+<div class="notice tracking-ad" data-mod='popu_3' > 
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/25387451"target="_blank">
+<font color=blue>有奖征资源，博文分享有内涵
+</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/29379593"target="_blank">
+<font color=red>5月推荐博文汇总 
+</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="http://student.csdn.net/mcs/programming_challenges"target="_blank">
+<font color=blue>第二届战神杯编程挑战月赛
+</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="http://vote.blog.csdn.net/contest/"target="_blank">
+<font color=red>2014 CSDN博文大赛 
+</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="http://www.csdn.net/article/2014-06-10/2820155"target="_blank">
+<font color=blue>技术牛人的蜕变之路-陆其明
+</font></a>
+
+
+</div>                    <link href="http://static.blog.csdn.net/css/comment1.css" type="text/css" rel="stylesheet" />
+<link href="http://static.blog.csdn.net/css/style1.css" type="text/css" rel="stylesheet" />
+<script language='JavaScript' type='text/javascript' src='http://download.csdn.net/js/jquery.cookie.js'></script>
+<script type="text/javascript" src="http://csdnimg.cn/rabbit/search-service/main.js"></script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Repost"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="/gemmem/article/details/7290125">
+        git使用详细介绍
+        </a></span>
+    </h1>
+</div>
+
+    <div class="article_manage">
+        <span class="link_categories">
+        分类：
+            <a href="/gemmem/article/category/1079974" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_fenlei']);">Linux</a> 
+        </span>
+    <span class="link_postdate">2012-02-24 11:50</span>
+    <span class="link_view" title="阅读次数">105355人阅读</span>
+    <span class="link_comments" title="评论次数"><a href="#comments" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(16)</span>
+    <span class="link_collect"><a href="javascript:void(0);" onclick="javascript:_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shoucang']);collectArticle('git使用详细介绍','7290125');return false;" title="收藏">收藏</a></span>
+    <span class="link_report"><a href="#report"  onclick="javascript:_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_jubao']);report(7290125,2);return false;" title="举报">举报</a></span>
+    
+</div>
+<div class="tag2box"><a href='http://www.csdn.net/tag/git' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">git</a><a href='http://www.csdn.net/tag/branch' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">branch</a><a href='http://www.csdn.net/tag/%e6%9c%8d%e5%8a%a1%e5%99%a8' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">服务器</a><a href='http://www.csdn.net/tag/%e5%b7%a5%e4%bd%9c' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">工作</a><a href='http://www.csdn.net/tag/merge' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">merge</a><a href='http://www.csdn.net/tag/%e6%96%87%e6%a1%a3' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">文档</a></div>
+
+    
+<div id="article_content" class="article_content">
+
+&nbsp;1. Git概念&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+1.1. Git库中由三部分组成&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Git 仓库就是那个.git 目录，其中存放的是我们所提交的文档索引内容，Git 可基于文档索引内容对其所管理的文档进行内容追踪，从而实现文档的版本控制。.git目录位于工作目录内。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+1） 工作目录：用户本地的目录；&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+2） Index（索引）：将工作目录下所有文件（包含子目录）生成快照，存放到一个临时的存储区域，Git 称该区域为索引。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3） 仓库：将索引通过commit命令提交至仓库中，每一次提交都意味着版本在进行一次更新。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<a href="http://img1.51cto.com/attachment/201102/10/2712776_1297350397Fmk7.jpg" target="\'_blank\'" style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; color:rgb(120,157,32); text-decoration:none; padding-top:0px"><img title="clip_image002" border="0" alt="clip_image002" src="http://img1.51cto.com/attachment/201102/10/2712776_1297350409WAxs.jpg" height="268" style="padding-bottom:0px; border-right-width:0px; margin:0px; padding-left:0px; padding-right:0px; border-top-width:0px; border-bottom-width:0px; vertical-align:top; border-left-width:0px; padding-top:0px"></a>&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+1.2. 使用Git时的初始化事项&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+1.2.1. Git初始化配置&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+1） 配置使用git仓库的人员姓名&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git config --global user.name &quot;Your Name Comes Here&quot;&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+2） 配置使用git仓库的人员email&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git config --global user.email&nbsp;<a href="mailto:you@yourdomain.example.com" target="\'_blank\'" style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; color:rgb(120,157,32); text-decoration:none; padding-top:0px">you@yourdomain.example.com</a>&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+1.2.2. Git文档忽略机制&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+工作目录中有一些文件是不希望接受Git 管理的，譬如程序编译时生成的中间文件等等。Git 提供了文档忽略机制，可以将工作目录中不希望接受Git 管理的文档信息写到同一目录下的.gitignore 文件中。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+例如：工作目录下有个zh目录，如果不想把它加入到Git管理中，则执行：&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo “zh” &amp;gt; .gitignore&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git add .&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+有关gitignore 文件的诸多细节知识可阅读其使用手册：man gitignore&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+1.3. Git与Repo的比较&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Git操作一般对应一个仓库，而Repo操作一般对应一个项目，即一个项目会由若干仓库组成。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+例如，在操作整个Recket项目时使用Repo，而操作其中的某个仓库时使用Git。在包含隐藏目录.git的目录下执行git操作。
+<p style="padding-bottom:15px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+2. Git help&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Git help 获取git基本命令&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+（如果要知道某个特定命令的使用方法，例如：使用Git help clone，来获取git clone的使用方法）</p>
+<p style="padding-bottom:15px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3. Git本地操作基本命令&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.1. Git init&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+或者使用git init-db。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+创建一个空的Git库。在当前目录中产生一个.git 的子目录。以后，所有的文件变化信息都会保存到这个目录下，而不像CVS那样，会在每个目录和子目录下都创建一个CVS目录。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+在.git目录下有一个config文件，可以修改其中的配置信息。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.2. Git add&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+将当前工作目录中更改或者新增的文件加入到Git的索引中，加入到Git的索引中就表示记入了版本历史中，这也是提交之前所需要执行的一步。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+可以递归添加，即如果后面跟的是一个目录作为参数，则会递归添加整个目录中的所有子目录和文件。例如：&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git add dir1 （ 添加dir1这个目录，目录下的所有文件都被加入 ）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Git add f1 f2 （ 添加f1，f2文件）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git add .&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ( 添加当前目录下的所有文件和子目录 )&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.3. Git rm&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+从当前的工作目录中和索引中删除文件。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+可以递归删除，即如果后面跟的是一个目录做为参数，则会递归删除整个目录中的所有子目录和文件。例如：&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git rm –r * （进入某个目录中，执行此语句，会删除该目录下的所有文件和子目录）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git rm f1&nbsp;&nbsp;&nbsp; (删除文件f1，包含本地目录和index中的此文件记录)&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git rm --ached f1 (删除文件f1，不会删除本地目录文件，只删除index中的文件记录；将已经git add的文件remove到cache中,这样commit的时候不会提交这个文件, 适用于一下子添加了很多文件, 却又想排除其中个别几个文件的情况.)&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.4. Git commit&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+提交当前工作目录的修改内容。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+直接调用git commit命令，会提示填写注释。通过如下方式在命令行就填写提交注释：git commit -m &quot;Initial commit of gittutor reposistory&quot;。 注意，和CVS不同，git的提交注释必须不能为空，否则就会提交失败。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git commit还有一个 -a的参数，可以将那些没有通过git add标识的变化一并强行提交，但是不建议使用这种方式。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+每一次提交，git就会为全局代码建立一个唯一的commit标识代码，用户可以通过git reset命令恢复到任意一次提交时的代码。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git commit –-amend –m “message” （在一个commit id上不断修改提交的内容）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.5. Git status&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+查看版本库的状态。可以得知哪些文件发生了变化，哪些文件还没有添加到git库中等等。 建议每次commit前都要通过该命令确认库状态。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+最常见的误操作是， 修改了一个文件， 没有调用git add通知git库该文件已经发生了变化就直接调用commit操作， 从而导致该文件并没有真正的提交。这时如果开发者以为已经提交了该文件，就继续修改甚至删除这个文件，那么修改的内容就没有通过版本管理起来。如果每次在 提交前，使用git status查看一下，就可以发现这种错误。因此，如果调用了git status命令，一定要&#26684;外注意那些提示为 “Changed but not updated:”的文件。 这些文件都是与上次commit相比发生了变化，但是却没有通过git
+ add标识的文件。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.6. Git log&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+查看历史日志，包含每次的版本变化。每次版本变化对应一个commit id。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Git log -1&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -1的意思是只显示一个commit，如果想显示5个，就-5。不指定的话，git log会从该commit一直往后显示。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Git log --stat –summary （显示每次版本的详细变化）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+在项目日志信息中，每条日志的首行（就是那一串字符）为版本更新提交所进行的命名，我们可以将该命名理解为项目版本号。项目版本号应该是唯一的，默认由 Git 自动生成，用以标示项目的某一次更新。如果我们将项目版本号用作git-show 命令的参数，即可查看该次项目版本的更新细节。例如：&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+1) Git log&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<a href="http://img1.51cto.com/attachment/201102/10/2712776_1297350416TdxZ.jpg" target="\'_blank\'" style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; color:rgb(120,157,32); text-decoration:none; padding-top:0px"><img title="clip_image004" border="0" alt="clip_image004" src="http://img1.51cto.com/attachment/201102/10/2712776_1297350431v5r9.jpg" height="332" style="padding-bottom:0px; border-right-width:0px; margin:0px; padding-left:0px; padding-right:0px; border-top-width:0px; border-bottom-width:0px; vertical-align:top; border-left-width:0px; padding-top:0px"></a>&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+2）Git show&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<a href="http://img1.51cto.com/attachment/201102/10/2712776_1297351668uhjL.jpg" target="\'_blank\'" style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; color:rgb(120,157,32); text-decoration:none; padding-top:0px"><img title="clip_image006" border="0" alt="clip_image006" src="http://img1.51cto.com/attachment/201102/10/2712776_1297351681fAD3.jpg" height="381" style="padding-bottom:0px; border-right-width:0px; margin:0px; padding-left:0px; padding-right:0px; border-top-width:0px; border-bottom-width:0px; vertical-align:top; border-left-width:0px; padding-top:0px"></a>&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+实际上，上述命令并非是真正的进行版本号自定义，只是制造了一个tag对象而已，这在进行项目版本对外发布时比较有用。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.7. Git merge&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+把服务器上下载下来的代码和本地代码合并。或者进行分支合并。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+例如：当前在master分支上，若想将分支dev上的合并到master上，则git merge dev&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+注意：git merge nov/eclair_eocket （是将服务器git库的eclair_eocket分支合并到本地分支上）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git rebase nov/eclair_eocket （是将服务器git库的eclair_eocket分支映射到本地的一个临时分支上，然后将本地分支上的变化合并到这个临时分支，然后再用这个临时分支初始化本地分支）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.8. Git diff&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+把本地的代码和index中的代码进行比较，或者是把index中的代码和本地仓库中的代码进行比较。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+1） Git diff&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+比较工作目录和Index中的代码。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+2） Git diff - - cached&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+比较index和本地仓库中的代码。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.9. Git checkout&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.9.1. 切换到分支&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+1) 创建一个新分支，并切换到该分支上&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Git checkout –b 新分支名&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+2）切换到某个已经建立的本地分支local_branch&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Git checkout local_branch&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+（使用cat .git/HEAD后，显示refs:refs/heads/ local_branch）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3) 切换到服务器上的某个分支remote_branch&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Git checkout remote_branch&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+（远程分支remote_branch可以通过 git branch –r 列出）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+4) 切换到某个commit id&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Git checkout commit_id&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+（使用cat .git/HEAD后，显示commit_id）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+5) 切换到某个tag&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Git checkout tag&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+（使用cat .git/HEAD后，显示tag）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+注意： 除了1）和2）外，其余三种都只是切换到了一个临时的( no branch )状态 （this head is detached），这时用 git branch 可以看到处于（no branch）上， cat .git/HEAD 看到指向相应的commit id。 这个（no branch）只是临时存在的，并不是一个真正建立的branch。 如果此时执行2），则这个（no branch）就自动消失了；如果执行1）， 则创建新分支 new branch，并把这个(no branch)挂到这个新分支上，此时cat
+ .git/refs/heads/new_branch 可以看到已经指向了刚才那个commit id。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.9.2. 用已有分支初始化新分支&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+执行下面的命令，在切换到某个已经建立的local branch或者某个remote branch或者某个commit id 或者某个tag的同时，创建新分支new_branch，并且挂到这个新分支上。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+1） 切换到某个已经建立的本地分支local_branch，并且使用此分支初始化一个新分支new_branch。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git checkout –b new_branch local_branch&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+2) 切换到某个远程分支remote_branch，并且用此分支初始化一个新分支new_branch。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Git checkout –b new_branch remote_branch&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3) 切换到某个commit id，并建立新分支new_branch&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Git checkout –b new_branch commit_id&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+4) 切换到某个tag，并建立新分支new_branch&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Git checkout –b new_branch tag&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.9.3. 还原代码&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+例如 “git checkout app/model/user.rb” 就会将user.rb文件从上一个已提交的版本中更新回来，未提交的工作目录中的内容全部会被覆盖。</p>
+<p style="padding-bottom:15px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.10. Git-ls-files&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+查看当前的git库中有那些文件。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.11. Git mv&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+重命名一个文件、目录或者链接。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+例如：Git mv helloworld.c helloworld1.c （把文件helloworld.c 重命名为 helloworld1.c）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.12. Git branch&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.12.1. 总述&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+在 git 版本库中创建分支的成本几乎为零，所以，不必吝啬多创建几个分支。当第一次执行git init时，系统就会创建一个名为“master”的分支。 而其它分支则通过手工创建。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+下面列举一些常见的分支策略：&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+创建一个属于自己的个人工作分支，以避免对主分支 master 造成太多的干扰，也方便与他人交流协作；&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+当进行高风险的工作时，创建一个试验性的分支；&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+合并别人的工作的时候，最好是创建一个临时的分支用来合并，合并完成后再“fetch”到自己的分支。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+对分支进行增、删、查等操作。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+注意：分支信息一般在.git/refs/目录下，其中heads目录下为本地分支，remotes为对应服务器上的分支，tags为标签。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.12.2. 查看分支&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git branch 列出本地git库中的所有分支。在列出的分支中，若分支名前有*，则表示此分支为当前分支。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git branch –r 列出服务器git库的所有分支。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+（可以继续使用命令 “ git checkout -b 本地分支名 服务器分支名”来获取服务器上某个分支的代码文件）。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.12.3. 查看当前在哪个分支上&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cat .git/HEAD&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.12.4. 创建一个分支&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+1） git branch 分支名&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+虽然创建了分支，但是不会将当前工作分支切换到新创建的分支上，因此，还需要命令“git checkout 分支名” 来切换，&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+2） git checout –b 分支名&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+不但创建了分支，还将当前工作分支切换到了该分支上。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.12.5. 切换到某个分支：git checkout 分支名&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+切换到主分支：git checkout master&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.12.6. 删除分支&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git branch –D 分支名&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+注意： 删除后，发生在该分支的所有变化都无法恢复。强制删除此分支。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.12.7. 比较两个分支上的文件的区别&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git diff master 分支名 （比较主分支和另一个分支的区别）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.12.8. 查看分支历史&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git-show-branch （查看当前分支的提交注释及信息）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git-show-branch -all（查看所有分支的提交注释及信息）例如：&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+* [dev] d2&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+! [master] m2&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+--&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+* [dev] d2&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+* [dev^] d1&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+* [dev~2] d0&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+*&#43; [master] m2&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+在上述例子中， “--”之上的两行表示有两个分支dev和master， 且dev分支上最后一次提交的日志是“d2”,master分支上最后一次提交的日志是 “m2”。 “--”之下的几行表示了分支演化的历史，其中 dev表示发生在dev分支上的最后一次提交，dev^表示发生在dev分支上的倒数第二次提交。dev~2表示发生在dev分支上的倒数第三次提交。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.12.9. 查看当前分支的操作记录&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git whatchanged&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.12.10. 合并分支&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+法一：&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git merge “注释” 合并的目标分支 合并的来源分支&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+如果合并有冲突，git会有提示。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+例如：git checkout master&nbsp;&nbsp; （切换到master分支）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git merge HEAD dev~2 (合并master分支和dev~2分支)或者：git merge master dev~2&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+法二：&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git pull 合并的目标分支 合并的来源分支&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+例如: git checkout master （切换到master分支）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git pull . dev~2（合并当前分支和dev~2分支）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.13. Git rebase&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+一般在将服务器最新内容合并到本地时使用，例如：在版本C时从服务器上获取内容到本地，修改了本地内容，此时想把本地修改的内容提交到服务器上；但发现服务器上的版本已经变为G了，此时就需要先执行Git rebase，将服务器上的最新版本合并到本地。例如：&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+用下面两幅图解释会比较清楚一些，rebase命令执行后，实际上是将分支点从C移到了G，这样分支也就具有了从C到G的功能。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<a href="http://img1.51cto.com/attachment/201102/10/2712776_1297351681RizB.jpg" target="\'_blank\'" style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; color:rgb(120,157,32); text-decoration:none; padding-top:0px"><img title="clip_image002[6]" border="0" alt="clip_image002[6]" src="http://img1.51cto.com/attachment/201102/10/2712776_1297351692r1u4.jpg" height="192" style="padding-bottom:0px; border-right-width:0px; margin:0px; padding-left:0px; padding-right:0px; border-top-width:0px; border-bottom-width:0px; vertical-align:top; border-left-width:0px; padding-top:0px"></a>&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.14. Git reset&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+库的逆转与恢复除了用来进行一些废弃的研发代码的重置外，还有一个重要的作用。比如我们从远程clone了一个代码库，在本地开发后，准备提交回远程。但是本地代码库在开发时，有功能性的commit，也有出于备份目的的commit等等。总之，commit的日志中有大量无用log，我们并不想把这些 log在提交回远程时也提交到库中。 因此，就要用到git reset。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git reset的概念比较复杂。它的命令形式：git reset [--mixed | --soft | --hard] [&lt;commit-ish&gt;]&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+命令的选项：&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --mixed 这个是默认的选项。如git reset [--mixed] dev^(dev^的定义可以参见2.6.5)。它的作用仅是重置分支状态到dev1^, 但是却不改变任何工作文件的内容。即，从dev1^到dev1的所有文件变化都保留了，但是dev1^到dev1之间的所有commit日志都被清除了， 而且，发生变化的文件内容也没有通过git add标识，如果您要重新commit，还需要对变化的文件做一次git add。 这样，commit后，就得到了一份非常干净的提交记录。 （回退了index和仓库中的内容）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --soft相当于做了git reset –mixed，后，又对变化的文件做了git add。如果用了该选项， 就可以直接commit了。（回退了仓库中的内容）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --hard这个命令就会导致所有信息的回退， 包括文件内容。 一般只有在重置废弃代码时，才用它。 执行后，文件内容也无法恢复回来了。（回退了工作目录、index和仓库中的内容）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+例如：&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+切换到使用的分支上；&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git reset HEAD^ 回退第一个记录&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git reset HEAD~2 回退第二个记录&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+如果想把工作目录下的文件也回退，则使用git reset - - hard HEAD^ 回退第一个记录&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git reset - - hard HEAD~2 回退第二个记录&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+还可以使用如下方法：&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+将当前的工作目录完全回滚到指定的版本号，假设如下图，我们有A-G五次提交的版本，其中C的版本号是 bbaf6fb5060b4875b18ff9ff637ce118256d6f20，我们执行了'git reset bbaf6fb5060b4875b18ff9ff637ce118256d6f20'那么结果就只剩下了A-C三个提交的版本&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<a href="http://img1.51cto.com/attachment/201102/10/2712776_12973516984wUp.jpg" target="\'_blank\'" style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; color:rgb(120,157,32); text-decoration:none; padding-top:0px"><img title="clip_image004[5]" border="0" alt="clip_image004[5]" src="http://img1.51cto.com/attachment/201102/10/2712776_1297351721TV5i.jpg" height="188" style="padding-bottom:0px; border-right-width:0px; margin:0px; padding-left:0px; padding-right:0px; border-top-width:0px; border-bottom-width:0px; vertical-align:top; border-left-width:0px; padding-top:0px"></a>&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.15. Git revert&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+还原某次对版本的修改，例如：git revert commit_id （其中commit_id为commit代码时生成的一个唯一表示的字符串）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+例如：（3.6中）git revert dfb02e6e4f2f7b573337763e5c0013802e392818 （执行此操作，则还原上一次commit的操作）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.16. Git config&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+利用这个命令可以新增、更改Git的各种设置，例如 “git config branch.master.remote origin” 就将master的远程版本库设置为别名叫做origin版本库。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.17. Git show&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+显示对象的不同类型。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+3.18. Git tag&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+创建、列出、删除或者验证一个标签对象（使用GPG签名的）。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+可以将某个具体的版本打上一个标签，这样就不需要记忆复杂的版本号哈希&#20540;字符串了，例如你可以使用 “git tag revert_version bbaf6fb5060b4875b18ff9ff637ce118256d6f20” 来标记这个被你还原的版本，那么以后你想查看该版本时，就可以使用 revert_version标签名，而不是哈希&#20540;了。</p>
+<p style="padding-bottom:15px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+4. Git服务器操作命令（与服务器交互）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+4.1. Git clone&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+取出服务器的仓库的代码到本地建立的目录中（与服务器交互）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+通过git clone获取远端git库后，.git/config中的开发者信息不会被一起clone过来。仍然需要为本地库的.git/config文件添加开发者信息。此外，开发者还需要自己添加&nbsp;&nbsp; . gitignore文件。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+通过git clone获取的远端git库，只包含了远端git库的当前工作分支。如果想获取其它分支信息，需要使用 “git branch –r” 来查看， 如果需要将远程的其它分支代码也获取过来，可以使用命令 “ git checkout -b 本地分支名 远程分支名”，其中，远程分支名为 “git branch –r” 所列出的分支名， 一般是诸如“origin/分支名”的样子。如果本地分支名已经存在， 则不需要“-b”参数。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+例如：&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<a href="http://img1.51cto.com/attachment/201102/10/2712776_1297351743NQj6.jpg" target="\'_blank\'" style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; color:rgb(120,157,32); text-decoration:none; padding-top:0px"><img title="clip_image006[5]" border="0" alt="clip_image006[5]" src="http://img1.51cto.com/attachment/201102/10/2712776_1297351756Dkb2.jpg" height="505" style="padding-bottom:0px; border-right-width:0px; margin:0px; padding-left:0px; padding-right:0px; border-top-width:0px; border-bottom-width:0px; vertical-align:top; border-left-width:0px; padding-top:0px"></a>&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+4.2. Git pull&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+从服务器的仓库中获取代码，和本地代码合并。（与服务器交互，从服务器上下载最新代码，等同于： Git fetch &#43; Git merge）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+从其它的版本库（既可以是远程的也可以是本地的）将代码更新到本地，例如：“git pull origin master ”就是将origin这个版本库的代码更新到本地的master主分支。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git pull可以从任意一个git库获取某个分支的内容。用法如下：&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<span style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">git pull&nbsp;<a href="mailto:username@ipaddr" target="\'_blank\'" style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; color:rgb(120,157,32); text-decoration:none; padding-top:0px">username@ipaddr</a>:远端repository名远端分支名&nbsp;本地分支名</span>。这条命令将从远端git库的远端分支名获取到本地git库的一个本地分支中。其中，如果不写本地分支名，则默认pull到本地当前分支。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+需要注意的是，git pull也可以用来合并分支。 和git merge的作用相同。 因此，如果你的本地分支已经有内容，则git pull会合并这些文件，如果有冲突会报警。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+例如：&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<a href="http://img1.51cto.com/attachment/201102/10/2712776_1297351813igGk.jpg" target="\'_blank\'" style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; color:rgb(120,157,32); text-decoration:none; padding-top:0px"><img title="clip_image008" border="0" alt="clip_image008" src="http://img1.51cto.com/attachment/201102/10/2712776_1297351823grWC.jpg" height="378" style="padding-bottom:0px; border-right-width:0px; margin:0px; padding-left:0px; padding-right:0px; border-top-width:0px; border-bottom-width:0px; vertical-align:top; border-left-width:0px; padding-top:0px"></a></p>
+<p style="padding-bottom:15px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<a href="http://img1.51cto.com/attachment/201102/10/2712776_1297351829LGpO.jpg" target="\'_blank\'" style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; color:rgb(120,157,32); text-decoration:none; padding-top:0px"><img title="clip_image010" border="0" alt="clip_image010" src="http://img1.51cto.com/attachment/201102/10/2712776_1297351859DL4s.jpg" height="222" style="padding-bottom:0px; border-right-width:0px; margin:0px; padding-left:0px; padding-right:0px; border-top-width:0px; border-bottom-width:0px; vertical-align:top; border-left-width:0px; padding-top:0px"></a></p>
+<p style="padding-bottom:15px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<a href="http://img1.51cto.com/attachment/201102/10/2712776_1297351881ofr8.jpg" target="\'_blank\'" style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; color:rgb(120,157,32); text-decoration:none; padding-top:0px"><img title="clip_image012" border="0" alt="clip_image012" src="http://img1.51cto.com/attachment/201102/10/2712776_1297351912DrUZ.jpg" height="453" style="padding-bottom:0px; border-right-width:0px; margin:0px; padding-left:0px; padding-right:0px; border-top-width:0px; border-bottom-width:0px; vertical-align:top; border-left-width:0px; padding-top:0px"></a></p>
+<p style="padding-bottom:15px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<a href="http://img1.51cto.com/attachment/201102/10/2712776_1297351923g2IO.jpg" target="\'_blank\'" style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; color:rgb(120,157,32); text-decoration:none; padding-top:0px"><img title="clip_image014" border="0" alt="clip_image014" src="http://img1.51cto.com/attachment/201102/10/2712776_1297351955DoON.jpg" height="383" style="padding-bottom:0px; border-right-width:0px; margin:0px; padding-left:0px; padding-right:0px; border-top-width:0px; border-bottom-width:0px; vertical-align:top; border-left-width:0px; padding-top:0px"></a>&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+4.3. Git push&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+将本地commit的代码更新到远程版本库中，例如 “git push origin”就会将本地的代码更新到名为orgin的远程版本库中。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; git push和git pull正好想反，是将本地某个分支的内容提交到远端某个分支上。用法：&nbsp;<span style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">git push<a href="mailto:username@ipaddr" target="\'_blank\'" style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; color:rgb(120,157,32); text-decoration:none; padding-top:0px">username@ipaddr</a>:远端repository名本地分支名&nbsp;远端分支名</span>。这条命令将本地git库的一个本地分支push到远端git库的远端分支名中。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+需要&#26684;外注意的是，git push好像不会自动合并文件。因此，如果git push时，发生了冲突，就会被后push的文件内容强行覆盖，而且没有什么提示。 这在合作开发时是很危险的事情。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+例如：&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+<a href="http://img1.51cto.com/attachment/201102/10/2712776_1297351972aqwd.jpg" target="\'_blank\'" style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; color:rgb(120,157,32); text-decoration:none; padding-top:0px"><img title="clip_image016" border="0" alt="clip_image016" src="http://img1.51cto.com/attachment/201102/10/2712776_1297352024U6Sz.jpg" height="536" style="padding-bottom:0px; border-right-width:0px; margin:0px; padding-left:0px; padding-right:0px; border-top-width:0px; border-bottom-width:0px; vertical-align:top; border-left-width:0px; padding-top:0px"></a>&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+4.4. Git fetch&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+从服务器的仓库中下载代码。（与服务器交互，从服务器上下载最新代码）&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+相当于从远程获取最新版本到本地，不会自动merge，比Git pull更安全些。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+使用此方法来获取服务器上的更新。&nbsp;<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; padding-top:0px">
+例如：如果使用git checkout nov/eclair_rocket （nov/eclair_rocket为服务器上的分支名），则是获取上次使用git fetch命令时从服务器上下载的代码；如果先使用 git fetch ，再使用git checkout nov/eclair_rocket，则是先从服务器上获取最新的更新信息，然后从服务器上下载最新的代码。</p>
+
+</div>
+
+
+
+<!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare" style="float: right;">
+<a class="bds_qzone"></a>
+<a class="bds_tsina"></a>
+<a class="bds_tqq"></a>
+<a class="bds_renren"></a>
+<a class="bds_t163"></a>
+<span class="bds_more">更多</span>
+<a class="shareCount"></a>
+</div>
+<!-- Baidu Button END -->
+
+
+<!--192.168.100.34-->
+<ul class="article_next_prev">
+            <li class="prev_article"><span  onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian']);location.href='/gemmem/article/details/7290059';">上一篇</span><a href="/gemmem/article/details/7290059" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian'])">Android JNI编程提高篇之二</a></li>
+            <li class="next_article"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian']);location.href='/gemmem/article/details/7290140';">下一篇</span><a href="/gemmem/article/details/7290140" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian'])">Android.mk文件详解介绍</a></li>
+</ul>
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+</div>
+      <dl class="blog-associat-tag">
+        <dt>主题推荐</dt>
+        <dd>
+                <a href="http://www.csdn.net/tag/版本控制" target="_blank" class="blog-tage-red" >版本控制</a> 
+                <a href="http://www.csdn.net/tag/开发者" target="_blank" class="blog-tage-red" >开发者</a> 
+                <a href="http://www.csdn.net/tag/helloworld" target="_blank" class="blog-tage-red" >helloworld</a> 
+                <a href="http://www.csdn.net/tag/注释" target="_blank" class="blog-tage-red" >注释</a> 
+                <a href="http://www.csdn.net/tag/管理" target="_blank" class="blog-tage-red" >管理</a> 
+        </dd>
+    </dl> 
+
+
+<dl class="blog-ass-articl tracking-ad"  data-mod="popu_36" id="res-relatived"> 
+     <dt><span>猜你在找</span></dt>    
+</dl>
+
+<script type="text/javascript">
+    var searchtitletags = 'git使用详细介绍' + ',' + '版本控制,开发者,helloworld,注释,管理';
+    searchService({
+        index: 'blog',
+        query: searchtitletags,
+        from: 10,
+        size: 10,
+        appendTo: '#res-relatived',
+        url: 'recommend',
+        his: 2,
+        client: "blog_cf_enhance",
+        tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+    });
+
+ </script>   
+
+    <div id="ad_cen">
+        <script type="text/javascript">            BAIDU_CLB_SLOT_ID = "117306";</script>
+        <script type="text/javascript" src="http://cbjs.baidu.com/js/o.js"></script>
+    </div>
+    <script type="text/javascript">
+        //new Ad(4, 'ad_cen');
+    </script>
+<div id="comment_title" class="panel_head">
+    查看评论<a name="comments"></a></div>
+<div id="comment_list">
+</div>
+<div id="comment_bar">
+</div>
+<div id="comment_form">
+</div>
+<div class="announce">
+    * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+<script type="text/javascript">
+    var fileName = '7290125';
+    var commentscount = 16;
+    var islock = false
+</script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/comment.js"></script>
+    <div id="ad_bot">
+    </div>
+    <script type="text/javascript">
+    new Ad(5, 'ad_bot');
+    </script>
+<div id="report_dialog">
+</div>
+
+<div id="d-top"  style="bottom:60px;">
+      
+
+       <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="http://static.blog.csdn.net/images/blog-icon-reply.png" alt="快速回复">
+        </a>    
+
+    <a id="d-top-a" class="btn btn-top backtop"  style="display: none;" title="返回顶部" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_huidaodingbu'])" style="">         
+         <img src="http://static.blog.csdn.net/images/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        if($("#comment_content").length>0)
+        {
+            $("#quick-reply").show();
+
+            $("#quick-reply").click(function(){
+                setEditorFocus();
+            });
+        }       
+     
+        var d_top = $('#d-top-a');
+        document.onscroll = function ()
+        {
+            var scrTop = (document.body.scrollTop || document.documentElement.scrollTop);
+            if (scrTop > 500)
+            {
+                d_top.show();
+            } else
+            {
+                d_top.hide();
+            }
+        }
+        $('#d-top-a').click(function ()
+        {
+            scrollTo(0, 0);
+            this.blur();
+            return false;
+        });
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+<div class="tag_list">
+    <h5>
+        <a href="http://www.csdn.net/tag/" target="_blank">核心技术类目</a></h5>
+    <div class="classify">
+<a title="全部主题" href="http://www.csdn.net/tag" target="_blank" onclick="LogClickCount(this,336);">全部主题</a>
+<a title="Java" href="http://www.csdn.net/tag/Java" target="_blank" onclick="LogClickCount(this,336);">Java</a>
+<a title="VPN" href="http://www.csdn.net/tag/vpn" target="_blank" onclick="LogClickCount(this,336);">VPN</a>
+<a title="Android" href="http://www.csdn.net/tag/android" target="_blank" onclick="LogClickCount(this,336);">Android</a>
+<a title="iOS" href="http://www.csdn.net/tag/ios" target="_blank" onclick="LogClickCount(this,336);">iOS</a>
+<a title="ERP" href="http://www.csdn.net/tag/erp" target="_blank" onclick="LogClickCount(this,336);">ERP</a>
+<a title="IE10" href="http://www.csdn.net/tag/ie10" target="_blank" onclick="LogClickCount(this,336);">IE10</a>
+<a title="Eclipse" href="http://www.csdn.net/tag/eclipse" target="_blank" onclick="LogClickCount(this,336);">Eclipse</a>
+<a title="CRM" href="http://www.csdn.net/tag/crm" target="_blank" onclick="LogClickCount(this,336);">CRM</a>
+<a title="JavaScript" href="http://www.csdn.net/tag/javascript" target="_blank" onclick="LogClickCount(this,336);">JavaScript</a>
+<a title="Ubuntu" href="http://www.csdn.net/tag/ubuntu" target="_blank" onclick="LogClickCount(this,336);">Ubuntu</a>
+<a title="NFC" href="http://www.csdn.net/tag/nfc" target="_blank" onclick="LogClickCount(this,336);">NFC</a>
+<a title="WAP" href="http://www.csdn.net/tag/wap" target="_blank" onclick="LogClickCount(this,336);">WAP</a>
+<a title="jQuery" href="http://www.csdn.net/tag/jquery" target="_blank" onclick="LogClickCount(this,336);">jQuery</a>
+<a title="数据库" href="http://www.csdn.net/tag/数据库" target="_blank" onclick="LogClickCount(this,336);">数据库</a>
+<a title="BI" href="http://www.csdn.net/tag/bi" target="_blank" onclick="LogClickCount(this,336);">BI</a>
+<a title="HTML5" href="http://www.csdn.net/tag/html5" target="_blank" onclick="LogClickCount(this,336);">HTML5</a>
+<a title="Spring" href="http://www.csdn.net/tag/spring" target="_blank" onclick="LogClickCount(this,336);">Spring</a>
+<a title="Apache" href="http://www.csdn.net/tag/apache" target="_blank" onclick="LogClickCount(this,336);">Apache</a>
+<a title="Hadoop" href="http://www.csdn.net/tag/hadoop" target="_blank" onclick="LogClickCount(this,336);">Hadoop</a>
+<a title=".NET" href="http://www.csdn.net/tag/.net" target="_blank" onclick="LogClickCount(this,336);">.NET</a>
+<a title="API" href="http://www.csdn.net/tag/api" target="_blank" onclick="LogClickCount(this,336);">API</a>
+<a title="HTML" href="http://www.csdn.net/tag/html" target="_blank" onclick="LogClickCount(this,336);">HTML</a>
+<a title="SDK" href="http://www.csdn.net/tag/sdk" target="_blank" onclick="LogClickCount(this,336);">SDK</a>
+<a title="IIS" href="http://www.csdn.net/tag/iis" target="_blank" onclick="LogClickCount(this,336);">IIS</a>
+<a title="Fedora" href="http://www.csdn.net/tag/fedora" target="_blank" onclick="LogClickCount(this,336);">Fedora</a>
+<a title="XML" href="http://www.csdn.net/tag/xml" target="_blank" onclick="LogClickCount(this,336);">XML</a>
+<a title="LBS" href="http://www.csdn.net/tag/lbs" target="_blank" onclick="LogClickCount(this,336);">LBS</a>
+<a title="Unity" href="http://www.csdn.net/tag/unity" target="_blank" onclick="LogClickCount(this,336);">Unity</a>
+<a title="Splashtop" href="http://www.csdn.net/tag/splashtop" target="_blank" onclick="LogClickCount(this,336);">Splashtop</a>
+<a title="UML" href="http://www.csdn.net/tag/uml" target="_blank" onclick="LogClickCount(this,336);">UML</a>
+<a title="components" href="http://www.csdn.net/tag/components" target="_blank" onclick="LogClickCount(this,336);">components</a>
+<a title="Windows Mobile" href="http://www.csdn.net/tag/windowsmobile" target="_blank" onclick="LogClickCount(this,336);">Windows Mobile</a>
+<a title="Rails" href="http://www.csdn.net/tag/rails" target="_blank" onclick="LogClickCount(this,336);">Rails</a>
+<a title="QEMU" href="http://www.csdn.net/tag/qemu" target="_blank" onclick="LogClickCount(this,336);">QEMU</a>
+<a title="KDE" href="http://www.csdn.net/tag/kde" target="_blank" onclick="LogClickCount(this,336);">KDE</a>
+<a title="Cassandra" href="http://www.csdn.net/tag/cassandra" target="_blank" onclick="LogClickCount(this,336);">Cassandra</a>
+<a title="CloudStack" href="http://www.csdn.net/tag/cloudstack" target="_blank" onclick="LogClickCount(this,336);">CloudStack</a>
+<a title="FTC" href="http://www.csdn.net/tag/ftc" target="_blank" onclick="LogClickCount(this,336);">FTC</a>
+<a title="coremail" href="http://www.csdn.net/tag/coremail" target="_blank" onclick="LogClickCount(this,336);">coremail</a>
+<a title="OPhone " href="http://www.csdn.net/tag/ophone " target="_blank" onclick="LogClickCount(this,336);">OPhone </a>
+<a title="CouchBase" href="http://www.csdn.net/tag/couchbase" target="_blank" onclick="LogClickCount(this,336);">CouchBase</a>
+<a title="云计算" href="http://www.csdn.net/tag/云计算" target="_blank" onclick="LogClickCount(this,336);">云计算</a>
+<a title="iOS6" href="http://www.csdn.net/tag/iOS6" target="_blank" onclick="LogClickCount(this,336);">iOS6</a>
+<a title="Rackspace " href="http://www.csdn.net/tag/rackspace " target="_blank" onclick="LogClickCount(this,336);">Rackspace </a>
+<a title="Web App" href="http://www.csdn.net/tag/webapp" target="_blank" onclick="LogClickCount(this,336);">Web App</a>
+<a title="SpringSide" href="http://www.csdn.net/tag/springside" target="_blank" onclick="LogClickCount(this,336);">SpringSide</a>
+<a title="Maemo" href="http://www.csdn.net/tag/maemo" target="_blank" onclick="LogClickCount(this,336);">Maemo</a>
+<a title="Compuware" href="http://www.csdn.net/tag/compuware" target="_blank" onclick="LogClickCount(this,336);">Compuware</a>
+<a title="大数据" href="http://www.csdn.net/tag/大数据" target="_blank" onclick="LogClickCount(this,336);">大数据</a>
+<a title="aptech" href="http://www.csdn.net/tag/aptech" target="_blank" onclick="LogClickCount(this,336);">aptech</a>
+<a title="Perl" href="http://www.csdn.net/tag/perl" target="_blank" onclick="LogClickCount(this,336);">Perl</a>
+<a title="Tornado" href="http://www.csdn.net/tag/tornado" target="_blank" onclick="LogClickCount(this,336);">Tornado</a>
+<a title="Ruby" href="http://www.csdn.net/tag/ruby" target="_blank" onclick="LogClickCount(this,336);">Ruby</a>
+<a title="Hibernate" href="http://www.csdn.net/hibernate" target="_blank" onclick="LogClickCount(this,336);">Hibernate</a>
+<a title="ThinkPHP" href="http://www.csdn.net/tag/thinkphp" target="_blank" onclick="LogClickCount(this,336);">ThinkPHP</a>
+<a title="Spark" href="http://www.csdn.net/tag/spark" target="_blank" onclick="LogClickCount(this,336);">Spark</a>
+<a title="HBase" href="http://www.csdn.net/tag/hbase" target="_blank" onclick="LogClickCount(this,336);">HBase</a>
+<a title="Pure" href="http://www.csdn.net/tag/pure" target="_blank" onclick="LogClickCount(this,336);">Pure</a>
+<a title="Solr" href="http://www.csdn.net/tag/solr" target="_blank" onclick="LogClickCount(this,336);">Solr</a>
+<a title="Angular" href="http://www.csdn.net/tag/angular" target="_blank" onclick="LogClickCount(this,336);">Angular</a>
+<a title="Cloud Foundry" href="http://www.csdn.net/tag/cloudfoundry" target="_blank" onclick="LogClickCount(this,336);">Cloud Foundry</a>
+<a title="Redis" href="http://www.csdn.net/tag/redis" target="_blank" onclick="LogClickCount(this,336);">Redis</a>
+<a title="Scala" href="http://www.csdn.net/tag/scala" target="_blank" onclick="LogClickCount(this,336);">Scala</a>
+<a title="Django" href="http://www.csdn.net/tag/django" target="_blank" onclick="LogClickCount(this,336);">Django</a>
+<a title="Bootstrap" href="http://www.csdn.net/tag/bootstrap" target="_blank" onclick="LogClickCount(this,336);">Bootstrap</a>
+    </div>
+</div>
+
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+            <div id="side">
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/gemmem" target="_blank">
+    <img src="http://avatar.csdn.net/F/C/8/1_gemmem.jpg" title="访问我的空间" style="max-width:90%"/>
+    </a>
+    <br />
+    <span><a href="http://my.csdn.net/gemmem" class="user_name" target="_blank">gemmem</a></span>
+</div>
+<div class="interact">
+<a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_guanzhu'])"></a>
+<a href="javascript:void(0);" class="letter" onclick="loginto(1)" title="[发私信]" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_sixin'])"></a>
+</div>
+<div id="blog_medal">
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>199145次</span></li>
+    <li>积分：<span>1392分</span></li>
+    <li>排名：<span>第10094名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>18篇</span></li>
+    <li>转载：<span>47篇</span></li>
+    <li>译文：<span>0篇</span></li>
+    <li>评论：<span>118条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字" /></span>
+        <input id="btnSubmit" type="submit" value="搜索" title="search in blog" />
+        <input type="hidden" name="q" id="inputQ" />
+        <input type="hidden" name="t" value="blog" />
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">
+             <li>
+                <a href="http://blog.csdn.net/gemmem/article/category/1079982" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">C/C++</a><span>(0)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/gemmem/article/category/1079973" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Android</a><span>(49)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/gemmem/article/category/1079979" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Java</a><span>(6)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/gemmem/article/category/1079974" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Linux</a><span>(7)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/gemmem/article/category/1079981" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Others</a><span>(2)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/gemmem/article/category/1092658" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Basis</a><span>(1)</span>
+            </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list">
+<!--归档统计-->
+<li><a href="http://blog.csdn.net/gemmem/article/month/2013/10">2013年10月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/gemmem/article/month/2013/09">2013年09月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/gemmem/article/month/2013/08">2013年08月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/gemmem/article/month/2013/07">2013年07月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/gemmem/article/month/2013/05">2013年05月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/gemmem/article/month/2013/04">2013年04月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/gemmem/article/month/2012/09">2012年09月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/gemmem/article/month/2012/08">2012年08月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/gemmem/article/month/2012/07">2012年07月</a><span>(10)</span></li><li><a href="http://blog.csdn.net/gemmem/article/month/2012/06">2012年06月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/gemmem/article/month/2012/05">2012年05月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/gemmem/article/month/2012/04">2012年04月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/gemmem/article/month/2012/03">2012年03月</a><span>(13)</span></li><li><a href="http://blog.csdn.net/gemmem/article/month/2012/02">2012年02月</a><span>(12)</span></li>
+</div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="/gemmem/article/details/7290125" title="git使用详细介绍">git使用详细介绍</a><span>(105352)</span>
+</li>
+<li>
+<a href="/gemmem/article/details/7321910" title="Android Scroller类的详细分析">Android Scroller类的详细分析</a><span>(19576)</span>
+</li>
+<li>
+<a href="/gemmem/article/details/7268533" title="ioctl()函数详解">ioctl()函数详解</a><span>(6625)</span>
+</li>
+<li>
+<a href="/gemmem/article/details/7715837" title="Android中使用硬件加速的技巧">Android中使用硬件加速的技巧</a><span>(4830)</span>
+</li>
+<li>
+<a href="/gemmem/article/details/7581456" title="Android PowerManagerService分析">Android PowerManagerService分析</a><span>(4405)</span>
+</li>
+<li>
+<a href="/gemmem/article/details/13017999" title="Android内存泄漏分析及调试">Android内存泄漏分析及调试</a><span>(4365)</span>
+</li>
+<li>
+<a href="/gemmem/article/details/7446421" title="android anr分析方法">android anr分析方法</a><span>(4173)</span>
+</li>
+<li>
+<a href="/gemmem/article/details/8920039" title="Android进程的内存管理分析">Android进程的内存管理分析</a><span>(3548)</span>
+</li>
+<li>
+<a href="/gemmem/article/details/7445313" title="adb 启动服务，发送广播">adb 启动服务，发送广播</a><span>(3213)</span>
+</li>
+<li>
+<a href="/gemmem/article/details/7932655" title="终止Android中HandlerThread的方法">终止Android中HandlerThread的方法</a><span>(2949)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="/gemmem/article/details/7321910" title="Android Scroller类的详细分析">Android Scroller类的详细分析</a><span>(68)</span>
+</li>
+<li>
+<a href="/gemmem/article/details/7290125" title="git使用详细介绍">git使用详细介绍</a><span>(16)</span>
+</li>
+<li>
+<a href="/gemmem/article/details/8920039" title="Android进程的内存管理分析">Android进程的内存管理分析</a><span>(7)</span>
+</li>
+<li>
+<a href="/gemmem/article/details/7932655" title="终止Android中HandlerThread的方法">终止Android中HandlerThread的方法</a><span>(7)</span>
+</li>
+<li>
+<a href="/gemmem/article/details/13017999" title="Android内存泄漏分析及调试">Android内存泄漏分析及调试</a><span>(4)</span>
+</li>
+<li>
+<a href="/gemmem/article/details/12008005" title="android heapStartSize heapMaximumSize heapGrowthLimit heapSize说明">android heapStartSize heapMaximumSize heapGrowthLimit heapSize说明</a><span>(3)</span>
+</li>
+<li>
+<a href="/gemmem/article/details/7290048" title="Android JNI编程提高篇之一">Android JNI编程提高篇之一</a><span>(3)</span>
+</li>
+<li>
+<a href="/gemmem/article/details/8859131" title="android安全：Android对开机自启动的限制">android安全：Android对开机自启动的限制</a><span>(2)</span>
+</li>
+<li>
+<a href="/gemmem/article/details/7446421" title="android anr分析方法">android anr分析方法</a><span>(2)</span>
+</li>
+<li>
+<a href="/gemmem/article/details/9291103" title="Android系统的性能调优参数介绍">Android系统的性能调优参数介绍</a><span>(2)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend"></ul>
+</div>
+<script type="text/javascript">
+ new Ad(12, 'ad_commend');
+</script><div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="/gemmem/article/details/8920039#comments">Android进程的内存管理分析</a>
+    <p style="margin:0px;"><a href="/gemmem" class="user_name">gemmem</a>:
+@gusui:不用谢！看了很多别人的文章，自己也该回馈一下子，哈哈。
+    </p>
+    </li>
+    <li>
+   
+         <a href="/gemmem/article/details/8920039#comments">Android进程的内存管理分析</a>
+    <p style="margin:0px;"><a href="/gusui" class="user_name">gusui</a>:
+多谢兄弟， 这篇文章和《Android内存泄漏分析及调试》对我帮忙很大啊。谢谢你。
+    </p>
+    </li>
+    <li>
+   
+         <a href="/gemmem/article/details/7290125#comments">git使用详细介绍</a>
+    <p style="margin:0px;"><a href="/gemmem" class="user_name">gemmem</a>:
+@eziowayne:不记得了。
+    </p>
+    </li>
+    <li>
+   
+         <a href="/gemmem/article/details/7290125#comments">git使用详细介绍</a>
+    <p style="margin:0px;"><a href="/eziowayne" class="user_name">eziowayne</a>:
+内个。。原文是你写的是吗？那把地址放出来把，这个格式不是很容易看而且图挂了，谢谢！
+    </p>
+    </li>
+    <li>
+   
+         <a href="/gemmem/article/details/7321910#comments">Android Scroller类的详细分析</a>
+    <p style="margin:0px;"><a href="/gemmem" class="user_name">gemmem</a>:
+@u012557641:谢谢！
+    </p>
+    </li>
+    <li>
+   
+         <a href="/gemmem/article/details/7321910#comments">Android Scroller类的详细分析</a>
+    <p style="margin:0px;"><a href="/u012557641" class="user_name">u012557641</a>:
+看到博主这样的好文章，我就忍不住要赞一下！
+    </p>
+    </li>
+    <li>
+   
+         <a href="/gemmem/article/details/7321910#comments">Android Scroller类的详细分析</a>
+    <p style="margin:0px;"><a href="/gemmem" class="user_name">gemmem</a>:
+@fancylovejava:draw是自上而下的过程，父view拿到子view的实例，调用子vie...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/gemmem/article/details/7321910#comments">Android Scroller类的详细分析</a>
+    <p style="margin:0px;"><a href="/gemmem" class="user_name">gemmem</a>:
+@fancylovejava:我一直在搞android啊，不过现在项目忙，没时间和精力写。
+    </p>
+    </li>
+    <li>
+   
+         <a href="/gemmem/article/details/7321910#comments">Android Scroller类的详细分析</a>
+    <p style="margin:0px;"><a href="/fancylovejava" class="user_name">fancylovejava</a>:
+龙哥啊，还有个你这里不能说是因为drawChild里面会调用child.computeScroll(...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/gemmem/article/details/7321910#comments">Android Scroller类的详细分析</a>
+    <p style="margin:0px;"><a href="/fancylovejava" class="user_name">fancylovejava</a>:
+Right，最近被段代码搞糊涂了，看来要记住ScrollTo移动的是view的content的位置。...
+    </p>
+    </li>
+</ul>
+</div>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+
+            <div class="clear">
+            </div>
+        </div>
+        
+
+<script type="text/javascript" src="http://csdnimg.cn/rabbit/cnick/cnick.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="http://medal.blog.csdn.net/showblogmedal.ashx?blogid=994461"></script>
+<script type="text/javascript">
+    document.write('<script type="text/javascript" src="http://csdnimg.cn/pubfooter/js/publib_footer.js?' + Math.floor(new Date() / 120000).toString(36) + '="></' + 'script>');
+</script>
+    <script type="text/javascript" src="http://passport.csdn.net/content/loginbox/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script>
+<script type="text/javascript" src="http://www.csdn.net/ui/scripts/Csdn/counter.js"></script>
+<script type="text/javascript" src="http://ad.csdn.net/scripts/ad-blog.js"></script>
+<script type="text/javascript" src="http://zz.csdn.net/js/count.js"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a>"
+                    + "<a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+    });
+</script>
+
+    </div>
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnId="header_notice_num" wrapId="note1" count="5" subCount="5" type="text/javascript" src="http://static.csdn.net/public/common/toolbar/js/toolbar.js"></script>     <!--new top-->
+</body>
+</html>

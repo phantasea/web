@@ -1,0 +1,281 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<link rel="stylesheet" href="/style.css" type="text/css" />
+
+
+<title>用markdown + pandoc + makefile + git(github)搭建免费个人wiki</title>
+<meta name="keywords" content="markdown,pandoc,wiki,vim,github">
+
+</head>
+
+
+<body>
+<div id="wrapper">
+
+<div id="header">
+    <p class="header_titleline">Mike的分享空间</p>
+    <p class="header_subline"><a href="/index.html">首页</a></p>
+</div>
+<h1>用markdown + pandoc + makefile + git(github)搭建免费个人wiki</h1>
+<p>date: 2013.06.28; modification:2014.10.07</p>
+
+ <!--if(title)-->
+
+<p>目录:</p>
+<div id="TOC">
+<ul>
+<li><a href="#前言"><span class="toc-section-number">1</span> 前言</a></li>
+<li><a href="#基本原理"><span class="toc-section-number">2</span> 基本原理</a></li>
+<li><a href="#使用方法"><span class="toc-section-number">3</span> 使用方法</a></li>
+<li><a href="#相关知识"><span class="toc-section-number">4</span> 相关知识:</a></li>
+<li><a href="#makefile解析"><span class="toc-section-number">5</span> makefile解析</a></li>
+<li><a href="#在vim中使用"><span class="toc-section-number">6</span> 在Vim中使用</a></li>
+<li><a href="#firefox中自动刷新"><span class="toc-section-number">7</span> Firefox中自动刷新</a></li>
+</ul>
+</div>
+ <!--if(toc)-->
+
+<!---title:用markdown + pandoc + makefile + git(github)搭建免费个人wiki-->
+<!---keywords:markdown,pandoc,wiki,vim,github-->
+<!---date:2013.06.28; modification:2014.10.07-->
+
+<p>以前用过各种工具, 记笔记写文章, 但都不是特别理想. 所以自己用markdown + pandoc + makefile + git(github)倒腾出一套符合自己需求的工具(其实叫做方法更合适, 因为工具都现成的, 只是组合而已). 先拿出来与大家分享, 并尽量详细解释.</p>
+<h1 id="前言"><span class="header-section-number">1</span> 前言</h1>
+<p>以前用过的各种工具, 它们各自的优缺点如下:</p>
+<table>
+    <tr>
+        <th>
+工具
+</th>  <th>
+优点
+</th>  <th>
+缺点
+</th>
+    </tr>
+    <tr>
+        <td>
+现成的博客(网易,新浪等)
+</td>  <td>
+简单
+</td>  <td>
+过于依赖于服务器, 文章的系统性不强, 无版本管理
+</td>
+    </tr>
+    <tr>
+        <td>
+wordpress
+</td>  <td>
+可以自主定制
+</td>  <td>
+过于依赖于服务器, 文章的系统性不强, 无版本管理
+</td>
+    </tr>
+    <tr>
+        <td>
+evernote
+</td>  <td>
+简单方便, 非常适合于做笔记.
+</td>  <td>
+用户粘性大, 无版本管理.
+</td>
+    </tr>
+    <tr>
+        <td>
+mediawiki
+</td>  <td>
+文章系统性强
+</td>  <td>
+过于依赖服务器
+</td>
+    </tr>
+    <tr>
+        <td>
+vimwiki
+</td>  <td>
+使用起来近乎完美
+</td>  <td>
+用户粘性大, 语法与工具不通用
+</td>
+    </tr>
+    <tr>
+        <td>
+github+jekyll
+</td>  <td>
+方便的版本管理.
+</td>  <td>
+模版是借助第三方的, 所以个人不太喜欢. 且需要服务器提供jekyll服务来渲染. 如果和我的需求类似, 但是用不习惯makefile, 那么这个应该是最好的选择了.
+</td>
+    </tr>
+</table>
+
+
+<p>曾经以为vimwiki是一个比较适合我的工具, 因为我一直在用vim, 所以vimwiki用起来比较顺手. 但是后来发现了一个问题, vimwiki用的语法不是通用的标准, 而且他的转化工具是vim内部脚本. 所以如果以后写的文章多了, 再行改其他的工具, 这个转化过程会是非常痛苦的.</p>
+<p>所以总结了一下我个人对于笔记/wiki工具的需求:</p>
+<ul>
+<li>基于通用的语法协议编写, 具有通用的工具处理, 如textile, markdown, html等. 而且尽量原生(易于移植).</li>
+<li>页面的排版要能体现知识的系统性.</li>
+<li>可以转化为静态html用于网站发布.
+<ul>
+<li>具备自动生成目录功能.</li>
+<li>页眉页脚与配色方案等可以独立于每篇文章作成模板.</li>
+</ul></li>
+<li>本地与在线都能使用.</li>
+<li>编辑功能:
+<ul>
+<li>标题</li>
+<li>段落</li>
+<li>代码高亮(程序员必需)</li>
+<li>具备2种以上加重功能, 包括粗体, 颜色</li>
+<li>表格</li>
+<li>列表: 有序 and 无序</li>
+<li>具备类似pre的原样输出功能</li>
+<li>内容与样式最好分离, 写作专注于是什么而不是长啥样. 也便于wiki站点整体风格统一.</li>
+<li>所见即所得(非必须)</li>
+</ul></li>
+<li>便于自主定制</li>
+<li>保存:
+<ul>
+<li>通用的文件格式, 文本文件最好.</li>
+<li>具有版本管理: 不会担心什么误操作把辛苦多年的积累给干掉.</li>
+<li>版本管理工具最好是分布式的, 不依赖于服务器, 这样费用就低, 离线使用也方便.</li>
+</ul></li>
+</ul>
+<p>基于以上需求, 我自己用markdown + pandoc + makefile + git(github)倒腾出一套符合自己需求的工具(其实叫平台或者方法更合适, 因为工具都现成的, 只是组合而已). 不过这种用很多小工具组合成平台的方法, 也正体现了unix的哲学之一: 个体很渺小, 联合很强大.</p>
+<p>我的这套平台具有以下特点:</p>
+<p><strong>优点:</strong></p>
+<ul>
+<li>markdown是通用的语法标准. 而且兼容html的语法.</li>
+<li>makefile和git是通用的工具.</li>
+<li>pandoc可以将markdown转化为多种标记语言, 从而不会被markdown限制住.</li>
+<li>pandoc在转化html时进行了模版扩展, 丰富了页面的外观, 而且这些扩展又很容易被取代, 所以降低了粘性.</li>
+<li>在线与离线都能用.</li>
+<li>具备一个检查无效链接的工具, 这在重命名文件或者移动页面路径的时候很有用.</li>
+<li>跨平台. 对于本地使用来说, 基本上几个主流系统都有gnu的开发环境可以安装. 对于在线版本, 因为make出来的就是静态html, 所以随便找个服务器或者什么主机空间就能发布. github更是提供带git功能的免费发布平台.</li>
+</ul>
+<p><strong>缺点:</strong></p>
+<ul>
+<li>需要使用命令行. 但是其实也就那么几条命令.</li>
+<li>padoc对表格的扩展, 并非通用语法. 但是这个我可以忍受. 如果您觉得不爽, 也可以直接用html的表格语法(这在网上拷贝某个表格的时候尤其方便).</li>
+</ul>
+<h1 id="基本原理"><span class="header-section-number">2</span> 基本原理</h1>
+<ol style="list-style-type: decimal">
+<li>将用markdown写的文章或者笔记保存为.mkd文件, 并在本地按照知识体系安排好文件夹层次. mtd语法请参照: <a href="markdown_syntax.html">markdown语法</a></li>
+<li>用makefile调用pandoc, 并套用pandoc模版, 生成html. 请参考: <a href="pandoc_template.html">pandoc模板</a> 以及下文的makefile分析部分.</li>
+<li>用git上传到github进行在线发表. 如果你有兴趣的话github还能绑定自己的域名. 请参考: <a href="github_page.html">github发布个人wiki</a></li>
+</ol>
+<p>这样, 本地笔记和在线wiki就都有了.</p>
+<h1 id="使用方法"><span class="header-section-number">3</span> 使用方法</h1>
+<ol style="list-style-type: decimal">
+<li>使用前提: 先安装make, pandoc, git. windows下可以使用cygwin模拟.</li>
+<li>下载: <a href="mikewikisample.tar.gz">示例包</a></li>
+<li>将示例包中的makefile与index.mkd放在同级目录, 并置于将要发布的网站的顶级目录(因为其他页面都是从此向子目录搜索编译的).</li>
+<li>键入make, 回车. 生成html.</li>
+<li>假如这些文章已经被git管理, 则可以用git push到github进行发表.</li>
+</ol>
+<h1 id="相关知识"><span class="header-section-number">4</span> 相关知识:</h1>
+<ul>
+<li>html/css入门: http://www.w3school.com.cn/</li>
+<li>makefile入门: http://wiki.ubuntu.org.cn/%E8%B7%9F%E6%88%91%E4%B8%80%E8%B5%B7%E5%86%99Makefile</li>
+<li>git使用入门: http://www.uml.org.cn/pzgl/201204285.asp</li>
+</ul>
+<h1 id="makefile解析"><span class="header-section-number">5</span> makefile解析</h1>
+<p>通过分析makefile, 便可了解本方法的核心原理. 从而定制出符合您自己需求的工具版本.</p>
+<p>请查看上面的示例包中的makefile的源文件, 对照里面的注释即可看懂. 如果看不懂, 就参考上面的makefile入门的链接.</p>
+<p><em>至此全部和wiki本身相关的内容已经介绍完毕. 接下来会介绍一些vim中使用的扩展技巧, 如果对vim没有兴趣, 可以到此结束</em></p>
+<h1 id="在vim中使用"><span class="header-section-number">6</span> 在Vim中使用</h1>
+<p>本节包含:</p>
+<ul>
+<li>vim语法高亮</li>
+<li>vim保存时自动更新时间</li>
+<li>vim保存时自动make</li>
+</ul>
+<p>首先, 我安装了叫做markdown的vim语法高亮插件: <a href="https://github.com/plasticboy/vim-markdown">vim-markdown</a></p>
+<p>然后, 将下面的这几段脚本保存为mkd.vim放到vim runtime路径下的ftplugin下, 这样, 会自动匹配扩展名为mkd的文件, 其他文件不受影响.</p>
+<p>我尽量加了详细的注释, 大家可以根据需要修改. 修改可以参考: <a href="http://doc.linuxpk.com/doc/vim/usr_41.html#usr_41.txt">编写Vim脚本</a>. 以该链接作为参考字典, 只要稍微有点编程知识就能自行修改了.</p>
+<p>这几句使其不会因为重复加载该脚本而报错:</p>
+<pre><code>if exists(&quot;loaded_MikeWiki&quot;)
+    finish
+endif
+let loaded_MikeWiki = 1</code></pre>
+<p>这是自动跳转到站内链接的:</p>
+<pre><code>&quot; ------------------------------------------------------------------------------
+&quot; 按回车键自动跳到光标所在的站内wiki链接(光标需要放在链接xxx/xxxx.html上)
+func! MikewikiEnterWikiPage()
+    let l:lineBuffer = expand(&quot;&lt;cWORD&gt;&quot;)                                                &quot; 获取光标所在处的链接字符串
+    let l:localLink = substitute(l:lineBuffer, &#39;.*\](\(.*\).html).*&#39;, &#39;\1.mkd&#39;, &quot;g&quot;)    &quot; 将链接中的.html改为.mkd.
+    let l:hasLink = match(l:lineBuffer, &#39;.\+.html&#39;)                                     &quot; 匹配是否存在.html...
+    if l:hasLink == 0                                                                   &quot; ...如果存在才跳转
+        &quot; 检测目标文件所在文件夹是否存在, 如果不存在则创建
+        let l:localLinkDir = substitute(system(&quot;dirname &quot;.l:localLink), &#39;\n&#39;, &#39;&#39;, &quot;g&quot;)
+        let l:localLinkDirExist = isdirectory(l:localLinkDir)
+        if !l:localLinkDirExist
+            exec &quot;!mkdir -p &quot;.l:localLinkDir           &quot; 这里的mkdir如果使用的不是linux可以自行修改为别的命令.
+                &quot; ^ 此处我故意没加silent, 所以创建时会停在提示栏, 按任意键才继续, 因为个人认为创建目录是一件谨慎的事.
+                &quot; 如果觉得麻烦, 可以改为exec &quot;silent !mkdir -p &quot;.l:localLinkDir, 就自动继续了.
+        endif
+
+        exec &quot;vi &quot;.l:localLink                         &quot; 打开(跳转到)目标文件xxx/xxxx.mkd
+    endif
+endfunc
+nmap &lt;buffer&gt; &lt;cr&gt; :call MikewikiEnterWikiPage()&lt;CR&gt;   &quot; 映射为回车, 可以自行修改</code></pre>
+<p>这是在文件保存时候自动更新时间:</p>
+<pre><code>&quot; ------------------------------------------------------------------------------
+&quot; 更新日期: 会将.mkd文件中的&lt;!---date--&gt;或者&lt;!---date:yyyy.mm.dd--&gt;替换为当前日期
+&quot; 有了这个就很容易实现在make时候向html中更新日期.
+func! MikewikiUpdateDatetime()
+    exec &quot;norm mz&quot;
+    exec &#39;%s/^&lt;!---date\(.*\)--&gt;.*/&lt;!---date:&#39;.strftime(&quot;%Y.%m.%d&quot;).&quot;--&gt;&quot;.&quot;/e&quot;
+                                                                &quot; ^ 如果需要时间可以加上 %H:%M:%S
+    exec &quot;norm `z&quot;
+endfunc
+au BufWritePre *.mkd call MikewikiUpdateDatetime()</code></pre>
+<p>这是在文件保存时候自动make的:</p>
+<pre><code>&quot; make, 判断如果当前目录下存在makefile(注意大小写)则执行外部命令make.
+func! MikewikiMake()
+    if filereadable(&quot;makefile&quot;)
+        exec &quot;silent !make&quot;
+    endif
+endfunc
+
+&quot; 设置为在*.mkd后缀的文件, 当保存时候起效果:
+au BufWritePost *.mkd call MikewikiMake()</code></pre>
+<h1 id="firefox中自动刷新"><span class="header-section-number">7</span> Firefox中自动刷新</h1>
+<p>如果用vim编辑的话, 虽然按照上述方法可以自动make, 但是还有一个问题就是无法所见及所得, 我会在写作的过程中不断的切换到firefox来手动刷新看效果. 感觉很麻烦.</p>
+<p>后来发现了一个firefox自动刷新的插件: reload every. 可以自动刷新页面.</p>
+<p>使用方法就是安装之后, 在页面<code>右键-&gt;reload every</code>, 然后选启用, 就可以不断刷新了, 也可以自定义刷新间隔(建议<code>&gt;=3s</code>). 现在我在vim中一保存, firefox那边基本就能看到效果. 这样类似半所见即所得, 写作时感觉响当相当的行云流水.</p>
+<p>注: 这个插件好像有点问题, 我设置成2秒的时间间隔, 就刷不出效果来了. 所以我最小就设为3秒. 而且有时css修改后也刷不出效果, 手动刷一下就好了.</p>
+<!-- vim:set tw=0:-->
+
+<div id="footer">
+    <p class="footer_titleline">Human knowledge belongs to the world</p>
+    <p class="footer_subline">Contact: wytabc@126.com</p>
+    <p class="footer_subline">声明: 本站如有侵权行为请及时通知至以上邮箱</p>
+</div>
+<!--Baidu tongji-->
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fcb5b32b959ab6deadbf7373854572a73' type='text/javascript'%3E%3C/script%3E"));
+</script> <!--Baidu tongji-->
+</div> <!--wrapper-->
+
+<!--SyntaxHighlighter-->
+<script type="text/javascript" src="/scripts/shCore.js"></script>
+<script type="text/javascript" src="/scripts/shBrushBash.js"></script>
+<script type="text/javascript" src="/scripts/shBrushPython.js"></script>
+<script type="text/javascript" src="/scripts/shBrushCpp.js"></script>
+<script type="text/javascript" src="/scripts/shBrushJScript.js"></script>
+<script type="text/javascript" src="/scripts/shBrushJava.js"></script>
+<script type="text/javascript" src="/scripts/shBrushXml.js"></script>
+<link type="text/css" rel="stylesheet" href="/styles/shCoreFadeToGrey.css"/>
+<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+</body>
+</html>

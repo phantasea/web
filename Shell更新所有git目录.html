@@ -1,0 +1,509 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>shell 更新所有git目录 - gavin的技术博客 java python nosql 分布式 缓存  - ITeye技术网站</title>
+    <meta name="description" content="有时候，很久不接触的项目，突然要更新使用，而又懒的一个目录一个目录的去做更新处理，顾整理了一个shell脚本来做处理，同时也做为之前写的一篇文章的更新吧！链接 ：http://genggeng.iteye.com/blog/1128679     代码如下：     #!/bin/bash -x     PROJECTS_DIR=/home/gavingeng/projects/email    f ..." />
+    <meta name="keywords" content="shell git shell 更新所有git目录" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="search" type="application/opensearchdescription+xml" href="/open_search.xml" title="ITeye" />
+    <link href="/rss" rel="alternate" title="gavin的技术博客 java python nosql 分布式 缓存 " type="application/rss+xml" />
+    <link href="http://www.iteye.com/stylesheets/blog.css?1423624400" media="screen" rel="stylesheet" type="text/css" />
+<link href="http://www.iteye.com/stylesheets/themes/blog/blue.css?1326191326" media="screen" rel="stylesheet" type="text/css" />
+    <script src="http://www.iteye.com/javascripts/application.js?1358214518" type="text/javascript"></script>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-535605-1']);
+  _gaq.push(['_setDomainName', 'iteye.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+      <link href="http://www.iteye.com/javascripts/syntaxhighlighter/SyntaxHighlighter.css?1348819953" media="screen" rel="stylesheet" type="text/css" />
+  <script src="http://www.iteye.com/javascripts/syntaxhighlighter/shCoreCommon.js?1325907333" type="text/javascript"></script>
+<script src="http://www.iteye.com/javascripts/hotkey.js?1324994303" type="text/javascript"></script>
+  <script src="http://www.iteye.com/javascripts/code_favorites.js?1358214518" type="text/javascript"></script>
+<script src="http://www.iteye.com/javascripts/weiboshare.js?1324994303" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div id="blog_site_nav">
+  <a href="http://www.iteye.com/" class="homepage">首页</a>
+  <a href="http://www.iteye.com/news">资讯</a>
+  <a href="http://www.iteye.com/magazines">精华</a>
+  <a href="http://www.iteye.com/forums">论坛</a>
+  <a href="http://www.iteye.com/ask">问答</a>
+  <a href="http://www.iteye.com/blogs">博客</a>
+  <a href="http://www.iteye.com/blogs/subjects">专栏</a>
+  <a href="http://www.iteye.com/groups">群组</a>
+  <a href="#" onclick="return false;" id="msna"><u>更多</u> <small>▼</small></a>
+  <div class="quick_menu" style="display:none;">
+    <a target="_blank" href="http://job.iteye.com/iteye">招聘</a>
+    <a href="http://www.iteye.com/search">搜索</a>
+  </div>
+</div>
+
+      <div id="user_nav">
+      <a href="/login" class="welcome" title="登录">您还未登录 !</a>
+    <a href="/login">登录</a>
+    <a href="/signup" class="nobg">注册</a>
+  </div>
+
+    </div>
+
+    <div id="page">
+      <div id="branding" class="clearfix">
+        <div id="blog_name">
+          <h1><a href="/">gavin的技术博客 java python nosql 分布式 缓存 </a></h1>
+        </div>
+        <div id='fd'></div>
+        <div id="blog_navbar">
+          <ul>
+            <li class='blog_navbar_for'><a href="http://genggeng.iteye.com"><strong>博客</strong></a></li>
+            <li ><a href="/weibo">微博</a></li>
+            <li ><a href="/album">相册</a></li>
+            <li ><a href="/link">收藏</a></li>
+            <li ><a href="/blog/guest_book">留言</a></li>
+            <li ><a href="/blog/profile">关于我</a></li>
+          </ul>
+    
+          <div class="search">
+            <form action="/blog/search" method="get">
+              <input class="search_text" id="query" name="query" style="margin-left: 10px;width: 110px;" type="text" value="" />
+              <input class="submit_search" type="submit" value="" />
+            </form>
+          </div> 
+          <div id="fd"></div>         
+        </div>
+      </div>
+      
+      <div id="content" class="clearfix">
+        <div id="main">
+          
+
+
+
+          
+
+
+<div class="h-entry" style='display:none'>
+  <a href="http://genggeng.iteye.com" class="p-author" target="_blank">genggeng</a>
+</div>
+
+
+<div class="blog_main">
+  <div class="blog_title">
+    <h3>
+      <a href="/blog/1211693">shell 更新所有git目录</a>
+      <em class="actions">      </em>
+    </h3>
+    <ul class='blog_categories'><strong>博客分类：</strong> <li><a href="/category/164371">linux ubuntu</a></li><li><a href="/category/179760">shell</a></li> </ul>
+        <div class='news_tag'><a href="http://www.iteye.com/blogs/tag/shell%20git">shell git</a>&nbsp;</div>
+  </div>
+
+  <div id="blog_content" class="blog_content">
+    <p>有时候，很久不接触的项目，突然要更新使用，而又懒的一个目录一个目录的去做更新处理，顾整理了一个shell脚本来做处理，同时也做为之前写的一篇文章的更新吧！<a target="_blank" title="链接" href="/blog/1128679">链接</a> ：<a style="direction: ltr;" href="/blog/1128679">http://genggeng.iteye.com/blog/1128679</a></p>
+<p> </p>
+<p>代码如下：</p>
+<p> </p>
+<pre class="shell" name="code">#!/bin/bash -x 
+
+PROJECTS_DIR=/home/gavingeng/projects/email
+
+function update_all()
+{
+    for d in `ls`
+    do  
+    #  echo $d;  
+        cd $PROJECTS_DIR/$d
+        echo "update project:current_dir: $PWD"
+        `git pull` &gt;&gt;/home/gavingeng/tmp/test.log 2&gt;&amp;1 &amp; 
+        sleep 5
+        echo "update success  ^_^"
+    done
+}
+
+function update()
+{
+    echo "hello ,u can update"  
+    `git pull` &gt;&gt;/tmp/test.log 2&gt;&amp;1 &amp;
+    echo "update success  ^_^"
+}
+
+cd $PROJECTS_DIR
+
+if [ -z  "$1"  ];then
+    update_all
+elif [ -d  "$PROJECTS_DIR/$1" ];then
+    cd $PROJECTS_DIR/$1
+    echo $PWD
+    update
+else
+    echo "not exist \"$PROJECTS_DIR/$1\""
+    exit 0;
+fi
+</pre>
+<p> </p>
+<p>在做git更新时，若没有更新，就会出现"Already date to date"，这里将它重定向到日志中做处理</p>
+<p> </p>
+<p>今天又对脚本进行了更新、处理，如下：</p>
+<p> </p>
+<pre class="shell" name="code">#!/bin/bash -x 
+
+PROJECTS_DIR=/home/gavingeng/projects/email
+
+##排除以下情况：
+##1.非目录
+##2.非git目录
+
+function is_git_dir(){
+    param=`find $PWD -name ".git"`
+    if [ -z "$param" ];then
+	return 1 #1为假
+    else
+	return 0 #0为真
+    fi    
+}
+
+function update_all()
+{
+    for d in `ls`
+    do
+    	if [ -d "$PROJECTS_DIR/$d" ];then
+	    #  echo $d;  
+            cd $PROJECTS_DIR/$d
+
+	    if is_git_dir $PWD;then
+  	    	echo "update project:current_dir: $PWD"
+  	    	`git pull` &gt;&gt;/home/gavingeng/tmp/test.log 2&gt;&amp;1 &amp; 
+   	    	sleep 5
+  	    	echo "update success  ^_^"
+	    else
+		echo "$PWD is not a git dir!"
+	    fi
+	else
+	    echo "$d is not a dirctory"
+	fi
+    done
+}
+
+function update()
+{
+    echo "hello ,u can update"	
+    `git pull` &gt;&gt;/tmp/test.log 2&gt;&amp;1 &amp;
+    echo "update success  ^_^"
+}
+
+
+cd $PROJECTS_DIR
+
+if [ -z  "$1"  ];then
+    update_all
+elif [ -d  "$PROJECTS_DIR/$1" ];then
+    cd $PROJECTS_DIR/$1
+    echo $PWD
+    if is_git_dir $PWD;then
+  	  update
+    else
+	echo "$PWD is not a git dir!"
+    fi
+else
+    echo "not exist \"$PROJECTS_DIR/$1\""
+    exit 0;
+fi
+
+</pre>
+ 
+<p>改完后，发现if/else逻辑更多了，该想想如何去改了......</p>
+<p> </p>
+<p> </p>
+  </div>
+
+  
+
+  
+  
+  <IFRAME SRC="/iframe_ggbd/187" SCROLLING=no WIDTH=468 HEIGHT=60 FRAMEBORDER=0></IFRAME>
+  
+  <div id="bottoms" class="clearfix">
+    
+    <div id="share_weibo">分享到：
+      <a data-type='sina' href="javascript:;" title="分享到新浪微博"><img src="/images/sina.jpg"></a>
+      <a data-type='qq' href="javascript:;" title="分享到腾讯微博"><img src="/images/tec.jpg"></a>
+    </div>
+  </div>
+
+  <div class="blog_nav">
+    <div class="pre_next">
+      <a href="/blog/1222981" class="next" title="shell处理字符编码">shell处理字符编码</a>
+      |
+      <a href="/blog/1199138" class="pre" title="mysql:ERROR 1045 (28000): Access denied for user">mysql:ERROR 1045 (28000): Access denied  ...</a>
+    </div>
+  </div>
+  <div class="blog_bottom">
+    <ul>
+      <li>2011-10-24 22:32</li>
+      <li>浏览 1952</li>
+      <li><a href="#comments">评论(0)</a></li>
+      
+      
+      <li>分类:<a href="http://www.iteye.com/blogs/category/language">编程语言</a></li>      
+      <li class='last'><a href="http://www.iteye.com/wiki/blog/1211693" target="_blank" class="more">相关推荐</a></li>
+    </ul>
+  </div>
+
+  <div class="blog_comment">
+    <h5>评论</h5>
+    <a id="comments" name="comments"></a>
+    
+    
+    
+  </div>
+
+  <div class="blog_comment">
+    <h5>发表评论</h5>
+            <p style="text-align:center; margin-top:30px;margin-bottom:0px;"><a href="/login" style="background-color:white;"> <img src="/images/login_icon.png" style="vertical-align:middle; margin-right: 10px;" /></a><a href="/login">  您还没有登录,请您登录后再发表评论 </a></p>
+      </div>
+</div>
+
+
+<script type="text/javascript">
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  $$('#main .blog_content pre[name=code]').each(function(pre, index){ // blog content
+    var post_id = 1211693;
+    var location = window.location;
+    source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+    pre.writeAttribute('codeable_id', post_id);
+    pre.writeAttribute('codeable_type', "Blog");
+    pre.writeAttribute('source_url', source_url);
+    pre.writeAttribute('pre_index', index);
+    pre.writeAttribute('title', 'shell 更新所有git目录');
+  });
+
+  fix_image_size($$('div.blog_content img'), 700);
+
+  function processComment() {
+    $$('#main .blog_comment > div').each(function(comment){// comment
+      var post_id = comment.id.substr(2);
+      $$("#"+comment.id+" pre[name=code]").each(function(pre, index){
+        var location = window.location;
+        source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+        source_url += "#" + comment.id;
+        pre.writeAttribute('codeable_id', post_id);
+        pre.writeAttribute('codeable_type', "BlogComment");
+        pre.writeAttribute('source_url', source_url);
+        pre.writeAttribute('pre_index', index);
+        pre.writeAttribute('title', 'shell 更新所有git目录');
+      });
+    });
+  }
+
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+      parameters: {'id':id, 'type':'BlogComment'},
+      onSuccess:function(response){editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);
+        Element.scrollTo(editor.bbcode_editor.textarea.element);}
+    });
+  }
+
+  code_favorites_init();
+  processComment();
+  new WeiboShare({share_buttons: $('share_weibo'), img_scope: $('blog_content')});
+</script>
+
+
+
+
+        </div>
+
+        <div id="local">
+          <div class="local_top"></div>
+          <div id="blog_owner">
+  <div id="blog_owner_logo"><a href='http://genggeng.iteye.com'><img alt="genggeng的博客" class="logo" src="http://www.iteye.com/upload/logo/user/519841/46a5d773-a704-343a-8b91-738e6329c1fd.gif?1311005352" title="genggeng的博客: gavin的技术博客 java python nosql 分布式 缓存 " width="" /></a></div>
+  <div id="blog_owner_name">genggeng</div>
+</div>
+
+          <div id="blog_actions">
+            <ul>
+              <li>浏览: 70525 次</li>
+              <li>性别: <img alt="Icon_minigender_1" src="http://www.iteye.com/images/icon_minigender_1.gif?1324994303" title="男" /></li>
+              <li>来自: 北京</li>
+              <li><img src='/images/status/offline.gif'/></li>
+              
+            </ul>
+          </div>
+          <div id="user_visits" class="clearfix">
+            <h5>最近访客 <span style='font-weight:normal;font-size:12px;padding-left:30px;'><a href="/blog/user_visits">更多访客&gt;&gt;</a></span></h5>
+            
+              <div class="user_visit">
+                <div class="logo"><a href='http://yanghua1990424.iteye.com' target='_blank'><img alt="yanghua1990424的博客" class="logo" src="http://www.iteye.com/images/user-logo-thumb.gif?1324994303" title="yanghua1990424的博客: " width="48px" /></a></div>
+                <div class="left"><a href='http://yanghua1990424.iteye.com' target='_blank' title='yanghua1990424'>yanghua1990424</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href='http://dylinshi126.iteye.com' target='_blank'><img alt="dylinshi126的博客" class="logo" src="http://www.iteye.com/images/user-logo-thumb.gif?1324994303" title="dylinshi126的博客: " width="48px" /></a></div>
+                <div class="left"><a href='http://dylinshi126.iteye.com' target='_blank' title='dylinshi126'>dylinshi126</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href='http://woailuohui5520-163-com.iteye.com' target='_blank'><img alt="我爱罗我爱罗的博客" class="logo" src="http://www.iteye.com/images/user-logo-thumb.gif?1324994303" title="我爱罗我爱罗的博客: " width="48px" /></a></div>
+                <div class="left"><a href='http://woailuohui5520-163-com.iteye.com' target='_blank' title='我爱罗我爱罗'>我爱罗我爱罗</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href='http://ch-reynold.iteye.com' target='_blank'><img alt="ch_reynold的博客" class="logo" src="http://www.iteye.com/upload/logo/user/312742/8afd7146-b3f4-3eac-91d9-b99d262d88ae-thumb.jpg?1284795984" title="ch_reynold的博客: " width="48px" /></a></div>
+                <div class="left"><a href='http://ch-reynold.iteye.com' target='_blank' title='ch_reynold'>ch_reynold</a></div>
+              </div>
+            
+          </div>
+
+          
+
+                      <div id="blog_menu">
+              <h5>文章分类</h5>
+              <ul>
+                <li><a href="/">全部博客 (66)</a></li>
+                
+                  <li><a href="/category/163152">linux (9)</a></li>
+                
+                  <li><a href="/category/164371">linux ubuntu (12)</a></li>
+                
+                  <li><a href="/category/165658">python (10)</a></li>
+                
+                  <li><a href="/category/165833">python java (1)</a></li>
+                
+                  <li><a href="/category/167441">git (2)</a></li>
+                
+                  <li><a href="/category/167535">nginx (5)</a></li>
+                
+                  <li><a href="/category/177194">python nosql (1)</a></li>
+                
+                  <li><a href="/category/179760">shell (19)</a></li>
+                
+                  <li><a href="/category/183469">mysql (2)</a></li>
+                
+                  <li><a href="/category/185995">memcache (1)</a></li>
+                
+                  <li><a href="/category/186289">java (3)</a></li>
+                
+                  <li><a href="/category/188321">linux ubuntu vi (1)</a></li>
+                
+                  <li><a href="/category/190385">db (1)</a></li>
+                
+                  <li><a href="/category/197809">hadoop (1)</a></li>
+                
+                  <li><a href="/category/214089">ubuntu iphone (0)</a></li>
+                
+                  <li><a href="/category/217209">ubuntu (1)</a></li>
+                
+              </ul>
+            </div>
+            <div id='month_blogs'>
+              <h5>社区版块</h5>
+              <ul>
+                <li><a href="/blog/news">我的资讯</a> (0)</li>
+                <li>
+                  <a href="/blog/post">我的论坛</a> (57)
+                </li>
+                <li><a href="/blog/answered_problems">我的问答</a> (1)</li>
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>存档分类</h5>
+              <ul>
+                
+                  <li><a href="/blog/monthblog/2012-05">2012-05</a> (2)</li>
+                
+                  <li><a href="/blog/monthblog/2012-04">2012-04</a> (2)</li>
+                
+                  <li><a href="/blog/monthblog/2012-03">2012-03</a> (1)</li>
+                
+                <li><a href="/blog/monthblog_more">更多存档...</a></li>
+              </ul>
+            </div>
+            
+            
+
+            <div id="guest_books">
+              <h5>最新评论</h5>
+              <ul>
+                
+                <li>
+                  <a href='http://di1984hit.iteye.com' target='_blank' title='di1984HIT'>di1984HIT</a>： 
+                  写的真好。<br />
+                  <a href="/blog/1327513#bc2348413">shell切分文件</a>
+                </li>
+                
+                <li>
+                  <a href='http://di1984hit.iteye.com' target='_blank' title='di1984HIT'>di1984HIT</a>： 
+                  不错，不错<br />
+                  <a href="/blog/1325080#bc2348412">hadoop wordcount练习</a>
+                </li>
+                
+                <li>
+                  <a href='http://di1984hit.iteye.com' target='_blank' title='di1984HIT'>di1984HIT</a>： 
+                  写的不错。<br />
+                  <a href="/blog/1310949#bc2348411">python检测远程tcp端口</a>
+                </li>
+                
+                <li>
+                  <a href='http://di1984hit.iteye.com' target='_blank' title='di1984HIT'>di1984HIT</a>： 
+                  不错。学习了<br />
+                  <a href="/blog/1412555#bc2348408">python使用简单http协议来传送文件</a>
+                </li>
+                
+                <li>
+                  <a href='http://di1984hit.iteye.com' target='_blank' title='di1984HIT'>di1984HIT</a>： 
+                  写的不错啊。<br />
+                  <a href="/blog/1415228#bc2348407">linux nc常用用法</a>
+                </li>
+                
+              </ul>
+            </div>
+
+            <div class="local_bottom"></div>
+          
+        </div>
+      </div>
+
+      <div id="footer" class="clearfix">
+        <div id="copyright">
+          <hr/>
+          声明：ITeye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<br />
+          &copy; 2003-2015 ITeye.com.   All rights reserved.  [ 京ICP证110151号  京公网安备110105010620 ]
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+  document.write("<img src='http://stat.iteye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&user_id=' width='0' height='0' />");
+</script>
+
+<script src="http://csdnimg.cn/pubfooter/js/tracking.js?version=20130923164150" type="text/javascript"></script>
+
+    
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-24624440-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+      
+    
+  </body>
+</html>

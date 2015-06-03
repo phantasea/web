@@ -1,0 +1,5794 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="Docutils 0.8: http://docutils.sourceforge.net/" />
+<title>VimIM —— Vim 中文输入法</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6387 2010-08-13 12:23:41Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="header">
+VimIM -- Input Method by Vim, of Vim, for Vimmers
+: : : : : : : <a class="reference external" href="vimim.html">中文简体</a>
+: : : : : : : <a class="reference external" href="vimim.big5.html">中文繁體</a>
+: : : : : : : <a class="reference external" href="vimim.vim.html">English</a>
+<hr class="header"/>
+</div>
+<div class="document" id="vimim-vim">
+<h1 class="title">VimIM —— Vim 中文输入法</h1>
+
+<!-- ~/vim/vimim/wiki/onekey.wiki
+~/vim/vimim/wiki/vimimsearch.wiki
+~/vim/vimim/wiki/vimimdirectorydata.wiki
+~/vim/vimim/wiki/progressbar.wiki
+~/vim/vimim/wiki/vimimauto.wiki
+~/vim/vimim/wiki/vimimautotest.wiki
+~/vim/vimim/wiki/vimimsqlite.wiki
+~/vim/vimim/wiki/vimimmycloud.wiki
+~/vim/vimim/wiki/vimimpinyindigit.wiki
+~/vim/vimim/wiki/shishi.wiki
+~/vim/vimim/wiki/haagendazs.wiki
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+~/vim/vimim/vimim.bsddb.py
+http://vimim.googlecode.com/svn/trunk/plugin/vimim.gbk.bsddb
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+http://vimim.googlecode.com/svn/vimim/vimim.html#hjkl
+http://vimim.googlecode.com/svn/vimim/vimim.html#game
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+http://code.google.com/p/vimim/source/list
+http://code.google.com/p/manshow/
+============= checkout for anonymous
+svn export   http://vimim.googlecode.com/svn/vimim
+============= checkout for hacks
+cd /home/vimim/svn/vimim
+mv /home/vimim/svn/vimim/vimim /tmp
+svn checkout https://vimim.googlecode.com/svn/vimim
+============= mycloud
+let g:vimim_mycloud="dll:/tmp/libvimim.dll:127.0.0.1"
+let g:vimim_mycloud = "py:127.0.0.1"
+let g:vimim_mycloud = "http://pim-cloud.appspot.com/qp/"
+http://code.google.com/p/pimcloud/
+http://pim-cloud.appspot.com/
+vi /home/vimim/svn/mycloud/vimim-mycloud/src/mysocket.c
+cd /home/vimim/svn/mycloud/vimim-mycloud/src
+make -f Makefile.cygwin
+cp /home/vimim/svn/mycloud/client/libvimim.dll $VIM/vimfiles/plugin/
+:let g:vimim_mycloud = "http://pim-cloud.appspot.com/qp/"
+- - - - - - - - - - - - -
+cd /home/vimim/svn/mycloud/server && qpserver
+:let g:vimim_mycloud="py:127.0.0.1"
+:let g:vimim_mycloud="dll:libvimim.dll:192.168.1.107"
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - vim patch
+cd /home/vimim/svn/vimim/trunk/plugin
+patch vimim.vim
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - v2
+/home/xma/vim/vimim/vimim/vimim_help.rst
+http://vimim.googlecode.com/svn/trunk/plugin/vimim.vim
+file:///C:/home/xma/vim/vimfiles/plugin/vimim.vim
+https://vimim.googlecode.com/svn/vimim/vimim.vim.html
+file:///C:/home/vimim/svn/vimim/vimim.vim.html
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - v3
+file:///C:/home/xma/vim/vimim/www/vimim.rst
+http://vimim.googlecode.com/svn/vimim/vimim.html
+file:///C:/home/vimim/svn/vimim/vimim.html
+http://vimim.googlecode.com/svn/vimim/vimim.big5.html
+file:///C:/home/vimim/svn/vimim/vimim.big5.html
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - vimim-data
+svn co https://vimim-data.googlecode.com/svn/trunk/
+cd /home/vimim/svn/vimim-data/trunk
+wget http://vimim-data.googlecode.com/files/vimim.3000.tar.bz2
+mkdir data && cp /home/vimim.3000.txt data/
+make status && make dist && make help && make
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+http://vimim.googlecode.com/svn/vim/vimfiles/syntax/2html.vim
+file:///C:/home/xma/vim/vimfiles/syntax/2html.vim
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+file:///C:/vimim/svn/vimim/vimim_logo.gif
+http://vimim.googlecode.com/svn/vimim/vimim_logo.gif
+file:///C:/vimim/svn/vimim/vimim_tty_logo.gif
+http://vimim.googlecode.com/svn/vimim/vimim_tty_logo.gif
+http://vimim.googlecode.com/svn/vimim/vimim_dream.png
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+http://code.google.com/p/ibus/downloads/list
+============================================ googlecode
+code() { /bin/python ~/script/python/googlecode_upload.py "$@" ; }
+datafile -p vimim vimim.3000.txt datafile 三千汉字，字频排列
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+vim 常被称作“程序员的编辑器”，其功能如此强大以致许多人认为
+它就是个完整的ide。当然，它并不仅仅为程序员而生。对于各种文本
+编辑而言，无论是撰写email还是编辑配置文件，vim都臻于完美。
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+VimIM 是一个专门为 vim 玩家开发的嵌入式输入法，只要你的 vim
+可以显示中文，就可以用 vimim。便捷的快捷键和独特的输入模式，
+完美的解决了 vim 的中文切换问题。
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+VimIM 是专为 vim 玩家开发的插件，可作为 vim 内嵌中文输入法。
+只要您的 vim 能显示中文，您就能用 vim 〖云〗输入中文。VimIM
+把 vim 的中文编辑潜能，提升到一个全新的高度。
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Not designed, but evolved.
+Less is more
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- :作者: vimim -->
+<!-- :电子邮箱: vimim@googlegroups.com -->
+<div class="sidebar">
+<p class="first sidebar-title">目录</p>
+<div class="contents local last topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#id3" id="id91">正文</a><ul>
+<li><a class="reference internal" href="#id4" id="id92">功能</a></li>
+<li><a class="reference internal" href="#vimimrc" id="id93">vimimrc</a></li>
+<li><a class="reference internal" href="#what-is-new" id="id94">what is new</a><ul>
+<li><a class="reference internal" href="#milestone" id="id95">milestone</a></li>
+<li><a class="reference internal" href="#id5" id="id96">0.9.9.9.8  201101110</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6" id="id97">免责声明</a></li>
+<li><a class="reference internal" href="#id7" id="id98">参考</a><ul>
+<li><a class="reference internal" href="#id8" id="id99">玩法</a></li>
+<li><a class="reference internal" href="#id9" id="id100">安装</a></li>
+<li><a class="reference internal" href="#id10" id="id101">概述</a></li>
+<li><a class="reference internal" href="#id11" id="id102">构架</a></li>
+<li><a class="reference internal" href="#id12" id="id103">快捷键</a></li>
+<li><a class="reference internal" href="#id13" id="id104">中文模式</a></li>
+<li><a class="reference internal" href="#id14" id="id105">点石成金</a><ul>
+<li><a class="reference internal" href="#key" id="id106">key</a></li>
+<li><a class="reference internal" href="#hjkl" id="id107">hjkl</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#windowless" id="id108">windowless</a></li>
+<li><a class="reference internal" href="#id15" id="id109">彩蛋</a></li>
+<li><a class="reference internal" href="#game" id="id110">game</a><ul>
+<li><a class="reference internal" href="#id16" id="id111">旋转麻将</a></li>
+<li><a class="reference internal" href="#id17" id="id112">加减乘除</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id18" id="id113">中文动态</a></li>
+<li><a class="reference internal" href="#python" id="id114">Python</a><ul>
+<li><a class="reference internal" href="#vimim-on-the-fly" id="id115">VimIM on the fly</a></li>
+<li><a class="reference internal" href="#database" id="id116">database</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id19" id="id117">English 词库</a></li>
+<li><a class="reference internal" href="#cjk" id="id118">cjk 标准字库</a><ul>
+<li><a class="reference internal" href="#id21" id="id119">简介</a></li>
+<li><a class="reference internal" href="#id22" id="id120">安装</a></li>
+<li><a class="reference internal" href="#id23" id="id121">测试</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id24" id="id122">附录</a><ul>
+<li><a class="reference internal" href="#dream" id="id123">dream</a></li>
+<li><a class="reference internal" href="#id25" id="id124">玩家体验</a></li>
+<li><a class="reference internal" href="#id45" id="id125">中文搜索</a><ul>
+<li><a class="reference internal" href="#id46" id="id126">/</a></li>
+<li><a class="reference internal" href="#cmdline-window" id="id127">cmdline-window</a></li>
+<li><a class="reference internal" href="#omni-window" id="id128">omni-window</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id47" id="id129">中文输入</a><ul>
+<li><a class="reference internal" href="#cloud" id="id130">Cloud</a></li>
+<li><a class="reference internal" href="#id54" id="id131">拼音</a></li>
+<li><a class="reference internal" href="#id55" id="id132">双拼</a></li>
+<li><a class="reference internal" href="#id56" id="id133">五笔</a></li>
+<li><a class="reference internal" href="#four-corner" id="id134">Four-Corner</a></li>
+<li><a class="reference internal" href="#id57" id="id135">其余</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id58" id="id136">词库</a><ul>
+<li><a class="reference internal" href="#id59" id="id137">目录词库</a></li>
+<li><a class="reference internal" href="#id60" id="id138">词库管理</a></li>
+<li><a class="reference internal" href="#id61" id="id139">词库格式</a></li>
+<li><a class="reference internal" href="#id62" id="id140">词库编码</a></li>
+<li><a class="reference internal" href="#id63" id="id141">中文数字</a></li>
+<li><a class="reference internal" href="#id64" id="id142">中文标点</a></li>
+<li><a class="reference internal" href="#id65" id="id143">内码输入</a></li>
+<li><a class="reference internal" href="#id66" id="id144">压力测试</a></li>
+<li><a class="reference internal" href="#miscelleous" id="id145">miscelleous</a></li>
+<li><a class="reference internal" href="#thanks" id="id146">THANKS</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#history" id="id147">HISTORY</a><ul>
+<li><a class="reference internal" href="#id67" id="id148">0.9.9.9.7  201101010</a></li>
+<li><a class="reference internal" href="#id68" id="id149">0.9.9.9.6  20110827</a></li>
+<li><a class="reference internal" href="#id69" id="id150">0.9.9.9.5  20110804</a></li>
+<li><a class="reference internal" href="#id70" id="id151">0.9.9.9  20110704</a></li>
+<li><a class="reference internal" href="#id71" id="id152">0.9.9.8  20110521</a></li>
+<li><a class="reference internal" href="#id72" id="id153">0.9.9.7  20110507</a></li>
+<li><a class="reference internal" href="#id73" id="id154">0.9.9.6  20110421</a></li>
+<li><a class="reference internal" href="#id74" id="id155">0.9.9.5  20110405</a></li>
+<li><a class="reference internal" href="#id75" id="id156">0.9.9  20110115</a></li>
+<li><a class="reference internal" href="#id76" id="id157">0.9.8  20110103</a></li>
+<li><a class="reference internal" href="#id77" id="id158">0.9.7  20101203</a></li>
+<li><a class="reference internal" href="#plugin" id="id159">plugin管理</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#what-is-old" id="id160">WHAT IS OLD</a><ul>
+<li><a class="reference internal" href="#bonus" id="id161">BONUS</a></li>
+<li><a class="reference internal" href="#faq" id="id162">FAQ</a></li>
+<li><a class="reference internal" href="#how-to-do-chinese" id="id163">HOW TO DO CHINESE</a></li>
+<li><a class="reference internal" href="#utility" id="id164">UTILITY</a></li>
+<li><a class="reference internal" href="#references" id="id165">REFERENCES</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="figure">
+<img alt="VimIM —— vim 中文输入法 logo" src="vimim_logo.gif" />
+<p class="caption">—— 子曰：“工欲善其事，必先利其器。”</p>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line">VimIM是一个基于vim的嵌入式中文输入法。</div>
+<div class="line"><br /></div>
+<div class="line">不启动中文输入法，不换模式，就可以输入中文。</div>
+<div class="line">不打开弹出式菜单，不敲中文，也可以搜索中文。</div>
+<div class="line"><br /></div>
+<div class="line">中文输入与英文输入不再相互折腾。</div>
+<div class="line">中文搜索与英文搜索不再分为彼此。</div>
+<div class="line"><br /></div>
+</div>
+<div class="section" id="id3">
+<h1><a class="toc-backref" href="#id91">正文</a></h1>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id92">功能</a></h2>
+<ul class="simple">
+<li>中文输入： <a class="reference external" href="http://vim.sourceforge.net/scripts/script.php?script_id=2506">http://vim.sourceforge.net/scripts/script.php?script_id=2506</a></li>
+<li>中文搜索： <a class="reference internal" href="#id46">/</a></li>
+<li>中文浏览： <a class="reference internal" href="#hjkl">hjkl</a></li>
+</ul>
+</div>
+<div class="section" id="vimimrc">
+<h2><a class="toc-backref" href="#id93">vimimrc</a></h2>
+<p>设置</p>
+<ol class="arabic simple">
+<li>所有设置都归.vimrc控制。只要重启vim，设置就生效。</li>
+<li>全部设置可由彩蛋导出：vim i vimim CTRL-^ CTRL-^</li>
+</ol>
+<p>“热键设置”选项  g:vimim_map （可以自由增减）</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="53%" />
+<col width="47%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>:let g:vimim_map='c-bslash'</td>
+<td>&quot; Ctrl-\ 开关输入法</td>
+</tr>
+<tr><td>:let g:vimim_map='m-space'</td>
+<td>&quot; Alt-空格键 开关输入法</td>
+</tr>
+<tr><td>:let g:vimim_map='c-space'</td>
+<td>&quot; Ctrl-空格键 开关输入法</td>
+</tr>
+<tr><td>:let g:vimim_map='no-search'</td>
+<td>&quot; 关闭 正斜杠 search</td>
+</tr>
+<tr><td>:let g:vimim_map='no-gi'</td>
+<td>&quot; 关闭 gi 无菜单窗</td>
+</tr>
+<tr><td>:let g:vimim_map='tab_as_gi'</td>
+<td>&quot; Tab键 为 gi 无菜单窗</td>
+</tr>
+<tr><td>:let g:vimim_map='tab_as_onekey'</td>
+<td>&quot; Tab键 为 点石成金</td>
+</tr>
+</tbody>
+</table>
+<p>“中文模式”选项  g:vimim_mode</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>:let g:vimim_mode='dynamic'</td>
+<td>&quot; 动态输入模式（缺省）</td>
+</tr>
+<tr><td>:let g:vimim_mode='static'</td>
+<td>&quot; 静态输入模式</td>
+</tr>
+</tbody>
+</table>
+<p>“中文标点”选项  g:vimim_punctuation</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="53%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>:let g:vimim_punctuation=1</td>
+<td>&quot; 基本中文标点</td>
+</tr>
+<tr><td>:let g:vimim_punctuation=2</td>
+<td>&quot; 常用中文标点（缺省）</td>
+</tr>
+<tr><td>:let g:vimim_punctuation=3</td>
+<td>&quot; 包括单双引号反斜杠</td>
+</tr>
+<tr><td>:let g:vimim_punctuation=0</td>
+<td>&quot; 不用中文标点</td>
+</tr>
+<tr><td>:let g:vimim_punctuation=-1</td>
+<td>&quot; 彻底关闭中文标点</td>
+</tr>
+</tbody>
+</table>
+<p>“插件位置”选项  g:vimim_plugin</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>:let g:vimim_plugin=0</td>
+<td>&quot; 缺省是vim plugin</td>
+</tr>
+</tbody>
+</table>
+<p>“输入法循环”选项  g:vimim_toggle</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="60%" />
+<col width="40%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>:let g:vimim_toggle='wubi,pinyin'</td>
+<td>&quot; 设定循环次序</td>
+</tr>
+<tr><td>:let g:vimim_toggle=-1</td>
+<td>&quot; 彻底关闭循环键</td>
+</tr>
+</tbody>
+</table>
+<p>“双拼”选项  g:vimim_shuangpin</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="60%" />
+<col width="40%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>:let g:vimim_shuangpin='abc'</td>
+<td>&quot; 双拼：智能ABC</td>
+</tr>
+<tr><td>:let g:vimim_shuangpin='ms'</td>
+<td>&quot; 双拼：微软</td>
+</tr>
+<tr><td>:let g:vimim_shuangpin='nature'</td>
+<td>&quot; 双拼：自然码</td>
+</tr>
+<tr><td>:let g:vimim_shuangpin='plusplus'</td>
+<td>&quot; 双拼：拼音加加</td>
+</tr>
+<tr><td>:let g:vimim_shuangpin='purple'</td>
+<td>&quot; 双拼：紫光</td>
+</tr>
+<tr><td>:let g:vimim_shuangpin='flypy'</td>
+<td>&quot; 双拼：小鹤</td>
+</tr>
+</tbody>
+</table>
+<p>“云输入”选项  g:vimim_cloud</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="55%" />
+<col width="45%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>:let g:vimim_cloud='baidu'</td>
+<td>&quot; 缺省：百度云输入</td>
+</tr>
+<tr><td>:let g:vimim_cloud='google'</td>
+<td>&quot; 谷歌云输入</td>
+</tr>
+<tr><td>:let g:vimim_cloud='sogou'</td>
+<td>&quot; 搜狗云输入</td>
+</tr>
+<tr><td>:let g:vimim_cloud='qq'</td>
+<td>&quot; QQ云输入</td>
+</tr>
+<tr><td>:let g:vimim_cloud='sogou.dynamic'</td>
+<td>&quot; 搜狗纯云输入，动态</td>
+</tr>
+<tr><td>:let g:vimim_cloud='sogou.static'</td>
+<td>&quot; 搜狗纯云输入，静态</td>
+</tr>
+<tr><td>:let g:vimim_cloud='qq.fanti'</td>
+<td>&quot; QQ云输入，开启繁体</td>
+</tr>
+<tr><td>:let g:vimim_cloud='qq.mixture'</td>
+<td>&quot; QQ云输入，开启混合模式</td>
+</tr>
+<tr><td>:let g:vimim_cloud='qq.fuzzy'</td>
+<td>&quot; QQ云输入，开启模糊音</td>
+</tr>
+<tr><td>:let g:vimim_cloud='qq.wubi'</td>
+<td>&quot; QQ云输入，五笔</td>
+</tr>
+<tr><td>:let g:vimim_cloud='qq.shuangpin.abc'</td>
+<td>&quot; QQ云输入，双拼智能ABC</td>
+</tr>
+<tr><td>:let g:vimim_cloud='qq.shuangpin.ms'</td>
+<td>&quot; QQ云输入，双拼微软2003</td>
+</tr>
+<tr><td>:let g:vimim_cloud='qq.shuangpin.plusplus'</td>
+<td>&quot; QQ云输入，双拼拼音加加</td>
+</tr>
+<tr><td>:let g:vimim_cloud='qq.shuangpin.purple'</td>
+<td>&quot; QQ云输入，双拼紫光拼音</td>
+</tr>
+<tr><td>:let g:vimim_cloud='qq.shuangpin.flypy'</td>
+<td>&quot; QQ云输入，双拼小鹤双拼</td>
+</tr>
+<tr><td>:let g:vimim_cloud='qq.shuangpin.nature'</td>
+<td>&quot; QQ云输入，双拼自然码</td>
+</tr>
+<tr><td>:let g:vimim_cloud=-1</td>
+<td>&quot; 彻底关闭云输入</td>
+</tr>
+</tbody>
+</table>
+<p>“自己的云”样本  g:vimim_mycloud</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="93%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>py</td>
+<td>:let g:vimim_mycloud = &quot;py:127.0.0.1&quot;</td>
+</tr>
+<tr><td>dll</td>
+<td>:let g:vimim_mycloud = &quot;dll:/data/libvimim.so:192.168.0.1&quot;</td>
+</tr>
+<tr><td>dll</td>
+<td>:let g:vimim_mycloud = &quot;dll:/home/im/plugin/libmyplugin.so:arg:func&quot;</td>
+</tr>
+<tr><td>dll</td>
+<td>:let g:vimim_mycloud = &quot;dll:&quot;.$HOME.&quot;/plugin/libvimim.so&quot;</td>
+</tr>
+<tr><td>dll</td>
+<td>:let g:vimim_mycloud = &quot;dll:&quot;.$HOME.&quot;/plugin/cygvimim.dll&quot;</td>
+</tr>
+<tr><td>app</td>
+<td>:let g:vimim_mycloud = &quot;app:&quot;.$VIM.&quot;/src/mycloud/mycloud&quot;</td>
+</tr>
+<tr><td>app</td>
+<td>:let g:vimim_mycloud = &quot;app:python d:/mycloud/mycloud.py&quot;</td>
+</tr>
+<tr><td>http</td>
+<td>:let g:vimim_mycloud = &quot;http://pim-cloud.appspot.com/ms/&quot;</td>
+</tr>
+<tr><td>http</td>
+<td>:let g:vimim_mycloud = &quot;http://pim-cloud.appspot.com/abc/&quot;</td>
+</tr>
+<tr><td>http</td>
+<td>:let g:vimim_mycloud = &quot;http://pim-cloud.appspot.com/qp/&quot;</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="sidebar">
+<p class="first sidebar-title">Vimim　 <a class="reference internal" href="#cloud">Cloud</a>  　彩云飘飘</p>
+<ol class="arabic simple">
+<li>download vimim.vim</li>
+<li>open vimim.vim with vim</li>
+<li>:source %</li>
+<li>ggcG</li>
+<li>woyouyigemeng''''&lt;C-^&gt;</li>
+</ol>
+<blockquote class="last">
+<div class="figure">
+<img alt="vimim_clouds.png" src="vimim_clouds.png" />
+</div>
+</blockquote>
+</div>
+</div>
+<div class="section" id="what-is-new">
+<h2><a class="toc-backref" href="#id94">what is new</a></h2>
+<div class="section" id="milestone">
+<h3><a class="toc-backref" href="#id95">milestone</a></h3>
+<p><a class="reference external" href="http://zh.wikipedia.org/wiki/VimIM">http://zh.wikipedia.org/wiki/VimIM</a></p>
+</div>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id96">0.9.9.9.8  201101110</a></h3>
+<ul class="simple">
+<li>vimim.vim 代码，大浪淘沙，删掉一千二百来行。</li>
+<li>VimIM选项，可望封顶：  <a class="reference internal" href="#vimimrc">vimimrc</a></li>
+<li>VimIM imap 定义已经统一：<ul>
+<li>CTRL-_ ：（与Vim的定义一致）开关输入法 switch between languages</li>
+<li>CTRL-^ ：（与Vim的定义一致）切换输入法 Toggle the use of language</li>
+</ul>
+</li>
+<li>VimIM lmap 定义，不再和谐用户的imap<ul>
+<li>CTRL-U ：（与Vim的定义一致）一键改错 delete all entered characters</li>
+<li>CTRL-L ：（点石成金）开关菜单窗口（中文模式）切换中英文标点</li>
+<li>（请确认）中文模式应该不会和谐标点，也不会与其他插件冲突。</li>
+</ul>
+</li>
+<li>VimIM 不改变用户设置<ul>
+<li>&amp;pumheight  （如果用户有设置，直接使用用户的设置）</li>
+<li>&amp;laststatus （如果用户有设置，直接使用用户的设置）</li>
+<li>color       （如果用户有设置，直接使用用户的设置）</li>
+</ul>
+</li>
+<li>中文输入模式：<ol class="arabic">
+<li>第一选择：空格键</li>
+<li>第二选择：分号    semicolon ;</li>
+<li>第三选择：单引号  single quote</li>
+</ol>
+</li>
+<li>同一个标准字库，不同下载地址：<ul>
+<li>插入 vimim.cjk.txt  四角号码</li>
+<li>插入 vimim.cjk.txt  五笔画</li>
+</ul>
+</li>
+<li>精兵简政<ul>
+<li>删除旧选项 g:vimim_map_extra  留给玩家自己设置</li>
+<li>删除旧选项 g:vimim_skin</li>
+<li>删除旧选项：皮肤： g:vimim_skin</li>
+<li>:let g:vimim_skin='one-row'  &quot; 菜单横排 (not stable)</li>
+<li>:let g:vimim_skin='color'    &quot; 菜单蓝色 (permanent)</li>
+<li>删除旧选项 g:vimim_custom_color</li>
+<li>删除旧选项 g:vimim_one_row_menu</li>
+<li>缺省：let g:vimim_skin = 'one-row,color'</li>
+<li>关闭颜色：let g:vimim_skin = 'one-row'</li>
+<li>关闭横排：let g:vimim_skin = 'color'</li>
+<li>removed :let g:vimim_map_extra='ctrl_h'</li>
+<li>removed :let g:vimim_map_extra='ctrl_h_to_rotate'</li>
+<li>removed :let g:vimim_map_extra='ctrl_space_to_rotate'</li>
+</ul>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line">PS:</div>
+<div class="line"><br /></div>
+<div class="line">一般来说，软件产品的开发往往是在最佳的状态之下崩溃，但愿我们的</div>
+<div class="line">VimIM是个例外。早几个月发现，VimIM进入生死存亡之秋，选项如此之多，</div>
+<div class="line">连作者本人都不知道含义。</div>
+<div class="line"><br /></div>
+<div class="line">所以一次再一次大刀阔斧，疯狂地精兵简政。最新的程式更加小巧玲珑，</div>
+<div class="line">在官方发行版本0.9.9.9.7的基础上又砍掉1200来行，可谓刀刀见血，但是</div>
+<div class="line">不伤筋骨。</div>
+<div class="line"><br /></div>
+<div class="line">原则本是不求新，但求稳。不过歪打正着，新发现一个我自己最喜欢的模式，</div>
+<div class="line">也即windowless mode. 打中文居然不要中文菜单窗口啦。</div>
+<div class="line"><br /></div>
+<div class="line">还有一个基本点是尽量避免人为的规矩和定义。一切以Vim的定义为定义。</div>
+<div class="line"><br /></div>
+<div class="line">我的计划是在VimIM上市三周年纪念日（2012年1月4日）重新发行 VimIM 1.0,</div>
+<div class="line">作为一个绝版, 原则上不再改动，不管什么要求，除非是showstop.</div>
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+<div class="line">vimim</div>
+<div class="line"><br /></div>
+<div class="line">2011年11月10日　星期四</div>
+<div class="line"><br /></div>
+</div>
+<div class="sidebar">
+<p class="first sidebar-title">Vimim　 <a class="reference internal" href="#windowless">windowless</a> 　无菜单窗中文输入</p>
+<ol class="arabic simple">
+<li>download vimim.vim</li>
+<li>open vimim.vim with vim</li>
+<li>:source %</li>
+<li>ggdG</li>
+<li>gi</li>
+</ol>
+<blockquote class="last">
+<div class="figure">
+<img alt="vimim_menuless.png" src="vimim_menuless.png" />
+</div>
+</blockquote>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h1><a class="toc-backref" href="#id97">免责声明</a></h1>
+<p>DISCLAIMER</p>
+<ul class="simple">
+<li>以下内容杂乱无章，决不是正牌VimIM用户说明书之风格。</li>
+<li>所有汉字全部源自VimIM点石成金。如有错字别字，不是VimIM中文输入法的责任。</li>
+<li>所有功能全部都实现过。如有不实，请提供回馈信息。</li>
+<li>热烈欢迎用户提交VimIM用户说明书。</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h1><a class="toc-backref" href="#id98">参考</a></h1>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id99">玩法</a></h2>
+<ul>
+<li><p class="first">点石成金　 <a class="reference internal" href="#hjkl">hjkl</a></p>
+<blockquote>
+<ol class="arabic simple">
+<li>进入： 进入Vim插入模式，在英文编码或标点之后，按CTRL-^</li>
+<li>退出： 按CTRL-^, 回到Vim插入模式</li>
+<li>退出： 按Esc, 　 回到Vim正常模式</li>
+</ol>
+</blockquote>
+</li>
+<li><p class="first">中文输入模式</p>
+<ol class="arabic simple">
+<li>开关输入法：　按　CTRL-_</li>
+<li>切换输入法：　按　CTRL-^</li>
+<li>空格键上汉字，回车键上英文。</li>
+</ol>
+</li>
+<li><p class="first">汉字搜索</p>
+<ul class="simple">
+<li>无菜单中文搜索： <a class="reference internal" href="#id46">/</a></li>
+<li>命令行窗口：　 <a class="reference internal" href="#cmdline-window">cmdline-window</a></li>
+<li>万能补全窗口： <a class="reference internal" href="#omni-window">omni-window</a></li>
+</ul>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2><a class="toc-backref" href="#id100">安装</a></h2>
+<p>按照Vim的规矩，所有插件文件都置于plugin目录之下。</p>
+<ol class="arabic simple">
+<li>程式文件<ul>
+<li>名称： vimim.vim</li>
+<li>下载： <a class="reference external" href="http://vim.sf.net/scripts/script.php?script_id=2506">http://vim.sf.net/scripts/script.php?script_id=2506</a></li>
+</ul>
+</li>
+<li>云输入（任选）<ul>
+<li>工具： 安装 <a class="reference internal" href="#python">Python</a>  验证 has('python')</li>
+<li>工具： 安装 wget</li>
+<li>工具： 安装 curl</li>
+<li>工具： 安装 “自己的云” <a class="reference external" href="http://vimim.googlecode.com/files/libvimim.dll">http://vimim.googlecode.com/files/libvimim.dll</a></li>
+<li>工具： 安装 “自己的云” <a class="reference external" href="http://vimim.googlecode.com/files/libvimim.so">http://vimim.googlecode.com/files/libvimim.so</a></li>
+</ul>
+</li>
+<li>词库文件（任选。缺省是不要安装的云词库）<ul>
+<li>云词库  <a class="reference internal" href="#cloud">Cloud</a><ul>
+<li>名称： 谷歌云输入</li>
+<li>名称： 搜狗云输入</li>
+<li>名称： 百度云输入</li>
+<li>名称： QQ云输入</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#cjk">cjk 标准字库</a><ul>
+<li>名称： vimim.cjk.txt</li>
+<li>下载： <a class="reference external" href="http://vimim.googlecode.com/svn/trunk/plugin/vimim.cjk.txt">http://vimim.googlecode.com/svn/trunk/plugin/vimim.cjk.txt</a></li>
+</ul>
+</li>
+<li>英文词库（私人词库）<ul>
+<li>名称： vimim.txt</li>
+<li>下载： <a class="reference external" href="http://vimim.googlecode.com/svn/trunk/plugin/vimim.txt">http://vimim.googlecode.com/svn/trunk/plugin/vimim.txt</a></li>
+</ul>
+</li>
+<li>海量词库　  <a class="reference internal" href="#database">database</a><ul>
+<li>名称： vimim.gbk.bsddb</li>
+<li>下载： <a class="reference external" href="http://vimim.googlecode.com/svn/trunk/plugin/vimim.gbk.bsddb">http://vimim.googlecode.com/svn/trunk/plugin/vimim.gbk.bsddb</a></li>
+</ul>
+</li>
+<li>文件词库<ul>
+<li>诗歌： 任何文本文件，以文件名作为编码： <a class="reference internal" href="#hjkl">hjkl</a></li>
+<li>拼音： vimim.pinyin.txt 或者 vimim.pinyin_*.txt</li>
+<li>五笔： vimim.wubi.txt 或者 vimim.wubi_*.txt</li>
+<li>其他： vimim.*.txt</li>
+<li>下载： 民间词库 <a class="reference external" href="http://vimim-data.googlecode.com">http://vimim-data.googlecode.com</a></li>
+</ul>
+</li>
+<li>目录词库<ul>
+<li>拼音： pinyin.bz2</li>
+<li>下载： <a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/pinyin.bz2">http://vimim-data.googlecode.com/svn/trunk/data/pinyin.bz2</a></li>
+<li>安装： tar -xvjf pinyin.bz2  之后，位置为 plugin/pinyin/</li>
+<li>测试： plugin/pinyin/pinyin 是文本文件，有两行： 拼音 频饮</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id101">概述</a></h2>
+<div class="line-block">
+<div class="line">一个文本程式文件，就是中文输入法的客户端，缺省后端是搜狗云输入。</div>
+<div class="line">此文件也是中文输入法的独立后端，支持文本文件词库和目录词库。</div>
+<div class="line"><br /></div>
+<div class="line">一个文本字库文件，就可以用来输入unicode全部20902个汉字。</div>
+<div class="line">此文件是精心定制的cjk标准字库，与程式文件自然结合。</div>
+<div class="line"><br /></div>
+<div class="line">程式文件用的是 Vimscript, 天生跨平台（Windows, Mac, Linux）</div>
+<div class="line">词库文件就是自己的输入法（拼音，無蝦米，倉頡，英文，DIY）</div>
+<div class="line"><br /></div>
+<div class="line">所谓安装，就是把文本文件扔到 vim 的 plugin 目录之下。</div>
+<div class="line"><br /></div>
+<div class="line">插上拼音词库，就是vim拼音输入法。包括无菜单搜索：/meng　n　=&gt;　梦</div>
+<div class="line">插上五笔词库，就是vim五笔输入法。包括无菜单搜索：/ssqu　n　=&gt;　梦</div>
+<div class="line"><br /></div>
+<div class="line">不设选项，不换模式，按 CTRL-^ 就可以连续上汉字，是谓点石成金。</div>
+<div class="line">搜索中文，沿用vi经典正斜杠，不需要输入中文。</div>
+<div class="line"><br /></div>
+<div class="line">所谓卸载，就是删除文本文件。</div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id102">构架</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="28%" />
+<col width="10%" />
+<col width="36%" />
+<col width="16%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">前端</th>
+<th class="head">后端</th>
+<th class="head">关系</th>
+<th class="head">优点</th>
+<th class="head">缺点</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>VimIM</td>
+<td>〖云〗</td>
+<td>外挂</td>
+<td>创新前端，六种双拼</td>
+<td>依赖联网</td>
+</tr>
+<tr><td>VimIM</td>
+<td>〖自己的云〗</td>
+<td>外挂</td>
+<td>自己的云，自己的梦</td>
+<td>需先启动</td>
+</tr>
+<tr><td>VimIM</td>
+<td>〖内码〗</td>
+<td>天生</td>
+<td>无需词库，无需联网</td>
+<td>记忆量大</td>
+</tr>
+<tr><td>VimIM</td>
+<td>〖文件词库〗</td>
+<td>内嵌</td>
+<td>即插即用，想删就删</td>
+<td>占内存</td>
+</tr>
+<tr><td>VimIM</td>
+<td>〖目录词库〗</td>
+<td>内嵌</td>
+<td>海量词库，不耗内存</td>
+<td>占磁盘</td>
+</tr>
+<tr><td>VimIM</td>
+<td>〖数据库〗</td>
+<td>内嵌</td>
+<td>即插即用，海量词库</td>
+<td>需python</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id12">
+<h2><a class="toc-backref" href="#id103">快捷键</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="31%" />
+<col width="43%" />
+<col width="15%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">模式</th>
+<th class="head">功能</th>
+<th class="head">快捷键</th>
+<th class="head">设置</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>【中文动态模式】</td>
+<td>输入过程中一直出选择项目</td>
+<td>CTRL-_</td>
+<td>缺省</td>
+</tr>
+<tr><td>【中文静态模式】</td>
+<td>输入完后按空格出选择项目</td>
+<td>CTRL-_</td>
+<td>static</td>
+</tr>
+<tr><td>【点石成金】</td>
+<td>传说中的无模式之模式</td>
+<td>CTRL-^</td>
+<td>缺省</td>
+</tr>
+<tr><td>【汉字搜索】</td>
+<td>正斜杠无菜单中文搜索</td>
+<td>n</td>
+<td>缺省</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id13">
+<h2><a class="toc-backref" href="#id104">中文模式</a></h2>
+<p>空格键上汉字，回车键上英文。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="35%" />
+<col width="33%" />
+<col width="31%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">按键</th>
+<th class="head">第一次</th>
+<th class="head">第二次</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>CTRL-_</td>
+<td>进入输入法</td>
+<td>退出输入法</td>
+</tr>
+<tr><td>ctrl+^</td>
+<td>五笔输入</td>
+<td>拼音输入</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id14">
+<h2><a class="toc-backref" href="#id105">点石成金</a></h2>
+<p>英文字母为“石”，中文汉字为“金”。</p>
+<div class="section" id="key">
+<h3><a class="toc-backref" href="#id106">key</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="27%" />
+<col width="25%" />
+<col width="27%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">按键</th>
+<th class="head">插入模式</th>
+<th class="head">omni 窗口</th>
+<th class="head">中文输入模式</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>CTRL-^</td>
+<td>点石成金</td>
+<td>输出列表</td>
+<td>退回插入模式</td>
+</tr>
+<tr><td>回车键</td>
+<td>回车</td>
+<td>上英文</td>
+<td>无缝混排</td>
+</tr>
+<tr><td>空格键</td>
+<td>出空格</td>
+<td>上汉字</td>
+<td>出空格</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="hjkl">
+<h3><a class="toc-backref" href="#id107">hjkl</a></h3>
+<div class="line-block">
+<div class="line">hjkl 是 Vim 的精华之一。</div>
+<div class="line">点石成金，中文菜单弹出之后，hjkl 有了全新的玩法：</div>
+<div class="line"><br /></div>
+</div>
+<p>中文输入</p>
+<blockquote>
+<ul class="simple">
+<li>〖列表高低〗 l  可切换 for label height</li>
+<li>〖首拼分字〗 m　可切换 sssss =&gt; s's's's's</li>
+<li>〖列表宽窄〗 h　可切换</li>
+<li>〖清零重设〗 n　刷新 refresh</li>
+<li>〖汉字搜索〗 /　或　?</li>
+<li>〖字母标签〗 上字</li>
+<li>〖输简出繁〗 s　可切换，需cjk标准字库</li>
+<li>〖动态模式〗 ABCDEFGHIJKLMNOPQRSTUVWXYZ　（不退出中文菜单）</li>
+<li>〖字母过滤〗 qwertyuiop =&gt; 1234567890 （四角号码：字母键替代数字键）</li>
+</ul>
+</blockquote>
+<p>文件浏览</p>
+<blockquote>
+<ul class="simple">
+<li>〖右左排列〗 h　可切换，列表从右到左排列</li>
+<li>〖下上排列〗 l　可切换，列表从下到上排列</li>
+<li>〖中文旋转〗 m　可切换：每按一次m，中文列表顺时针旋转90度</li>
+<li>〖清零重设〗 n　刷新 refresh</li>
+<li>〖输简出繁〗 s　可切换，需cjk标准字库</li>
+<li>〖自制窗口〗 visual 高亮选择，按CTRL-^</li>
+<li>〖文件竖排〗 :ViMiM</li>
+</ul>
+</blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+<div class="section" id="windowless">
+<h2><a class="toc-backref" href="#id108">windowless</a></h2>
+<p>gi　无菜单窗中文输入（敲中文犹如敲英文）</p>
+<ul class="simple">
+<li><a class="reference external" href="http://vimim.googlecode.com/svn/vimim/gi_screen.png">http://vimim.googlecode.com/svn/vimim/gi_screen.png</a></li>
+<li><a class="reference external" href="http://vimim.googlecode.com/svn/vimim/gi_windows.png">http://vimim.googlecode.com/svn/vimim/gi_windows.png</a></li>
+<li>范例：<ol class="arabic">
+<li>英文：She has ten dreams. （字母键加空格键：20次）</li>
+<li>中文：她有十个梦。        （字母键加空格键：22次）</li>
+<li>云输入：tayoushigemeng =&gt; 他又是个梦（错！）</li>
+</ol>
+</li>
+<li>玩法：<ol class="arabic">
+<li>进入vim, 输入 gi　（进入无菜单中文输入模式）</li>
+<li>输入 ta  　按空格，按空格，出“她”</li>
+<li>输入 you　 按空格，出“有”</li>
+<li>输入 shige 按空格，按空格，按空格，出“十个”</li>
+<li>输入 meng  按空格，出“梦”</li>
+<li>输入　.　　按空格，出句号。</li>
+</ol>
+</li>
+<li>背景：VimIM does windowless!<ol class="arabic">
+<li>候选窗：无菜单之菜单显示在窗口标题或者状态栏之上</li>
+<li>空格键：既可上字又可选词<ul>
+<li>编码 ＋ 空格 ＝ 上字（空格上汉字）</li>
+<li>汉字 ＋ 空格 ＝ 选词（每按一次往前查找一次）</li>
+</ul>
+</li>
+<li>回车键：取消无菜单选择状态 (stop active completion)<ul>
+<li>编码 ＋ 回车 ＝ 无缝混排（回车上英文）</li>
+<li>编码 ＋ 空格 ＋ 回车 ＋ 空格 ＝ 上空格</li>
+<li>编码 ＋ 空格 ＋ 回车 ＋ 数字 ＝ 上数字</li>
+</ul>
+</li>
+<li>数字键：选词<ul>
+<li>（没有标准字库） 1 用于刷新　234567890 用于选词</li>
+<li>（插上标准字库） 1234567890  四角号码动态过滤</li>
+</ul>
+</li>
+<li>标点：<ul>
+<li>英文标点 ＋ 空格键 ＝ 中文标点</li>
+<li>单引号： force cloud as hit-and-run</li>
+<li>双句号：（前面是英文）干预进入首拼： ssss.. =&gt; s's's's</li>
+<li>双句号：（前面是中文）重复前一个字：   金.. =&gt; 金金</li>
+<li>双句号：（前面是空格）输入麻将花牌：     .. =&gt; mahjong</li>
+</ul>
+</li>
+<li>Vim<ul>
+<li>&lt;C-P&gt;：往前查找：Previous</li>
+<li>&lt;C-N&gt;：往后查找：Next</li>
+<li>&lt;C-E&gt;：停止查找：End completion</li>
+<li>&lt;Esc&gt;：回到Vim正常模式，天下太平。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>五笔 gi<ol class="arabic">
+<li>候选窗：无菜单之菜单或许会显示在窗口标题之上</li>
+<li>空格键：上字（取消无菜单选择状态）或空格</li>
+<li>数字键：选词</li>
+<li>四键自动上屏</li>
+<li>无缝混排打英文：建议在vimrc中设置 :set pastetoggle=&lt;C-H&gt;<ol class="arabic">
+<li>进入vim, 输入 gi</li>
+<li>输入 xxxx</li>
+<li>敲  CTRL-H</li>
+<li>输入 english english english</li>
+<li>敲  CTRL-H</li>
+<li>敲  Enter</li>
+<li>输入 xxxx</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id15">
+<h2><a class="toc-backref" href="#id109">彩蛋</a></h2>
+<p>体验点石成金</p>
+<ul class="simple">
+<li>安装：<ol class="arabic">
+<li>下载插件 vimim.vim</li>
+<li>把插件扔到vim的plugin文件夹里面</li>
+</ol>
+</li>
+<li>目的：收集提交错误报告的信息<ol class="arabic">
+<li>进入vim, 进入插入模式</li>
+<li>输入彩蛋　vimim</li>
+<li>按 CTRL-^，显示菜单</li>
+<li>按 h，切换菜单左右排列</li>
+<li>按 j， 下移光标</li>
+<li>按 k，上移光标</li>
+<li>按 l， 切换菜单上下排列</li>
+<li>按 CTRL-^，输出菜单</li>
+</ol>
+</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="52%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">彩蛋</th>
+<th class="head">功能</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>vimim</td>
+<td>显示环境</td>
+</tr>
+<tr><td>vimimhelp</td>
+<td>显示帮助</td>
+</tr>
+<tr><td>vimimgame</td>
+<td>游戏</td>
+</tr>
+<tr><td>vimimrc</td>
+<td>显示设置</td>
+</tr>
+<tr><td>vimimvim</td>
+<td>显示程式目录</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="sidebar">
+<p class="first sidebar-title">Vimim　 <a class="reference internal" href="#game">game</a>  　游戏人生</p>
+<ol class="arabic simple">
+<li>download vimim.vim and save it to the plugin folder</li>
+<li>open vim and get into insert mode</li>
+<li>type: vimimgame&lt;C-^&gt;</li>
+<li>type: m     (to turn the mahjong  90 degrees clockwise)</li>
+<li>type: m     (to turn the mahjong 180 degrees clockwise)</li>
+<li>type: m     (to turn the mahjong 270 degrees clockwise)</li>
+<li>type: m     (to turn the mahjong 360 degrees clockwise)</li>
+<li>type: &lt;C-^&gt; (to dump out result)</li>
+</ol>
+<blockquote class="last">
+<div class="figure">
+<img alt="vimimgame.png" src="vimimgame.png" />
+</div>
+</blockquote>
+</div>
+</div>
+<div class="section" id="game">
+<h2><a class="toc-backref" href="#id110">game</a></h2>
+<p>游戏人生</p>
+<div class="section" id="id16">
+<h3><a class="toc-backref" href="#id111">旋转麻将</a></h3>
+<ol class="arabic simple">
+<li>进入vim，进入insert模式</li>
+<li>输入彩蛋　vimimgame</li>
+<li>按 CTRL-^，显示</li>
+<li>按 m，顺时针旋转90度</li>
+<li>按 m，顺时针旋转180度</li>
+<li>按 m，顺时针旋转270度</li>
+<li>按 m，顺时针旋转360度</li>
+<li>按 CTRL-^，输出</li>
+</ol>
+</div>
+<div class="section" id="id17">
+<h3><a class="toc-backref" href="#id112">加减乘除</a></h3>
+<ol class="arabic simple">
+<li>找一个有数字竖排的文本文件</li>
+<li>进入vim</li>
+<li>纵向高亮选择数字</li>
+<li>按 CTRL-^，显示结果：sum 和 ave</li>
+<li>按 CTRL-^，输出结果：总数和平均值</li>
+</ol>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+<div class="section" id="id18">
+<h2><a class="toc-backref" href="#id113">中文动态</a></h2>
+<p>测试百度云</p>
+<ul class="simple">
+<li>安装：<ol class="arabic">
+<li>下载插件　vimim.vim</li>
+<li>(Windows) 安装 Python2或Python3 或wget或curl</li>
+<li>把下载插件扔到vim的plugin文件夹里面</li>
+</ol>
+</li>
+<li>输入：<ol class="arabic">
+<li>进入vim</li>
+<li>进入insert模式</li>
+<li>按下 CTRL-_，进入云输入</li>
+<li>再按 CTRL-_，退出云输入</li>
+</ol>
+</li>
+<li>搜索：<ol class="arabic">
+<li>进入vim</li>
+<li>按六个键：/dscj 回车</li>
+<li>按 n</li>
+<li>“点石成金”四个字会被搜索</li>
+</ol>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>测试切换五笔输入和拼音输入</p>
+<ul class="simple">
+<li>安装：<ol class="arabic">
+<li>下载插件 vimim.vim</li>
+<li>下载一个五笔词库，例如 vimim.wubi.txt</li>
+<li>下载一个拼音词库，例如 vimim.pinyin.txt</li>
+</ol>
+</li>
+<li>使用： (vimim 0.9.9.9.8)<ol class="arabic">
+<li>进入vim，进入insert模式</li>
+<li>按 CTRL-_，进入五笔输入</li>
+<li>按ctrl+h，进入拼音输入</li>
+<li>按ctrl+h，进入五笔输入</li>
+</ol>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="python">
+<h2><a class="toc-backref" href="#id114">Python</a></h2>
+<div class="line-block">
+<div class="line">在Windows上，让Vim连上Python, 远没有传说的那么玄，甚至比安装</div>
+<div class="line">VimIM还要简单。</div>
+<div class="line"><br /></div>
+<div class="line">对新手而言，安装VimIM的麻烦是要找到plugin目录，而安装Python, 完</div>
+<div class="line">全可以连续敲Next,一切缺省。测试证明，官方gvim7.3和官方python2.7</div>
+<div class="line">可以无缝连接，无需任何设置。测试可用 :has('python')</div>
+<div class="line"><br /></div>
+<div class="line">插入vimim.vim之后，云输入果真是彩旗飘飘，无论是utf8编码还是gbk编</div>
+<div class="line">码，而且没有讨厌的DOS窗口，也没有痛苦的“第一次”。</div>
+<div class="line"><br /></div>
+</div>
+<div class="section" id="vimim-on-the-fly">
+<h3><a class="toc-backref" href="#id115">VimIM on the fly</a></h3>
+<pre class="doctest-block">
+&gt;&gt;&gt; &quot; [dream] use VimIM on the fly without plugin
+&gt;&gt;&gt; :py url = 'http://vimim.googlecode.com/svn/trunk/plugin/vimim.vim'
+&gt;&gt;&gt; :py import vim, urllib
+&gt;&gt;&gt; :py vimim = vim.eval('tempname()')+'.vim'
+&gt;&gt;&gt; :py urllib.urlretrieve(url, vimim)
+&gt;&gt;&gt; :py vim.command(&quot;source %s &quot; % vimim)
+</pre>
+</div>
+<div class="section" id="database">
+<h3><a class="toc-backref" href="#id116">database</a></h3>
+<ul class="simple">
+<li>拼音： 百万词条，即插即用；不耗内存，立竿见影</li>
+<li>下载： <a class="reference external" href="http://vimim.googlecode.com/svn/trunk/plugin/vimim.gbk.bsddb">http://vimim.googlecode.com/svn/trunk/plugin/vimim.gbk.bsddb</a></li>
+<li>验证： $wc 178979   1794976  46694400  vimim.gbk.bsddb</li>
+<li>百万词条 1,315,716 item</li>
+<li>一个文件 40MB text file, 55MB (utf8) 45MB (gbk) DB file on disk</li>
+<li>不耗内存 6MB more in memory</li>
+<li>立竿见影 less than 1 second in loading time</li>
+<li>即插即用 plug and play</li>
+<li>唯一条件 Python Interface to Vim</li>
+</ul>
+<pre class="doctest-block">
+&gt;&gt;&gt; # wget http://vimim-data.googlecode.com/svn/trunk/data/pinyin1234.txt
+&gt;&gt;&gt; # wget http://pimcloud.googlecode.com/hg/server/quanpin2.txt
+&gt;&gt;&gt; # wget http://pimcloud.googlecode.com/hg/server/quanpin3.txt
+&gt;&gt;&gt; # wget http://pimcloud.googlecode.com/hg/server/quanpin4.txt
+&gt;&gt;&gt; # cat quanpin2.txt quanpin3.txt quanpin4.txt | sed &quot;s/'//g&quot; &gt; pinyin.txt
+&gt;&gt;&gt; # cat pinyin1234.txt &gt;&gt; pinyin.txt
+&gt;&gt;&gt; #
+&gt;&gt;&gt; # /bin/db4.5_dump -p vimim.gbk.bsddb | head
+&gt;&gt;&gt; #
+&gt;&gt;&gt; cd /home/vimim/svn/mycloud/server/
+&gt;&gt;&gt; file_in  = 'pinyin.txt'
+&gt;&gt;&gt; file_out = 'vimim.gbk.bsddb'
+&gt;&gt;&gt; import bsddb
+&gt;&gt;&gt; db = bsddb.btopen(file_out,'n')
+&gt;&gt;&gt; for line in sorted(open(file_in).readlines()):
+&gt;&gt;&gt;     key, sep, value = line.strip().partition(&quot; &quot;)
+&gt;&gt;&gt;     if key in db:
+&gt;&gt;&gt;         if len(value.split()[0]) &gt; len(db[key].split()[0]):
+&gt;&gt;&gt;             value = db[key] + &quot; &quot; + value
+&gt;&gt;&gt;         else:
+&gt;&gt;&gt;             value = value + &quot; &quot; + db[key]
+&gt;&gt;&gt;     db[key] = value
+&gt;&gt;&gt;  #  db[key] = unicode(value,'utf8').encode('gb18030')
+&gt;&gt;&gt; db.close()
+&gt;&gt;&gt;
+&gt;&gt;&gt; let bsddb = 'vimim.gbk.bsddb'
+&gt;&gt;&gt; if has(&quot;python&quot;)
+&gt;&gt;&gt;     :python import vim, bsddb
+&gt;&gt;&gt;     :python  db =  bsddb.btopen(vim.eval('bsddb'),'r')
+&gt;&gt;&gt;   &quot; :python  db =   anydbm.open(vim.eval('bsddb'),'r')
+&gt;&gt;&gt;   &quot; :python3 db = dbm.dumb.open(vim.eval('bsddb'),'r')
+&gt;&gt;&gt; endif
+&gt;&gt;&gt;
+&gt;&gt;&gt; function! g:vimim_get_database()
+&gt;&gt;&gt; :sil!python &lt;&lt; EOF
+&gt;&gt;&gt; import vim, urllib
+&gt;&gt;&gt; url = 'http://vimim.googlecode.com/svn/trunk/plugin/vimim.gbk.bsddb'
+&gt;&gt;&gt; filename = vim.eval('s:path') + 'vimim.gbk.bsddb'
+&gt;&gt;&gt; urllib.urlretrieve(url, filename)
+&gt;&gt;&gt; EOF
+&gt;&gt;&gt; endfunction
+</pre>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+<div class="section" id="id19">
+<h2><a class="toc-backref" href="#id117">English 词库</a></h2>
+<p>作为私人文件词库，vimim.txt 给VimIM锦上添花。</p>
+<ul class="simple">
+<li>【安装】 即插即用，想删就删。也可用于云输入。</li>
+<li>【样本】 <a class="reference external" href="http://vimim.googlecode.com/svn/trunk/plugin/vimim.vim">http://vimim.googlecode.com/svn/trunk/plugin/vimim.vim</a></li>
+<li>【格式】 一行一词，无需排序。自己的词条永远排在最前面。</li>
+<li>【功能】 可以混合英文单词和拼音，同时显示单词和中文。</li>
+<li>【案例】 <a class="reference external" href="http://code.google.com/p/vimim/wiki/VimIM_English_Input">外国政要译名之争的解决方案</a><ul>
+<li>优点：精确定位外国人名、外国地名、科学术语</li>
+<li>样品：obama 奥巴马 欧巴马</li>
+<li>样品：haagendazs 哈根达斯</li>
+<li>玩法：haag 空格键 空格键</li>
+</ul>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="cjk">
+<h2><a class="toc-backref" href="#id118">cjk 标准字库</a></h2>
+<div class="section" id="id21">
+<h3><a class="toc-backref" href="#id119">简介</a></h3>
+<ul class="simple">
+<li>【名称】vimim.cjk.txt</li>
+<li>【大小】500K</li>
+<li>【格式】一字一行。总计20902行，含ISO10646中全部统一汉字。</li>
+<li>【内容】每个汉字都含四角号码或五笔画、拼音甚至字频、简繁、英文。</li>
+<li>【安装】即插即用，想删就删。既可单独使用，也可作为辅助词库。</li>
+<li>【技巧】如果希望使用五笔画，可把下载同名字库</li>
+<li>【功能】犹如瑞士军刀：<ul>
+<li>〖汉字搜索〗 /search　标准正斜杠无菜单搜索：　/a12j35 =&gt; 埃及</li>
+<li>〖数码输入〗 四角号码。也可设定为标准五笔画（横、竖、撇、捺、折）。</li>
+<li>〖四数上屏〗 每四个数字（四角号码）断字。亦可用imode快捷键</li>
+<li>〖动态辅码〗 用四角号码或五笔画动态定调，输入“施氏食狮史”：</li>
+<li>〖汉字盲打〗 用拼音加数码瞎敲或者用首拼加四个数字快捷键</li>
+<li>〖形码辅码〗 形码五笔不变，加数字就是拼音：　li =&gt; 遝　li3 =&gt; 李</li>
+<li>〖见字找码〗 高亮选择汉字字串后，按CTRL-^, 得四角号码，五笔画和拼音列表</li>
+<li>〖简繁互换〗 :VimIM</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id22">
+<h3><a class="toc-backref" href="#id120">安装</a></h3>
+<blockquote>
+<ol class="arabic simple">
+<li>下载插件　vimim.vim</li>
+<li>下载字库　vimim.cjk.txt</li>
+<li>把下载文件扔到vim的plugin文件夹里面</li>
+</ol>
+</blockquote>
+</div>
+<div class="section" id="id23">
+<h3><a class="toc-backref" href="#id121">测试</a></h3>
+<p>经典测试</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="23%" />
+<col width="42%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">输入方式</th>
+<th class="head">输出结果</th>
+<th class="head">cjk标准字库</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>i'have'a'dream</td>
+<td>我有一梦</td>
+<td>英文，单引号分字</td>
+</tr>
+<tr><td>wyygm</td>
+<td>我有一个梦</td>
+<td>首拼，自动分字</td>
+</tr>
+<tr><td>woyouyigemeng</td>
+<td>我有一个梦</td>
+<td>全拼，自动分字</td>
+</tr>
+<tr><td>wo3you3yi1ge4meng4</td>
+<td>我有一个梦</td>
+<td>全拼，以拼音音调分字</td>
+</tr>
+<tr><td>w2y4y1g8m4</td>
+<td>我有一个梦</td>
+<td>四角号码，首拼，数码分字</td>
+</tr>
+<tr><td>23554022100080204420</td>
+<td>我有一个梦</td>
+<td>四角号码，四数上屏</td>
+</tr>
+<tr><td>iwettrpwwqpppipwprrwp</td>
+<td>我有一个梦</td>
+<td>四角号码，四数上屏，快捷键</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>汉字搜索</p>
+<ul class="simple">
+<li>特点：字母和数字可以自由组合，以缺省四角号码为例。</li>
+<li>测试：/search　标准正斜杠无菜单搜索<ol class="arabic">
+<li>进入vim</li>
+<li>输入　/li4040　　按回车 =&gt; ”李“字被搜索</li>
+<li>输入　/sh80sh41　按回车 =&gt; ”食狮“二字被搜索</li>
+<li>输入　/a43j17　　按回车 =&gt; ”埃及“二字被搜索</li>
+</ol>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>数码输入</p>
+<ul class="simple">
+<li>特点：数字可以自由增减：　1　12　123　1234　12345</li>
+<li>测试：〖数码输入〗标准五笔画（横、竖、撇、捺、折）<ol class="arabic">
+<li>插入标准字库，并改名为 vimim.cjkv.txt</li>
+<li>进入vim，进入insert模式</li>
+<li>输入　1</li>
+<li>按 CTRL-^, 显示候选词列表</li>
+<li>按 2345 或 wert 辅码过滤，注意汉字列表的变化。</li>
+<li>按空格或者字母键上屏。接着试试输入　12</li>
+<li>按 CTRL-^, 显示候选词列表</li>
+<li>按 2345 或 wert  辅码过滤</li>
+<li>按空格或者字母键上屏</li>
+</ol>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>四数上屏</p>
+<ul class="simple">
+<li>目的：用四角号码数码输入法，敲“敏感”二字</li>
+<li>背景：“敏感”二字的四角号码是 88745333</li>
+<li>点评：imode快捷键的主要目的省力。</li>
+<li>测试：〖四数上屏〗 每四个数字（四角号码）开始断字。<ol class="arabic">
+<li>进入vim，进入insert模式</li>
+<li>输入　88745333</li>
+<li>按 CTRL-^</li>
+<li>按 空格键选字，“敏”字上屏</li>
+<li>按 空格键选字，“感”字上屏</li>
+<li>也可以使用imode快捷输入：　iiiurteee</li>
+</ol>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>字母过滤</p>
+<ul class="simple">
+<li>点评：英文键盘 qwertyuiop 一一对应 1234567890, 无需记忆。</li>
+<li>测试：字母键可替代数字键：qwertyuiop =&gt; 1234567890<ol class="arabic">
+<li>进入vim，进入insert模式</li>
+<li>输入　12</li>
+<li>按下 CTRL-^, 显示候选词列表</li>
+<li>可以按 r (4) 辅码过滤，注意汉字列表的变化。</li>
+</ol>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>动态辅码（四角号码）</p>
+<ul class="simple">
+<li>背景：编码源自四角号码检字法。【施】字的四角号码编码是 0821</li>
+<li>测试：用四角号码动态定调，连续输入“施氏食獅史”<ol class="arabic">
+<li>进入vim，进入insert模式</li>
+<li>输入　sssss</li>
+<li>按 CTRL-^</li>
+<li>按 m</li>
+<li>按 p  (0 ) 辅码过滤，按 b 选字，“施”字上屏</li>
+<li>按 u  (7 ) 辅码过滤，按 f 选字，“氏”字上屏</li>
+<li>按 i  (8 ) 辅码过滤，按 c 选字，“食”字上屏</li>
+<li>按 rq (41) 辅码过滤，按 : 〖输简出繁〗，按空格选字，“獅”字上屏</li>
+<li>按 t  (5)  辅码过滤，按 c 选字，“史”字上屏</li>
+</ol>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>汉字盲打</p>
+<ul class="simple">
+<li>特点：不限制拼音长度，也不限制数码长度。</li>
+<li>测试：用拼音加数码瞎敲：　s41s35s34s35s25 =&gt; 施氏食狮史<ol class="arabic">
+<li>进入vim，进入insert模式</li>
+<li>输入　s41s35s34s35s25</li>
+<li>按 CTRL-^, 显示候选词列表</li>
+<li>如果需要，按数码辅码过滤</li>
+<li>按字母键或者空格键上屏</li>
+</ol>
+</li>
+<li>背景：首拼加数字与首拼加快捷键效果一样，不过后者省力。</li>
+<li>测试：用首拼加四个数字快捷键：　sipuesrqwwstppp =&gt; 食狮史<ol class="arabic">
+<li>进入vim，进入insert模式</li>
+<li>输入　s8073s4122s5000</li>
+<li>按 CTRL-^, 显示候选词列表，按字母键上屏</li>
+<li>输入　sipuesrqwwstppp</li>
+<li>按 CTRL-^, 显示候选词列表，按字母键上屏</li>
+</ol>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>见字找码</p>
+<ul class="simple">
+<li>背景：每个汉字在cjk标准字库里面都含拼音、四角号码或五笔画</li>
+<li>测试：〖见字找码〗 高亮选择汉字字串后，按 CTRL-^, 输出汉字列表<ol class="arabic">
+<li>进入vim</li>
+<li>高亮选择同一行中的几个汉字</li>
+<li>按 CTRL-^</li>
+<li>输出汉字列表：统一码，四角号码或五笔画，全拼</li>
+</ol>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>简繁互换</p>
+<ul class="simple">
+<li>背景：每个汉字在cjk标准字库里面都含拼音、四角号码或五笔画</li>
+<li>测试：〖简繁互换〗 :VimIM<ol class="arabic">
+<li>用vim 打开任何一个中文文本文件</li>
+<li>输入　:VimIM</li>
+<li>按回车，实现简繁互换</li>
+<li>输入　:VimIM</li>
+<li>按回车，实现繁简互换</li>
+</ol>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>五笔加拼音（字）</p>
+<ul class="simple">
+<li>测试：〖形码辅码〗 形码五笔不变，加数字就是拼音</li>
+<li>安装：<ol class="arabic">
+<li>下载插件　vimim.vim</li>
+<li>下载字库　vimim.cjk.txt</li>
+<li>下载五笔　vimim.wubi.txt</li>
+<li>把下载文件扔到vim的plugin文件夹里面</li>
+</ol>
+</li>
+<li>使用：<ol class="arabic">
+<li>进入vim，进入insert模式</li>
+<li>输入　li　　　按 CTRL-^　显示“遝”（五笔）</li>
+<li>输入　li3　　 按 CTRL-^　显示“李”（全拼加音调）</li>
+<li>输入　li123　 按 CTRL-^　显示“李”（拼音加五笔画辅码）</li>
+<li>输入　ryyy'　 按 CTRL-^　显示“人云亦云”（搜狗云输入）</li>
+</ol>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id24">
+<h1><a class="toc-backref" href="#id122">附录</a></h1>
+<div class="section" id="dream">
+<h2><a class="toc-backref" href="#id123">dream</a></h2>
+<div class="line-block">
+<div class="line">我们的梦想是有一天，VimIM退出历史舞台，所有的功能都成为Vim的一部分。</div>
+<div class="line">也就是说，下载Vim之后，不需要插件，不需要系统输入法，照常点石成金。</div>
+<div class="line"><br /></div>
+<div class="line">中文输入与英文输入水乳交融。</div>
+<div class="line">中文搜索与英文搜索鱼水一家。</div>
+<div class="line"><br /></div>
+</div>
+<div class="sidebar">
+<p class="first sidebar-title">VimIM　彩蛋</p>
+<div class="figure">
+<img alt="vimim.png" src="vimim.png" />
+</div>
+<div class="last figure">
+<img alt="vimimrc.png" src="vimimrc.png" />
+</div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id25">
+<h2><a class="toc-backref" href="#id124">玩家体验</a></h2>
+<p>VimIM玩家自己的心得体会，就是VimIM最好的用户手则：</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.linuxsir.org/bbs/showthread.php?p=2051139">标题: 挂个贴宣传一下 VimIM 输入法</a></li>
+<li><a class="reference external" href="http://www.linuxgem.org/2009/5/18/VimIM.8422.html">VimIM -- 基于 Vim 的中文输入法 (LinuxGem)</a></li>
+<li><a class="reference external" href="http://crane.is-programmer.com/posts/12726">强大的VimIM (blog)</a></li>
+<li><a class="reference external" href="http://code.google.com/p/vimim/wiki/Feedback_Suxpert">不折腾——VimIM践行主旨 (wiki)</a></li>
+<li><a class="reference external" href="http://bigeagle.yo2.cn/articles/vimim%E2%80%94%E2%80%94%E5%88%A9%E7%94%A8vim%E8%87%AA%E5%8A%A8%E8%A1%A5%E5%85%A8%E5%88%B6%E4%BD%9C%E7%9A%84%E8%BE%93%E5%85%A5%E6%B3%95.html">VimIM——利用vim自动补全制作的输入法</a></li>
+<li><a class="reference external" href="http://freeai.blogspot.com/2009/03/vimim.html">最早发现〖点石成金〗的VimIM粉丝</a></li>
+<li><a class="reference external" href="http://code.google.com/p/vimim/wiki/DIY_Korean">与抗美援朝风马牛不相及：用VimIM敲韩语</a></li>
+<li><a class="reference external" href="http://code.google.com/p/vimim/wiki/MultiWordListFiles">排序多个词库文件成为一个词库</a></li>
+<li><a class="reference external" href="http://www.bibibang.com/group_thread/view/id-12421">在VIM里方便的输入中文记VimIM</a></li>
+</ul>
+<div class="sidebar">
+<p class="first sidebar-title">VimIM 玩家评论　Testimonials</p>
+<ul class="last simple">
+<li>众里寻她千百度</li>
+<li>最完美的 vim 中文方案</li>
+<li>vim + IM == 才子配佳人</li>
+<li><a class="reference external" href="http://edt1023.sayya.org/vim/node1.html">vim → 历久弥新</a> 　VimIM → 锦上添花！</li>
+<li><a class="reference external" href="http://www.douban.com/group/topic/5212341/">这是我见过的最帅的插件</a></li>
+<li><a class="reference external" href="http://forum.ubuntu.org.cn/viewtopic.php?f=68&amp;p=1135330">神插件</a></li>
+<li><a class="reference external" href="http://bbs.njupt.edu.cn/cgi-bin/bbstcon?board=Unix&amp;file=M.1235391571.A">太有创意了 ... 果然闻所未闻 ...</a></li>
+<li><a class="reference external" href="http://groups.google.com/group/vimim/browse_thread/thread/933ca7066b6fcecd">彻底终结了中文输入法转换的梦魇</a></li>
+<li><a class="reference external" href="http://cookinglinux.cn/emacs-learning-three-step.html#comment-205">因vimim而更喜欢vim了！</a></li>
+<li><a class="reference external" href="http://jouevemau.blogspot.com/2009/04/vim.html">我感动得都快要哭了</a></li>
+<li><a class="reference external" href="http://bbs.chinaunix.net/archiver/tid-1559430-page-7.html">居然可以这样，所有的输入法可以去死了。</a></li>
+<li><a class="reference external" href="http://groups.google.com/group/vimim/browse_thread/thread/3c94d74fcf43bf22">软件很华丽，作者很犀利，VIM 之国人神器。</a></li>
+<li><a class="reference external" href="https://twitter.com/7id/status/15323571874">VimIM 简直神了～用vim做输入法，创意无限！</a></li>
+</ul>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id45">
+<h2><a class="toc-backref" href="#id125">中文搜索</a></h2>
+<div class="section" id="id46">
+<h3><a class="toc-backref" href="#id126">/</a></h3>
+<div class="line-block">
+<div class="line">敲英文　找中文</div>
+<div class="line"><br /></div>
+<div class="line">VimIM 推出无热键无菜单，近乎纯自然的中文搜索方案</div>
+<div class="line"><a class="reference external" href="http://code.google.com/p/vimim/wiki/VimimSearch">http://code.google.com/p/vimim/wiki/VimimSearch</a></div>
+<div class="line"><br /></div>
+<div class="line">敲 / 搜索是vi的精华之一，尽善尽美, 连FireFox也继承这一光荣传统。</div>
+<div class="line">不过，vim搜索只限于英文。如果想要搜索中文，非得启动菜单不可。</div>
+<div class="line"><br /></div>
+<div class="line">目前VimIM在Vim标准命令行窗口中可以用OneKey输入中文进而搜索中文。</div>
+<div class="line">不过，为找一个汉字，必须打开二个窗口（命令行窗口和omni菜单)。</div>
+<div class="line"><br /></div>
+<div class="line">我们要的是纯自然搜索，不出中文菜单，只敲 / 和 n</div>
+<div class="line"><br /></div>
+<div class="line">举个例子：/horse</div>
+<div class="line">如果搜索的文章里没有 &quot;horse&quot; 只有“马”字,</div>
+<div class="line">我们看到的是 errmsg: E486: Patter not found</div>
+<div class="line">这时，不用管它，继续敲 n 就可以搜索到“马”字。</div>
+<div class="line"><br /></div>
+<div class="line">如果搜索的文章里同时有 &quot;horse&quot; 和 “马”。</div>
+<div class="line">这时我们可以玩个歪招，比如，/horsE，照样找到“马”。</div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="cmdline-window">
+<h3><a class="toc-backref" href="#id127">cmdline-window</a></h3>
+<p>命令行窗口</p>
+<div class="line-block">
+<div class="line">命令行模式是Vim的精华之一。</div>
+<div class="line">VimIM 用的是Vim标准命令行窗口。</div>
+<div class="line">:help cmdline-window</div>
+</div>
+<ul class="simple">
+<li>【开启】在Vim正常模式下按q:或者q?或者q/或者/CTRL-F</li>
+<li>【编辑】OneKey出菜单，空格键/字母键/数字键上汉字</li>
+<li>【关闭】按回车执行命令，然后回到Vim正常模式</li>
+<li>【基本用途】　搜索字符串　替换字符串</li>
+</ul>
+</div>
+<div class="section" id="omni-window">
+<h3><a class="toc-backref" href="#id128">omni-window</a></h3>
+<blockquote>
+<ul class="simple">
+<li>【经典】沿用 vi 搜索键，但 VimIM 推陈出新：</li>
+<li>【Vim】功能不变：&quot;/&quot;正向搜索或&quot;?&quot;反向搜索。</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="2">VimIM  汉字搜索   　敲提示菜单 &quot;/&quot; 或&quot;?&quot; 确认</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>1</td>
+<td>【开始】 进入 vim 插入模式</td>
+</tr>
+<tr><td>2</td>
+<td>点出中文提示菜单</td>
+</tr>
+<tr><td rowspan="2">3</td>
+<td>【结束】正向搜索：敲菜单 <tt class="docutils literal">/</tt> 键确认</td>
+</tr>
+<tr><td>【结束】反向搜索：敲菜单 <tt class="docutils literal">?</tt> 键确认</td>
+</tr>
+<tr><td>4</td>
+<td>vim 回归正常，搜索内容不插入</td>
+</tr>
+<tr><td>5</td>
+<td>可以敲 <tt class="docutils literal">n</tt> 键或者 <tt class="docutils literal">N</tt> 键继续搜索</td>
+</tr>
+</tbody>
+</table>
+<p>【自己动手试一试】</p>
+<p>　【目的】搜索词组“精力”</p>
+<p>　【操作步骤】</p>
+<blockquote>
+<ol class="arabic simple">
+<li>用 vim 打开一个文件</li>
+<li>敲 o 或 i 或 a 进入 vim 插入模式</li>
+<li>连敲四键: v i m &lt;C-^&gt;</li>
+<li>敲 l  向下翻页</li>
+<li>敲 k  光标向下移动</li>
+<li>敲 /  正向搜索</li>
+<li>敲 N  反向继续搜索</li>
+</ol>
+</blockquote>
+</blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="sidebar">
+<p class="first sidebar-title">VimIM <a class="reference internal" href="#cloud">Cloud</a>  　〖想云就云〗</p>
+<div class="figure">
+<img alt="vimim_dream.png" src="vimim_dream.png" />
+</div>
+<div class="last figure">
+<img alt="cloud_world.gif" src="cloud_world.gif" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id47">
+<h2><a class="toc-backref" href="#id129">中文输入</a></h2>
+<div class="section" id="cloud">
+<h3><a class="toc-backref" href="#id130">Cloud</a></h3>
+<p>云输入</p>
+<p>【官方介绍】</p>
+<blockquote>
+<ul class="simple">
+<li>搜狗云输入跨平台、免安装、兼容各个主流操作系统和浏览器。</li>
+<li>基于JavaScript技术，利用Ajax通信原理，采用B/S架构。</li>
+<li>强大语言模型(4G　三元模型、trigger模型)和海量词库(200W)。</li>
+<li>利用服务器的无限量的存储和计算能力，大幅提升输入准确率。</li>
+</ul>
+</blockquote>
+<p>【点评搜狗】</p>
+<blockquote>
+<ul class="simple">
+<li>搜狗整句识别率惊人，但只能在网页里输入，多有不变。(vimim group)</li>
+<li>遗憾的就是每打开一个网页都要启动一下搜狗云输入法。(sogou bbs)</li>
+<li>应用软件使用搜狗云输入法在版权上没问题。(linuxtoy.org)</li>
+</ul>
+</blockquote>
+<p>【云史】</p>
+<blockquote>
+<ol class="arabic simple">
+<li>2009年11月2日  <a class="reference external" href="http://pinyin.sogou.com/cloud">搜狗宣布推出搜狗云输入法</a></li>
+<li>2009年11月11日 <a class="reference external" href="http://code.google.com/p/vimim/wiki/VimIM_Cloud">VimIM 宣誓入云</a></li>
+<li>2009年11月16日 <a class="reference external" href="http://groups.google.com/group/vimim/browse_thread/thread/b90a05c1e37e3448">史上第一支持五种双拼的云输入法诞生</a></li>
+<li>2009年12月1日  <a class="reference external" href="http://code.google.com/p/vimim/wiki/CloudForAll">推出〖想云就云〗，不换模式，不限输入法</a></li>
+<li>2009年12月25日 支持 <a class="reference external" href="http://pim-cloud.appspot.com/">〖自己的云〗</a>  既可本地也可远程</li>
+</ol>
+</blockquote>
+<p>【必要条件】</p>
+<blockquote>
+<ul class="simple">
+<li>入〖云〗必须联网</li>
+<li>入〖云〗必须借助 Python 或者 libvimim.dll 或者 <a class="reference external" href="http://users.ugent.be/~bpuype/wget/">wget</a></li>
+<li>入〖云〗必须使用汉语拼音：全拼或者双拼甚至简拼</li>
+</ul>
+</blockquote>
+<div class="sidebar">
+<p class="first sidebar-title">VimIM <a class="reference internal" href="#cloud">Cloud</a> 　双拼</p>
+<div class="figure">
+<img alt="vimim_shuangpin_abc.gif" src="vimim_shuangpin_abc.gif" />
+</div>
+<div class="figure">
+<img alt="vimim_shuangpin_microsoft.gif" src="vimim_shuangpin_microsoft.gif" />
+</div>
+<div class="figure">
+<img alt="vimim_shuangpin_nature.gif" src="vimim_shuangpin_nature.gif" />
+</div>
+<div class="figure">
+<img alt="vimim_shuangpin_plusplus.gif" src="vimim_shuangpin_plusplus.gif" />
+</div>
+<div class="last figure">
+<img alt="vimim_shuangpin_purple.gif" src="vimim_shuangpin_purple.gif" />
+</div>
+</div>
+<p>【VimIM 云输入】</p>
+<blockquote>
+<ol class="arabic">
+<li><p class="first">〖全云输入〗每一个输入都〖云〗游</p>
+<ul class="simple">
+<li>特点：每打一个字母都要向服务器请求一次。</li>
+<li>手动开启：可设置 :let g:vimim_cloud='sogou'</li>
+<li>自动开启：如果vim plugin目录下没有词库</li>
+</ul>
+</li>
+<li><p class="first">〖可控性云输入〗每输入N个〖字〗就云游</p>
+<ul class="simple">
+<li>设置：:let :let g:vimim_cloud='sogou,5'</li>
+<li>（长的）诗词曲赋、新闻八卦、完整的句子拜托给〖云〗。</li>
+<li>（短的）私人信息、英文、词组、单字留给VimIM自己处理。</li>
+<li>长短的定义没有统一的国际标准。玩家自己定标准。</li>
+<li>例如：如果选项设置为5:　即每敲5个字以上就丢给〖云〗。</li>
+<li>结果：本地词库和搜狗云端词库智能切换。</li>
+</ul>
+</li>
+<li><p class="first">支持中文输入模式〖中文静态〗输入风格</p>
+<ul class="simple">
+<li>考虑到网速，这是VimIM云输入推荐的输入模式。</li>
+<li>设置为 <tt class="docutils literal">:let g:vimim_static_input_style=1</tt></li>
+</ul>
+</li>
+<li><p class="first">推出〖想云就云〗 不换模式，不限输入法</p>
+<ul class="simple">
+<li>【卖点】东边日出西边雨，道是无云却有云！</li>
+<li>【特点】不限于拼音输入法！不需要设置！</li>
+<li>【条件】只需要联网和Python或libvimim.dll或wget或curl</li>
+<li>【限于】 <a class="reference internal" href="#id14">点石成金</a></li>
+<li>【操作】在输入后加多一个单引号，接着敲&lt;C-^&gt;</li>
+<li>【例】ajiao' =&gt; ajiao 阿娇</li>
+<li>【例】dbrcxby' =&gt;  东边日出西边雨</li>
+<li>【例】hfpjlswsqy' =&gt;  好风凭借力送我上青云</li>
+</ul>
+</li>
+<li><p class="first">支持彻底关闭云</p>
+<ul class="simple">
+<li>【设置】:let g:vimim_cloud=-1</li>
+</ul>
+</li>
+<li><p class="first">支持 〖自己的云〗</p>
+<blockquote>
+<ul class="simple">
+<li>【卖点】自己的云永远是最好的云</li>
+<li>【本地插件】python</li>
+<li>【缺省关闭】:let g:vimim_mycloud=0</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>【设计思路】</p>
+<blockquote>
+<ol class="arabic simple">
+<li>VimIM 决不能被〖云〗和谐</li>
+<li>VimIM 决不能被〖云〗折腾</li>
+<li>VimIM 决不能被〖云〗忽悠</li>
+<li>VimIM 同时坚信：他山之石，可以攻玉</li>
+</ol>
+</blockquote>
+<div class="sidebar">
+<p class="first sidebar-title">VimIM <a class="reference internal" href="#cloud">Cloud</a> 　云输入</p>
+<div class="figure">
+<img alt="vimim_cloud.gif" src="vimim_cloud.gif" />
+</div>
+<div class="last figure">
+<img alt="vimim_cloud_console.gif" src="vimim_cloud_console.gif" />
+</div>
+</div>
+<p>【自己动手试一试】</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="8%" />
+<col width="43%" />
+<col width="49%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">VimIM <a class="reference internal" href="#cloud">Cloud</a>     即插即用　Plug &amp; Play</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>&nbsp;</td>
+<td>Windows 用户</td>
+<td>Linux 用户</td>
+</tr>
+<tr><td>1</td>
+<td colspan="2">确认电脑联网</td>
+</tr>
+<tr><td rowspan="2">2</td>
+<td rowspan="2">下载 libvimim.dll</td>
+<td rowspan="2">确认无词库</td>
+</tr>
+<tr></tr>
+<tr><td>3</td>
+<td>置dll于plugin之下</td>
+<td><!--  -->
+</td>
+</tr>
+<tr><td>4</td>
+<td colspan="2">下载新版脚本 vimim.vim    并置于plugin之下</td>
+</tr>
+<tr><td>5</td>
+<td colspan="2">打开 vim</td>
+</tr>
+<tr><td>6</td>
+<td colspan="2">敲 o 或 i 或 a 进入 vim 插入模式</td>
+</tr>
+<tr><td>7</td>
+<td colspan="2">敲　haofengpingjielisongwoshangqingyun</td>
+</tr>
+<tr><td>8</td>
+<td colspan="2">敲 <a class="reference internal" href="#id14">点石成金</a> 键 &lt;C-^&gt;</td>
+</tr>
+<tr><td>9</td>
+<td colspan="2">默念：〖云〗〖云〗〖云〗</td>
+</tr>
+<tr><td>10</td>
+<td colspan="2">〖上屏结果〗 好风凭借力送我上青云</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id54">
+<h3><a class="toc-backref" href="#id131">拼音</a></h3>
+<p>VimIM 拼音输入词库样例：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">拼音</th>
+<th class="head">词库 样本</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>汉语拼音</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.pinyin.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.pinyin.txt</a></td>
+</tr>
+<tr><td>拼音大词库</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.pinyin_huge.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.pinyin_huge.txt</a></td>
+</tr>
+<tr><td>fcitx大词库</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.pinyin_fcitx.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.pinyin_fcitx.txt</a></td>
+</tr>
+<tr><td>搜狗单双字</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.pinyin_quote_sogou.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.pinyin_quote_sogou.txt</a></td>
+</tr>
+<tr><td>搜狗单双字</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.pinyin_sogou.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.pinyin_sogou.txt</a></td>
+</tr>
+</tbody>
+</table>
+<p>VimIM 拼音输入总结：</p>
+<ul class="simple">
+<li>【标点翻页】逗号/句号 或者 减号/等号。翻页键可调。</li>
+<li>【字母选字】_abcdvfgz 一一对应数字键1-9 可直接上上字</li>
+<li>【空格键】直接上汉字，或上空格。</li>
+<li>【回车键】或无缝上英文，或回车。</li>
+<li>【一键改错】&lt;C-U&gt; 将就传统输入法的用户体验</li>
+<li>【中文数字】（静态模式）i2009　=&gt;　二〇〇九　　I2009　=&gt;　贰零零玖</li>
+<li>【中文量词】（静态模式）i5t　=&gt;　五吨　　id8　=&gt;　第八</li>
+<li>【大块英文】敲 CTRL-\ 动态切换中英文输入模式。</li>
+<li>【拼音数码】把数码（四角号码或五笔划）当作拼音音调使用</li>
+<li>【敲花名册】 <a class="reference external" href="http://code.google.com/p/vimim/wiki/VimimPinyinDigit">http://code.google.com/p/vimim/wiki/VimimPinyinDigit</a></li>
+</ul>
+</div>
+<div class="section" id="id55">
+<h3><a class="toc-backref" href="#id132">双拼</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="61%" />
+<col width="39%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="2">【双拼】 选择开启</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>:let g:vimim_shuangpin = 'abc'</td>
+<td>智能ABC双拼</td>
+</tr>
+<tr><td>:let g:vimim_shuangpin = 'ms'</td>
+<td>微软双拼</td>
+</tr>
+<tr><td>:let g:vimim_shuangpin = 'nature'</td>
+<td>自然码双拼</td>
+</tr>
+<tr><td>:let g:vimim_shuangpin = 'plusplus'</td>
+<td>拼音加加双拼</td>
+</tr>
+<tr><td>:let g:vimim_shuangpin = 'purple'</td>
+<td>紫光双拼</td>
+</tr>
+<tr><td>:let g:vimim_shuangpin = 'flypy'</td>
+<td>小鹤双拼</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id56">
+<h3><a class="toc-backref" href="#id133">五笔</a></h3>
+<p>VimIM 五笔输入词库样例：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">五笔</th>
+<th class="head">词库 样本</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>五笔 86</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.wubi.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.wubi.txt</a></td>
+</tr>
+<tr><td>五笔 98</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.wubi98.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.wubi98.txt</a></td>
+</tr>
+<tr><td>海峰五笔</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.wubihf.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.wubihf.txt</a></td>
+</tr>
+<tr><td>极点五笔</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.wubijd.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.wubijd.txt</a></td>
+</tr>
+<tr><td>新世纪五笔</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.wubi2000.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.wubi2000.txt</a></td>
+</tr>
+</tbody>
+</table>
+<p>VimIM 五笔输入总结：</p>
+<p>中文模式和点石成金</p>
+<blockquote>
+(1) 标点翻页：逗号/句号 或者 减号/等号。
+(3) 空格键：上字，开始新的一轮五笔连打，或空格
+(2) 数字键：选词
+(4) 回车键：或无缝上英文，或回车。</blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="sidebar">
+<p class="first sidebar-title">四角号码 Four_Corner</p>
+<div class="figure">
+<img alt="vimim_four_corner_3610.gif" src="vimim_four_corner_3610.gif" />
+</div>
+<div class="figure">
+<img alt="vimim_four_corner_3111.gif" src="vimim_four_corner_3111.gif" />
+</div>
+<div class="last figure">
+<img alt="vimim_6021272260021762.gif" src="vimim_6021272260021762.gif" />
+</div>
+</div>
+</div>
+<div class="section" id="four-corner">
+<h3><a class="toc-backref" href="#id134">Four-Corner</a></h3>
+<p>四角号码</p>
+<ul class="simple">
+<li>下载： vimim.cjk.txt</li>
+<li>玩法： 数码　CTRL-^</li>
+<li>特点：<ul>
+<li>最早的有条有理的汉字编码（1925年）</li>
+<li>见字可知码，按码可索字。而且不用拆字。</li>
+<li>可以统一“识字、查字、编码、打字”。</li>
+<li>可以实现“字典、电脑、手机”一路通。</li>
+</ul>
+</li>
+<li>优势：<ul>
+<li>直接敲数码：7 或 71 或 713 或 7132  ==&gt; 馬</li>
+<li>支持长串数码，逐字上屏： 6021272260021762 ==&gt; 四角号码</li>
+<li>支持通配符：如果不能确定某个角码，可以用英文句号代替。71.2 ==&gt; 馬</li>
+<li>可以作为拼音动态辅码，输入“施氏食狮史”：　sssss</li>
+<li>可以用imode快捷键，用字母键替代数字键：qwertyuiop =&gt; 1234567890</li>
+</ul>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id57">
+<h3><a class="toc-backref" href="#id135">其余</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">数码</th>
+<th class="head">词库 样本</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>四角号码</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.cjk.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.cjk.txt</a></td>
+</tr>
+<tr><td>五笔画</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.cjkv.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.cjkv.txt</a></td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="83%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">音码</th>
+<th class="head">词库 样本</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>自然</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.nature.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.nature.txt</a></td>
+</tr>
+<tr><td>注音</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.phonetic.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.phonetic.txt</a></td>
+</tr>
+<tr><td>吴语注音</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.wu.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.wu.txt</a></td>
+</tr>
+<tr><td>粤语拼音</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.pinyin_canton.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.pinyin_canton.txt</a></td>
+</tr>
+<tr><td>香港拼音</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.pinyin_hongkong.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.pinyin_hongkong.txt</a></td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="84%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">形码</th>
+<th class="head">词库 样本</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>仓颉</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.cangjie.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.cangjie.txt</a></td>
+</tr>
+<tr><td>嘸蝦米</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.boshiamy.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.boshiamy.txt</a></td>
+</tr>
+<tr><td>郑码</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.zhengma.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.zhengma.txt</a></td>
+</tr>
+<tr><td>速成</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.quick.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.quick.txt</a></td>
+</tr>
+<tr><td>行列</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.array30.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.array30.txt</a></td>
+</tr>
+<tr><td>新华</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.xinhua.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.xinhua.txt</a></td>
+</tr>
+<tr><td>太极码</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.taijima.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.taijima.txt</a></td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">音形码</th>
+<th class="head">词库 样本</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>二笔</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.erbi.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.erbi.txt</a></td>
+</tr>
+<tr><td>永码</td>
+<td><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.yong.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.yong.txt</a></td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="sidebar">
+<p class="first sidebar-title">和谐软体　 <strong>Together in Harmony</strong></p>
+<ul class="last simple">
+<li>主要问题：旧版缺省关闭所有选项：烦不胜烦</li>
+<li>解决方案：新版自动开放常用选项：柳暗花明</li>
+<li>理论基础：“不折腾”　 <em>BuZheTeng</em></li>
+</ul>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+<div class="section" id="id58">
+<h2><a class="toc-backref" href="#id136">词库</a></h2>
+<div class="section" id="id59">
+<h3><a class="toc-backref" href="#id137">目录词库</a></h3>
+<ol class="arabic simple">
+<li>〖目录词库〗：海量词库，不耗内存</li>
+<li>参见： <a class="reference external" href="http://code.google.com/p/vimim/wiki/VimimDirectorydata">http://code.google.com/p/vimim/wiki/VimimDirectorydata</a><ol class="arabic">
+<li>缺省位置:      plugin/pinyin/</li>
+<li>plugin 目录位置为: g:vimim_plugin</li>
+</ol>
+</li>
+</ol>
+</div>
+<div class="section" id="id60">
+<h3><a class="toc-backref" href="#id138">词库管理</a></h3>
+<p>【无词库】</p>
+<blockquote>
+<ul class="simple">
+<li>联网：　即插即用 VimIM <a class="reference internal" href="#cloud">Cloud</a></li>
+<li>无联网：利用 VimIM <a class="reference internal" href="#id65">内码输入</a></li>
+</ul>
+</blockquote>
+<p>【带词库】</p>
+<blockquote>
+<ul class="simple">
+<li>〖特点〗 即插即用 plug &amp; play</li>
+<li>用VimIM 打字，只需一个词库。玩家可以从民间词库样例中挑选。</li>
+<li>如果需要用拼音打花名册，推荐使用 <a class="reference internal" href="#cjk">cjk 标准字库</a></li>
+<li>如果需要同时使用几种输入法，可以同时插入几种词库</li>
+</ul>
+</blockquote>
+<p>【词库位置】</p>
+<blockquote>
+<ul class="simple">
+<li>〖特点〗 多个词库： set &amp; play</li>
+<li>用户可以随意设置自己词库的位置</li>
+</ul>
+</blockquote>
+<p>【多功能词库】</p>
+<blockquote>
+<ul class="simple">
+<li>〖特点〗一个词库： set &amp; play</li>
+<li>用户可以在一个词库中混合几种输入法。</li>
+</ul>
+</blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id61">
+<h3><a class="toc-backref" href="#id139">词库格式</a></h3>
+<p>VimIM 词库是开放式的纯文本文件，左码右词，一行多词，无需排序。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">输入码</th>
+<th class="head">空格</th>
+<th class="head">汉字</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>mali</td>
+<td><!--  -->
+</td>
+<td>馬力</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id62">
+<h3><a class="toc-backref" href="#id140">词库编码</a></h3>
+<p><a class="reference external" href="http://code.google.com/p/vimim/issues/detail?id=133">http://code.google.com/p/vimim/issues/detail?id=133</a></p>
+<div class="line-block">
+<div class="line">请从 <a class="reference external" href="http://code.google.com/p/vimim-data/">http://code.google.com/p/vimim-data/</a> 下词库文件，比如 vimim.wubi.txt</div>
+<div class="line">如果你的 &amp;enc(VIM系统编码) 是 UTF8 的，请不要做修改；</div>
+<div class="line">如果你的 &amp;enc(VIM系统编码) 不是 UTF8，是其它编码，请修改文件编码与文件名称</div>
+<div class="line">相同。比如 &amp;enc 是 cp936，请修改 vimim.wubi.txt =&gt; vimim.wubi.cp936.txt 并</div>
+<div class="line">修改vimim.wubi.cp936.txt 的 &amp;fenc(文件编码)为 cp936. :set ft=cp936</div>
+<div class="line">...</div>
+<div class="line">其它词库亦是如此，那么按 &lt;C-&gt; 等待 XX 秒，将成为历史</div>
+<div class="line"><br /></div>
+</div>
+<p>又及：
+目标是Vim编码与词库编码相同。也即utf8&lt;=&gt;utf8 cp936&lt;=&gt;cp936</p>
+<ol class="arabic simple">
+<li>假设标准词库为 vimim.pinyin.txt 编码缺省为utf8</li>
+<li>用户自己修改词库的编码 =&gt; cp936</li>
+<li>用户自己修改词库的文件名： vimim.pinyin.cp936.txt</li>
+</ol>
+<!-- 杂项 -->
+<!-- - - - - -->
+<!--  -->
+<!-- 使用缓存 -->
+<!-- ~~~~~~~~ -->
+<!-- - 设置：:let g:vimim_use_cache = 1 -->
+<!-- - 优点：文件词库预先存入内存，方便快速打字。 -->
+<!-- - 缺点：初始过程要费点时间 -->
+<!--  -->
+<!--  -->
+<!-- .. sidebar::  Unicode 内码输入 -->
+<!--  -->
+<!-- .. figure:: vimim_unicode_digit.gif -->
+<!-- .. figure:: vimim_unicode_hex.gif -->
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id63">
+<h3><a class="toc-backref" href="#id141">中文数字</a></h3>
+<p>VimIM 自然有阿拉伯数字和中文大小写数字和量词的转换能力。</p>
+<p>VimIM keeps habit of (1)全拼(2)智能ABC双拼</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="6%" />
+<col width="20%" />
+<col width="74%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>1</td>
+<td><strong>i</strong></td>
+<td>输入小写中文数字的前导字符</td>
+</tr>
+<tr><td>2</td>
+<td><strong>ii</strong></td>
+<td>输入大写中文数字的前导字符</td>
+</tr>
+</tbody>
+</table>
+<p><strong>中文数字</strong></p>
+<div class="line-block">
+<div class="line">i2000 　=&gt;　二〇〇九</div>
+<div class="line">ii2000　=&gt;　贰零零玖</div>
+</div>
+<p><strong>中文量词</strong></p>
+<div class="line-block">
+<div class="line">i1g =&gt;　一个　　ii1g　=&gt;　壹个　　i8d =&gt;　第八</div>
+<div class="line">i1w8ql　=&gt;　一万八千里　　iww8ql　=&gt;　十万八千里</div>
+<div class="line"><br /></div>
+</div>
+<p>VimIM 可以毫不费力玩智能ABC的样本例子：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="67%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>i20090719</td>
+<td>二〇〇九〇七一九</td>
+</tr>
+<tr><td>ii20090719</td>
+<td>贰零零玖零柒壹玖</td>
+</tr>
+<tr><td>i2009n</td>
+<td>二〇〇九年</td>
+</tr>
+<tr><td>i7y</td>
+<td>七月</td>
+</tr>
+<tr><td>i20r</td>
+<td>二〇日</td>
+</tr>
+<tr><td>i2sr</td>
+<td>二十日</td>
+</tr>
+<tr><td>i2006n6y3sr</td>
+<td>二〇〇六年六月三十日</td>
+</tr>
+<tr><td>ii6b8s2</td>
+<td>陆佰捌十贰</td>
+</tr>
+<tr><td>isw8ql</td>
+<td>十万八千里</td>
+</tr>
+</tbody>
+</table>
+<p>常用单个量词的定义与智能abc类似：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>a　秒</td>
+<td>f　分</td>
+<td>k　克</td>
+<td>p　磅</td>
+<td>u　微</td>
+</tr>
+<tr><td>b　百</td>
+<td>g　个</td>
+<td>l　里</td>
+<td>q　千</td>
+<td>w　万</td>
+</tr>
+<tr><td>c　厘</td>
+<td>h　时</td>
+<td>m　米</td>
+<td>r　日</td>
+<td>x　升</td>
+</tr>
+<tr><td>d　第</td>
+<td>i　毫</td>
+<td>n　年</td>
+<td>s　十</td>
+<td>y　月</td>
+</tr>
+<tr><td>e　亿</td>
+<td>j　斤</td>
+<td>o　度</td>
+<td>t　吨</td>
+<td>z　兆</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line">鉴于单个量词不能满足输入中文的乐趣，</div>
+<div class="line">VimIM 加上 one to many, 把中文量词输入进一步智能化：</div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="38%" />
+<col width="46%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head"><!--  -->
+</th>
+<th class="head">i2w&lt;C-^&gt;</th>
+<th class="head">ii2w&lt;C-^&gt;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>1</td>
+<td>二万</td>
+<td>贰万</td>
+</tr>
+<tr><td>2</td>
+<td>二位</td>
+<td>贰位</td>
+</tr>
+<tr><td>3</td>
+<td>二味</td>
+<td>贰味</td>
+</tr>
+<tr><td>4</td>
+<td>二碗</td>
+<td>贰碗</td>
+</tr>
+<tr><td>5</td>
+<td>二窝</td>
+<td>贰窝</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id64">
+<h3><a class="toc-backref" href="#id142">中文标点</a></h3>
+<ul>
+<li><p class="first"><a class="reference internal" href="#id14">点石成金</a>   在英文标点后面按点石键或者空格键，得中文标点。</p>
+</li>
+<li><p class="first"><a class="reference internal" href="#id13">中文模式</a>   按 CTRL-^ 切换中英文标点</p>
+</li>
+<li><p class="first">中文标点英文标点对照表</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="22%" />
+<col width="10%" />
+<col width="27%" />
+<col width="22%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head"><p class="first last">英文</p>
+</th>
+<th class="head"><p class="first last">中文</p>
+</th>
+<th class="head"><!--  -->
+</th>
+<th class="head"><p class="first last">英文</p>
+</th>
+<th class="head"><p class="first last">中文</p>
+</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><p class="first last">&amp;</p>
+</td>
+<td><p class="first last">※</p>
+</td>
+<td><!--  -->
+</td>
+<td><p class="first last">`</p>
+</td>
+<td><p class="first last">‘’</p>
+</td>
+</tr>
+<tr><td><p class="first last">\</p>
+</td>
+<td><p class="first last">、</p>
+</td>
+<td><!--  -->
+</td>
+<td><p class="first last">&quot;</p>
+</td>
+<td><p class="first last">“”</p>
+</td>
+</tr>
+<tr><td><p class="first last">#</p>
+</td>
+<td><p class="first last">＃</p>
+</td>
+<td><!--  -->
+</td>
+<td><p class="first last">[</p>
+</td>
+<td><p class="first last">【</p>
+</td>
+</tr>
+<tr><td><p class="first last">%</p>
+</td>
+<td><p class="first last">％</p>
+</td>
+<td><!--  -->
+</td>
+<td><p class="first last">]</p>
+</td>
+<td><p class="first last">】</p>
+</td>
+</tr>
+<tr><td><p class="first last">$</p>
+</td>
+<td><p class="first last">￥</p>
+</td>
+<td><!--  -->
+</td>
+<td><p class="first last">^</p>
+</td>
+<td><p class="first last">…</p>
+</td>
+</tr>
+<tr><td><p class="first last">!</p>
+</td>
+<td><p class="first last">！</p>
+</td>
+<td><!--  -->
+</td>
+<td><p class="first last">_</p>
+</td>
+<td><p class="first last">—</p>
+</td>
+</tr>
+<tr><td><p class="first last">~</p>
+</td>
+<td><p class="first last">～</p>
+</td>
+<td><!--  -->
+</td>
+<td><p class="first last">&lt;</p>
+</td>
+<td><p class="first last">《</p>
+</td>
+</tr>
+<tr><td><p class="first last">+</p>
+</td>
+<td><p class="first last">＋</p>
+</td>
+<td><!--  -->
+</td>
+<td><p class="first last">&gt;</p>
+</td>
+<td><p class="first last">》</p>
+</td>
+</tr>
+<tr><td><p class="first last">*</p>
+</td>
+<td><p class="first last">﹡</p>
+</td>
+<td><!--  -->
+</td>
+<td><p class="first last">-</p>
+</td>
+<td><p class="first last">－</p>
+</td>
+</tr>
+<tr><td><p class="first last">:</p>
+</td>
+<td><p class="first last">：</p>
+</td>
+<td><!--  -->
+</td>
+<td><p class="first last">;</p>
+</td>
+<td><p class="first last">；</p>
+</td>
+</tr>
+<tr><td><p class="first last">(</p>
+</td>
+<td><p class="first last">（</p>
+</td>
+<td><!--  -->
+</td>
+<td><p class="first last">,</p>
+</td>
+<td><p class="first last">，</p>
+</td>
+</tr>
+<tr><td><p class="first last">)</p>
+</td>
+<td><p class="first last">）</p>
+</td>
+<td><!--  -->
+</td>
+<td><p class="first last">.</p>
+</td>
+<td><p class="first last">。</p>
+</td>
+</tr>
+<tr><td><p class="first last">{</p>
+</td>
+<td><p class="first last">〖</p>
+</td>
+<td><!--  -->
+</td>
+<td><p class="first last">?</p>
+</td>
+<td><p class="first last">？</p>
+</td>
+</tr>
+<tr><td><p class="first last">}</p>
+</td>
+<td><p class="first last">〗</p>
+</td>
+<td><!--  -->
+</td>
+<td><!--  -->
+</td>
+<td><!--  -->
+</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="id65">
+<h3><a class="toc-backref" href="#id143">内码输入</a></h3>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="28%" />
+<col width="38%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">内码</th>
+<th class="head">encoding</th>
+<th class="head">动态列表</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>UNICODE</td>
+<td>utf-8</td>
+<td>yes</td>
+</tr>
+<tr><td>GBK</td>
+<td>chinese</td>
+<td>yes</td>
+</tr>
+<tr><td>BIG5</td>
+<td>taiwan</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>用&lt;C-^&gt;点石键直接点汉字，显示内码列表。</li>
+<li>以u为十六进制内码输入的前导字符，动态列表：u9999　→　香</li>
+<li>十进制内码，动态列表： 22221　→　囍</li>
+</ul>
+</blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id66">
+<h3><a class="toc-backref" href="#id144">压力测试</a></h3>
+<ul class="simple">
+<li>目的：无事生非，测试输入法的极限</li>
+<li>方式：同时插入多种词库，切换使用各种输入法</li>
+<li>安装：<ol class="arabic">
+<li>下载插件 vimim.vim</li>
+<li>下载一个五笔词库，例如 vimim.wubi.txt</li>
+<li>下载一个拼音词库，例如 vimim.pinyin.txt</li>
+<li>创建一个空白文件： vimim.sogou.txt</li>
+<li>创建一个空白文件： vimim.qq.txt</li>
+<li>创建一个空白文件： vimim.google.txt</li>
+<li>创建一个空白文件： vimim.baidu.txt</li>
+<li>把上述文件扔到vim的plugin文件夹里面</li>
+</ol>
+</li>
+<li>玩法：</li>
+</ul>
+<dl class="docutils">
+<dt>　(1)　进入VimIM （插入模式：CTRL-_）（正常模式：gi）</dt>
+<dd><ol class="first last arabic simple" start="2">
+<li>按  CTRL-^，进入五笔输入</li>
+<li>按  CTRL-^，进入拼音输入</li>
+<li>按  CTRL-^，进入百度云输入</li>
+<li>按  CTRL-^，进入搜狗云输入</li>
+<li>按  CTRL-^，进入QQ云输入</li>
+<li>按  CTRL-^，进入谷歌云输入</li>
+</ol>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="miscelleous">
+<h3><a class="toc-backref" href="#id145">miscelleous</a></h3>
+<blockquote>
+<ul class="simple">
+<li>一键改错<ul>
+<li>按一次&lt;Esc&gt;键则关闭菜单并全清刚才的输入，</li>
+<li>再按一次&lt;Esc&gt;键则退出插入模式。</li>
+</ul>
+</li>
+<li>magic 句号<ul>
+<li>句号是唯一的字符 ==&gt; 标点符号转换</li>
+<li>句号前后都有英文字符 ==&gt;  逐词匹配　句号分隔，自己定匹配</li>
+</ul>
+</li>
+<li>magic 单引号<ul>
+<li>单引号在第一个 ==&gt; 小写中文数字      i8  =&gt; 八</li>
+<li>单引号在前两个 ==&gt; 大写中文数字      ii8 =&gt; 捌</li>
+</ul>
+</li>
+<li>无缝混排<ul>
+<li>在中文英文之间不留空格。</li>
+<li>回车键确认英文或者数字，随后可以直接上中文。</li>
+<li>(Vim Insert Mode)敲两次CTRL-\后可直接敲中文。</li>
+</ul>
+</li>
+<li>翻页选字<ul>
+<li>减号(-) 或 逗号(,)　向上翻页　PageUp</li>
+<li>等号(=) 或 句号(.)　向下翻页　PageDown</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="sidebar">
+<p class="first sidebar-title">VimIM 设计原则　　 <strong>Design Goals</strong></p>
+<table class="last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">VIM:</th><td class="field-body">不被和谐!</td>
+</tr>
+<tr class="field"><th class="field-name">memory:</th><td class="field-body">不超过词库尺寸</td>
+</tr>
+<tr class="field"><th class="field-name">speed:</th><td class="field-body">不低于最高要求</td>
+</tr>
+<tr class="field"><th class="field-name">encoding:</th><td class="field-body">不受限制</td>
+</tr>
+<tr class="field"><th class="field-name">options:</th><td class="field-body">不强行要求设置</td>
+</tr>
+<tr class="field"><th class="field-name">internet:</th><td class="field-body">不联网照样敲中文</td>
+</tr>
+<tr class="field"><th class="field-name">datafile:</th><td class="field-body">无词库可以云输入</td>
+</tr>
+<tr class="field"><th class="field-name">internal:</th><td class="field-body">无词库无联网用内码输入</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="thanks">
+<h3><a class="toc-backref" href="#id146">THANKS</a></h3>
+<p>VimIM的作者</p>
+<ol class="arabic simple">
+<li>vimim 原先是VimIM的唯一作者。</li>
+<li>vimim 现在是VimIM的作者之一。</li>
+<li>动态模式的code源自ywvim的作者Yue Wu.</li>
+<li>开始有不少建议来自水木社区VI编辑器论坛众多高手。</li>
+<li>有几个世界难题是Vim官方论坛上Tony Mechelynck解答的。</li>
+<li>双拼的全部code源自mycloud的作者Pan ShiZhu.</li>
+<li>自己的云的全部code源自mycloud的作者Pan ShiZhu.</li>
+<li>NETLOG/debug的全部code源自mycloud的作者Pan ShiZhu.</li>
+<li>CONFLICT的全部code源自frederick.zou</li>
+<li>project 的管理大多由philip.y.xu负责。</li>
+<li>最多的灵感和测试来源于VimIM官方论坛上玩家的狂轰滥炸。</li>
+<li>All project committers on <a class="reference external" href="http://code.google.com/p/vimim">http://code.google.com/p/vimim</a></li>
+</ol>
+<!-- " ============================================= }}} -->
+<!-- let s:VimIM += [" ====  backend mycloud  ==== {{{"] -->
+<!-- " ================================================= -->
+<!-- " Thanks to Pan Shizhu for providing all mycloud codes: -->
+<!-- " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- function! s:vimim_mycloud_python_client(cmd, host, port) -->
+<!-- " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- " Thanks to Pan Shizhu for all codes of mycloud and debug -->
+<!-- " ============================================= }}} -->
+<!-- let s:VimIM += [" ====  input shuangpin  ==== {{{"] -->
+<!-- " ================================================= -->
+<!-- " Thanks to Pan Shizhu for providing all shuangpin codes: -->
+<!-- " ============================================= }}} -->
+<!-- let s:VimIM += [" ====  plugin conflict  ==== {{{"] -->
+<!-- " ================================================= -->
+<!-- " Thanks to frederick.zou for providing codes on this section: -->
+<!-- " supertab      http://www.vim.org/scripts/script.php?script_id=1643 -->
+<!-- " autocomplpop  http://www.vim.org/scripts/script.php?script_id=1879 -->
+<!-- " word_complete http://www.vim.org/scripts/script.php?script_id=73 -->
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+<div class="section" id="history">
+<h2><a class="toc-backref" href="#id147">HISTORY</a></h2>
+<div class="section" id="id67">
+<h3><a class="toc-backref" href="#id148">0.9.9.9.7  201101010</a></h3>
+<ul class="simple">
+<li>　gi　 <a class="reference internal" href="#windowless">windowless</a> 　无菜单中文输入（敲中文犹如敲英文）</li>
+<li>vimimhelp<ul>
+<li>vimim      包含用户设置</li>
+<li>vimimhelp  包含缺省设置</li>
+</ul>
+</li>
+<li>选项精兵简政<ul>
+<li>缺省：无缝混排；           删除选项 g:vimim_enter_for_seamless</li>
+<li>缺省：翻页循环；           删除选项 g:vimim_loop_pageup_pagedown</li>
+<li>缺省：一键改错；           删除选项 g:vimim_esc_for_correction</li>
+<li>缺省：点石成金；           删除选项 g:vimim_onekey_hit_and_run</li>
+<li>缺省：编码提示；           删除选项 g:vimim_custom_menu</li>
+<li>缺省：正斜杠搜索；         删除选项 g:vimim_search_next</li>
+<li>缺省：拼音 imode 自动设置；删除选项 g:vimim_imode_pinyin</li>
+<li>缺省：自动显示多个候选项； 删除选项 g:vimim_more_candidates</li>
+<li>缺省：反斜杠开头关闭拼音； 删除选项 g:vimim_backslash_close_pinyin</li>
+<li>缺省：菜单横排；           删除选项 g:vimim_custom_label</li>
+<li>新选项：用户定义热键： g:vimim_map_extra (obsoleting)<ul>
+<li>删除旧选项 g:vimim_ctrl_space_to_toggle</li>
+<li>删除旧选项 g:vimim_ctrl_h_to_toggle</li>
+<li>:let g:vimim_map_extra='ctrl_h_as_ctrl_6'          &quot; 使用 ctrl+h     点石成金</li>
+<li>:let g:vimim_map_extra='ctrl_h_as_ctrl_bslash'     &quot; 使用 ctrl+h     开关输入法</li>
+<li>:let g:vimim_map_extra='ctrl_space_as_ctrl_6'      &quot; 使用 ctrl+space 点石成金</li>
+<li>:let g:vimim_map_extra='ctrl_space_as_ctrl_bslash' &quot; 使用 ctrl+space 开关输入法</li>
+</ul>
+</li>
+<li>新方式定义Tab键为点石成金<ul>
+<li>删除选项 :let g:vimim_tab_as_onekey</li>
+<li>删除选项 :let g:vimim_onekey_is_tab</li>
+<li>原选项可以加在g:vimim_map 选项之中</li>
+<li>例如：   :let g:vimim_map = 'tab,ctrl_bslash'</li>
+</ul>
+</li>
+<li>老选项，新添功能： g:vimim_mode<ul>
+<li>删除选项 :let g:vimim_chinese_punctuation=0  （不用中文标点）</li>
+<li>删除选项 :let g:vimim_latex_suite （latex, 不转换单双引号）</li>
+<li>选项缺省 :let g:vimim_mode = 'dynamic'</li>
+</ul>
+</li>
+<li>新选项：用户定义 VimIM plugin 文件夹<ul>
+<li>新增选项 :let g:vimim_plugin          &quot; 缺省是Vim plugin</li>
+<li>删除选项 :let g:vimim_hjkl_directory</li>
+<li>删除选项 :let g:vimim_data_directory</li>
+<li>删除选项 :let g:vimim_data_file</li>
+</ul>
+</li>
+<li>数据库词库修改记录：   <a class="reference internal" href="#database">database</a><ul>
+<li>（新）： vimim.gbk.bsddb</li>
+<li>（旧）： vimim.pinyin.db</li>
+<li>删除选项 g:vimim_digit_4corner</li>
+<li>〖菜单过滤〗字母键替代数字键</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>点石成金　 <a class="reference internal" href="#hjkl">hjkl</a><ol class="arabic">
+<li>进入： 进入Vim插入模式，按CTRL-^</li>
+<li>退出： （任何状态）：按Esc，回到Vim正常模式，天下太平</li>
+<li>退出： （智能补全窗口）：<ul>
+<li>按标签数字键，回到Vim插入模式</li>
+<li>按标签字母键 abcdvfgxz，回到点石成金模式</li>
+<li>按单引号，强制云输入</li>
+<li>按单引号，循环切换不同云输入</li>
+<li>按　m　 ，干预进入首拼</li>
+<li>按  s   ，简繁互换</li>
+<li>按正斜杠，回到Vim正常模式，开始搜索</li>
+<li>按反斜杠，（无缝混排）上汉字，删除汉字前的空格</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>点石成金模式细节：<ul>
+<li>回车键：英文之后，第一次回车是无缝混排。否则，回车是回车。</li>
+<li>空格键：英文之后，如果没有敲回车，空格上汉字。否则，空格出空格。</li>
+<li>Tab键： 建议设置为点石成金。:let g:vimim_tab_as_onekey</li>
+<li>状态显示： 光标为绿色；窗口标题为：VimIM 中文輸入法</li>
+<li>点石成金双标签显示：（如果插上cjk标准字库）<ul>
+<li>按数字标签：回到Vim插入模式</li>
+<li>按字母标签：回到VimIM点石成金模式，光标为绿色</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>反斜杠： 以反斜杠开头关闭拼音： \pinyin 拼音</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<ul>
+<li><p class="first">见字找码：（需标准字库 vimim.cjk.txt）</p>
+<ol class="arabic simple">
+<li>特点：print property of the chinese under the cursor</li>
+<li>开发理由：模仿 ga in vim:  :help ga<ul>
+<li>print the ascii value of the character under the Cursor</li>
+<li>for example, when the cursor is on a 'R':</li>
+<li>&lt;R&gt;  82,  Hex 52,  Octal 122</li>
+</ul>
+</li>
+<li>【操作示范】之一：单个汉字<ol class="arabic">
+<li>进入vim</li>
+<li>高亮选择一个汉字，例如：“马”</li>
+<li>按 CTRL-^ 键</li>
+<li>验证 window title line： 马馬 7712 5510 ma3 horse 259<ul>
+<li>马    是 简体</li>
+<li>馬    是 繁体</li>
+<li>7712  是 四角号码</li>
+<li>5510  是 五笔划</li>
+<li>ma3   是 汉语拼音</li>
+<li>horse 是 英文</li>
+<li>259   是 汉字词频</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<ol class="arabic simple" start="3">
+<li>【操作示范】之二：多个汉字<ol class="arabic">
+<li>进入vim</li>
+<li>高亮选择几个汉字，例如：“点石成金”</li>
+<li>按 CTRL-^</li>
+<li>按 CTRL-^</li>
+<li>验证结果：<ol class="arabic">
+<li>点 28857　u70b9　2133　dian3 dot point</li>
+<li>石 30707　u77f3　1060　shi2dan4 u stone</li>
+<li>成 25104　u6210　5320　cheng2</li>
+<li>金 37329　u91d1　8010　jin1 u gold</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id68">
+<h3><a class="toc-backref" href="#id149">0.9.9.9.6  20110827</a></h3>
+<ul class="simple">
+<li>四角号码为缺省  vimim.cjk.txt</li>
+<li>better unicode input method:  32911/uewoqq  u808f/808f</li>
+<li>better slash search</li>
+<li>better visual_ctrl_6: one key dump</li>
+<li>better visual_ctrl_6: Chinese antonym and increasing chinese number</li>
+<li>removed digit option inside g:vimim_cloud, no more auto cloud trigger</li>
+<li>（新）彩蛋 vimim    （旧） 彩蛋 vimimenv</li>
+<li>点石成金  （点“石”成“金”）<ul>
+<li>（可视模式）中文数字＋点石成金</li>
+<li>（插入模式）中文数字＋'''＋点石成金<ul>
+<li>一壹⑴①甲 == 零''' ==&gt; 壹</li>
+<li>二贰⑵②乙</li>
+<li>三叁⑶③丙</li>
+<li>四肆⑷④丁</li>
+<li>五伍⑸⑤戊</li>
+<li>六陆⑹⑥己 == 五''' ==&gt; 六</li>
+<li>七柒⑺⑦庚</li>
+<li>八捌⑻⑧辛</li>
+<li>九玖⑼⑨壬</li>
+<li>十拾⑽⑩癸</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id69">
+<h3><a class="toc-backref" href="#id150">0.9.9.9.5  20110804</a></h3>
+<p>VimIM鼎立支持即插即用海量词库： <a class="reference internal" href="#database">database</a></p>
+</div>
+<div class="section" id="id70">
+<h3><a class="toc-backref" href="#id151">0.9.9.9  20110704</a></h3>
+<p>VimIM  彩云飘飘</p>
+<ul class="simple">
+<li><a class="reference external" href="http://code.google.com/p/vimim/issues/detail?id=146">http://code.google.com/p/vimim/issues/detail?id=146</a></li>
+<li><a class="reference external" href="http://code.google.com/p/vimim/issues/detail?id=147">http://code.google.com/p/vimim/issues/detail?id=147</a></li>
+<li><a class="reference external" href="http://code.google.com/p/vimim/issues/detail?id=148">http://code.google.com/p/vimim/issues/detail?id=148</a></li>
+<li><a class="reference external" href="http://code.google.com/p/vimim/issues/detail?id=149">http://code.google.com/p/vimim/issues/detail?id=149</a></li>
+<li><a class="reference external" href="http://code.google.com/p/vimim/issues/detail?id=150">http://code.google.com/p/vimim/issues/detail?id=150</a></li>
+<li><a class="reference external" href="http://code.google.com/p/vimim/issues/detail?id=151">http://code.google.com/p/vimim/issues/detail?id=151</a></li>
+</ul>
+<ol class="arabic">
+<li><p class="first">彩云飘飘：VimIM 同时支持四种云输入</p>
+<ul class="simple">
+<li>一个选项，调控所有云输入：  g:vimim_cloud</li>
+<li>VimIM云输入与python无缝连接<ul>
+<li>vim 和 python 也是天仙配</li>
+<li>VimIM 终于可以利用python2和python3, 腾云驾雾。</li>
+</ul>
+</li>
+<li>纯云输入： （选项含有dynamic或者static）<ul>
+<li>谷歌纯云输入，动态　:let g:vimim_cloud = 'google.dynamic'</li>
+<li>百度纯云输入，静态　:let g:vimim_cloud = 'baidu.static'</li>
+<li>所有云输入都加上cache</li>
+</ul>
+</li>
+<li>纯云搜索： （选项含有search）<ul>
+<li>:let g:vimim_cloud = 'google.search'</li>
+</ul>
+</li>
+<li>拼音加多个尾随单引号（点石成金模式）<ul>
+<li>拼音加一个尾随单引号： pinyin'    =&gt; 想云就云</li>
+<li>拼音加四个尾随单引号： pinyin'''' =&gt; 同时输出四朵彩云</li>
+</ul>
+</li>
+<li>QQ云输入的使用：<ul>
+<li>QQ拼音　　       :let g:vimim_cloud = 'qq'</li>
+<li>QQ五笔　　       :let g:vimim_cloud = 'qq.wubi'</li>
+<li>QQ繁体　　       :let g:vimim_cloud = 'qq.fanti'</li>
+<li>QQ纯云输入       :let g:vimim_cloud = 'qq.dynamic'</li>
+<li>QQ双拼智能ABC    :let g:vimim_cloud = 'shuangpin.abc'</li>
+<li>QQ五笔纯云输入   :let g:vimim_cloud = 'qq.wubi.dynamic'</li>
+<li>QQ五笔云输入繁体 :let g:vimim_cloud = 'qq.wubi.fanti.dynamic'</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p class="first">VimIM 云输入无插件方案 Python Interview to Vim</p>
+<blockquote>
+<ul class="simple">
+<li>VimIM 上市发行内置 python 版本 mycloud 客户端</li>
+<li><a class="reference external" href="http://code.google.com/p/pimcloud/source/browse/README">http://code.google.com/p/pimcloud/source/browse/README</a></li>
+<li>云里来，雾里去<ul>
+<li>直接在Vim里面发送电邮，条件是(1)Vim连上Python(2)有gmail账号</li>
+<li><a class="reference external" href="http://code.google.com/p/vimim/wiki/VimimCloudGmail">http://code.google.com/p/vimim/wiki/VimimCloudGmail</a></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li>想云就云，云完就扔！<ul>
+<li>VimIM 零安装方案</li>
+<li><a class="reference external" href="http://code.google.com/p/vimim/wiki/VimimOnthefly">http://code.google.com/p/vimim/wiki/VimimOnthefly</a></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><p class="first">菜单横排 <a class="reference external" href="http://code.google.com/p/vimim/issues/detail?id=145">http://code.google.com/p/vimim/issues/detail?id=145</a></p>
+</li>
+<li><p class="first"><a class="reference external" href="http://code.google.com/p/vimim-data/issues/detail?id=4">http://code.google.com/p/vimim-data/issues/detail?id=4</a></p>
+<ul class="simple">
+<li>支持海峰五笔</li>
+<li><a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.wubihf.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.wubihf.txt</a></li>
+</ul>
+</li>
+<li><p class="first">精兵简政</p>
+<ul class="simple">
+<li>砍掉依赖gnuplot的旋转图片游戏，救回 5233-5187=46  行程式</li>
+<li>砍掉使用缓存 g:vimim_use_cache 救回 5524-5367=157 行程式</li>
+<li>砍掉零设置测试 .vimim 方案     救回 5477-5415=62  行程式</li>
+<li>命名更新：</li>
+</ul>
+<blockquote>
+<ul class="simple">
+<li>删掉 :let g:vimim_cloud_mycloud=0</li>
+<li>删掉 :let g:vimim_cloud_qq=0        &quot; 缺省：QQ云输入</li>
+<li>删掉 :let g:vimim_cloud_baidu=0     &quot; 缺省：百度云输入</li>
+<li>删掉 :let g:vimim_cloud_google=0    &quot; 缺省：谷歌云输入</li>
+<li>删掉 :let g:vimim_cloud_sogou=0     &quot; 缺省：搜狗云输入</li>
+<li>删掉 :let g:vimim_cloud_sogou=888   &quot; 缺省：想云就云</li>
+<li>删掉 :let g:vimim_cloud_sogou=8     &quot; 每输入8字就激活</li>
+<li>删掉 :let vimim_cloud='sogou.8'     &quot; 每输入8字就激活</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<p>一个选项，调控所有云输入：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="4%" />
+<col width="58%" />
+<col width="38%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>&quot;</td>
+<td>:let g:vimim_cloud='sogou'</td>
+<td>&quot; 缺省：搜狗云输入</td>
+</tr>
+<tr><td><!--  -->
+</td>
+<td>:let g:vimim_cloud='sogou.dynamic'</td>
+<td>&quot; 搜狗纯云输入，动态</td>
+</tr>
+<tr><td><!--  -->
+</td>
+<td>:let g:vimim_cloud='sogou.static'</td>
+<td>&quot; 搜狗纯云输入，静态</td>
+</tr>
+<tr><td><!--  -->
+</td>
+<td>:let g:vimim_cloud='google'</td>
+<td>&quot; 谷歌云输入</td>
+</tr>
+<tr><td><!--  -->
+</td>
+<td>:let g:vimim_cloud='baidu'</td>
+<td>&quot; 百度云输入</td>
+</tr>
+<tr><td><!--  -->
+</td>
+<td>:let g:vimim_cloud='qq'</td>
+<td>&quot; QQ云输入</td>
+</tr>
+<tr><td><!--  -->
+</td>
+<td>:let g:vimim_cloud='qq.fanti'</td>
+<td>&quot; QQ云输入，开启繁体</td>
+</tr>
+<tr><td><!--  -->
+</td>
+<td>:let g:vimim_cloud='qq.mixture'</td>
+<td>&quot; QQ云输入，开启混合模式</td>
+</tr>
+<tr><td><!--  -->
+</td>
+<td>:let g:vimim_cloud='qq.fuzzy'</td>
+<td>&quot; QQ云输入，开启模糊音</td>
+</tr>
+<tr><td><!--  -->
+</td>
+<td>:let g:vimim_cloud='qq.wubi'</td>
+<td>&quot; QQ云输入，五笔</td>
+</tr>
+<tr><td><!--  -->
+</td>
+<td>:let g:vimim_cloud='qq.wubi.dynamic'</td>
+<td>&quot; QQ纯云输入，五笔，动态</td>
+</tr>
+<tr><td><!--  -->
+</td>
+<td>:let g:vimim_cloud='qq.shuangpin.abc'</td>
+<td>&quot; QQ云输入，双拼智能ABC</td>
+</tr>
+<tr><td><!--  -->
+</td>
+<td>:let g:vimim_cloud='qq.shuangpin.ms'</td>
+<td>&quot; QQ云输入，双拼微软拼音2003</td>
+</tr>
+<tr><td><!--  -->
+</td>
+<td>:let g:vimim_cloud='qq.shuangpin.plusplus'</td>
+<td>&quot; QQ云输入，双拼拼音加加</td>
+</tr>
+<tr><td><!--  -->
+</td>
+<td>:let g:vimim_cloud='qq.shuangpin.purple'</td>
+<td>&quot; QQ云输入，双拼紫光拼音</td>
+</tr>
+<tr><td><!--  -->
+</td>
+<td>:let g:vimim_cloud='qq.shuangpin.flypy'</td>
+<td>&quot; QQ云输入，双拼小鹤双拼</td>
+</tr>
+<tr><td><!--  -->
+</td>
+<td>:let g:vimim_cloud='qq.shuangpin.nature'</td>
+<td>&quot; QQ云输入，双拼自然码</td>
+</tr>
+<tr><td><!--  -->
+</td>
+<td>:let g:vimim_cloud=-1</td>
+<td>&quot; 彻底关闭云输入</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id71">
+<h3><a class="toc-backref" href="#id152">0.9.9.8  20110521</a></h3>
+<p>VimIM 红五月  r7745</p>
+<ol class="arabic simple">
+<li><a class="reference external" href="http://code.google.com/p/vimim/issues/detail?id=132">http://code.google.com/p/vimim/issues/detail?id=132</a><ul>
+<li>enhanced imode: itoday and inow</li>
+<li>itoday =&gt; 2011年5月7日　星期六</li>
+<li>inow   =&gt;  2011年5月9日1时6分33秒</li>
+</ul>
+</li>
+<li>itoday/inow can be part of the entry inside vimim.txt:<ul>
+<li>now   inow   现在</li>
+<li>today itoday 今天</li>
+</ul>
+</li>
+<li><a class="reference external" href="http://code.google.com/p/vimim/issues/detail?id=138">http://code.google.com/p/vimim/issues/detail?id=138</a><ul>
+<li>:let g:vimim_enter_for_seamless=1    &quot; 缺省：无缝混排，回车上英文</li>
+<li>:let g:vimim_enter_for_seamless=0    &quot; 回车是回车</li>
+</ul>
+</li>
+<li><a class="reference external" href="http://code.google.com/p/vimim/issues/detail?id=140">http://code.google.com/p/vimim/issues/detail?id=140</a><ul>
+<li>:let g:vimim_esc_for_correction=0   &quot; 缺省：&lt;Esc&gt;是&lt;Esc&gt;</li>
+<li>:let g:vimim_esc_for_correction=1   &quot; 支持 console vim 一键改错</li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="section" id="id72">
+<h3><a class="toc-backref" href="#id153">0.9.9.7  20110507</a></h3>
+<p>VimIM 五月槐花香  r7677</p>
+<ol class="arabic simple">
+<li><a class="reference external" href="http://code.google.com/p/vimim/issues/detail?id=132">http://code.google.com/p/vimim/issues/detail?id=132</a>
+enhanced imode: i2w2q9b8s8 and ii2w2q9b8s8</li>
+<li><a class="reference external" href="http://code.google.com/p/vimim/issues/detail?id=133">http://code.google.com/p/vimim/issues/detail?id=133</a>
+编码龙配龙凤配凤(utf8&lt;=&gt;utf8 cp936&lt;=&gt;cp936)</li>
+<li><a class="reference external" href="http://code.google.com/p/vimim/issues/detail?id=134">http://code.google.com/p/vimim/issues/detail?id=134</a>
+VimIM 官方说明书建议</li>
+<li><a class="reference external" href="http://code.google.com/p/vimim/issues/detail?id=135">http://code.google.com/p/vimim/issues/detail?id=135</a></li>
+<li><a class="reference external" href="http://code.google.com/p/vimim/issues/detail?id=135">http://code.google.com/p/vimim/issues/detail?id=135</a>
+:let g:vimim_toggle='wubi,pinyin'   &quot; 设定循环先后次序</li>
+<li><a class="reference external" href="http://code.google.com/p/vimim/issues/detail?id=136">http://code.google.com/p/vimim/issues/detail?id=136</a>
+bug fixed: 英文&quot;.&quot;后面回车不起作用</li>
+<li><a class="reference external" href="http://code.google.com/p/vimim/issues/detail?id=137">http://code.google.com/p/vimim/issues/detail?id=137</a>
+bug fixed: 弹出菜单的颜色和菜单高度，均可以还原</li>
+<li><a class="reference external" href="http://code.google.com/p/vimim/issues/detail?id=94">http://code.google.com/p/vimim/issues/detail?id=94</a>
+抛砖引玉: skeleton code for conflict with neocomplcache</li>
+</ol>
+<div class="line-block">
+<div class="line">About color, from Pan Shizhu</div>
+<div class="line"><br /></div>
+<div class="line">去掉了 vimim_cursor_color 设定，改为设定 CursorIM 标准组。</div>
+<div class="line">缺省仍然采用绿色。</div>
+<div class="line"><br /></div>
+<div class="line">如果用户没有进行设定，则缺省使用绿色，如果用户自行使用 highlight</div>
+<div class="line">命令设定了 CursorIM 的色彩，则使用用户设定。用户可以在 vimrc中设</div>
+<div class="line">定，或者选择一个支持 CursorIM 的 color scheme. （按照不绑架原则，</div>
+<div class="line">不应当在 vimim 中干涉 vim本来的体系，而色彩体系是不应当干涉的。）</div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id73">
+<h3><a class="toc-backref" href="#id154">0.9.9.6  20110421</a></h3>
+<p>VimIM 人间四月天</p>
+<ol class="arabic simple">
+<li>GDP（程式行数）持续下降！  r7563</li>
+</ol>
+<blockquote>
+<ul class="simple">
+<li>vimim.vim  GDP=5049  version=0.9.9.6  release=2011-04-21</li>
+<li>vimim.vim  GDP=5170  version=0.9.9.5  release=2011-04-04</li>
+<li>vimim.vim  GDP=5502  version=0.9.9.0  release=2011-01-15</li>
+<li>vimim.vim  GDP=5608  version=0.9.8.0  release=2011-01-03</li>
+<li>vimim.vim  GDP=5779  version=0.9.7.1  release=2010-12-13</li>
+<li>vimim.vim  GDP=6326  version=0.9.6.0  release=2010-05-22</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="id74">
+<h3><a class="toc-backref" href="#id155">0.9.9.5  20110405</a></h3>
+<p>VimIM 人间四月天</p>
+<ol class="arabic simple">
+<li>GDP（程式行数）持续下降，功能持续增加！</li>
+<li>游戏 <a class="reference external" href="http://vimim.googlecode.com/svn/vimim/vimim.html#game">http://vimim.googlecode.com/svn/vimim/vimim.html#game</a></li>
+</ol>
+<blockquote>
+<ul class="simple">
+<li>旋转麻将 vimimgame</li>
+<li>动态排序 vimimsort  (only available in version 0.9.9.5)</li>
+<li>旋转图片 plot sin(x)/x</li>
+</ul>
+</blockquote>
+<ol class="arabic simple" start="3">
+<li>变量命名更新：</li>
+</ol>
+<blockquote>
+<ul class="simple">
+<li>（新）彩蛋 vimimrc</li>
+<li>（新）g:vimim_onekey_hit_and_run</li>
+<li><a class="reference external" href="http://vimim.googlecode.com/svn/vimim/vimim.html#vimimrc">http://vimim.googlecode.com/svn/vimim/vimim.html#vimimrc</a></li>
+</ul>
+</blockquote>
+<ol class="arabic simple" start="4">
+<li>更新词库格式规则</li>
+</ol>
+<blockquote>
+<ul class="simple">
+<li>词库格式，左码右词，一行多词，无需排序。</li>
+<li>不再支持一码多行。</li>
+<li>所有民间词库, vimim.*.txt, 都已更新。</li>
+</ul>
+</blockquote>
+<ol class="arabic simple" start="5">
+<li>hjkl 点石成金 炉火纯青</li>
+</ol>
+<blockquote>
+<ul class="simple">
+<li><a class="reference external" href="http://vimim.googlecode.com/svn/vimim/vimim.html#hjkl">http://vimim.googlecode.com/svn/vimim/vimim.html#hjkl</a></li>
+<li>:let g:vimim_onekey_hit_and_run=1  &quot; 缺省 hit and run</li>
+</ul>
+</blockquote>
+<ol class="arabic simple" start="6">
+<li>全新推出并鼎立支持　cjk标准字库　vimim.cjk.txt</li>
+</ol>
+<blockquote>
+<ul class="simple">
+<li>插上VimIM cjk标准字库，犹如插上瑞士军刀。</li>
+<li>实现VimIM当年的梦想，做个中文打字机，让妈妈也可以打中文。</li>
+<li><a class="reference external" href="http://vimim.googlecode.com/svn/vimim/vimim.html#cjk">http://vimim.googlecode.com/svn/vimim/vimim.html#cjk</a></li>
+</ul>
+</blockquote>
+<ol class="arabic simple" start="7">
+<li>支持切换不同的中文输入法</li>
+<li>重新支持私人文件词库  vimim.txt</li>
+</ol>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id75">
+<h3><a class="toc-backref" href="#id156">0.9.9  20110115</a></h3>
+<p>【点石成金】更上一层楼</p>
+<ol class="arabic simple">
+<li>hjkl【点石成金】功德圆满【OneKeyNonStop】和【OneKey】 合二为一</li>
+<li>hjkl【点石成金】hjkl_h and hjkl_l 可以启动原先的 OneKeyNonStop 模式。</li>
+<li>hjkl【点石成金】可以作为唯一的中文输入模式，亦即传说中的无模式之模式。</li>
+<li>〖内码输入〗每一个汉字后面都可以玩点石成金，都可以输出108个Unicode大将。</li>
+<li>〖拼音☆四角：目录词库〗[cache performance] more elegant</li>
+<li>〖拼音☆四角：文件词库〗worked again under OneKey</li>
+<li>new intuitive labelling: _abcdvfgz for 123456789</li>
+<li>精兵简政 removed g:vimim_onekey_double_ctrl6</li>
+<li>VimIM  错误报告<ol class="arabic">
+<li><a class="reference external" href="http://code.google.com/p/vimim/issues/detail?id=112">http://code.google.com/p/vimim/issues/detail?id=112</a></li>
+<li><a class="reference external" href="http://code.google.com/p/vimim/issues/detail?id=113">http://code.google.com/p/vimim/issues/detail?id=113</a></li>
+<li><a class="reference external" href="http://code.google.com/p/vimim/issues/detail?id=114">http://code.google.com/p/vimim/issues/detail?id=114</a></li>
+</ol>
+</li>
+</ol>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id76">
+<h3><a class="toc-backref" href="#id157">0.9.8  20110103</a></h3>
+<ol class="arabic simple">
+<li>slash search also worked for shuangpin</li>
+<li>removed option g:vimim_reverse_pageup_pagedown</li>
+<li>【太极码】 <a class="reference external" href="http://vimim-data.googlecode.com/svn/trunk/data/vimim.taijima.txt">http://vimim-data.googlecode.com/svn/trunk/data/vimim.taijima.txt</a></li>
+<li>〖文件词库〗 - <a class="reference external" href="http://code.google.com/p/vimim/wiki/ProgressBar">http://code.google.com/p/vimim/wiki/ProgressBar</a></li>
+<li>〖自己的云〗 <a class="reference external" href="http://code.google.com/p/vimim/wiki/VimimMycloud">http://code.google.com/p/vimim/wiki/VimimMycloud</a></li>
+</ol>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id77">
+<h3><a class="toc-backref" href="#id158">0.9.7  20101203</a></h3>
+<div class="sidebar">
+<p class="first sidebar-title">〖拼音☆四角〗</p>
+<div class="figure">
+<img alt="shishishishishi.gif" src="shishishishishi.gif" />
+</div>
+<div class="figure">
+<img alt="shi0shishishishi.gif" src="shi0shishishishi.gif" />
+</div>
+<div class="last figure">
+<img alt="shi08shishishishi.gif" src="shi08shishishishi.gif" />
+</div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line">Welcome to VimIM Chapter II.</div>
+<div class="line">VimIM 新版新功能层出不穷，而程式却减少572行。(6350-5778=572)</div>
+<div class="line"><br /></div>
+<div class="line">VimIM 新版最后的测试是在飞机上完成的。测试的方式是看武打。</div>
+<div class="line">在飞机上看武打是消磨时间的最好方式，尤其是用最舒适的中文阅读器——Vim.</div>
+<div class="line"><br /></div>
+<div class="line">阅读中文，离不开搜索。而搜索中文，全世界使用的其实都是最原始的多窗口方式。</div>
+<div class="line">VimIM基因优秀，天生不原始。特此推出史上最牛的中文搜索方式：正斜杠无菜单。</div>
+<div class="line"><br /></div>
+<div class="line">用上VimIM，我们就可以边看武打，边玩武打。</div>
+<div class="line">例如，总计敲七个键，我们就可以找到【孤独求败】四个汉字。接着随意敲n</div>
+<div class="line"><br /></div>
+<div class="line">/gdqb&lt;Enter&gt;n</div>
+<div class="line"><br /></div>
+<div class="line">【注】找到【孤独求败】的前提是自己的词库里面有gdqb这一编码,</div>
+<div class="line">或者干脆没有词库（因而使用缺省搜狗云输入后端的海量词库）。</div>
+<div class="line"><br /></div>
+<div class="line">n</div>
+<div class="line"><br /></div>
+<div class="line">孤独求败：一人一剑行走天下，欲求一败而不得。</div>
+<div class="line"><br /></div>
+<div class="line">VimIM</div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="plugin">
+<h3><a class="toc-backref" href="#id159">plugin管理</a></h3>
+<div class="line-block">
+<div class="line">有效的管理你的vim插件</div>
+<div class="line"><a class="reference external" href="http://gsnippet.googlecode.com/svn/blog/html/vim/managerplugins.html">http://gsnippet.googlecode.com/svn/blog/html/vim/managerplugins.html</a></div>
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+<div class="section" id="what-is-old">
+<h2><a class="toc-backref" href="#id160">WHAT IS OLD</a></h2>
+<div class="section" id="bonus">
+<h3><a class="toc-backref" href="#id161">BONUS</a></h3>
+<div class="line-block">
+<div class="line">VimIM 自由软体基金会 (The VimIM Free Software Foundation)</div>
+<div class="line">致力于推广普及完善VimIM, 专提供Bonus给VimIM骇客。</div>
+<div class="line"><br /></div>
+<div class="line">VimIM <a class="reference external" href="http://www.paypal.com">贝宝 (PayPal)</a>
+美金帐户已于2009年2月11日正式开通。</div>
+<div class="line"><a class="reference external" href="http://www.paypal.com">贝宝</a>
+可轻松付款给在中国拥有电子邮件地址的任何人。</div>
+<div class="line"><br /></div>
+<div class="line">VimIM 基金会每年
+<a class="reference external" href="http://zh.wikipedia.org/wiki/春节">春节</a>
+颁发奖励 (The VimIM Award)：</div>
+<div class="line">奖励方案由 VimIM 基金会推荐：国人优先，学生优先。</div>
+<div class="line">奖品包括主张“激情成就梦想”的 <a class="reference external" href="http://zh.wikipedia.org/wiki/%E9%9D%92%E5%B2%9B%E5%95%A4%E9%85%92">青岛啤酒</a> (<a class="reference external" href="http://en.wikipedia.org/wiki/Tsingtao_Brewery">Tsingtao Beer</a>)</div>
+<div class="line"><br /></div>
+<div class="line">【评论】 <a class="reference external" href="http://code.google.com/p/vimim/wiki/VimIM__Development">“草鞋无样，边打边像”</a></div>
+<div class="line">【论文】 <a class="reference external" href="http://code.google.com/p/vimim/wiki/VimIM_Business_Model">论 VimIM 中文输入法的盈利模式</a></div>
+<div class="line">【时评】 <a class="reference external" href="http://code.google.com/p/vimim/wiki/VimIM__PinYin__Input">〖论拼音输入〗目前的形势和我们的任务</a></div>
+<div class="line">【目标】 <a class="reference external" href="http://code.google.com/p/vimim/wiki/VimIM__DIY">VimIM 追求的境界</a></div>
+<div class="line">【言行一致】 <a class="reference external" href="http://code.google.com/p/vimim/wiki/Bonus2009">VimIM牛年年度评选揭晓，二箱啤酒已经寄出</a></div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="faq">
+<h3><a class="toc-backref" href="#id162">FAQ</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">问:</th><td class="field-body"><div class="first last line-block">
+<div class="line">VimIM 是什么意思?</div>
+</div>
+</td>
+</tr>
+<tr class="field"><th class="field-name">答:</th><td class="field-body"><div class="first last line-block">
+<div class="line">VimIM 的本义应该是 Vim Input Method —— Vim 输入法。</div>
+<div class="line">因为本文是中文版本，VimIM 就顺势译成 Vim 中文输入法。</div>
+<div class="line"><br /></div>
+</div>
+</td>
+</tr>
+<tr class="field"><th class="field-name">问:</th><td class="field-body"><div class="first last line-block">
+<div class="line">在 static 模式中，如何方便的实现“有缝混排”？</div>
+</div>
+</td>
+</tr>
+<tr class="field"><th class="field-name">答:</th><td class="field-body"><div class="first last line-block">
+<div class="line">在 static 模式中，如果按空格之后选择回车，则直接上英文。</div>
+<div class="line">如果再按一次回车，就会上空格：实现“有缝混排”。</div>
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+</td>
+</tr>
+<tr class="field"><th class="field-name">问:</th><td class="field-body"><div class="first last line-block">
+<div class="line">VimIM 与 Vim abbreviation 好像有点冲突？</div>
+</div>
+</td>
+</tr>
+<tr class="field"><th class="field-name">答:</th><td class="field-body"><div class="first last line-block">
+<div class="line">Yes, but ...</div>
+<div class="line">如果不激活 VimIM, Vim 的abbreviation永远不会“被和谐”。</div>
+<div class="line"><br /></div>
+<div class="line">问题好像只出现在用〖点石成金〗上字之后，接着马上敲空格键，</div>
+<div class="line">而且敲空格键的目的是激活abbreviation. 不过这时候，再次用</div>
+<div class="line">空格键时，空格键又可以激活abbreviation了。</div>
+<div class="line"><br /></div>
+<div class="line">原因：OneKey需要赋予空格键一点智能，以便于上字。</div>
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+</td>
+</tr>
+<tr class="field"><th class="field-name">问:</th><td class="field-body"><div class="first last line-block">
+<div class="line">VimIM 与 latex-suite plugin 好像有点冲突？</div>
+</div>
+</td>
+</tr>
+<tr class="field"><th class="field-name">答:</th><td class="field-body"><div class="first last line-block">
+<div class="line">有玩家反应。Let's wait for solution from those players who</div>
+<div class="line">are interested in making both plugins work in harmony.</div>
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+</td>
+</tr>
+<tr class="field"><th class="field-name">问:</th><td class="field-body"><div class="first last line-block">
+<div class="line">有时候需要在command mode下输入中文，我该怎么做?</div>
+<div class="line">command mode对于Vim来说是它的精华所在，</div>
+<div class="line">很多高级功能都要在command mode下完成。</div>
+</div>
+</td>
+</tr>
+<tr class="field"><th class="field-name">答:</th><td class="field-body"><div class="first last line-block">
+<div class="line">另一个方案是利用 vim mapping, 归.vimrc控制。</div>
+<div class="line"><br /></div>
+<div class="line">例如: 如下 mapping 可作单行或多行操作：</div>
+<div class="line-block">
+<div class="line"><tt class="docutils literal">nmap&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; g: vg:</tt></div>
+<div class="line"><tt class="docutils literal">xnoremap&nbsp; g: :w! <span class="pre">/tmp/_&lt;CR&gt;:source</span> /tmp/_&lt;CR&gt;</tt></div>
+<div class="line"><br /></div>
+</div>
+<div class="line">操作: 如果想把文件中的&quot;谷歌拼音&quot; 换成 &quot;VimIM中文输入&quot;:</div>
+<div class="line-block">
+<div class="line">　 (Vim Insert Mode) 敲入: 　　 <tt class="docutils literal">:%s/谷歌拼音/VimIM中文输入</tt></div>
+<div class="line">　 (Vim Normal Mode) 敲map:　 <tt class="docutils literal">g:</tt></div>
+<div class="line"><br /></div>
+</div>
+</div>
+</td>
+</tr>
+<tr class="field"><th class="field-name">问:</th><td class="field-body"><div class="first last line-block">
+<div class="line">可不可以支持CTRL-SPACE?</div>
+</div>
+</td>
+</tr>
+<tr class="field"><th class="field-name">答:</th><td class="field-body"><div class="first last line-block">
+<div class="line">如果所用的vim支持CTRL-SPACE键的mapping,</div>
+<div class="line">设置：:let g:vimim_ctrl_space_to_toggle=1</div>
+<div class="line">　 It works for GVim.</div>
+<div class="line">　 It works for Console Vim using MinTTY.</div>
+<div class="line"><br /></div>
+</div>
+</td>
+</tr>
+<tr class="field"><th class="field-name">问:</th><td class="field-body"><div class="first last line-block">
+<div class="line">可不可以支持Tab键作为点石成金？</div>
+</div>
+</td>
+</tr>
+<tr class="field"><th class="field-name">答:</th><td class="field-body"><div class="first last line-block">
+<div class="line">:let g:vimim_map='tab_as_onekey'</div>
+<div class="line">CTRL-^ 变成 &lt;Tab&gt;</div>
+<div class="line"><br /></div>
+</div>
+</td>
+</tr>
+<tr class="field"><th class="field-name">问:</th><td class="field-body"><div class="first last line-block">
+<div class="line">可不可以自定义热键?</div>
+</div>
+</td>
+</tr>
+<tr class="field"><th class="field-name">答:</th><td class="field-body"><div class="first last line-block">
+<div class="line">例如在.vimrc中，定义 CTRL-\ 为中文模式开关</div>
+<div class="line">:let g:vimim_map='c-bslash'</div>
+<div class="line"><br /></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sidebar">
+<p class="first sidebar-title">The Highest Realm　中文输入的最高境界</p>
+<table border="1" class="last docutils">
+<colgroup>
+<col width="7%" />
+<col width="36%" />
+<col width="57%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>1</td>
+<td>书同文、文同码</td>
+<td>VimIM 首选 Unicode</td>
+</tr>
+<tr><td>2</td>
+<td>和谐、绿色</td>
+<td>VimIM 坚信 文本文件，天下无敌</td>
+</tr>
+<tr><td>3</td>
+<td>不切换输入状态</td>
+<td>VimIM 首创 点石成金</td>
+</tr>
+<tr><td>4</td>
+<td>不改变输入习惯</td>
+<td>VimIM 确认 天生跨平台</td>
+</tr>
+<tr><td>5</td>
+<td>手机电脑一路通</td>
+<td>VimIM 推荐 四角号码</td>
+</tr>
+<tr><td>6</td>
+<td>自创中文输入法</td>
+<td>VimIM 演示 拼音数字双码输入</td>
+</tr>
+<tr><td>7</td>
+<td>输入编辑水乳交融</td>
+<td>VimIM 依附 最牛文本編輯器</td>
+</tr>
+<tr><td>8</td>
+<td>闭目养神</td>
+<td>VimIM 体验 中文盲打</td>
+</tr>
+<tr><td>9</td>
+<td>美女如〖云〗</td>
+<td>VimIM 追求 想云就云</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>VimIM的词库来源</p>
+<ol class="arabic simple">
+<li>VimIM 官方distribution是二个纯文本文件<ul>
+<li>vimim.vim</li>
+<li>vimim.cjk.txt</li>
+</ul>
+</li>
+<li>使用 内码输入，不需要任何词库。</li>
+<li>使用 自己的云，不需要任何词库。</li>
+<li>使用  搜狗云输入，不需要任何词库。</li>
+<li>使用 <a class="reference internal" href="#id13">中文模式</a> 可以参考使用民间词库<ul>
+<li>vimim.pinyin.txt  是拼音测试词库</li>
+<li>vimim.wubi.txt    是五笔测试词库</li>
+</ul>
+</li>
+</ol>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="how-to-do-chinese">
+<h3><a class="toc-backref" href="#id163">HOW TO DO CHINESE</a></h3>
+<p>科普：如何让Vim支持中文？</p>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+<div class="line">------------ ----------------- -------------- -----------</div>
+<div class="line">vim encoding datafile encoding s:localization performance</div>
+<div class="line">------------ ----------------- -------------- -----------</div>
+<div class="line-block">
+<div class="line">utf-8          utf-8                0          good</div>
+<div class="line">chinese        chinese              0          good</div>
+<div class="line">utf-8          chinese              1          bad</div>
+<div class="line">chinese        utf-8                2          bad</div>
+</div>
+<div class="line">------------ ----------------- -------------- -----------</div>
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+<ol class="arabic">
+<li><p class="first">Vim 支持中文编码的基础</p>
+<ul class="simple">
+<li>Vim 支持中文编码的基础是两个特性：+multi_byte 和 +iconv</li>
+<li>官方下载网址： <a class="reference external" href="http://www.vim.org/download.php">http://www.vim.org/download.php</a></li>
+<li>绿色移动版： <a class="reference external" href="http://portablegvim.sourceforge.net/downloads.html">http://portablegvim.sourceforge.net/downloads.html</a></li>
+</ul>
+</li>
+<li><p class="first">影响 Vim 中文编码的设置项</p>
+<ul class="simple">
+<li>encoding：vim 的内部使用编码</li>
+<li>fileencodings：Vim 在打开文件时会根据其选项来识别文件编码</li>
+<li>fileencoding：Vim 在保存新建文件时会根据其设置编码来保存</li>
+<li>guifontwide：Gvim 要求等宽字体，其指定字宽是 guifont 的两倍</li>
+</ul>
+</li>
+<li><p class="first">Vim 具体应用环境的设置：微软视窗（Windows） vimrc 样例</p>
+<ul class="simple">
+<li>:set nocompatible</li>
+<li>:set encoding=utf-8</li>
+<li>:set fileencodings=ucs-bom,utf8,chinese,taiwan,ansi</li>
+<li>:set guifont=Courier_New:h12:w7</li>
+<li>:set guifontwide=NSimSun-18030,NSimSun</li>
+<li>:set ambiwidth=double</li>
+<li>:set noloadplugins</li>
+<li>:runtime! plugin/vimim.vim</li>
+</ul>
+</li>
+<li><p class="first">如何用 Vim 插入非 ASCII 字符？</p>
+<div class="line-block">
+<div class="line">如果既不依赖外挂程式，又不干扰 Vim 正常操作，</div>
+<div class="line">Vim 可以选择如下三种方式，插入不能用普通键盘输入的字符：</div>
+</div>
+<ol class="arabic simple">
+<li>用 <tt class="docutils literal"><span class="pre">i_CTRL-V</span></tt> 插入十进制编码</li>
+<li>用 <tt class="docutils literal"><span class="pre">i_CTRL-K</span></tt> 插入二合字母</li>
+<li>用 <tt class="docutils literal"><span class="pre">i_CTRL-6</span></tt> <a class="reference internal" href="#id14">点石成金</a> （VimIM 推陈出新）</li>
+</ol>
+</li>
+<li><p class="first">如何解决windows下Vim的中文乱码问题？</p>
+<ul class="simple">
+<li><a class="reference external" href="http://blog.xianyun.org/vim">Vim相关链接收集</a> by 闲耘</li>
+<li><a class="reference external" href="http://blah.blogsome.com/2007/08/23/vim_cn_faq/">Vim中输入法与编码设置的FAQ</a>  by 碎碎念</li>
+<li><a class="reference external" href="http://hi.baidu.com/bignature/blog/item/c9600923eac2a347925807b0.html">解决windows下的中文乱码问题</a> by 大自然</li>
+<li><a class="reference external" href="http://groups.google.com/group/vimim/browse_thread/thread/4dc68560ae37e4d0">【经验分享】中文乱码解决方案</a> by suxpert</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>【实例】 在GBK Windows中给Vim设置 UTF-8</p>
+<pre class="literal-block">
+&quot; --------------------------------------
+set encoding=utf-8
+set fileencodings=ucs-bom,utf-8,chinese,latin-1
+set termencoding=GBK
+if has(&quot;win32&quot;)
+    set fileencoding=chinese
+else
+    set fileencoding=utf-8
+endif
+language messages zh_CN.UTF-8
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+set langmenu=zh_CN.UTF-8
+&quot; --------------------------------------
+</pre>
+</blockquote>
+<!-- 古老文档
+http://vimim.googlecode.com/svn/vimim/vimim.2010.html
+
+>>> I don't understand why it cannot be opened. One thing I did
+>>> was to copy vimim.html to vimim.2010.html before I removed it.
+>>> I also removed DTD part and it showed in IE not firefox.
+
+=====================  ===========================
+        整句输入                     样本
+=====================  ===========================
+woyouyigemeng          搜狗云
+i'have'a'dream         英文词库，如果再插上
+wo.you.yige.meng       拼音词库，以句号分隔
+wo'you'yige'meng       拼音词库，以撇号分隔
+trde'ggwh'ssqu         wubi:       trdeggwhssqu
+q'e'ggwh'ssq           wubi2000:   qeggwhssq
+ngoh'yau'yat'goh'mung  cantonese:  ngohyauyatgohmung
+ngu'qyoe'iq'qku'qmon   wu:         nguqyoeiqqkuqmon
+m'gq'avov'ffrs         zhengma:    mgqavovffrs
+hqi'kb'm'ol'ddni       cangjie:    hqikbmolddni
+tlt'fm't'e'vvi         taijima:    tltfmtevvi
+wop'yb'yg''mgx         nature:     wopybygmgx
+ix'x'e'bii'rfnc        boshiamy:   ixxebiirfnc
+=====================  ===========================
+
+玩家体验 feedback
+
+ .. http://www.ipedia.org.cn/ip/VimIM
+ .. http://hyperrate.com/thread.php?tid=9435
+    好東西 ... 蠻讚的 ... （台湾）
+ .. http://cookinglinux.cn/emacs-learning-three-step.html
+    我收回vi中输入中文的问题…因为vimim横空出世…
+ .. http://twitter.com/cbkid/status/1580793545
+    vim+vimim哈哈无敌了
+ .. http://twitter.com/cbkid/status/1580042288
+    vimim让vim和中文输入无缝。无敌的插件，终于可以在vim下输入中文了
+ .. http://twitter.com/ggarlic/status/1417547049
+    被vimim深深的震撼了
+ .. http://friendfeed.com/search?q=vimim
+    中文vim用户如果不用这个真是没有天理，你不知道有多好用，
+    以后再也不用切换输入法了。可以拿掉输入法了。- xiawinter
+ .. http://www.douban.com/group/topic/5212341/
+    【轻松一笑】 【公告】VimIM 基金会成立维稳办
+    这是五一我给自己找到最好的礼物
+    如果能在所有文本框调用vim那么电脑没有中文输入法也能混了
+ .. 最后还是十分感谢作者写出了这么棒的插件，
+    使我们这些vim新手更愿意深入学习和使用vim了。
+ .. http://www.linuxsir.org/bbs/showthread.php?p=1985825#post1985825
+    终端中文显示与vim中文输入终于好了。
+ .. http://groups.google.com/group/xiyoulinux  西邮Linux兴趣小组
+    vimim - - 刚见到这个软件时让我目瞪口呆，真是太有创意了，居然利用
+    vim的补全功能做了个中文输入法! 可以利用这个小工具在vim中输入中文，
+    配合着fbterm 真是太舒服了。词库有很多选择，vi fans 们不可错过。
+    vimim的确太强悍了，几个月前看到时我跟楼主一个感觉的，而且可以当辞典用
+ .. http://bbs.gucas.ac.cn/pc/pccon.php?id=126&nid=31404&s=all
+    再无所求 vimim && fireinput  一个浏览器输入，一个vim输入，
+    我的生活不就是这两个需要输入中文的地方么？够了
+ .. http://blog.solrex.cn/articles/vimim.html
+    一款非常 cool 的 vim 输入法
+ .. http://groups.google.com/group/pongba/msg/a53afab1e8b29fa0
+    用vimim不会对vim编辑中文文档感到痛苦了；
+    我甚至不需要进入X就可以用它来编辑文档了，相当好用，赶快去试试吧
+ .. http://www.bluedeep.cn/post/89/
+    自己也体验了一把，发现原来新版本的VimIM是如此的出色，故转了过来。
+    新增了好多很棒也是很必要的功能。成功的超载了其他的外挂输入法。
+ .. Vimim及时雨 ... 今天才突然发现，现在的效果已经比较能够接受了。
+ .. http://logs.ubuntu-eu.org/free/2009/06/08/%23ubuntu-tw.html
+    用vim的福音来了，在vim中因频繁切换输入法而苦恼的人，现在终于可以解脱了
+ .. http://bbs.ctex.org/viewthread.php?tid=50002
+    我这几天天天对着 VimIm 的代码，慢慢都学了一点点了
+ .. http://sunday.is-programmer.com/posts/9929.html
+    我发现 Vim 和 FireFox 是一对天仙配。
+    一个以写 (write/update/delete/insert) 为业。
+    一个以读 (read/browse/internet/gmail) 为主。
+    男耕女织。男欢女爱。
+ .. http://linux.chinaunix.net/bbs/viewthread.php?tid=1073521
+    想在console下使用中文输入法，去装个vimim是最好不过的了。相当强大。
+ .. http://chunzi.me/post/tag/vimim
+    记得有个 vimim 插件的，于是拿来试试，结果喜出望外。
+ .. http://logs.ubuntu-eu.org/free/2009/06/08/%23ubuntu-tw.html
+    用vim的福音来了，vimim是一种vim外挂插件，
+    在vim中因频繁切换输入法而苦恼的人，现在终于可以解脱了
+ .. http://logs.ubuntu-eu.org/free/2009/06/09/%23ubuntu-tw.html
+    我這兩天試了下vimim，真爽不得了，讓我輕鬆許多，再也不煩了。
+    為了同時支持拼音及五筆，我把這兩個碼表合並在一起，就成了一個雙用的輸入法。
+ .. http://blog.sina.com.cn/s/blog_5787e4f30100fh34.html
+    最近学习了vimim这个中国小伙做的vim神奇插件，不带外面的输入法，
+    就能输入汉字。我下载一试，果然行，其实可以输入任何字符。韩字也可以。
+ .. http://twitter.com/cirEric/status/3191615510
+    推荐一个vim插件: vimim.vim
+    不用切换输入法就可以输入中文，支持拼音五笔等等。而且词库可以自由增删。
+    实在是居家旅行，杀人防火必备！
+ .. http://www.linuxsir.org/bbs/thread358272.html
+    赞一下作者。看来配合 unicon kernel 可以完全在 console 下工作了
+ .. http://www.cppblog.com/xfpl-at-hotmail-dot-com/archive/2009/10/12.html
+    Vim还有一个功能比较吸引我，就是它自带的语言解释器可以用来写输入法，
+    而且Vim的输入法VimIM还很好玩!
+ .. http://linuxtoy.org/archives/fcitx-for-vim.html
+    试试 vim 自己的输入法框架，那叫一个惊艳！
+    VimIM 不错, 一直在用 :)
+ .. http://methodmissing.javaeye.com/blog/495940
+    最酷的vim插件，支持各种中文输入法词库和输入习惯，不依赖操作系统的输入法。
+ .. http://www.linuxsir.org/bbs/thread359160.html
+    其中 vimim 不但运用了搜狗云，还可以支持搜狗云所不支持的双拼输入。
+ .. http://www.douban.com/group/topic/5212341/
+    云输入非常精准，有很惊艳的感觉，感觉都有点不可思议了;
+    这段话就是用vimim写的，呵呵!
+
+
+ May 2010
+ - - - - - - - -
+
+ * VimIM 鼎立支持 【小鹤双拼方案】 :let g:vimim_shuangpin_flypy=1
+ * VimIM 鼎立支持 【嘸蝦米输入法】 with 样本词库 vimim.boshiamy.txt
+ * 【注音】 完善繁體注音的支援  (welcome to test more)
+ * 【双拼】 fixed Shuangpin regression, which failed to access local datafile
+ * 【二笔】 made improvements over erbi, especially for dot
+ * 【行列】 made improvements, especially for slash and dot
+ * 【拼音】 improved support to include apostrophe in the datafile
+ *  以\\开头的话自动关闭拼音功能 :let g:vimim_backslash_close_pinyin=1
+ *  obsoleting 输入记忆
+ *  obsoleting 整句一键
+ *  obsoleting 动态造词
+ *  obsoleting 通配符匹配
+ *  obsoleting 可控词频调整
+ *  obsoleting vimim_imode_universal
+
+ March 2010
+ - - - - - - - - - -
+
+ * fixed Sogou Cloud access, which was broken by Sogou itself
+ * made VimIM compatible with plugins: supertab and autocomplpop(acp)
+ * adopted new release versioning method, 0.9.5 for this version
+ * found vimim-data project more user-friendly: 词库下载更方便!
+ * removed unexpected caret characters in data file vimim.wubijd.txt
+ * added VimIM 快速指南 http://code.google.com/p/vimim/wiki/QuickStart
+ * re-shuffled vimimhelp CTRL-^ CTRL-^
+
+
+ VimIM 第一版
+ ============
+ * 【独立】不折腾　 **Plug & Play**
+ * 【自主】不差钱　 **Open Source**
+ * 【自力】VimIM 点石成金 　  〖想云就云〗
+ * 【更生】VimIM 中文输入模式    〖即插即用〗
+ * 【高性能】中文英文输入和中文英文编辑，不分彼此，融为一体。
+ * 【低能耗】 史上最容易卸载的中文输入法
+ * 【和谐☆绿色】 No secret hidden glitch; No strings attached.
+ * 【自由☆免费】 Free as in freedom, as well as in free beer!
+
+
+ 复活节彩蛋
+ ==========
+ (1) 确认您的 vim 能显示中文： ［科普］如何让Vim支持中文？
+ (2) 首先去 VimIM 官方网址下载新版脚本
+ (3) 然后把 vimim.vim 扔到您的 vim 的 plugin 目录之下
+
+ **vim**
+
+   ====  ==============
+   vim　 CTRL-^ CTRL-^
+   ====================
+    1     文本編輯器
+    2     最牛文本編輯器
+    3     精力
+    4     生氣
+    5     中文輸入法
+   ====  ==============
+
+ Unicode 内码输入
+
+ Unicode 使汉字成为一种理想的电脑语言，没有国界。
+ 用 VimIM 玩万国码的前提是 :set encoding=utf-8
+ ［科普］ http://zh.wikipedia.org/wiki/Unicode
+ ［科普］ http://en.wikipedia.org/wiki/Unicode_input
+
+ **万国码输入器**
+
+ + 【广告】精巧细致的标准Unicode输入器，独此一家。
+ + 【理想】书同文、文同码、码同键。
+ + 【特点】与输入法和词库都无关：以不变应万变。
+ + 【用途】内码输入是输入非常用字符的有效途径。
+ + 【特点】一个字符对应一个代码，武林高手可以中文盲打。
+
+ 【演示】Unicode 内码一键输入(Vim Insert Mode)
+ 　　　【例】　十进制：敲　 **22221<C-^>** 　→　囍
+
+ 【示意图】标准统一码动态列表(Vim Insert Mode)
+
+ 　　　【例】　十进制：敲　 **22220<C-^>** 　→　囍 in 菜单
+ 　　　【例】十六进制：敲　 **u56ca<C-^>** 　→　囍 in 菜单
+
+ .. sidebar::  `GBK 内码输入`_
+    .. figure:: vimim_gbk_digit.gif
+
+ GBK 内码输入
+
+ GBK  为汉字内码扩展规范，来自中国国家标准代码 GB 13000.1-93
+ 用 VimIM 玩GBK标准内码的前提是 :set encoding=chinese
+ ［科普］ http://zh.wikipedia.org/wiki/GBK
+ **GBK标准内码输入器**
+ + 【广告】短小精悍的标准GBK内码输入器，只此一家。
+ + 【特点】与输入法和词库都无关：以不变应万变。
+ + 【用途】内码输入是输入非常用字符的有效途径。
+ + 【特点】一个字符对应一个代码，不知有无玩GBK的武林高手?
+ + 【TIP】 GBK内码一次性列表　　:call GBK()
+   【演示】GBK 标准内码一键输入(Vim Insert Mode)
+   　　　【例】　十进制：敲　 **49901<C-^>** 　→　马　(GB)
+
+   【示意图】GBK 标准内码动态列表(Vim Insert Mode)
+   　　　【例】　十进制：敲　 **49900<C-^>** 　→　马 in 菜单
+   　　　【例】十六进制：敲　 **uc2e0<C-^>** 　→　马 in 菜单
+
+ .. sidebar::  `Big5 内码输入`_
+    .. figure:: vimim_big5_digit.gif
+ Big5 内码输入
+ - - - - - - - - - - - - -
+ | Big5 已被收录到台湾官方标准的附录当中，版本为Big5-2003
+ | 用 VimIM 玩Big5标准内码的前提是 :set encoding=taiwan
+ | ［科普］ http://zh.wikipedia.org/wiki/Big5
+ **Big5标准内码输入器**
+ + 【广告】简单明快的标准Big5内码输入器，仅此一家。
+ + 【特点】与输入法和词库都无关：以不变应万变。
+ + 【用途】内码输入是输入非常用字符的有效途径。
+ + 【特点】一个字符对应一个代码，不知有无玩Big5的武林高手?
+ + 【TIP】 Big5内码一次性列表　　:call BIG5()
+
+ | 【演示】Big5 标准内码一键输入(Vim Insert Mode)
+ | 　　　【例】　十进制：敲　 **45224<C-^>** 　→　馬　(Big5)
+ |
+ | 【示意图】Big5 标准内码动态列表(Vim Insert Mode)
+ | 　　　【例】　十进制：敲　 **45220<C-^>** 　→　馬 in 菜单
+ | 　　　【例】十六进制：敲　 **ub0a0<C-^>** 　→　馬 in 菜单
+ |
+ |
+
+
+ 数码输入
+ ========
+
+ 四角号码 Four_Corner
+ - - - - - - - - - - - - - - - - - - - -
+
+   + 【广告】小巧玲珑的四角号码输入器，别无分店。
+   + 【科普】 `维基百科　四角号码`__
+   + 【技巧】结合音码则是如虎添翼。
+   + 【参考】即插即用VimIM双码输入： 拼音★四角号码 pinyin+4corner
+   + 【自动开启】如果plugin目录下有词库 `vimim.4corner.txt`__
+   + 【鸣谢】电脑大师 `Bram`__ 发明推广Vim文本編輯器
+   + 【鸣谢】编码大师 `王雲五`__ 发明 `四角號碼檢字法`__
+   + 【鸣谢】国文大师 `胡适`__ 推广普及四角号码：
+
+     -  横一垂二三点捺
+     -  叉四插五方框六
+     -  七角八八九是小
+     -  点下有横变零头
+
+
+ __ http://zh.wikipedia.org/wiki/%E5%9B%9B%E8%A7%92%E5%8F%B7%E7%A0%81
+ __ http://vimim-data.googlecode.com/svn/trunk/data/vimim.4corner.txt
+ __ http://en.wikipedia.org/wiki/Bram_Moolenaar
+ __ http://zh.wikipedia.org/wiki/%E7%8E%8B%E9%9B%B2%E4%BA%94
+ __ http://en.wikipedia.org/wiki/Four_corner_method
+ __ http://zh.wikipedia.org/wiki/%E8%83%A1%E9%80%82
+
+
+ 自己动手试一试】:
+   #. 【目的】　纯数字　<==>　纯汉字
+   #. 下载新版脚本 vimim.vim
+   #. 下载新版词库 vimim.4corner.txt
+   #. 把两者扔到 vim 的 plugin 目录之下
+
+ 【纯数字　==>　纯汉字】:
+   #. 敲 o 或 i 或 a 进入 vim 插入模式
+   #. 连敲 6021272260021762
+   #. 敲点石成金键:  <C-^>
+   #. 用【空格键】上字，one by one
+   #. 结果: “四角号码”四个汉字上屏
+
+ 【纯汉字　==>　纯数字】:
+   #. 高亮选择“四角号码”四个汉字
+   #. 敲见字找码键:  <C-^>
+   #. 结果: 6021 2722 6002 1762 上屏
+
+
+ 中文电报数码输入
+ - - - - - - - - - - - - - - - -
+   + 【广告】身轻如燕的中文电码输入器
+   + 【科普】 `维基百科　中文电码`__
+   + 【中文电码】史上最早的汉字编码（1880年）
+   + 【打字】敲数字可以上汉字
+   + 【查询】敲汉字可以查电码
+   + 【自动开启】如果plugin目录下有词库 `vimim.ctc.txt`__
+
+ __ http://zh.wikipedia.org/wiki/%E4%B8%AD%E6%96%87%E7%94%B5%E7%A0%81
+ __ http://vimim-data.googlecode.com/svn/trunk/data/vimim.ctc.txt
+
+ :【自己动手试一试】:
+   #. 【目的】　电码　<==>　汉字
+   #. 下载新版脚本 vimim.vim__
+   #. 下载新版词库 vimim.ctc.txt
+   #. 把两者扔到 vim 的 plugin 目录之下
+
+ __ http://vim.sf.net/scripts/script.php?script_id=2506
+
+ :【电码　==>　汉字】:
+   #. 敲 o 或 i 或 a 进入 vim 插入模式
+   #. 连敲 00222429719310324316
+   #. 敲点石成金键:  <C-^>
+   #. 用【空格键】上字
+   #. 结果: “中文电报码”五个汉字上屏
+
+ :【汉字　==>　电码】:
+   #. 高亮选择“中文电报码”五个汉字
+   #. 敲见字找码键:  <C-^>
+   #. 结果: 0022 2429 7193 1032 4316 上屏
+
+
+ 汉字笔划数码输入
+ - - - - - - - - - - - - - - - -
+ | 对于某些生僻字，您有可能并不清楚它的拼音。
+ | 这时，您可以尝试使用VimIM提供的笔划输入功能。
+ |
+ | 样本笔画输入词库主要取自潘罗森笔画输入，为数码。
+ | 汉字笔画归类为五种：橫1　竖2　撇3　点4　拆5
+
+ + 【广告】最简单的笔划数码输入器。
+ + 【技巧】结合音码则是如虎添翼。
+ + 【参考】即插即用VimIM双码输入： 拼音★五笔划 pinyin+5stroke
+ + 【自动开启】如果plugin目录下有词库 vimim.12345.txt
+
+ http://vimim-data.googlecode.com/svn/trunk/data/vimim.12345.txt
+
+
+ 双码输入
+ ========
+ | VimIM 可使多种输入方式和谐并存，互不冲突而又相互补充。
+ | VimIM 充分发挥个人的知识潜能，达到“人尽其能、物尽其用”的境界。
+
+ + 【用途】单码（音码或形码）为主，双码（音码加形码）为辅。
+ + 【单码特点】二个单码可混合使用，不用切换。
+ + 【双码特点】既不要求音码部分完整，也不要求形码部分完整。
+ + 【混合特点】双码优势互补，各尽所能。
+ + 【优点】用自己熟悉的输入方式，用自己定的规矩：怎么混也不乱！
+ + 【结论】最好的输入法是自己的输入法。
+
+ | 【主要问题】
+ |       经典音码：一音多字，一字多音。
+ |       流行形码：难学难记，万码奔腾。
+ |       现代混码：难记难学，各自为战。
+ |
+ | 【解决方案】
+ |       【前提】模模糊糊知道两种中文输入方式，但都不精通。
+ |       　　　　第一步：寻找自己有点熟悉的输入方式
+ |       　　　　第二步：结合与之相应的输入法词库
+ |       　　　　第三步：按照自己定的规矩：想怎么打，就怎么打！
+ |       【答案】模糊 + 模糊 = 精确
+ |       【原因】VimIM 帮您转换词库里没有，但您心里有的输入码。
+ |
+ | 【理论基础】
+ |       【通俗】负负得正
+ |       【学术】近代数学模糊集合理论
+ |
+
+
+ .. sidebar:: 双码输入  —— 拼音★四角号码 pinyin+4corner 　【字】
+
+    .. figure:: vimim_diy_im_single_char_1.gif
+    .. figure:: vimim_diy_im_single_char_2.gif
+    .. figure:: vimim_diy_im_single_char_3.gif
+    .. figure:: vimim_diy_im_single_char_4.gif
+
+ 拼音★四角号码 pinyin+4corner
+
+ 即插即用VimIM双码输入的特点是：
+
+ (1) 音码（例如：汉语拼音）输入永远独立，插上就可以用。
+ (2) 数码（例如：四角号码）输入永远独立，插上就可以用。
+ (3) 平行使用，两个输入法和平共处，互不干扰，无须切换。
+ (4) 交叉使用，两个输入法各尽所能，优势互补，合二为一。
+
+
+ ==================== ===================================================
+   VimIM 双码输入                        词库 样本
+ ==================== ===================================================
+   汉语拼音           http://vimim-data.googlecode.com/svn/trunk/data/vimim.pinyin.txt
+   四角号码           http://vimim-data.googlecode.com/svn/trunk/data/vimim.4corner.txt
+ ==================== ===================================================
+
+ **天仙配** —— “拼音输入”配“四角号码输入”
+
+ | VimIM 回避拼音重码的方法是形音结合，输入生僻字则
+ | 是直接用形码。形码的来源可以由玩家自己决定。
+ | 玩家完全可以用自己喜欢的甚至自己发明的形码。
+ | VimIM 推荐的是四角号码。
+ |
+ | 当然，四角号码也有点学习曲线，但是，四角号码与我
+ | 们的Vim一样，值得一学。学好了终生获益。
+ |
+ | VimIM 提供简单的方式，有机结合这一对鸳鸯，随叫随到。
+ | 玩家也许可以实现用拼音输入中文的最高境界：中文盲打。
+
+
+ .. sidebar:: `双码输入`_ —— 拼音★四角号码 pinyin+4corner 　【词】
+
+    .. figure:: vimim_diy_im_double_char_5.gif
+    .. figure:: vimim_diy_im_double_char_6.gif
+    .. figure:: vimim_diy_im_double_char_7.gif
+    .. figure:: vimim_diy_im_double_char_8.gif
+
+
+ |
+ | 【操作】
+ |     (1)　抓上汉语拼音词库，扔到您的 vim plugin 目录之下
+ |     (2)　抓上四角号码词库，扔到您的 vim plugin 目录之下
+ |
+
+ ======= ========== ==================================
+  词库     输入码                对应汉字
+ ======= ========== ==================================
+ 　　A   　　ma     妈　麻　馬　骂　…　马　蚂　码　瑪
+ 　　B   　　71     厚　医　反　厨　…　唇　辱　馬　愿
+ ======= ========== ==================================
+
+
+ 敲中文
+  - 例如：插入单个汉字“馬”，可以任选如下三种方式:
+  - 　　　　 单码（音码） 可敲入 ma 或 ma3
+  - 　　　　 单码（数码） 可敲入 71 或 713 或 7132
+  - 　　　　 双码（双码） 可敲入 ma71 或 ma7132
+  - 【注】三种输入方式互相独立，互不冲突，互相补充。
+
+
+ 【字词】
+   前一个音码长度可以任意，后前一个数码长度可以任意
+
+ ==========   ============  ==================  =============
+   输入法          插入             显示           菜单选择
+ ==========   ============  ==================  =============
+  纯音码        m a         　妈　骂　馬　...        21 个
+  纯数码        7 1         　唇　辱　馬　...       192 个
+   双码         m a 7 1       　　　　馬　　          唯一
+ ==========   ============  ==================  =============
+
+
+ 【使用技巧】
+
+ (1) 把数码（四角号码）当作拼音音调使用
+ (2) 把数字（四角号码）当过滤器使用，另类的翻页选字。
+ (3) 【例样】
+
+    + mali4  =>  馬力
+    + ml4<C-^>u  =>  馬力 （先敲ml4出菜单，再敲u(7)过滤）
+    + ggy1   =>  归功于 （精确定位）
+
+
+ .. sidebar::  即插即用 双码输入 —— 拼音★五笔划 pinyin+5stroke
+
+    .. figure:: vimim_diy_im_pinyin_12345_a.gif
+    .. figure:: vimim_diy_im_pinyin_12345_b.gif
+
+
+ 拼音★五笔划 pinyin+5stroke
+ - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+ |
+ | 【操作】
+ |     (1)　抓上汉语拼音词库，扔到您的 vim plugin 目录之下
+ |     (2)　抓上五笔划词库，扔到您的 vim plugin 目录之下
+ |
+
+ ==================== ==================================================
+   VimIM 双码输入                        词库 样本
+ ==================== ==================================================
+   汉语拼音           http://vimim-data.googlecode.com/svn/trunk/data/vimim.pinyin.txt
+     五笔划           http://vimim-data.googlecode.com/svn/trunk/data/vimim.12345.txt
+ ==================== ==================================================
+
+ 【使用技巧】
+
+ (1) 把数码（五笔划）当作拼音音调使用
+
+   + 有拼音匹配的，用完全匹配： ma551=>马　chuma5=>出马
+   + 无拼音匹配的，用模糊匹配： cm55=>出马
+
+ (2) 把数字（12345）当过滤器使用，另类的翻页选字。
+
+ =========  ===============  ========================  ====================
+   ..          汉语拼音               五笔划                拼音★五笔划
+ =========  ===============  ========================  ====================
+   马         ma                551                         ma551
+   馬         ma                1211254444                  ma12112
+ 出马         chuma             52252　551                  cm551
+ 出卖         chumai            52252　12544134             cm1254
+ =========  ===============  ========================  ====================
+
+ 输入法林林总总
+ ==============
+
+ 中文盲打
+ - - - - - - - -
+ 【目标】
+
+ + 求准不求快
+ + 不学习不培训：因为用的是自己的输入法
+ + 闭〖目〗养〖神〗
+
+   - 一边输入中文，一边休息眼睛
+   - “得神者昌，失神者亡” ——《内经》
+
+ 【实现方式】
+
+ + VimIM　 整句输入
+ + VimIM　 逐词匹配之句号分隔，自己定匹配
+ + VimIM　 Cloud 之〖可控性云输入〗
+
+ 【测试】
+
+ ====  =======================  ===============================
+  1    〖云输入〗                woyouyigeqiguaidemeilidemeng
+  2    〖英文输入〗              i have a dream.
+  3    〖拼音输入〗              wo'you'yige'meng
+  4    〖即插即用双码输入〗      magic.sz2230.s9020.nfofo.ythc
+ ====  =======================  ===============================
+
+ VimIM Mapping
+ =============
+ 【经典】VimIM only needs maximum two hot keys.
+
+ Vim插入模式
+
+ (1) 按 CTRL-^  在非中文模式直接出选择。
+ (2) 按 <Ctrl-\\> 进入中文输入模式，此后按空格出选择。
+
+
+ +- - - - - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - -+
+ |   Vim 模式           |  敲　CTRL-\\               | 　敲　CTRL-6          |
+ +======================+============================+=======================+
+ | vim 正常模式         | 开启  中文模式             |  Vim 缺省功能         |
+ +- - - - - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - -+
+ | vim 插入模式    　   | 开启  中文模式             |  `点石成金`_          |
+ +- - - - - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - -+
+ | `中文模式`_          | 关闭  中文模式             | `中文标点`_ 动态切换  |
+ +- - - - - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - -+
+ | vim 可视模式         | 　　  见字找码             |   ..                  |
+ +- - - - - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - -+
+
+ .. sidebar::  `点石成金`_
+    .. figure:: vimim.gif
+
+ 〖点石成金〗
+ ============
+ 概要
+ - - - -
+
+ | 英文字母为“石”，中文汉字为“金”：是谓〖点石成金〗
+ | 有玩家叹曰：使用〖点石成金〗，点出来的不是汉字，是惊艳。
+ |
+ | 推而广之，需要修改的中文汉字也可以为“石”。例如：石<C-^>
+ |
+ | 卖点：保持 vim 缺省工作环境，没有所谓“状态”切换。
+ | 　　　在英文环境下玩中文：想输入就输入，想搜索就搜索。
+ |
+
+ 【自己动手试一试】
+
+ 　【目的】感觉一下〖点石成金〗
+
+ 　【操作步骤】
+
+   #.  打开 vim （如果用Windows可以双击gVim.exe）
+   #.  敲 o 或 i 或 a 进入 vim 插入模式
+   #.  连敲四键: v i m <C-^>
+   #.  敲 j  光标向下移动
+   #.  敲 k  光标向上移动
+   #.  敲 l  向下翻页
+
+ 【主要特点】
+
+   | 【破旧立新】让中文输入回归自然
+   | 【无模式转化】无“状态”切换
+
+   + vim 插入模式：
+
+     - 【云输入】最方便的 `Cloud`_
+     - 〖想云就云〗不换模式，不限输入法:  加单引号
+     - 【整句输入】敲中文如同敲英文
+     - 【中文标点】可点击英文标点直接转换。
+     - 【匹配提醒】缺省匹配，以及总匹配数
+     - 【万国码】 `Unicode 内码输入`_ 直接上屏
+     - 【国标码】 `GBK 内码输入`_ 直接上屏
+     - 【大五码】 `Big5 内码输入`_ 直接上屏
+
+   + 菜单操作：
+
+     - 【汉字搜索】可用 VimIM `汉字搜索`_
+     - 【翻页选字】可用 vi 快捷键 `翻页选字`_
+     - 【数字翻页】如果插上数码词库，数字键就是过滤器
+     - 【字母选字】_abcdvfgz 一一对应数字键 1234567890
+     - 【以词定字】可按 ``[`` 或 ``]`` 键
+     - 【汉字上屏】也可敲 ``y`` 键或点石键 -->
+<!-- 输入记忆  [obsolete] -->
+<!--  -->
+<!-- - 【卖点】Yes, VimIM can recycle! -->
+<!-- - 【目的】重复利用用户输入，省时省力! -->
+<!-- - 【方式之一】利用 Ctrl-N -->
+<!--  -->
+<!-- - 【特点】同一字母开头的输入只记住一次 -->
+<!-- - 【操作】在输入一个字母后，按<Ctrl-N> -->
+<!-- - 【操作】在汉字后按<Ctrl-N> => 重复该汉字
+
+
+整句一键输入
+
+【输入】以apostrophe分隔的编码
+【操作】连续输入编码后按〖点石成金〗键
+【上屏】连续敲空格键或数字键选择匹配，手到字来。
+【限于】 `点石成金`_
+
+
+【演示】整句一键输入，敲 VimIM 经典『我有一个梦』
+
+========================   ==================================
+                    我有一個夢
+=============================================================
+【英文输入法】               i'have'a'dream<C-^>
+【拼音输入法】               wo'you'yige'meng<C-^>
+【粤语输入法】               ngoh'yau'yat'goh'mung<C-^>
+【吴语输入法】               ngu'qyoe'iq'qku'qmon<C-^>
+【五笔输入法】               trde'ggwh'ssqu<C-^>
+【新世纪五笔】               q'e'ggwh'ssq<C-^>
+【郑码输入法】               m'gq'avov'ffrs<C-^>
+【仓颉输入法】               hqi'kb'm'ol'ddni<C-^>
+【自然输入法】               wop'yb'yg''mgx<C-^>
+【五笔画输入】               31211325100034201234
+========================   ==================================
+
+整句输入
+- - - - - - - -
+|
+| [obsolete] 废弃 【整句一键】 This feature is no longer supported
+|
+| 【前景】VimIM 中文盲打的理论基础。
+| 【输入】正常英文句子结构，以 **句号** 结尾。
+| 【卖点】敲中文如同敲英文。
+| 【特点】无状态切换，亦无所谓智能组句，好歹可以上字。
+| 【操作】连续输入短句或长句后按〖点石成金〗键。
+| 【上屏】连续敲空格键或数字键选择匹配，手到字来。
+| 【限于】 `点石成金`_
+|
+
+【演示】点石成金，敲 VimIM 经典『我有一个梦』
+
+=============================   ==================================
+                         我有一個夢
+==================================================================
+【英文输入法】                  i have a dream.
+【拼音输入法】                  wo you yige meng.
+【粤语输入法】                  ngoh yau yat goh mung.
+【吴语输入法】                  ngu qyoe iq qku qmon.
+【五笔输入法】                  trde ggwh ssqu.
+【郑码输入法】                  m gq avov ffrs.
+【仓颉输入法】                  hqi kb m ol ddni.
+【自然输入法】                  wop yb yg' mgx.
+=============================   ==================================
+
+【自己动手试一试】
+
+　【目的】敲 VimIM 经典『我有一个梦』
+
+　【操作步骤】
+
+  #. 打开 vim （如果用Windows可以双击gVim.exe）
+  #. 敲 o 或 i 或 a 进入 vim 插入模式
+  #. （如用拼音词库）输入:  wo you i1g meng.
+  #. （在句号后面）敲点石成金键:  <C-^>
+  #. 敲【空格键】或【数字键】上字: wo　　=>　我
+  #. 敲【空格键】或【数字键】上字: you　 =>　有
+  #. 敲【空格键】或【数字键】上字: i1g　 =>　一个
+  #. 敲【空格键】或【数字键】上字: meng　=>　梦
+
+
+.. sidebar::  `逐词匹配`_
+
+   .. figure:: vimim_word_by_word.gif
+   .. figure:: vimim_part_by_part.gif
+
+逐词匹配
+- - - - - - - -
+| 【输入】一气呵成输入大块编码。
+| 【特点】先显示，再确认。
+| 【上屏】连续敲空格键选择匹配，手到字来。
+| 【卖点】打汉字眼花不缭乱，保护视力!
+| 【限于】 `点石成金`_
+|
+
+　 句号分隔，自己定匹配：
+
+| 【特点】 逐词匹配，逐字上屏。
+| 【特点】 可以结合 `智能模糊匹配`_
+| 【演示】 一口气输入一长串用句号分隔的编码。
+| 　　　【输入】pinyin.shuru.si4.jiao3.hao4.ma3.hhyy
+| 　　　【匹配】拼音输入四角号码花好月圆
+|
+
+　 无句号分隔，一气呵成：
+
+【特点】 逆向最大匹配，逐词上屏。
+
+【自己动手试一试】
+
+　【目的】 一口气输入一个句子: 见到老师问声好
+
+　【操作步骤】
+
+  #.  打开 vim （如果用Windows可以双击gVim.exe）
+  #.  敲 o 或 i 或 a 进入 vim 插入模式
+  #.  连敲: jiandaolaoshiwenshenghao.
+  #.  敲点石成金键:  <C-^>
+  #.  敲【空格键】或【数字键】上字: jiandao 　=> 见到
+  #.  敲【空格键】或【数字键】上字: laoshi　　=> 老师
+  #.  敲【空格键】或【数字键】上字: wensheng　=> 问声
+  #.  敲【空格键】或【数字键】上字: hao 　　　=> 好
+
+|  无句号分隔，每四数码上屏 （四角号码）
+|
+| 【特点】 四码匹配，逐字上屏。
+|
+| 【四角号码演示】
+|   (1) 敲 o 或 i 或 a 进入 vim 插入模式
+|   (2) 连敲 6021272260021762
+|   (3) 敲点石成金键:  <C-^>
+|   (4) 敲【空格键】或【数字键】上字，one by one
+|   (5) 结果: “四角号码”四个汉字上屏
+|
+
+(4) 无句号分隔，四码上屏 （五笔）
+
+| 【特点】 四码匹配，逐词上屏。
+|
+| 【五笔演示】
+|   (1) 敲 o 或 i 或 a 进入 vim 插入模式
+|   (2) 连敲 trdeggwhssqu
+|   (3) 敲点石成金键:  <C-^>
+|   (4) 敲【空格键】或【数字键】上字，one by one
+|   (5) 结果: “我有一个梦”五个汉字上屏。
+|
+
+.. sidebar::  `智能模糊匹配`_ 　(VimIM *fuzzy search*)
+
+   .. figure:: vimim_fuzzy_search1.gif
+   .. figure:: vimim_fuzzy_search2.gif
+   .. figure:: vimim_fuzzy_search3.gif
+
+智能模糊匹配
+
+**全拼模糊匹配**
+
+  + 【优点】 能聪明地理解您的意图。
+  + 【特点】 符合一般拼音习惯，原则上N码 => N字
+  + 【擅长】 能够转换词库里没有，但您心里有的输入码。
+  + 【全拼缺省开启】： :let g:vimim_fuzzy_search=1
+
+【自己动手试一试】
+
+　【目的】感觉一下 “智能模糊匹配”
+
+　【操作步骤】
+
+  #.  下载新版脚本     vimim.vim__
+  #.  下载拼音词库样本 http://vimim-data.googlecode.com/svn/trunk/data/vimim.pinyin.txt
+  #.  然后把这两个文本文件扔到您的 vim 的 plugin 目录之下
+  #.  打开 vim （如果用Windows可以双击gVim.exe）
+  #.  敲 o 或 i 或 a 进入 vim 插入模式
+  #.  先敲 huahaoyueyuan<C-^>
+  #.  确认vim 显示“花好月圆” popup menu
+  #.  敲【空格键】或【数字键】上字: 花好月圆
+  #.  再连敲五键: h h y y <C-^>
+  #.  确认vim 显示“花好月圆”“恢恢有余” popup menu
+  #.  敲【空格键】或【数字键】上字: 花好月圆
+
+__ http://vim.sf.net/scripts/script.php?script_id=2506
+
+
+.. sidebar::  中文数字量词
+
+   .. figure:: vimim_quantifiers_lowercase.gif
+   .. figure:: vimim_quantifiers_uppercase.gif
+   .. figure:: vimim_quantifiers_id3c.gif
+
+
+.. sidebar::  翻页选字  【字母键上字】
+
+   .. figure:: vimim_label_abcdefghi.gif
+
+【数字键过滤】
+
+  + 【条件】 拼音★四角号码 pinyin+4corner
+             拼音★五笔划 pinyin+5stroke
+  + 【应用】 另类翻页选字
+  + 【特点】 如果插上数码词库，数字键就是过滤器
+
+【数字键上字】
+
+  + 数字键1234567890直接上汉字：
+
+    - 起始状态或翻页选字之后，数字键永远对应数字标签。
+    - 如果光标移动(jk)，数字相对光标位置。
+
+【字母键上字】
+
+  + 字母键一一对应数字键12345678 优于快速选码。
+
+    #. 第一重码：1 或 空格键 或 'l'
+    #. 第二重码：2 或 'a' 或 ;
+    #. 第三重码：3 或 'b' 　('b' in 菜单数码过滤器)
+    #. 第四重码：4 或 'c' 　('c' in 菜单数码过滤器)
+    #. 第五重码：5 或 'd' 　('d' in 菜单数码过滤器)
+    #. 第六重码：6 或 'e' 　('f' in 菜单数码过滤器)
+    #. 第七重码：7 或 'f' 　('g' in 菜单数码过滤器)
+    #. 第八重码：8 或 'g' 　('z' in 菜单数码过滤器)
+
+【vi快捷键】 点石成金
+
+  + 【经典】 沿用 vi 优良传统：hjkl
+  + 【优点】 十指禅功，可上可下，左右逢源。
+  + 【搜索】 VimIM `汉字搜索`_
+  + 【复制】 可复制到剪贴板，方便粘贴。
+  + 【注】 Vim 按键适用于任何状态，包括所有 omni completion 程式。
+  + 【注】 如用四角号码作为菜单数码过滤器，qwertyuiop 替代 1234567890
+
+
+  +- - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+
+  |   Vim 按键        |     VimIM  快键   |         功能                   |
+  +===================+===================+================================+
+  |  CTRL-X　CTRL-U   | CTRL-6 或 <Tab>   | 猜测寻找第一个匹配             |
+  +- - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+
+  | 　　　..      　  | 　　　　 **h** 　 | 开启 OneKeyNonStop             |
+  +- - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+
+  | 　　　CTRL-N  　  | 　　　　 **j** 　 | 光标下移                       |
+  +- - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+
+  | 　　　CTRL-P  　  | 　　　　 **k** 　 | 光标上移                       |
+  +- - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+
+  | 　　　CTRL-Y  　  | 　　　　 **l** 　 | 确认选择 开启 OneKeyNonStop    |
+  +- - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+
+  | 　　　CTRL-E  　  | 　　　　 **m** 　 | 回到插入模式                   |
+  +- - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+
+  | 　　　..      　  | 　　　　 **n** 　 | next　光标下移叁行             |
+  +- - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+
+  | 　　　..      　  | 　　　　 **x** 　 | x-out 　菜单复原               |
+  +- - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+
+  | 　　　..      　  | 　　　　 **s** 　 | save  上剪贴板                 |
+  +- - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+
+  | 　　　..      　  | 　　　　 **<** 　 | review 寻找更小匹配            |
+  +- - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+
+
+“拼音”配“四角号码”的另类玩法
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+使用拼音输入法准确地敲单个汉字，是个世界难题。
+我们的解决方案是辅以四角号码，效果异常的好。
+
+不过四角号码是数字键，比较遥远，敲起来费力。
+我们的解决方案是以字母键替代数字键。
+
+至此，VimIM可以舒舒服服地用拼音输入敲花名冊。
+【条件】
+(1) 文本程式：$VIM/vimfiles/plugin/vimim.vim
+(2) 目录词库：$VIM/vimfiles/plugin/vimim/pinyin/
+(3) 目录词库：$VIM/vimfiles/plugin/vimim/4corner/
+
+【vi快捷键】 hjkl
+如果使用OneKeyNonStop，在omni菜单里面，英文二十六个键全有定义。
+双手不离字母键盘，照样玩1234567890数字过滤器。
+
+(1) qwertyuiop 替代 1234567890 作为四角号码菜单过滤器，
+(2) abcefgz 作为字母标签上字
+(3) hjkl 快捷键不变
+    h 启动 OneKeyNonStop
+    j 光标下移
+    k 光标上移
+    l 确认选择，启动 OneKeyNonStop
+
+〖试验报告〗
+用 VimIM“拼音”配“四角号码”敲《施氏食狮史》
+汉语拼音一个 shi 对应一百九十个汉字。
+用上我们的四角号码字母过滤器和字母标签，
+在菜单中总计敲十个字母加上一个翻页，可以敲出《施氏食狮史》。
+双手完全不离字母键盘。
+方式之一：单字输入
+施   shi<Ctrl-Space>pa
+氏   shi<Space>us
+食   shi<Space>if
+狮   shi<Space>r,s
+史   shi<Space>ts
+方式之二：句子输入
+vim
+i
+shi.shi.shi.shi.shi<C-^>
+pausifr,sts => 施氏食狮史
+shi => 190
+是时事使市式十实师视石室试士食史世诗施
+
+.. sidebar::  通配符匹配   【全拼输入法演示】
+   .. figure:: vimim_wildcard_search.gif
+
+通配符匹配  [obsolete]
+  + 【优点】万能的通配符 && 永远的UNIX
+  + 用英文星号 ``*`` 匹配零个或以上字符
+  + 用英文句号 ``.`` 匹配壹个字符
+  + 可直接输入英文： ``*English``  → ``English``
+  + 【缺省关闭】:let g:vimim_wildcard_search=0
+
+**以词定字**
++  使用左右方括号选择当前候选词的开头或结尾的字
++  可缓解重码。例如，您打“山寨”：
++  　　　按  ``[``  键，表示选择“山”　字
++  　　　按  ``]``  键，表示选择　“寨”字
+
+**以单定双**
++ 如当前候选为单字：用左方括号选择单字重复
++ 例如，您欲打　 **喜喜**
++ 　    先敲 **喜** ，然后按  ``[``  键
+
+
+〖中文输入模式〗
+================
+需先切入中文输入模式：缺省切入键为<C-\\>
+〖中文输入模式〗三者择一：
+  :let g:vimim_static_input_style=0  （缺省）
+  【中文动态模式】就是输入过程中一直出选择项目，
+                  或者说，每敲一个字母就蹦出一个菜单。
+  :let g:vimim_static_input_style=1
+  【中文静态模式】就是输入完后按空格出选择项目。
+                  支持连续上字。
+  :let g:vimim_static_input_style=2
+  【OneKeyNonStop】(A) 对比【中文静态模式】去掉连续上字
+                   (B) 对比【点石成金】加上连续上字，附加不少cool功能
+  + 【共同特点】
+     - 【经典】空格键上汉字，回车键上英文。
+     - 用数字键确认汉字
+     - 匹配提醒：缺省匹配，以及总匹配数。
+  + 【动态、静态模式】【共同特点】
+     - <Esc> 键：自动切换，与 vim 风格一致
+     - 模式提醒：光标颜色和状态提示 ``INSERT (lang)``
+     - 中文标点自动开启
+     - 中英文标点动态切换 （切换键 **CTRL-^** ）
+
+〖中文动态模式〗
+- 【缺省开启】
+- 【优点】完美实现 Vim 与中文输入法的无间配合
+-  编码步步提示：编码插入与汉字转换同步进行
+-  光标精确跟随：光标走到哪，候选框就跟到哪
+-  空格键智能：该出码时就出码，没码时出空格
+-  输入风格二者择一：
+  + 中文动态输入风格
+    + 【缺省开启】
+    + 显示键码，逐键提示。
+    + 用回车键可以上英文，既方便又传统。
+  + 另类动态输入风格
+    + 【缺省关闭】 :let g:vimim_fancy_input_style=0
+    + 所见即所得 WYSIWYG
+
+〖中文静态模式〗
+- - - - - - - - - - - - - - - -
+- 【开启】:let g:vimim_static_input_style=-1
+- 【特点】可以继续输入，省掉许多空格
+- 【擅长】“中文/英文/数字”混合输入
+- 【优势】长句子云输入
+
+
+〖OneKeyNonStop〗
+这也许是传说中的 `无模式之中文输入模式`__ 。
+__ http://code.google.com/p/vimim/wiki/OneKey
+.. sidebar::  VimIM  `〖OneKeyNonStop〗`_
+   .. figure:: abcdefghi.gif
++ 【特点】 集【点石成金】和【中文静态模式】之优点于一身。
+  (1)  对比【中文静态模式】去掉连续上字
+  (2)  对比【点石成金】加上连续上字，附加不少cool功能。
++ 【设置】 :let g:vimim_static_input_style=2
++ 【操作】
+  - 【开启】—— 敲 <Ctrl-\\>    (toggle and triggle)
+  - 【关闭】—— 敲 <Ctrl-\\>    (triggle)
+  - 【退出】—— 敲 <Esc>        (same as Vim)
+  - 【功能】—— 包括〖点石成金〗全部功能，加之：
+    * 〖经典〗空格键上汉字，回车键上英文。
+    * 〖空格键〗出菜单，或上汉字，或上空格，或上中文标点。
+    * 〖回车键〗无缝上英文；标点后或双回车上空格；没有事就回车。
+    * 〖上汉字〗空格键和字母键，也可以是数字键。
+    * 〖标点切换〗英文标点之后，空格键出中文标点
+    * 〖打字回帖〗敲<Esc>后，当前行自动复制到剪贴板。
+    * 〖敲英文〗CTRL-^ 切换，回到英文输入状态。
+
+可控词频调整
+- - - - - - - - - - - -
+【词频记忆】
+  随用户的意愿自动完善用户的词库。
+  优先选择前一次输入，自动修改词库中对应候选词的顺序
+  　　久而久之，词库就变成用户自己的词库
+  　　不知不觉，VimIM  就变成了最适合用户的输入法
+- 【词频记忆不存盘】
+  + 仅适用于当前的 session
+  + 【缺省关闭】:let g:vimim_chinese_frequency=0
+- 【词频记忆存盘】
+  + 输入累积壹次，词库可以自动刷新，永久存盘。
+  + 【开启可设】:let g:vimim_chinese_frequency=1
+- 【首字固顶】
+  + 候选词可以固顶，方便调整候选词顺序。
+  + 【开启可设】:let g:vimim_frequency_first_fix=1
+
+
+.. sidebar::  通配符匹配   【四角号码演示】
+   .. figure:: vimim_wildcard_4corner.gif
+.. sidebar::  通配符匹配   【注音输入法演示】
+   .. figure:: vimim_wildcard_phonetic.gif
+.. sidebar::  通配符匹配   【仓颉输入法演示】
+   .. figure:: vimim_wildcard_cangjie.gif
+.. sidebar::  通配符匹配   【行列输入法演示】
+   .. figure:: vimim_wildcard_array30.gif
+.. sidebar::  通配符匹配   【二笔输入法演示】
+   .. figure:: vimim_wildcard_erbi.gif
+.. sidebar::  通配符匹配   【五笔输入法演示】
+   .. figure:: vimim_wildcard_wubi.gif
+
+〖测试〗用五笔画数码加数码音调，输入“我有一个梦”五个汉字：
+
+  (1)  按20个数字：　31211325100034201234
+  (2)  按空格或者<Tab>启动
+  (3)  按空格选字，“我”字上屏
+  (4)  按空格选字，“有”字上屏
+  (5)  按空格选字，“一”字上屏
+  (6)  按空格选字，“个”字上屏
+  (7)  按　1　2　辅码过滤，按 d 选字，“梦”字上屏
+  (8)  按两次 <Esc>  复制中文到剪贴板
+
+
+- 英文输入法词库 (from vimim, after editing it line by line)
+- 私人信息样本文件 (from vimim, after editing it line by line)
+- 四角号码输入法词库 (from vimim, after editing it line by line)
+- 三千汉字字频排列 (from vimim, after editing it line by line)
+- 中文电报码 (from my processing unihan.txt data)
+- CNS11643中文標準交換碼 (from official site)
+- fcitx 拼音输入法大词库 (processed from fcitx)
+- 搜狗单字双字 (downloaded and processed from web)
+- 自然输入法词库 (sent from user)
+- 搜狗拼音单字双字词库 (collected from sogou)
+- 汉语拼音输入法大词库 (combination, after processing)
+- 汉语拼音输入法词库 (sent from user)
+- 韩文输入法词库 (sent from user)
+- 五筆劃输入法词库 (sent from user)
+- 五笔98输入法词库 (sent from user)
+- 五笔输入法词库 (sent from user)
+- 极点五笔输入法词库 (sent from user)
+- 仓颉输入法词库(processed from official site)
+- 二笔输入法词库(sent from user)
+- 速成输入法词库(sent from user)
+- 行列输入法词库(processed from official site)
+- 注音输入法词库(sent from user)
+- 永码输入法词库(processed from ibus)
+- 粤语拼音输入法词库 (processed from ibus)
+- 上海吴语注音输入法词库 (processed from ibus)
+- 郑码输入法词库 (processed from ibus)
+- 新华输入法词库 (processed from ibus)
+- 香港拼音输入法词库 (processed from ibus)
+
+VimIM 设计思路:
+
+- 用文本文件打造中文输入法：文本文件，天下无敌。
+- 一个文本文件就足以联网 `Cloud`_
+- 两个文本文件就是完整的中文输入法。
+- 词库文件完全归用户管理，可以直接用Vim编辑。
+- 源程式不用编译，修改以后立竿见影。
+
+if msg ==# "I like VimIM"
+    if  msg ==# "VimIM works great"
+        let action = "I will use it"
+    else
+        let action = "I want to customize it"
+        let action = "I want to improve it"
+        let action = "I want to write a plugin for it"
+    endif
+else
+    let action = "I want to delete it and forget it"
+endif -->
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="utility">
+<h3><a class="toc-backref" href="#id164">UTILITY</a></h3>
+<p>This is for making VimIM backend datafile and directory.</p>
+<pre class="literal-block">
+&quot; --------------------------------------------------------
+function! g:vimim_tool_one_file_per_line(file_in, dir_out)
+&quot; --------------------------------------------------------
+&quot; [purpose] to turn datafile into directory
+  &quot; let dir = s:path
+    let dir = a:dir_out . '/'
+    if !exists(dir) &amp;&amp; !isdirectory(dir)
+        call mkdir(dir)
+    endif
+    for line in readfile(a:file_in)
+        let entries = split(line)
+        let key = get(entries, 0)
+        if match(key, &quot;'&quot;) &gt; -1
+            let key = substitute(key,&quot;'&quot;,'','g')
+        endif
+        let key_as_filename = dir . key
+        let results = entries[1:]
+        if empty(results)
+            continue
+        endif
+        call writefile(results, key_as_filename)
+    endfor
+endfunction
+
+&quot; --------------------------------------------------------
+function! g:vimim_tool_one_line_per_key(file_in, file_out)
+&quot; --------------------------------------------------------
+&quot; [purpose] to turn multiple lines into single one for one datafile
+    let hash = {}
+    for line in readfile(a:file_in)
+        let lines = split(line)
+        let key = get(lines,0)
+        let values = lines[1:]
+        if has_key(hash, key)
+            let values = hash[key] + values
+            let values = g:vimim_remove_duplication(values)
+        endif
+        let hash[key] = values
+    endfor
+    let results = []
+    for key in keys(hash)
+        let line = key . ' ' . join(hash[key])
+        call add(results, line)
+    endfor
+    call writefile(sort(results), a:file_out)
+endfunction
+
+&quot; ------------------------------------------
+function! g:vimim_remove_duplication(values)
+&quot; ------------------------------------------
+    let cache = {}
+    let results = []
+    for char in a:values
+        if has_key(cache, char) || empty(char)
+            continue
+        else
+            let cache[char] = char
+            call add(results, char)
+        endif
+    endfor
+    return results
+endfunction
+</pre>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<!-- " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- function! s:vimim_for_mom_and_dad() -->
+<!-- " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- let onekey = "" -->
+<!-- let buffer = expand("%:p:t") -->
+<!-- if buffer =~ 'vimim.mom.txt' -->
+<!-- startinsert! -->
+<!-- let onekey = s:vimim_onekey_action(0) -->
+<!-- sil!call s:vimim_onekey_start() -->
+<!-- else -->
+<!-- return -->
+<!-- endif -->
+<!-- let s:vimim_tab_as_onekey = 1 -->
+<!-- if has("gui_running") -->
+<!-- autocmd! * <buffer> -->
+<!-- autocmd  FocusLost <buffer> sil!wall -->
+<!-- noremap  <silent>  <Esc> :sil!%y +<CR> -->
+<!-- set tw=30 -->
+<!-- set lines=24 -->
+<!-- set columns=36 -->
+<!-- set report=12345 -->
+<!-- let &gfn .= ":h24:w12" -->
+<!-- endif -->
+<!-- sil!exe 'sil!return "' . onekey . '"' -->
+<!-- endfunction -->
+<!--  -->
+<!--  -->
+<!-- 中文打字机 -->
+<!-- - - - - - - - - - - -->
+<!-- 〖摘要〗妈妈第一次打中文 -->
+<!--  -->
+<!-- + 〖目的〗实现VimIM当年的梦想，给妈妈做个中文打字机。 -->
+<!-- + 〖背景〗妈妈不懂电脑，不懂拼音，从未听说过Vim和VimIM -->
+<!-- + 〖前提〗妈妈会看键盘，会猜常用字的首拼，会写横、竖、撇、捺、折。 -->
+<!-- + 〖征求〗创建类似cream-vim项目, 一次下载，一次安装，零设置。 -->
+<!--  -->
+<!-- 〖安装〗让我们首先设计一个测试环境： -->
+<!--  -->
+<!-- (1)  下载插件　vimim.vim -->
+<!-- (2)  下载字库　vimim.cjk.txt -->
+<!-- (3)  把下载文件扔到vim的plugin文件夹里面 -->
+<!-- (4)  设置好Vim环境，让Vim负责打开txt文件 -->
+<!-- (5)  在桌面上创建一个空白文本文件：vimim.mom.txt -->
+<!-- (6)  如可能，给此文件配上中文打字机的图标 -->
+<!--  -->
+<!--  -->
+<!-- 〖测试〗用首拼加五笔画辅码，输入“我有一个梦”五个汉字： -->
+<!--  -->
+<!-- (1)  鼠标双击桌面上的空白文件：vimim.mom.txt -->
+<!-- (2)  连续按六个键： wyygm空格键 -->
+<!-- (3)  按 a 选字，“我”字上屏 -->
+<!-- (4)  按 a 选字，“有”字上屏 -->
+<!-- (5)  按 空格键 选字，“一”字上屏 -->
+<!-- (6)  按 空格键 选字，“个”字上屏 -->
+<!-- (7)  按 1　2　3　辅码过滤，按 b 选字，“梦”字上屏 -->
+<!-- (8)  按 <Esc> 退出Vim insert 模式 -->
+<!-- (9)  按 <Esc>  复制中文到剪贴板 -->
+<!--  -->
+<!-- 〖特点〗 What is behind? -->
+<!--  -->
+<!-- (1)  文本文件名称规定为： vimim.mom.txt -->
+<!-- (2)  打开此文件，自动进入 vim insert 模式 -->
+<!-- (3)  <Tab> 键定为点石成金键 -->
+<!-- (4)  (for gvim) 双击   <Esc> 定为复制 -->
+<!-- (5)  (for gvim) 中文字体放大一倍 -->
+<!-- (6)  (for gvim) 光标离开，文件自动保存 -->
+<!--  -->
+<!-- 〖反馈〗爸爸也要打中文，但要求使用四角号码。 -->
+<!--  -->
+<!-- (1)  在桌面上创建一个空白文本文件：vimim.dad.txt -->
+<!-- (2)  操作方式不变，只是数码五笔画改为四角号码。 -->
+<!-- (3)  〖测试〗用四角号码数码加数码音调，输入“我有一个梦”五个汉字： -->
+<!--  -->
+<!-- (1)  鼠标双击准备好的空白文件：vimim.dad.txt -->
+<!-- (2)  按20个数字：　23554022100080204420 -->
+<!-- (3)  按空格或者<Tab>启动 -->
+<!-- (4)  按空格选字，“我”字上屏 -->
+<!-- (5)  按空格选字，“有”字上屏 -->
+<!-- (6)  按空格选字，“一”字上屏 -->
+<!-- (7)  按空格选字，“个”字上屏 -->
+<!-- (8)  按　a　 选字，“梦”字上屏 -->
+<!-- (9)  按两次<Esc>复制中文到剪贴板 -->
+<!--  -->
+<!-- +- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+ -->
+<!-- |  　　　vim　i　vimimim  　CTRL-^　CTRL-^                           | -->
+<!-- +- - - - - - - - - - - - -+- - - - - - - - - - - -+- - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - -+ -->
+<!-- |  默认热键   | 　　gi     |  Vim正常模式   |  无菜单窗中文输入      | -->
+<!-- +- - - - - - - - - - - - -+- - - - - - - - - - - -+- - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - -+ -->
+<!-- |  默认热键   | 　　n      |  Vim正常模式   |  无菜单窗中文搜索      | -->
+<!-- +- - - - - - - - - - - - -+- - - - - - - - - - - -+- - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - -+ -->
+<!-- |  默认热键   | 　<C-^>    |  Vim插入模式   |  点石成金              | -->
+<!-- +- - - - - - - - - - - - -+- - - - - - - - - - - -+- - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - -+ -->
+<!-- |  默认热键   | 　<C-\\>   |  Vim插入模式   |  中文动态              | -->
+<!-- +- - - - - - - - - - - - -+- - - - - - - - - - - -+- - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - -+ -->
+<!-- |  热键设置   |  :let g:vimim_map = 'ctrl6,ctrl_bslash,search,gi'    | -->
+<!-- +- - - - - - - - - - - - -+- - - - - - - - - - - -+- - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - -+ -->
+<!-- |  内部热键   | 　<C-_>    |  Vim插入模式   |  切换输入法            | -->
+<!-- +- - - - - - - - - - - - -+- - - - - - - - - - - -+- - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - -+ -->
+<!-- |  内部热键   | 　<C-U>    |  Vim插入模式   |  一键改错              | -->
+<!-- +- - - - - - - - - - - - -+- - - - - - - - - - - -+- - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - -+ -->
+<!-- |  内部热键   | 　<C-L>    |  Vim插入模式   |  开关窗口 || 切换标点  | -->
+<!-- +- - - - - - - - - - - - -+- - - - - - - - - - - -+- - - - - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - -+ -->
+<!-- |   ..        |   ..                                                 | -->
+<!-- +- - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+ -->
+<!-- |  论坛邮箱   |  vimim@googlegroups.com                              | -->
+<!-- +- - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+ -->
+<!-- |  官方网址   |  http://vim.sf.net/scripts/script.php?script_id=2506 | -->
+<!-- +- - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+ -->
+<!-- |  最新程式   |  http://vimim.googlecode.com/svn/vimim/vimim.vim.html| -->
+<!-- +- - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+ -->
+<!-- |  错误报告   |  http://code.google.com/p/vimim/source/list          | -->
+<!-- +- - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+ -->
+<!-- |  新闻论坛   |  http://groups.google.com/group/vimim                | -->
+<!-- +- - - - - - - - - - - - -+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+ -->
+<!--  -->
+<!-- >> 我很想、很愿意向您donate，能提供账户么？ -->
+<!--  -->
+<!-- 账户我们早就有一个，不过只出不进。:) -->
+<!-- http://code.google.com/p/vimim/wiki/Bonus2009 -->
+<!--  -->
+<!-- 我的计划是在VimIM上市三周年纪念日（2012年1月4日）重新发行 VimIM 1.0, -->
+<!-- 作为一个绝版, 原则上不再改动，不管什么要求，除非是showstop. -->
+<!--  -->
+<!-- 在绝版发行之前，我们需要的excessive测试!!! -->
+<!-- 我们还需要有人写VimIM说明书。 -->
+<!-- 最好的VimIM说明书，只能来自民间！ -->
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="references">
+<h3><a class="toc-backref" href="#id165">REFERENCES</a></h3>
+<p>参考文献</p>
+<ul class="simple">
+<li><a class="reference external" href="http://zh.wikipedia.org/wiki/VimIM">http://zh.wikipedia.org/wiki/VimIM</a></li>
+<li><a class="reference external" href="http://en.wikipedia.org/wiki/Input_method_editor">http://en.wikipedia.org/wiki/Input_method_editor</a></li>
+<li><a class="reference external" href="http://en.wikipedia.org/wiki/Vim_%28text_editor%29">http://en.wikipedia.org/wiki/Vim_%28text_editor%29</a></li>
+<li><a class="reference external" href="http://groups.google.com/group/vim_use/topics">http://groups.google.com/group/vim_use/topics</a></li>
+<li><a class="reference external" href="http://vim.sourceforge.net/scripts/script.php?script_id=999">http://vim.sourceforge.net/scripts/script.php?script_id=999</a></li>
+<li><a class="reference external" href="http://www.vim.org/scripts/script.php?script_id=1879">http://www.vim.org/scripts/script.php?script_id=1879</a></li>
+<li><a class="reference external" href="http://hyperrate.com/thread.php?tid=9341">http://hyperrate.com/thread.php?tid=9341</a></li>
+<li><a class="reference external" href="http://code.google.com/p/sg2fcitx/downloads/list">http://code.google.com/p/sg2fcitx/downloads/list</a></li>
+<li><a class="reference external" href="http://forum.ubuntu.org.cn/viewtopic.php?f=101&amp;t=100095">http://forum.ubuntu.org.cn/viewtopic.php?f=101&amp;t=100095</a></li>
+<li><a class="reference external" href="http://blah.blogsome.com/2006/06/27/vim7_tut_oc/">http://blah.blogsome.com/2006/06/27/vim7_tut_oc/</a></li>
+<li><a class="reference external" href="http://www.fireinput.com/wiki/Main_Page">http://www.fireinput.com/wiki/Main_Page</a></li>
+<li><a class="reference external" href="http://hanyu.iciba.com/zt/1533.html">http://hanyu.iciba.com/zt/1533.html</a></li>
+<li><a class="reference external" href="http://www.slideshare.net/c9s/vim-hacks">http://www.slideshare.net/c9s/vim-hacks</a></li>
+<li><a class="reference external" href="http://pinyin.sogou.com/bbs/viewthread.php?tid=142391">http://pinyin.sogou.com/bbs/viewthread.php?tid=142391</a></li>
+<li><a class="reference external" href="http://linuxtoy.org/archives/vimim-09-released.html">http://linuxtoy.org/archives/vimim-09-released.html</a></li>
+<li><a class="reference external" href="http://vim.wikia.com/wiki/Script:2506">http://vim.wikia.com/wiki/Script:2506</a></li>
+<li><a class="reference external" href="http://xbeta.info/vim-tutorials.htm">http://xbeta.info/vim-tutorials.htm</a></li>
+<li><a class="reference external" href="http://code.google.com/p/ibus-sogoupycc/">http://code.google.com/p/ibus-sogoupycc/</a></li>
+<li><a class="reference external" href="http://www.pkucn.com/forumdisplay.php?fid=60&amp;page=1">http://www.pkucn.com/forumdisplay.php?fid=60&amp;page=1</a></li>
+<li><a class="reference external" href="http://www.pkucn.com/viewthread.php?tid=248609">http://www.pkucn.com/viewthread.php?tid=248609</a></li>
+<li><a class="reference external" href="http://www.pkucn.com/viewthread.php?tid=253572">http://www.pkucn.com/viewthread.php?tid=253572</a></li>
+<li><a class="reference external" href="http://www.pkucn.com/viewthread.php?tid=230200">http://www.pkucn.com/viewthread.php?tid=230200</a></li>
+<li><a class="reference external" href="http://lihdd.net/">http://lihdd.net/</a></li>
+<li><a class="reference external" href="http://www.newsmth.net/bbsdoc.php?board=VIM">http://www.newsmth.net/bbsdoc.php?board=VIM</a></li>
+<li><a class="reference external" href="http://code.google.com/p/cjklib/wiki/QuickStart">http://code.google.com/p/cjklib/wiki/QuickStart</a></li>
+<li><a class="reference external" href="http://wiki.hotoo.me/Vim.html">http://wiki.hotoo.me/Vim.html</a></li>
+<li><a class="reference external" href="http://code.google.com/p/pimcloud/source/list">http://code.google.com/p/pimcloud/source/list</a></li>
+<li><a class="reference external" href="http://www.douban.com/group/topic/5212341/">http://www.douban.com/group/topic/5212341/</a></li>
+</ul>
+<!-- [wish] petition to add VimIM to the official Vim Help "mbyte.txt"
+[done] support dynamic menu to speed up in Chinese input mode
+[done] support fuzzy search without modifying data file
+[done] support wildcard, using both * and . the same way as grep
+[done] support menu label: using number key for selection/navigation
+[done] relieve strict restriction of UTF-8 encoding setting
+[done] stop "fuzzy pinyin" template for pinyin input method
+[done] trigger VimIM "easter egg" when no datafile is found
+[done] adjust order selection sequence based on past usage frequency
+[done] standardize data file name with "txt" as filename extension
+[done] make dynamic-order-sequence persistent
+[done] add one super option for XingMa, which can be auto set
+[done] build crash-proof logic to get rid of full table scan
+[done] optimize search algorithm: faster with less CPU & memory
+[done] add visual pleasure: green cursor indicates vimim Input mode
+[done] add basic floating point calculation, but dropped out
+[done] make "easter egg" permanent, regardless of encoding/datafile
+[done] better user experience when g:vimim_dynamic_menu=1
+[done] support "Array Input Method" and upload sample datafile
+[done] support "Phonetic Input Method" and upload sample datafile
+[done] update "VimIM" and "Unicode" in wikipedia: zh.wikipedia.org
+[done] support "Double Pinyin Input Method", upload sample datafile
+[done] make "static mode" as default: Space=>Chinese Enter=>English
+[done] [static/dynamic mode] uses CTRL-^ to be consistent with Vim
+[done] [OneKey] uses CTRL-^ or even Tab key instead if configured
+[done] [WuBi] support non-stop Chinese input for WuBi input method
+[done] [Erbi] start to support ErBi input method which using 31 keys
+[done] [UI] remove menu extra label text (default)
+[done] [UI] remove menu color for better user experience (default)
+[done] [UI] showing both keycode and highlighted menu selection
+[done] [brackets] left/right square brackets to pick up from word
+[done] [DIY] introduce DIY input methods, using double datafile
+[done] [DIY] auto partition keycode: 'm17'(one) and 'sz22'(two)
+[done] New Feature: dynamically create datafile entry (default on)
+[done] New Feature: dynamically save datafile entry   (default off)
+[done] New Feature: support "search" using Vim search key (default)
+[done] finalize popup menu navigation using vi key (hjkl) (default)
+[done] build a table to illustrate mapping CTRL-^ & CTRL-^
+[done] use complete_add(m) and complete_check() to avoid waiting
+[done] support direct Unicode input using digit or hex from menu
+[done] A trick to hide all global variables in plugin
+[done] disable wildcard for dynamic Chinese input mode
+[done] support reverse Unicode lookup: from Chinese to Unicode
+[done] make Chinese punctuations intelligent for all situations
+[done] make <BS> work as expected, the smart way of doing <BS>
+[done] intelligent punctuation: English punctuation after number.
+[done] support vimim_word_by_word_match
+[done] better fuzzy search: ycdy(yichuidyingyin) ydgy(yingdegengying)
+[done] make "easter egg" secret by moving Chinese to datafile
+[done] auto copy to clipboard when Chinese mode is turned off
+[done] make label works as absolute number to user's expectation
+[done] make number smart by adding vimim_punctuation_navigation
+[done] combine all punctuation navigation together
+[done] add g:vimim_reverse_pageup_pagedown for left-hand PageUp
+[done] avoid changing user's .vimrc option when using OneKey
+[done] support fixed first candidate g:vimim_frequency_first_fix=1
+[done] make Chinese/English punctuation smart and solid
+[done] enhance html navigation by adding g/G and removing r key
+[done] support transformation of Chinese numbers
+[done] support smart Chinese quantifiers transformation
+[done] invent fuzzy double pinyin, which is the simplest
+[done] invent DIY keyboard shortcut for numbers: pinyin+4corner
+[done] make DIY perfect for keyboard_sentence_block
+[done] make DIY a pleasure: 3m m3 7x x7 77x x77 except ma3
+[done] meet.teacher.say.hello.sssjj.zdolo.hhyy.sloso.nfofo
+[done] support direct GBK or Big5 internal code input
+[done] add GBK() and BIG5() for printing all Chinese in one step
+[done] remove strict utf-8 restriction for vimim_reverse_lookup
+[done] allow empty lines at the end and the start of datafile
+[done] added "nopaste" to avoid surprise when paste is set
+[done] support plug & play stoke input vimim.12345.txt
+[done] allow copy ascii in addition to Chinese from popup menu
+[done] support c(copy) from popup menu for OneKey
+[done] avoid conflict between VimIM and autocomplpop plugins
+[done] make harmony with eclim plugin by hiding completefunc
+[done] support CANTONESE (pinyin_canton and pinyin_hongkong)
+[done] support WU input method: vimim.wu.txt
+[done] support XINHUA input method: vimim.xinhua.txt
+[done] support YONG input method: vimim.yong.txt
+[done] optimize vimim_label(n) to make the number one fast
+[done] make Space key smart not to compromise abbreviation
+[done] broadcast VimIM to *relating* newsgroups and blogs
+[done] build an internal auto regression test suites
+[done] support "i have a dream." for English OneKey sentence match
+[done] support "i have a dream." for PinYin  OneKey sentence match
+[done] support "i have a dream." for WuBi    OneKey sentence match
+[done] support "i have a dream." for ZhengMa OneKey sentence match
+[done] support "i have a dream." for CangJie OneKey sentence match
+[done] support "i have a dream." for Nature  OneKey sentence match
+[done] [ctc] create vimim.ctc.txt from unihan.txt, PRC telegraph code
+[done] [ctc] support Chinese Telegraph Code (CTC) input and search
+[done] relieve restriction of the fixed noignorecase setting
+[done] [CTRL-Space] on gVim to toggle Chinese input mode, as CTRL-^
+[done] [cns11643] support cns11643 using hex as valid keycode
+[done] [ErBi] support non-stop Chinese input for ErBi input method
+[done] [ShuangPin] better ShuangPin, all from Pan ShiZhu
+[done] [ShuangPin] make it possible to type sentence in static mode
+[done] [cloud] support Cloud IM from sugou: g:vimim_cloud='sogou'
+[done] [cloud] support continous partial cloud sentence match
+[done] [cloud] support non-cloud sentence input: i.have.a.dream
+[done] [cloud] support auto-cloud with linux when no-datafile
+[done] [cloud] support auto-cloud with Windows when plugin/wget.exe
+[done] [OneKey] save keycode in @0 for checking if interested
+[done] [static] auto-chinese-enter using any alphabetic key
+[done] [static] make smart <Enter> reliable in Chinese mode
+[done] [static] double <Space> works when no match
+[done] [svn] 20091116 start SVN to organize code and VimIM homepage
+[done] [4corner] succeed: plug & play vimim.4corner.txt only
+[done] [4corner] succeed: plug & play pinyin plus 4corner
+[done] [english] add option g:vimim_english_in_datafile
+[done] [diy] keep tradition: mjjas=>m7712=>horse szssdo=>sz2230
+[done] [diy] make sh34=>poem work for both pinyin and shuangpin
+[done] [color] keep user's setting; never change global option
+[done] [12345] succeed: plug & play vimim.12345.txt only
+[done] [12345] succeed: plug & play pinyin plus 5 strokes
+[done] [diy] ma7712li4002 => [mali,7712,4002]  sh22zh30
+[done] [seamless] make it better for PinYin: HAPPYwo Happy<CR>wo
+[done] [seamless] make sure all chars valid to avoid capitals error
+[done] [seamless] close for dynamic mode as it is not useful
+[done] [seamless] default on again: g:vimim_seamless_english_input
+[done] [skin] finalize option g:vimim_custom_skin
+[done] [cloud] only try cloud once when no internet connection
+[done] [cloud] support apostrophe to mark syllables, remove ambiguity
+[done] [apostrophe] xi'anmeimeidepi'aosuifengpiaoyang
+[done] [apostrophe] option: :let g:vimim_datafile_has_apostrophe=1
+[done] [punctuation] intelligent: HAPPY, happy<Space>,
+[done] [punctuation] add option: :let g:vimim_english_punctuation=0
+[done] [punctuation] OneKey: :let g:vimim_punctuation_navigation=1
+[redo] [shuangpin] if Cloud, use apostrophe, otherwise strip it out
+[done] [shuangpin] close fuzzy match: wfticeui
+[done] [cloud] fix issue_12: regression on shuangpin sentence match
+[done] [cloud] add support for dynamic Chinese input mode
+[done] [seamless] fix issue_11: make number smart: ma3=>ma3 3ma=>3+ma
+[done] [legal] add one section in manual to clarify copyright
+[done] [diy] add g:vimim_diy_asdfghjklo to support shortcut
+[done] [translation] add brutal-force chinese2pinyin translation
+[done] regression => mjads.xdhao.jdaaa zaskso ma7712li4002 mljjfo
+[done] add easter egg for user environment: vimim<C-^>
+[done] add new hjkl menu key: =p= for copy & paste popupmenu list
+[done] add pictures of 5 shuangpin cloud input to show evidence
+[done] [cloud] cloud. => always non-cloud if ending with one dot
+[done] issue 15: set/reset lazyredrew for OneKey
+[done] issue 19: add s:shuangpin_keyboard to correct calculation
+[done] issue 16: chaoxianlaodongdang  replacing too many chars
+[done] issue 17: make period dummy in Chinese Input Mode: ma.ma
+[done] issue 21: use <space> to close OneKey to avoid interference
+[done] issue 20: roll back vimim_label(n) which is reliable
+[done] issue 22: dynamic mode+cloud+shuangpin problem
+[done] issue 25: conflict VimIM completefunc with others
+[done] issue 26: hjkl still mapped after <BS>
+[done] issue 29: texingceshi<CR>ceshi => CHINESE+gceshi
+[done] issue 23: static+shuangpin+cloud breaks after issue 22
+[done] seamless position detect when cursor is moved
+[done] super reset function to avoid repeating
+[redo] let g:vimim_punctuation_navigation=1 default for all mode
+[redo] [wubi] trdeggwhssqu => i have a dream
+[done] [imode] introduce double imode for capital Chinese number
+[done] [imode] id2=>second id3c=>third+menu
+[done] OneKey => add universal imode using english comma: ,88 ,,88
+[done] [egg] add new easter egg for VimIM URL: vimimhelp
+[done] [egg] add new easter egg for coding: vimims
+[redo] workflow, no need buggy s:vimim_resume_shuangpin()
+[done] <OneKey> without reset <Space>, ignore no completefunc error
+[done] function! s:vimim_pageup_pagedown(matched_list)
+[done] issue 32: 857807627775 Cloud for queyunmu
+[done] vimim_alphabet_auto_select for ShuangPin, might be possible
+[redo] [datafile update] modify data in memory based on past usage
+[done] [paste] ,,,a => customized entry, poem, for sharp display
+[done] :let g:vimim_punctuation_navigation=0 makes - and = available
+[done] yun0mu7=>yunmu yun0mu=>nothing ^\\l\\+\\d\\+'&&'\\l\\+\\d\\=$
+[done] [internal] build debug framework
+[done] [internal] :let g:vimimdebug=1 => vimimdebug =>
+[done] issue 43: optimize b:keymap_name, always show IM in statusline
+[done] [pinyin+4corner] 95 959 jing95 jingshen9 mali77 nfofo nhofs
+[done] [pinyin+4corner] always use number following glyph as a filter
+[done] [pinyin+wubi] plug and play using CTRL-^ to switch between
+[done] [pinyin+erbi] can live together in harmony
+[done] [cangjie] sleeps with [pinyin] in harmony: plug and play
+[done] [skin] put together skin section, with both code and document
+[done] develop an algorithm to sort Chinese by frequent usage
+[done] minimize initialization process when vim starts up
+[done] magic comma, last but one, for whole-jianpin-cloud: laystb,z
+[done] [frequency] make it work now: g:vimim_chinese_frequency=1
+[done] issue 48: A simple way to repeat inputs .....zuorichongxian
+[done] [rot13] make rot13 ready for Great Wall, includes %xx
+[done] [zhengma] fix aewz using datafile: vimim.zhengma.txt
+[done] [zhengma] plug and play <=> zhengma and pinyin sleep together
+[done] [sleep together] [array30][xinhua][quick] and [pinyin]
+[done] [onekey] create official OneKey Chinese input mode
+[done] [onekey] combine g:vimim_reverse_lookup g:vimim_save_new_entry
+[done] [mycloud] g:vimim_cloud_pim=1    pim-cloud.appspot.com/qp/
+[done] [mycloud] g:vimim_cloud_plugin='C:/vimim/svn/mycloud/mycloud'
+[done] [mycloud] fixed issue 99: removing :let extra_text = ""
+[done] [recycle] reusing input memory: g:vimim_smart_ctrl_n
+[done] [recycle] save typing by reusing inputs: g:vimim_smart_ctrl_p
+[redo] [record] g:vimim for all situations, for playback and for fun
+[done] [egg][vimimstat] typing speed stat using vimim_egg_vimimstat()
+[done] support i_CTRL-N i_CTRL-P for Chinese text based on memory
+[done] keep input history for further processing like search
+[redo] [one-key-correction] in OneKey => (d)elete in popup menu
+[redo] [one-key-correction] make <Esc> smart: also one-key-correction
+[done] [backspace] make <BS> smart by not delete Chinese by mistake
+[done] [punctuation] fix backlash and double quote in Chinese mode
+[done] [cmdline] discover cmdline-window for all cmdline operation
+[done] [4corner] use 4corner as a filter for super jianpin
+[done] [5stroke] use 5stroke as a filter for super jianpin
+[done] [label] introduce abcdefghi as label along with 123456789
+[done] [label] support 4corner as a filter over the omni menu
+[done] [label] support 5stroke as a filter over the omni menu
+[done] [label] (1) 1234567890 (2) 10 items per page
+[idea] add :profile start /tmp/vimim.profile for optimization
+[idea] design a way to use cedict.txt as English input
+[done] [zi] (1) add 3000 zi sorted by frequency (2) filter zi+number
+[done] [sort] add r(reverse) sort for omni popup menu
+[done] No PageUp after first Page; No PageDown after last page
+[done] open debug mode for public; resever only g:vimimdebug=9
+[redo] [enter] OneKey a. a.. a... a.... whole match?
+[done] [filter] use first word?  if s:menu_4corner_filter > 0
+[done] [privacy] merge privates to main datafile
+[redo] [OneKey Mode] <Enter> triple play: seamless, enter, space
+[done] [onekey] onekey mode, double enter => space
+[redo] [backspace] make backspace smarter and simpler
+[done] [backspace] too smart is not smart
+[done] [default] CTRL-^ as OneKey and ctrl-Bslash as toggle
+[done] [smart quote] port smart_single/double_quote to OneKey mode
+[deny] check if it is possible to load datafile from "gvim - -remote"
+[done] show-me-not-pattern when ciku has ii/oo/vv, for pretty print
+[redo] [cloud] support Cloud for all using aphostrophe before OneKey
+[done] [digit] 0000<space><space> stuck in OneKey mode
+[done] [private] create oo/ii/vv personal entries and filter display
+[done] [internal] better algorithm with simpler rule: u808f/22221?
+[done] [internal code] use_virtual_datafile if no datafile nor cloud
+[done] [super internal code] create dictionary for Chinese
+[done] [all-cloud] if no match from local, try cloud before giving up
+[done] [OneKeyMode] re-consider paste/nopaste option
+[deny] what is the best way to make shortcut of x3j3 without number?
+[deny] "OneKey stops here": mutual exclusive <C-^> <C-Bslash>
+[done] add vimim_length_filter(); improve s:vimim_pinyin_filter()
+[done] replace g:vimim_sexy_onekey=1 g:vimim_static_input_style=2
+[done] default on for g:vimim_onekey_double_ctrl6=1
+[done] chinese<C-^> => unicode omni popup menu
+[done] zc9_1 <=> z1c9 <=> zheng1010chang9022 <=> zhengchang
+[done] standard menu layout mali => mali ma ma1 ma2 ma3 ma4
+[done] <C-Space> as my default OneKey Chinese mode toggle
+[done] [cloud] based on zi instead of total number of char typed
+[done] check shuangpin/wubi after new logic
+[done] [erbi] use \\V \\M for vim grep for literal dot:  kzy.
+[done] [array30] make comma and slash work: or, a/, a/..
+[done] add new OneKey option:let g:vimim_insert_without_popup=1
+[done] issue89: [wubi] <C-\\>xixiyywr xixi is replaced; <BS> not work
+[done] [pinyin] make dropdown menu as standard as possible
+[done] [apostrophe] improve s:vimim_apostrophe() for mama/ma'ma
+[idea] <C-N> recyle chinese in the current line?
+[idea] is it necessary to try abcdefghi => asdfgqwert
+[idea] to use all digital datafile and search by integer?
+[deny] [framework] break ciku into groups ... go for directory
+[idea] [test] develop an automated test suite
+[idea] [test] make sure no regression, following each item on manual
+[idea] [search] /ma<C-^>   :cnoremap <expre><C-^>
+[done] [pinyin]  doing cache without using cache by pinyin directory
+[done] vimim-data.googlecode.com/svn/trunk/data/vimim.wubi2000
+[done] [directory] try to simplify vimim_make_directory_datafiles()
+[done] [directory] support apostrophe in master data file
+[done] [directory] make one round-trip 4corner directory
+[done] [directory] make one round-trip pinyin directory
+[done] [directory] :call g:vimim_makedir()
+[done] [directory] to remove in-memory data as much as possible
+[done] [directory] make it work for 4corner data directory
+[done] [4corner] direct access without loading: 4corner folder
+[done] [clear] remove the whole English2Chinese functionality
+[done] [clear] remove vimim_reverse_lookup
+[done] [clear] remove s:xingma_sleep_with_pinyin s:datafile_secondary
+[done] [datafile_directory] make g:vimim_mkdir1() robust
+[idea] english.vim for synonyms and antonyms
+[done] [datafile_directory] :call g:vimim_mkdir2() for prepend
+[done] [datafile_directory] vimim.xxx.txt => xxx.bz2 automatically
+[deny] [ballono] showing pinyin/4corner on individual chinese
+[deny] [ballono] unihan.txt: $VIM/vimim/unihan_definition.txt
+[done] [digit filter] 4corner as double filter: mali4<C-^>7
+[idea] [round-trip] add round-trip wubi, zhengma for reverse caching
+[deny] [cloud] turned off auto cloud if xingma
+[done] [digital filter] 4corner and 12345 and length
+[deny] [v_ctrl_6] prepend the current line to directory
+[deny] try mksession to avoid conflict with other plugins
+[done] cat quanpin2.txt quanpin3.txt quanpin4.txt > vimim.pinyin.txt
+[done] [refactor] Refactoring is good for the code and the soul
+[done] abcdefg for menu labelling and  hjkl for navigation
+[done] make hjkl works for datafile, in addtion to directory
+[idea] vim padding with ideographic space; conceal
+[done] [sqlite] to store and manage datafile, from unihan
+[done] [sqlite] use /usr/local/share/cjklib/cedict.db
+[done] [auto] no hot key when editing .vimim files
+[done] [sentence] yeyeqifangcao => [['yeye'],['qi'],['fangcao']]
+[done] [sqlite] (1) whatever.sqlite.vimim (2) whatever.SQLITE.vimim
+[done] /8022 or /cao4 => u808f
+[done] search Chinese from slash english, including sogou cloud
+[done] when 'dynamic' or 'static', no need to load digit filter
+[done] added v:exception to vimim egg
+[done] regression for s:one_key_correction
+[done] improve performance on dynamic mode by using temp cache
+[done] released 0.9.7 on December 3, 2010 on boeing 777
+[done] slash search should also work for shuangpin
+[done] remove option g:vimim_reverse_pageup_pagedown
+[done] one map for both onekey and onekeynonstop (hjkl_l)
+[done] hjkl_h for activating onekeynonstop and reset popup
+[done] hjkl_l for activating onekeynonstop and accept select
+[done] intelligent onekey and s:vimim_onekey_nonstop()
+[done] plug only vimim.4corner.txt
+[done] merge onekeynonstop into onekey
+[done] make sqlite support obsolete, after demo on version 0.9.7
+[done] datafile cache default off:  :let g:vimim_use_cache=0
+[done] support taijima including vimim.taijima.txt
+[done] released 0.9.8 on January 03, 2011 outside great-firewall
+[done] released 0.9.9 on January 15, 2011 outside great-firewall
+[done] added tradition/simplified toggle using vimim.cjk.txt
+[done] vimim.cjk.txt for both input method and slash search
+[done] hjkl_l to recycle list of unicode, 4corner and pinyin
+[done] non-stop: 713236103111 m7132x3610j3111 or uqewxeyqpjeqqq
+[done] i.have.a.dream OneKey OneKey for pinyin/english
+[done] partially release utf8 restriction for vimim.cjk.txt
+[done] debug s:keyboard_list to make it work: ma77li40 7740 Space
+[done] search multiple-char /muuqwxeyqpjeqqq
+[done] wubi mixed with pinyin: ma77li40 is pinyin and ma is wubi
+[done] cjk pinyin1234 is used first, then match pinyin + 4corner
+[done] merge 3000 frequency ciku into vimim.cjk.txt
+[done] hjkl n to toggle simplified/tradtional Chinese
+[done] cjjp. => single char stays in memory after first-time use
+[done] imode for vimim.cjk.txt:  iuuqw shortcut for 7712
+[done] to test when vimim.txt is the only datafile
+[done] poem rotation using hjkl hjkl_m
+[done] get it from cache: s:vimim_pageup_pagedown(lines)
+[done] toggle between vimim.sogou.txt and vimim.pinyin.txt
+[todo] try to publish VimIM manual as a book for free at amazon.com
+[todo] to release 1.0.0 for Chinese New Year of Rabbit
+[done] vimimenv vimim instead of hjkl?
+[done] let g:vimim_cloud_qq=1
+[done] let g:vimim_cloud_google=1
+[done] highlightign 1 2 3 4 => sum ave percentage
+[idea] invisible space after processing for w b e
+[idea] sort based on column; csv file; move field and sort
+[done] A visual representation of how bubble sort works
+[todo] itoday http://www.math.nus.edu.sg/aslaksen/calendar/chinese.shtml
+[done] :let cloud = get(split(s:vimim_cloud,','),0)
+[done] :let g:vimim_cloud = 'qq.wubi.fanti.dynamic'
+[done] :let g:vimim_cloud = 'qq.shuangpin.abc.dynamic'
+[done] switch among 4 different clouds
+[done] force cloud by using :let g:vimim_cloud = 'dynamic'
+[done] s:cloud_ready_flag,s:cloud_executable => s:http_executable
+[done] s:options={} s:cloud_keys={}  s:cloud_cache={}
+[done] check mycloud regression
+[done] :let g:vimim_cloud = 'google.dynamic' => dynamic only
+[done] :let g:vimim_cloud = 'google.onekey'  => onekey only
+[done] one and only one option for cloud: g:vimim_cloud
+[done] encoding=chinese QQ & google
+[done] build consistent cache for all 4 clouds: vimim.qq.txt
+[done] sending email using VimIM through Python Interface to Vim
+[done] Google/QQ cloud sentence match showing remaining pinyin
+[done] caiyunpiaopiao first time trouble
+[done] source vimim.vim on the fly
+[done] +python/dyn    :py
+[done] +python3/dyn   :py3
+[done] support extremely huge data file without too much CPU/memory
+[done] hurricane ctrl_m h'u'r'r'i'c'a'n'e
+[done] [unicode] get chinese before u: 馬力uu => 39340
+[done] war ==> cjk + english + pinyin
+[done] 1234567890 hit and run
+[done] omni tilde translation simplified to traditional
+[todo] invisible chinese word partition
+[done] improve cloud input with english: haag obama
+[todo] improve cloud input with four corner: m77
+[done] vimim.utf8.bsddb in gbk encoding
+[todo] hjkl_m hjkl_n for pure cloud
+[done] bug  mii hhhhhhhhhhh no out
+[done] bug. <Space> m slice ... pagedown more input aeiou 1_ a3897
+[done] bug. lim bug. '.  '' '.  i1j i'j /w2355 /wwetT  我 /m7132 m7132
+[done] vimim.cjk.txt for pure cloud
+[todo] vimim.txt and cloud together in gbk encoding?
+[todo] vimim.cjk.txt and cloud: set cloud by default
+[debug] hjkl_m pure cloud one by one without stop
+[done] unicode ciku NO cloud then
+[done] w2355 wwett m7712 mxj hjkl+m
+[done] consolidate initialization, excpet bsddb on demand
+[done] initialization for all
+[todo] read cjk/english on demand?
+[todo] gbk encoding for bare bones
+[todo] cong/oongratuation
+[todo] official for now: gi
+[todo] dscj green
+[done] s:pattern_not_found:  gi vi space ma space
+[todo] gi means permanent windowless
+[todo] conflict in chinese mode only
+[todo] call g:vimim_reset_after_insert()
+[todo] quote space space
+[done] enter not enter if windowless
+[done] gi<Esc> gpgp  statusline not recovered?
+[done] jeqqqmuuqwxeyqp
+[todo] reset titlestring when no longer in use
+[todo] if english, no cloud
+[todo] cloud' for cloud, and cloud'' for cloud-less
+[todo] ssss.. for shoupin
+[todo] Vim Initialisation: cannot register class factory
+[done] 1 is  windowless refresh
+[done] windowless 1234567890 as filter:  sssss.. 88
+[todo] tiltestring space breaking up
+[done] merging g:vimim_chinese_punctuation to g:vimim_mode
+[done] vimimrc inside vimim.vim and vimimrc for manual
+[done] gi ma enter li space 4
+[todo] gi ma space enter 77 ma space
+[done] gi smdsfy space quote to force cloud
+[done] gi ma space esc copy to clipboard!
+[done] nn zz zz:set titlestring=
+[done] 1234567890 always for 4corner ... label abcdvfgxz only
+[todo] hjkl_x traditional/simplified
+[todo] g:vimim_puncution = 0   " no punctuation mapping
+[todo] wubi and cloud
+[done] remove s:onekey == 2
+[done] removed one_row because of unstable
+[done] zz22 war zhanzheng
+[done] mmmm.. 7 7 7 7
+[todo] wubihua
+[todo] /dscj'
+[todo] retiring visual dscj ... not for prefessional
+[done] lmap tested successfully: imap n mmm
+[done] lmap: removed function s:vimim_restore_plugin_conflict()
+[done] lmap: removed function s:vimim_set_plugin_conflict()
+[done] lmap: removed function s:vimim_getsid(scriptname)
+[todo] removed vimim_punctuation_toggle
+[todo] gi ma space tab ma space Esc
+[todo] todo search [] if not found ... must be bug for search
+[back] Revision: 11039  道法自然 if g:vimim_map =~ ctrl_6
+[todo] 太子党 ctrl-U instead of Esc for g:vimim_correction()
+[todo] ctrl-L ==> print ... replace ;
+[todo] let g:vimim_mode = 'static,esc'
+[done] s:vimim_set_global_default() no need s:/g:
+[done] bzd2 2 编织袋2223
+[done] :let g:vimim_toggle = -1
+[done] :let g:vimim_cloud  = -1 zero ciku empty s:ui.im
+[done] array30: space/enter/evils all started to work
+[done] http://hyperrate.com/thread.php?tid=25371#25371
+[done] :let g:vimim_cloud='qq.wubi'
+[todo] :sign define piet text=>> texthl=Search
+[todo] :exe ':sign place 8 line=38 name=piet file=' . expand("%:p") -->
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+<a class="reference external" href="mailto:vimim&#64;googlegroups.com">vimim&#64;googlegroups.com</a> at 00:01:57 PST on Thursday, 11/10/2011
+【VimIM ®许可协议：GNU 自由文档许可证 <strong>GFDL</strong> 】
+</div>
+</body>
+</html>

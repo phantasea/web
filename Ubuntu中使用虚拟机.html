@@ -1,0 +1,886 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn" lang="zh-cn"><head>
+<title>Ubuntu中使用虚拟机 - 精品文章 - LAMP门户_PHP门户|PHP|中国开源技术门户 - LAMP兄弟连</title>
+<link rev="stylesheet" href="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/home2009V26.css" type="text/css" rel="stylesheet">
+<link rev="stylesheet" href="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/style.css" type="text/css" rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<meta name="keywords" content="PHP,PHP视频,PHP教程,LAMP兄弟连">
+<meta name="description" content="">
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+<link id="themecss" rev="stylesheet" href="" type="text/css" rel="stylesheet">
+<meta content="MSHTML 6.00.6000.16809" name="GENERATOR">
+<script language="JavaScript">
+function killErr(){return true;}
+window.onerror=killErr;
+</script><script language="JavaScript">document.domain = "lampbrother.net";</script><script language="JavaScript" src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/inc.js"></script><script language="JavaScript" src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/default.js"></script></head>
+
+
+
+
+
+<body><div style="display:none;"><table id="AjaxEditTable" cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td class="head"><h3 class="L"></h3><h3 class="R"></h3><span class="eidtmodule" onclick="this.offsetParent.offsetParent.offsetParent.style.display='none'" onmouseover="this.style.cursor='hand'">关闭</span></td></tr><tr> <td class="middle"></td></tr></tbody></table></div>
+<script language="JavaScript" src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/swfobject.js"></script>
+
+<div class="topbar">
+<table id="header_top" cellpadding="0" cellspacing="0" width="100%" align="center" border="0">
+	<tbody><tr> <td class="L"></td>
+	<td> 
+		<div class="login"> 
+			<script language="JavaScript">
+			document.write('<span id="head_loginer"><img alt="内容加载中,请稍候..." src="http://php.lampbrother.net/images/default/ico_loading3.gif"></span>');
+			document.write('<div style="display:none;"><iframe src="http://php.lampbrother.net/do/hack.php?hack=login&iframeID=head_loginer" width=0 height=0></iframe></div>');
+			</script><span id="head_loginer"><div class="login_tpl">  <form name="form_login" method="post" action="http://php.lampbrother.net/do/login.php">     <span class="title">&nbsp;通行证 | 帐号：</span>        <input name="username" class="passtxt" type="text">         <span class="title"> 密码：</span>        <input name="password" class="passtxt" type="password">        <input name="Submit" value="登录" class="bnlogin" type="submit">         <a href="http://bbs.lampbrother.net/register.php" class="reg">注册</a>        <span class="extra">|</span>        <a href="http://bbs.lampbrother.net/sendpwd.php" class="getpass">忘记密码</a><input name="step" value="2" type="hidden">      <input class="radio" name="cookietime" value="86400" type="hidden"> 	     </form></div></span><div style="display:none;"><iframe src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/hack.html" height="0" width="0"></iframe></div>
+		</div>
+		<div class="Time"> 
+        <form method="get" action="http://www.google.com/custom" target="google_window" id="form_search">
+					<input name="sitesearch" value="php.lampbrother.net" checked="checked" id="ss1" class="ss1" type="radio">
+					<input name="domains" value="php.lampbrother.net" type="hidden">
+					<input name="q" size="11" maxlength="255" id="sbi" class="serach_text" type="text">
+					<input class="search_but" name="sa" value="true" onclick="post_search();" type="button">
+					<a class="extra" onclick="this.style.behavior='url(#default#homepage)';this.setHomePage('http://php.lampbrother.net');" href="#">设为首页</a>
+					<a class="extra" href="javascript:window.external.AddFavorite('http://php.lampbrother.net','LAMP%E9%97%A8%E6%88%B7_PHP%E9%97%A8%E6%88%B7')">加入收藏</a> 
+					<a class="extra" href="http://php.lampbrother.net/do/rss.php"><img alt="RSS订阅" src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/rss.gif"></a>
+					<input name="client" value="pub-0687896528813709" type="hidden">
+					<input name="forid" value="1" type="hidden">
+					<input name="ie" value="GB2312" type="hidden">
+					<input name="oe" value="GB2312" type="hidden">
+					<input name="cof" value="GALT:#008000;GL:1;DIV:#336699;VLC:663399;AH:center;BGC:FFFFFF;LBGC:336699;ALC:0000FF;LC:0000FF;T:000000;GFNT:0000FF;GIMP:0000FF;LH:28;LW:100;L:http://www.lampbrother.net/img/link/bbs.gif;S:http://;LP:1;FORID:1" type="hidden">
+					<input name="hl" value="zh-CN" type="hidden">
+					</form>
+					<script language="JavaScript">
+					function post_search(){
+						if(document.getElementById("sbi").value==''){ 
+							alert("关键字不能为空");
+							return false;
+						}
+						document.getElementById("form_search").submit();
+					}
+					</script>
+       
+		</div>
+	</td>
+    <td class="R"></td>
+	</tr>
+</tbody></table>
+
+<div id="header">
+	<h1><a href="http://php.lampbrother.net/" title="LAMP兄弟连--无兄弟不编程！！"><img alt="LAMP兄弟连" src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/logo.jpg"></a></h1>
+
+<!--<div id=menu_all_new>
+<div id=menu_out_new>
+	<div id=menu_in_new>
+		<div id=menu_new>-->
+			<ul id="nav_new" class="mode1">
+				<li>
+                <a href="http://php.lampbrother.net/list.php?fid=1" class="navtitle" title="互联网行业相关资讯新闻">资讯</a><a href="http://php.lampbrother.net/list.php?fid=4">行业</a><a href="http://php.lampbrother.net/list.php?fid=34">软件</a><a href="http://php.lampbrother.net/list.php?fid=31">互联网</a>
+                </li>
+				<li><a href="http://php.lampbrother.net/list.php?fid=50" class="navtitle" title="PHP开源项目下载|LAMP学员项目">项目</a><a href="http://php.lampbrother.net/list.php?fid=53">开发</a><a href="http://php.lampbrother.net/list.php?fid=54">建站</a><a href="http://php.lampbrother.net/list.php?fid=56">其&nbsp;&nbsp;&nbsp;&nbsp;他</a>
+                </li>
+			</ul>
+            <ul id="nav_new" class="mode2">
+				<li><a href="http://php.lampbrother.net/list.php?fid=29" class="navtitle" title="PHP|LAMP|网页设计|数据库|MySQL 系列教程">教程</a><a href="http://php.lampbrother.net/list.php?fid=40" title="PHP教程|PHP手册">PHP</a><a href="http://php.lampbrother.net/list.php?fid=41" title="MySQL|数据库教程">数据库</a><a href="http://php.lampbrother.net/list.php?fid=43" title="前台|HTML|JavaScript|DIV|CSS教程">前台技术</a><a href="http://php.lampbrother.net/list.php?fid=42" title="Linux|操作系统教程">操作系统</a><a href="http://php.lampbrother.net/list.php?fid=44" title="SEO教程|搜索引擎优化教程">SEO</a>
+                 </li>
+				<li><a href="http://php.lampbrother.net/list.php?fid=45" class="navtitle" title="PHP|LAMP|网页设计|数据库|MySQL|函数|职业素质 视频教程|LAMP兄弟连原创">视频</a><a href="http://php.lampbrother.net/list.php?fid=46" title="PHP视频教程">PHP</a><a href="http://php.lampbrother.net/list.php?fid=48" title="PHP函数视频教程|PHP函数演示视频教程">函数</a><a href="http://php.lampbrother.net/list.php?fid=68" title="前台|HTML|JavaScript|DIV|CSS视频教程">&nbsp;DHTML</a><a href="http://php.lampbrother.net/list.php?fid=49" title="职业素质视频教程">职业素质</a><a href="http://php.lampbrother.net/list.php?fid=47" title="Linux操作系统视频教程">&nbsp;&nbsp;Linux&nbsp;&nbsp;</a>
+                 </li>
+			</ul>
+            <ul id="nav_new" class="mode3">
+				<li><a href="http://www.lampbrother.net/" class="navtitle" title="PHP培训|LAMP培训|LAMP兄弟连培训">培训</a><a href="http://lampbrother.net/phptrain/phpkecheng.php" target="_blank" title="LAMP兄弟连PHP培训课程设置|课程大纲|课程体系">课程</a><a href="http://lampbrother.net/phptrain/teacher.php" target="_blank" title="LAMP兄弟连师资简介">师资</a><a href="http://www.lampbrother.net/itemshow.php" target="_blank" title="LAMP兄弟连学员概况|学员作品|就业情况">学员</a><a href="http://lampbrother.net/phptrain/phpjob.php" target="_blank" title="就业">就业</a><a href="http://lampbrother.net/phptrain/attestation.php" target="_blank" title="LAMP兄弟连培训认证说明">认证</a></li>
+				<li><a href="http://bbs.lampbrother.net/thread-htm-fid-252.html" class="navtitle" title="战地日记">日记</a><a href="http://bbs.lampbrother.net/thread-htm-fid-252-type-188.html" target="_blank" title="教官">教官</a><a href="http://bbs.lampbrother.net/thread-htm-fid-252.html" target="_blank" title="学员">学员</a><a href="http://bbs.lampbrother.net/thread-htm-fid-252-search-all-orderway-postdate-asc-DESC-page-1-type-0-special-0.html#tabA" target="_blank" title="战地日记新帖">新帖</a><a href="http://bbs.lampbrother.net/thread-htm-fid-252-search-all-orderway-lastpost-asc-DESC-page-1-type-0-special-0.html#tabA" target="_blank" title="最新">回复</a><a href="http://bbs.lampbrother.net/read-htm-tid-42530.html" target="_blank" title="LAMP兄弟连社团 官方QQ群">QQ群</a>
+                </li>
+			</ul>
+            <ul id="nav_new" class="mode4">
+				<li><a href="http://www.lampbrother.net/grassroots/" class="navtitle" title="《草根》" target="_blank">《草根》</a></li>
+				<li><a href="http://bbs.lampbrother.net/" class="navtitle" title="LAMP兄弟连技术社区|论坛" target="_blank">技术社区</a></li>
+			</ul>
+</div>
+</div>
+
+
+<div id="banner">
+	<script language="JavaScript" src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/a_d_s_003.html"></script><a href="http://php.lampbrother.net/do/a_d_s.php?job=jump&amp;id=26&amp;u_id=&amp;url=aHR0cDovL3d3dy5sYW1wYnJvdGhlci5uZXQvcGhwdHJhaW4vc2hhbmdoYWkucGhw" target="blank"><img src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/4074_20130116160147_4te2w.gif" height="100" width="960" border="0"></a>
+</div>
+
+
+
+<script language="JavaScript">document.write('<div style="clear:both;"></div>');</script><div style="clear:both;"></div>
+
+<!--
+--> 
+
+
+<table style="margin:auto;" cellpadding="0" cellspacing="0" width="960px" border="0">
+	<tbody><tr> <td style="padding-top:4px;"><script language="JavaScript" src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/a_d_s.html"></script></td></tr>
+</tbody></table>
+
+<div class="MainTable MainDivTable">
+	<div class="Main">
+		<div class="nav_guide">
+			<div style="float:left;">当前位置：<a href="http://php.lampbrother.net/">LAMP门户_PHP门户</a>  -&gt; <a href="http://www.lampbrother.net/php/list.php?fid=69" class="guide_menu">草 根</a> -&gt; <a href="http://www.lampbrother.net/php/list.php?fid=70" class="guide_menu">精品文章</a> </div>
+		</div> 
+		<table class="dragTable" id="view_article" cellpadding="0" cellspacing="0" width="100%" align="center" border="0">
+			<tbody><tr> 
+				<td class="head"> 
+					<h3 class="L"></h3>
+					<span class="TAG"><a title="点击可以修改这里的设置" editurl="http://php.lampbrother.net/do/job.php?job=bencandy&amp;fid=70&amp;id=999&amp;act=do">TOP</a></span> 
+					<h3 class="R"></h3>
+				</td>
+			</tr>
+			<tr> 
+			<td class="middle"> 
+			<div class="main_title">Ubuntu中使用虚拟机</div>
+			<div class="fit_title"></div>
+			<div class="top_about">
+				<a title="点击可以修改这里的设置" editurl="http://php.lampbrother.net/do/job.php?job=bencandy&amp;fid=70&amp;id=999&amp;act=do">2010-06-24 16:59:55</a>  
+				来源:<a href="" target="_blank"></a>  
+				作者:何晓龙   浏览:<font id="hits">2924</font>次  
+				评论:<font id="commnetsnum">0</font>条 
+			</div>
+			<table class="content_t" style="TABLE-LAYOUT: fixed;WORD-WRAP: break-word" cellpadding="0" cellspacing="0" width="100%" align="center">
+				<tbody><tr>
+					<td class="content_word" id="read_tpc" align="left">
+					
+
+						<font id="zoom" face="宋体"><span id="post1"><div style="float:left;"></div><script type="text/javascript" src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/shCore.js"></script><script type="text/javascript" src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/shBrushCss.js"></script><script type="text/javascript" src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/shBrushJScript.js"></script><script type="text/javascript" src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/shBrushPhp.js"></script><link type="text/css" rel="stylesheet" href="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/shCore.css"><link type="text/css" rel="stylesheet" href="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/shThemeDefault.css"><script type="text/javascript">SyntaxHighlighter.config.clipboardSwf = "scripts/clipboard.swf";SyntaxHighlighter.all();</script><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; VirtualBox</span><span style="font-family:华文细黑;">是一款小巧易用的跨平台虚拟机，对中文支持很好，它最早由</span><span><a href="http://zh.wikipedia.org/zh-cn/%E5%BE%B7%E5%9C%8B"><span style="color:windowtext;font-family:华文细黑;text-decoration:none;"><span>德国</span></span></a></span><span style="font-family:华文细黑;">InnoTek</span><span style="font-family:华文细黑;">软件公司开发的</span><span><a href="http://zh.wikipedia.org/zh-cn/%E8%99%9B%E6%93%AC%E6%A9%9F%E5%99%A8"><span style="color:windowtext;font-family:华文细黑;text-decoration:none;"><span>虚拟机</span></span></a></span><span style="font-family:华文细黑;">，后被<span>Sun</span>公司收购，现在则由</span><span><a href="http://zh.wikipedia.org/zh-cn/%E7%94%B2%E9%AA%A8%E6%96%87%E5%85%AC%E5%8F%B8"><span style="color:windowtext;font-family:华文细黑;text-decoration:none;"><span>甲骨文公司</span></span></a></span><span style="font-family:华文细黑;">进行开发。<span>
+
+</span></span></p><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">Ubuntu</span><span style="font-family:华文细黑;">软件仓库中包含的<span>VirtualBox</span>是以GPL发布的开源版本VirtualBox Open Source Edition，简称VirtualBoxOSE。这个版本是一个自由软件。</span></p>
+<h3><a></a><a><span><span style="font-size:14pt;font-family:华文细黑;font-weight:normal;">1 </span></span></a><span><span><span style="font-size:14pt;font-family:华文细黑;font-weight:normal;">安装</span></span></span><span style="font-size:14pt;font-family:华文细黑;font-weight:normal;">VirtualBox</span>
+
+<p style="font-weight:normal;"><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">因为是真正的自由软件，<span>Ubuntu</span>官方源中已经有了<span>VirtualBox</span>开源版本，所以安装过程非常简单，选择<span>Ubuntu</span>主菜单“系统”<span>-</span>“系统管理”<span>-</span>“新立得软件包管理器”选项。<span>
+
+</span></span></p><p style="font-weight:normal;"><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">单击新立得软件包管理器主界面“搜索”按钮，输入搜索关键字“<span>virtualbox</span>”，单击“搜索”按钮即可开始查询软件仓库。<span>
+
+</span></span></p><p style="font-weight:normal;"><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">随后新立得软件包管理器会返回查找结果，找到“<span>vitrualbox-ose</span>”，然后右键单击该软件包，选择“标记以便安装”选项，接受新立得自动关联软件包。<span>
+
+</span></span></p><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;"><span style="font-weight:normal;">最后，单击新立得软件包管理器主界面的“应用”按钮，开始安装VirtualBox开始安装，喜欢在命令行安装的朋友可以运行如下命令即可在虚拟终端安装：</span></span></p><p></p><div class="syntaxhighlighter  " id="highlighter_243562"><div class="bar   "><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><div class="item copyToClipboard"><div role="button" tabindex="0" srcattribute="scripts/clipboard.swf" title="scripts/clipboard.swf" style="background: url(&quot;chrome://flashblock/content/flash.png&quot;) no-repeat scroll center center transparent ! important; min-width: 32px ! important; min-height: 32px ! important; width: 32px; height: 32px; border: 1px solid rgb(223, 223, 223); cursor: pointer; overflow: hidden; display: inline-block; visibility: visible ! important; -moz-box-sizing: border-box;" bgactive="url(chrome://flashblock/content/flashplay.png) no-repeat center" bginactive="url(chrome://flashblock/content/flash.png) no-repeat center"></div></div><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines"><div class="line alt1"><table><tbody><tr><td class="number"><code>1</code></td><td class="content"><code class="plain">$ sudo apt-get install virtualbox-ose</code></td></tr></tbody></table></div></div></div><p></p></h3><h3><a><span><span style="font-size:14pt;font-family:华文细黑;font-weight:normal;">2 </span></span></a><span><span><span style="font-size:14pt;font-family:华文细黑;font-weight:normal;">创建<span>VirtualBox</span>虚拟机<span>
+
+<p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">安装完成以后，可以选择“应用程序－附件－<span>VirtualBox OSE</span>”选项来运行<span>VirtualBox</span>。运行以后得到的是<span>VirtualBox</span>的主控制台。<span>
+
+</span></span></p><p><b><span style="font-family:华文细黑;">2.1 VirtualBox</span></b><b><span style="font-family:华文细黑;">主控制台<span>
+
+</span></span></b></p><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">下面以<span>Windows XP</span>为例来演示如何在<span>VirtualBox</span>中安装<span>Windows</span>操作系统，这样一来<span>Ubuntu</span>目前无法实现的一些操作，如需要<span>USB Key</span>的网上银行、淘宝支付宝等，都可以在虚拟机中的<span>Windows</span>里完成操作。<span>
+
+</span></span></p><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">首先需要创建一个虚拟机。单击“新建”来创建新虚拟机。单击“下一步”以后输入名称，并选择“系统类型”为<span>Windows XP</span>，名称则可以随意选取，这里取为<span>Windows</span>。<span>
+
+</span></span></p><p><b><span style="font-family:华文细黑;">2.2</span></b><b><span style="font-family:华文细黑;">设定虚拟机内存<span>
+
+</span></span></b></p><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">单击下一步设定分配的内存，运行<span>Windows XP</span>，建议分配<span>256MB</span>或者更多内存，以便在虚拟机上安装的<span>Windows XP</span>能比较顺畅地运行。<span>
+
+</span></span></p><p><b><span style="font-family:华文细黑;">2.3 </span></b><b><span style="font-family:华文细黑;">设定虚拟机磁盘容量<span>
+
+</span></span></b></p><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">设置完内存容量，还需要创建虚拟硬盘映象。因为是全新的安装，还没有创建任何虚拟硬盘镜像。默认会选中“创建新的虚拟硬盘”，单击“下一步”就可以通过创建向导来创建新的硬盘镜像。<span>
+
+</span></span></p><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">硬盘镜像有两种类型。一种是动态扩展镜像。对这种镜像设定的大小只是为磁盘的大小设定了一个上限，但是并不是马上就分配空间。其大小随着实际硬盘空间的需求而扩展，直至设定的上限。这种类型对硬盘空间比较紧张的情况比较适合。<span>
+
+</span></span></p><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">另一种是固定大小镜像。这种镜像在创建是就分配了所有的空间，在性能上会有一定的优势。对这两种类型需要根据具体的需求来选择。本例中选择的是动态扩展类型。<span>
+
+</span></span></p><p><b><span style="font-family:华文细黑;">2.4 </span></b><b><span style="font-family:华文细黑;">设定虚拟硬盘类型<span>
+
+</span></span></b></p><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">下一步指定虚拟硬盘文件的名字以及大小。缺省设定的大小是<span>10GB</span>。全新的<span>Windows XP</span>安装约占用不到<span>2GB</span>的磁盘空间，所以这里设定为<span>4GB</span>，应该足够了。<span>
+
+</span></span></p><p><b><span style="font-family:华文细黑;">2.5 </span></b><b><span style="font-family:华文细黑;">设定虚拟硬盘大小<span>
+
+</span></span></b></p><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">单击“下一步－完成”完成硬盘设定以后会回到虚拟机的设定。启动盘将变成刚才创建的虚拟硬盘。再单击“下一步－完成”则完成了整个创建新虚拟机的过程，回到了<span>VirtualBox</span>的主控制台。<span>
+
+</span></span></p></span></span></span></span></h3><h3><span style="font-size:14pt;font-family:华文细黑;font-weight:normal;">3 </span><span style="font-size:14pt;font-family:华文细黑;font-weight:normal;">使用<span>VirtualBox</span>安装<span>Windows XP</span></span></h3>
+
+<p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">虽然说<span>Ubuntu</span>现在已经十分完善了，但还是有些应用让人很无奈，其实使用<span>VirtualBox</span>安装一个<span>Windows</span>，许多问题就迎刃而解了，具体安装方法如下。<span>
+
+</span></span></p><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">安装之前，还需要设置一下刚创建好的虚拟机，如光驱、软驱、网络、声音等设备。在<span>VirtualBox</span>主机面中的“设置明细”中，单击要设置的设备进行设置。设置完成后，选择介质，将光盘设置为“<span>ISO</span>光盘映像”选项，然后加载<span>Windows XP</span>的光盘镜像即可。<span>
+
+</span></span></p><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">整个安装过程与普通的安装方式无异，安装步骤就此省略。需要注意的是，<span>Windows XP</span>启动以后，单击虚拟机窗口会俘获所有的键盘以及鼠标事件。可以通过热键来脱离这种模式。具体的热键显示在窗口的最右下方。缺省的设置是右<span>Ctrl</span>键，右<span>Ctrl+F</span>键用来在全屏<span>/</span>窗口模式见进行切换。在全屏模式中可以用<span>Ctrl+Home</span>来访问虚拟机窗口的菜单。<span>
+
+</span></span></p><h3><span style="font-size:14pt;font-family:华文细黑;font-weight:normal;">4 VirtualBox</span><span style="font-size:14pt;font-family:华文细黑;font-weight:normal;">高级配置<span>
+
+<p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">为了进一步方便虚拟机的使用，可以在<span>Windows XP</span>中安装<span>VirtualBox</span>虚拟专用电脑辅助工具包。<span>
+
+</span></span></p><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">在虚拟机窗口中单击“设备－安装增强功能”选项。<span>
+
+</span></span></p><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">安装过程中会询问是否自动从网络上下载该软件包的<span>iso</span>文件。选择自动下载。下载完成以后会询问是否挂载这一文件，选择是。如果自动下载不灵了，可以选择手动安装，在虚拟终端中输入如下命令：</span></p><p></p><div class="syntaxhighlighter  " id="highlighter_698870"><div class="bar"><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><div class="item copyToClipboard"><embed id="highlighter_698870_clipboard" type="application/x-shockwave-flash" title="copy to clipboard" allowscriptaccess="always" wmode="transparent" flashvars="highlighterId=highlighter_698870" menu="false" src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/clipboard.swf" height="16" width="16"></div><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines"><div class="line alt1"><table><tbody><tr><td class="number"><code>1</code></td><td class="content"><code class="variable">$sudo</code> <code class="plain">aptitude install&nbsp; virtualbox-guest-additions</code></td></tr></tbody></table></div></div></div><p></p><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">安装好增强功能后，虚拟机的光驱里面会出现下载好的文件。双击光驱即可以安装这一增强工具包。<span>
+
+</span></span></p><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">安装完成后，重启虚拟机和<span>Windows XP</span>，打开设备管理器，这时显卡已经为<span>VirtualBox</span>显卡了。</span><span style="font-family:宋体;">
+
+</span></p><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">重启后的<span>VirtualBox</span>，增强特性已经生效，增强特性主要有：<span>
+
+</span></span></p><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">不再需要鼠标俘获模式；使用上跟原生的应用程序没有差别。不再需要使用热键来在两种模式之间进行切换。<span>
+
+</span></span></p><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">可以随意调整分辨率，只需调整虚拟机窗口大小即可；比如切换到全屏模式的时候会自动把分辨率切换到宿主操作系统的屏幕分辨率。<span>
+
+</span></span></p><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">增加了 “无缝模式”。在这个模式下，所有的虚拟机应用程序窗口将不再显示在一个单独的虚拟机窗口里面，而是跟原生的程序一样出现在桌面上。右<span>Ctrl+L</span>组合键可以在无缝模式<span>/</span>非无缝模式之间切换，当然也可以使用鼠标来操作。
+<span>
+
+</span></span></p><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">无缝模式下键盘仍然是被俘获的。所以，当<span>Windows</span>应用窗口在前台时，<span>GNOME</span>的快捷键都是不可用的。要用这些快捷键的话可以用鼠标把一个原生程序提升到前台，或者用右<span>Ctrl</span>键脱离键盘俘获模式。<span>
+
+</span></span></p><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">进入无缝模式，和使用<span>Winodws</span>几乎无异，需要注意的是，虚拟机中那个的<span>Windows</span>还是需要防止病毒和黑客软件。<span>
+
+</span></span></p><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">本文摘自即将印刷的《完美应用<span>Ubuntu</span>》第<span>2</span>版<span>并有删</span>减。<span>
+
+</span></span></p><p><span style="font-family:华文细黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-family:华文细黑;">《完美应用<span>Ubuntu</span>》第<span>2</span>版介绍：全面介绍<span>Ubuntu
+10.04</span>和<span>Ubuntu 10.04 Server</span>的精华应用本书将向您展示一个年轻的<span>Linux</span>发行版——<span>Ubuntu</span>，一个产生于太空中的崇高梦想，从初识到安装，从应用到管理，本书秉承开源社区所践行并传播的“乐于分享、善待他人”的<span>Ubuntu</span>理念，向您阐释如何完美应用<span>Ubuntu</span>。本书根据初学者和<span>Ubuntu</span>使用者学习和应用的特点，充分考虑初学者的需求，以<span>Ubuntu</span>精华应用为主线，由浅入深、循序渐进地进入<span>Ubuntu</span>精彩的世界。<span>
+
+</span></span></p><p><span>&nbsp;</span></p>
+
+<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p></span></span></h3></span></font>
+						<p class="keyword_do">LAMP兄弟连资讯，转载请注明出处！本文只代表作者个人观点不代表<a href="http://php.lampbrother.net/" target="_blank">LAMP兄弟连</a>观点！如相关单位或相关个人发现问题，请直接与我们联系400-700-1307。</p>
+					</td>
+				</tr>
+				<tr><td class="page" height="25" align="center"></td></tr>
+			</tbody></table>
+<!--//投票-->
+			<table style="TABLE-LAYOUT: fixed;WORD-WRAP: break-word;" cellpadding="0" cellspacing="0" width="98%" align="center" border="0">
+				<tbody><tr> 
+					<td colspan="2" align="center">				  
+
+						<table class="Digg" cellpadding="0" cellspacing="0" height="71" width="74" border="0">
+							<tbody><tr> 
+								<td class="left"></td>
+								<td class="center" valign="top"> 
+									<div class="number" id="DiggNum_999">144</div>
+									<div class="title" id="DiggDo_999"><a href="http://php.lampbrother.net/do/job.php?job=digg&amp;type=vote&amp;id=999" target="DiggIframe_999">顶一下</a></div>
+									<div style="display:none;"><iframe src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/job.html" name="DiggIframe_999" id="DiggIframe_999" height="0" width="0"></iframe></div>
+								</td>
+								<td class="right"></td>
+							</tr>
+						</tbody></table>
+
+
+						<table cellpadding="15" cellspacing="25" border="0">
+						<tbody><tr> 
+							<td class="article_heart" align="left">您看到此篇文章时的感受是： <br>
+								<script language="JavaScript">
+									document.write('<div id="article_heart"></div>');
+									document.write('<div style="display:none;"><iframe name="iframe_article_heart" id="iframe_article_heart" src="http://php.lampbrother.net/do/job.php?job=heart&id=999" width=0 height=0></iframe></div>');
+									document.write('<SCRIPT LANGUAGE="JavaScript" src="http://php.lampbrother.net/images/default/cookie.js"><\/SCRIPT>');
+									function vote_heart(vt){
+										if(getCookie('heart__'+'999')){
+												alert('^_^,你不是表过态了嘛?');
+												return ;
+										}
+										setCookie('heart__'+'999',1);
+										window.open("http://php.lampbrother.net/do/job.php?job=heart&id=999&type=vote&Vtitle="+vt,"iframe_article_heart");
+									}
+								</script><div id="article_heart"><table style="width:60px;height:200px;float:left;margin-right:5px;" cellpadding="0" cellspacing="0" border="0">  <tbody><tr>    <td style="VERTICAL-ALIGN: bottom;">       <table cellpadding="0" cellspacing="0" width="100%" border="0">        <tbody><tr>          <td align="center"></td>        </tr>        <tr>          <td style="height:1px;background:url(http://php.lampbrother.net/images/default/heart/100.gif) repeat-y center;" align="center"></td>        </tr>        <tr>          <td style="padding:7px 0 4px 0;" align="center"><img src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/1.gif"></td>        </tr>        <tr>          <td align="center">欠扁</td>        </tr>        <tr>          <td align="center"><input onclick="vote_heart('欠扁');" style="border:0px;" name="radiobutton" value="radiobutton" type="radio"></td>        </tr>      </tbody></table>    </td>  </tr></tbody></table><table style="width:60px;height:200px;float:left;margin-right:5px;" cellpadding="0" cellspacing="0" border="0">  <tbody><tr>    <td style="VERTICAL-ALIGN: bottom;">       <table cellpadding="0" cellspacing="0" width="100%" border="0">        <tbody><tr>          <td align="center"></td>        </tr>        <tr>          <td style="height:1px;background:url(http://php.lampbrother.net/images/default/heart/100.gif) repeat-y center;" align="center"></td>        </tr>        <tr>          <td style="padding:7px 0 4px 0;" align="center"><img src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/2.gif"></td>        </tr>        <tr>          <td align="center">支持</td>        </tr>        <tr>          <td align="center"><input onclick="vote_heart('支持');" style="border:0px;" name="radiobutton" value="radiobutton" type="radio"></td>        </tr>      </tbody></table>    </td>  </tr></tbody></table><table style="width:60px;height:200px;float:left;margin-right:5px;" cellpadding="0" cellspacing="0" border="0">  <tbody><tr>    <td style="VERTICAL-ALIGN: bottom;">       <table cellpadding="0" cellspacing="0" width="100%" border="0">        <tbody><tr>          <td align="center"></td>        </tr>        <tr>          <td style="height:1px;background:url(http://php.lampbrother.net/images/default/heart/100.gif) repeat-y center;" align="center"></td>        </tr>        <tr>          <td style="padding:7px 0 4px 0;" align="center"><img src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/3.gif"></td>        </tr>        <tr>          <td align="center">很棒</td>        </tr>        <tr>          <td align="center"><input onclick="vote_heart('很棒');" style="border:0px;" name="radiobutton" value="radiobutton" type="radio"></td>        </tr>      </tbody></table>    </td>  </tr></tbody></table><table style="width:60px;height:200px;float:left;margin-right:5px;" cellpadding="0" cellspacing="0" border="0">  <tbody><tr>    <td style="VERTICAL-ALIGN: bottom;">       <table cellpadding="0" cellspacing="0" width="100%" border="0">        <tbody><tr>          <td align="center"></td>        </tr>        <tr>          <td style="height:1px;background:url(http://php.lampbrother.net/images/default/heart/100.gif) repeat-y center;" align="center"></td>        </tr>        <tr>          <td style="padding:7px 0 4px 0;" align="center"><img src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/4.gif"></td>        </tr>        <tr>          <td align="center">找骂</td>        </tr>        <tr>          <td align="center"><input onclick="vote_heart('找骂');" style="border:0px;" name="radiobutton" value="radiobutton" type="radio"></td>        </tr>      </tbody></table>    </td>  </tr></tbody></table><table style="width:60px;height:200px;float:left;margin-right:5px;" cellpadding="0" cellspacing="0" border="0">  <tbody><tr>    <td style="VERTICAL-ALIGN: bottom;">       <table cellpadding="0" cellspacing="0" width="100%" border="0">        <tbody><tr>          <td align="center"></td>        </tr>        <tr>          <td style="height:1px;background:url(http://php.lampbrother.net/images/default/heart/100.gif) repeat-y center;" align="center"></td>        </tr>        <tr>          <td style="padding:7px 0 4px 0;" align="center"><img src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/5_002.gif"></td>        </tr>        <tr>          <td align="center">搞笑</td>        </tr>        <tr>          <td align="center"><input onclick="vote_heart('搞笑');" style="border:0px;" name="radiobutton" value="radiobutton" type="radio"></td>        </tr>      </tbody></table>    </td>  </tr></tbody></table><table style="width:60px;height:200px;float:left;margin-right:5px;" cellpadding="0" cellspacing="0" border="0">  <tbody><tr>    <td style="VERTICAL-ALIGN: bottom;">       <table cellpadding="0" cellspacing="0" width="100%" border="0">        <tbody><tr>          <td align="center"></td>        </tr>        <tr>          <td style="height:1px;background:url(http://php.lampbrother.net/images/default/heart/100.gif) repeat-y center;" align="center"></td>        </tr>        <tr>          <td style="padding:7px 0 4px 0;" align="center"><img src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/6_002.gif"></td>        </tr>        <tr>          <td align="center">软文</td>        </tr>        <tr>          <td align="center"><input onclick="vote_heart('软文');" style="border:0px;" name="radiobutton" value="radiobutton" type="radio"></td>        </tr>      </tbody></table>    </td>  </tr></tbody></table><table style="width:60px;height:200px;float:left;margin-right:5px;" cellpadding="0" cellspacing="0" border="0">  <tbody><tr>    <td style="VERTICAL-ALIGN: bottom;">       <table cellpadding="0" cellspacing="0" width="100%" border="0">        <tbody><tr>          <td align="center"></td>        </tr>        <tr>          <td style="height:1px;background:url(http://php.lampbrother.net/images/default/heart/100.gif) repeat-y center;" align="center"></td>        </tr>        <tr>          <td style="padding:7px 0 4px 0;" align="center"><img src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/7_002.gif"></td>        </tr>        <tr>          <td align="center">不解</td>        </tr>        <tr>          <td align="center"><input onclick="vote_heart('不解');" style="border:0px;" name="radiobutton" value="radiobutton" type="radio"></td>        </tr>      </tbody></table>    </td>  </tr></tbody></table><table style="width:60px;height:200px;float:left;margin-right:5px;" cellpadding="0" cellspacing="0" border="0">  <tbody><tr>    <td style="VERTICAL-ALIGN: bottom;">       <table cellpadding="0" cellspacing="0" width="100%" border="0">        <tbody><tr>          <td align="center"></td>        </tr>        <tr>          <td style="height:1px;background:url(http://php.lampbrother.net/images/default/heart/100.gif) repeat-y center;" align="center"></td>        </tr>        <tr>          <td style="padding:7px 0 4px 0;" align="center"><img src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/8.gif"></td>        </tr>        <tr>          <td align="center">吃惊</td>        </tr>        <tr>          <td align="center"><input onclick="vote_heart('吃惊');" style="border:0px;" name="radiobutton" value="radiobutton" type="radio"></td>        </tr>      </tbody></table>    </td>  </tr></tbody></table></div><div style="display:none;"><iframe name="iframe_article_heart" id="iframe_article_heart" src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/job_002.html" height="0" width="0"></iframe></div><script language="JavaScript" src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/cookie.js"></script>
+							</td>
+						</tr>
+						</tbody></table>
+
+						<table class="tag_username" cellpadding="0" cellspacing="0" width="99%" align="center" border="0">
+							<tbody><tr> 
+								<td class="Tags" width="71%" align="left">Tags：<a href="http://php.lampbrother.net/do/search.php?type=keyword&amp;keyword=PHP" target="_blank">PHP</a> <a href="http://php.lampbrother.net/do/search.php?type=keyword&amp;keyword=PHP%CA%D3%C6%B5" target="_blank">PHP视频</a> <a href="http://php.lampbrother.net/do/search.php?type=keyword&amp;keyword=PHP%BD%CC%B3%CC" target="_blank">PHP教程</a> <a href="http://php.lampbrother.net/do/search.php?type=keyword&amp;keyword=LAMP%D0%D6%B5%DC%C1%AC" target="_blank">LAMP兄弟连</a></td>
+								<td width="29%" align="right">责任编辑：<a href="http://bbs.lampbrother.net/mode.php?m=o&amp;q=user&amp;u=4074" target="_blank">海峰</a></td>
+							</tr>
+						</tbody></table>
+					</td>
+				</tr>
+				<tr><td colspan="2" class="page" height="25" align="center"></td></tr>
+				<tr align="right"> 
+					<td colspan="2" height="25"> 
+					<script language="JavaScript" src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/bencandy.js"></script>
+					【<a href="javascript:doPrint()">打印</a>】 
+					<input value="1" name="h1" id="h1" type="hidden">
+					【<a href="http://php.lampbrother.net/do/job.php?job=collect&amp;fid=70&amp;id=999">收藏</a>】 
+					【<a href="http://php.lampbrother.net/do/job.php?job=recommend&amp;fid=70&amp;id=999" target="_blank">推荐</a>】
+					【<a href="http://php.lampbrother.net/do/job.php?job=report&amp;fid=70&amp;id=999" target="_blank">举报</a>】
+					【<a href="http://php.lampbrother.net/do/comment.php?fid=70&amp;id=999" target="_blank">评论</a>】 
+					【<a href="javascript:window.close()">关闭</a>】
+					【<a href="javascript:window.close()"></a><a href="#">返回顶部</a>】
+					</td>
+				</tr>
+				<tr class="nextpage"> 
+					<td width="50%" align="left"><a href="http://www.lampbrother.net/php/bencandy.php?fid=70&amp;id=1000" onclick="">上一篇</a>：<a href="http://www.lampbrother.net/php/bencandy.php?fid=70&amp;id=1000" onclick="" title="李老师讲 Linux从ls命令开始">李老师讲 Linux从ls命令开始</a></td>
+					<td height="25" width="50%" align="right"><a href="http://www.lampbrother.net/php/bencandy.php?fid=70&amp;id=998" onclick="">下一篇</a>：<a href="http://www.lampbrother.net/php/bencandy.php?fid=70&amp;id=998" onclick="" title="正则表达式在字符串处理中的应用">正则表达式在字符串处理中的应用</a></td>
+				</tr>
+			</tbody></table>
+		</td>
+	</tr>
+    <tr> 
+          <td class="foot"> 
+            <h3 class="L"></h3>
+            <h3 class="R"></h3>
+          </td>
+        </tr>
+      </tbody></table>
+      <table class="dragTable" id="view_article_bbs" cellpadding="0" cellspacing="0" width="100%" align="center" border="0">
+
+      </table>
+      <!--
+
+
+--> 
+
+<table class="dragTable" id="commentTable" cellpadding="0" cellspacing="0" width="100%" border="0">
+
+  <tbody><tr> 
+
+    <td class="head"> 
+
+      <h3 class="L"></h3>
+
+      <span class="TAG">评论</span> 
+
+      <h3 class="R"></h3>
+
+    </td>
+
+  </tr>
+
+  <tr> 
+
+    <td class="middle"> 
+
+<script language="JavaScript">
+
+<!--
+
+document.write('<span id="comment_show"><img alt="内容加载中,请稍候..." src="http://php.lampbrother.net/images/default/ico_loading3.gif"></span>');
+
+document.write('<div style="display:none;"><iframe src="http://php.lampbrother.net/do/comment_ajax.php?fid=70&aid=999&iframeID=comment_show" width=0 height=0 name="comment_show"></iframe></div>');
+
+//-->
+
+</script><span id="comment_show"><table cellpadding="0" cellspacing="0" width="100%" border="0">  <tbody><tr>    <td class="page"></td>  </tr></tbody></table></span><div style="display:none;"><iframe src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/comment_ajax.html" name="comment_show" height="0" width="0"></iframe></div>
+
+      <table cellpadding="0" cellspacing="0" width="100%" border="0">
+
+	  <form name="form_comment" id="form_comment" method="post" target="comment_show" action="http://php.lampbrother.net/do/comment_ajax.php?fid=70&amp;aid=999&amp;iframeID=comment_show"></form>
+
+        <!--
+
+-->
+
+		<tbody><tr style="display:" id="comment_username_tr"> 
+
+          <td width="16%"><span class="L">帐　　号:</span></td>
+
+            <td width="84%"><span class="R"> 
+
+              <input name="username" id="comment_username" size="12" type="text">
+
+              密码:
+
+              <input name="password" id="comment_password" size="12" type="password">
+
+              (<a href="http://php.lampbrother.net/do/reg.php" target="_blank"><u>新用户注册</u></a>)</span></td>
+
+        </tr>
+
+        <!--
+
+-->
+
+        <tr style="display:" id="comment_yzimg_tr"> 
+
+          <td width="16%"><span class="L">验 证 码:</span></td>
+
+          <td width="84%"> 
+
+              <input id="yzImgNum" name="yzimg" size="8" type="text">
+
+            <img id="yz_Img" name="imageField" src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/yzimg.png" border="0"> 
+
+          </td>
+
+        </tr>
+
+ 
+
+        <tr> 
+
+          <td width="16%"><span class="L">表　　情:</span></td>
+
+          <td width="84%"> 
+
+            <style type="text/css">
+
+<!--
+
+.selected {filter:Alpha(opacity=100);border:1px solid #FF9900}
+
+.unselected {filter:Alpha(opacity=50);border:2px solid #fff}
+
+-->
+
+</style>
+
+<script language="JavaScript">
+
+ <!--
+
+ var prevIcon;
+
+function icon(num){
+
+num.className="selected";
+
+if(typeof(prevIcon)!="undefined"){
+
+prevIcon.className="unselected";
+
+}else{
+
+document.all.firstface.className="unselected";
+
+}
+
+if(num.className=="unselected"){
+
+num.className="selected";
+
+}
+
+prevIcon=num;
+
+document.getElementById("commentface").value=num.childNodes(0).id ;
+
+}
+
+ //-->
+
+ </script>
+
+            <table cellpadding="0" cellspacing="0" border="0">
+
+              <tbody><tr> 
+
+                <td class="selected" onclick="icon(this)" id="firstface" style="cursor:hand"><img src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/1_002.gif" id="1" height="20" width="20"></td>
+
+                <!--
+
+-->
+
+                <td class="unselected" onclick="icon(this)" style="cursor:hand"><img src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/2_002.gif" id="2" height="20" width="20"></td>
+
+                <!--
+
+-->
+
+                <td class="unselected" onclick="icon(this)" style="cursor:hand"><img src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/3_002.gif" id="3" height="20" width="20"></td>
+
+                <!--
+
+-->
+
+                <td class="unselected" onclick="icon(this)" style="cursor:hand"><img src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/4_002.gif" id="4" height="20" width="20"></td>
+
+                <!--
+
+-->
+
+                <td class="unselected" onclick="icon(this)" style="cursor:hand"><img src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/5.gif" id="5" height="20" width="20"></td>
+
+                <!--
+
+-->
+
+                <td class="unselected" onclick="icon(this)" style="cursor:hand"><img src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/6.gif" id="6" height="20" width="20"></td>
+
+                <!--
+
+-->
+
+                <td class="unselected" onclick="icon(this)" style="cursor:hand"><img src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/7.gif" id="7" height="20" width="20"></td>
+
+                <!--
+
+-->
+
+                <td class="unselected" onclick="icon(this)" style="cursor:hand"><img src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/8_002.gif" id="8" height="20" width="20"></td>
+
+                <!--
+
+-->
+
+                <td class="unselected" onclick="icon(this)" style="cursor:hand"><img src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/9.gif" id="9" height="20" width="20"></td>
+
+                <!--
+
+-->
+
+                <td class="unselected" onclick="icon(this)" style="cursor:hand"><img src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/10.gif" id="10" height="20" width="20"></td>
+
+                <!--
+
+-->
+
+                <td class="unselected" onclick="icon(this)" style="cursor:hand"><img src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/11.gif" id="11" height="20" width="20"></td>
+
+                <!--
+
+-->
+
+                <td class="unselected" onclick="icon(this)" style="cursor:hand"><img src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/12.gif" id="12" height="20" width="20"></td>
+
+                <!--
+
+-->
+
+                <td class="unselected" onclick="icon(this)" style="cursor:hand"><img src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/13.gif" id="13" height="20" width="20"></td>
+
+                <!--
+
+-->
+
+                <td class="unselected" onclick="icon(this)" style="cursor:hand"><img src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/14.gif" id="14" height="20" width="20"></td>
+
+                <!--
+
+-->
+
+                <td valign="top" align="center"> 
+
+                  <input name="commentface" value="1" type="hidden">
+
+                </td>
+
+              </tr>
+
+            </tbody></table>
+
+          </td>
+
+        </tr>
+
+        <tr> 
+
+          <td width="16%"><span class="L">内　　容:</span></td>
+
+          <td width="84%"><span class="R"> 
+
+              <textarea name="content" cols="50" rows="5" id="comment_content" onkeydown="quickpost(event)"></textarea>
+
+            </span></td>
+
+        </tr>
+
+        <tr> 
+
+          <td width="16%"> 
+
+<script language="JavaScript">
+
+<!--
+
+cnt = 0;
+
+function quickpost(event){
+
+	if((event.ctrlKey && event.keyCode == 13)||(event.altKey && event.keyCode == 83)){
+
+		cnt++;
+
+		if (cnt==1){
+
+			post_comment();
+
+		}else{
+
+			alert('内容正在提交...');
+
+		}
+
+	}	
+
+}
+
+function post_comment(){
+
+	if(document.getElementById("comment_yzimg_tr").style.display==''){
+
+		if(document.getElementById("yzImgNum").value==''){
+
+			alert('验证码不能为空!');
+
+			return false;
+
+		}
+
+	}
+
+	if(document.getElementById("comment_content").value==''){
+
+		alert('内容不能为空!');
+
+		return false;
+
+	}
+
+	document.getElementById("form_comment").submit();
+
+	document.getElementById("comment_content").value='';
+
+	if(document.getElementById("yzImgNum")!=null){
+
+		document.getElementById("yzImgNum").value='';
+
+		document.getElementById("yz_Img").src="http://php.lampbrother.net/do/yzimg.php?"+Math.random();;
+
+	}
+
+	limitTime=parseInt('5');
+
+	limitComment();
+
+	
+
+}
+
+//-->
+
+</script>
+
+          </td>
+
+            <td width="84%"><span class="R"> 
+
+              <input id="comment_submit" onclick="post_comment()" name="Submit" value="提交" class="button" type="button">
+
+              <input name="action" value="post" type="hidden">
+
+              </span></td>
+
+        </tr>
+
+      </tbody></table>
+
+
+
+    </td>
+
+  </tr>
+
+  <tr> 
+
+    <td class="foot"> 
+
+      <h3 class="L"></h3>
+
+      <h3 class="R"></h3>
+
+    </td>
+
+  </tr>
+
+</tbody></table>
+
+<!--
+
+-->
+
+
+    </div>
+    <div class="Side"> 
+      <table class="dragTable" id="sonSortName" cellpadding="0" cellspacing="0" width="100%" border="0">
+        <tbody><tr> 
+          <td class="head" height="19"> 
+            <h3 class="L"></h3>
+            <span class="TAG">相关栏目</span> 
+            <h3 class="R"></h3>
+          </td>
+        </tr>
+        <tr> 
+          <td class="middle" align="left"> 
+            <div style="width:100%;padding-top:5px;height:45px;background:#F9F9F9;"><!--
+
+
+-->
+
+            <div style="width:46%;background:url(http://php.lampbrother.net/images/default/article_elite.gif) no-repeat 0.3em 0;padding-left:0.3em;text-indent:1.5em;float:left;margin-left:4px;line-height:21px;"><a style="font-weight:bold;" href="http://www.lampbrother.net/php/list.php?fid=74">开卷有益</a></div>
+
+            <!--
+
+-->
+
+            <div style="width:46%;background:url(http://php.lampbrother.net/images/default/article_elite.gif) no-repeat 0.3em 0;padding-left:0.3em;text-indent:1.5em;float:left;margin-left:4px;line-height:21px;"><a style="font-weight:bold;" href="http://www.lampbrother.net/php/list.php?fid=73">草根介绍</a></div>
+
+            <!--
+
+-->
+
+            <div style="width:46%;background:url(http://php.lampbrother.net/images/default/article_elite.gif) no-repeat 0.3em 0;padding-left:0.3em;text-indent:1.5em;float:left;margin-left:4px;line-height:21px;"><a style="font-weight:bold;" href="http://www.lampbrother.net/php/list.php?fid=71">贡献者</a></div>
+
+            <!--
+
+-->
+
+            <div style="width:46%;background:url(http://php.lampbrother.net/images/default/article_elite.gif) no-repeat 0.3em 0;padding-left:0.3em;text-indent:1.5em;float:left;margin-left:4px;line-height:21px;"><a style="font-weight:bold;" href="http://www.lampbrother.net/php/list.php?fid=70">精品文章</a></div>
+
+            <!--
+
+--></div> </td>
+        </tr>
+        <tr> 
+
+          <td class="foot"> 
+            <h3 class="L"></h3>
+            <h3 class="R"></h3>
+          </td>
+        </tr>
+      </tbody></table>
+      <table cellpadding="0" cellspacing="0" width="100%" border="0">
+        <tbody><tr> 
+          <td style="padding-top:6px;" align="right"><script language="JavaScript" src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/a_d_s_002.html"></script></td>
+        </tr>
+      </tbody></table>
+      <table class="dragTable" cellpadding="0" cellspacing="0" width="100%" border="0">
+        <tbody><tr> 
+          <td class="head"> 
+            <h3 class="L"></h3>
+            <span class="TAG">最新文章</span> 
+            <h3 class="R"></h3>
+          </td>
+        </tr>
+        <tr> 
+          <td class="middle" align="left"> 
+<script language="JavaScript">
+<!--
+document.write('<span id="article_Newtopic"><img alt="内容加载中,请稍候..." src="http://php.lampbrother.net/images/default/ico_loading3.gif"></span>');
+document.write('<div style="display:none;"><iframe src="http://php.lampbrother.net/do/jsarticle.php?fid=70&type=new&rows=5&leng=36&iframeID=article_Newtopic" width=0 height=0></iframe></div>');
+//-->
+</script><span id="article_Newtopic"><div class="side_t" style="height:24px;background:url(http://php.lampbrother.net/images/default/ico_block.gif) no-repeat 0px 3px;padding-left:15px;"><a target="_self" href="http://php.lampbrother.net/html/70-1/1660.htm" title="PHP星际争霸系列：设计模式5" style="font-size:13px;">PHP星际争霸系列：设计模式5</a></div><div class="side_t" style="height:24px;background:url(http://php.lampbrother.net/images/default/ico_block.gif) no-repeat 0px 3px;padding-left:15px;"><a target="_self" href="http://php.lampbrother.net/html/70-1/1659.htm" title="设置一个30分钟过期的Session" style="font-size:13px;">设置一个30分钟过期的Session</a></div><div class="side_t" style="height:24px;background:url(http://php.lampbrother.net/images/default/ico_block.gif) no-repeat 0px 3px;padding-left:15px;"><a target="_self" href="http://php.lampbrother.net/html/70-1/1658.htm" title="程序员技术练级攻略" style="font-size:13px;">程序员技术练级攻略</a></div><div class="side_t" style="height:24px;background:url(http://php.lampbrother.net/images/default/ico_block.gif) no-repeat 0px 3px;padding-left:15px;"><a target="_self" href="http://php.lampbrother.net/html/70-1/1657.htm" title="鸭仔小记" style="font-size:13px;">鸭仔小记</a></div><div class="side_t" style="height:24px;background:url(http://php.lampbrother.net/images/default/ico_block.gif) no-repeat 0px 3px;padding-left:15px;"><a target="_self" href="http://php.lampbrother.net/html/70-1/1656.htm" title="一个招生贩子的独白" style="font-size:13px;">一个招生贩子的独白</a></div></span><div style="display:none;"><iframe src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/jsarticle.html" height="0" width="0"></iframe></div>
+          </td>
+        </tr>
+        <tr> 
+          <td class="foot"> 
+            <h3 class="L"></h3>
+            <h3 class="R"></h3>
+          </td>
+        </tr>
+      </tbody></table>
+      <table class="dragTable" cellpadding="0" cellspacing="0" width="100%" border="0">
+        <tbody><tr> 
+          <td class="head"> 
+            <h3 class="L"></h3>
+            <span class="TAG">热门文章</span> 
+            <h3 class="R"></h3>
+          </td>
+        </tr>
+        <tr> 
+          <td class="middle" align="left"> 
+<script language="JavaScript">
+<!--
+document.write('<span id="article_Hottopic"><img alt="内容加载中,请稍候..." src="http://php.lampbrother.net/images/default/ico_loading3.gif"></span>');
+document.write('<div style="display:none;"><iframe src="http://php.lampbrother.net/do/jsarticle.php?fid=70&type=hot&rows=5&leng=36&iframeID=article_Hottopic" width=0 height=0></iframe></div>');
+//-->
+</script><span id="article_Hottopic"><div class="side_t" style="height:24px;background:url(http://php.lampbrother.net/images/default/ico_block.gif) no-repeat 0px 3px;padding-left:15px;"><a target="_self" href="http://php.lampbrother.net/html/70/935.htm" title="ThinkPHP中RBAC数据库详解" style="font-size:13px;">ThinkPHP中RBAC数据库详解</a></div><div class="side_t" style="height:24px;background:url(http://php.lampbrother.net/images/default/ico_block.gif) no-repeat 0px 3px;padding-left:15px;"><a target="_self" href="http://php.lampbrother.net/html/70/932.htm" title="简单实用国产jQuery UI框架" style="font-size:13px;">简单实用国产jQuery UI框架</a></div><div class="side_t" style="height:24px;background:url(http://php.lampbrother.net/images/default/ico_block.gif) no-repeat 0px 3px;padding-left:15px;"><a target="_self" href="http://php.lampbrother.net/html/70-1/1121.htm" title="彻底认清PHP单例模式的本质" style="font-size:13px;">彻底认清PHP单例模式的本质</a></div><div class="side_t" style="height:24px;background:url(http://php.lampbrother.net/images/default/ico_block.gif) no-repeat 0px 3px;padding-left:15px;"><a target="_self" href="http://php.lampbrother.net/html/70-1/1341.htm" title="Linux权限那些事儿" style="font-size:13px;">Linux权限那些事儿</a></div><div class="side_t" style="height:24px;background:url(http://php.lampbrother.net/images/default/ico_block.gif) no-repeat 0px 3px;padding-left:15px;"><a target="_self" href="http://php.lampbrother.net/html/70-1/1429.htm" title="Linux系统启动故障修复" style="font-size:13px;">Linux系统启动故障修复</a></div></span><div style="display:none;"><iframe src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/jsarticle_002.html" height="0" width="0"></iframe></div>
+          </td>
+        </tr>
+        <tr> 
+          <td class="foot"> 
+            <h3 class="L"></h3>
+            <h3 class="R"></h3>
+          </td>
+        </tr>
+      </tbody></table>
+      <table class="dragTable" cellpadding="0" cellspacing="0" width="100%" border="0">
+        <tbody><tr> 
+          <td class="head"> 
+            <h3 class="L"></h3>
+            <span class="TAG">推荐文章</span> 
+            <h3 class="R"></h3>
+          </td>
+        </tr>
+        <tr> 
+          <td class="middle" align="left"> 
+<script language="JavaScript">
+<!--
+document.write('<span id="article_Comtopic"><img alt="内容加载中,请稍候..." src="http://php.lampbrother.net/images/default/ico_loading3.gif"></span>');
+document.write('<div style="display:none;"><iframe src="http://php.lampbrother.net/do/jsarticle.php?fid=70&type=com&rows=5&leng=36&iframeID=article_Comtopic" width=0 height=0></iframe></div>');
+//-->
+</script><span id="article_Comtopic"><div class="side_t" style="height:24px;background:url(http://php.lampbrother.net/images/default/ico_block.gif) no-repeat 0px 3px;padding-left:15px;"><a target="_self" href="http://php.lampbrother.net/html/70-1/1660.htm" title="PHP星际争霸系列：设计模式5" style="font-size:13px;">PHP星际争霸系列：设计模式5</a></div><div class="side_t" style="height:24px;background:url(http://php.lampbrother.net/images/default/ico_block.gif) no-repeat 0px 3px;padding-left:15px;"><a target="_self" href="http://php.lampbrother.net/html/70-1/1659.htm" title="设置一个30分钟过期的Session" style="font-size:13px;">设置一个30分钟过期的Session</a></div><div class="side_t" style="height:24px;background:url(http://php.lampbrother.net/images/default/ico_block.gif) no-repeat 0px 3px;padding-left:15px;"><a target="_self" href="http://php.lampbrother.net/html/70-1/1658.htm" title="程序员技术练级攻略" style="font-size:13px;">程序员技术练级攻略</a></div><div class="side_t" style="height:24px;background:url(http://php.lampbrother.net/images/default/ico_block.gif) no-repeat 0px 3px;padding-left:15px;"><a target="_self" href="http://php.lampbrother.net/html/70-1/1657.htm" title="鸭仔小记" style="font-size:13px;">鸭仔小记</a></div><div class="side_t" style="height:24px;background:url(http://php.lampbrother.net/images/default/ico_block.gif) no-repeat 0px 3px;padding-left:15px;"><a target="_self" href="http://php.lampbrother.net/html/70-1/1656.htm" title="一个招生贩子的独白" style="font-size:13px;">一个招生贩子的独白</a></div></span><div style="display:none;"><iframe src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/jsarticle_003.html" height="0" width="0"></iframe></div>
+          </td>
+        </tr>
+        <tr> 
+          <td class="foot"> 
+            <h3 class="L"></h3>
+            <h3 class="R"></h3>
+          </td>
+        </tr>
+      </tbody></table>
+      <table class="dragTable" cellpadding="0" cellspacing="0" width="100%" border="0">
+        <tbody><tr> 
+          <td class="head"> 
+            <h3 class="L"></h3>
+            <span class="TAG">相关文章</span> 
+            <h3 class="R"></h3>
+          </td>
+        </tr>
+        <tr> 
+          <td class="middle" align="left"> 
+<script language="JavaScript">
+<!--
+document.write('<span id="article_Liketopic"><img alt="内容加载中,请稍候..." src="http://php.lampbrother.net/images/default/ico_loading3.gif"></span>');
+document.write('<div style="display:none;"><iframe src="http://php.lampbrother.net/do/jsarticle.php?fid=70&type=like&id=999&rows=5&leng=36&iframeID=article_Liketopic" width=0 height=0></iframe></div>');
+//-->
+</script><span id="article_Liketopic"><div class="side_t" style="height:24px;background:url(http://php.lampbrother.net/images/default/ico_block.gif) no-repeat 0px 3px;padding-left:15px;"><a target="_self" href="http://php.lampbrother.net/html/70-1/1586.htm" title="让eWebEditor支持IE8 IE7" style="font-size:13px;">让eWebEditor支持IE8 IE7</a></div><div class="side_t" style="height:24px;background:url(http://php.lampbrother.net/images/default/ico_block.gif) no-repeat 0px 3px;padding-left:15px;"><a target="_self" href="http://php.lampbrother.net/html/70-1/1585.htm" title="使用微博的一些好建议" style="font-size:13px;">使用微博的一些好建议</a></div><div class="side_t" style="height:24px;background:url(http://php.lampbrother.net/images/default/ico_block.gif) no-repeat 0px 3px;padding-left:15px;"><a target="_self" href="http://php.lampbrother.net/html/70-1/1584.htm" title="Google两步验证安装使用方法" style="font-size:13px;">Google两步验证安装使用方法</a></div><div class="side_t" style="height:24px;background:url(http://php.lampbrother.net/images/default/ico_block.gif) no-repeat 0px 3px;padding-left:15px;"><a target="_self" href="http://php.lampbrother.net/html/70-1/1583.htm" title="Zend引擎的优化" style="font-size:13px;">Zend引擎的优化</a></div><div class="side_t" style="height:24px;background:url(http://php.lampbrother.net/images/default/ico_block.gif) no-repeat 0px 3px;padding-left:15px;"><a target="_self" href="http://php.lampbrother.net/html/70-1/1582.htm" title="如何调试PHP的Core" style="font-size:13px;">如何调试PHP的Core</a></div></span><div style="display:none;"><iframe src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/jsarticle_004.html" height="0" width="0"></iframe></div>
+          </td>
+        </tr>
+        <tr> 
+          <td class="foot"> 
+            <h3 class="L"></h3>
+            <h3 class="R"></h3>
+          </td>
+        </tr>
+      </tbody></table>
+      <table class="dragTable" cellpadding="0" cellspacing="0" width="100%" border="0">
+        <tbody><tr> 
+          <td class="head"> 
+            <h3 class="L"></h3>
+            <span class="TAG">社区热帖</span> 
+            <h3 class="R"></h3>
+          </td>
+        </tr>
+        <tr> 
+          <td class="middle" valign="top" align="left"> <div style="background:url(http://php.lampbrother.net/images/default/iicon1.gif) no-repeat 0px 1px;padding-left:16px;height:24px;"><a href="http://bbs.lampbrother.net/read.php?tid=153529&amp;page=1" target="_blank" style=";;font-size:13px;" title="北京傲视创想急聘PHP">北京傲视创想急聘PHP</a></div><div style="background:url(http://php.lampbrother.net/images/default/iicon1.gif) no-repeat 0px 1px;padding-left:16px;height:24px;"><a href="http://bbs.lampbrother.net/read.php?tid=153526&amp;page=1" target="_blank" style="color:#0000FF;;;font-size:13px;" title="项目视频7 BroPHP(1.0)自定义和实例化Model操作">项目视频7 BroPHP(1.0)自定义和实例化Mo</a></div><div style="background:url(http://php.lampbrother.net/images/default/iicon1.gif) no-repeat 0px 1px;padding-left:16px;height:24px;"><a href="http://bbs.lampbrother.net/read.php?tid=153525&amp;page=1" target="_blank" style=";;font-size:13px;" title="强哥、明哥往这里看">强哥、明哥往这里看</a></div><div style="background:url(http://php.lampbrother.net/images/default/iicon1.gif) no-repeat 0px 1px;padding-left:16px;height:24px;"><a href="http://bbs.lampbrother.net/read.php?tid=153524&amp;page=1" target="_blank" style=";;font-size:13px;" title="细说PHP第二版BOOK实例有视频吗">细说PHP第二版BOOK实例有视频吗</a></div><div style="background:url(http://php.lampbrother.net/images/default/iicon1.gif) no-repeat 0px 1px;padding-left:16px;height:24px;"><a href="http://bbs.lampbrother.net/read.php?tid=153523&amp;page=1" target="_blank" style=";;font-size:13px;" title="起点团队吴文辉出走始末：经典“盛大式问题”">起点团队吴文辉出走始末：经典“盛大式</a></div><div style="background:url(http://php.lampbrother.net/images/default/iicon1.gif) no-repeat 0px 1px;padding-left:16px;height:24px;"><a href="http://bbs.lampbrother.net/read.php?tid=153522&amp;page=1" target="_blank" style=";;font-size:13px;" title="施密特：Android手机全球使用量今年或破10亿">施密特：Android手机全球使用量今年或破</a></div><div style="background:url(http://php.lampbrother.net/images/default/iicon1.gif) no-repeat 0px 1px;padding-left:16px;height:24px;"><a href="http://bbs.lampbrother.net/read.php?tid=153521&amp;page=1" target="_blank" style=";;font-size:13px;" title="给自己一个未来！！（待续）">给自己一个未来！！（待续）</a></div><div style="background:url(http://php.lampbrother.net/images/default/iicon1.gif) no-repeat 0px 1px;padding-left:16px;height:24px;"><a href="http://bbs.lampbrother.net/read.php?tid=153520&amp;page=1" target="_blank" style=";;font-size:13px;" title="这一次我只想感动自己">这一次我只想感动自己</a></div><div style="background:url(http://php.lampbrother.net/images/default/iicon1.gif) no-repeat 0px 1px;padding-left:16px;height:24px;"><a href="http://bbs.lampbrother.net/read.php?tid=153519&amp;page=1" target="_blank" style=";;font-size:13px;" title="努力!努力!努力!">努力!努力!努力!</a></div><div style="background:url(http://php.lampbrother.net/images/default/iicon1.gif) no-repeat 0px 1px;padding-left:16px;height:24px;"><a href="http://bbs.lampbrother.net/read.php?tid=153516&amp;page=1" target="_blank" style=";;font-size:13px;" title="无法添加类别">无法添加类别</a></div> 
+          </td>
+        </tr>
+        <tr> 
+          <td class="foot"> 
+            <h3 class="L"></h3>
+            <h3 class="R"></h3>
+          </td>
+        </tr>
+      </tbody></table>
+    <table class="dragTable" cellpadding="0" cellspacing="0" width="100%" border="0">
+      <tbody><tr> 
+        <td class="head"> 
+          <h3 class="L"></h3>
+          <span class="TAG">社区精华</span> 
+          <h3 class="R"></h3>
+        </td>
+      </tr>
+      <tr> 
+        <td class="middle" valign="top" align="left"> <div style="background:url(http://php.lampbrother.net/images/default/i/1.gif) no-repeat 0px 2px;height:24px;text-indent:1.3em;"><a href="http://bbs.lampbrother.net/read.php?tid=151854&amp;page=1" target="_blank" style=";;font-size:13px;" title="LINUX基本命令详解第一弹ls">LINUX基本命令详解第一弹ls</a></div><div style="background:url(http://php.lampbrother.net/images/default/i/2.gif) no-repeat 0px 2px;height:24px;text-indent:1.3em;"><a href="http://bbs.lampbrother.net/read.php?tid=151123&amp;page=1" target="_blank" style="color:#FF1493;;;font-size:13px;" title="兄弟连上海PHP班火热报名">兄弟连上海PHP班火热报名</a></div><div style="background:url(http://php.lampbrother.net/images/default/i/3.gif) no-repeat 0px 2px;height:24px;text-indent:1.3em;"><a href="http://bbs.lampbrother.net/read.php?tid=150876&amp;page=1" target="_blank" style="color:#FF0000;;;font-size:13px;" title="2013年第一季度学费优惠政策">2013年第一季度学费优惠政策</a></div><div style="background:url(http://php.lampbrother.net/images/default/i/4.gif) no-repeat 0px 2px;height:24px;text-indent:1.3em;"><a href="http://bbs.lampbrother.net/read.php?tid=149631&amp;page=1" target="_blank" style=";;font-size:13px;" title="Jack张&nbsp;&nbsp; 讲：HTML5&nbsp;&nbsp;Server-Sent Event+php实现服务器推送">Jack张&nbsp;&nbsp; 讲：HTML5&nbsp;</a></div><div style="background:url(http://php.lampbrother.net/images/default/i/5.gif) no-repeat 0px 2px;height:24px;text-indent:1.3em;"><a href="http://bbs.lampbrother.net/read.php?tid=149551&amp;page=1" target="_blank" style="color:#FF0000;;;font-size:13px;" title="把优秀当成一种习惯--让你破茧成蝶！！！">把优秀当成一种习惯--让你破茧成蝶！！！</a></div><div style="background:url(http://php.lampbrother.net/images/default/i/6.gif) no-repeat 0px 2px;height:24px;text-indent:1.3em;"><a href="http://bbs.lampbrother.net/read.php?tid=149100&amp;page=1" target="_blank" style="color:#FF0000;;;font-size:13px;" title="【CXPHP框架-开源共享-参与协同开发】遵循面向对象及MVC开发模式设计，超轻量级PHP框架【求顶】">【CXPHP框架-开源共享-参与协同开发】遵</a></div><div style="background:url(http://php.lampbrother.net/images/default/i/7.gif) no-repeat 0px 2px;height:24px;text-indent:1.3em;"><a href="http://bbs.lampbrother.net/read.php?tid=132321&amp;page=1" target="_blank" style="color:#008000;;;font-size:13px;" title="兄弟连战斗版墙纸横空出世，下载有粮票送">兄弟连战斗版墙纸横空出世，下载有粮票送</a></div><div style="background:url(http://php.lampbrother.net/images/default/i/8.gif) no-repeat 0px 2px;height:24px;text-indent:1.3em;"><a href="http://bbs.lampbrother.net/read.php?tid=121495&amp;page=1" target="_blank" style="color:#FF0000;;;font-size:13px;" title="51期就业班（7月20日班）报到帖">51期就业班（7月20日班）报到帖</a></div><div style="background:url(http://php.lampbrother.net/images/default/i/9.gif) no-repeat 0px 2px;height:24px;text-indent:1.3em;"><a href="http://bbs.lampbrother.net/read.php?tid=119128&amp;page=1" target="_blank" style=";;font-size:13px;" title="兄弟连PHP的那点事 (每日更新, 最新2012年6月10日)">兄弟连PHP的那点事 (每日更新, 最新2012</a></div><div style="background:url(http://php.lampbrother.net/images/default/i/10.gif) no-repeat 0px 2px;height:24px;text-indent:1.3em;"><a href="http://bbs.lampbrother.net/read.php?tid=117052&amp;page=1" target="_blank" style=";;font-size:13px;" title="国外程序员推荐：每个程序员都应读的书">国外程序员推荐：每个程序员都应读的书</a></div> </td>
+      </tr>
+      <tr> 
+        <td class="foot"> 
+          <h3 class="L"></h3>
+          <h3 class="R"></h3>
+        </td>
+      </tr>
+    </tbody></table>
+	  </div>
+    </div>
+
+<!--
+-->
+<div id="bottom"></div>
+<div style="clear:both;"></div>
+<div id="footer">
+	<div class="copyright">
+		Copyright &#169; 易第优教育 2007 - 2013   <span>Edu Inc.</span> Corporation,All Rights Reserved  Server sponsored by E.D.U
+		<br>全国统一咨询热线：400-700-1307　备案号：
+		<a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备11018177号</a> <a>京公网安备110105008830</a> <a href="http://php.lampbrother.net/baidu_MAP.xml" target="_blank">百度</a> <a href="http://php.lampbrother.net/sitemap.xml" target="_blank">Google</a>
+		<br> Powered by<a href="http://www.php168.com/" target="_blank">PHP168 V6.02</a> 
+		Code &#169; 2003-08<span style="display:none;"><script src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/stat.js" language="JavaScript"></script><script src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/cnzz_core.js" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=2414116" target="_blank" title="站长统计"><img src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/pic.gif" hspace="0" vspace="0" border="0"></a>
+
+	</span></div>
+</div>
+<script language="JavaScript">clickEdit.init();</script>
+<!--营销模块改动部分-->
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F9fa74f884a57b1e2411c59545ea4b992' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="Ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA_files/h.js" type="text/javascript"></script>
+
+
+</body></html>

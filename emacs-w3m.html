@@ -1,0 +1,461 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>EmacsWiki: emacs-w3m</title><link rel="alternate" type="application/wiki" title="Edit this page" href="http://www.emacswiki.org/emacs?action=edit;id=emacs-w3m"><link type="text/css" rel="stylesheet" href="emacs-w3m_files/emacs.css"><meta name="robots" content="INDEX,FOLLOW"><link rel="alternate" type="application/rss+xml" title="EmacsWiki" href="http://www.emacswiki.org/emacs?action=rss"><link rel="alternate" type="application/rss+xml" title="EmacsWiki: emacs-w3m" href="http://www.emacswiki.org/emacs?action=rss;rcidonly=emacs-w3m">
+<link rel="alternate" type="application/rss+xml" title="Emacs Wiki with page content" href="http://www.emacswiki.org/emacs/full.rss">
+<link rel="alternate" type="application/rss+xml" title="Emacs Wiki with page content and diff" href="http://www.emacswiki.org/emacs/full-diff.rss">
+<link rel="alternate" type="application/rss+xml" title="Emacs Wiki including minor differences" href="http://www.emacswiki.org/emacs/minor-edits.rss">
+<link rel="alternate" type="application/rss+xml" title="Changes for emacs-w3m only" href="http://www.emacswiki.org/emacs?action=rss;rcidonly=emacs-w3m">
+<script type="text/javascript" src="emacs-w3m_files/outliner.js"></script>
+<script type="text/javascript">
+
+  function addOnloadEvent(fnc) {
+    if ( typeof window.addEventListener != "undefined" )
+      window.addEventListener( "load", fnc, false );
+    else if ( typeof window.attachEvent != "undefined" ) {
+      window.attachEvent( "onload", fnc );
+    }
+    else {
+      if ( window.onload != null ) {
+	var oldOnload = window.onload;
+	window.onload = function ( e ) {
+	  oldOnload( e );
+	  window[fnc]();
+	};
+      }
+      else
+	window.onload = fnc;
+    }
+  }
+
+  var initToc=function() {
+
+    var outline = HTML5Outline(document.body);
+    if (outline.sections.length == 1) {
+      outline.sections = outline.sections[0].sections;
+    }
+
+    if (outline.sections.length > 1
+	|| outline.sections.length == 1
+           && outline.sections[0].sections.length > 0) {
+
+      var toc = document.getElementById('toc');
+
+      if (!toc) {
+	var divs = document.getElementsByTagName('div');
+	for (var i = 0; i < divs.length; i++) {
+	  if (divs[i].getAttribute('class') == 'toc') {
+	    toc = divs[i];
+	    break;
+	  }
+	}
+      }
+
+      if (!toc) {
+	var h2 = document.getElementsByTagName('h2')[0];
+	if (h2) {
+	  toc = document.createElement('div');
+	  toc.setAttribute('class', 'toc');
+	  h2.parentNode.insertBefore(toc, h2);
+	}
+      }
+
+      if (toc) {
+        var html = outline.asHTML(true);
+        toc.innerHTML = html;
+      }
+    }
+  }
+
+  addOnloadEvent(initToc);
+  </script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body class="http://www.emacswiki.org/emacs"><div class="header"><a class="logo" href="http://www.emacswiki.org/emacs/SiteMap"><img class="logo" src="emacs-w3m_files/emacs_logo.png" alt="[Home]"></a><span class="gotobar bar"><a class="local" href="http://www.emacswiki.org/emacs/SiteMap">SiteMap</a> <a class="local" href="http://www.emacswiki.org/emacs/Search">Search</a> <a class="local" href="http://www.emacswiki.org/emacs/ElispArea">ElispArea</a> <a class="local" href="http://www.emacswiki.org/emacs/HowTo">HowTo</a> <a class="local" href="http://www.emacswiki.org/emacs/Glossary">Glossary</a> <a class="local" href="http://www.emacswiki.org/emacs/RecentChanges">RecentChanges</a> <a class="local" href="http://www.emacswiki.org/emacs/News">News</a> <a class="local" href="http://www.emacswiki.org/emacs/Problems">Problems</a> <a class="local" href="http://www.emacswiki.org/emacs/Suggestions">Suggestions</a> </span>
+<!-- Google CSE Search Box Begins  -->
+<form class="tiny" action="http://www.google.com/cse" id="searchbox_004774160799092323420:6-ff2s0o6yi"><p>
+<input name="cx" value="004774160799092323420:6-ff2s0o6yi" type="hidden">
+<input style="background: url(&quot;http://www.google.com/cse/intl/en/images/google_custom_search_watermark.gif&quot;) no-repeat scroll left center rgb(255, 255, 255);" name="q" size="25" type="text">
+<input name="sa" value="Search" type="submit">
+</p><input value="www.emacswiki.org/emacs/emacs-w3m" name="siteurl" type="hidden"><input value="www.google.com.hk/url?sa=t&amp;rct=j&amp;q=emacs-w3m+ubuntu&amp;source=web&amp;cd=1&amp;ved=0CDIQFjAA&amp;url=%68%74%74%70%3a%2f%2f%77%77%77%2e%65%6d%61%63%73%77%69%6b%69%2e%6f%72%67%2f%65%6d%61%63%73%2f%65%6d%61%63%73%2d%77%33%6d&amp;ei=NGVtUe6hDYmFiAfBjoDgDA&amp;usg=AFQjCNGMDRBhh1_PuQPy1kScdc4EA49QRQ" name="ref" type="hidden"><input name="ss" type="hidden"></form>
+<script type="text/javascript" src="emacs-w3m_files/brand"></script>
+<!-- Google CSE Search Box Ends -->
+<br><span class="specialdays">Denmark, Queen's Birthday</span><h1><a title="Click to search for references to this page" rel="nofollow" href="http://www.google.com/cse?cx=004774160799092323420:6-ff2s0o6yi&amp;q=%22emacs-w3m%22">emacs-w3m</a></h1></div><div class="wrapper"><div class="content browse"><div class="toc"><ol><li><a href="#toc1">Description</a></li><li><a href="#toc2">Basic Setup</a></li><li><a href="#toc3">Editing Emacs Wiki</a><ol><li><a href="#toc4">Editing other wikis is still a problem</a></li></ol></li><li><a href="#toc5">Other WThreeM pages</a></li><li><a href="#toc6">Problems, questions and hopefully some answers too</a></li><li><a href="#toc7">Weird Characters</a><ol><li><a href="#toc8">"\240" seen with emacs-w3m FreeBSD</a></li><li><a href="#toc9">Filtering To Downcast To ASCII</a></li><li><a href="#toc10">Weird Characters on MS Windows</a></li></ol></li><li><a href="#toc11">Webpages are truncated on MacOSX</a></li><li><a href="#toc12">W3M hangs on MacOSX 10.5</a></li><li><a href="#toc13">Searching emacswiki.org does not work with emacs/w3m</a></li><li><a href="#toc14">Middle click to open url in a new sesstion (tab)</a></li><li><a href="#toc15">Not working with Emacs 23 ?</a></li><li><a href="#toc16">Not working with Emacs 23 and emacs-w3m from the CVS ?</a></li><li><a href="#toc17">Avoiding Some Problems with emacs-23 and emacs-w3m from cvs</a></li><li><a href="#toc18">Emacs 23 from CVS and W3M in Debian - Internationalization and code pages</a></li><li><a href="#toc19">W3M, HTML articles and org-mode</a></li><li><a href="#toc20">org-w3m</a></li><li><a href="#toc21">Bookmarking</a></li><li><a href="#toc22">w3m in Emacs 23 (on Debian and Ubuntu 9.10)</a></li><li><a href="#toc23">w3m in Emacs23 (Cygwin)</a></li><li><a href="#toc24">Browse url on other window</a></li><li><a href="#toc25">Improving w3m-browse-*</a></li></ol></div><h2 id="toc1">Description</h2><p>This page is dedicated to the <strong>emacs-w3m</strong>, also known on this wiki as <a name="WThreeM" class="definition" title="Click to search for references to this permanent anchor" rel="nofollow" href="http://www.google.com/cse?cx=004774160799092323420:6-ff2s0o6yi&amp;q=%22WThreeM%22">WThreeM</a>, an Emacs interface to the <a class="local" href="http://www.emacswiki.org/emacs/w3m">w3m</a> text browser. Note that it has nothing to do with the <a class="local" href="http://www.emacswiki.org/emacs/w3">w3</a> web browser written entirely in <a class="local" href="http://www.emacswiki.org/emacs/EmacsLisp">EmacsLisp</a>.
+ Using the Emacs interface to w3m is much faster than using w3, since 
+the parsing and displaying is done by the external w3m process.</p><p>You can download emacs-w3m from its homepage at <a class="url http" href="http://emacs-w3m.namazu.org/">http://emacs-w3m.namazu.org</a>.
+ There is a mailing-list, that’s to a large extent in Japanese, but not 
+completely. Its archives are available at the website. The list is also 
+archived and gatewayed on Gmane, as <code>gmane.emacs.w3m</code>. Emacs-w3m comes with a manual in TexInfo<a class="edit" title="Click to edit this page" rel="nofollow" href="http://www.emacswiki.org/emacs?action=edit;id=TexInfo">?</a> format, from which a normal, comfortable section of the manual in <a class="local" href="http://www.emacswiki.org/emacs/InfoMode">InfoMode</a> form will be built by the installation process.</p><div class="color one level0"><p> If you are building from cvs, be aware of one gotcha: if the first <code>emacs</code> executable in your <code>$PATH</code> is a symlink, then the directory containing that symlink will be used as the base install location by <code>make install</code>. Fix: either change <code>$PATH</code> to expose the actual installed <code>emacs</code> binary first, at least for the duration of the configure/make/install procedure, or hand-edit the <code>Makefile</code> created by running <code>./configure</code>.</p></div><h2 id="toc2">Basic Setup</h2><pre> (setq browse-url-browser-function 'w3m-browse-url)
+ (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
+ ;; optional keyboard short-cut
+ (global-set-key "\C-xm" 'browse-url-at-point)</pre><h2 id="toc3">Editing Emacs Wiki</h2><p>Don’t forget to enable the use of cookies!</p><pre>(setq w3m-use-cookies t)
+</pre><p>Next, <a class="url http outside" href="http://www.emacswiki.org/emacs/uihnscuskc/SiteMap">follow this
+link</a> to set the cookie. This will prevent the reCAPTCHA code from being triggered.</p><h3 id="toc4">Editing other wikis is still a problem</h3><p>There is such a problem with captcha at other wikis: for example, <a class="url http outside" href="http://www.haskell.org/haskellwiki/HaskellWiki_talk:Community#captcha_not_visible_in_.28emacs-.29w3m_:.28">the problem described at the Haskell Wiki</a>. Can a solution be suggested for emacs-w3m for overcoming the captcha barrier?</p><h2 id="toc5">Other WThreeM pages</h2><ul><li><a class="local" href="http://www.emacswiki.org/emacs/WThreeMHintsAndTips">WThreeMHintsAndTips</a> - Useful extensions and tips for using w3m</li><li><a class="local" href="http://www.emacswiki.org/emacs/WThreeMEditingWikis">WThreeMEditingWikis</a> - using <strong>w3m</strong> to view and edit wikis</li><li><a class="local" href="http://www.emacswiki.org/emacs/WThreeMFrames">WThreeMFrames</a> - rendering frames</li><li><a class="local" href="http://www.emacswiki.org/emacs/WThreeMKeymap">WThreeMKeymap</a> - alternate keymaps (including some “hidden” commands)</li><li><a class="local" href="http://www.emacswiki.org/emacs/WThreeMMailmanAdmin">WThreeMMailmanAdmin</a> - using <strong>w3m</strong> to handle GNU Mailman admin approval queues</li><li><a class="local" href="http://www.emacswiki.org/emacs/WThreeMSearch">WThreeMSearch</a> - improving searching</li><li><a class="local" href="http://www.emacswiki.org/emacs/WThreeMTables">WThreeMTables</a> - displaying tables correctly</li><li><a class="local" href="http://www.emacswiki.org/emacs/WThreeMTabs">WThreeMTabs</a> - managing multiple <a class="alias" title="emacs-w3m" href="http://www.emacswiki.org/emacs/emacs-w3m#WThreeM">WThreeM</a> buffers</li><li><a class="local" href="http://www.emacswiki.org/emacs/WThreeMTypeAhead">WThreeMTypeAhead</a> - type ahead support</li><li><a class="local" href="http://www.emacswiki.org/emacs/WThreeMShimbun">WThreeMShimbun</a> - use w3m to create mail backend</li><li><a class="local" href="http://www.emacswiki.org/emacs/WThreeMAuthentication">WThreeMAuthentication</a> - issues with http auth</li><li><a class="local" href="http://www.emacswiki.org/emacs/WThreeMDelicious">WThreeMDelicious</a> - using w3m with <a class="url http" href="http://del.icio.us/">http://del.icio.us/</a></li><li><a class="local" href="http://www.emacswiki.org/emacs/WThreeMSession">WThreeMSession</a> - persistent tabbed browsing with w3m</li><li><a class="local" href="http://www.emacswiki.org/emacs/WThreeMReadability">WThreeMReadability</a> - improving readability</li><li><a class="local" href="http://www.emacswiki.org/emacs/WThreeMYoutube">WThreeMYoutube</a> - View youtube video from emacs-w3m</li></ul><h2 id="toc6">Problems, questions and hopefully some answers too</h2><h2 id="toc7">Weird Characters</h2><p>If
+ you are seeing some Japanese characters or nothing at all where you 
+expect Umlauts and other characters, customize the w3m group and change 
+all the references of the <code>‘euc-jp’</code> coding system options to <code>‘latin-1’</code>.</p><dl class="quote"><dt></dt><dd>I’ve had a little better luck with making pages look right by putting the following into my ~/.emacs file:</dd></dl><pre>    (setq w3m-coding-system 'utf-8
+          w3m-file-coding-system 'utf-8
+          w3m-file-name-coding-system 'utf-8
+          w3m-input-coding-system 'utf-8
+          w3m-output-coding-system 'utf-8
+          w3m-terminal-coding-system 'utf-8)</pre><dl class="quote"><dt></dt><dd>Is there some reason this approach would be worse than using <code>‘latin-1’</code>? – <a class="local" href="http://www.emacswiki.org/emacs/JerameyCrawford">JerameyCrawford</a></dd></dl><p>You may want to store your w3m bookmark file coding system to <code>‘emacs-mule’</code> in order to be able to mix Japanese and Latin-1 names.</p><p>I
+ am not sure whether you ever need to fiddle with the w3m charset coding
+ system alist. When I last looked at it, it didn’t contain any entries 
+for latin-1 pages.</p><p>Some pages contain the evil bullet character 
+that displays as \225 and ought to be a little superscript plus sign. I 
+think. In order to change that to a plus, add the following to your 
+~/.emacs file:</p><pre> (standard-display-ascii ?\225 [?+])</pre><h3 id="toc8">"\240" seen with emacs-w3m FreeBSD</h3><p>First make sure your locale is set correctly. In my .bashrc I place this:</p><pre class="real">export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+</pre><p>then you will want to make sure you are using the port www/w3m-m17n-img. That should fix the problem</p><h3 id="toc9">Filtering To Downcast To ASCII</h3><p>emacs-w3m
+ allows users to filter content, and this feature can be used to 
+downcast entities, unicode, and other “?”-spawning characters into 
+something of your choice in ASCII.</p><p><b>First, use standard-display-ascii where you can. I put this in my .emacs:</b></p><pre class="real">(standard-display-ascii ?\225 [?+])
+(standard-display-ascii ?\227 [?-])
+(standard-display-ascii ?\222 [?'])
+</pre><p><b>Now, use w3m-filter-url to do everything else. Add this code to your .emacs-w3m.el:</b></p><pre class="real">(setq w3m-use-filter t)
+;; send all pages through one filter
+(setq w3m-filter-rules `(("\\`.+" w3m-filter-all)))
+
+(defun w3m-filter-all (url)
+  (let ((list '(
+                ;; add more as you see fit!
+               	("&amp;#187;" "&amp;gt;&amp;gt;")
+               	("&amp;laquo;" "&amp;lt;")
+                ("&amp;raquo;" "&amp;gt;")
+                ("&amp;ouml;" "o")
+                ("&amp;#8230;" "...")
+                ("&amp;#8216;" "'")
+                ("&amp;#8217;" "'")
+                ("&amp;rsquo;" "'")
+                ("&amp;lsquo;" "'")
+                ("\u2019" "\'")
+                ("\u2018" "\'")
+                ("\u201c" "\"")
+                ("\u201d" "\"")
+                ("&amp;rdquo;" "\"")
+                ("&amp;ldquo;" "\"")
+                ("&amp;#8220;" "\"")
+                ("&amp;#8221;" "\"")
+                ("\u2013" "-")
+               	("\u2014" "-")
+                ("&amp;#8211;" "-")
+                ("&amp;#8212;" "-")
+                ("&amp;ndash;" "-")
+                ("&amp;mdash;" "-")
+                )))
+  (while list
+    (let ((pat (car (car list)))
+          (rep (car (cdr (car list)))))
+      (goto-char (point-min))
+      (while (search-forward pat nil t)
+        (replace-match rep))
+      (setq list (cdr list))))))
+</pre><p>So far this has helped rid my browser of “?” substitutions. 
+Obviously there are many more I have not felt the need to add here 
+(yet). I will edit this list over time as my needs demand.</p><p>- BradClawsie<a class="edit" title="Click to edit this page" rel="nofollow" href="http://www.emacswiki.org/emacs?action=edit;id=BradClawsie">?</a> (May 2008)</p><h3 id="toc10">Weird Characters on MS Windows</h3><p>This
+ may be a little too specific, but I was having some difficulty getting 
+the &lt;HR&gt; tag to show correctly under emacs 21.3.50. I was seeing 
+the nice graphic tables, but the HR line was unprintable, so I was just 
+getting a series of open boxes.</p><p>I traced the problem to the 
+w3m-symbol package, and hacked a modification to the 
+w3m-mule-unicode-symbol table. I found out that by setting 
+w3m-use-symbol to nil I could display using just ASCII, but the graphic 
+characters looked so much better.</p><p>The problem was that the character used for HR was apparently not in this (or any) font that I had installed.</p><p>I just modified the symbol table to change the hr and second-level bullet character to other values that would print.</p><p>Here’s
+ my .emacs settings. I’m no elisp coder, but I KNOW there’s a better way
+ to do this. I would be very happy for suggestions on a more concise way
+ to modify the unicode table.</p><pre> ;; to see the raw SYMBOL codes generated by emacs-w3m and track down
+ ;; an errant character, set the following: You can use this code to
+ ;; find which position in the symbol array is being used, and replace
+ ;; that as needed
+ ;(setq w3m-symbol '("" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""))
+ ;; to undo and revert back to normal
+ ;(setq w3m-symbol 'w3m-mule-unicode-symbol)</pre><pre> ;When t, uses the symbol set specified in the variable
+ ;w3m-symbol. This works using unicode to paint the tables and
+ ;hr with graphic lines, given the patch to the variable
+ ;w3m-mule-unicode-symbol below. If the font shows garbage, set to nil
+ (setq w3m-use-symbol t)</pre><pre> ;; overwrite the symbol table here. This is defined originally in
+ ;; w3m-symbol, but changing it here rather than in the source code
+ ;; allows me to update w3m and still keep the affected change
+ ;; characters changed are (0-based array):
+ ;; position 26 (&lt;HR&gt; character):   from (32 33) to (32 32)
+ ;; position 33 (2d level indent):  from (33 97) to (115 34 mule-unicode-0100-24ff)
+ (setq w3m-mule-unicode-symbol
+   (when (w3m-mule-unicode-p)
+     (append
+      (mapcar (lambda (p)
+        (if p
+ 	   (char-to-string
+ 	    (make-char (or (nth 2 p) 'mule-unicode-2500-33ff)
+ 		       (car p) (cadr p)))
+ 	 ""))
+      '((32 92) (32 60) (32 76)  (32 44) (32 68) (32 34)  (32 48) nil
+        (32 84) (32 52) (32 32)  nil     (32 56) nil      nil     nil
+        (32 92) (32 64) (32 79)  (32 47) (32 72) (32 35)  (32 51) nil
+ ;       (32 87) (32 55) (32 33)  nil     (32 59) nil      nil     nil
+        (32 87) (32 55) (32 32)  nil     (32 59) nil      nil     nil
+ ;       (115 34 mule-unicode-0100-24ff)  (33 97) (34 102) (34 43) (33 96) (34 101)
+        (115 34 mule-unicode-0100-24ff)  (115 34 mule-unicode-0100-24ff) (34 102) (34 43) (33 96) (34 101)
+        (34 46) (34 47) (33 115) (34 47) (34 43) (33 97)
+        (34 47)))
+     (list (format "%c %c %c "
+ 	   (make-char 'mule-unicode-0100-24ff 121 42)
+ 	   (make-char 'mule-unicode-0100-24ff 118 113)
+ 	   (make-char 'mule-unicode-0100-24ff 118 115))))))</pre><p><a class="local" href="http://www.emacswiki.org/emacs/ChrisMcMahan">ChrisMcMahan</a></p><h2 id="toc11">Webpages are truncated on MacOSX</h2><p>If webpages get truncated, one could try evaluating</p><pre> (if (string= system-type "darwin")
+     (setq process-connection-type nil))</pre><p>as suggested in &lt;m21xvxs8e5.fsf@panix.com&gt; to solve a similar eshell issue, if upgrading is not an option.</p><h2 id="toc12">W3M hangs on MacOSX 10.5</h2><p>If W3M keeps hanging, try this:</p><p>(add-to-list ‘w3m-command-environment ‘(“GC_NPROCS” . “1”))<a class="url http number" href="http://emacs-w3m.namazu.org/ml/msg09797.html"><span><span class="bracket">[</span>1<span class="bracket">]</span></span></a></p><h2 id="toc13">Searching emacswiki.org does not work with emacs/w3m</h2><p>however, it does work from within xterm w3m</p><pre>	 Yes, it does if you put this in your .emacs file:</pre><pre>   (require 'w3m-search)
+   (add-to-list 'w3m-search-engine-alist
+		'("emacs-wiki" "http://www.emacswiki.org/cgi-bin/wiki.pl?search=%s"))</pre><pre>	-- kruhft</pre><h2 id="toc14">Middle click to open url in a new sesstion (tab)</h2><p>I try to use:</p><pre>    (define-key w3m-mode-map [mouse-2] 'w3m-mouse-view-this-url-new-session)</pre><p>But it also changes the action of mouse-1. Ideas?</p><h2 id="toc15">Not working with Emacs 23 ?</h2><p>I am using <a class="local" href="http://www.emacswiki.org/emacs/GnuEmacs">GnuEmacs</a> version 23 and emacs-w3m as of 1.4.4 refuses to load. What is the correct way to use it then ?</p><p>Try this (as suggested to me by <a class="local" href="http://www.emacswiki.org/emacs/EduardoOchs">EduardoOchs</a> when I asked in <a class="local" href="http://www.emacswiki.org/emacs/EmacsChannel">EmacsChannel</a>): </p><pre class="real">(require 'w3m-e21)
+(provide 'w3m-e23)
+</pre><p>Works for me. :) </p><div class="color one level0"><p> The current CVS version works out of the box with <a class="local" href="http://www.emacswiki.org/emacs/GnuEmacs">GnuEmacs</a> 23 (as of 2007-05-09.) --<a class="local" href="http://www.emacswiki.org/emacs/ZedLopez">ZedLopez</a></p><p>If you installed w3m from a package, you might need to recompile the bytecode, as bytecode compiled by <a class="local" href="http://www.emacswiki.org/emacs/GnuEmacs">GnuEmacs</a> 22 is not compatible with <a class="local" href="http://www.emacswiki.org/emacs/GnuEmacs">GnuEmacs</a> 23</p></div><h2 id="toc16">Not working with Emacs 23 and emacs-w3m from the CVS ?</h2><p>With Emacs 23 from the CVS the follow code can help you to use Emacs23 and Emacs22 without any problem</p><pre class="real">(if (= emacs-major-version 23)
+	(require 'w3m-ems)
+  (require 'w3m))
+</pre><p>This will load w3m-ems which is the proper package to load with the latest version of emacs-w3m from the CVS. </p><div class="color one level0"></div><h2 id="toc17">Avoiding Some Problems with emacs-23 and emacs-w3m from cvs</h2><ul><li>build
+ emacs-23 and then make sure it is the first emacs found in your $PATH. 
+by typing “which emacs”, you can find out which emacs the system finds 
+first</li><li>this is important since you want to build emacs-w3m from cvs <b>with emacs23</b>, not with emacs22 if it is also installed on your system. if you compile it with emacs22, it won’t work in emacs23.</li></ul><p>here is the .emacs snippet i use to load w3m (note your installation path may be different):</p><pre class="real">(if (= emacs-major-version 23)
+    (progn
+      (add-to-list 'load-path "~/.el/emacs-w3m/share/emacs/site-lisp/w3m")
+      (require 'w3m-load))
+  (require 'w3m))
+</pre><p>if you don’t know how to force your system to find emacs23 first, try:</p><pre class="real">export PATH=/path/to/emacs23:$PATH
+</pre><p>as of june 16, 2008, this works</p><p>BradClawsie<a class="edit" title="Click to edit this page" rel="nofollow" href="http://www.emacswiki.org/emacs?action=edit;id=BradClawsie">?</a></p><h2 id="toc18">Emacs 23 from CVS and W3M in Debian - Internationalization and code pages</h2><p><a class="local" href="http://www.emacswiki.org/emacs/RichardRiley">RichardRiley</a>, 20 Oct 2008.</p><p>What
+ fixed it for me in Debian was to uninstall the w3m package and install 
+w3mmee. All internationalization then worked. Load w3m in the normal 
+manner.</p><p>In a shell:</p><pre class="real">sudo apt-get remove w3m
+sudo apt-get install w3mmee w3mmee-img
+</pre><p>Load w3m in the normal manner. Thanks to Andy Stewart for help via email and in the #emacs irc channel.</p><p>If you use debian sid or testing you will not have w3mmee and w3mee-img but you can install w3m-el-snapshot.</p><h2 id="toc19">W3M, HTML articles and org-mode</h2><p><a class="local" href="http://www.emacswiki.org/emacs/RichardRiley">RichardRiley</a></p><p>Below
+ is some code from Andy Stewart (lazycat DOT manatee AT gmail.com) I 
+requested to integrate w3m html buffers with org-mode. Bind the code to a
+ suitable key and now you can copy the w3m html region into the 
+clipboard in org-mode format so that pasting into org-mode buffers 
+retains all html links.</p><pre class="real">(defun w3m-get-buffer-with-org-style ()
+  "Get current buffer content with `org-mode' style.
+This function will encode `link-title' and `link-location' with `org-make-link-string'.
+And move buffer content to lastest of kill ring.
+So you can yank in `org-mode' buffer to get `org-mode' style content."
+  (interactive)
+  (let (transform-start
+        transform-end
+        return-content
+        link-location
+        link-title
+        temp-position
+        out-bound)
+    (if mark-active
+        (progn
+          (setq transform-start (region-beginning))
+          (setq transform-end (region-end))
+          (deactivate-mark))
+      (setq transform-start (point-min))
+      (setq transform-end (point-max)))
+    (message "Start transform link to `org-mode' style, please wait...")
+    (save-excursion
+      (goto-char transform-start)
+      (while (and (not out-bound)             ;not out of transform bound
+                  (not (w3m-no-next-link-p))) ;not have next link in current buffer
+        ;; store current point before jump next anchor
+        (setq temp-position (point))
+        ;; move to next anchor when current point is not at anchor
+        (or (w3m-anchor (point)) (w3m-get-next-link-start))
+        (if (&lt;= (point) transform-end)  ;if current point is not out of transform bound
+            (progn
+              ;; get content between two links.
+              (if (&gt; (point) temp-position)
+                  (setq return-content (concat return-content (buffer-substring temp-position (point)))))
+              ;; get link location at current point.
+              (setq link-location (w3m-anchor (point)))
+              ;; get link title at current point.
+              (setq link-title (buffer-substring (point) (w3m-get-anchor-end)))
+              ;; concat `org-mode' style url to `return-content'.
+              (setq return-content (concat return-content (org-make-link-string link-location link-title))))
+          (goto-char temp-position)     ;reset point before jump next anchor
+          (setq out-bound t)            ;for break out `while' loop
+          ))
+      ;; concat rest context of current buffer
+      (if (&lt; (point) transform-end)
+          (setq return-content (concat return-content (buffer-substring (point) transform-end))))
+      (kill-new return-content)
+      (message "Transform link completed. You can get it from lastest kill ring."))))
+
+(defun w3m-get-anchor-start ()
+  "Move and return `point' for thst start of the current anchor."
+  (interactive)
+  (goto-char (or (previous-single-property-change (point) 'w3m-anchor-sequence) ;get start position of anchor
+                 (point)))                                                      ;or current point
+  (point))
+
+(defun w3m-get-anchor-end ()
+  "Move and return `point' after the end of current anchor."
+  (interactive)
+  (goto-char (or (next-single-property-change (point) 'w3m-anchor-sequence) ;get end position of anchor
+                 (point)))                                                  ;or current point
+  (point))
+
+(defun w3m-get-next-link-start ()
+  "Move and return `point' for that start of the current link."
+  (interactive)
+  (catch 'reach
+    (while (next-single-property-change (point) 'w3m-anchor-sequence) ;jump to next anchor
+      (goto-char (next-single-property-change (point) 'w3m-anchor-sequence))
+      (when (w3m-anchor (point))        ;return point when current is valid link
+        (throw 'reach nil))))
+  (point))
+
+(defun w3m-get-prev-link-start ()
+  "Move and return `point' for that end of the current link."
+  (interactive)
+  (catch 'reach
+    (while (previous-single-property-change (point) 'w3m-anchor-sequence) ;jump to previous anchor
+      (goto-char (previous-single-property-change (point) 'w3m-anchor-sequence))
+      (when (w3m-anchor (point))        ;return point when current is valid link
+        (throw 'reach nil))))
+  (point))
+
+
+(defun w3m-no-next-link-p ()
+  "Return t if no next link after cursor.
+Otherwise, return nil."
+  (save-excursion
+    (equal (point) (w3m-get-next-link-start))))
+
+(defun w3m-no-prev-link-p ()
+  "Return t if no prevoius link after cursor.
+Otherwise, return nil."
+  (save-excursion
+    (equal (point) (w3m-get-prev-link-start))))
+
+</pre><p>My binding looks like this</p><pre class="real">(define-key w3m-minor-mode-map (kbd "M-w") 'w3m-get-buffer-with-org-style)
+</pre><p>18 Nov 2008 : gnus in cvs (emacs 23) rgr : change - emacs 23 article mode</p><pre class="real">define-key gnus-article-mode-map (kbd "M-w") 'w3m-get-buffer-with-org-style)
+</pre><h2 id="toc20">org-w3m</h2><p>I have create `org-w3m.el’ in org-mode, now you can use function <code>‘org-w3m-copy-for-org-mode’</code> do same thing. Or press “C-c C-x M-w” in w3m buffer. Enjoy! :) – <a class="local" href="http://www.emacswiki.org/emacs/AndyStewart">AndyStewart</a></p><h2 id="toc21">Bookmarking</h2><ul><li><a class="local" href="http://www.emacswiki.org/emacs/Anything">Anything</a> – <code>‘M-x anything-w3m-bookmarks’</code>,
+ narrow the list by typing some patterns(multiple patterns are 
+space-delimited string), select with 
+up/down/pgup/pgdown/C-p/C-n/C-v/M-v, choose with enter, With <code>‘TAB’</code> actions can be selected if the selected bookmark has more than one possible action. With <code>‘C-z’</code> the contents of bookmark is displayed without quitting anything session.</li><li>Regular Emacs bookmarks to URLs, for W3M.<ul><li><a class="alias" title="BookmarkPlus" href="http://www.emacswiki.org/emacs/BookmarkPlus#Bookmark%2b">Bookmark+</a></li><li><a class="local" href="http://www.emacswiki.org/emacs/BookmarkExtension">BookmarkExtension</a></li></ul></li><li>Bookmark to delicious using <code>‘curl’</code> and <a class="inter Lisp" href="http://www.emacswiki.org/emacs/anything-delicious.el"><span class="site">Lisp</span><span class="separator">:</span><span class="page">anything-delicious.el</span></a> (see <code>‘auth-source’</code> to configure).</li></ul><pre class="real">        (defun w3m-add-delicious-bookmark (description tag)
+          "Add a bookmark to delicious from w3m"
+          (interactive (list (read-from-minibuffer "Description: "
+                                                   nil nil nil nil
+                                                   w3m-current-title)
+                             (completing-read "Tag: "
+                                              (anything-delicious-get-all-tags-from-cache))))
+          (setq description
+                (replace-regexp-in-string " " "+" description))
+          (let* ((url     w3m-current-url)
+                 (url-api (format anything-c-delicious-api-url-add
+                                  url
+                                  description
+                                  tag))
+                 anything-delicious-user
+                 anything-delicious-password
+                 auth)
+            (unless (and anything-delicious-user anything-delicious-password)
+              (anything-delicious-authentify))
+            (setq auth (concat anything-delicious-user ":" anything-delicious-password))
+            (with-temp-buffer
+              (apply #'call-process "curl" nil t nil
+                     `("-u"
+                       ,auth
+                       ,url-api))
+              (buffer-string)
+              (goto-char (point-min))
+              (if (re-search-forward "&lt;result code=\"done\" /&gt;" nil t)
+                  (unwind-protect
+                       (progn
+                         (message "%s added to delicious" description)
+                         (when current-prefix-arg
+                           (w3m-bookmark-write-file url
+                                                    (replace-regexp-in-string "\+"
+                                                                              " "
+                                                                              description)
+                                                    tag)
+                           (message "%s added to delicious and to w3m-bookmarks" description)))
+                    (anything-wget-retrieve-delicious))
+                  (message "Fail to add bookmark to delicious")
+                  (when current-prefix-arg
+                    (if (y-or-n-p "Add anyway to w3m-bookmarks?")
+                        (progn
+                          (w3m-bookmark-write-file url
+                                                   (replace-regexp-in-string "\+" " "
+                                                                             description)
+                                                   tag)
+                          (message "%s added to w3m-bookmarks" description))))))))
+
+        (define-key w3m-mode-map "\C-x\C-a" 'w3m-add-delicious-bookmark)
+</pre><p>– ThierryVolpiatto<a class="edit" title="Click to edit this page" rel="nofollow" href="http://www.emacswiki.org/emacs?action=edit;id=ThierryVolpiatto">?</a></p><dl class="quote"><dl class="quote"><dt></dt><dd>Not as simple now that OAuth is used; compare  <a class="url http" href="http://delicious.com/help/api">http://delicious.com/help/api</a> and <a class="url http" href="http://delicious.com/help/oauthapi">http://delicious.com/help/oauthapi</a> --[[jcorneli<a class="edit" title="Click to edit this page" rel="nofollow" href="http://www.emacswiki.org/emacs?action=edit;id=jcorneli">?</a>]]</dd></dl></dl><div class="color one level0"><dl class="quote"><dl class="quote"><dl class="quote"><dt></dt><dd>Don’t know what is OAuth, i will have a look. However the actual above code of <a class="inter Lisp" href="http://www.emacswiki.org/emacs/anything-delicious.el"><span class="site">Lisp</span><span class="separator">:</span><span class="page">anything-delicious.el</span></a> work fine. I have updated it. – ThierryVolpiatto<a class="edit" title="Click to edit this page" rel="nofollow" href="http://www.emacswiki.org/emacs?action=edit;id=ThierryVolpiatto">?</a></dd></dl></dl></dl></div><h2 id="toc22">w3m in Emacs 23 (on Debian and Ubuntu 9.10)</h2><p>The <code>‘w3m-el’</code> package is not fully compatible with Emacs 23. Installing <code>‘w3m-el-snapshot’</code> instead worked for me. No additional setup like <code>(require 'w3m-load)</code> was necessary.</p><pre class="real">sudo aptitude install w3m-el-snapshot
+</pre><p>If you already have <code>‘w3m-el’</code>, it will be removed.</p><p>– MarcoPiedra<a class="edit" title="Click to edit this page" rel="nofollow" href="http://www.emacswiki.org/emacs?action=edit;id=MarcoPiedra">?</a></p><p>I confirm it. If you are on Ubuntu 9.10 and running Emacs 23, install w3m-el-snapshot. It works. Thank you, MarcoPiedra<a class="edit" title="Click to edit this page" rel="nofollow" href="http://www.emacswiki.org/emacs?action=edit;id=MarcoPiedra">?</a></p><p>--JeongtaeRoh<a class="edit" title="Click to edit this page" rel="nofollow" href="http://www.emacswiki.org/emacs?action=edit;id=JeongtaeRoh">?</a></p><h2 id="toc23">w3m in Emacs23 (Cygwin)</h2><p>As
+ with Debian and Ubuntu, above, the official w3m-el installed with 
+Cygwin doesn’t seem to work with Emacs 23, the error message being 
+“Cannot open load file: w3m-e22”. One solution is to get the latest 
+emacs-w3m source code from CVS (see the instructions at <a class="url http" href="http://emacs-w3m.namazu.org/">http://emacs-w3m.namazu.org/</a>) and build and install it (see the README for instructions).</p><p>– jiri</p><h2 id="toc24">Browse url on other window</h2><p>add this into the configuraion file of the emacs, it would make the emacs work as <b>help</b> buffer. This would help if you use w3m to check document </p><pre class="real">(setq browse-url-browser-function 'w3m-browse-url-other-window)
+
+(defun w3m-browse-url-other-window (url &amp;optional newwin)
+  (let ((w3m-pop-up-windows t))
+    (if (one-window-p) (split-window))
+    (other-window 1)
+    (w3m-browse-url url newwin)))
+</pre><p><a class="local" href="http://www.emacswiki.org/emacs/DennyZhang">DennyZhang</a>:
+ Please note, emacs23 has the functions of 
+ffap-other-window/ffap-other-frame. If you always browse url in w3m, I 
+think these functions are good enough.</p><p>However, I usually leverage external web browser, and sometimes I may use w3m for some simple web pages.</p><p>So
+ my variable of browse-url-browser-function is not set as w3m way. Thus,
+ I define below standalone function, for the case that we want to browse
+ url in a seperate window of <b>w3m</b> mode.</p><pre class="real">(defun ffap-w3m-other-window (url &amp;optional new-session)
+  "Browse url in w3m.
+  If current frame has only one window, create a new window and browse the webpage"
+  (interactive (progn
+                 (require 'browse-url)
+                 (browse-url-interactive-arg "Emacs-w3m URL: ")))
+  (let ((w3m-pop-up-windows t))
+    (if (one-window-p) (split-window))
+    (other-window 1)
+    (w3m-browse-url url new-session)))
+</pre><h2 id="toc25">Improving w3m-browse-*</h2><p>Some w3m-browse-* 
+functions (e.g. w3m-browse-generic) rely on finding urls via 
+browse-url-url-at-point, which in turn relies on (thing-at-point ‘url). 
+However, thing-at-point does not seem to find urls for w3m’s links. 
+That’s because a w3m link contains the url in the w3m-href-anchor text 
+property. I use the following piece of advice to make sure that 
+browse-url finds w3m’s own links.</p><pre class="real">;; make browse-url-url-at-point find w3m links
+(defadvice browse-url-url-at-point (after w3m-anchor-at-point activate)
+  "If browse-url-url-at-point finds no url at point, but w3m-anchor does, return the value of w3m-anchor."
+  (unless ad-return-value
+      (setq ad-return-value (w3m-anchor))))
+</pre><p>-ghf</p><hr><p><a class="local" href="http://www.emacswiki.org/emacs/CategoryExternalUtilities">CategoryExternalUtilities</a> <a class="local" href="http://www.emacswiki.org/emacs/CategoryHypermedia">CategoryHypermedia</a> ) (</p></div><div class="wrapper close"></div></div><div class="footer"><hr><span class="gotobar bar"><a class="local" href="http://www.emacswiki.org/emacs/SiteMap">SiteMap</a> <a class="local" href="http://www.emacswiki.org/emacs/Search">Search</a> <a class="local" href="http://www.emacswiki.org/emacs/ElispArea">ElispArea</a> <a class="local" href="http://www.emacswiki.org/emacs/HowTo">HowTo</a> <a class="local" href="http://www.emacswiki.org/emacs/Glossary">Glossary</a> <a class="local" href="http://www.emacswiki.org/emacs/RecentChanges">RecentChanges</a> <a class="local" href="http://www.emacswiki.org/emacs/News">News</a> <a class="local" href="http://www.emacswiki.org/emacs/Problems">Problems</a> <a class="local" href="http://www.emacswiki.org/emacs/Suggestions">Suggestions</a> </span><span class="translation bar"><br>  <a class="translation new" rel="nofollow" href="http://www.emacswiki.org/emacs?action=translate;id=emacs-w3m;missing=de_es_fr_it_ja_ko_pt_ru_se_zh">Add Translation</a></span><span class="edit bar"><br> <a class="comment local" href="http://www.emacswiki.org/emacs/Comments_on_emacs-w3m">Talk</a> <a class="edit" accesskey="e" title="Click to edit this page" rel="nofollow" href="http://www.emacswiki.org/emacs?action=edit;id=emacs-w3m">Edit this page</a> <a class="history" rel="nofollow" href="http://www.emacswiki.org/emacs?action=history;id=emacs-w3m">View other revisions</a> <a class="admin" rel="nofollow" href="http://www.emacswiki.org/emacs?action=admin;id=emacs-w3m">Administration</a></span><span class="time"><br> Last edited 2013-03-24 12:11 UTC by <a class="author" title="from 82-71-5-38.dsl.in-addr.zen.co.uk" href="http://www.emacswiki.org/emacs/PhilHudson">PhilHudson</a> <a class="diff" rel="nofollow" href="http://www.emacswiki.org/emacs?action=browse;diff=2;id=emacs-w3m">(diff)</a></span><div style="float:right; margin-left:1ex;">
+<!-- Creative Commons License -->
+<a href="http://creativecommons.org/licenses/GPL/2.0/"><img alt="CC-GNU GPL" style="border:none" src="emacs-w3m_files/cc-GPL-a.png"></a>
+<!-- /Creative Commons License -->
+</div>
+
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <license rdf:resource="http://creativecommons.org/licenses/GPL/2.0/" />
+  <dc:type rdf:resource="http://purl.org/dc/dcmitype/Software" />
+</Work>
+
+<License rdf:about="http://creativecommons.org/licenses/GPL/2.0/">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <requires rdf:resource="http://web.resource.org/cc/Notice" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+   <requires rdf:resource="http://web.resource.org/cc/ShareAlike" />
+   <requires rdf:resource="http://web.resource.org/cc/SourceCode" />
+</License>
+</rdf:RDF>
+-->
+
+<p class="legal">
+This work is licensed to you under version 2 of the
+<a href="http://www.gnu.org/">GNU</a> <a href="http://www.emacswiki.org/GPL">General Public License</a>.
+Alternatively, you may choose to receive this work under any other
+license that grants the right to use, copy, modify, and/or distribute
+the work, as long as that license imposes the restriction that
+derivative works have to grant the same rights and impose the same
+restriction. For example, you may choose to receive this work under
+the
+<a href="http://www.gnu.org/">GNU</a>
+<a href="http://www.emacswiki.org/FDL">Free Documentation License</a>, the
+<a href="http://creativecommons.org/">CreativeCommons</a>
+<a href="http://creativecommons.org/licenses/sa/1.0/">ShareAlike</a>
+License, the XEmacs manual license, or
+<a href="http://www.emacswiki.org/OLD">similar licenses</a>.
+</p>
+</div>
+
+
+</body></html>

@@ -1,0 +1,1490 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+     
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    
+<head>    
+    <script type="text/javascript" src="http://c.csdnimg.cn/pubfooter/js/tracking.js" charset="utf-8"></script>  
+
+    <script type="text/javascript">
+        var protocol = window.location.protocol;
+        document.write('<script type="text/javascript" src="' + protocol + '//csdnimg.cn/pubfooter/js/repoAddr2.js?v=' + Math.random() + '"></' + 'script>');
+    </script>
+
+     <script id="allmobilize" charset="utf-8" src="http://a.yunshipei.com/46aae4d1e2371e4aa769798941cef698/allmobilize.min.js"></script>
+ <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+    <title>【转】高效使用vim - 曾健生的专栏
+        - 博客频道 - CSDN.NET</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="出处：http://www.cnblogs.com/hyddd/archive/2010/04/08/1706863.html英文出处：jmcpherson.org/editing.html翻译引用：tingsaode.spaces.live.com/blog/cns!FE95D0EE01558610!780.entry原文地址：http://hi.baidu.com/" />
+    <script src="http://static.blog.csdn.net/scripts/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://static.blog.csdn.net/scripts/ad.js?v=1.1"></script>
+        <!--new top-->
+               <link rel="stylesheet" href="http://static.csdn.net/public/common/toolbar/css/index.css">        <!--new top-->
+
+    <link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/default/css/style.css?v=1.1" />
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/newjueqi/rss/list" />
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico" />
+    <link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/default.css" />
+ 
+
+
+</head>
+<body>
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="http://static.csdn.net/public/common/toolbar/js/html.js" type="text/javascript"></script>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/newjueqi">曾健生的专栏</a></h2>
+            <h3>记录下点点滴滴</h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>
+            
+                <li id="btnContents"><a href="http://blog.csdn.net/newjueqi?viewmode=contents"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_mulu'])">
+                    <img src="http://static.blog.csdn.net/images/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/newjueqi?viewmode=list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_zhaiyao'])">
+                    <img src="http://static.blog.csdn.net/images/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/newjueqi/rss/list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_RSS'])">
+                    <img src="http://static.blog.csdn.net/images/ico_rss.gif">订阅</span></a></li>                
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "newjueqi";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/newjueqi";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod='popu_3' > 
+
+<a href="http://blog.csdn.net/csdnedu/article/details/43306129">
+<font color=blue>CSDN学院讲师招募，诚邀您加入！</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<a href="http://blog.csdn.net/csdnproduct/article/details/43561659">
+<font color=red>博客Markdown编辑器上线啦</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://edu.csdn.net/lecturer/lecturer_detail?lecturer_id=95">
+<font color=red>PMBOK第五版精讲视频教程
+</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://edu.csdn.net/course/detail/443">
+<font color=blue>火星人敏捷开发1001问
+</font></a>
+
+
+</div>                        </div>
+                        
+
+  
+<link href="http://static.blog.csdn.net/css/comment1.css" type="text/css" rel="stylesheet" />
+<link href="http://static.blog.csdn.net/css/style1.css" type="text/css" rel="stylesheet" />
+<script language='JavaScript' type='text/javascript' src='http://download.csdn.net/js/jquery.cookie.js'></script>
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/search-service/main.js"></script>
+
+
+<link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0" />
+
+<script type="text/javascript" src="http://static.blog.csdn.net/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+
+
+
+
+
+
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Repost"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="/newjueqi/article/details/7546633">
+        【转】高效使用vim
+        </a></span>
+    </h1>
+</div>
+
+    <div class="article_manage">
+        <span class="link_categories">
+        分类：
+            <a href="/newjueqi/article/category/1069161" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_fenlei']);">vim</a> 
+        </span>
+    <span class="link_postdate">2012-05-08 16:02</span>
+    <span class="link_view" title="阅读次数">277人阅读</span>
+    <span class="link_comments" title="评论次数"><a href="#comments" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(0)</span>
+    <span class="link_collect"><a href="javascript:void(0);" onclick="javascript:_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shoucang']);collectArticle('【转】高效使用vim','7546633');return false;" title="收藏">收藏</a></span>
+    <span class="link_report"><a href="#report"  onclick="javascript:_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_jubao']);report(7546633,2);return false;" title="举报">举报</a></span>
+    
+</div>
+<div class="tag2box"><a href='http://www.csdn.net/tag/vim' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">vim</a><a href='http://www.csdn.net/tag/windows' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">windows</a><a href='http://www.csdn.net/tag/%e6%96%87%e6%a1%a3' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">文档</a><a href='http://www.csdn.net/tag/c' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">c</a><a href='http://www.csdn.net/tag/%e4%bb%bb%e5%8a%a1' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">任务</a><a href='http://www.csdn.net/tag/%e6%89%a9%e5%b1%95' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">扩展</a></div>
+
+  
+    
+<div id="article_content" class="article_content">
+
+<p>出处：<a href="http://www.cnblogs.com/hyddd/archive/2010/04/08/1706863.html">http://www.cnblogs.com/hyddd/archive/2010/04/08/1706863.html</a></p>
+<p><br>
+</p>
+<p><span style="font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; font-size:14px; background-color:rgb(238,238,238)">英文出处：</span><a href="http://jmcpherson.org/editing.html" target="_blank" style="color:rgb(0,0,255); text-decoration:none; font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; font-size:14px; background-color:rgb(238,238,238)">jmcpherson.org/editing.html</a><br style="font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; font-size:14px; background-color:rgb(238,238,238)">
+</p>
+<div id="blog_text" style="font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; font-size:14px; background-color:rgb(238,238,238)">
+翻译引用：<a href="http://tingsaode.spaces.live.com/blog/cns%21FE95D0EE01558610%21780.entry?wa=wsignin1.0&amp;sa=305465865" target="_blank" style="color:rgb(0,0,255); text-decoration:none">tingsaode.spaces.live.com/blog/cns!FE95D0EE01558610!780.entry</a><br>
+原文地址：<a target="_blank" href="http://hi.baidu.com/gone1210/blog/item/41c0e60b000230c33ac76328.html" style="color:rgb(0,0,255); text-decoration:none">http://hi.baidu.com/gone1210/blog/item/41c0e60b000230c33ac76328.html</a><br>
+<span style="background-color:rgb(106,168,79)"></span>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+<span style="color:red; font-size:14pt">之于我, vi即禅.</span><br>
+<span style="color:red; font-size:14pt">用vi如修禅,</span><br>
+<span style="color:red; font-size:14pt">vi命令如禅之心印.</span><br>
+<span style="color:red; font-size:14pt">用者不可窥其堂奥,</span><br>
+<span style="color:red; font-size:14pt">门外汉视其晦涩如天书.</span><br>
+<span style="color:red; font-size:14pt">常用之, 实可知其道.</span><br>
+<span style="color:red; font-size:14pt"><br>
+</span></p>
+<span style="background-color:rgb(106,168,79)"></span>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+<span style="color:rgb(255,102,0); font-size:14pt">高效移动</span><br>
+<span style="color:rgb(255,102,0); font-size:14pt">珍爱生命, 远离插入模式</span></p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 一般情况下, 你应该尽量少把时间花在插入模式, 因为在这种模式下vi和其它sb编辑器区别不大. 这也是大部分vim新手把大部分时间花在插入模式的原因 -- 插入模式很易用. 但是vim真正的优势在命令模式. 你会发现越了解vim, 你花在插入模式的时间越少.</p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+<span style="color:rgb(128,128,128); font-size:12pt">使用h,j,k, l</span></p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 高效率用vim编辑的第一步是绝了你用方向键(上下左右)的念头. vim设计出&quot;模式&quot;操作方式的一大优势就是可以让你不需要老是把手从方向键和字母键之间移来移去. 当你在命令模式下, 用字母h, j, k, l对应方向左, 下, 上, 右. 这个需要练习一下才能习惯, 但是你会发现一旦你习惯了它们, 比用方向键快多了. (译注: 这几个移动键一定要动手试, 然后反复用, 靠记忆忒艰难了)</p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+&nbsp;&nbsp;&nbsp;&nbsp; 在你编辑电子邮件或其他段落式文本的时候, 你可能注意到移动方向跳的行数比你料想的多. 这是因为你的段落对vim来说在很长的同一个行里. 用h, j, k, l移动前输入g可以让移动相对于屏幕看上去的行数而不是vim内部的行数.</p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+<span style="font-size:12pt; color:rgb(128,128,128)">用m</span><span style="font-size:12pt; color:rgb(128,128,128)">otio</span><span style="font-size:12pt; color:rgb(128,128,128)">n</span><span style="font-size:12pt; color:rgb(128,128,128)">在当前行移动&nbsp;</span><br style="color:rgb(153,153,153)">
+</p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+<span style="color:rgb(128,128,128)">(译注: 没想到特别合适的词翻译motion, 可以理解为&quot;高级移动&quot;, 另请注意, motion仅在当前行移动)</span></p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+&nbsp;&nbsp;&nbsp; 大部分编辑器只有简单的光标移动功能(上下左右, 行首行尾等等). vim有非常高级的光标移动命令, 这些命令叫做Motion. 当用motion把光标从文本中的一个点移动到另一个点的时候, 两点间的文本(包括两个点本身)被motion&quot;掠过&quot;. (这个概念在接下来的教程中非常重要.) (译注: 举例说明一下&quot;掠过&quot;概念, 比如你有一行文本, 内容是abcdefg, 当前光标在c上, 如果你用motion $, 光标移动到了g上, 那么从c到g这段文本就被motion $&quot;掠过&quot;了).</p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+<span style="color:rgb(128,128,128)">以</span><span style="color:rgb(128,128,128)">下是一些有用的motion:</span></p>
+<table width="593" border="1" cellpadding="0" cellspacing="0" height="257" style="margin-top:0px; margin-right:auto; margin-bottom:0px; margin-left:auto; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse">
+<tbody>
+<tr>
+<td valign="top" width="33" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:24px">
+<span style="color:rgb(255,102,0)">fx</span></p>
+</td>
+<td valign="top" width="560" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:24px">
+<span style="color:rgb(255,102,0)">在当前行向前移动光标到下一个字符x (很明显, x可以是任意你想要移动到的字符). 这是一个超级有用的命令. 你可以输入;来重复前一个f命令.</span></p>
+</td>
+</tr>
+<tr>
+<td valign="top" width="33" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:24px">
+<span style="color:rgb(255,102,0)">tx</span></p>
+</td>
+<td valign="top" width="560" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:24px">
+<span style="color:rgb(255,102,0)">和上面的命令基本相同, 除了移动光标到字符x之前而不是x字符本身. (这个真的很有用)</span></p>
+</td>
+</tr>
+<tr>
+<td valign="top" width="33" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:24px">
+<span style="color:rgb(255,102,0)">Fx</span></p>
+</td>
+<td valign="top" width="560" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:24px">
+<span style="color:rgb(255,102,0)">在当前行向后移动光标到上一个字符x.</span></p>
+</td>
+</tr>
+<tr>
+<td valign="top" width="33" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:24px">
+<span style="color:rgb(255,102,0)">w</span></p>
+</td>
+<td valign="top" width="560" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:24px">
+<span style="color:rgb(255,102,0)">将光标向前移动一个词.</span></p>
+</td>
+</tr>
+<tr>
+<td valign="top" width="33" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:24px">
+<span style="color:rgb(255,102,0)">b</span></p>
+</td>
+<td valign="top" width="560" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:24px">
+<span style="color:rgb(255,102,0)">将光标向后移动一个词.</span></p>
+</td>
+</tr>
+<tr>
+<td valign="top" width="33" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:24px">
+<span style="color:rgb(255,102,0)">0</span></p>
+</td>
+<td valign="top" width="560" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:24px">
+<span style="color:rgb(255,102,0)">将光标移动到当前行首.</span></p>
+</td>
+</tr>
+<tr>
+<td valign="top" width="33" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:24px">
+<span style="color:rgb(255,102,0)">^</span></p>
+</td>
+<td valign="top" width="560" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:24px">
+<span style="color:rgb(255,102,0)">将光标移动到当前行的第一个字符. (译注: 第一个字符可能不是行首, 比如行首有space, tab等不可见符号, 0会把光标停在这些符号之前, 而^会把光jk标停在这些符号之后的第一个可见字符.)</span></p>
+</td>
+</tr>
+<tr>
+<td valign="top" width="33" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:24px">
+<span style="color:rgb(255,102,0)">$</span></p>
+</td>
+<td valign="top" width="560" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:24px">
+<span style="color:rgb(255,102,0)">将光标移动到当前行尾.</span></p>
+</td>
+</tr>
+<tr>
+<td valign="top" width="33" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:24px">
+<span style="color:rgb(255,102,0)">)</span></p>
+</td>
+<td valign="top" width="560" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:24px">
+<span style="color:rgb(255,102,0)">将光标移动到下一个句子. (写电子邮件或者文本文档的时候很有用.)</span></p>
+</td>
+</tr>
+<tr>
+<td valign="top" width="33" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:24px">
+<span style="color:rgb(255,102,0)">(</span></p>
+</td>
+<td valign="top" width="560" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:24px">
+<span style="color:rgb(255,102,0)">将光标移动到上一个句子.</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+<span style="font-size:14pt; color:rgb(255,102,0)">在文件中高效移动</span></p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vim有很多命令可以让你在文件中任意移动光标 -- 很少需要手工一页一页滚动. 以下按键技术上说不算motion, 因为它们是在文件中移动, 而不是在某一特定的行.</p>
+<table width="595" border="1" cellpadding="0" cellspacing="0" style="margin-top:0px; margin-right:auto; margin-bottom:0px; margin-left:auto; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse">
+<tbody>
+<tr>
+<td valign="top" width="52" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">&lt;C-F&gt;</span></td>
+<td valign="top" width="541" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">将光标向前(下)移动一页(屏幕).</span></td>
+</tr>
+<tr>
+<td valign="top" width="52" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">&lt;C-B&gt;</span></td>
+<td valign="top" width="541" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">将光标向后(上)移动一页.</span></td>
+</tr>
+<tr>
+<td valign="top" width="52" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">G</span></td>
+<td valign="top" width="541" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">移动到文件尾</span></td>
+</tr>
+<tr>
+<td valign="top" width="52" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">numG</span></td>
+<td valign="top" width="541" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">将光标移动到某一行. (例如, 10G是把光标移动到第10行.)</span></td>
+</tr>
+<tr>
+<td valign="top" width="52" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">gg</span></td>
+<td valign="top" width="541" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">将光标移动到文件开头</span></td>
+</tr>
+<tr>
+<td valign="top" width="52" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">H</span></td>
+<td valign="top" width="541" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">将光标移动到当前页的第一行.</span></td>
+</tr>
+<tr>
+<td valign="top" width="52" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">M</span></td>
+<td valign="top" width="541" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">将光标移动到当前页的中间一行.</span></td>
+</tr>
+<tr>
+<td valign="top" width="52" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">L</span></td>
+<td valign="top" width="541" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">将光标移动到当前页的最后一行. (译注: 有了HML3个命令, 可以把鼠标撇了, 爽)</span></td>
+</tr>
+<tr>
+<td valign="top" width="52" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">*</span></td>
+<td valign="top" width="541" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">读取光标下的字串, 然后移动到当前文件中下一次出现该字串的位置. (比如说如果你的光标所在的位置的字串为&quot;bob,&quot;, 按了*之后, 光标将移动文件中下一个&quot;bob&quot;出现的位置.)</span></td>
+</tr>
+<tr>
+<td valign="top" width="52" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">#</span></td>
+<td valign="top" width="541" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">和*命令基本相同, 除了它移动到上一次出现字串的位置.</span></td>
+</tr>
+<tr>
+<td valign="top" width="52" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">/</span><span style="color:rgb(255,102,0)">text&nbsp;</span><span style="color:rgb(255,102,0)">&nbsp;</span>&nbsp;</td>
+<td valign="top" width="541" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">从当前光标位置开始, 查找下一个含有text的字串并且移动到那里. 需要按回车(Enter)键来执行查找. 如果要重复执行查找, 输入n(n代表next occurance). (译注: text指你想搜索的字串, 比如你要在文件查找字串&quot;abc&quot;, 就输入/abc然后回车)</span></td>
+</tr>
+<tr>
+<td valign="top" width="52" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">?</span><span style="color:rgb(255,102,0)">text</span><span style="color:rgb(255,102,0)">&nbsp;&nbsp;&nbsp;</span></td>
+<td valign="top" width="541" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">和/text相&#20284;, 区别是?text进行反向查找(查找上一个字串).</span></td>
+</tr>
+<tr>
+<td valign="top" width="52" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">ma</span></td>
+<td valign="top" width="541" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">给当前光标所在位置设置一个名字为a的书签. 书签的名字可以是任何小写字母. 你看不到书签, 但它确实在.</span></td>
+</tr>
+<tr>
+<td valign="top" width="52" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">`a</span></td>
+<td valign="top" width="541" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">移动光标到书签a. 注意`不是单引号, 大部分键盘上它在数字1的左面. (译注: 本人使用的vim 7.1 windows版本用单引号也能完成同样功能)</span></td>
+</tr>
+<tr>
+<td valign="top" width="52" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">`.</span></td>
+<td valign="top" width="541" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">移动到你之前编辑过的行. 这个又是&quot;真有用&quot;. 如果你需要在文件中&quot;滚来滚去&quot;查看一些东西, 你可以用这个命令回到你之前编辑的行尽管你没把它设成书签.</span></td>
+</tr>
+</tbody>
+</table>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+<span style="color:rgb(255,102,0); font-size:14pt">高效输入</span><br>
+<span style="color:rgb(255,102,0); font-size:14pt">使用关键字自动完成(补全)</span></p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+&nbsp;&nbsp;&nbsp;&nbsp; vim 有个非常好的关键字自动完成系统. 就是说你可以只输入很长的词的一部分, 按一个键, vim帮你把这个词自动补全. 比如说在你的代码中有一个变量叫iAmALongAndAwkwardVarName, 你可能不愿意每次用这个变量都把整个词打一遍, 这时候就可以用自动完成功能.</p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 要使用关键字自动完成, 只要输入一个字串的前几个字母 (比如 iAmAL) 然后按 &lt;C-N&gt; (按住Ctrl然后按N&gt;)或者&lt;C-P&gt;. 如果vim没有选择你需要的字串, 继续按&lt;C-N&gt;或&lt;C-P&gt; -- vim会遍历所有和你输入的前几个字母匹配的字串.</p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+<span style="font-size:14pt; color:rgb(255,102,0)">用点脑子开始插入模式</span></p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+&nbsp;&nbsp;&nbsp;&nbsp; 大部分新用户输入i来进入插入模式. 这种方法有时候相当低效, vi有一堆可以高效进入插入模式的命令. 这里是最常用的一些:</p>
+<table width="596" border="1" cellpadding="0" cellspacing="0" style="margin-top:0px; margin-right:auto; margin-bottom:0px; margin-left:auto; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse">
+<tbody>
+<tr>
+<td valign="top" width="77" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">i</span></td>
+<td valign="top" width="517" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">在当前字符的左侧开始插入.</span></td>
+</tr>
+<tr>
+<td valign="top" width="77" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">I</span></td>
+<td valign="top" width="517" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">在当前行行首开始插入.</span></td>
+</tr>
+<tr>
+<td valign="top" width="77" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">a</span></td>
+<td valign="top" width="517" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">在当前字符的右侧开始插入.</span></td>
+</tr>
+<tr>
+<td valign="top" width="77" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">A</span></td>
+<td valign="top" width="517" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">在当前行行尾开始插入.</span></td>
+</tr>
+<tr>
+<td valign="top" width="77" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">o</span></td>
+<td valign="top" width="517" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">在当前行的下一行开始新的一行并在那插入. (译注, 写code用这个很爽)</span></td>
+</tr>
+<tr>
+<td valign="top" width="77" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">O</span></td>
+<td valign="top" width="517" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">在当前行的上一行开始新的一行并在那插入.</span></td>
+</tr>
+<tr>
+<td valign="top" width="77" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">c</span><span style="color:rgb(255,102,0)">{motion}</span></td>
+<td valign="top" width="517" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">删除(change)motion&quot;掠过&quot;的文本然后插入新文本代替它. 比如说, c$会删除当前光标位置到当前行尾的文本并开始插入模式. ct!会删除当前光标位置到下一个!出现位置(不包括!本身)之间的文本并进入插入模式. 删除的文本会被复制到剪切板可以被粘贴使用. (译注: 可以到前面复习一下&quot;掠过&quot;的概念, 参考例子. 输入c{motion}命令的时候, 不需要输入花括号)</span></td>
+</tr>
+<tr>
+<td valign="top" width="77" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">d</span><span style="color:rgb(255,102,0)">{motion}</span><span style="color:rgb(255,102,0)">&nbsp;</span></td>
+<td valign="top" width="517" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">删除motion&quot;掠过&quot;的文本 -- 和c{motion}相&#20284;, 但是不进入插入模式.</span></td>
+</tr>
+</tbody>
+</table>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+<span style="color:rgb(255,102,0); font-size:14pt">高效移动成块的的文本</span><br>
+<span style="color:rgb(255,102,0); font-size:14pt">用可视化选择, 用合适的选中模式</span></p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 和最早的vi不同, vim可以让你把文本置为高亮然后对高亮的文本操作. 以下是主要的3个可视化选中模式 (即文本高亮模式).</p>
+<table width="596" border="1" cellpadding="0" cellspacing="0" style="margin-top:0px; margin-right:auto; margin-bottom:0px; margin-left:auto; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse">
+<tbody>
+<tr>
+<td valign="top" width="51" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">v</span></td>
+<td valign="top" width="545" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">字符选中模式. 大部分人习惯用这个, 所以玩其他模式之前先把这个练熟.</span></td>
+</tr>
+<tr>
+<td valign="top" width="51" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">V</span></td>
+<td valign="top" width="545" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">行选中模式. 选中整行. 当你需要复制或移动几行的时候, 这个比字符选中模式要好.</span></td>
+</tr>
+<tr>
+<td valign="top" width="51" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">&lt;C-V&gt;</span></td>
+<td valign="top" width="545" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">块选中模式. 超级nb而且很少有其他的编辑器支持(译注: 还是有一些支持的, 比如ultraedit, 但是得付钱...). 你可以在任何文本中选择一个矩形块来操作. (译注: 在windows版本的vim中&lt;C-V&gt;默认被映射为粘贴, 可以通过更改键盘映射或者使用&lt;C-Q&gt;来进行块操作)</span></td>
+</tr>
+</tbody>
+</table>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+&nbsp;&nbsp;&nbsp;&nbsp; 所有常用的光标移动键都可以在可视模式使用, 比如vwww会进入字符选中模式并且选中光标之后的3个词. Vjj将会进入行选中模式并且选中当前行及之后的两行.</p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+<span style="font-size:14pt; color:rgb(255,102,0)">在可视化选中模式下进行剪切和复制</span></p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+&nbsp;&nbsp;&nbsp;&nbsp; 一旦你有了高亮选择, 你可能想要干点啥. 以下是对选中的高亮文本最有用的命令:</p>
+<table width="596" border="1" cellpadding="0" cellspacing="0" style="margin-top:0px; margin-right:auto; margin-bottom:0px; margin-left:auto; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse">
+<tbody>
+<tr>
+<td valign="top" width="24" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">d</span></td>
+<td valign="top" width="572" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">剪切(删除)高亮选中的文本到剪切板. (译注: 据本人所知, vim所有的删除其实都是剪切)</span></td>
+</tr>
+<tr>
+<td valign="top" width="24" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">y</span></td>
+<td valign="top" width="572" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">复制 (或者说&quot;拽&quot;(yank), vim用&quot;拽&quot;来表示复制...)高亮选中的文本到剪切板.</span></td>
+</tr>
+<tr>
+<td valign="top" width="24" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">c</span></td>
+<td valign="top" width="572" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">剪切高亮选中的文本到剪切板. 和d很相&#20284;, 只是c会进入插入模式.</span></td>
+</tr>
+</tbody>
+</table>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+<span style="color:rgb(255,102,0); font-size:14pt">在非可视化选择模式进行剪切和复制</span><br style="font-size:14pt">
+　　 如果你确知你想要复制或者剪切什么, 你可以不进入可视化选择模式就完成这些操作. 这样速度更快.</p>
+<table width="596" border="1" cellpadding="0" cellspacing="0" style="margin-top:0px; margin-right:auto; margin-bottom:0px; margin-left:auto; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse">
+<tbody>
+<tr>
+<td valign="top" width="79" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">d</span><span style="color:rgb(255,102,0)">{motion}</span></td>
+<td valign="top" width="517" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">把由motion&quot;掠过&quot;的文本剪切到剪切板. 比如dw把当前光标开始的一个词剪切到剪切板, 而dfS把从当前行从光标是到下一个S之间的文本剪</span><span style="color:rgb(255,102,0)">切到剪切板.</span></td>
+</tr>
+<tr>
+<td valign="top" width="79" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">y</span><span style="color:rgb(255,102,0)">{motion}</span><span style="color:rgb(255,102,0)">&nbsp;</span></td>
+<td valign="top" width="517" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">把motion&quot;掠过&quot;的文本复制到剪切板.</span></td>
+</tr>
+<tr>
+<td valign="top" width="79" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">c</span><span style="color:rgb(255,102,0)">{motion}</span><span style="color:rgb(255,102,0)">&nbsp;</span></td>
+<td valign="top" width="517" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">把motion&quot;掠过&quot;的文本剪切到剪切板并且进入插入模式.</span></td>
+</tr>
+<tr>
+<td valign="top" width="79" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">dd&nbsp;</span></td>
+<td valign="top" width="517" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">剪切当前行到剪切板.</span></td>
+</tr>
+<tr>
+<td valign="top" width="79" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">yy</span></td>
+<td valign="top" width="517" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">复制当前行到剪切板.</span></td>
+</tr>
+<tr>
+<td valign="top" width="79" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">cc</span></td>
+<td valign="top" width="517" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">剪切当前行到剪切板并且进入插入模式.</span></td>
+</tr>
+<tr>
+<td valign="top" width="79" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">D</span></td>
+<td valign="top" width="517" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">剪切光标当前位置到行尾的文本到剪切板.</span></td>
+</tr>
+<tr>
+<td valign="top" width="79" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">Y</span></td>
+<td valign="top" width="517" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">复制整行到剪切板, 和yy相&#20284;. (yes, 这个命令和命令D的操作方式没保持一致, 你可以用y$完成类&#20284;D的操作)</span></td>
+</tr>
+<tr>
+<td valign="top" width="79" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">C</span></td>
+<td valign="top" width="517" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">剪切光标当前位置到行尾的文本到剪切板并进入插入模式.</span></td>
+</tr>
+<tr>
+<td valign="top" width="79" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">x</span></td>
+<td valign="top" width="517" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">剪切当前字符. (类&#20284;于命令模式的退&#26684;(backspace)键)</span></td>
+</tr>
+<tr>
+<td valign="top" width="79" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">s</span></td>
+<td valign="top" width="517" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">剪切当前字符并进入插入模式.</span></td>
+</tr>
+</tbody>
+</table>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+<span style="color:rgb(255,102,0); font-size:12pt">粘贴</span><br style="color:rgb(255,102,0)">
+　　<span style="color:rgb(255,102,0); font-size:12pt">粘贴很简单. 把光标移动到你想要粘贴的位置输入p. (译注: 粘贴操作需要在命令模式下, 另外P(大写)命令把剪切板的内容粘贴到光标当前位置之前, 对用惯其它编辑器的人来说, P命令可能更符合习惯)</span></p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+&nbsp;</p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+<span style="font-size:14pt; color:rgb(255,102,0)">使用多个剪切板</span></p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 大部分编辑器只有一个剪切板. (译注: 貌&#20284;不算太'大部分') vim有多个. 在vim里剪切板叫做寄存器(regiseter). 你可以输入:reg列出所有当前定义过的寄存器和它们的内容. 大多数情况下你会使用以小写字母命名寄存器, 其他的有各自不同的vim内部用途, 偶尔可能会有用.</p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 要使用指定的某个寄存器来完成复制和粘贴, 很简单, 在复制粘贴操作之前输入&quot;a, a表示你希望用的寄存器.</p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 举个例子, 复制当前行到寄存器k, 输入&quot;kyy. (也可以用V&quot;ky. 想想为啥这个也成). 那一行就会被存放在寄存器k里, 直到有其他的东西被复制到到寄存器k覆盖它. 复制之后可以用&quot;kp来把寄存器k里存放的内容粘贴到到文本中.</p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+<span style="font-size:14pt; color:rgb(255,102,0)">不干机械劳动</span><br>
+<span style="font-size:14pt; color:rgb(255,102,0)">给你惊喜的.命令</span></p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 在vi中, 输入.(英文的句号)可以重复上一个你执行过的命令. 比如你上一个命令是dw, 当你输入.命令, vi会删除下一个词.</p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+<span style="color:rgb(255,102,0); font-size:14pt">使用计数器执行重复操作</span></p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 计数器是vim最nb的提速功能. 任何命令之前都可以加一个数. 这个数告诉vim你想把命令执行多少次. 例如:<br>
+3j会把光标向下移动3行.<br>
+10dd会删除10行文本.<br>
+y3&quot;在当前行, 把光标当前位置到第三个双引号之间的文本复制到剪切板. 这种计数器用法可以大大扩展motion的操作范围. (译注: 本人认为y3&quot;不能完成这样的功能, 对应的命令应该是y3f&quot;, 可能原作者漏写了f命令, 有空的时候问问原作者)</p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+<span style="color:rgb(255,102,0); font-size:14pt">录制宏</span></p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 你可能偶然会发现你对一个文档中的某块文本反反复复的进行相同的操作. vim可以录制一个特定的宏来完成这些操作.</p>
+<table width="596" border="1" cellpadding="0" cellspacing="0" style="margin-top:0px; margin-right:auto; margin-bottom:0px; margin-left:auto; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse">
+<tbody>
+<tr>
+<td valign="top" width="79" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">q</span><span style="color:rgb(255,102,0)">register</span><span style="color:rgb(255,102,0)">&nbsp;</span></td>
+<td valign="top" width="517" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">开始录制一个宏并保存在某个有名字的寄存器. 比如qa开始录制一个宏并把这个宏存放在寄存器a中.</span></td>
+</tr>
+<tr>
+<td valign="top" width="79" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">q</span></td>
+<td valign="top" width="517" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">结束录制</span></td>
+</tr>
+<tr>
+<td valign="top" width="79" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">@</span><span style="color:rgb(255,102,0)">register</span></td>
+<td valign="top" width="517" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">回放存放在某个寄存器的宏. 比如@a播放寄存器a中的宏.</span></td>
+</tr>
+</tbody>
+</table>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 请注意宏只是记录你的按键并且回放; 不是神奇的魔法. 因为在vim中可以用多个命令执行某个任务, 录制宏几乎成了一种艺术形式, 你必须非常小心的选择要用的命令才能用宏达到你想要的效果.</p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+<span style="color:rgb(255,102,0); font-size:14pt">用vim写程序代码</span></p>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+&nbsp;&nbsp;&nbsp; vim是优秀的源代码编辑器, 有很多的功能是专门为写程序设计的. 这里是一些常用的:</p>
+<table width="596" border="1" cellpadding="0" cellspacing="0" style="margin-top:0px; margin-right:auto; margin-bottom:0px; margin-left:auto; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse">
+<tbody>
+<tr>
+<td valign="top" width="39" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">]p</span></td>
+<td valign="top" width="557" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">和p相&#20284;, 但是它可以自动调整粘贴的代码和已有的代码缩进. 试试吧.</span></td>
+</tr>
+<tr>
+<td valign="top" width="39" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">%</span></td>
+<td valign="top" width="557" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">把光标放在某个花括号{}, 中括号[]或者圆括号()上, 按%会把光标移动到与之对应的花括号, 中括号或者圆括号上. 对于修正多层嵌套逻辑代码块的括号解析问题来说, 这个功能堪称救人于水火之中.</span></td>
+</tr>
+<tr>
+<td valign="top" width="39" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">&gt;&gt;</span></td>
+<td valign="top" width="557" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">缩进高亮选中的代码. (对高亮选中请查看前面章节, 如果没有文本被高亮选中, 则将当前行缩进)</span></td>
+</tr>
+<tr>
+<td valign="top" width="39" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">&lt;&lt;</span></td>
+<td valign="top" width="557" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">和&gt;&gt;类&#20284;, 但是反方向(译注: 缩进是向右移动行, 反方向既向左移动).</span></td>
+</tr>
+<tr>
+<td valign="top" width="39" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">gd</span></td>
+<td valign="top" width="557" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">把光标移动到当前光标所在位置的函数或者变量的定义(definition)(或声明(declaration)).</span></td>
+</tr>
+<tr>
+<td valign="top" width="39" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">K</span></td>
+<td valign="top" width="557" style="border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(192,192,192); border-right-color:rgb(192,192,192); border-bottom-color:rgb(192,192,192); border-left-color:rgb(192,192,192); border-collapse:collapse; padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px">
+<span style="color:rgb(255,102,0)">打开当前光标所在词对应的手册页(man page). (比如你的光标当前在sleep这个词上, vim会显示sleep的手册页) (译注: 这个功能貌&#20284;只对vim的原生OS--unix上有用)</span></td>
+</tr>
+</tbody>
+</table>
+<p style="margin-top:5px; margin-right:auto; margin-bottom:5px; margin-left:auto; line-height:21px">
+(译注: 结合ctags, cscope之类的辅助工具, vim可以提供更强大的程序代码编写功能)</p>
+</div>
+<br>
+<p></p>
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+<div class="bdsharebuttonbox" style="float: right;">
+<a href="#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"  style="background-position:0 -52px !important"></a>
+<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"style="background-position:0 -104px !important"></a>
+<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"style="background-position:0 -260px !important"></a>
+<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"style="background-position:0 -208px !important"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"style="background-position:0 -1612px !important" ></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+<!--192.168.100.35-->
+<ul class="article_next_prev">
+            <li class="prev_article"><span  onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian']);location.href='/newjueqi/article/details/7546604';">上一篇</span><a href="/newjueqi/article/details/7546604" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian'])">浅谈CSRF攻击方式</a></li>
+            <li class="next_article"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian']);location.href='/newjueqi/article/details/7546761';">下一篇</span><a href="/newjueqi/article/details/7546761" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian'])">跨入安全的殿堂--读《Web入侵安全测试与对策》感悟</a></li>
+</ul>
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+
+</div>
+      <dl class="blog-associat-tag">
+        <dt>主题推荐</dt>
+        <dd>
+                <a href="http://www.csdn.net/tag/vim" target="_blank" class="blog-tage-red" >vim</a> 
+                <a href="http://www.csdn.net/tag/电子邮件" target="_blank" class="blog-tage-red" >电子邮件</a> 
+                <a href="http://www.csdn.net/tag/编辑器" target="_blank" class="blog-tage-red" >编辑器</a> 
+                <a href="http://www.csdn.net/tag/可视化" target="_blank" class="blog-tage-red" >可视化</a> 
+                <a href="http://www.csdn.net/tag/源代码" target="_blank" class="blog-tage-red" >源代码</a> 
+        </dd>
+    </dl> 
+
+
+<dl class="blog-ass-articl tracking-ad"  data-mod="popu_36" id="res-relatived"> 
+     <dt><span>猜你在找</span></dt>    
+</dl>
+<div id="job_blog_reco">
+<script src="http://csdnimg.cn/jobreco/job_reco.js" type="text/javascript"></script>
+   
+     <script type="text/javascript">
+         csdn.position.show({
+         sourceType: "blog",
+         tplType: "blogDetail",
+         searchType: "detail",
+         searchKey: "7546633",
+             username: "",
+         containerId: "job_blog_reco"
+        }); 
+    </script>
+
+</div>
+
+<script type="text/javascript">
+    var searchtitletags = '【转】高效使用vim' + ',' + 'vim,电子邮件,编辑器,可视化,源代码';
+    searchService({
+        index: 'blog',
+        query: searchtitletags,
+        from: 10,
+        size: 10,
+        appendTo: '#res-relatived',
+        url: 'recommend',
+        his: 2,
+        client: "blog_cf_enhance",
+        tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+    });
+
+ </script>   
+
+
+
+    <div id="ad_cen">
+   
+          <script type="text/javascript">
+              new Ad(4, 'ad_cen');
+          </script>
+    </div>
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list">
+    </div>
+    <div id="comment_bar">
+    </div>
+    <div id="comment_form">
+    </div>
+
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '7546633';
+    var commentscount = 0;
+    var islock = false
+</script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/comment.js"></script>
+    <div id="ad_bot">
+    </div>
+    <script type="text/javascript">
+    new Ad(5, 'ad_bot');
+    </script>
+<div id="report_dialog">
+</div>
+
+<div id="d-top"  style="bottom:60px;">
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="http://static.blog.csdn.net/images/blog-icon-reply.png" alt="快速回复">
+        </a>    
+
+    <a id="d-top-a" class="btn btn-top backtop"  style="display: none;" title="返回顶部" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_huidaodingbu'])" style="">         
+         <img src="http://static.blog.csdn.net/images/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);
+        
+        /*
+        if($("#comment_content").length>0)
+        {
+            $("#quick-reply").show();
+
+            $("#quick-reply").click(function(){
+                setEditorFocus();
+            });
+        }       
+     
+        var d_top = $('#d-top-a');
+
+        document.onscroll = function ()
+        {
+            var scrTop = (document.body.scrollTop || document.documentElement.scrollTop);
+            if (scrTop > 500)
+            {
+                d_top.show();
+            } else
+            {
+                d_top.hide();
+            }
+        }
+        $('#d-top-a').click(function ()
+        {
+            scrollTo(0, 0);
+            this.blur();
+            return false;
+        });
+        */
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+<div class="tag_list">
+    <h5>
+        <a href="http://www.csdn.net/tag/" target="_blank">核心技术类目</a></h5>
+    <div class="classify">
+<a title="全部主题" href="http://www.csdn.net/tag" target="_blank" onclick="LogClickCount(this,336);">全部主题</a>
+<a title="Hadoop" href="http://g.csdn.net/5272865" target="_blank" onclick="LogClickCount(this,336);">Hadoop</a>
+<a title="AWS" href="http://g.csdn.net/5272866" target="_blank" onclick="LogClickCount(this,336);">AWS</a>
+<a title="移动游戏" href="http://g.csdn.net/5272870" target="_blank" onclick="LogClickCount(this,336);">移动游戏</a>
+<a title="Java" href="http://g.csdn.net/5272871" target="_blank" onclick="LogClickCount(this,336);">Java</a>
+<a title="Android" href="http://g.csdn.net/5272872" target="_blank" onclick="LogClickCount(this,336);">Android</a>
+<a title="iOS" href="http://g.csdn.net/5272873" target="_blank" onclick="LogClickCount(this,336);">iOS</a>
+<a title="Swift" href="http://g.csdn.net/5272868" target="_blank" onclick="LogClickCount(this,336);">Swift</a>
+<a title="智能硬件" href="http://g.csdn.net/5272869" target="_blank" onclick="LogClickCount(this,336);">智能硬件</a>
+<a title="Docker" href="http://g.csdn.net/5272867" target="_blank" onclick="LogClickCount(this,336);">Docker</a>
+<a title="OpenStack" href="http://g.csdn.net/5272925" target="_blank" onclick="LogClickCount(this,336);">OpenStack</a>
+<a title="VPN" href="http://www.csdn.net/tag/vpn" target="_blank" onclick="LogClickCount(this,336);">VPN</a>
+<a title="Spark" href="http://g.csdn.net/5272924" target="_blank" onclick="LogClickCount(this,336);">Spark</a>
+<a title="ERP" href="http://www.csdn.net/tag/erp" target="_blank" onclick="LogClickCount(this,336);">ERP</a>
+<a title="IE10" href="http://www.csdn.net/tag/ie10" target="_blank" onclick="LogClickCount(this,336);">IE10</a>
+<a title="Eclipse" href="http://www.csdn.net/tag/eclipse" target="_blank" onclick="LogClickCount(this,336);">Eclipse</a>
+<a title="CRM" href="http://www.csdn.net/tag/crm" target="_blank" onclick="LogClickCount(this,336);">CRM</a>
+<a title="JavaScript" href="http://www.csdn.net/tag/javascript" target="_blank" onclick="LogClickCount(this,336);">JavaScript</a>
+<a title="数据库" href="http://www.csdn.net/tag/数据库" target="_blank" onclick="LogClickCount(this,336);">数据库</a>
+<a title="Ubuntu" href="http://www.csdn.net/tag/ubuntu" target="_blank" onclick="LogClickCount(this,336);">Ubuntu</a>
+<a title="NFC" href="http://www.csdn.net/tag/nfc" target="_blank" onclick="LogClickCount(this,336);">NFC</a>
+<a title="WAP" href="http://www.csdn.net/tag/wap" target="_blank" onclick="LogClickCount(this,336);">WAP</a>
+<a title="jQuery" href="http://www.csdn.net/tag/jquery" target="_blank" onclick="LogClickCount(this,336);">jQuery</a>
+<a title="BI" href="http://www.csdn.net/tag/bi" target="_blank" onclick="LogClickCount(this,336);">BI</a>
+<a title="HTML5" href="http://www.csdn.net/tag/html5" target="_blank" onclick="LogClickCount(this,336);">HTML5</a>
+<a title="Spring" href="http://www.csdn.net/tag/spring" target="_blank" onclick="LogClickCount(this,336);">Spring</a>
+<a title="Apache" href="http://www.csdn.net/tag/apache" target="_blank" onclick="LogClickCount(this,336);">Apache</a>
+<a title=".NET" href="http://www.csdn.net/tag/.net" target="_blank" onclick="LogClickCount(this,336);">.NET</a>
+<a title="API" href="http://www.csdn.net/tag/api" target="_blank" onclick="LogClickCount(this,336);">API</a>
+<a title="HTML" href="http://www.csdn.net/tag/html" target="_blank" onclick="LogClickCount(this,336);">HTML</a>
+<a title="SDK" href="http://www.csdn.net/tag/sdk" target="_blank" onclick="LogClickCount(this,336);">SDK</a>
+<a title="IIS" href="http://www.csdn.net/tag/iis" target="_blank" onclick="LogClickCount(this,336);">IIS</a>
+<a title="Fedora" href="http://www.csdn.net/tag/fedora" target="_blank" onclick="LogClickCount(this,336);">Fedora</a>
+<a title="XML" href="http://www.csdn.net/tag/xml" target="_blank" onclick="LogClickCount(this,336);">XML</a>
+<a title="LBS" href="http://www.csdn.net/tag/lbs" target="_blank" onclick="LogClickCount(this,336);">LBS</a>
+<a title="Unity" href="http://www.csdn.net/tag/unity" target="_blank" onclick="LogClickCount(this,336);">Unity</a>
+<a title="Splashtop" href="http://www.csdn.net/tag/splashtop" target="_blank" onclick="LogClickCount(this,336);">Splashtop</a>
+<a title="UML" href="http://www.csdn.net/tag/uml" target="_blank" onclick="LogClickCount(this,336);">UML</a>
+<a title="components" href="http://www.csdn.net/tag/components" target="_blank" onclick="LogClickCount(this,336);">components</a>
+<a title="Windows Mobile" href="http://www.csdn.net/tag/windowsmobile" target="_blank" onclick="LogClickCount(this,336);">Windows Mobile</a>
+<a title="Rails" href="http://www.csdn.net/tag/rails" target="_blank" onclick="LogClickCount(this,336);">Rails</a>
+<a title="QEMU" href="http://www.csdn.net/tag/qemu" target="_blank" onclick="LogClickCount(this,336);">QEMU</a>
+<a title="KDE" href="http://www.csdn.net/tag/kde" target="_blank" onclick="LogClickCount(this,336);">KDE</a>
+<a title="Cassandra" href="http://www.csdn.net/tag/cassandra" target="_blank" onclick="LogClickCount(this,336);">Cassandra</a>
+<a title="CloudStack" href="http://www.csdn.net/tag/cloudstack" target="_blank" onclick="LogClickCount(this,336);">CloudStack</a>
+<a title="FTC" href="http://www.csdn.net/tag/ftc" target="_blank" onclick="LogClickCount(this,336);">FTC</a>
+<a title="coremail" href="http://www.csdn.net/tag/coremail" target="_blank" onclick="LogClickCount(this,336);">coremail</a>
+<a title="OPhone " href="http://www.csdn.net/tag/ophone " target="_blank" onclick="LogClickCount(this,336);">OPhone </a>
+<a title="CouchBase" href="http://www.csdn.net/tag/couchbase" target="_blank" onclick="LogClickCount(this,336);">CouchBase</a>
+<a title="云计算" href="http://www.csdn.net/tag/云计算" target="_blank" onclick="LogClickCount(this,336);">云计算</a>
+<a title="iOS6" href="http://www.csdn.net/tag/iOS6" target="_blank" onclick="LogClickCount(this,336);">iOS6</a>
+<a title="Rackspace " href="http://www.csdn.net/tag/rackspace " target="_blank" onclick="LogClickCount(this,336);">Rackspace </a>
+<a title="Web App" href="http://www.csdn.net/tag/webapp" target="_blank" onclick="LogClickCount(this,336);">Web App</a>
+<a title="SpringSide" href="http://www.csdn.net/tag/springside" target="_blank" onclick="LogClickCount(this,336);">SpringSide</a>
+<a title="Maemo" href="http://www.csdn.net/tag/maemo" target="_blank" onclick="LogClickCount(this,336);">Maemo</a>
+<a title="Compuware" href="http://www.csdn.net/tag/compuware" target="_blank" onclick="LogClickCount(this,336);">Compuware</a>
+<a title="大数据" href="http://www.csdn.net/tag/大数据" target="_blank" onclick="LogClickCount(this,336);">大数据</a>
+<a title="aptech" href="http://www.csdn.net/tag/aptech" target="_blank" onclick="LogClickCount(this,336);">aptech</a>
+<a title="Perl" href="http://www.csdn.net/tag/perl" target="_blank" onclick="LogClickCount(this,336);">Perl</a>
+<a title="Tornado" href="http://www.csdn.net/tag/tornado" target="_blank" onclick="LogClickCount(this,336);">Tornado</a>
+<a title="Ruby" href="http://www.csdn.net/tag/ruby" target="_blank" onclick="LogClickCount(this,336);">Ruby</a>
+<a title="Hibernate" href="http://www.csdn.net/hibernate" target="_blank" onclick="LogClickCount(this,336);">Hibernate</a>
+<a title="ThinkPHP" href="http://www.csdn.net/tag/thinkphp" target="_blank" onclick="LogClickCount(this,336);">ThinkPHP</a>
+<a title="HBase" href="http://www.csdn.net/tag/hbase" target="_blank" onclick="LogClickCount(this,336);">HBase</a>
+<a title="Pure" href="http://www.csdn.net/tag/pure" target="_blank" onclick="LogClickCount(this,336);">Pure</a>
+<a title="Solr" href="http://www.csdn.net/tag/solr" target="_blank" onclick="LogClickCount(this,336);">Solr</a>
+<a title="Angular" href="http://www.csdn.net/tag/angular" target="_blank" onclick="LogClickCount(this,336);">Angular</a>
+<a title="Cloud Foundry" href="http://www.csdn.net/tag/cloudfoundry" target="_blank" onclick="LogClickCount(this,336);">Cloud Foundry</a>
+<a title="Redis" href="http://www.csdn.net/tag/redis" target="_blank" onclick="LogClickCount(this,336);">Redis</a>
+<a title="Scala" href="http://www.csdn.net/tag/scala" target="_blank" onclick="LogClickCount(this,336);">Scala</a>
+<a title="Django" href="http://www.csdn.net/tag/django" target="_blank" onclick="LogClickCount(this,336);">Django</a>
+<a title="Bootstrap" href="http://www.csdn.net/tag/bootstrap" target="_blank" onclick="LogClickCount(this,336);">Bootstrap</a>
+    </div>
+</div>
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });
+        },200);  
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }    
+
+</script>
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+            <div id="side">
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/newjueqi" target="_blank">
+    <img src="http://avatar.csdn.net/7/2/8/1_newjueqi.jpg" title="访问我的空间" style="max-width:90%"/>
+    </a>
+    <br />
+    <span><a href="http://my.csdn.net/newjueqi" class="user_name" target="_blank">newjueqi</a></span>
+</div>
+<div class="interact">
+<a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_guanzhu'])"></a>
+
+ <a href="javascript:void(0);" class="letter"  title="[发私信]" onclick="window.open('http://msg.csdn.net/letters/model?receiver=newjueqi','_blank','height=350,width=700');_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_sixin'])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+                                            <a  target="_blank">
+                                                    <img src="http://c.csdnimg.cn/jifen/images/xunzhang/xunzhang/zhuanlandaren.png" onmouseover="m_over_m(this,2)" onmouseout="m_out_m()" alt="2" >
+                                            </a>
+                                            <a  target="_blank">
+                                                    <img src="http://c.csdnimg.cn/jifen/images/xunzhang/xunzhang/chizhiyiheng.png" onmouseover="m_over_m(this,4)" onmouseout="m_out_m()" alt="2" >
+                                            </a>
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>555807次</span></li>
+    <li>积分：<span>8358</span> </li>    
+    <li >等级： <span style="position:relative;display:inline-block;z-index:1" >
+            <img src="http://c.csdnimg.cn/jifen/images/xunzhang/jianzhang/blog6.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：8358 </div>
+        </span>  </li>
+    <li>排名：<span>第823名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>214篇</span></li>
+    <li>转载：<span>304篇</span></li>
+    <li>译文：<span>0篇</span></li>
+    <li>评论：<span>228条</span></li>
+</ul>
+</ul>
+</div>
+
+
+
+
+<div id="custom_column_11607386" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body">
+
+本人曾健生，目前居于广州，先后开发过社交app&quot;ekeo&quot;&quot;米信&quot;的后端，现就职于app云后端平台bmob（想了解bmob点击<a href="http://click.bmob.cn/?sid=83ca143971d86b7e1198 ">这里</a>）<br>
+<br>
+qq：190678908 <br>
+<br>
+“app后端技术” qq群：254659220 <br>
+<br>
+如果您觉得这系列的文章对你有所帮助，欢迎打赏。支付宝账号：190678908@qq.com 收款人：曾健生
+
+</ul>
+</div>
+
+<div id="custom_column_38025533" class="panel">
+<ul class="panel_head"><span>本人的微信公众号&quot;app后端&quot;</span></ul>
+<ul class="panel_body">
+
+<img border="0" src="http://img.blog.csdn.net/20150205162004526" width="180" height="180" alt="app后端">
+
+</ul>
+</div><div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字" /></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog" />
+        <input type="hidden" name="q" id="inputQ" />
+        <input type="hidden" name="t" value="blog" />
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";
+            window.location.href = url;
+        }   
+    });
+</script><div id="panel_Category" class="panel">
+    <ul class="panel_head"><span>博客专栏</span></ul>
+    <ul class="panel_body" id="sp_column">
+    <table cellpadding="0" cellspacing="0"><tr>
+    <td style="padding:10px 10px 0 0;">
+    <a href="http://blog.csdn.net/column/details/mobilebackend.html" target="_blank"><img src="http://avatar.csdn.net/blogpic/column.jpg" style="width:75px;height:75px;" /></a>
+    </td>
+    <td style="padding:10px 0; vertical-align:top;">
+    <a href="http://blog.csdn.net/column/details/mobilebackend.html" target="_blank">app后端技术架构</a>
+    <p>文章：33篇</p>
+    <span>阅读：77925</span>
+    </td>
+    </tr></table>
+    </ul>
+</div>
+<div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/601966" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Android</a><span>(5)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/540702" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">C/C++</a><span>(4)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/544880" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">html/js</a><span>(7)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/615470" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">HTTP</a><span>(11)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/530920" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Java</a><span>(17)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/545832" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">java web基础</a><span>(5)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/550658" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">JSP</a><span>(2)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/638331" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">PHP</a><span>(77)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/528289" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">python</a><span>(2)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/548432" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Spring</a><span>(1)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/616464" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">SQL</a><span>(33)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/571247" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Struts</a><span>(1)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/526388" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">保健</a><span>(2)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/617454" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">数据结构与算法</a><span>(4)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/550659" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">杂谈</a><span>(16)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/524102" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">汇编</a><span>(3)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/707661" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">瑜伽</a><span>(1)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/536663" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">设计模式</a><span>(2)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/521482" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">读书感悟</a><span>(6)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/521483" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">阅读理论</a><span>(2)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/864027" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">linux</a><span>(116)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/888394" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">magento</a><span>(34)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1063359" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">apache</a><span>(11)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1065248" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">js</a><span>(1)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1069161" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">vim</a><span>(20)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1087143" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">高性能服务器</a><span>(6)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1123902" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">转载hello_world2001博客</a><span>(17)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1175072" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">php源码</a><span>(4)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1195218" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">svn</a><span>(3)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1199345" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ci</a><span>(1)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1207609" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">OAuth</a><span>(1)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1211779" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">xmpp</a><span>(33)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1254444" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">LBS</a><span>(4)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1743543" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">app后端</a><span>(34)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/1767599" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">nginx</a><span>(6)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/2127519" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">nodejs</a><span>(4)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/2141633" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">python</a><span>(0)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/2185149" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">mongodb</a><span>(2)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/2341499" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">go</a><span>(4)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/newjueqi/article/category/2598703" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">200多万元得到的创业教训</a><span>(19)</span>
+            </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list">
+<!--归档统计-->
+<li><a href="http://blog.csdn.net/newjueqi/article/month/2015/03">2015年03月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2015/02">2015年02月</a><span>(12)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2015/01">2015年01月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2014/12">2014年12月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2014/11">2014年11月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2014/10">2014年10月</a><span>(15)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2014/09">2014年09月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2014/08">2014年08月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2014/07">2014年07月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2014/06">2014年06月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2014/05">2014年05月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2014/04">2014年04月</a><span>(15)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2014/03">2014年03月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2014/02">2014年02月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2014/01">2014年01月</a><span>(12)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2013/12">2013年12月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2013/11">2013年11月</a><span>(12)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2013/10">2013年10月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2013/09">2013年09月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2013/08">2013年08月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2013/07">2013年07月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2013/04">2013年04月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2013/03">2013年03月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2013/02">2013年02月</a><span>(9)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2013/01">2013年01月</a><span>(9)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2012/12">2012年12月</a><span>(19)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2012/11">2012年11月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2012/10">2012年10月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2012/09">2012年09月</a><span>(10)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2012/08">2012年08月</a><span>(20)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2012/07">2012年07月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2012/06">2012年06月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2012/05">2012年05月</a><span>(43)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2012/04">2012年04月</a><span>(50)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2012/03">2012年03月</a><span>(15)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2012/02">2012年02月</a><span>(26)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2012/01">2012年01月</a><span>(36)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2011/12">2011年12月</a><span>(38)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2011/11">2011年11月</a><span>(21)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2011/10">2011年10月</a><span>(11)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2011/09">2011年09月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2011/08">2011年08月</a><span>(14)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2010/07">2010年07月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2010/06">2010年06月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2010/05">2010年05月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2009/12">2009年12月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2009/11">2009年11月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2009/10">2009年10月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2009/09">2009年09月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2009/08">2009年08月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2009/06">2009年06月</a><span>(8)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2009/05">2009年05月</a><span>(11)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2009/04">2009年04月</a><span>(8)</span></li><li><a href="http://blog.csdn.net/newjueqi/article/month/2009/03">2009年03月</a><span>(7)</span></li>
+</div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="/newjueqi/article/details/7054582" title="Ubuntu 查看磁盘空间大小命令">Ubuntu 查看磁盘空间大小命令</a><span>(17485)</span>
+</li>
+<li>
+<a href="/newjueqi/article/details/19114471" title="app后端设计(11)-- 系统架构(2014.12.05更新)">app后端设计(11)-- 系统架构(2014.12.05更新)</a><span>(9130)</span>
+</li>
+<li>
+<a href="/newjueqi/article/details/14053733" title="app后端设计(1)--api(2014.01.31更新)">app后端设计(1)--api(2014.01.31更新)</a><span>(8881)</span>
+</li>
+<li>
+<a href="/newjueqi/article/details/19003775" title="app后端设计--总目录">app后端设计--总目录</a><span>(8312)</span>
+</li>
+<li>
+<a href="/newjueqi/article/details/4777779" title="Android下的应用编程——用HTTP协议实现文件上传功能">Android下的应用编程——用HTTP协议实现文件上传功能</a><span>(7644)</span>
+</li>
+<li>
+<a href="/newjueqi/article/details/18887571" title="app后端设计(4)-- 通讯的安全性">app后端设计(4)-- 通讯的安全性</a><span>(6611)</span>
+</li>
+<li>
+<a href="/newjueqi/article/details/16342265" title="app后端设计(2)--xmpp的使用（2014.01.14更新）">app后端设计(2)--xmpp的使用（2014.01.14更新）</a><span>(6094)</span>
+</li>
+<li>
+<a href="/newjueqi/article/details/7845282" title="基于PHP构建OAuth 2.0 认证平台">基于PHP构建OAuth 2.0 认证平台</a><span>(5236)</span>
+</li>
+<li>
+<a href="/newjueqi/article/details/19114469" title="app后端设计(10)--数据增量更新">app后端设计(10)--数据增量更新</a><span>(4956)</span>
+</li>
+<li>
+<a href="/newjueqi/article/details/18032925" title="openfire推送离线聊天信息的插件">openfire推送离线聊天信息的插件</a><span>(4679)</span>
+</li>
+</ul>
+</div>
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="/newjueqi/article/details/19003775#comments">app后端设计--总目录</a>
+    <p style="margin:0px;"><a href="/newjueqi" class="user_name">newjueqi</a>:
+@5iasp:谢谢，欢迎多提意见
+    </p>
+    </li>
+    <li>
+   
+         <a href="/newjueqi/article/details/19003775#comments">app后端设计--总目录</a>
+    <p style="margin:0px;"><a href="/5iasp" class="user_name">5iasp</a>:
+很好，学习了。
+    </p>
+    </li>
+    <li>
+   
+         <a href="/newjueqi/article/details/43734735#comments">5.两分钟让你明白app后端有啥用</a>
+    <p style="margin:0px;"><a href="/newjueqi" class="user_name">newjueqi</a>:
+@cheyiliu:别人看了后也变“云”了
+    </p>
+    </li>
+    <li>
+   
+         <a href="/newjueqi/article/details/43734735#comments">5.两分钟让你明白app后端有啥用</a>
+    <p style="margin:0px;"><a href="/cheyiliu" class="user_name">cheyiliu</a>:
+有个时髦的词，云
+    </p>
+    </li>
+    <li>
+   
+         <a href="/newjueqi/article/details/43734735#comments">app后端设计--总目录</a>
+    <p style="margin:0px;"><a href="/x359981514" class="user_name">x359981514</a>:
+bmob
+    </p>
+    </li>
+    <li>
+   
+         <a href="/newjueqi/article/details/43701941#comments">4.app是怎么炼成的</a>
+    <p style="margin:0px;"><a href="/qq_25547109" class="user_name">qq_25547109</a>:
+赞
+    </p>
+    </li>
+    <li>
+   
+         <a href="/newjueqi/article/details/18227501#comments">app后端设计(3)--短信，邮件，推送服务（2014.12.05更新）</a>
+    <p style="margin:0px;"><a href="/xinchen0618" class="user_name">xinchen0618</a>:
+踩的那一下，我真不是故意的，纯属误操作，对不住！！！内容真心非常受用！！！
+    </p>
+    </li>
+    <li>
+   
+         <a href="/newjueqi/article/details/18227501#comments">app后端设计--总目录</a>
+    <p style="margin:0px;"><a href="/newjueqi" class="user_name">newjueqi</a>:
+@kittykan:很多问题都是app后台共有的，现在正打算把app后端的开发系统地讲述一次，在微信...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/newjueqi/article/details/18227501#comments">app后端设计--总目录</a>
+    <p style="margin:0px;"><a href="/newjueqi" class="user_name">newjueqi</a>:
+@yoho025:谢谢支持
+    </p>
+    </li>
+    <li>
+   
+         <a href="/newjueqi/article/details/18227501#comments">4.app是怎么炼成的</a>
+    <p style="margin:0px;"><a href="/newjueqi" class="user_name">newjueqi</a>:
+@cheyiliu:谢谢支持
+    </p>
+    </li>
+</ul>
+</div>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+
+            <div class="clear">
+            </div>
+        </div>
+        
+
+<script type="text/javascript" src="http://csdnimg.cn/rabbit/cnick/cnick.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="http://medal.blog.csdn.net/showblogmedal.ashx?blogid=75243"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/JavaScript1.js"></script>
+
+    <script type="text/javascript" src="http://passport.csdn.net/content/loginbox/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script>
+<script type="text/javascript" src="http://www.csdn.net/ui/scripts/Csdn/counter.js"></script>
+<script type="text/javascript" src="http://ad.csdn.net/scripts/ad-blog.js"></script>
+<script type="text/javascript" src="http://zz.csdn.net/js/count.js"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a>"
+                    + "<a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+    });
+</script>
+
+    </div>
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnId="header_notice_num" wrapId="note1" count="5" subCount="5" type="text/javascript" src="http://static.csdn.net/public/common/toolbar/js/toolbar.js"></script>     <!--new top-->
+   
+    <link href="http://c.csdnimg.cn/comm_ask/css/ask_float_block.css" type="text/css" rel="stylesheet" />
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/wmd.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/showdown.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/prettify.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/apps/ask_float_block.js'></script>
+
+</body>
+</html>

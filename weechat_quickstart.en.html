@@ -1,0 +1,1265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.9" />
+<title>WeeChat quick start guide</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+pre {
+  white-space: pre-wrap;
+}
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; vertical-align: text-bottom; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+body {
+  margin: 1em 2em;
+  font-family: verdana, sans-serif;
+  font-size: 12px;
+}
+div.sectionbody, #author, #revnumber, #revdate, #revremark, #toctitle, #footer {
+  font-family: verdana, sans-serif;
+}
+a, a:visited, a:hover, a:active {
+  color: #00c;
+  text-decoration: none;
+}
+em {
+  color: #252;
+}
+strong {
+  color: #000;
+}
+tt {
+  color: #366;
+}
+#author {
+  color: #555;
+}
+#toc {
+  line-height: 1.4em;
+}
+#toctitle {
+  margin-bottom: .6em;
+  color: #555;
+}
+div.toclevel0, div.toclevel1 {
+  font-size: 1.1em;
+}
+div.toclevel2, div.toclevel3, div.toclevel4 {
+  font-size: 1em;
+}
+h1, h2, h3, h4, h5, h6 {
+  margin: 1.2em 0;
+}
+h1 {
+  padding: 1.2em;
+  border: solid 1px #c0d0ff;
+  border-radius: 8px;
+  box-shadow: 1px 1px 3px #aac;
+  background: #ddeaee;
+  background: -moz-linear-gradient(#bbddff, #eefaff);
+  background: -webkit-linear-gradient(#bbddff, #eefaff);
+  background: linear-gradient(#bbddff, #eefaff);
+  color: #224b8d;
+  font-size: 2.2em;
+  text-align: center;
+}
+h2 {
+  padding: .5em;
+  border: solid 1px #d0d0d0;
+  border-radius: 6px;
+  box-shadow: 1px 1px 2px #bbb;
+  background: #f2f2f2;
+  background: -moz-linear-gradient(#e0e0e0, #f6f6f6);
+  background: -webkit-linear-gradient(#e0e0e0, #f6f6f6);
+  background: linear-gradient(#e0e0e0, #f6f6f6);
+  color: #444;
+  font-size: 1.7em;
+}
+h3 {
+  border: none;
+  margin: .7em 0 1em 0;
+  color: #555;
+  font-size: 1.5em;
+}
+h4 {
+  color: #555;
+  font-size: 1.3em;
+}
+h5 {
+  color: #555;
+  font-size: 1.2em;
+}
+span.command {
+  padding: .2em .5em;
+  border: solid 1px #ccc;
+  margin-right: 12px;
+  background: #eee;
+  font-size: 1.1em;
+}
+p.table {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.listingblock > div.content {
+  border: solid 1px #e2e2e2;
+  border-radius: 4px;
+  background: #fbfbfb;
+}
+div.tableblock > table {
+  border: 2px solid #888;
+}
+.listingblock pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+table th {
+  background: #fbfbfb;
+  color: #000;
+  font-size: 1.1em;
+}
+.tableblock table th, .tableblock table td {
+  border: solid 1px #bbb;
+}
+div.title {
+  color: #525252;
+}
+div.admonitionblock .icon {
+  text-decoration: none;
+}
+dt.hdlist1 {
+  margin-bottom: .5em;
+  color: #252;
+}
+.ulist {
+  word-wrap: break-word;
+}
+.key {
+  padding: 0 .3em;
+  border-top: solid 1px #d5d5e5;
+  border-left: solid 1px #d5d5e5;
+  border-bottom: solid 1px #a5a5b5;
+  border-right: solid 1px #a5a5b5;
+  margin: 0 2px;
+  background: #eef;
+  font-family: serif, Helvetica, arial;
+  font-size: 1.1em;
+  line-height: 1.5em;
+}
+.key.ctrl {
+  border-top: solid 1px #dfd0d0;
+  border-left: solid 1px #dfd0d0;
+  border-bottom: solid 1px #afa0a0;
+  border-right: solid 1px #afa0a0;
+  background: #fff0f0;
+  font-variant: small-caps;
+}
+.key.alt {
+  border-top: solid 1px #dfbbab;
+  border-left: solid 1px #dfbbab;
+  border-bottom: solid 1px #af8b7b;
+  border-right: solid 1px #af8b7b;
+  background: #ffdbcb;
+  font-variant: small-caps;
+}
+.key.shift {
+  border-top: solid 1px #d5d5d5;
+  border-left: solid 1px #d5d5d5;
+  border-bottom: solid 1px #a5a5a5;
+  border-right: solid 1px #a5a5a5;
+  background: #f5f5f5;
+  font-variant: small-caps;
+}
+.key.other {
+  border-top: solid 1px #d0e0d0;
+  border-left: solid 1px #d0e0d0;
+  border-bottom: solid 1px #a0b0a0;
+  border-right: solid 1px #a0b0a0;
+  background: #eafaea;
+  font-variant: small-caps;
+}
+.keyplus {
+  font-size: .8em;
+}
+.hexa {
+  padding: 0 .2em;
+  border: solid 1px #88b;
+  margin: 0 .2em;
+  color: #007;
+  font-family: monospace;
+  font-size: .85em;
+  font-variant: small-caps;
+}
+#footer {
+  border-top: 1px solid silver;
+}
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install(2);
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>WeeChat quick start guide</h1>
+<span id="author">Sébastien Helleu</span><br />
+<span id="email"><code>&lt;<a href="mailto:flashcode@flashtux.org">flashcode@flashtux.org</a>&gt;</code></span><br />
+<span id="revnumber">version 0.4.3,</span>
+<span id="revdate">2014-02-09</span>
+<div id="toc">
+  <div id="toctitle">Table of Contents</div>
+  <noscript><p><b>JavaScript must be enabled in your browser to display the table of contents.</b></p></noscript>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="start">1. Start WeeChat</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>A recommended terminal emulator for X (but not mandatory) is rxvt-unicode
+(it has good UTF-8 support, and no problem with default keyboard bindings).</p></div>
+<div class="paragraph"><p>Run from your shell:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>$ weechat</code></pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="help_options">2. Online help / options</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>WeeChat has help for all commands, just issue:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/help</code></pre>
+</div></div>
+<div class="paragraph"><p>To get help on a specific command, issue:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/help command</code></pre>
+</div></div>
+<div class="paragraph"><p>To set options, issue:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/set config.section.option value</code></pre>
+</div></div>
+<div class="paragraph"><p>(where <code>config</code> is configuration name (<code>weechat</code> for core, or a plugin
+name), <code>section</code> the section of this configuration and <code>option</code> the
+option name).</p></div>
+<div class="paragraph"><p>WeeChat immediately uses the new value (you <strong>never</strong> need to restart WeeChat
+after changes to configuration).</p></div>
+<div class="paragraph"><p>You can use <code>/set</code> option with partial name and wildcard "*" at the beginning
+or end to display all options containing letters.
+For example:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+display all options (WeeChat and plugins):
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/set</code></pre>
+</div></div>
+<div class="ulist"><ul>
+<li>
+<p>
+display WeeChat options:
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/set weechat.*</code></pre>
+</div></div>
+<div class="ulist"><ul>
+<li>
+<p>
+display IRC plugin options:
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/set irc.*</code></pre>
+</div></div>
+<div class="paragraph"><p>You can display help for an option with <code>/help</code>, for example:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/help weechat.look.highlight</code></pre>
+</div></div>
+<div class="paragraph"><p>All settings are saved when WeeChat ends (or with <code>/save</code> command to force
+a write of the options).</p></div>
+<div class="paragraph"><p>You can edit configuration files (*.conf) by hand and reload them by
+<code>/reload</code> command if you don&#8217;t want to use <code>/set</code> command.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="core_vs_plugins">3. Core vs plugins</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>WeeChat "core" is only used to display data on screen and interact with
+the user, that means weechat core without plugins is useless
+(faithful users: IRC was part of core for versions ≤ 0.2.6).</p></div>
+<div class="paragraph"><p>All network protocols like IRC are provided in separate plugins.</p></div>
+<div class="paragraph"><p>Use the <code>/plugin</code> command to list loaded plugins, you should see "irc" and
+other plugins in the list.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="create_irc_server">4. Create an IRC server</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>You can add an IRC server with <code>/server</code> command, for example:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/server add oftc irc.oftc.net/6667</code></pre>
+</div></div>
+<div class="paragraph"><p>As usual, help is available if you&#8217;re lost:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/help server</code></pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="irc_server_options">5. Set custom IRC server options</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>WeeChat uses default values for all servers ("fall backs"), if you
+don&#8217;t specify a specific value for a server option.
+These default options are "irc.server_default.*".</p></div>
+<div class="paragraph"><p>For each server option, WeeChat uses its value if it is defined (not
+"null"). Otherwise WeeChat uses default value ("irc.server_default.xxx").</p></div>
+<div class="paragraph"><p>For example there&#8217;s default nicks (based on your un*x login), and you can
+override them for oftc server with following command:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/set irc.server.oftc.nicks "mynick,mynick2,mynick3,mynick4,mynick5"</code></pre>
+</div></div>
+<div class="paragraph"><p>To set username and realname:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/set irc.server.oftc.username "My user name"
+/set irc.server.oftc.realname "My real name"</code></pre>
+</div></div>
+<div class="paragraph"><p>To enable auto-connect to server at startup:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/set irc.server.oftc.autoconnect on</code></pre>
+</div></div>
+<div class="paragraph"><p>If SASL is available on server, you can use it for authentication (you will be
+identified before you join channels):</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/set irc.server_default.sasl_mechanism dh-blowfish
+/set irc.server.oftc.sasl_username "mynick"
+/set irc.server.oftc.sasl_password "xxxxxxx"</code></pre>
+</div></div>
+<div class="paragraph"><p>To run a command after connection to server, for example to authenticate
+with nickserv (only if you don&#8217;t use SASL for authentication):</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/set irc.server.oftc.command "/msg nickserv identify xxxxxxx"</code></pre>
+</div></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">Many commands can be separated by <em>;</em> (semi-colon).</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>To auto-join some channels when connecting to server:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/set irc.server.oftc.autojoin "#channel1,#channel2"</code></pre>
+</div></div>
+<div class="paragraph"><p>To remove a value of a server option, and use the default value instead,
+for example to use default nicks (irc.server_default.nicks):</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/set irc.server.oftc.nicks null</code></pre>
+</div></div>
+<div class="paragraph"><p>Other options: you can setup other options with following command ("xxx" is
+option name):</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/set irc.server.oftc.xxx value</code></pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="connect_to_irc_server">6. Connect to IRC server and auto-join channels</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre><code>/connect oftc</code></pre>
+</div></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">This command can be used to create and connect to a new server without using
+<code>/server</code> command (should I repeat you can see help for this command with
+<code>/help connect</code> ?).</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>By default, server buffers are merged with WeeChat <em>core</em> buffer. To switch
+between <em>core</em> buffer and server buffers, you can use <span class="key ctrl">ctrl</span><span class="keyplus">+</span><span class="key">x</span>.</p></div>
+<div class="paragraph"><p>It is possible to disable auto merge of server buffers to have independent
+server buffers:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/set irc.look.server_buffer independent</code></pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="join_part_irc_channels">7. Join/part IRC channels</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Join a channel:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/join #channel</code></pre>
+</div></div>
+<div class="paragraph"><p>Part a channel (keeping buffer open):</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/part [quit message]</code></pre>
+</div></div>
+<div class="paragraph"><p>Close server or channel buffer (<code>/close</code> is an alias for <code>/buffer close</code>):</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/close</code></pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="buffer_window">8. Buffer/window management</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>A buffer is a component linked to a plugin with a number, a category,
+and a name. A buffer contains the data displayed on the screen.</p></div>
+<div class="paragraph"><p>A window is a view on a buffer. By default there&#8217;s only one window
+displaying one buffer. If you split screen, you will see many windows
+with many buffers at same time.</p></div>
+<div class="paragraph"><p>Commands to manage buffers and windows:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/buffer
+/window</code></pre>
+</div></div>
+<div class="paragraph"><p>(I&#8217;ll not repeat here that you can get help with /help on these commands)</p></div>
+<div class="paragraph"><p>For example, to vertically split your screen into a small window (1/3 width),
+and a large window (2/3), use command:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/window splitv 33</code></pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="key_bindings">9. Key bindings</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>WeeChat uses many keys by default. All these keys are in the documentation,
+but you should know at least some vital keys:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<span class="key alt">alt</span><span class="keyplus">+</span><span class="key other">←</span>/<span class="key other">→</span> or <span class="key other">F5</span>/<span class="key other">F6</span>: switch to previous/next buffer
+</p>
+</li>
+<li>
+<p>
+<span class="key other">F7</span>/<span class="key other">F8</span>: switch to previous/next window (when screen is split)
+</p>
+</li>
+<li>
+<p>
+<span class="key other">F9</span>/<span class="key other">F10</span>: scroll title bar
+</p>
+</li>
+<li>
+<p>
+<span class="key other">F11</span>/<span class="key other">F12</span>: scroll nicklist
+</p>
+</li>
+<li>
+<p>
+<span class="key other">Tab</span>: complete text in input bar, like in your shell
+</p>
+</li>
+<li>
+<p>
+<span class="key other">PgUp</span>/<span class="key other">PgDn</span>: scroll text in current buffer
+</p>
+</li>
+<li>
+<p>
+<span class="key alt">alt</span><span class="keyplus">+</span><span class="key">a</span>: jump to buffer with activity (in hotlist)
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>According to your keyboard and/or your needs, you can rebind any key
+to a command with <code>/key</code> command.
+A useful key is <span class="key alt">alt</span><span class="keyplus">+</span><span class="key">k</span> to find key codes.</p></div>
+<div class="paragraph"><p>For example, to bind <span class="key alt">alt</span><span class="keyplus">+</span><span class="key">y</span> to command <code>/buffer close</code>:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/key bind (press alt-k) (press alt-y) /buffer close</code></pre>
+</div></div>
+<div class="paragraph"><p>You&#8217;ll have a command line like:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/key bind meta-y /buffer close</code></pre>
+</div></div>
+<div class="paragraph"><p>To remove key:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/key unbind meta-y</code></pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="plugins_scripts">10. Plugins/scripts</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>On some distros like Debian, plugins are available via a separate package
+(like weechat-plugins).
+Plugins are automatically loaded when found (please look at the WeeChat
+documentation to load/unload plugins or scripts).</p></div>
+<div class="paragraph"><p>Many external scripts (from contributors) are available for WeeChat:
+<a href="http://weechat.org/scripts">http://weechat.org/scripts</a></p></div>
+<div class="paragraph"><p>You can manage scripts in WeeChat with command <code>/script</code> (see <code>/help script</code>
+for more info).</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="more_doc">11. More documentation</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>You can now use WeeChat and read FAQ/documentation for any other questions:
+<a href="http://weechat.org/doc">http://weechat.org/doc</a></p></div>
+<div class="paragraph"><p>Enjoy using WeeChat!</p></div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Version 0.4.3<br />
+Last updated 2014-02-02 11:18:22 CET
+</div>
+</div>
+</body>
+</html>

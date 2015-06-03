@@ -1,0 +1,1598 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang='zh-CN' xml:lang='zh-CN' xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico" />
+  <title>超过 130 个你需要了解的 vim 命令 - 开源中国社区</title>
+  <meta name="Keywords" content="Vim,超过 130 个你需要了解的 vim 命令"/>  <meta name="Description" content="从 1970 年开始，vi 和 vim 就成为了程序员最喜爱的文本编辑器之一。5年前，我写了一个问自己名为 “每个程序员都应该知道的 100 个 vim 命令” 这次算是之前那篇文章的改进版，希望你会喜欢。 基础 :e filename ..."/>    <link rel="stylesheet" href="/css/channel.css?date=20130520" type="text/css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="/js/2011/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+  <link rel="alternate" type="application/rss+xml" title="最新开源项目" href="http://www.oschina.net/project/rss" />
+  <link rel="alternate" type="application/rss+xml" title="最新开源资讯" href="http://www.oschina.net/news/rss" />
+  <link rel="alternate" type="application/rss+xml" title="最新问题列表" href="http://www.oschina.net/question/rss" />
+  <link rel="alternate" type="application/rss+xml" title="最新翻译列表" href="http://www.oschina.net/translate/rss" />
+  <link rel="alternate" type="application/rss+xml" title="最新博客列表" href="http://www.oschina.net/blog/rss" />
+  <link rel="alternate" type="application/rss+xml" title="最新代码分享列表" href="http://www.oschina.net/code/rss" />
+  <link rel="alternate" type="application/rss+xml" title="开源中国 - 源码列表" href="http://www.oschina.net/code/source_rss" />
+  <script type="text/javascript" src="/js/2012/jquery-1.7.1.min.js"></script>
+  <script type="text/javascript" src="/js/2012/jquery.form.js"></script>
+  <script type="text/javascript" src="/js/2011/fancybox/jquery.fancybox-fixed.js?20130503"></script>
+    <link rel="stylesheet" href="/js/poshytip/tip-yellowsimple/tip-yellowsimple.css" type="text/css" />
+  <script type="text/javascript" src="/js/poshytip/jquery.poshytip.min.js"></script>
+  <script type="text/javascript">
+  	g_user = {
+	id:0,
+	name:'',
+	login:false};  </script>
+    <script type="text/javascript" src="/js/2011/oschina.js?ver=20121007"></script>
+  <script type="text/javascript" src="/js/utils.js"></script>
+  <script type="text/javascript" src="/js/channel.js?2013060501"></script>
+  <link rel="alternate" type="application/rss+xml" title="开源中国 - 最新新闻" href="http://www.oschina.net/news/rss" />
+  </head>
+<body>
+<div id='OSC_NavTop'>
+	<div class="wp998">
+        <div id="OSC_Channels">
+        	<ul>
+        	<li class="item"><a href="http://www.oschina.net/" class='home'>首页</a></li>        	<li class="item control_select"><a href="http://www.oschina.net/project" class='project'>开源项目</a>
+				<ul class="cs_content">					
+                	                	<li><a href="http://www.oschina.net/project/lang/19/java">Java 开源软件</a></li>
+                	<li><a href="http://www.oschina.net/project/lang/194/csharp">C# 开源软件</a></li>
+                	<li><a href="http://www.oschina.net/project/lang/22/php">PHP 开源软件</a></li>
+                	<li><a href="http://www.oschina.net/project/lang/21/c">C/C++ 开源软件</a></li>
+                	<li><a href="http://www.oschina.net/project/lang/26/ruby">Ruby 开源软件</a></li>
+                	<li><a href="http://www.oschina.net/project/lang/25/python">Python 开源软件</a></li>
+                	<li><a href="http://www.oschina.net/project/lang/358/go">Go开源软件</a></li>
+                	<li><a href="http://www.oschina.net/project/lang/28/javascript">JS开源软件</a></li>
+				</ul>
+			</li>
+        	<li class="item control_select">
+				<a href="http://www.oschina.net/question" class='question'>讨论区</a>				
+				<ul class="cs_content">					
+                	<li><a href="http://www.oschina.net/question?catalog=1"> 技术问答 &raquo; </a></li>
+                	<li><a href="http://www.oschina.net/question?catalog=2"> 技术分享 &raquo; </a></li>
+                	<li><a href="http://www.oschina.net/question?catalog=3"> IT大杂烩 &raquo; </a></li>
+                	<li><a href="http://www.oschina.net/question?catalog=100"> 职业生涯 &raquo; </a></li>
+                	<li><a href="http://www.oschina.net/question?catalog=4"> 站务/建议 &raquo; </a></li>
+                	<li><a href="http://www.oschina.net/alipay"> 支付宝专区 &raquo; </a></li>
+                	<li><a href="http://www.oschina.net/hardware"> 开源硬件专区 &raquo; </a></li>
+				</ul>
+			</li>
+        	<li class="item"><a href="http://www.oschina.net/code/list" class='code'>代码</a></li>
+        	        	<li class="item"><a href="http://www.oschina.net/blog" class='blog'>博客</a></li>
+        	<li class="item"><a href="http://www.oschina.net/translate" class='tran'>翻译</a></li>
+            <li class="item"><a href="http://www.oschina.net/news" class='news hl'>资讯</a></li>
+        	<li class="item control_select">
+				<a href="http://www.oschina.net/android" class='mobile'>移动开发</a>
+				<ul class="cs_content cs_mobile">
+                	<li class="android_"><a href="http://www.oschina.net/android">Android开发专区</a></li>
+                	<li class="ios_"><a href="http://www.oschina.net/ios/home">iOS开发专区</a></li>
+                	<li class="ios_"><a href="http://www.oschina.net/ios/codingList">iOS代码库</a></li>
+                	<li class="wp7_"><a href="http://www.oschina.net/wp7">WP7开发专区</a></li>
+				</ul>
+			</li>
+        	<li class="item t_job"><a href="http://www.oschina.net/job" class='job'>招聘</a></li>
+			            <li class="item control_select">
+                <a href="http://city.oschina.net/" id="MyCities" title="城市圈">城市圈</a>
+							</li>
+        	</ul>
+        </div>
+		<div id="OSC_Userbar">
+                		    		当前访客身份：游客 [ <a href="http://www.oschina.net/home/login?goto_page=http%3A%2F%2Fwww.oschina.net%2Fnews%2F43167%2F130-essential-vim-commands">登录</a> | <a href="http://www.oschina.net/home/reg">加入开源中国</a> ]
+    				</div>
+		<div class='clear'></div>
+	</div>
+</div>
+<div id='OSC_Banner'><div class="wp998"><a href='http://www.oschina.net/' class='Logo' title='OSChina 开源中国'>开源中国</a>
+<h1><a href='/news'>开源资讯</a></h1>
+<dl>
+	<dt>当前位置：</dt>
+	<dt>
+						<a href="/news/list?show=industry">综合资讯</a>&nbsp;&raquo;
+						<a href="/p/vim" style='font-weight:bold;color:#A00;'>Vim</a>
+				 ，<a href='http://www.oschina.net/home/go?page=admin%2Fnew-release'>投递新闻&raquo;</a>
+	</dt>
+</dl>
+<form action='http://www.oschina.net/search' class='search'>
+	<input type='hidden' name='scope' value='project'/>
+	<input id='channel_q' type='text' name='q' value='' placeholder='资讯、软件、分享、代码、博客' class='TXT'/>
+    <button type='submit' class='BTN'>搜 索</button>
+</form>
+<div class='clear'></div></div></div>
+<div id="OSC_Screen">
+	<div id="OSC_Content" class='CenterDiv'>
+
+
+
+<style>
+#NewsChannel {overflow:hidden;}
+
+.ListPanel {float:left;width:730px;}
+.ListRight {float:right; width:250px;}
+	
+.ListPanel .List {margin:10px 5px;}
+.ListPanel .List a {text-decoration:none;}
+
+.NewsBody {float:left; width:680px;}
+.NewsRight {float:right; width:300px;}
+
+.News .NewsEntity {background:#fff;border:1px solid #ccc;padding:15px 10px 10px 10px;-moz-box-shadow: 0 1px 3px rgba(198,198,198,0.5);-webkit-box-shadow: 0 1px 3px rgba(198,198,198,0.5);box-shadow: 0 1px 3px rgba(198,198,198,0.5);}
+.News h1.OSCTitle {font-size:18pt;}
+.News .PubDate {margin:15px 0 0px 0;color:#666;}
+.News .NewsContent {margin:10px 0;font-size:10.5pt;overflow: hidden;}
+.News .NewsContent #NewsPic {float:right;margin:0 0 10px 10px;border:1px solid #ccc;background:#f6f6f6;padding:2px;}
+.News .NewsLinks {font-weight: bold;color: #A00;margin-bottom: 10px;line-height:30px;font-size:10pt;}
+.News .copyright {
+	background:#efe;
+	text-align:left;
+	margin:20px 0;
+	padding:3px 0 3px 10px;
+	color:#333;
+	font-size:9pt;
+	line-height:22px;
+	border-left:5px solid #40AA53;
+}
+.News .NewsPrevAndNext {line-height:30px;}
+.News .NewsPrevAndNext span {font-weight:normal;font-size:8pt;color:#666;margin-left:10px;}
+
+.News .RelatedThreads {padding:10px 0 0 10px;}
+.News .RelatedThreads ul {margin:10px 0 20px 3px;line-height:22px;}
+.News .RelatedThreads ul li {background:url('/img/a2.gif') no-repeat left center;padding-left:12px;}
+.News .RelatedThreads ul li .date {font-size:8pt;margin-left:10px;color:#666;-webkit-text-size-adjust:none;}
+
+.News .RelatedNews {padding:10px 0 0 0;}
+.News .RelatedNews ul {margin:10px 0 20px 3px;line-height:22px;}
+.News .RelatedNews ul li {background:url('/img/a3.gif') no-repeat left center;padding-left:12px;}
+.News .RelatedNews ul li .date {font-size:8pt;margin-left:10px;color:#666;-webkit-text-size-adjust:none;}
+
+#HotNewsList {background:#fafcff;}
+#HotNewsList .List li {background:url('/img/a2.gif') no-repeat left center;padding-left:16px;overflow:hidden;height: 24px;line-height:24px;}
+#HotNewsList .List h3 {
+    font-size: 10.5pt;
+    float: left;
+    font-weight: normal;
+    width: 420px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#HotNewsList .List .date {float:right;margin-left:20px;color:#666;}
+#HotNewsList .List .stat {float:right;margin-left:10px;color:#666;}
+#HotNewsList .List li em {font-style:normal;color:#A00;margin:0 2px;} 
+
+.RightNewsList .List li {overflow:hidden;background:url('/img/a2.gif') no-repeat left center;padding-left:16px;overflow:hidden;line-height:24px;}
+.RightNewsList .List h3 {font-size:10.5pt; float:left; font-weight:normal;}
+.RightNewsList .List .date {float:right;color:#666;font-size:12px;}
+.RightNewsList .List li em {font-style:normal;color:#A00;margin:0 2px;} 
+
+#RecentNewsList {margin-top:20px;background:#fff;}
+#RecentNewsList .List {margin:20px 10px;}
+#RecentNewsList .List li {overflow:hidden;border-bottom:1px solid #eee; margin-bottom:10px; padding-bottom:10px;}
+#RecentNewsList .List li h2 {margin:0 0 5px 0;}
+#RecentNewsList .List li .date {color:#666;}
+#RecentNewsList .List li .detail {color:#666;margin:10px 0;line-height:20px;}
+#RecentNewsList .List li .newsImg {margin:0 0 10px 0; }
+#RecentNewsList .List li .newsImg img {border:1px solid #fff;max-width:600px;}
+#RecentNewsList .List li .newsImg a:hover img {border:1px solid #40AA53;}
+#RecentNewsList .List li .img {float:right;}
+
+#NewsReplies ul {margin:10px 0 0 5px;}
+#NewsReplies ul li {margin-bottom: 10px;border-bottom:1px dashed #ccc; padding-bottom:10px;overflow:hidden;}
+#NewsReplies ul li .content {display:block; margin-bottom:8px;}
+#NewsReplies ul li .outline {color:#888;}
+
+.TOP_OSCER{margin:0 10px 10px 10px;display: inline-block;}
+.TOP_OSCER li{float:left;margin:10px 10px 10px 13px;text-align:center;}
+.TOP_OSCER li a {display: inline-block;width:90px;}
+.TOP_OSCER li img{padding-bottom:5px;width:60px;height:60px;}
+.TOP_OSCER span.name{font-size:12px;display:block;}
+
+#WeeklyProject {}
+#WeeklyProject #ProjectText {font-size:9pt;padding:5px;color:#666;}
+#WeeklyProject #ProjectText img {max-width:265px;margin-left:3px;}
+#WeeklyProject #ProjectLink {text-align:right;}
+#WeeklyProject #ProjectLink a {display:block;font-size:9pt;margin:0 10px 5px 5px;}
+
+.lbox {border:1px solid #ccc;margin-bottom:10px;}
+.lbox strong {display:block;background:#cfc;height:24px;line-height:24px;padding:0 5px;overflow:hidden;}
+.lbox strong a {float:right;margin-right:5px;font-weight:normal;}
+.lbox ul {line-height:20px;margin:5px;}
+.lbox ul li {height:24px;overflow:hidden;}
+.lbox ul li span.date {color:#999;font-size:8pt;float:right;-webkit-text-size-adjust:none;}
+
+.HomeHotNews ul li {height:18px;line-height:18px;overflow:hidden;margin-bottom:5px;}
+.HomeHotNews ul li a {
+	background:url('/img/a2.gif') no-repeat 0 7px;
+	padding-left:13px;	
+}
+
+
+/* 评论相关 */
+.Comments {margin: 20px 0 0 0;}
+.Comments h2 {font-size:11pt;background:#40AA53;color:#fff;line-height:24px;padding:0 5px;}
+.Comments h2 .more {float:right;font-weight:normal;font-size:9pt;color:#fff;}
+.Comments ul {list-style-type:none;padding:0 10px 0 0;}
+.Comments ul li {margin:10px 0;}
+.Comments ul li span.user {background:url('../img/u.gif') no-repeat center left;padding-left:18px;}
+.Comments ul li span.time {font-style:italic;margin-left:10px;}
+.Comments ul li a.delete {font-style:italic;margin-left:10px;}
+.Comments ul li span.content {display:block;margin:10px 0 5px 10px;}
+
+.Comments ul li.row_0 {background:#f6f6f6;}
+.Comments ul li .portrait {width:45px;vertical-align:top;}
+.Comments ul li .portrait img {width:32px;height:32px;border:1px solid #eee;padding:2px;background:#fff;}
+.Comments ul li .portrait a:hover img {border:1px solid #40AA53;}
+.Comments ul li .body {vertical-align:top;font-size:9pt;word-break: break-all;}
+.Comments ul li .body .r_title {font-size:9pt;color:#888;}
+.Comments ul li .body .r_content {margin:5px 0 0 0;color:#00A;overflow: hidden;}
+.Comments .pager {margin:20px 0 10px 5px;}
+.Comments .pager li {margin-right:2px;}
+
+.CommentForm {margin:0 5px;padding-left:45px;}
+.CommentForm form {margin: 20px 0 20px 0; padding:0;}
+.CommentForm form textarea {padding:5px;border:1px solid #999;margin:5px 0}
+.CommentForm form input.SUBMIT {font-size:14px;height:28px;line-height:26px;padding:0 5px;}
+.CommentForm form input.TEXT {padding:2px;border:1px solid #999;}
+</style>
+
+<div id='NewsChannel' class='Channel'>
+<div class='NewsBody'>
+	<div class='News'>
+		<div class="NewsEntity">
+		<!-- google_ad_section_start -->
+		<h1 class='OSCTitle'>超过 130 个你需要了解的 vim 命令</h1>
+		<div class='PubDate'>
+        	<a href="http://my.oschina.net/osadmin">oschina</a>
+        	发布于： 2013年08月13日 (<a href="#comments">74评</a>)				
+        </div>
+		<div class='NewsToolbar'>
+						<style type="text/css">
+#TagsSwitcher{color:#A00;}
+#RecTags,#MyTags{margin:5px 0;}
+#RecTags a.tag{line-height:24px;}
+#favor_form{width:200px;}
+#favor_form p:first-child{margin:5px 0;}
+#favor_form p {color:#666;}
+#favor_form form{min-height:85px;width:200px;}
+#favor_form form ._favor_input{display:block;margin:2px 0;width:199px;}
+#favor_form form ._favor_button{float:left;padding:2px 5px;}
+.favor_ok {text-align:center;font-size:10.5pt;width:199px;height:60px;margin-top:10px;}
+#TagsSwitcher{cursor:pointer;float:right;margin-top:10px;}
+#MyTags{display:none;width:199px;}
+#MyTags a.tag {float:left; background-color: #E0EAF1;border-bottom: 1px solid #3E6D8E;border-right: 1px solid #7F9FB6;color: #3E6D8E;font-size: 8pt;line-height: 16px;margin: 2px 2px 2px 0;padding: 2px 4px;text-decoration: none;white-space: nowrap;}
+#MyTags a.tag:hover{background-color: #3E6D8E;color: #FFF;}
+#toolbar_wrapper{padding:10px 0 5px 0;}
+.toolbar{height:33px;margin:0;padding:0;vertical-align: middle;border:1px solid #CCC;-moz-box-shadow: 0 1px 3px rgba(198,198,198,0.5);-webkit-box-shadow: 0 1px 3px rgba(198,198,198,0.5);box-shadow: 0 1px 3px rgba(198,198,198,0.5);}
+.toolbar a{text-decoration:none;color:black;}
+.share{float:left;margin:0;padding:3px 0 0 0;line-height:25px;width:280px;}
+.share_sina{float:left;background:url(/img/toolbar.gif) -1px -278px no-repeat;padding-left:25px;padding-right:5px;margin-left:3px;}
+.share_qq{float:left;background:url(/img/toolbar.gif) -1px -316px no-repeat;padding-left:25px;padding-right:5px;}
+.options{float:right;margin:3px 5px 0 5px;padding:0;height:30px;line-height:25px;}
+.tool_title {float:left;text-align:center;vertical-align:middle;margin:0 0 0 5px;line-height:33px;}
+.options .tool_title{line-height:30px;}
+.favorite{float:left;}
+.soft_collect{background: url(/img/toolbar.gif) 0 -1px no-repeat; cursor: pointer;padding-left:20px;}
+.soft_collected{background: url(/img/toolbar.gif) 1px -28px no-repeat;}
+.soft_collect_count{font-size:12pt;font-family: Arial;color:#8B0000;margin:0 10px 0 10px;}
+.soft_collect_count:hover {color:red;}
+.soft_used{float:right;margin:0 0 0 20px;padding:0;position: relative;}
+.soft_used_button{z-index: 1; position: relative; cursor: pointer;margin-left:10px;}
+.arrow_holder{background: url(/img/toolbar.gif) -1px -350px no-repeat;}
+a.soft_used_button_n{}
+a.soft_used_button_y{color:#40AA53;font-weight:bold;}
+.soft_used_level{ z-index: 99; position: absolute; top: 28px;left: 0; width: 80px; background-color: #f9f9f9; border: 1px solid #ccc;}
+.soft_used_level li{ line-height: 34px; padding-left: 30px;background: url(/img/toolbar.gif) 3px -390px no-repeat; cursor: pointer;}
+.soft_used_level li.choice{ background-color: #e9e9e9; background-position: 3px -418px}
+.soft_used_level li.level{ background-position: 3px -418px}
+.options .report{float:left;background: url(/img/toolbar.gif) 0 -113px no-repeat;padding:0 10px 0 15px;border-top:1px solid #CCC;border-bottom:1px solid #CCC;border-right:1px solid #CCC;}
+.options .vote{float:right;width:120px;margin:0 0 0 20px;padding:0 5px;border:1px solid #CCC;text-align:center;vertical-align:middle;}
+.options .vote-up-on{float:left;background: url(/img/toolbar.gif) 0 -160px no-repeat;padding-left:15px;}
+.options .vote-up-off{float:left;background: url(/img/toolbar.gif) 0 -137px no-repeat;padding-left:15px;}
+.options .vote-down-on{float:right;background: url(/img/toolbar.gif) 0 -209px no-repeat;padding-left:15px;}
+.options .vote-down-off{float:right;background: url(/img/toolbar.gif) 0 -184px no-repeat;padding-left:15px;}
+.options .vote-count-post{font-size:12pt;font-family: Arial;color: #8B0000;text-align: center;vertical-align:middle;margin:0 5px;}
+.options .news_deliver{float:left;background: url(/img/toolbar.gif) 3px -243px no-repeat;padding:0 10px 0 24px;border-top:1px solid #CCC;border-bottom:1px solid #CCC;border-right:1px solid #CCC;}
+#p_used_count{cursor:pointer;}
+</style>
+<script type='text/javascript'>
+
+$(document).ready(function(){
+	
+	$('#favor_trigger').click(function(){
+			add_to_favor(43167,4);
+		});
+});
+
+var favor_ok = "<p class='favor_ok'>已成功添加到收藏夹<br/><br/> <a href='null/favorites?type=4'>我的收藏夹</a> | <a href='javascript:close_favor()'>关闭</a></p>";
+function delete_favor(obi_id, obj_type){
+	if(!confirm('确定取消收藏？')) return;
+	$.post("/action/favorite/cancel?type="+obj_type+"&id="+obi_id+"&user=${g_user.id}",function(html){
+    	$('#favor_trigger').removeClass('soft_collected');
+		$('#favor_trigger').attr('title','添加到收藏');
+    	$('#p_favor_count').html('+'+html);
+		$('#favor_trigger').unbind('click');
+		$('#favor_trigger').click(function(){add_to_favor(43167,4);});
+	});
+}
+function add_to_favor(obj_id, obj_type){
+	if(confirm('必须登录后才能收藏，是否现在登录？')){
+		location.href="http://www.oschina.net/home/login?goto_page="+encodeURIComponent(location.href);
+	}
+}
+function close_favor(elem_id){
+    $('#favor_trigger').poshytip('destroy');
+}
+function setTag(tv){
+	var t = $("._favor_input");
+	var value = t.val();
+	var tags = value.replace(/，/ig,',').split(',');
+	var exist = false;
+	value = $.map(tags,function(v,i){
+		if($.trim(tv) == $.trim(v)){
+			exist = true;
+			return undefined;
+		}
+		return v;
+	}).join(',');
+	if(exist){
+		t.val(value);
+		return;
+	}
+	if(value!="")
+		t.val(value+","+tv);
+	else
+		t.val(tv)
+}
+</script>
+<div id='toolbar_wrapper'>
+	<div class='toolbar'>
+	<div class="tool_title"><b>分享到&nbsp;</b></div>
+	<div class='share'><a class="share_sina" title="分享到新浪微博" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=858381728',u=z||d.location,p=['&url=',e(u),'&title=',e(t||d.title),'&source=',e(r),'&sourceUrl=',e(l),'&content=',c||'gb2312','&pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','','超过 130 个你需要了解的 vim 命令: ','','utf-8'));">新浪微博</a><a class="share_qq" title="分享到腾讯微博" href="javascript:(function(){window.open('http://v.t.qq.com/share/share.php?url='+encodeURIComponent(document.location)+'&amp;appkey=96f54f97c4de46e393c4835a266207f4&amp;site=&amp;title='+encodeURIComponent(document.title)+encodeURIComponent(': '),'', 'width=450, height=400, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no');}())">腾讯微博</a></div>
+	<div class='options'>
+				<div class='favorite'>
+		<a title="收藏此新闻" id="favor_trigger" class="soft_collect " href="javascript:;">收藏</a><span class="soft_collect_count" id="p_favor_count">+867</span>
+		</div>
+					</div>
+	</div>
+</div>		</div>
+		<div id="OSChina_News_43167" class='Body NewsContent TextContent'>
+							<img id='NewsPic' src='/img/logo/Vim_logo.gif' />
+						<p>从 1970 年开始，vi 和 vim 就成为了程序员最喜爱的文本编辑器之一。5年前，我写了一个问自己名为 &ldquo;每个程序员都应该知道的 100 个 vim 命令&rdquo; 这次算是之前那篇文章的改进版，希望你会喜欢。</p>
+<h2>基础</h2>
+<table border="1" width="100%">
+<tbody>
+<tr>
+<td class="tab_bold">:e filename</td>
+<td>Open <em>filename</em> for edition</td>
+</tr>
+<tr>
+<td class="tab_bold">:w</td>
+<td>Save file</td>
+</tr>
+<tr>
+<td class="tab_bold">:q</td>
+<td>Exit Vim</td>
+</tr>
+<tr>
+<td class="tab_bold">:q!</td>
+<td>Quit without saving</td>
+</tr>
+<tr>
+<td class="tab_bold">:x</td>
+<td>Write file (if changes has been made) and exit</td>
+</tr>
+<tr>
+<td class="tab_bold">:sav filename</td>
+<td>Saves file as <em>filename</em></td>
+</tr>
+<tr>
+<td class="tab_bold">.</td>
+<td>Repeats the last change made in normal mode</td>
+</tr>
+<tr>
+<td class="tab_bold">5.</td>
+<td>Repeats 5 times the last change made in normal mode</td>
+</tr>
+</tbody>
+</table>
+<h2>在文件中移动</h2>
+<table border="1" width="100%">
+<tbody>
+<tr>
+<td class="tab_bold">k or Up Arrow</td>
+<td>move the cursor up one line</td>
+</tr>
+<tr>
+<td class="tab_bold">j or Down Arrow</td>
+<td>move the cursor down one line</td>
+</tr>
+<tr>
+<td class="tab_bold">e</td>
+<td>move the cursor to the end of the word</td>
+</tr>
+<tr>
+<td class="tab_bold">b</td>
+<td>move the cursor to the begining of the word</td>
+</tr>
+<tr>
+<td class="tab_bold">0</td>
+<td>move the cursor to the begining of the line</td>
+</tr>
+<tr>
+<td class="tab_bold">G</td>
+<td>move the cursor to the end of the line</td>
+</tr>
+<tr>
+<td class="tab_bold">gg</td>
+<td>move the cursor to the begining of the file</td>
+</tr>
+<tr>
+<td class="tab_bold">L</td>
+<td>move the cursor to the end of the file</td>
+</tr>
+<tr>
+<td class="tab_bold">:59</td>
+<td>move cursor to line <em>59</em>. Replace <em>59</em> by the desired line number.</td>
+</tr>
+<tr>
+<td class="tab_bold">20|</td>
+<td>move cursor to column <em>20</em>.</td>
+</tr>
+<tr>
+<td class="tab_bold">%</td>
+<td>Move cursor to matching parenthesis</td>
+</tr>
+<tr>
+<td class="tab_bold">[[</td>
+<td>Jump to function start</td>
+</tr>
+<tr>
+<td class="tab_bold">[{</td>
+<td>Jump to block start</td>
+</tr>
+</tbody>
+</table>
+<h2>剪切、复制和粘贴</h2>
+<table border="1" width="100%">
+<tbody>
+<tr>
+<td class="tab_bold">y</td>
+<td>Copy the selected text to clipboard</td>
+</tr>
+<tr>
+<td class="tab_bold">p</td>
+<td>Paste clipboard contents</td>
+</tr>
+<tr>
+<td class="tab_bold">dd</td>
+<td>Cut current line</td>
+</tr>
+<tr>
+<td class="tab_bold">yy</td>
+<td>Copy current line</td>
+</tr>
+<tr>
+<td class="tab_bold">y$</td>
+<td>Copy to end of line</td>
+</tr>
+<tr>
+<td class="tab_bold">D</td>
+<td>Cut to end of line</td>
+</tr>
+</tbody>
+</table>
+<h2>搜索</h2>
+<table border="1" width="100%">
+<tbody>
+<tr>
+<td class="tab_bold">/word</td>
+<td>Search <em>word</em> from top to bottom</td>
+</tr>
+<tr>
+<td class="tab_bold">?word</td>
+<td>Search <em>word</em> from bottom to top</td>
+</tr>
+<tr>
+<td class="tab_bold">*</td>
+<td>Search the word under cursor</td>
+</tr>
+<tr>
+<td class="tab_bold">/\cstring</td>
+<td>Search <em>STRING</em> or <em>string</em>, case insensitive</td>
+</tr>
+<tr>
+<td class="tab_bold">/jo[ha]n</td>
+<td>Search <em>john</em> or <em>joan</em></td>
+</tr>
+<tr>
+<td class="tab_bold">/\&lt; the</td>
+<td>Search the, theatre or <em>then</em></td>
+</tr>
+<tr>
+<td class="tab_bold">/the\&gt;</td>
+<td>Search <em>the</em> or <em>breathe</em></td>
+</tr>
+<tr>
+<td class="tab_bold">/\&lt; the\&gt;</td>
+<td>Search <em>the</em></td>
+</tr>
+<tr>
+<td class="tab_bold">/\&lt; &brvbar;.\&gt;</td>
+<td>Search all words of 4 letters</td>
+</tr>
+<tr>
+<td class="tab_bold">/\/</td>
+<td>Search <em>fred</em> but not <em>alfred</em> or <em>frederick</em></td>
+</tr>
+<tr>
+<td class="tab_bold">/fred\|joe</td>
+<td>Search <em>fred</em> or <em>joe</em></td>
+</tr>
+<tr>
+<td class="tab_bold">/\&lt;\d\d\d\d\&gt;</td>
+<td>Search exactly 4 digits</td>
+</tr>
+<tr>
+<td class="tab_bold">/^\n\{3}</td>
+<td>Find 3 empty lines</td>
+</tr>
+<tr>
+<td class="tab_bold">:bufdo /searchstr/</td>
+<td>Search in all open files</td>
+</tr>
+<tr>
+<td class="tab_bold">bufdo %s/something/somethingelse/g</td>
+<td>Search <em>something</em> in all the open buffers and replace it with <em>somethingelse</em></td>
+</tr>
+</tbody>
+</table>
+<h2>替换</h2>
+<table border="1" width="100%">
+<tbody>
+<tr>
+<td class="tab_bold">:%s/old/new/g</td>
+<td>Replace all occurences of <em>old</em> by <em>new</em> in file</td>
+</tr>
+<tr>
+<td class="tab_bold">:%s/onward/forward/gi</td>
+<td>Replace onward by forward, case unsensitive</td>
+</tr>
+<tr>
+<td class="tab_bold">:%s/old/new/gc</td>
+<td>Replace all occurences with confirmation</td>
+</tr>
+<tr>
+<td class="tab_bold">:2,35s/old/new/g</td>
+<td>Replace all occurences between lines 2 and 35</td>
+</tr>
+<tr>
+<td class="tab_bold">:5,$s/old/new/g</td>
+<td>Replace all occurences from line 5 to EOF</td>
+</tr>
+<tr>
+<td class="tab_bold">:%s/^/hello/g</td>
+<td>Replace the begining of each line by <em>hello</em></td>
+</tr>
+<tr>
+<td class="tab_bold">:%s/$/Harry/g</td>
+<td>Replace the end of each line by <em>Harry</em></td>
+</tr>
+<tr>
+<td class="tab_bold">:%s/onward/forward/gi</td>
+<td>Replace <em>onward</em> by <em>forward</em>, case unsensitive</td>
+</tr>
+<tr>
+<td class="tab_bold">:%s/ *$//g</td>
+<td>Delete all white spaces</td>
+</tr>
+<tr>
+<td class="tab_bold">:g/string/d</td>
+<td>Delete all lines containing <em>string</em></td>
+</tr>
+<tr>
+<td class="tab_bold">:v/string/d</td>
+<td>Delete all lines containing which didn&rsquo;t contain <em>string</em></td>
+</tr>
+<tr>
+<td class="tab_bold">:s/Bill/Steve/</td>
+<td>Replace the first occurence of <em>Bill</em> by <em>Steve</em> in current line</td>
+</tr>
+<tr>
+<td class="tab_bold">:s/Bill/Steve/g</td>
+<td>Replace <em>Bill</em> by <em>Steve</em> in current line</td>
+</tr>
+<tr>
+<td class="tab_bold">:%s/Bill/Steve/g</td>
+<td>Replace <em>Bill</em> by <em>Steve</em> in all the file</td>
+</tr>
+<tr>
+<td class="tab_bold">:%s/^M//g</td>
+<td>Delete DOS carriage returns (^M)</td>
+</tr>
+<tr>
+<td class="tab_bold">:%s/\r/\r/g</td>
+<td>Transform DOS carriage returns in returns</td>
+</tr>
+<tr>
+<td class="tab_bold">:%s#&lt;[^&gt;]\+&gt;##g</td>
+<td>Delete HTML tags but keeps text</td>
+</tr>
+<tr>
+<td class="tab_bold">:%s/^\(.*\)\n\1$/\1/</td>
+<td>Delete lines which appears twice</td>
+</tr>
+<tr>
+<td class="tab_bold">Ctrl+a</td>
+<td>Increment number under the cursor</td>
+</tr>
+<tr>
+<td class="tab_bold">Ctrl+x</td>
+<td>Decrement number under cursor</td>
+</tr>
+<tr>
+<td class="tab_bold">ggVGg?</td>
+<td>Change text to Rot13</td>
+</tr>
+</tbody>
+</table>
+<h2 id="casse">大小写</h2>
+<table border="1" width="100%">
+<tbody>
+<tr>
+<td class="tab_bold">Vu</td>
+<td>Lowercase line</td>
+</tr>
+<tr>
+<td class="tab_bold">VU</td>
+<td>Uppercase line</td>
+</tr>
+<tr>
+<td class="tab_bold">g~~</td>
+<td>Invert case</td>
+</tr>
+<tr>
+<td class="tab_bold">vEU</td>
+<td>Switch word to uppercase</td>
+</tr>
+<tr>
+<td class="tab_bold">vE~</td>
+<td>Modify word case</td>
+</tr>
+<tr>
+<td class="tab_bold">ggguG</td>
+<td>Set all text to lowercase</td>
+</tr>
+<tr>
+<td class="tab_bold">gggUG</td>
+<td>Set all text to uppercase</td>
+</tr>
+<tr>
+<td class="tab_bold">:set ignorecase</td>
+<td>Ignore case in searches</td>
+</tr>
+<tr>
+<td class="tab_bold">:set smartcase</td>
+<td>Ignore case in searches excepted if an uppercase letter is used</td>
+</tr>
+<tr>
+<td class="tab_bold">:%s/\&lt;./\u&amp;/g</td>
+<td>Sets first letter of each word to uppercase</td>
+</tr>
+<tr>
+<td class="tab_bold">:%s/\&lt;./\l&amp;/g</td>
+<td>Sets first letter of each word to lowercase</td>
+</tr>
+<tr>
+<td class="tab_bold">:%s/.*/\u&amp;</td>
+<td>Sets first letter of each line to uppercase</td>
+</tr>
+<tr>
+<td class="tab_bold">:%s/.*/\l&amp;</td>
+<td>Sets first letter of each line to lowercase</td>
+</tr>
+</tbody>
+</table>
+<h2>读写文件</h2>
+<table border="1" width="100%">
+<tbody>
+<tr>
+<td class="tab_bold">:1,10 w outfile</td>
+<td>Saves lines 1 to 10 in <em>outfile</em></td>
+</tr>
+<tr>
+<td class="tab_bold">:1,10 w &gt;&gt; outfile</td>
+<td>Appends lines 1 to 10 to <em>outfile</em></td>
+</tr>
+<tr>
+<td class="tab_bold">:r infile</td>
+<td>Insert the content of <em>infile</em></td>
+</tr>
+<tr>
+<td class="tab_bold">:23r infile</td>
+<td>Insert the content of <em>infile</em> under line 23</td>
+</tr>
+</tbody>
+</table>
+<h2 id="explorateur">文件浏览器</h2>
+<table border="1" width="100%">
+<tbody>
+<tr>
+<td class="tab_bold">:e .</td>
+<td>Open integrated file explorer</td>
+</tr>
+<tr>
+<td class="tab_bold">:Sex</td>
+<td>Split window and open integrated file explorer</td>
+</tr>
+<tr>
+<td class="tab_bold">:Sex!</td>
+<td>Same as <em>:Sex</em> but split window vertically</td>
+</tr>
+<tr>
+<td class="tab_bold">:browse e</td>
+<td>Graphical file explorer</td>
+</tr>
+<tr>
+<td class="tab_bold">:ls</td>
+<td>List buffers</td>
+</tr>
+<tr>
+<td class="tab_bold">:cd ..</td>
+<td>Move to parent directory</td>
+</tr>
+<tr>
+<td class="tab_bold">:args</td>
+<td>List files</td>
+</tr>
+<tr>
+<td class="tab_bold">:args *.php</td>
+<td>Open file list</td>
+</tr>
+<tr>
+<td class="tab_bold">:grep expression *.php</td>
+<td>Returns a list of .php files contening <em>expression</em></td>
+</tr>
+<tr>
+<td class="tab_bold">gf</td>
+<td>Open file name under cursor</td>
+</tr>
+</tbody>
+</table>
+<h2 id="unix">和 Unix 系统交互</h2>
+<table border="1" width="100%">
+<tbody>
+<tr>
+<td class="tab_bold">:!pwd</td>
+<td>Execute the <em>pwd</em> unix command, then returns to Vi</td>
+</tr>
+<tr>
+<td class="tab_bold">!!pwd</td>
+<td>Execute the <em>pwd</em> unix command and insert output in file</td>
+</tr>
+<tr>
+<td class="tab_bold">:sh</td>
+<td>Temporary returns to Unix</td>
+</tr>
+<tr>
+<td class="tab_bold">$exit</td>
+<td>Retourns to Vi</td>
+</tr>
+</tbody>
+</table>
+<h2 id="alignement">对齐</h2>
+<table border="1" width="100%">
+<tbody>
+<tr>
+<td class="tab_bold">:%!fmt</td>
+<td>Align all lines</td>
+</tr>
+<tr>
+<td class="tab_bold">!}fmt</td>
+<td>Align all lines at the current position</td>
+</tr>
+<tr>
+<td class="tab_bold">5!!fmt</td>
+<td>Align the next 5 lines</td>
+</tr>
+</tbody>
+</table>
+<h2 id="onglets">Tabs/Windows</h2>
+<table border="1" width="100%">
+<tbody>
+<tr>
+<td class="tab_bold">:tabnew</td>
+<td>Creates a new tab</td>
+</tr>
+<tr>
+<td class="tab_bold">gt</td>
+<td>Show next tab</td>
+</tr>
+<tr>
+<td class="tab_bold">:tabfirst</td>
+<td>Show first tab</td>
+</tr>
+<tr>
+<td class="tab_bold">:tablast</td>
+<td>Show last tab</td>
+</tr>
+<tr>
+<td class="tab_bold">:tabm n(position)</td>
+<td>Rearrange tabs</td>
+</tr>
+<tr>
+<td class="tab_bold">:tabdo %s/foo/bar/g</td>
+<td>Execute a command in all tabs</td>
+</tr>
+<tr>
+<td class="tab_bold">:tab ball</td>
+<td>Puts all open files in tabs</td>
+</tr>
+<tr>
+<td class="tab_bold">:new abc.txt</td>
+<td>Edit <em>abc.txt</em> in new window</td>
+</tr>
+</tbody>
+</table>
+<h2 id="partage">分屏显示</h2>
+<table border="1" width="100%">
+<tbody>
+<tr>
+<td class="tab_bold">:e filename</td>
+<td>Edit <em>filename</em> in current window</td>
+</tr>
+<tr>
+<td class="tab_bold">:split filename</td>
+<td>Split the window and open <em>filename</em></td>
+</tr>
+<tr>
+<td class="tab_bold">ctrl-w up arrow</td>
+<td>Puts cursor in top window</td>
+</tr>
+<tr>
+<td class="tab_bold">ctrl-w ctrl-w</td>
+<td>Puts cursor in next window</td>
+</tr>
+<tr>
+<td class="tab_bold">ctrl-w_</td>
+<td>Maximize current window vertically</td>
+</tr>
+<tr>
+<td class="tab_bold">ctrl-w|</td>
+<td>Maximize current window horizontally</td>
+</tr>
+<tr>
+<td class="tab_bold">ctrl-w=</td>
+<td>Gives the same size to all windows</td>
+</tr>
+<tr>
+<td class="tab_bold">10 ctrl-w+</td>
+<td>Add 10 lines to current window</td>
+</tr>
+<tr>
+<td class="tab_bold">:vsplit file</td>
+<td>Split window vertically</td>
+</tr>
+<tr>
+<td class="tab_bold">:sview file</td>
+<td>Same as <strong>:split</strong> in readonly mode</td>
+</tr>
+<tr>
+<td class="tab_bold">:hide</td>
+<td>Close current window</td>
+</tr>
+<tr>
+<td class="tab_bold">:&shy;nly</td>
+<td>Close all windows, excepted current</td>
+</tr>
+<tr>
+<td class="tab_bold">:b 2</td>
+<td>Open #2 in this window</td>
+</tr>
+</tbody>
+</table>
+<h2 id="completion">自动完成</h2>
+<table border="1" width="100%">
+<tbody>
+<tr>
+<td class="tab_bold">Ctrl+n Ctrl+p (in insert mode)</td>
+<td>Complete word</td>
+</tr>
+<tr>
+<td class="tab_bold">Ctrl+x Ctrl+l</td>
+<td>Complete line</td>
+</tr>
+<tr>
+<td class="tab_bold">:set dictionary=dict</td>
+<td>Define <em>dict</em> as a dictionnary</td>
+</tr>
+<tr>
+<td class="tab_bold">Ctrl+x Ctrl+k</td>
+<td>Complete with dictionnary</td>
+</tr>
+</tbody>
+</table>
+<h2 id="marqueurs">Marks</h2>
+<table border="1" width="100%">
+<tbody>
+<tr>
+<td class="tab_bold">m {a-z}</td>
+<td>Marks current position as <em>{a-z}</em></td>
+</tr>
+<tr>
+<td class="tab_bold">' {a-z}</td>
+<td>Move to position <em>{a-z}</em></td>
+</tr>
+<tr>
+<td class="tab_bold">''</td>
+<td>Move to previous position</td>
+</tr>
+</tbody>
+</table>
+<h2 id="abbr">缩写</h2>
+<table border="1" width="100%">
+<tbody>
+<tr>
+<td class="tab_bold">:ab mail mail@provider.org</td>
+<td>Define <em>mail</em> as abbreviation of <em>mail@provider.org</em></td>
+</tr>
+</tbody>
+</table>
+<h2 id="indentation">文本缩进</h2>
+<table border="1" width="100%">
+<tbody>
+<tr>
+<td class="tab_bold">:set autoindent</td>
+<td>Turn on auto-indent</td>
+</tr>
+<tr>
+<td class="tab_bold">:set smartindent</td>
+<td>Turn on intelligent auto-indent</td>
+</tr>
+<tr>
+<td class="tab_bold">:set shiftwidth=4</td>
+<td>Defines 4 spaces as indent size</td>
+</tr>
+<tr>
+<td class="tab_bold">ctrl-t, ctrl-d</td>
+<td>Indent/un-indent in insert mode</td>
+</tr>
+<tr>
+<td class="tab_bold">&gt;&gt;</td>
+<td>Indent</td>
+</tr>
+<tr>
+<td class="tab_bold">&lt;&lt;</td>
+<td>Un-indent</td>
+</tr>
+<tr>
+<td class="tab_bold">=%</td>
+<td>Indent the code between parenthesis</td>
+</tr>
+<tr>
+<td class="tab_bold">1GVG=</td>
+<td>Indent the whole file</td>
+</tr>
+</tbody>
+</table>
+<h2 id="coloration">语法高亮</h2>
+<table border="1" width="100%">
+<tbody>
+<tr>
+<td class="tab_bold">:syntax on</td>
+<td>Turn on syntax highlighting</td>
+</tr>
+<tr>
+<td class="tab_bold">:syntax off</td>
+<td>Turn off syntax highlighting</td>
+</tr>
+<tr>
+<td class="tab_bold">:set syntax=perl</td>
+<td>Force syntax highlighting</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p>via <a href="http://www.catswhocode.com/blog/130-essential-vim-commands" target="_blank">catswhocode</a></p>
+		</div>
+		<div class='NewsLinks'>						
+            			<p class='ProjectOfNews' style='text-indent:0em;'>
+				Vim 的详细介绍：<a href="/p/vim">请点这里</a><br/>
+				Vim 的下载地址：<a href="/action/project/go?id=1393&p=download">请点这里</a>				<br/>想通过手机客户端访问开源中国：<a href='http://www.oschina.net/app' target='_blank'>请点这里</a>
+			</p>
+					</div>
+        <div class='copyright'>
+        		本站文章除注明转载外，均为本站原创或编译<br/>
+		欢迎任何形式的转载，但请务必注明出处，尊重他人劳动共创开源社区<br/>
+		转载请注明：文章转载自：<strong>开源中国社区</strong> [<a href="http://www.oschina.net/">http://www.oschina.net</a>]<br />
+		本文标题：超过 130 个你需要了解的 vim 命令<br/>
+		本文地址：<a href="http://www.oschina.net/news/43167/130-essential-vim-commands">http://www.oschina.net/news/43167/130-essential-vim-commands</a><br/>
+		        </div>
+				<div class="NewsPrevAndNext">
+									<strong>旧一篇：<a href="/news/43166/5-things-ios-7-developer-should-know">iOS 7 应用开发者需要注意的五件事</a> <span>9天前</span></strong><br/>
+									<strong>新一篇：<a href="/news/43168/zperfmon-zyngas-server-performance-analysis-tool-is-now-open">Zynga 开源其服务器性能监控分析工具 zPerfmon</a> <span>9天前</span></strong>
+					</div>
+		
+		<table width='100%'><tr>
+				        <td class='RelatedNews' valign='top'>
+            <strong>相关资讯</strong>
+        	<ul>
+        	        	<li><a href="http://www.oschina.net/translate/learn-vim-progressively" title="Vim 学习指南 ">Vim 学习指南 </a><span class='date'>2天前</span></li>        	        	<li><a href="/news/43085/vim-7-4-final" title="VIM 7.4 正式版发布，文本编辑器标准">VIM 7.4 正式版发布，文本编辑器标准...</a><span class='date'>11天前</span></li>        	        	<li><a href="/news/42079/vim-7-4-a" title="Vim 7.4a 发布，全新更快的正则表达式引擎">Vim 7.4a 发布，全新更快的正则表达...</a><span class='date'>1个月前</span></li>        	        	<li><a href="http://my.oschina.net/moyanxiao/blog/130681" title="【每日一博】用 VIM 写 OSCHINA 的博客">【每日一博】用 VIM 写 OSCHINA 的博...</a><span class='date'>3个月前</span></li>        	        	<li><a href="/news/40373/vim-7-4-plan" title="Vim 7.4 计划已公布，具体发布时间待定">Vim 7.4 计划已公布，具体发布时间待...</a><span class='date'>3个月前</span></li>        	        	<li><a href="/news/36698/vim-pal-1-2-0" title="VIM Pal 1.2.0 发布，VIM 文件树列表">VIM Pal 1.2.0 发布，VIM 文件树列表...</a><span class='date'>7个月前</span></li>        	        	<li><a href="/news/36185/vim-pal-1-1-0" title="VIM Pal 1.1.0 发布，VIM 文件树列表">VIM Pal 1.1.0 发布，VIM 文件树列表...</a><span class='date'>7个月前</span></li>        	        	<li><a href="/p/vmail" title="Vmail —— 在 vim 中访问 gmail 邮箱">Vmail —— 在 vim 中访问 gmail 邮...</a><span class='date'>8个月前</span></li>        	        	<li><a href="/news/34885/vrapper-0-26-0" title="Vrapper 0.26.0 发布，Eclipse 的 vim 插件">Vrapper 0.26.0 发布，Eclipse 的 ...</a><span class='date'>9个月前</span></li>        	        	<li><a href="/news/32728/eclim-1-7-9" title="Eclim 1.7.9 发布，Eclipse 的 vim 插件">Eclim 1.7.9 发布，Eclipse 的 vim ...</a><span class='date'>11个月前</span></li>        	<div class='clear'></div>
+        	</ul>
+    		<div class='clear'></div>
+        </td>
+										        <td class='RelatedThreads' valign='top'>
+            <strong>相关讨论话题</strong>
+        	<ul>
+        	        	<li><a href="http://www.oschina.net/question/927677_122667" title="linux下没有好的编辑器啊，我做前端开发，主要是js，html，css，php，请大家推荐些vim插件和设置吧">linux下没有好的编辑器啊，我做前端...</a><span class='date'>28分钟前</span></li>        	        	<li><a href="http://www.oschina.net/question/1037950_110388" title="7zip被封 vim被封">7zip被封 vim被封</a><span class='date'>3个月前</span></li>        	        	<li><a href="http://www.oschina.net/question/1167335_121698" title="我的vi的经历和一些建议">我的vi的经历和一些建议</a><span class='date'>8天前</span></li>        	        	<li><a href="http://www.oschina.net/question/54100_30174" title="程序员应该知道的100个vim命令">程序员应该知道的100个vim命令</a><span class='date'>1年前</span></li>        	        	<li><a href="http://www.oschina.net/question/916892_120684" title="netbeans jvi插件怎么启用">netbeans jvi插件怎么启用</a><span class='date'>16天前</span></li>        	        	<li><a href="http://www.oschina.net/question/1247279_121484" title="VIM 遇到问题需要帮助">VIM 遇到问题需要帮助</a><span class='date'>9天前</span></li>        	        	<li><a href="http://www.oschina.net/question/107334_15944" title="谁知道有关国内 vim的教程视频">谁知道有关国内 vim的教程视频</a><span class='date'>2年前</span></li>        	        	<li><a href="http://www.oschina.net/question/1161916_114201" title="Vim函数跳转定义无效">Vim函数跳转定义无效</a><span class='date'>2个月前</span></li>        	        	<li><a href="http://www.oschina.net/question/817537_117498" title="如何在vim中，删除一列数据 ？ ">如何在vim中，删除一列数据 ？ </a><span class='date'>1个月前</span></li>        	        	<li><a href="http://www.oschina.net/question/552516_117050" title="vim移动时会留下残影，有人知道是哪里设置的问题么">vim移动时会留下残影，有人知道是哪...</a><span class='date'>1个月前</span></li>        	        	</ul>
+        </td>
+						</tr></table>
+                    <div id="upprev_box" class="lbox HomeHotNews"  style="position: fixed; bottom:0; right:-400px; width:380px; height:100px;background-color:#FFFFFF;z-index: 1000">
+                <strong><a href='#' id='upprev_close' style='float:right;'>X</a>你也许会喜欢</strong>
+                <ul class='SimpleNewsList'> <li><a href="http://www.oschina.net/translate/learn-vim-progressively" title="Vim 学习指南 ">Vim 学习指南 </a><span class='date'>2天前</span></li> <li><a href="/news/43085/vim-7-4-final" title="VIM 7.4 正式版发布，文本编辑器标准">VIM 7.4 正式版发布，文本编辑器标准</a><span class='date'>11天前</span></li> <li><a href="/news/42079/vim-7-4-a" title="Vim 7.4a 发布，全新更快的正则表达式引擎">Vim 7.4a 发布，全新更快的正则表达式引擎</a><span class='date'>1个月前</span></li><div class='clear'></div></ul>
+                <div class='clear'></div>
+            </div>
+        				</div>
+		        <div class="Comments" id="userComments" >
+        	<h2>
+				<a name="comments" href="#" class="more">回到顶部</a>
+				<a href="#CommentForm" class="more" style='margin-right:10px;color:#ff3;'>发表评论</a>
+				网友评论，共 74 条
+			</h2>
+			        	        	<ul>
+        	        	<li id="cmt_43167_923224_275270160" class='row_1'>
+		<table width='100%'><tr>
+	<td class='portrait'>
+		<a href="http://my.oschina.net/simon203" name="rpl_275270160" class="ShowUserOutline"><img src="http://static.oschina.net/uploads/user/461/923224_50.jpg?t=1357456667000" align="absmiddle" alt="Simon253" title="Simon253" class="SmallPortrait" user="923224"/></a>			
+	</td>
+	<td class='body'>
+		<div class='r_title'>
+			1楼：<b>Simon253</b>  发表于 2013-08-13 07:40 			<span class='opts'>
+												<a href="javascript:ReplyInline(43167,923224,275270160)">回复此评论</a>
+							</span>
+		</div>
+		<div class='r_content TextContent'>大赞!</div>
+		<div id='inline_reply_of_43167_923224_275270160' class='inline_reply'></div>
+    </td></tr></table>
+</li>
+        	        	<li id="cmt_43167_870846_275270181" class='row_0'>
+		<table width='100%'><tr>
+	<td class='portrait'>
+		<a href="http://my.oschina.net/pangyangyang" name="rpl_275270181" class="ShowUserOutline"><img src="http://static.oschina.net/uploads/user/435/870846_50.jpg?t=1370440850000" align="absmiddle" alt="gangzz" title="gangzz" class="SmallPortrait" user="870846"/></a>			
+	</td>
+	<td class='body'>
+		<div class='r_title'>
+			2楼：<b>gangzz</b>  发表于 2013-08-13 07:41 			<span class='opts'>
+												<a href="javascript:ReplyInline(43167,870846,275270181)">回复此评论</a>
+							</span>
+		</div>
+		<div class='r_content TextContent'>必须收了！</div>
+		<div id='inline_reply_of_43167_870846_275270181' class='inline_reply'></div>
+    </td></tr></table>
+</li>
+        	        	<li id="cmt_43167_161121_275270186" class='row_1'>
+		<table width='100%'><tr>
+	<td class='portrait'>
+		<a href="http://my.oschina.net/bery" name="rpl_275270186" class="ShowUserOutline"><img src="http://static.oschina.net/uploads/user/80/161121_50.jpg?t=1376401495000" align="absmiddle" alt="Bery" title="Bery" class="SmallPortrait" user="161121"/></a>			
+	</td>
+	<td class='body'>
+		<div class='r_title'>
+			3楼：<b>Bery</b>  发表于 2013-08-13 07:42 			<span class='opts'>
+												<a href="javascript:ReplyInline(43167,161121,275270186)">回复此评论</a>
+							</span>
+		</div>
+		<div class='r_content TextContent'>日后再看</div>
+		<div id='inline_reply_of_43167_161121_275270186' class='inline_reply'></div>
+    </td></tr></table>
+</li>
+        	        	<li id="cmt_43167_114991_275270224" class='row_0'>
+		<table width='100%'><tr>
+	<td class='portrait'>
+		<a href="http://my.oschina.net/windmap" name="rpl_275270224" class="ShowUserOutline"><img src="http://static.oschina.net/uploads/user/57/114991_50.jpeg?t=1373581024000" align="absmiddle" alt="上海白痴" title="上海白痴" class="SmallPortrait" user="114991"/></a>			
+	</td>
+	<td class='body'>
+		<div class='r_title'>
+			4楼：<b>上海白痴</b>  发表于 2013-08-13 07:45 			<span class='opts'>
+												<a href="javascript:ReplyInline(43167,114991,275270224)">回复此评论</a>
+							</span>
+		</div>
+		<div class='r_content TextContent'>目前还在增删改查的水平</div>
+		<div id='inline_reply_of_43167_114991_275270224' class='inline_reply'></div>
+    </td></tr></table>
+</li>
+        	        	<li id="cmt_43167_1055023_275270435" class='row_1'>
+		<table width='100%'><tr>
+	<td class='portrait'>
+		<a href="http://my.oschina.net/jemyzhang" name="rpl_275270435" class="ShowUserOutline"><img src="http://static.oschina.net/uploads/user/527/1055023_50.jpg?t=1368950415000" align="absmiddle" alt="JEMYZHANG" title="JEMYZHANG" class="SmallPortrait" user="1055023"/></a>			
+	</td>
+	<td class='body'>
+		<div class='r_title'>
+			5楼：<b>JEMYZHANG</b> 来自 <a href="http://www.oschina.net/mobile" target="_blank">Android</a> 发表于 2013-08-13 08:02 			<span class='opts'>
+												<a href="javascript:ReplyInline(43167,1055023,275270435)">回复此评论</a>
+							</span>
+		</div>
+		<div class='r_content TextContent'>G和L似乎写反了 </div>
+		<div id='inline_reply_of_43167_1055023_275270435' class='inline_reply'></div>
+    </td></tr></table>
+</li>
+        	        	<li id="cmt_43167_1162408_275270555" class='row_0'>
+		<table width='100%'><tr>
+	<td class='portrait'>
+		<a href="http://my.oschina.net/u/1162408" name="rpl_275270555" class="ShowUserOutline"><img src="http://static.oschina.net/uploads/user/581/1162408_50.jpg?t=1370010954000" align="absmiddle" alt="番茄12" title="番茄12" class="SmallPortrait" user="1162408"/></a>			
+	</td>
+	<td class='body'>
+		<div class='r_title'>
+			6楼：<b>番茄12</b>  发表于 2013-08-13 08:12 			<span class='opts'>
+												<a href="javascript:ReplyInline(43167,1162408,275270555)">回复此评论</a>
+							</span>
+		</div>
+		<div class='r_content TextContent'>收了</div>
+		<div id='inline_reply_of_43167_1162408_275270555' class='inline_reply'></div>
+    </td></tr></table>
+</li>
+        	        	<li id="cmt_43167_563231_275270579" class='row_1'>
+		<table width='100%'><tr>
+	<td class='portrait'>
+		<a href="http://my.oschina.net/u/563231" name="rpl_275270579" class="ShowUserOutline"><img src="http://static.oschina.net/uploads/user/281/563231_50.jpg?t=1375407457000" align="absmiddle" alt="苏生不惑" title="苏生不惑" class="SmallPortrait" user="563231"/></a>			
+	</td>
+	<td class='body'>
+		<div class='r_title'>
+			7楼：<b>苏生不惑</b>  发表于 2013-08-13 08:14 			<span class='opts'>
+												<a href="javascript:ReplyInline(43167,563231,275270579)">回复此评论</a>
+							</span>
+		</div>
+		<div class='r_content TextContent'>好文</div>
+		<div id='inline_reply_of_43167_563231_275270579' class='inline_reply'></div>
+    </td></tr></table>
+</li>
+        	        	<li id="cmt_43167_207147_275270596" class='row_0'>
+		<table width='100%'><tr>
+	<td class='portrait'>
+		<a href="http://my.oschina.net/pyplus" name="rpl_275270596" class="ShowUserOutline"><img src="http://static.oschina.net/uploads/user/103/207147_50.jpg" align="absmiddle" alt="PYPlus" title="PYPlus" class="SmallPortrait" user="207147"/></a>			
+	</td>
+	<td class='body'>
+		<div class='r_title'>
+			8楼：<b>PYPlus</b>  发表于 2013-08-13 08:16 			<span class='opts'>
+												<a href="javascript:ReplyInline(43167,207147,275270596)">回复此评论</a>
+							</span>
+		</div>
+		<div class='r_content TextContent'>我很讨厌这种贴命令的文章，</div>
+		<div id='inline_reply_of_43167_207147_275270596' class='inline_reply'></div>
+    </td></tr></table>
+</li>
+        	        	<li id="cmt_43167_1044086_275270801" class='row_1'>
+		<table width='100%'><tr>
+	<td class='portrait'>
+		<a href="http://my.oschina.net/u/1044086" name="rpl_275270801" class="ShowUserOutline"><img src="/img/portrait.gif" align="absmiddle" alt="xiexiaoqun" title="xiexiaoqun" class="SmallPortrait" user="1044086"/></a>			
+	</td>
+	<td class='body'>
+		<div class='r_title'>
+			9楼：<b>xiexiaoqun</b>  发表于 2013-08-13 08:33 			<span class='opts'>
+												<a href="javascript:ReplyInline(43167,1044086,275270801)">回复此评论</a>
+							</span>
+		</div>
+		<div class='r_content TextContent'>用起来是不是太麻烦了~</div>
+		<div id='inline_reply_of_43167_1044086_275270801' class='inline_reply'></div>
+    </td></tr></table>
+</li>
+        	        	<li id="cmt_43167_733503_275270842" class='row_0'>
+		<table width='100%'><tr>
+	<td class='portrait'>
+		<a href="http://my.oschina.net/lyongde" name="rpl_275270842" class="ShowUserOutline"><img src="http://static.oschina.net/uploads/user/366/733503_50.jpg?t=1369980464000" align="absmiddle" alt="夜落朦空" title="夜落朦空" class="SmallPortrait" user="733503"/></a>			
+	</td>
+	<td class='body'>
+		<div class='r_title'>
+			10楼：<b>夜落朦空</b>  发表于 2013-08-13 08:36 			<span class='opts'>
+												<a href="javascript:ReplyInline(43167,733503,275270842)">回复此评论</a>
+							</span>
+		</div>
+		<div class='r_content TextContent'>呵呵，记住常用的吧。<br/></div>
+		<div id='inline_reply_of_43167_733503_275270842' class='inline_reply'></div>
+    </td></tr></table>
+</li>
+        	        	<li id="cmt_43167_157439_275270914" class='row_1'>
+		<table width='100%'><tr>
+	<td class='portrait'>
+		<a href="http://my.oschina.net/u/157439" name="rpl_275270914" class="ShowUserOutline"><img src="http://static.oschina.net/uploads/user/78/157439_50.jpg?t=1370752382000" align="absmiddle" alt="xym" title="xym" class="SmallPortrait" user="157439"/></a>			
+	</td>
+	<td class='body'>
+		<div class='r_title'>
+			11楼：<b>xym</b>  发表于 2013-08-13 08:42 			<span class='opts'>
+												<a href="javascript:ReplyInline(43167,157439,275270914)">回复此评论</a>
+							</span>
+		</div>
+		<div class='r_content TextContent'>其实中的大部分，我是经常用到的，掌握这些命令，基本也就够用了</div>
+		<div id='inline_reply_of_43167_157439_275270914' class='inline_reply'></div>
+    </td></tr></table>
+</li>
+        	        	<li id="cmt_43167_120718_275270935" class='row_0'>
+		<table width='100%'><tr>
+	<td class='portrait'>
+		<a href="http://my.oschina.net/quickmove" name="rpl_275270935" class="ShowUserOutline"><img src="http://static.oschina.net/uploads/user/60/120718_50.jpg?t=1368539826000" align="absmiddle" alt="LimSteven" title="LimSteven" class="SmallPortrait" user="120718"/></a>			
+	</td>
+	<td class='body'>
+		<div class='r_title'>
+			12楼：<b>LimSteven</b>  发表于 2013-08-13 08:44 			<span class='opts'>
+												<a href="javascript:ReplyInline(43167,120718,275270935)">回复此评论</a>
+							</span>
+		</div>
+		<div class='r_content TextContent'>:help</div>
+		<div id='inline_reply_of_43167_120718_275270935' class='inline_reply'></div>
+    </td></tr></table>
+</li>
+        	        	<li id="cmt_43167_244077_275270944" class='row_1'>
+		<table width='100%'><tr>
+	<td class='portrait'>
+		<a href="http://my.oschina.net/liuxgnuorg" name="rpl_275270944" class="ShowUserOutline"><img src="http://static.oschina.net/uploads/user/122/244077_50.jpg?t=1368154811000" align="absmiddle" alt="攻城狮" title="攻城狮" class="SmallPortrait" user="244077"/></a>			
+	</td>
+	<td class='body'>
+		<div class='r_title'>
+			13楼：<b>攻城狮</b>  发表于 2013-08-13 08:45 			<span class='opts'>
+												<a href="javascript:ReplyInline(43167,244077,275270944)">回复此评论</a>
+							</span>
+		</div>
+		<div class='r_content TextContent'>留脚  回头看</div>
+		<div id='inline_reply_of_43167_244077_275270944' class='inline_reply'></div>
+    </td></tr></table>
+</li>
+        	        	<li id="cmt_43167_105715_275271048" class='row_0'>
+		<table width='100%'><tr>
+	<td class='portrait'>
+		<a href="http://my.oschina.net/yangxb0202" name="rpl_275271048" class="ShowUserOutline"><img src="http://static.oschina.net/uploads/user/52/105715_50.jpg?t=1373530152000" align="absmiddle" alt="木一杉" title="木一杉" class="SmallPortrait" user="105715"/></a>			
+	</td>
+	<td class='body'>
+		<div class='r_title'>
+			14楼：<b>木一杉</b>  发表于 2013-08-13 08:54 			<span class='opts'>
+												<a href="javascript:ReplyInline(43167,105715,275271048)">回复此评论</a>
+							</span>
+		</div>
+		<div class='r_content TextContent'>找不到比vim更好用的编辑器</div>
+		<div id='inline_reply_of_43167_105715_275271048' class='inline_reply'></div>
+    </td></tr></table>
+</li>
+        	        	<li id="cmt_43167_195038_275271101" class='row_1'>
+		<table width='100%'><tr>
+	<td class='portrait'>
+		<a href="http://my.oschina.net/mdys" name="rpl_275271101" class="ShowUserOutline"><img src="http://static.oschina.net/uploads/user/97/195038_50.jpg" align="absmiddle" alt="懵懂一时" title="懵懂一时" class="SmallPortrait" user="195038"/></a>			
+	</td>
+	<td class='body'>
+		<div class='r_title'>
+			15楼：<b>懵懂一时</b>  发表于 2013-08-13 08:58 			<span class='opts'>
+												<a href="javascript:ReplyInline(43167,195038,275271101)">回复此评论</a>
+							</span>
+		</div>
+		<div class='r_content TextContent'>额，只会用其中几条！·！~</div>
+		<div id='inline_reply_of_43167_195038_275271101' class='inline_reply'></div>
+    </td></tr></table>
+</li>
+        	        	<li id="cmt_43167_233683_275271237" class='row_0'>
+		<table width='100%'><tr>
+	<td class='portrait'>
+		<a href="http://my.oschina.net/zhuyajie" name="rpl_275271237" class="ShowUserOutline"><img src="http://static.oschina.net/uploads/user/116/233683_50.jpg" align="absmiddle" alt="朱亚杰" title="朱亚杰" class="SmallPortrait" user="233683"/></a>			
+	</td>
+	<td class='body'>
+		<div class='r_title'>
+			16楼：<b>朱亚杰</b>  发表于 2013-08-13 09:09 			<span class='opts'>
+												<a href="javascript:ReplyInline(43167,233683,275271237)">回复此评论</a>
+							</span>
+		</div>
+		<div class='r_content TextContent'>不多不多</div>
+		<div id='inline_reply_of_43167_233683_275271237' class='inline_reply'></div>
+    </td></tr></table>
+</li>
+        	        	<li id="cmt_43167_585118_275271237" class='row_1'>
+		<table width='100%'><tr>
+	<td class='portrait'>
+		<a href="http://my.oschina.net/iveryang" name="rpl_275271237" class="ShowUserOutline"><img src="http://static.oschina.net/uploads/user/292/585118_50.jpg?t=1351868170000" align="absmiddle" alt="紫电清霜" title="紫电清霜" class="SmallPortrait" user="585118"/></a>			
+	</td>
+	<td class='body'>
+		<div class='r_title'>
+			17楼：<b>紫电清霜</b>  发表于 2013-08-13 09:09 			<span class='opts'>
+												<a href="javascript:ReplyInline(43167,585118,275271237)">回复此评论</a>
+							</span>
+		</div>
+		<div class='r_content TextContent'>上古神器~</div>
+		<div id='inline_reply_of_43167_585118_275271237' class='inline_reply'></div>
+    </td></tr></table>
+</li>
+        	        	<li id="cmt_43167_593456_275271250" class='row_0'>
+		<table width='100%'><tr>
+	<td class='portrait'>
+		<a href="http://my.oschina.net/u/593456" name="rpl_275271250" class="ShowUserOutline"><img src="/img/portrait.gif" align="absmiddle" alt="lichen1989" title="lichen1989" class="SmallPortrait" user="593456"/></a>			
+	</td>
+	<td class='body'>
+		<div class='r_title'>
+			18楼：<b>lichen1989</b>  发表于 2013-08-13 09:10 			<span class='opts'>
+												<a href="javascript:ReplyInline(43167,593456,275271250)">回复此评论</a>
+							</span>
+		</div>
+		<div class='r_content TextContent'>就认得基础的几个</div>
+		<div id='inline_reply_of_43167_593456_275271250' class='inline_reply'></div>
+    </td></tr></table>
+</li>
+        	        	<li id="cmt_43167_947655_275271290" class='row_1'>
+		<table width='100%'><tr>
+	<td class='portrait'>
+		<a href="http://my.oschina.net/u/947655" name="rpl_275271290" class="ShowUserOutline"><img src="http://static.oschina.net/uploads/user/473/947655_50.jpg?t=1364287748000" align="absmiddle" alt="JosonWang" title="JosonWang" class="SmallPortrait" user="947655"/></a>			
+	</td>
+	<td class='body'>
+		<div class='r_title'>
+			19楼：<b>JosonWang</b>  发表于 2013-08-13 09:14 			<span class='opts'>
+												<a href="javascript:ReplyInline(43167,947655,275271290)">回复此评论</a>
+							</span>
+		</div>
+		<div class='r_content TextContent'>我以前也用VIM，后来改用emacs，emacs更适合我吧，不过还是挺下VIM</div>
+		<div id='inline_reply_of_43167_947655_275271290' class='inline_reply'></div>
+    </td></tr></table>
+</li>
+        	        	<li id="cmt_43167_221019_275271357" class='row_0'>
+		<table width='100%'><tr>
+	<td class='portrait'>
+		<a href="http://my.oschina.net/gblog" name="rpl_275271357" class="ShowUserOutline"><img src="http://static.oschina.net/uploads/user/110/221019_50.jpg?t=1376902634000" align="absmiddle" alt="GeorgeWorld" title="GeorgeWorld" class="SmallPortrait" user="221019"/></a>			
+	</td>
+	<td class='body'>
+		<div class='r_title'>
+			20楼：<b>GeorgeWorld</b>  发表于 2013-08-13 09:19 			<span class='opts'>
+												<a href="javascript:ReplyInline(43167,221019,275271357)">回复此评论</a>
+							</span>
+		</div>
+		<div class='r_content TextContent'>累死了</div>
+		<div id='inline_reply_of_43167_221019_275271357' class='inline_reply'></div>
+    </td></tr></table>
+</li>
+        	        	</ul>
+				        				        <ul class="pager">
+        <li class='page current'><a href="?p=1">1</a></li><li class='page'><a href="?p=2#comments">2</a></li><li class='page'><a href="?p=3#comments">3</a></li><li class='page'><a href="?p=4#comments">4</a></li><li class='page next'><a href="?p=2#comments">&gt;</a></li>    </ul>
+	        </div>
+        <div class="CommentForm">
+            <a name="CommentForm"></a>
+            <form id="form_comment" action="/action/news/comment?news=43167" method="POST">
+              			  <input type='hidden' name='guest' value='1'/>
+			  <table>
+			  <tr><th width='50'>网名：</th><td><input id="txt_name" type="text" name="name" size="30" class="TEXT" maxlength="20"/> <span>(必填)</span></td></tr>
+        	  <tr><th>邮箱：</th><td><input id="txt_email" type="text" name="email" size="30" class="TEXT" maxlength="40"/> <span>(必填，不公开)</span></td></tr>
+			  <tr><th>网址：</th><td><input id="txt_url" type="text" name="url" size="40" class="TEXT" maxlength="100"/></td></tr>
+			  </table>
+        	          	  <textarea name="content" style="width:450px;height:100px;" onkeydown="if((event.metaKey || event.ctrlKey)&&event.keyCode==13){$('#form_comment').submit();}"></textarea><br/>
+			  			  <strong>验证码：</strong><input type='text' id='f_vcode' name='verifyCode' size='6' class='TEXT'/>
+  <img id="img_vcode" align="absmiddle" alt="..." src="/action/user/captcha" style="border:1px solid #ccc;"/> <a href="javascript:_rvi()">换另外一个图</a><br/>
+			  			  			  <input type="submit" value="发表评论" id="btn_comment" class="SUBMIT rndbutton"/> 与内容无关的评论将被删除，严重者禁用帐号
+			              </form>
+			
+			<a href="#" class="more">回到顶部</a>
+			<a href="#comments" class="more">回到评论列表</a>
+        </div>
+			</div>
+</div>
+<div class='NewsRight'>	
+		
+    <div style='text-align:center;margin-bottom:10px;'>
+    			<a href="http://www.fossedu.com/fossedu/coursetopic/index.html" target="_blank" title="恒拓开源——专业Java、Android、红帽培训，四个月成就开源梦想"><img src="http://static.oschina.net/uploads/space/2013/0807/112110_xL81_179699.jpg"/></a>
+		    	    </div>
+	
+	<div id="WeeklyProject" class='RightBlock'>
+	
+<strong class='RightTitle'>
+	本周推荐 zPerfmon
+</strong>
+<div id="ProjectText"><p><a href="http://www.oschina.net/p/zperfmon" target="_blank">zPerfmon</a> 是一个应用的性能分析套件，可收集产品的 Profile、系统数据和其他定期收集的数据进行分析。提供数据可视化和数据相关功能，用来回答你关于应用性能、运行状态和行为趋势的问题。</p>
+<p style="margin: 10px 0;"><a href="http://www.oschina.net/p/zperfmon" target="_blank"><img title="Overview Dashboard" src="http://static.oschina.net/uploads/img/201308/12070000_tJv5.jpg" alt="App state Overview Page" width="265" /></a></p></div>
+<div id="HistoryRecommend">
+<ul>
+<li><a href="/p/deis">2. 开源PaaS系统 Deis</a> &raquo;</li>
+<li><a href="/p/warzone2100">3. 即时战略游戏 Warzone 2100</a> &raquo;</li>
+<li><a href="/p/echarts">4. JavaScript图表库 ECharts</a> &raquo;</li>
+<li><a href="/p/honeycomb">5. 基于HBase的存储引擎 Honeycomb</a> &raquo;</li>
+</ul>
+<p style='margin:0 10px 5px 0;font-size:9pt;'>
+<a href="/project/weekly_projects" style='color:#A00;'>更多以往推荐&nbsp;&raquo;</a>
+</p>
+</div>	</div>
+    <div class="RightBlock RightNewsList">
+    	<div class='RightTitle'>本周热点资讯</div>
+    	<ul class='List'><li><a href="/news/43284/open-source-mug" title="开源中国 5 周年，史上最牛定制开源马克杯！">开源中国 5 周年，史上最牛定制...</a><span class='date'>5天前</span></li><li><a href="/news/43270/what-do-people-think-about-ie" title="程序员眼里 IE 浏览器是什么样的？">程序员眼里 IE 浏览器是什么样的...</a><span class='date'>5天前</span></li><li><a href="/news/43236/new-development-frameworks" title="10 个新的很有用的开发框架">10 个新的很有用的开发框架</a><span class='date'>6天前</span></li><li><a href="/news/43392/wikipedia-operating-costs" title="一年四千万！维基百科太会花钱？才不是呢！">一年四千万！维基百科太会花钱？...</a><span class='date'>昨天(8:11)</span></li><li><a href="/news/43389/the-plight-of-programmer" title="程序员的困境">程序员的困境</a><span class='date'>2天前</span></li><li><a href="/news/43290/xunlei-make-virus" title="迅雷被曝制造并传播病毒，数千万用户成肉鸡">迅雷被曝制造并传播病毒，数千万...</a><span class='date'>5天前</span></li><li><a href="/news/43325/google-outage-5-minutes" title="Google帝国威武：宕机5分钟，全球网络流量暴跌40%">Google帝国威武：宕机5分钟，全...</a><span class='date'>3天前</span></li><li><a href="/news/43369/bootstrap-3-0-final" title="Bootstrap 3.0 正式版发布">Bootstrap 3.0 正式版发布...</a><span class='date'>2天前</span></li><li><a href="/news/43388/10-exclaim-data-visualization-projects" title="十个让人惊叫的数据可视化项目">十个让人惊叫的数据可视化项目</a><span class='date'>2天前</span></li><li><a href="/news/43237/xp_s_retirement_will_be_hacker_heaven" title="Windows XP 终止支持将为黑客创造一片沃土">Windows XP 终止支持将为黑客创...</a><span class='date'>6天前</span></li></ul>		
+    </div>
+    <div class="RightBlock RightNewsList">
+    	<div class='RightTitle'>本站最新资讯</div>
+    	<ul class='List'><li><a href="/news/43441/oschina-mug-shipping-delay" title="关于开源马克杯推迟发货的通知">关于开源马克杯推迟发货的通知</a><span class='date'>32分钟前</span></li><li><a href="/news/43440/redis-2-6-15" title="Redis 2.6.15 发布">Redis 2.6.15 发布</a><span class='date'>50分钟前</span></li><li><a href="/news/43439/ekho-5-6" title="Ekho 5.6 发布， 中文文本转语音引擎">Ekho 5.6 发布， 中文文本转语音...</a><span class='date'>3小时前</span></li><li><a href="/p/fekit" title="fekit —— 来自“去哪儿”的前端自动化方案">fekit —— 来自“去哪儿”的前...</a><span class='date'>3小时前</span></li><li><a href="/news/43436/senginx-1-5-3-2" title="SEnginx 开发版本 1.5.3-2 发布">SEnginx 开发版本 1.5.3-2 发布...</a><span class='date'>7小时前</span></li><li><a href="/news/43433/quick-css-framework-0-8" title="Web前端框架Quick CSS Framework 0.8 发布！">Web前端框架Quick CSS Framewo...</a><span class='date'>9小时前</span></li><li><a href="/news/43432/30-useful-html5-and-css3-form-designs" title="30 个有用的 HTML5 和 CSS3 表单设计">30 个有用的 HTML5 和 CSS3 表单...</a><span class='date'>10小时前</span></li><li><a href="/news/43431/mongodb-2-4-6" title="MongoDB 2.4.6 发布，NoSQL数据库">MongoDB 2.4.6 发布，NoSQL数据...</a><span class='date'>13小时前</span></li><li><a href="/news/43430/jdao-1-0-8" title="jdao 1.0.8 发布 轻量级的orm工具包 ">jdao 1.0.8 发布 轻量级的orm工...</a><span class='date'>13小时前</span></li><li><a href="/news/43428/webmagic-0-2-1" title="webmagic 0.2.1 发布，Java爬虫框架">webmagic 0.2.1 发布，Java爬虫...</a><span class='date'>13小时前</span></li></ul>		
+    </div>
+	
+	<div class='google_ads'>
+        <script type="text/javascript" src="/js/ad/news.js?ver=new"></script>
+	</div>
+</div>
+</div>
+<div id='inline_reply_editor' style='display:none;'>
+<div class="CommentForm" style='padding-left:0;'>
+	<form id="form_inline_comment" action="/action/news/comment?news=43167" method="POST">
+	  <input type='hidden' id='inline_reply_id' name='reply_id' value=''/>
+      	  <input type='hidden' name='guest' value='1'/>
+	  <table>
+	  <tr><th width='50'>网名：</th><td><input id="txt_focus" type="text" name="name" size="30" class="TEXT" maxlength="20"/> <span>(必填)</span></td></tr>
+	  <tr><th>邮箱：</th><td><input id="txt_email" type="text" name="email" size="30" class="TEXT" maxlength="40"/> <span>(必填，不公开)</span></td></tr>
+	  <tr><th>网址：</th><td><input id="txt_url" type="text" name="url" size="40" class="TEXT" maxlength="100"/></td></tr>
+	  </table>
+	  	  <textarea name="content" style="width:400px;height:80px;" onkeydown="if((event.metaKey || event.ctrlKey)&&event.keyCode==13){$('#form_inline_comment').submit();}"></textarea><br/>
+      <input type="submit" value="回复" class="SUBMIT"/>
+	  <input type="button" value="关闭" class="SUBMIT" id='btn_close_inline_reply'/>
+		文明上网，理性发言
+    </form>
+</div>
+</div>
+<!--[if lt IE 7]>
+<script type="text/javascript" src="/js/minmax.js"></script>
+<![endif]-->
+<script type="text/javascript" src="/action/visit/news?id=43167"></script>
+<link rel="stylesheet" href="/js/poshytip/tip-yellowsimple/tip-yellowsimple.css" type="text/css" />
+<script type="text/javascript" src="/js/poshytip/jquery.poshytip.min.js"></script>
+<script type="text/javascript" src="/js/syntax-highlighter-2.1.382/scripts/brush.js"></script>
+<link type="text/css" rel="stylesheet" href="/js/syntax-highlighter-2.1.382/styles/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="/js/syntax-highlighter-2.1.382/styles/shThemeDefault.css"/>
+<script type='text/javascript'><!--
+$(document).ready(function(){
+	SyntaxHighlighter.config.clipboardSwf = '/js/syntax-highlighter-2.1.382/scripts/clipboard.swf';
+	SyntaxHighlighter.all();
+});
+//-->
+</script>
+<script language='javascript'>
+<!--
+function getScrollY() {
+    scrOfY = 0;
+    if( typeof( window.pageYOffset ) == "number" ) {
+        scrOfY = window.pageYOffset;
+    } else if( document.body && ( document.body.scrollLeft || document.body.scrollTop ) ) {
+        scrOfY = document.body.scrollTop;
+    } else if( document.documentElement && ( document.documentElement.scrollLeft || document.documentElement.scrollTop ) ) {
+        scrOfY = document.documentElement.scrollTop;
+    }
+    return scrOfY;
+}
+
+jQuery(function(){
+	//启用回到顶部
+	if(scrolltotop)
+		scrolltotop.init();
+    var upprev_closed = false;
+    var upprev_hidden = true;
+    $(window).scroll(function() {
+        var lastScreen;
+        if ($("#userComments").length > 0)
+            lastScreen = getScrollY() + $(window).height() < $("#userComments").offset().top * 1 ? false : true;
+        else
+            lastScreen = getScrollY() + $(window).height() < $(document).height() * 1 ? false : true;
+        if (lastScreen && !upprev_closed) {
+			//Firefox下，“你也许会喜欢”推荐会被滚动条遮盖部分
+            $("#upprev_box").stop().animate({right:$.browser.mozilla?"15px":"0px"});
+            upprev_hidden = false;
+        }
+        else if (upprev_closed && getScrollY() == 0) {
+            upprev_closed = false;
+        }
+        else if (!upprev_hidden) {
+            upprev_hidden = true;
+            $("#upprev_box").stop().animate({right:"-400px"});
+        }
+		var $offset = $('.google_ads').last().offset();
+		if($(window).scrollTop()>($offset.top)) {
+			$('.google_ads iframe').first().css({'position':'fixed','top':'0px','left':$offset.left+'px','margin-top':'10px','z-index':'999'});
+		}
+		else {
+			$('.google_ads iframe').first().css({'position':'relative','top':'','left':'','margin-top':'0','z-index':'0'});
+		}
+    });
+    $("#upprev_close").click(function() {
+        $("#upprev_box").stop().animate({right:"-400px"});
+        upprev_closed = true;
+        upprev_hidden = true;
+		return false;
+    });
+}); 
+$(function(){
+    $('#form_comment').ajaxForm({
+    	dataType: 'json',
+    	success: function(json) {
+        	if(json.msg){
+        		alert(json.msg);
+        	}
+        	else if(json.id){
+        		jQuery.get("/news/show_reply?_cmt_news="+json.news+"&_cmt_user="+json.user+"&_cmt_id="+json.id, function(data){
+    				$('.Comments .NoData').hide();
+        			$('.Comments ul:eq(0)').append(data);
+        			$('#form_comment').resetForm();
+        		}); 
+        	}
+    	}
+    });
+    
+    $("#form_comment").ajaxStart(function(){
+      	$('#btn_comment').val('正在发表，请稍候...');
+      	$('#btn_comment').attr('disabled',true);
+    });
+    $("#form_comment").ajaxComplete(function(event,request, settings){
+      	$('#btn_comment').val('发表评论');
+      	$('#btn_comment').attr('disabled',false);
+    });
+});
+
+function _rvi(){document.getElementById('img_vcode').src = '/action/user/captcha?t='+Math.random(1000);}
+function delete_c(nid,uid,cid){
+  if(confirm("您确认要删除此篇评论？")){
+    var args = "cmt="+cid+"#"+uid+"#"+nid;
+    ajax_post("/action/news/delete_comments",args,function(){$("#cmt_"+nid+"_"+uid+"_"+cid).fadeOut();});
+  }
+}
+function ReplyInline(news,user,reply){
+	$('.inline_reply').empty();
+	var div_id = '#inline_reply_of_'+news+'_'+user+'_'+reply;
+	$('#inline_reply_id').val(user+'_'+reply);
+	$(div_id).html($('#inline_reply_editor').html());
+	$('#txt_focus').focus();
+	$('#btn_close_inline_reply').click(function(){
+		$(div_id).empty();
+	});
+	$('#form_inline_comment').ajaxForm({
+	dataType: 'json',
+	success: function(json) {
+    	if(json.msg){
+    		alert(json.msg);
+    	}
+    	else if(json.id){
+			location.reload();
+    	}
+	}
+});
+}
+function pay_attention(pid,concern_it){
+	login_and_do(function(msg){
+		if(concern_it){
+			$("#p_attention_count").load("/action/favorite/add?mailnotify=true&type=4&id="+pid, {user: ''});
+			$('#attention_it').html("<a href='javascript:pay_attention('+pid+',false)' style='color:#A00;'>取消收藏</a>");	
+		}
+		else{
+			$("#p_attention_count").load("/action/favorite/cancel?type=4&id="+pid, {user: ''});
+			$('#attention_it').html("<a href='javascript:pay_attention('+pid+',true)' style='color:#3E62A6;'>收藏此新闻</a>");
+		}
+		tb_remove();
+	});
+}
+function pay_attention2(pid,concern_it){
+	login_and_do(function(msg){
+		if(concern_it){
+			$("#p_attention_count").load("/action/favorite/add?mailnotify=true&type=4&id="+pid, {user: ''});
+			$('#attention_it2').html('<a href="javascript:pay_attention2('+pid+',false)" style="color:#A00;">取消收藏</a>');	
+		}
+		else{
+			$("#p_attention_count").load("/action/favorite/cancel?type=4&id="+pid, {user: ''});
+			$('#attention_it2').html('<a href="javascript:pay_attention2('+pid+',true)" style="color:#3E62A6;">收藏此新闻</a>');
+		}
+		tb_remove();
+	});
+}
+//-->
+</script><div class='clear'></div></div>
+	<div id="OSC_Footer" class='CenterDiv'><style>
+.oscapp {text-align:left; width:220px;}
+.oscapp span {float:left;width:140px;}
+.oscapp a {float:left;text-indent:-9999em;width:16px;margin-left:8px;}
+.oscapp a.android {background:url('/img/android.gif') no-repeat left center;}
+.oscapp a.iphone {background:url('/img/iphone.gif') no-repeat left center;}
+.oscapp a.wp7 {background:url('/img/wp7.gif') no-repeat left center;}
+</style>
+<table width='100%'><tr>
+<td align='left'>&copy; 开源中国(OsChina.NET) | <a href="http://www.oschina.net/home/about">关于我们</a> | <a href="mailto:oschina.net@gmail.com">广告联系</a> | <a href="http://weibo.com/oschina2010" target="_blank">@新浪微博</a> | <a href="http://m.oschina.net/">开源中国手机版</a> | <a href='http://www.miitbeian.gov.cn/' target='_blank' style='color:#737573;text-decoration:none;'>粤ICP备12009483号-3</a></td>
+<td class='oscapp'>
+	<span>开源中国手机客户端：</span>
+	<a href="http://www.oschina.net/app" class='android' title='Android客户端'>Android</a>
+	<a href="http://www.oschina.net/app" class='iphone' title='iPhone 客户端'>iPhone</a>
+	<a href="http://www.oschina.net/app" class='wp7' title='Windows Phone 客户端'>WP7</a>
+</td>
+</tr>
+</table>
+<script type='text/javascript'>
+<!--
+if (top.location != self.location)top.location=self.location;
+//-->
+</script></div>
+</div>
+</body>
+</html>
+<!-- Generated by OsChina.NET (init:0[ms],page:43[ms],ip:114.87.108.85) -->

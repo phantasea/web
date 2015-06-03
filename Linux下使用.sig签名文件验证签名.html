@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Linux下使用.sig签名文件验证签名 - Daemon369 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=MPHU_6XiwRKBps_JMy-p1nOSURHFA1eDz3OgfjnXnGk1"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="/skins/SimpleClear/bundle-SimpleClear.css?v=EVOKy_9d-0OzsDt7Iaw0OHSiRqKJoQVRFQeK_xCGZ6c1"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/daemon369/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/daemon369/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/daemon369/wlwmanifest.xml"/>
+<script src="http://common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'daemon369', cb_enable_mathjax=false;</script>
+<script src="/bundles/blog-common.js?v=nJDx8UubQZX9VogT9qEbaBjq1TmUREeH09Yin8VSvFo1" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+<!--PageBeginHtml Block Begin-->
+-------------------------------------------------------------------------------------------------
+<!--PageBeginHtml Block End-->
+
+<div id="main">
+<div id="header">
+<h1><a id="Header1_HeaderTitle" href="http://www.cnblogs.com/daemon369/">Step By Step</a></h1>
+<p id="tagline">Just Study It!</p></div>
+
+
+<div class="post">
+    <h2 class="postTitle"><a id="cb_post_title_url" href="http://www.cnblogs.com/daemon369/p/3204020.html">Linux下使用.sig签名文件验证签名</a></h2>
+    <div class="postText"><div id="cnblogs_post_body"><p>网上一些下载资源会同时提供下载资源名称加".sig"为文件名的分离签名文件，用来校验下载资源的完整性。</p>
+<p>以grub为例，当前最新版本的grub为2.00版本，可从&nbsp;<a href="ftp://ftp.gnu.org/gnu/grub/">ftp://ftp.gnu.org/gnu/grub/</a>&nbsp;下载，有两个文件：grub-2.00.tar.gz.sig和grub-2.00.tar.gz。</p>
+<p>验证方法：</p>
+<p>$ gpg --verify grub-2.00.tar.gz.sig grub-2.00.tar.gz</p>
+<p>gpg: 于 2012年06月28日 星期四 08时11分54秒 CST 创建的签名，使用 DSA，钥匙号 E82E4209<br />gpg: 无法检查签名：找不到公钥</p>
+<p>这说明找不到对应的公钥，同时会提示当前验证的钥匙号为&nbsp;E82E4209，根据这个钥匙号导入公钥：</p>
+<p>$ gpg --recv-keys E82E4209</p>
+<p>gpg: 下载密钥&lsquo;E82E4209&rsquo;，从 hkp 服务器 keys.gnupg.net<br />gpg: 密钥 E82E4209：公钥&ldquo;Vladimir 'phcoder' Serbinenko &lt;phcoder@gmail.com&gt;&rdquo;已导入<br />gpg: 没有找到任何绝对信任的密钥<br />gpg: 合计被处理的数量：1<br />gpg:               已导入：1</p>
+<p>$&nbsp;gpg --verify --verbose grub-2.00.tar.gz.sig grub-2.00.tar.gz</p>
+<p><em id="__mceDel">gpg: 于 2012年06月28日 星期四 08时11分54秒 CST 创建的签名，使用 DSA，钥匙号 E82E4209<br />gpg: 使用 PGP 信任模型<br />gpg: 完好的签名，来自于&ldquo;Vladimir 'phcoder' Serbinenko &lt;phcoder@gmail.com&gt;&rdquo;<br />gpg: 警告：这把密钥未经受信任的签名认证！<br />gpg:          没有证据表明这个签名属于它所声称的持有者。<br />主钥指纹： E53D 497F 3FA4 2AD8 C9B4  D1E8 35A9 3B74 E82E 4209<br />gpg: 二进制 签名，散列算法 SHA512</em></p>
+<p>&nbsp;</p>
+<p><em>参考：<a href="http://bbs.chinaunix.net/thread-1882309-1-1.html">http://bbs.chinaunix.net/thread-1882309-1-1.html</a></em></p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+</div>
+    <p class="postfoot">posted on <span id="post-date">2013-07-21 17:34</span> <a href='http://www.cnblogs.com/daemon369/'>Daemon369</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href ="http://i.cnblogs.com/EditPosts.aspx?postid=3204020" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(3204020);return false;">收藏</a></p>
+</div>
+<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=157463,cb_entryId=3204020,cb_blogApp=currentBlogApp,cb_blogUserGuid='1ca78d07-9666-e011-a53f-842b2b196315',cb_entryCreatedDate='2013/7/21 17:34:00';loadViewCount(cb_entryId);</script>
+
+<a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+<div id="comment_form_container"></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="开发者的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="opt_under_post"></div>
+<script type="text/javascript">
+    var enableGoogleAd = canShowAdsense(); var googletag = googletag || {}; googletag.cmd = googletag.cmd || [];
+    fixPostBodyFormat();
+</script>
+<div id="ad_under_post_holder">
+<script type='text/javascript'>
+    var googletag = googletag || {};
+    googletag.cmd = googletag.cmd || [];
+    (function () {
+        if (enableGoogleAd) {
+            var gads = document.createElement('script');
+            gads.async = true;
+            gads.type = 'text/javascript';
+            var useSSL = 'https:' == document.location.protocol;
+            gads.src = (useSSL ? 'https:' : 'http:') + '//www.googletagservices.com/tag/js/gpt.js';
+            var node = document.getElementsByTagName('script')[0];
+            node.parentNode.insertBefore(gads, node);
+        }
+    })();
+</script>
+<script type='text/javascript'>
+    try {
+        if (enableGoogleAd) {
+            googletag.cmd.push(function () {
+                googletag.defineSlot('/1090369/cnblogs_blogpost_C1_sitehome', [300, 250], 'div-gpt-ad-1346480159711-0').addService(googletag.pubads());
+                googletag.defineSlot('/1090369/cnblogs_blogpost_C2', [468, 60], 'div-gpt-ad-1410860226396-0').addService(googletag.pubads());
+                googletag.pubads().enableSingleRequest();
+                googletag.enableServices();
+            });
+        };
+    } catch (e) { }
+</script>
+<div id="google_ad_c1" class="c_ad_block">
+    <div id='div-gpt-ad-1346480159711-0' style='width:300px; height:250px;'>
+    <script type='text/javascript'>
+        try {
+            if (enableGoogleAd) {
+                googletag.cmd.push(function () { googletag.display('div-gpt-ad-1346480159711-0'); });            
+            } else {
+                $('#div-gpt-ad-1346480159711-0').hide();
+            }
+    } catch (e) { }
+    </script>
+    </div>
+</div>
+</div>
+<div id="under_post_news"></div>
+<div id="google_ad_c2" class="c_ad_block">
+<div id='div-gpt-ad-1410860226396-0' style='width:468px; height:60px;'>
+<script type='text/javascript'>
+try {
+    if (enableGoogleAd) {
+        googletag.cmd.push(function () { googletag.display('div-gpt-ad-1410860226396-0'); });
+    } else {
+        $('#div-gpt-ad-1346480159711-0').hide();
+    }
+} catch (e) { }
+</script>
+</div>
+</div>
+<div id="under_post_kb"></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 200);
+});
+</script>
+</div>
+
+</div>
+<div id="rightmenu">
+	
+		
+<div id="my_links">
+<h3>导航</h3>
+<ul>
+<li><a id="MyLinks1_HomeLink" href="http://www.cnblogs.com/">博客园</a></li>
+<li></li>
+<!--<li><a id="MyLinks1_NewPostLink" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>-->
+<li></li>
+<li><a id="MyLinks1_Syndication" href="http://www.cnblogs.com/daemon369/rss">订阅</a></li><!--<a id="MyLinks1_XMLLink" href="http://www.cnblogs.com/daemon369/rss"><img src="http://www.cnblogs.com/images/xml.gif" alt="订阅" /></a>-->
+<li><a id="MyLinks1_Admin" rel="nofollow" href="http://i.cnblogs.com/">管理</a></li>
+</ul>
+</div>
+		<div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+		
+<h3>公告</h3>
+<div class="newsItem">
+	<div id="blog-news"></div><script type="text/javascript">loadBlogNews();</script>
+</div>		
+		
+<div id="blog_stats">
+<h3>统计</h3>
+<ul>
+<li>随笔 - 15
+<li>文章 - 33
+<li>评论 - 0
+<!--<li>引用 - 0-->
+</li>
+</ul>
+</div>
+		<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+        
+		
+<div id="footer">
+	Powered by: 
+	<br />
+	
+	<a id="Footer1_Hyperlink3" NAME="Hyperlink1" href="http://www.cnblogs.com/"><font face="Verdana">博客园</font></a>
+	<br />
+	Copyright &copy; Daemon369
+</div>
+	
+</div>			
+			
+	
+
+</body>
+</html>

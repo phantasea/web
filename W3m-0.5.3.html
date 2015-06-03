@@ -1,0 +1,277 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=iso-8859-1">
+    <title>
+      W3m-0.5.3
+    </title>
+    <link rel="stylesheet" href="./W3m-0_5_3_html/7444691.css" type="text/css">
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+    <link rel="stylesheet" href="./W3m-0_5_3_html/13999589.css" type="text/css" media="print">
+  </head>
+  <body class="blfs" id="blfs-2015-01-04">
+    <div class="navheader">
+      <h4>
+        Beyond Linux<sup>®</sup> From Scratch - Version 2015-01-04
+      </h4>
+      <h3>
+        Chapter&nbsp;18.&nbsp;Text Web Browsers
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="http://www.linuxfromscratch.org/blfs/view/svn/basicnet/lynx.html" title="Lynx-2.8.8rel.2">Prev</a>
+          <p>
+            Lynx-2.8.8rel.2
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="http://www.linuxfromscratch.org/blfs/view/svn/basicnet/mailnews.html" title="Mail/News Clients">Next</a>
+          <p>
+            Mail/News Clients
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="http://www.linuxfromscratch.org/blfs/view/svn/basicnet/textweb.html" title="Chapter&nbsp;18.&nbsp;Text Web Browsers">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="http://www.linuxfromscratch.org/blfs/view/svn/index.html" title="Beyond Linux® From Scratch - Version 2015-01-04">Home</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="en" xml:lang="en">
+      <h1 class="sect1">
+        <a id="w3m" name="w3m"></a>W3m-0.5.3
+      </h1>
+      <div class="package" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Introduction to W3m
+        </h2>
+        <p>
+          <span class="application">w3m</span> is primarily a pager but it
+          can also be used as a text-mode WWW browser.
+        </p>
+        <p>
+          This package is known to build and work properly using an LFS-7.6
+          platform.
+        </p>
+        <h3>
+          Package Information
+        </h3>
+        <div class="itemizedlist">
+          <ul class="compact">
+            <li>
+              <p>
+                Download (HTTP): <a class="ulink" href="http://downloads.sourceforge.net/w3m/w3m-0.5.3.tar.gz">http://downloads.sourceforge.net/w3m/w3m-0.5.3.tar.gz</a>
+              </p>
+            </li>
+            <li>
+              <p>
+                Download MD5 sum: 1b845a983a50b8dec0169ac48479eacc
+              </p>
+            </li>
+            <li>
+              <p>
+                Download size: 2.1 MB
+              </p>
+            </li>
+            <li>
+              <p>
+                Estimated disk space required: 26 MB
+              </p>
+            </li>
+            <li>
+              <p>
+                Estimated build time: 0.3 SBU
+              </p>
+            </li>
+          </ul>
+        </div>
+        <h3>
+          Additional Downloads
+        </h3>
+        <div class="itemizedlist">
+          <ul class="compact">
+            <li>
+              <p>
+                Required patch: <a class="ulink" href="http://www.linuxfromscratch.org/patches/blfs/svn/w3m-0.5.3-bdwgc72-1.patch">
+                http://www.linuxfromscratch.org/patches/blfs/svn/w3m-0.5.3-bdwgc72-1.patch</a>
+              </p>
+            </li>
+          </ul>
+        </div>
+        <h3>
+          W3m Dependencies
+        </h3>
+        <h4>
+          Required
+        </h4>
+        <p class="required">
+          <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/svn/general/gc.html" title="GC-7.4.2">GC-7.4.2</a>
+        </p>
+        <h4>
+          Optional
+        </h4>
+        <p class="optional">
+          <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/svn/general/gpm.html" title="GPM-1.20.7">GPM-1.20.7</a>, <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/svn/postlfs/openssl.html" title="OpenSSL-1.0.1j">OpenSSL-1.0.1j</a>, <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/svn/x/imlib2.html" title="Imlib2-1.4.6">Imlib2-1.4.6</a>, <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/svn/x/gtk2.html" title="GTK+-2.24.25">GTK+-2.24.25</a>,
+          <a class="ulink" href="http://ftp.gnome.org/pub/gnome/sources/imlib/1.9/">Imlib</a> (not
+          recommended: obsolete, abandoned upstream, <a class="ulink" href="http://bugs.debian.org/448360">buggy</a>, and gives no additional
+          functionality as compared to other image loading libraries),
+          <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/svn/x/gdk-pixbuf.html" title="gdk-pixbuf-2.31.1">gdk-pixbuf-2.31.1</a>, <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/svn/general/compface.html" title="Compface-1.5.2">Compface-1.5.2</a>, and <a class="ulink" href="http://packages.debian.org/unstable/text/nkf">nkf</a>, a Mail User
+          Agent, and an External Browser
+        </p>
+        <p class="usernotes">
+          User Notes: <a class="ulink" href="http://wiki.linuxfromscratch.org/blfs/wiki/W3M">http://wiki.linuxfromscratch.org/blfs/wiki/W3M</a>
+        </p>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Installation of W3m
+        </h2>
+        <p>
+          Install <span class="application">w3m</span> by running the
+          following commands:
+        </p>
+        <pre class="userinput"><kbd class="command">patch -Np1 -i ../w3m-0.5.3-bdwgc72-1.patch &amp;&amp;
+sed -i 's/file_handle/file_foo/' istream.{c,h} &amp;&amp;
+sed -i 's#gdk-pixbuf-xlib-2.0#&amp; x11#' configure &amp;&amp;
+
+./configure --prefix=/usr --sysconfdir=/etc &amp;&amp;
+make</kbd>
+</pre>
+        <p>
+          This package does not come with a test suite.
+        </p>
+        <p>
+          Now, as the <code class="systemitem">root</code> user:
+        </p>
+        <pre class="root"><kbd class="command">make install &amp;&amp;
+install -v -m644 -D doc/keymap.default /etc/w3m/keymap &amp;&amp;
+install -v -m644    doc/menu.default /etc/w3m/menu &amp;&amp;
+install -v -m755 -d /usr/share/doc/w3m-0.5.3 &amp;&amp;
+install -v -m644    doc/{HISTORY,READ*,keymap.*,menu.*,*.html} \
+                    /usr/share/doc/w3m-0.5.3</kbd>
+</pre>
+      </div>
+      <div class="commands" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Command Explanations
+        </h2>
+        <p>
+          <span class="command"><strong>patch -p1 &lt;
+          ../w3m-0.5.3-bdwgc72-1.patch</strong></span>: This patch fixes
+          compiling w3m with GC-7.2 installed.
+        </p>
+        <p>
+          <span class="command"><strong>sed -i 's/file_handle/file_foo/'
+          istream.{c,h}</strong></span>: This sed renames the file_handle
+          function to avoid a clash with a glibc function that has the same
+          name, defined in /usr/include/bits/fcntl.h.
+        </p>
+        <p>
+          <span class="command"><strong>sed -i 's#gdk-pixbuf-xlib-2.0#&amp;
+          x11#' configure</strong></span>: This sed fixes compiling
+          <span class="application">w3m</span> using <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/svn/x/gtk2.html" title="GTK+-2.24.25">GTK+-2.24.25</a> as its image
+          library. It has no impact if <a class="xref" href="http://www.linuxfromscratch.org/blfs/view/svn/x/gtk2.html" title="GTK+-2.24.25">GTK+-2.24.25</a> is not installed.
+        </p>
+        <p>
+          <code class="option">--sysconfdir=/etc</code>: This option puts the
+          configuration files in /etc.
+        </p>
+      </div>
+      <div class="configuration" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Configuring W3m
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            <a id="w3m-config" name="w3m-config"></a>Config Files
+          </h3>
+          <p>
+            <code class="filename">/etc/w3m/*</code> and <code class="filename">~/.w3m/*</code>
+          </p>
+        </div>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Contents
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Installed Programs:</strong>
+              <span class="segbody">w3m and w3mman</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed Libraries:</strong>
+              <span class="segbody">None</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed Directories:</strong>
+              <span class="segbody">/usr/libexec/w3m, /usr/share/w3m, and
+              /usr/share/doc/w3m-0.5.3</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            Short Descriptions
+          </h3>
+          <table border="0">
+            <colgroup><col align="left" valign="top">
+            </colgroup><tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="w3m-prog" name="w3m-prog"></a><span class="term"><span class="command"><strong>w3m</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is a text based web browser and pager.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="w3mman" name="w3mman"></a><span class="term"><span class="command"><strong>w3mman</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is an interface to the on-line reference manuals in
+                    <span class="command"><strong>w3m</strong></span>.
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="updated">
+        Last updated on 2014-09-21 02:22:09 +0000
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="http://www.linuxfromscratch.org/blfs/view/svn/basicnet/lynx.html" title="Lynx-2.8.8rel.2">Prev</a>
+          <p>
+            Lynx-2.8.8rel.2
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="http://www.linuxfromscratch.org/blfs/view/svn/basicnet/mailnews.html" title="Mail/News Clients">Next</a>
+          <p>
+            Mail/News Clients
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="http://www.linuxfromscratch.org/blfs/view/svn/basicnet/textweb.html" title="Chapter&nbsp;18.&nbsp;Text Web Browsers">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="http://www.linuxfromscratch.org/blfs/view/svn/index.html" title="Beyond Linux® From Scratch - Version 2015-01-04">Home</a>
+        </li>
+      </ul>
+    </div>
+  
+
+</body></html>
