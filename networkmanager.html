@@ -1,0 +1,511 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content=
+    "application/xhtml+xml; charset=iso-8859-1" />
+    <title>
+      NetworkManager-1.0.2
+    </title>
+    <link rel="stylesheet" href="../stylesheets/lfs.css" type="text/css" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="stylesheet" href="../stylesheets/lfs-print.css" type=
+    "text/css" media="print" />
+  </head>
+  <body class="blfs" id="blfs-2015-06-04">
+    <div class="navheader">
+      <h4>
+        Beyond Linux<sup>®</sup> From Scratch - Version 2015-06-04
+      </h4>
+      <h3>
+        Chapter&nbsp;16.&nbsp;Networking Utilities
+      </h3>
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="mod_dnssd.html" title=
+          "mod_dnssd-0.6">Prev</a>
+          <p>
+            mod_dnssd-0.6
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="nmap.html" title="Nmap-6.47">Next</a>
+          <p>
+            Nmap-6.47
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="netutils.html" title=
+          "Chapter&nbsp;16.&nbsp;Networking Utilities">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Beyond Linux® From Scratch - Version 2015-06-04">Home</a>
+        </li>
+      </ul>
+    </div>
+    <div class="sect1" lang="en" xml:lang="en">
+      <h1 class="sect1">
+        <a id="NetworkManager" name="NetworkManager"></a>NetworkManager-1.0.2
+      </h1>
+      <div class="package" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Introduction to NetworkManager
+        </h2>
+        <p>
+          <span class="application">NetworkManager</span> is a set of
+          co-operative tools that make networking simple and straightforward.
+          Whether WiFi, wired, 3G, or Bluetooth, NetworkManager allows you to
+          quickly move from one network to another: Once a network has been
+          configured and joined once, it can be detected and re-joined
+          automatically the next time it's available.
+        </p>
+        <p>
+          This package is known to build and work properly using an LFS-7.7
+          platform.
+        </p>
+        <p>
+          This package is known to build and work properly using the gcc-5
+          compiler.
+        </p>
+        <h3>
+          Package Information
+        </h3>
+        <div class="itemizedlist">
+          <ul class="compact">
+            <li>
+              <p>
+                Download (HTTP): <a class="ulink" href=
+                "http://ftp.gnome.org/pub/gnome/sources/NetworkManager/1.0/NetworkManager-1.0.2.tar.xz">
+                http://ftp.gnome.org/pub/gnome/sources/NetworkManager/1.0/NetworkManager-1.0.2.tar.xz</a>
+              </p>
+            </li>
+            <li>
+              <p>
+                Download (FTP): <a class="ulink" href=
+                "ftp://ftp.gnome.org/pub/gnome/sources/NetworkManager/1.0/NetworkManager-1.0.2.tar.xz">
+                ftp://ftp.gnome.org/pub/gnome/sources/NetworkManager/1.0/NetworkManager-1.0.2.tar.xz</a>
+              </p>
+            </li>
+            <li>
+              <p>
+                Download MD5 sum: 5a4899f89edcbdd1ac46d2d947e8d6eb
+              </p>
+            </li>
+            <li>
+              <p>
+                Download size: 3.1 MB
+              </p>
+            </li>
+            <li>
+              <p>
+                Estimated disk space required: 319 MB (additional 1 MB for
+                the tests)
+              </p>
+            </li>
+            <li>
+              <p>
+                Estimated build time: 1.6 SBU (additional 0.2 SBU for the
+                tests)
+              </p>
+            </li>
+          </ul>
+        </div>
+        <h3>
+          NetworkManager Dependencies
+        </h3>
+        <h4>
+          Required
+        </h4>
+        <p class="required">
+          <a class="xref" href="../general/dbus-glib.html" title=
+          "dbus-glib-0.104">dbus-glib-0.104</a>, <a class="xref" href=
+          "libndp.html" title="libndp-1.5">libndp-1.5</a>, <a class="xref"
+          href="libnl.html" title="libnl-3.2.25">libnl-3.2.25</a>, <a class=
+          "xref" href="../postlfs/nss.html" title=
+          "NSS-3.19.1">NSS-3.19.1</a>, and <a class="xref" href=
+          "../general/udev-extras.html" title=
+          "Udev Extras (from eudev)">udev-extras (from eudev)</a> (for GUdev)
+        </p>
+        <h4>
+          Recommended
+        </h4>
+        <p class="recommended">
+          <a class="xref" href="../postlfs/consolekit.html" title=
+          "ConsoleKit-0.4.6">ConsoleKit-0.4.6</a>, <a class="xref" href=
+          "dhcpcd.html" title="dhcpcd-6.9.0">dhcpcd-6.9.0</a> or <a class=
+          "xref" href="dhcp.html" title="DHCP-4.3.2">DHCP-4.3.2</a> (client
+          only), <a class="xref" href="../general/gobject-introspection.html"
+          title=
+          "gobject-introspection-1.44.0">gobject-introspection-1.44.0</a>,
+          <a class="xref" href="../postlfs/iptables.html" title=
+          "Iptables-1.4.21">Iptables-1.4.21</a>, <a class="xref" href=
+          "libsoup.html" title="libsoup-2.50.0">libsoup-2.50.0</a>, <a class=
+          "xref" href="../general/newt.html" title=
+          "newt-0.52.18">newt-0.52.18</a> (for <span class=
+          "command"><strong>nmtui</strong></span>), <a class="xref" href=
+          "../postlfs/polkit.html" title="Polkit-0.112">Polkit-0.112</a>,
+          <a class="xref" href="../general/upower.html" title=
+          "UPower-0.9.23">UPower-0.9.23</a>, and <a class="xref" href=
+          "../general/vala.html" title="Vala-0.28.0">Vala-0.28.0</a>
+        </p>
+        <h4>
+          Optional
+        </h4>
+        <p class="optional">
+          <a class="xref" href="../general/bluez.html" title=
+          "BlueZ-5.30">BlueZ-5.30</a>, <a class="xref" href=
+          "../general/gtk-doc.html" title="GTK-Doc-1.22">GTK-Doc-1.22</a>,
+          <a class="xref" href="../x/qt4.html" title="Qt-4.8.7">Qt-4.8.7</a>,
+          <a class="xref" href="../general/valgrind.html" title=
+          "Valgrind-3.10.1">Valgrind-3.10.1</a>, <a class="xref" href=
+          "wpa_supplicant.html" title=
+          "wpa_supplicant-2.4">wpa_supplicant-2.4</a> (built with D-Bus
+          support), <a class="ulink" href="http://libteam.org/">libteam</a>,
+          and <a class="ulink" href=
+          "http://www.freedesktop.org/software/ModemManager/">ModemManager</a>,
+        </p>
+        <p class="usernotes">
+          User Notes: <a class="ulink" href=
+          "http://wiki.linuxfromscratch.org/blfs/wiki/NetworkManager">http://wiki.linuxfromscratch.org/blfs/wiki/NetworkManager</a>
+        </p>
+      </div>
+      <div class="installation" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Installation of NetworkManager
+        </h2>
+        <p>
+          If <a class="xref" href="../x/qt4.html" title=
+          "Qt-4.8.7">Qt-4.8.7</a> and <a class="xref" href="../x/qt5.html"
+          title="Qt-5.4.2">Qt-5.4.2</a> are installed, you need to choose
+          <span class="application">Qt4</span> with <span class=
+          "command"><strong>source setqt4</strong></span>, before starting.
+          Install <span class="application">NetworkManager</span> by running
+          the following commands:
+        </p>
+        <pre class="userinput">
+<kbd class="command">./configure --prefix=/usr        \
+            --sysconfdir=/etc    \
+            --localstatedir=/var \
+            --with-nmtui         \
+            --disable-ppp        \
+            --with-systemdsystemunitdir=no \
+            --docdir=/usr/share/doc/network-manager-1.0.2 &amp;&amp;
+make</kbd>
+</pre>
+        <p>
+          An already active graphical session with bus address is necessary
+          to run the tests. To test the results, issue: <span class=
+          "command"><strong>make check</strong></span>.
+        </p>
+        <p>
+          Now, as the <code class="systemitem">root</code> user:
+        </p>
+        <pre class="root">
+<kbd class="command">make install</kbd>
+</pre>
+      </div>
+      <div class="commands" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Command Explanations
+        </h2>
+        <p>
+          <em class="parameter"><code>--with-nmtui</code></em>: This
+          parameter enables build of <span class=
+          "command"><strong>nmtui</strong></span>.
+        </p>
+        <p>
+          <em class=
+          "parameter"><code>--with-systemdsystemunitdir=no</code></em>: This
+          parameter is used for sysv init systems. If you use systemd,
+          replace "no" by the proper directory.
+        </p>
+        <p>
+          <em class="parameter"><code>--disable-ppp</code></em>: This
+          parameter disables parameteral <span class="application">PPP</span>
+          support in <span class="application">NetworkManager</span>.
+        </p>
+        <p>
+          <code class="option">--enable-gtk-doc</code>: Use this switch if
+          you have installed <a class="xref" href="../general/gtk-doc.html"
+          title="GTK-Doc-1.22">GTK-Doc-1.22</a> and wish to build the API
+          manuals.
+        </p>
+        <p>
+          <code class="option">--without-iptables</code>: Use this switch if
+          you don't have <span class="application">Iptables</span> installed.
+        </p>
+      </div>
+      <div class="configuration" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Configuring NetworkManager
+        </h2>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            <a id="NetworkManager-config" name=
+            "NetworkManager-config"></a>Config Files
+          </h3>
+          <p>
+            <code class=
+            "filename">/etc/NetworkManager/NetworkManager.conf</code>
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            Configuration Information
+          </h3>
+          <p>
+            For <span class="application">NetworkManager</span> to work, at
+            least minimal configuration file must be present. Such file is
+            not installed with <span class="command"><strong>make
+            install</strong></span>. Issue following command as the
+            <code class="systemitem">root</code> user to create minimal
+            <code class="filename">NetworkManager.conf</code> file:
+          </p>
+          <pre class="root">
+<kbd class=
+"command">cat &gt;&gt; /etc/NetworkManager/NetworkManager.conf &lt;&lt; "EOF"
+<code class="literal">[main]
+plugins=keyfile</code>
+EOF</kbd>
+</pre>
+          <p>
+            You can add <code class="option">dns=none</code> to suppress
+            changes to <code class="filename">/etc/resolv.conf</code>. See
+            <span class="command"><strong>man 5
+            NetworkManager.conf</strong></span> for any additional options.
+          </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <h3 class="sect3">
+            <a id="NetworkManager-init" name="NetworkManager-init"></a>Boot
+            Script
+          </h3>
+          <p>
+            To automatically start the <span class=
+            "command"><strong>NetworkManager</strong></span> daemon when the
+            system is rebooted, install the <code class=
+            "filename">/etc/rc.d/init.d/networkmanager</code> bootscript from
+            the <a class="xref" href="../introduction/bootscripts.html"
+            title="BLFS Boot Scripts">blfs-bootscripts-20150304</a> package.
+          </p>
+          <pre class="root">
+<kbd class="command">make install-networkmanager</kbd>
+</pre>
+        </div>
+      </div>
+      <div class="content" lang="en" xml:lang="en">
+        <h2 class="sect2">
+          Contents
+        </h2>
+        <div class="segmentedlist">
+          <div class="seglistitem">
+            <div class="seg">
+              <strong class="segtitle">Installed Programs:</strong>
+              <span class="segbody">NetworkManager, nm-online, nmcli, and,
+              hardlinked to each other: nmtui, nmtui-connect, nmtui-edit and
+              nmtui-hostname</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed Libraries:</strong>
+              <span class="segbody">libnm.so, libnm-glib.so,
+              libnm-glib-vpn.so, libnm-util.so, and modules under
+              /usr/lib/NetworkManager</span>
+            </div>
+            <div class="seg">
+              <strong class="segtitle">Installed Directories:</strong>
+              <span class="segbody">/etc/NetworkManager,
+              /usr/include/{libnm,libnm-glib,NetworkManager},
+              /usr/lib/NetworkManager, /usr/share/doc/NetworkManager-1.0.2,
+              /usr/share/gtk-doc/html/{libnm,libnm-glib,libnm-util,NetworkManager},
+              and /var/{lib,run}/NetworkManager</span>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <h3>
+            Short Descriptions
+          </h3>
+          <table border="0">
+            <col align="left" valign="top" />
+            <tbody>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nmcli" name="nmcli"></a><span class=
+                    "term"><span class=
+                    "command"><strong>nmcli</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is a command-line tool for controlling <span class=
+                    "application">NetworkManager</span> and getting its
+                    status.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nm-online" name="nm-online"></a><span class=
+                    "term"><span class=
+                    "command"><strong>nm-online</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is a utility to find out whether you are online.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nmtui" name="nmtui"></a><span class=
+                    "term"><span class=
+                    "command"><strong>nmtui</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    interactive ncurses based interface for <span class=
+                    "application">nmcli</span>.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nmtui-connect" name=
+                    "nmtui-connect"></a><span class="term"><span class=
+                    "command"><strong>nmtui-connect</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    interactive ncurses based interface connection
+                    activate/deactivate.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nmtui-edit" name="nmtui-edit"></a><span class=
+                    "term"><span class=
+                    "command"><strong>nmtui-edit</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    interactive ncurses based interface connection editor.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="nmtui-hostname" name=
+                    "nmtui-hostname"></a><span class="term"><span class=
+                    "command"><strong>nmtui-hostname</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    interactive ncurses based interface hostname editor.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="NetworkManager-prog" name=
+                    "NetworkManager-prog"></a><span class="term"><span class=
+                    "command"><strong>NetworkManager</strong></span></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    is the network management daemon.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnm-glib" name="libnm-glib"></a><span class=
+                    "term"><code class="filename">libnm-glib.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    contains functions used by <span class=
+                    "application">NetworkManager</span>.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnm-glib-vpn" name=
+                    "libnm-glib-vpn"></a><span class="term"><code class=
+                    "filename">libnm-glib-vpn.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    contains functions used by <span class=
+                    "application">NetworkManager</span> VPN plugins.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <a id="libnm-util" name="libnm-util"></a><span class=
+                    "term"><code class="filename">libnm-util.so</code></span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    contains functions used by <span class=
+                    "application">NetworkManager</span> utils.
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="updated">
+        Last updated on 2015-05-06 13:57:29 +0000
+      </p>
+    </div>
+    <div class="navfooter">
+      <ul>
+        <li class="prev">
+          <a accesskey="p" href="mod_dnssd.html" title=
+          "mod_dnssd-0.6">Prev</a>
+          <p>
+            mod_dnssd-0.6
+          </p>
+        </li>
+        <li class="next">
+          <a accesskey="n" href="nmap.html" title="Nmap-6.47">Next</a>
+          <p>
+            Nmap-6.47
+          </p>
+        </li>
+        <li class="up">
+          <a accesskey="u" href="netutils.html" title=
+          "Chapter&nbsp;16.&nbsp;Networking Utilities">Up</a>
+        </li>
+        <li class="home">
+          <a accesskey="h" href="../index.html" title=
+          "Beyond Linux® From Scratch - Version 2015-06-04">Home</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
