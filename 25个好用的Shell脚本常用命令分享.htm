@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>25个好用的Shell脚本常用命令分享_linux shell_脚本之家</title>
+<meta http-equiv="Content-Language" content="zh-CN" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<meta http-equiv="mobile-agent" content="format=html5; url=http://m.jb51.net/article/48057.htm">
+<meta http-equiv="mobile-agent" content="format=xhtml; url=http://m.jb51.net/article/48057.htm">
+<script type="text/javascript">
+if((navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)))
+{
+    location.replace("http://m.jb51.net/article/48057.htm");
+}
+</script>
+<meta name="keywords" content="shell脚本,shell常用命令" />
+<meta name="description" content="这篇文章主要介绍了25个好用的Shell脚本常用命令,由个人收集整理而来,需要的朋友可以参考下" />
+<link rel="stylesheet" href="http://img.jb51.net/skin/blue/global.css" type="text/css" media="all" />
+<link rel="stylesheet" href="http://img.jb51.net/skin/blue/content.css" type="text/css" media="all" />
+<link type="text/css" rel="stylesheet" href="/jslib/syntaxhighlighter/styles/shCore.css" />
+<link type="text/css" rel="Stylesheet" href="/jslib/syntaxhighlighter/styles/shThemeDefault.css" />
+<script type="text/javascript" src="http://img.jb51.net/js/function.js"></script>
+</head>
+<body>
+<DIV id=topnav>
+<div class="wrap">
+<DIV id=toptext>脚 本 之 家 www.jb51.net</DIV>
+<UL id=topnavlist>
+<script type="text/javascript" charset="gb2312">dy("top");</script>
+</UL>
+</div>
+</DIV>
+<div class="wrap">
+<div id="dxy_logo">
+<div id="logo_l"><a href="http://www.jb51.net" title="脚本之家" target="_blank"><img src="http://www.jb51.net/images/logo.gif" alt="脚本之家" /></a></div>
+<div id="logo_m"></div>
+<div id="logo_r"></div>
+</div><!--导航开始-->
+<div id="nav_top">
+<ul>
+<li class="current"><a href="http://www.jb51.net">首页</a></li>
+<li><a href="http://www.jb51.net/web/">网页制作</a></li>
+<li><a href="http://www.jb51.net/list/index_96.htm">脚本专栏</a></li>
+<li><a href="http://www.jb51.net/jiaoben/">脚本下载</a></li>
+<li><a href="http://www.jb51.net/list/index_1.htm">网络编程</a></li>
+<li><a href="http://www.jb51.net/list/index_104.htm">数据库</a></li>
+<li><a href="http://www.jb51.net/cms/">CMS教程</a></li>
+<li><a href="http://www.jb51.net/books/">电子书籍</a></li>
+<li><a href="http://www.jb51.net/pingmian/">平面设计</a></li>
+<li><a href="http://www.jb51.net/media/">媒体动画</a></li>
+<li><a href="http://www.jb51.net/os/">操作系统</a></li>
+<li><a href="http://www.jb51.net/yunying/">网站运营</a></li>
+<li class="last"><a href="http://www.jb51.net/hack/">网络安全</a></li>
+</ul>
+</div><!--导航结束-->
+<div class=blank3></div>
+<div class="subnav">
+<ul><li><a href='/list/list_114_1.htm' title="vbs">vbs</a></li>
+<li><a href='/list/list_106_1.htm' title="DOS/BAT">DOS/BAT</a></li>
+<li><a href='/list/list_110_1.htm' title="hta">hta</a></li>
+<li><a href='/list/list_111_1.htm' title="htc">htc</a></li>
+<li><a href='/list/list_97_1.htm' title="python">python</a></li>
+<li><a href='/list/list_125_1.htm' title="perl">perl</a></li>
+<li><a href='/list/list_138_1.htm' title="游戏相关">游戏相关</a></li>
+<li><a href='/list/list_161_1.htm' title="VBA">VBA</a></li>
+<li><a href='/list/list_163_1.htm' title="远程脚本">远程脚本</a></li>
+<li><a href='/list/list_178_1.htm' title="ColdFusion">ColdFusion</a></li>
+<li><a href='/list/list_201_1.htm' title="ruby专题">ruby专题</a></li>
+<li><a href='/list/list_213_1.htm' title="autoit">autoit</a></li>
+<li><a href='/list/list_214_1.htm' title="seraphzone">seraphzone</a></li>
+<li><a href='/list/list_234_1.htm' title="PowerShell">PowerShell</a></li>
+<li><a href='/list/list_235_1.htm' title="linux shell">linux shell</a></li>
+<li><a href='/list/list_245_1.htm' title="Lua">Lua</a></li>
+<li><a href='/list/list_246_1.htm' title="Golang">Golang</a></li>
+<li><a href='/list/list_249_1.htm' title="Erlang ">Erlang </a></li>
+<li><a href='/list/list_130_1.htm' title="其它">其它</a></li>
+</ul>
+</div>
+<div class=blank3></div>
+<DIV class="search">
+<UL><LI class=search-hot><SPAN>特色栏目：</SPAN>
+<A href="http://www.jb51.net/list/list_114_1.htm" target='_blank'>vbscript</A> 
+<A href="http://www.jb51.net/list/list_6_1.htm" target='_blank'>正则表达式</A> 
+<A href="http://www.jb51.net/list/list_3_1.htm" target='_blank'>javascript</A>
+<A href="http://www.jb51.net/list/list_106_1.htm" target='_blank'>批处理</A>
+<A href="http://s.jb51.net">服务器软件</A> 
+<A href="http://sc.jb51.net/?txt" target="_blank" style="color:red">素材下载</A> 
+</LI><LI class=search-box>
+<div class="sall">
+<form action="http://so.jb51.net/cse/search" target="_blank">
+    <input type="hidden" name="s" value="10520733385329581432">
+    <input type="hidden" name="ie" value="gbk">
+    <input type="text" name="q" class="keyword_input">
+    <input type="submit" value="搜索" class="s_btn">
+</form></div>
+</LI></UL>
+</div>
+<div class=blank3></div>
+<DIV class="tonglanad">
+<script type="text/javascript">var tougao="junjie";var lmname="linux shell";dy("bdtl");</script>
+</div>
+<div class=blank3></div>
+<div id="tonglan1"></div>
+<div class=blank3></div>
+<div class="dxy_main">
+<div class="dxy_main_l">
+<div id="art_con">
+<div id="daohang">页面导航：  <a href='/'>首页</a> → <a href="/list/index_96.htm" title="脚本专栏">脚本专栏</a> → <a href="/list/list_235_1.htm" title="linux shell">linux shell</a> → 正文内容 shell 常用命令<div class="blank3"></div></div>
+<div class=blank3></div>
+<h1>25个好用的Shell脚本常用命令分享</h1>
+<div id="art_info">
+作者：  字体：[<a href="javascript:turnbig()">增加</a> <a href="javascript:turnsmall()">减小</a>] 类型：转载 
+</div><!--end art_info-->
+<div class=blank3></div>
+<div id="art_demo">这篇文章主要介绍了25个好用的Shell脚本常用命令,由个人收集整理而来,需要的朋友可以参考下</div>
+<div class=blank3></div>
+<div id="con_all">
+<script type="text/javascript">dy("bcall");</script>
+</div>
+<div id="art_content">
+<!--NEWSZW_HZH_BEGIN-->
+<P>1.列出所有目录使用量，并按大小排序。<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="11771" class="copybut" id="copybut11771" onclick="doCopy('code11771')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code11771">ls|xargs du -h|sort -rn <BR>#不递归下级目录使用du -sh</div><BR>2.查看文件排除以#开关和空白行，适合查看配置文件。<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="3485" class="copybut" id="copybut3485" onclick="doCopy('code3485')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code3485">egrep -v "^#|^$"&nbsp; filename<BR>sed '/#.*$/d; /^ *$/d'</div><BR>3.删除空格和空行。<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="81459" class="copybut" id="copybut81459" onclick="doCopy('code81459')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code81459">sed '/^$/d' filename #删除空行<BR>sed 's/ //g' filename<BR>sed 's/[[:space:]]//g' filename</div><BR>4.删除#后的注释。<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="20980" class="copybut" id="copybut20980" onclick="doCopy('code20980')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code20980">sed -i 's/#.*$//g' filename</div><BR>5.踢出登录的用户，用who查看终端。<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="2417" class="copybut" id="copybut2417" onclick="doCopy('code2417')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code2417">pkill -KILL -t pts/0</div><BR>6.删除空文件。<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="84663" class="copybut" id="copybut84663" onclick="doCopy('code84663')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code84663">find / -type f -size 0 -exec rm -rf {} \;</div><BR>7.查找进程pid并kill。<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="11367" class="copybut" id="copybut11367" onclick="doCopy('code11367')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code11367">pgrep nginx|xargs kill <BR>pidof nginx|xargs kill</div><BR>8.获取当前IP地址，强大的awk，一个命令搞定。<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="31257" class="copybut" id="copybut31257" onclick="doCopy('code31257')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code31257">ifconfig |awk -F"[ ]+|[:]" 'NR==2 {print $4}'</div><BR>9.文本方式查看wtmp日志<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="98145" class="copybut" id="copybut98145" onclick="doCopy('code98145')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code98145">utmpdump /var/log/wtmp</div><BR>10.以内存大小排序列出进程<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="97481" class="copybut" id="copybut97481" onclick="doCopy('code97481')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code97481">ps aux --sort=rss |sort -k 6 -rn</div><BR>11.简单web server列出当前目录文件，端口8000：<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="72914" class="copybut" id="copybut72914" onclick="doCopy('code72914')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code72914">python -m SimpleHTTPServer</div><BR>12.以管道输入方式修改用户密码：<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="46615" class="copybut" id="copybut46615" onclick="doCopy('code46615')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code46615">echo "password" |passwd –stdin root</div><BR>12.生成SSH证书并复制到远端服务器：<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="98954" class="copybut" id="copybut98954" onclick="doCopy('code98954')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code98954">ssh-keygen -y -f ~/.ssh/id_rsa &&　cat ~/.ssh/id_rsa.pub | ssh root@host "cat - &gt;&gt; ~/.ssh/authorized_keys"</div><BR>13.shell下新建文件夹并进入，以下加入bashrc：<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="41938" class="copybut" id="copybut41938" onclick="doCopy('code41938')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code41938">mkcd ( ){<BR>mkdir $1<BR>cd $1<BR>}</div><BR>14.通过SSH快速备份文件到另一服务器：<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="66101" class="copybut" id="copybut66101" onclick="doCopy('code66101')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code66101">tar zcvf - back/ | ssh root@www.jb51.net tar xzf - -C /root/back/</div><BR>15.用wget下载整站：<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="93613" class="copybut" id="copybut93613" onclick="doCopy('code93613')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code93613">wget -r -p -np -k http://www.jb51.net<BR>#r递归 p下载所有文件 np不下载上级 k转换相对链接</div><BR>16.Kill整个进程树：<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="57960" class="copybut" id="copybut57960" onclick="doCopy('code57960')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code57960">pstree -ap 10277|grep -oP '[0-9]{4,6}'|xargs kill -9</div><BR>17.生成随机字符：<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="91477" class="copybut" id="copybut91477" onclick="doCopy('code91477')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code91477">cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1</div><BR>18.使用awk导出最后一列非空的数据：<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="64369" class="copybut" id="copybut64369" onclick="doCopy('code64369')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code64369">awk -F "|" '{if($NF!="") print $NF}'</div><BR>19.查找每行大于几位数的数据：<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="72250" class="copybut" id="copybut72250" onclick="doCopy('code72250')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code72250">awk -F '' '{if(NF&gt;6) print $0}'</div><BR>20.获取HTML页面文本内容：<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="22048" class="copybut" id="copybut22048" onclick="doCopy('code22048')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code22048">lynx -dump www.jb51.net #包含页面的URL<BR>w3m -no-cookie -dump www.jb51.net<BR>links -dump www.jb51.net #对中文内容支持不好</div><BR>21.端口重定向：<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="99213" class="copybut" id="copybut99213" onclick="doCopy('code99213')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code99213">socat TCP4-LISTEN:1234,reuseaddr,fork, TCP4:www.baidu.com:80</div><BR>22.行前或行后插入：<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="94277" class="copybut" id="copybut94277" onclick="doCopy('code94277')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code94277">sed 'p;s/^.*$/--------/' file<BR>awk '{print $0;print "-------"}' file</div><BR>23.行首或行尾插入：<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="82527" class="copybut" id="copybut82527" onclick="doCopy('code82527')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code82527">sed 's/^/new/g' file<BR>sed 's/$/new/g' file</div><BR>24.逐字换行：<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="17776" class="copybut" id="copybut17776" onclick="doCopy('code17776')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code17776">awk -F "" '{for(i=1;i&lt;=NF;i++) print $i}'</div><BR>25.目录中大量文件删除：<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="12030" class="copybut" id="copybut12030" onclick="doCopy('code12030')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code12030">ls | xargs rm</div><BR></P>
+<!--NEWSZW_HZH_END-->
+
+<div id="art_xg">
+<h4>您可能感兴趣的文章:</h4><ul><li><a href="/article/31172.htm" title="hbase shell基础和常用命令详解" target="_blank">hbase shell基础和常用命令详解</a></li><li><a href="/article/34323.htm" title="shell数组常用实例分享" target="_blank">shell数组常用实例分享</a></li></ul>
+<div id="con_da2">
+<script type="text/javascript">dy("baidu580");</script>
+</div>
+</div>
+<div id="con_bo"></div>
+</div>
+<div class=blank3></div>
+<div id="shoucang">
+    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+        <a class="bds_qzone">QQ空间</a>
+        <a class="bds_tsina">新浪微博</a>
+        <a class="bds_tqq">腾讯微博</a>
+        <a class="bds_tsohu">搜狐微博</a>
+        <a class="bds_renren">人人网</a>
+        <a class="bds_kaixin001">开心网</a>
+        <a class="bds_baidu">百度搜藏</a>
+        <span class="bds_more">更多</span>
+		<a class="shareCount"></a>
+    </div>
+</div>
+<div class=blank3></div>
+<div class="tags">
+<strong>Tags：</strong><a href="http://img.jb51.net/tag/shell%BD%C5%B1%BE/1.htm" target="_blank" title="搜索关于shell脚本的文章">shell脚本</a> <a href="http://img.jb51.net/tag/shell%B3%A3%D3%C3%C3%FC%C1%EE/1.htm" target="_blank" title="搜索关于shell常用命令的文章">shell常用命令</a> 
+</div>
+<div class=blank3></div>
+<div class="con_ff">
+<A title=复制本文链接发给你QQ/MSN上的好友 href="javascript: copyUserHomeToClipBoard()" 
+rel=nofollow class=button_link>复制链接</A><a href="javascript:addBookmark(document.title,document.location.href)" class=button_link>收藏本文</a><a href="javascript:doPrint();" class="button_link">打印本文</a><a href="javascript:closeWindow()" class="button_link">关闭本文</a><a href='/index.htm' class=button_link>返回首页</a>
+</div>
+<div id="prenext">
+<div id='prv'>上一篇：<a href='/article/48053.htm' title='Shell脚本监控服务器在线状态和邮件报警的方法'>Shell脚本监控服务器在线状态和邮件报警的方法</a></div><div id='next'>下一篇：<a href='/article/63025.htm'>shell脚本实现随机生成10个8位密码</a></div>
+</div>
+<div class=blank3></div>
+<DIV id=relatedarticle>
+<H2>相关文章</H2>
+<ul><li><span>2015-02-02</span><a href="/article/60910.htm" title="Shell脚本实现从文件夹中递归复制文件" target="_blank">Shell脚本实现从文件夹中递归复制文件</a></li><li><span>2013-11-11</span><a href="/article/42920.htm" title="linux bash中too many arguments问题的解决方法" target="_blank">linux bash中too many arguments问题的解决方法</a></li><li><span>2014-01-01</span><a href="/article/45111.htm" title="用shell脚本防ssh和vsftpd暴力破解的详解讲解" target="_blank">用shell脚本防ssh和vsftpd暴力破解的详解讲解</a></li><li><span>2014-02-02</span><a href="/article/47355.htm" title="ftp自动上传脚本分享" target="_blank">ftp自动上传脚本分享</a></li><li><span>2014-12-12</span><a href="/article/58872.htm" title="收集的55个Linux系统管理中常用的一些shell命令" target="_blank">收集的55个Linux系统管理中常用的一些shell命令</a></li><li><span>2013-11-11</span><a href="/article/43525.htm" title="linux下保留文件系统下剩余指定数目文件的shell脚本" target="_blank">linux下保留文件系统下剩余指定数目文件的shell脚本</a></li><li><span>2014-03-03</span><a href="/article/47702.htm" title="shell实现字符编码转换工具分享" target="_blank">shell实现字符编码转换工具分享</a></li><li><span>2014-12-12</span><a href="/article/58875.htm" title="Shell创建用户并生成随机密码脚本分享" target="_blank">Shell创建用户并生成随机密码脚本分享</a></li><li><span>2014-10-10</span><a href="/article/56550.htm" title="Shell脚本中判断输入变量或者参数是否为空的方法" target="_blank">Shell脚本中判断输入变量或者参数是否为空的方法</a></li><li><span>2014-03-03</span><a href="/article/47664.htm" title="从apnic提取ip信息脚本分享" target="_blank">从apnic提取ip信息脚本分享</a></li></ul>
+<DIV class=clear></DIV></DIV>
+<div class="sm"><script type="text/javascript" charset="gb2312">dy("bdtxt");</script></div>
+<DIV id=comments>
+<H2>文章评论</H2>
+<div id="commentList">
+<div class="ds-thread" data-category="" data-thread-key="art_48057" data-title="25个好用的Shell脚本常用命令分享" data-author-key="" data-url="http://www.jb51.net/article/48057.htm"></div>
+</div>
+</div>
+<div class=blank3></div>
+<div class="sm"><script type="text/javascript" charset="gb2312">dy("sm");</script></div>
+<div class=blank3></div>
+<div id="hm_t_3717"></div>
+<div class=blank3></div>
+</div>
+</div><!--end dxy_mainl-->
+<div class="dxy_main_r">
+<div class="rbg" id="art_1"><script type="text/javascript">dy("r1");</script></div>
+<div class=blank3></div>
+<DIV class="r_title"><H6>最 近 更 新</H6></div>
+<div class="rightContent">
+<ul><li><a href="/article/31232.htm" title="shell 中数学计算总结" target="_blank">shell 中数学计算总结</a></li><li><a href="/article/58759.htm" title="Shell脚本中调用、引用、包含另外一个脚本文件的两种方法" target="_blank">Shell脚本中调用、引用、包含另外一个脚本</a></li><li><a href="/article/34342.htm" title="神奇的shell命令行输入与输出功能介绍" target="_blank">神奇的shell命令行输入与输出功能介绍</a></li><li><a href="/article/56559.htm" title="Shell字符串比较相等、不相等方法小结" target="_blank">Shell字符串比较相等、不相等方法小结</a></li><li><a href="/article/58857.htm" title="Shell脚本实现memcache缓存命中率监控" target="_blank">Shell脚本实现memcache缓存命中率监控</a></li><li><a href="/article/34212.htm" title="ssh自动登录的4种实现方法" target="_blank">ssh自动登录的4种实现方法</a></li><li><a href="/article/49015.htm" title="Linux Shell 常见的命令行格式简明总结" target="_blank">Linux Shell 常见的命令行格式简明总结</a></li><li><a href="/article/58757.htm" title="shell脚本实现文件锁功能" target="_blank">shell脚本实现文件锁功能</a></li><li><a href="/article/58880.htm" title="Shell脚本实现防止国外ip访问服务器" target="_blank">Shell脚本实现防止国外ip访问服务器</a></li><li><a href="/article/48018.htm" title="MAC中用Shell脚本批量裁剪各种尺寸的App图标" target="_blank">MAC中用Shell脚本批量裁剪各种尺寸的App图</a></li></ul>
+</div>
+<div class=blank3></div>
+<div id="art_2"><script type="text/javascript">dy("r2");</script></div>
+<div class=blank3></div>
+<DIV class="r_title"><H6>热 点 排 行</H6></div>
+<div class="hotContent">
+<ul class="toplist"><li class="light"><SPAN class=r_num>1</SPAN><a href="/article/34332.htm" title="linux shell中 if else以及大于、小于、等于逻辑表达式介绍" target="_blank">linux shell中 if else以及大于、</a></li><li class="light"><SPAN class=r_num>2</SPAN><a href="/article/31172.htm" title="hbase shell基础和常用命令详解" target="_blank">hbase shell基础和常用命令详解</a></li><li class="light"><SPAN class=r_num>3</SPAN><a href="/article/31232.htm" title="shell 中数学计算总结" target="_blank">shell 中数学计算总结</a></li><li><SPAN class=r_num>4</SPAN><a href="/article/45848.htm" title="linux命令详解之useradd命令使用方法" target="_blank">linux命令详解之useradd命令使用</a></li><li><SPAN class=r_num>5</SPAN><a href="/article/34322.htm" title="linux shell数组深入学习理解" target="_blank">linux shell数组深入学习理解</a></li><li><SPAN class=r_num>6</SPAN><a href="/article/33895.htm" title="shell自定义函数及参数调用解析" target="_blank">shell自定义函数及参数调用解析</a></li><li><SPAN class=r_num>7</SPAN><a href="/article/34330.htm" title="判断文件是否存在的shell脚本代码" target="_blank">判断文件是否存在的shell脚本代码</a></li><li><SPAN class=r_num>8</SPAN><a href="/article/30471.htm" title="bash 编程中循环语句用法" target="_blank">bash 编程中循环语句用法</a></li><li><SPAN class=r_num>9</SPAN><a href="/article/33971.htm" title="比较两个字符串是否相等的shell代码" target="_blank">比较两个字符串是否相等的shell代</a></li><li><SPAN class=r_num>10</SPAN><a href="/article/34321.htm" title="shell for循环与数组应用介绍" target="_blank">shell for循环与数组应用介绍</a></li></ul>
+</div>
+<div class=blank3></div>
+<div id="art_3"><script type="text/javascript">dy("r3");</script></div>
+<div class=blank3></div>
+<div id="baidu300"><script type="text/javascript">dy("baidu300_2");</script></div>
+</DIV><!--end mainr-->
+<div class=clear></div>
+</div><!--end main2-->
+</div>
+<div class="blank3"></div>
+
+<div id="footer">
+  <div id="footerinfo">
+   <div id="footercontent"><a href="http://www.jb51.net/about.htm" target="_blank">关于我们</a> - <a href="http://www.jb51.net/support.htm" target="_blank">广告合作</a> - <a href="http://www.jb51.net/linkus.htm" target="_blank">联系我们</a> -  <a href="http://www.jb51.net/sm.htm" target="_blank">免责声明</a> -  <a href="http://www.jb51.net/sitemap.htm" target="_blank">网站地图</a> - <a href="tencent://message/?uin=461478385&Site=http://www.jb51.net" target="_blank">投诉建议</a> - <a href="http://www.jb51.net/up.htm" target="_blank">在线投稿</a></div>
+    <div id="footercopyrights">CopyRight &copy; 2006-2015 <a href="http://www.jb51.net">脚本之家</a> JB51.Net , All Rights Reserved</div>
+  </div>
+  <DIV class=ewm><IMG alt="脚本之家官方微信" src="http://img.jb51.net/images/weixin_jb51.gif"></DIV>
+</div>
+<!-- Baidu Button BEGIN -->
+<div id="logo_m_tp"><script type="text/javascript">dy("logo_m");</script></div>
+<div id="logo_r_tp"><script type="text/javascript">dy("logo_r");</script></div>
+<div id="tonglan1_tp"><script type="text/javascript">dy("tonglan1");</script></div>
+<script type="text/javascript" src="http://img.jb51.net/jslib/jquery/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="http://img.jb51.net/js/foot.js"></script>
+<script type="text/javascript" src="/jslib/syntaxhighlighter/scripts/shCore.js"></script>
+<script type="text/javascript" src="/jslib/syntaxhighlighter/scripts/shAutoloader.js"></script>
+<script type="text/javascript"> 
+SyntaxHighlighter.autoloader(
+	'applescript			/jslib/syntaxhighlighter/scripts/shBrushAppleScript.js',
+	'actionscript3 as3		/jslib/syntaxhighlighter/scripts/shBrushAS3.js',
+	'bash shell				/jslib/syntaxhighlighter/scripts/shBrushBash.js',
+	'coldfusion cf			/jslib/syntaxhighlighter/scripts/shBrushColdFusion.js',
+	'cpp c					/jslib/syntaxhighlighter/scripts/shBrushCpp.js',
+	'obj-c objc				/jslib/syntaxhighlighter/scripts/shBrushObjC.js',
+	'c# c-sharp csharp		/jslib/syntaxhighlighter/scripts/shBrushCSharp.js',
+	'css					/jslib/syntaxhighlighter/scripts/shBrushCss.js',
+	'delphi pascal			/jslib/syntaxhighlighter/scripts/shBrushDelphi.js',
+	'diff patch pas			/jslib/syntaxhighlighter/scripts/shBrushDiff.js',
+	'erl erlang				/jslib/syntaxhighlighter/scripts/shBrushErlang.js',
+	'groovy					/jslib/syntaxhighlighter/scripts/shBrushGroovy.js',
+	'haxe hx				/jslib/syntaxhighlighter/scripts/shBrushHaxe.js',
+	'java					/jslib/syntaxhighlighter/scripts/shBrushJava.js',
+	'jfx javafx				/jslib/syntaxhighlighter/scripts/shBrushJavaFX.js',
+	'js jscript javascript	/jslib/syntaxhighlighter/scripts/shBrushJScript.js',
+	'perl pl				/jslib/syntaxhighlighter/scripts/shBrushPerl.js',
+	'php					/jslib/syntaxhighlighter/scripts/shBrushPhp.js',
+	'text plain				/jslib/syntaxhighlighter/scripts/shBrushPlain.js',
+	'py python				/jslib/syntaxhighlighter/scripts/shBrushPython.js',
+	'ruby rails ror rb		/jslib/syntaxhighlighter/scripts/shBrushRuby.js',
+	'scala					/jslib/syntaxhighlighter/scripts/shBrushScala.js',
+	'sql					/jslib/syntaxhighlighter/scripts/shBrushSql.js',
+	'vb vbnet				/jslib/syntaxhighlighter/scripts/shBrushVb.js',
+	'xml xhtml xslt html	/jslib/syntaxhighlighter/scripts/shBrushXml.js'
+);
+SyntaxHighlighter.all();
+</script>
+<div class="tongji"><script type="text/javascript" src="http://img.jb51.net/inc/tongji.js"></script></div>
+<script type="text/javascript" src="http://www.jb51.net/pl.asp?id=48057"></script>
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=50347" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<!-- Baidu Button END -->
+<!-- Duoshuo Comment BEGIN -->
+<script type="text/javascript">
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?t=" + new Date().getHours();
+var duoshuoQuery = {short_name:"jb51"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+</body>
+</html>
+<!-- published at 2015-4-1 16:32:53By dxycms qq:461478385  -->
