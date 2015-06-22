@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>
+Privoxy 简明教程 &#8211; 陈三	</title>
+	<meta name="description" content='教你如何安装、配置、使用 Privoxy。' />
+		    
+	<link rel="pingback" href="http://www.zfanw.com/blog/xmlrpc.php" />
+<style>
+/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}img,legend{border:0}legend,td,th{padding:0}a{background-color:transparent}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,optgroup,strong{font-weight:700}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{box-sizing:content-box;height:0}pre,textarea{overflow:auto}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}input[type=search]{-webkit-appearance:textfield;box-sizing:content-box}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}table{border-collapse:collapse;border-spacing:0}
+
+/*!
+Pure v0.6.0
+Copyright 2014 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+https://github.com/yahoo/pure/blob/master/LICENSE.md
+*/
+/*!
+normalize.css v^3.0 | MIT License | git.io/normalize
+Copyright (c) Nicolas Gallagher and Jonathan Neal
+*/
+/*! normalize.css v3.0.2 | MIT License | git.io/normalize */html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background-color:transparent}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:700}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}pre{overflow:auto}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}.hidden,[hidden]{display:none!important}.pure-img{max-width:100%;height:auto;display:block}
+/*!
+Pure v0.6.0
+Copyright 2014 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+https://github.com/yahoo/pure/blob/master/LICENSE.md
+*/
+.pure-g{letter-spacing:-.31em;*letter-spacing:normal;*word-spacing:-.43em;text-rendering:optimizespeed;font-family:FreeSans,Arimo,"Droid Sans",Helvetica,Arial,sans-serif;display:-webkit-flex;-webkit-flex-flow:row wrap;display:-ms-flexbox;-ms-flex-flow:row wrap;-ms-align-content:flex-start;-webkit-align-content:flex-start;align-content:flex-start}.opera-only :-o-prefocus,.pure-g{word-spacing:-.43em}.pure-u{display:inline-block;*display:inline;zoom:1;letter-spacing:normal;word-spacing:normal;vertical-align:top;text-rendering:auto}.pure-g [class *="pure-u"]{font-family:sans-serif}.pure-u-1,.pure-u-1-1,.pure-u-1-2,.pure-u-1-3,.pure-u-2-3,.pure-u-1-4,.pure-u-3-4,.pure-u-1-5,.pure-u-2-5,.pure-u-3-5,.pure-u-4-5,.pure-u-5-5,.pure-u-1-6,.pure-u-5-6,.pure-u-1-8,.pure-u-3-8,.pure-u-5-8,.pure-u-7-8,.pure-u-1-12,.pure-u-5-12,.pure-u-7-12,.pure-u-11-12,.pure-u-1-24,.pure-u-2-24,.pure-u-3-24,.pure-u-4-24,.pure-u-5-24,.pure-u-6-24,.pure-u-7-24,.pure-u-8-24,.pure-u-9-24,.pure-u-10-24,.pure-u-11-24,.pure-u-12-24,.pure-u-13-24,.pure-u-14-24,.pure-u-15-24,.pure-u-16-24,.pure-u-17-24,.pure-u-18-24,.pure-u-19-24,.pure-u-20-24,.pure-u-21-24,.pure-u-22-24,.pure-u-23-24,.pure-u-24-24{display:inline-block;*display:inline;zoom:1;letter-spacing:normal;word-spacing:normal;vertical-align:top;text-rendering:auto}.pure-u-1-24{width:4.1667%;*width:4.1357%}.pure-u-1-12,.pure-u-2-24{width:8.3333%;*width:8.3023%}.pure-u-1-8,.pure-u-3-24{width:12.5%;*width:12.469%}.pure-u-1-6,.pure-u-4-24{width:16.6667%;*width:16.6357%}.pure-u-1-5{width:20%;*width:19.969%}.pure-u-5-24{width:20.8333%;*width:20.8023%}.pure-u-1-4,.pure-u-6-24{width:25%;*width:24.969%}.pure-u-7-24{width:29.1667%;*width:29.1357%}.pure-u-1-3,.pure-u-8-24{width:33.3333%;*width:33.3023%}.pure-u-3-8,.pure-u-9-24{width:37.5%;*width:37.469%}.pure-u-2-5{width:40%;*width:39.969%}.pure-u-5-12,.pure-u-10-24{width:41.6667%;*width:41.6357%}.pure-u-11-24{width:45.8333%;*width:45.8023%}.pure-u-1-2,.pure-u-12-24{width:50%;*width:49.969%}.pure-u-13-24{width:54.1667%;*width:54.1357%}.pure-u-7-12,.pure-u-14-24{width:58.3333%;*width:58.3023%}.pure-u-3-5{width:60%;*width:59.969%}.pure-u-5-8,.pure-u-15-24{width:62.5%;*width:62.469%}.pure-u-2-3,.pure-u-16-24{width:66.6667%;*width:66.6357%}.pure-u-17-24{width:70.8333%;*width:70.8023%}.pure-u-3-4,.pure-u-18-24{width:75%;*width:74.969%}.pure-u-19-24{width:79.1667%;*width:79.1357%}.pure-u-4-5{width:80%;*width:79.969%}.pure-u-5-6,.pure-u-20-24{width:83.3333%;*width:83.3023%}.pure-u-7-8,.pure-u-21-24{width:87.5%;*width:87.469%}.pure-u-11-12,.pure-u-22-24{width:91.6667%;*width:91.6357%}.pure-u-23-24{width:95.8333%;*width:95.8023%}.pure-u-1,.pure-u-1-1,.pure-u-5-5,.pure-u-24-24{width:100%}/*!
+Pure v0.6.0
+Copyright 2014 Yahoo! Inc. All rights reserved.
+Licensed under the BSD License.
+https://github.com/yahoo/pure/blob/master/LICENSE.md
+*/
+@media screen and (min-width:35.5em){.pure-u-sm-1,.pure-u-sm-1-1,.pure-u-sm-1-2,.pure-u-sm-1-3,.pure-u-sm-2-3,.pure-u-sm-1-4,.pure-u-sm-3-4,.pure-u-sm-1-5,.pure-u-sm-2-5,.pure-u-sm-3-5,.pure-u-sm-4-5,.pure-u-sm-5-5,.pure-u-sm-1-6,.pure-u-sm-5-6,.pure-u-sm-1-8,.pure-u-sm-3-8,.pure-u-sm-5-8,.pure-u-sm-7-8,.pure-u-sm-1-12,.pure-u-sm-5-12,.pure-u-sm-7-12,.pure-u-sm-11-12,.pure-u-sm-1-24,.pure-u-sm-2-24,.pure-u-sm-3-24,.pure-u-sm-4-24,.pure-u-sm-5-24,.pure-u-sm-6-24,.pure-u-sm-7-24,.pure-u-sm-8-24,.pure-u-sm-9-24,.pure-u-sm-10-24,.pure-u-sm-11-24,.pure-u-sm-12-24,.pure-u-sm-13-24,.pure-u-sm-14-24,.pure-u-sm-15-24,.pure-u-sm-16-24,.pure-u-sm-17-24,.pure-u-sm-18-24,.pure-u-sm-19-24,.pure-u-sm-20-24,.pure-u-sm-21-24,.pure-u-sm-22-24,.pure-u-sm-23-24,.pure-u-sm-24-24{display:inline-block;*display:inline;zoom:1;letter-spacing:normal;word-spacing:normal;vertical-align:top;text-rendering:auto}.pure-u-sm-1-24{width:4.1667%;*width:4.1357%}.pure-u-sm-1-12,.pure-u-sm-2-24{width:8.3333%;*width:8.3023%}.pure-u-sm-1-8,.pure-u-sm-3-24{width:12.5%;*width:12.469%}.pure-u-sm-1-6,.pure-u-sm-4-24{width:16.6667%;*width:16.6357%}.pure-u-sm-1-5{width:20%;*width:19.969%}.pure-u-sm-5-24{width:20.8333%;*width:20.8023%}.pure-u-sm-1-4,.pure-u-sm-6-24{width:25%;*width:24.969%}.pure-u-sm-7-24{width:29.1667%;*width:29.1357%}.pure-u-sm-1-3,.pure-u-sm-8-24{width:33.3333%;*width:33.3023%}.pure-u-sm-3-8,.pure-u-sm-9-24{width:37.5%;*width:37.469%}.pure-u-sm-2-5{width:40%;*width:39.969%}.pure-u-sm-5-12,.pure-u-sm-10-24{width:41.6667%;*width:41.6357%}.pure-u-sm-11-24{width:45.8333%;*width:45.8023%}.pure-u-sm-1-2,.pure-u-sm-12-24{width:50%;*width:49.969%}.pure-u-sm-13-24{width:54.1667%;*width:54.1357%}.pure-u-sm-7-12,.pure-u-sm-14-24{width:58.3333%;*width:58.3023%}.pure-u-sm-3-5{width:60%;*width:59.969%}.pure-u-sm-5-8,.pure-u-sm-15-24{width:62.5%;*width:62.469%}.pure-u-sm-2-3,.pure-u-sm-16-24{width:66.6667%;*width:66.6357%}.pure-u-sm-17-24{width:70.8333%;*width:70.8023%}.pure-u-sm-3-4,.pure-u-sm-18-24{width:75%;*width:74.969%}.pure-u-sm-19-24{width:79.1667%;*width:79.1357%}.pure-u-sm-4-5{width:80%;*width:79.969%}.pure-u-sm-5-6,.pure-u-sm-20-24{width:83.3333%;*width:83.3023%}.pure-u-sm-7-8,.pure-u-sm-21-24{width:87.5%;*width:87.469%}.pure-u-sm-11-12,.pure-u-sm-22-24{width:91.6667%;*width:91.6357%}.pure-u-sm-23-24{width:95.8333%;*width:95.8023%}.pure-u-sm-1,.pure-u-sm-1-1,.pure-u-sm-5-5,.pure-u-sm-24-24{width:100%}}@media screen and (min-width:48em){.pure-u-md-1,.pure-u-md-1-1,.pure-u-md-1-2,.pure-u-md-1-3,.pure-u-md-2-3,.pure-u-md-1-4,.pure-u-md-3-4,.pure-u-md-1-5,.pure-u-md-2-5,.pure-u-md-3-5,.pure-u-md-4-5,.pure-u-md-5-5,.pure-u-md-1-6,.pure-u-md-5-6,.pure-u-md-1-8,.pure-u-md-3-8,.pure-u-md-5-8,.pure-u-md-7-8,.pure-u-md-1-12,.pure-u-md-5-12,.pure-u-md-7-12,.pure-u-md-11-12,.pure-u-md-1-24,.pure-u-md-2-24,.pure-u-md-3-24,.pure-u-md-4-24,.pure-u-md-5-24,.pure-u-md-6-24,.pure-u-md-7-24,.pure-u-md-8-24,.pure-u-md-9-24,.pure-u-md-10-24,.pure-u-md-11-24,.pure-u-md-12-24,.pure-u-md-13-24,.pure-u-md-14-24,.pure-u-md-15-24,.pure-u-md-16-24,.pure-u-md-17-24,.pure-u-md-18-24,.pure-u-md-19-24,.pure-u-md-20-24,.pure-u-md-21-24,.pure-u-md-22-24,.pure-u-md-23-24,.pure-u-md-24-24{display:inline-block;*display:inline;zoom:1;letter-spacing:normal;word-spacing:normal;vertical-align:top;text-rendering:auto}.pure-u-md-1-24{width:4.1667%;*width:4.1357%}.pure-u-md-1-12,.pure-u-md-2-24{width:8.3333%;*width:8.3023%}.pure-u-md-1-8,.pure-u-md-3-24{width:12.5%;*width:12.469%}.pure-u-md-1-6,.pure-u-md-4-24{width:16.6667%;*width:16.6357%}.pure-u-md-1-5{width:20%;*width:19.969%}.pure-u-md-5-24{width:20.8333%;*width:20.8023%}.pure-u-md-1-4,.pure-u-md-6-24{width:25%;*width:24.969%}.pure-u-md-7-24{width:29.1667%;*width:29.1357%}.pure-u-md-1-3,.pure-u-md-8-24{width:33.3333%;*width:33.3023%}.pure-u-md-3-8,.pure-u-md-9-24{width:37.5%;*width:37.469%}.pure-u-md-2-5{width:40%;*width:39.969%}.pure-u-md-5-12,.pure-u-md-10-24{width:41.6667%;*width:41.6357%}.pure-u-md-11-24{width:45.8333%;*width:45.8023%}.pure-u-md-1-2,.pure-u-md-12-24{width:50%;*width:49.969%}.pure-u-md-13-24{width:54.1667%;*width:54.1357%}.pure-u-md-7-12,.pure-u-md-14-24{width:58.3333%;*width:58.3023%}.pure-u-md-3-5{width:60%;*width:59.969%}.pure-u-md-5-8,.pure-u-md-15-24{width:62.5%;*width:62.469%}.pure-u-md-2-3,.pure-u-md-16-24{width:66.6667%;*width:66.6357%}.pure-u-md-17-24{width:70.8333%;*width:70.8023%}.pure-u-md-3-4,.pure-u-md-18-24{width:75%;*width:74.969%}.pure-u-md-19-24{width:79.1667%;*width:79.1357%}.pure-u-md-4-5{width:80%;*width:79.969%}.pure-u-md-5-6,.pure-u-md-20-24{width:83.3333%;*width:83.3023%}.pure-u-md-7-8,.pure-u-md-21-24{width:87.5%;*width:87.469%}.pure-u-md-11-12,.pure-u-md-22-24{width:91.6667%;*width:91.6357%}.pure-u-md-23-24{width:95.8333%;*width:95.8023%}.pure-u-md-1,.pure-u-md-1-1,.pure-u-md-5-5,.pure-u-md-24-24{width:100%}}@media screen and (min-width:64em){.pure-u-lg-1,.pure-u-lg-1-1,.pure-u-lg-1-2,.pure-u-lg-1-3,.pure-u-lg-2-3,.pure-u-lg-1-4,.pure-u-lg-3-4,.pure-u-lg-1-5,.pure-u-lg-2-5,.pure-u-lg-3-5,.pure-u-lg-4-5,.pure-u-lg-5-5,.pure-u-lg-1-6,.pure-u-lg-5-6,.pure-u-lg-1-8,.pure-u-lg-3-8,.pure-u-lg-5-8,.pure-u-lg-7-8,.pure-u-lg-1-12,.pure-u-lg-5-12,.pure-u-lg-7-12,.pure-u-lg-11-12,.pure-u-lg-1-24,.pure-u-lg-2-24,.pure-u-lg-3-24,.pure-u-lg-4-24,.pure-u-lg-5-24,.pure-u-lg-6-24,.pure-u-lg-7-24,.pure-u-lg-8-24,.pure-u-lg-9-24,.pure-u-lg-10-24,.pure-u-lg-11-24,.pure-u-lg-12-24,.pure-u-lg-13-24,.pure-u-lg-14-24,.pure-u-lg-15-24,.pure-u-lg-16-24,.pure-u-lg-17-24,.pure-u-lg-18-24,.pure-u-lg-19-24,.pure-u-lg-20-24,.pure-u-lg-21-24,.pure-u-lg-22-24,.pure-u-lg-23-24,.pure-u-lg-24-24{display:inline-block;*display:inline;zoom:1;letter-spacing:normal;word-spacing:normal;vertical-align:top;text-rendering:auto}.pure-u-lg-1-24{width:4.1667%;*width:4.1357%}.pure-u-lg-1-12,.pure-u-lg-2-24{width:8.3333%;*width:8.3023%}.pure-u-lg-1-8,.pure-u-lg-3-24{width:12.5%;*width:12.469%}.pure-u-lg-1-6,.pure-u-lg-4-24{width:16.6667%;*width:16.6357%}.pure-u-lg-1-5{width:20%;*width:19.969%}.pure-u-lg-5-24{width:20.8333%;*width:20.8023%}.pure-u-lg-1-4,.pure-u-lg-6-24{width:25%;*width:24.969%}.pure-u-lg-7-24{width:29.1667%;*width:29.1357%}.pure-u-lg-1-3,.pure-u-lg-8-24{width:33.3333%;*width:33.3023%}.pure-u-lg-3-8,.pure-u-lg-9-24{width:37.5%;*width:37.469%}.pure-u-lg-2-5{width:40%;*width:39.969%}.pure-u-lg-5-12,.pure-u-lg-10-24{width:41.6667%;*width:41.6357%}.pure-u-lg-11-24{width:45.8333%;*width:45.8023%}.pure-u-lg-1-2,.pure-u-lg-12-24{width:50%;*width:49.969%}.pure-u-lg-13-24{width:54.1667%;*width:54.1357%}.pure-u-lg-7-12,.pure-u-lg-14-24{width:58.3333%;*width:58.3023%}.pure-u-lg-3-5{width:60%;*width:59.969%}.pure-u-lg-5-8,.pure-u-lg-15-24{width:62.5%;*width:62.469%}.pure-u-lg-2-3,.pure-u-lg-16-24{width:66.6667%;*width:66.6357%}.pure-u-lg-17-24{width:70.8333%;*width:70.8023%}.pure-u-lg-3-4,.pure-u-lg-18-24{width:75%;*width:74.969%}.pure-u-lg-19-24{width:79.1667%;*width:79.1357%}.pure-u-lg-4-5{width:80%;*width:79.969%}.pure-u-lg-5-6,.pure-u-lg-20-24{width:83.3333%;*width:83.3023%}.pure-u-lg-7-8,.pure-u-lg-21-24{width:87.5%;*width:87.469%}.pure-u-lg-11-12,.pure-u-lg-22-24{width:91.6667%;*width:91.6357%}.pure-u-lg-23-24{width:95.8333%;*width:95.8023%}.pure-u-lg-1,.pure-u-lg-1-1,.pure-u-lg-5-5,.pure-u-lg-24-24{width:100%}}@media screen and (min-width:80em){.pure-u-xl-1,.pure-u-xl-1-1,.pure-u-xl-1-2,.pure-u-xl-1-3,.pure-u-xl-2-3,.pure-u-xl-1-4,.pure-u-xl-3-4,.pure-u-xl-1-5,.pure-u-xl-2-5,.pure-u-xl-3-5,.pure-u-xl-4-5,.pure-u-xl-5-5,.pure-u-xl-1-6,.pure-u-xl-5-6,.pure-u-xl-1-8,.pure-u-xl-3-8,.pure-u-xl-5-8,.pure-u-xl-7-8,.pure-u-xl-1-12,.pure-u-xl-5-12,.pure-u-xl-7-12,.pure-u-xl-11-12,.pure-u-xl-1-24,.pure-u-xl-2-24,.pure-u-xl-3-24,.pure-u-xl-4-24,.pure-u-xl-5-24,.pure-u-xl-6-24,.pure-u-xl-7-24,.pure-u-xl-8-24,.pure-u-xl-9-24,.pure-u-xl-10-24,.pure-u-xl-11-24,.pure-u-xl-12-24,.pure-u-xl-13-24,.pure-u-xl-14-24,.pure-u-xl-15-24,.pure-u-xl-16-24,.pure-u-xl-17-24,.pure-u-xl-18-24,.pure-u-xl-19-24,.pure-u-xl-20-24,.pure-u-xl-21-24,.pure-u-xl-22-24,.pure-u-xl-23-24,.pure-u-xl-24-24{display:inline-block;*display:inline;zoom:1;letter-spacing:normal;word-spacing:normal;vertical-align:top;text-rendering:auto}.pure-u-xl-1-24{width:4.1667%;*width:4.1357%}.pure-u-xl-1-12,.pure-u-xl-2-24{width:8.3333%;*width:8.3023%}.pure-u-xl-1-8,.pure-u-xl-3-24{width:12.5%;*width:12.469%}.pure-u-xl-1-6,.pure-u-xl-4-24{width:16.6667%;*width:16.6357%}.pure-u-xl-1-5{width:20%;*width:19.969%}.pure-u-xl-5-24{width:20.8333%;*width:20.8023%}.pure-u-xl-1-4,.pure-u-xl-6-24{width:25%;*width:24.969%}.pure-u-xl-7-24{width:29.1667%;*width:29.1357%}.pure-u-xl-1-3,.pure-u-xl-8-24{width:33.3333%;*width:33.3023%}.pure-u-xl-3-8,.pure-u-xl-9-24{width:37.5%;*width:37.469%}.pure-u-xl-2-5{width:40%;*width:39.969%}.pure-u-xl-5-12,.pure-u-xl-10-24{width:41.6667%;*width:41.6357%}.pure-u-xl-11-24{width:45.8333%;*width:45.8023%}.pure-u-xl-1-2,.pure-u-xl-12-24{width:50%;*width:49.969%}.pure-u-xl-13-24{width:54.1667%;*width:54.1357%}.pure-u-xl-7-12,.pure-u-xl-14-24{width:58.3333%;*width:58.3023%}.pure-u-xl-3-5{width:60%;*width:59.969%}.pure-u-xl-5-8,.pure-u-xl-15-24{width:62.5%;*width:62.469%}.pure-u-xl-2-3,.pure-u-xl-16-24{width:66.6667%;*width:66.6357%}.pure-u-xl-17-24{width:70.8333%;*width:70.8023%}.pure-u-xl-3-4,.pure-u-xl-18-24{width:75%;*width:74.969%}.pure-u-xl-19-24{width:79.1667%;*width:79.1357%}.pure-u-xl-4-5{width:80%;*width:79.969%}.pure-u-xl-5-6,.pure-u-xl-20-24{width:83.3333%;*width:83.3023%}.pure-u-xl-7-8,.pure-u-xl-21-24{width:87.5%;*width:87.469%}.pure-u-xl-11-12,.pure-u-xl-22-24{width:91.6667%;*width:91.6357%}.pure-u-xl-23-24{width:95.8333%;*width:95.8023%}.pure-u-xl-1,.pure-u-xl-1-1,.pure-u-xl-5-5,.pure-u-xl-24-24{width:100%}}
+</style>
+<script src='//cdn.jsdelivr.net/picturefill/2.3.1/picturefill.min.js' async></script>  
+		<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+						m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-19839258-1', 'zfanw.com');
+		ga('require', 'linkid', 'linkid.js');
+		ga('send', 'pageview');
+
+		</script>
+	<link rel="alternate" type="application/rss+xml" title="陈三 &raquo; Feed" href="http://www.zfanw.com/blog/feed" />
+<link rel="alternate" type="application/rss+xml" title="陈三 &raquo; Comments Feed" href="http://www.zfanw.com/blog/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="陈三 &raquo; Privoxy 简明教程 Comments Feed" href="http://www.zfanw.com/blog/privoxy-tutorial.html/feed" />
+<link rel='stylesheet' id='style-css-css'  href='//www.zfanw.com/blog/wp-content/themes/classic/style.css' type='text/css' media='all' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.zfanw.com/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.zfanw.com/blog/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Github 最佳实践' href='http://www.zfanw.com/blog/best-practice-contribute-on-github.html' />
+<link rel='next' title='Picture 元素的故事' href='http://www.zfanw.com/blog/a-new-picture-element-in-html.html' />
+<link rel='canonical' href='http://www.zfanw.com/blog/privoxy-tutorial.html' />
+<link rel='shortlink' href='http://www.zfanw.com/blog/?p=13650' />
+</head>
+<body class="single single-post postid-13650 single-format-standard u-cf">
+<!--[if lt IE 10]>
+<p class="browsehappy">本博客不再支持您的浏览器版本，<a href="http://browsehappy.com/" title="点击选择浏览器" target="_blank">请使用高版本 IE 或 Firefox、Google Chrome 等浏览器</a>。</p><![endif]-->
+<header class='u-sizeFull bar fz-xl u-cf bar--single'>
+<ol class="u-listUnstyled breadcrumbs"><li class="u-inline breadcrumbs__item" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="http://www.zfanw.com/blog/"><span itemprop="title">主页</span></a></li> &raquo; <li class="u-inline" itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="http://www.zfanw.com/blog/category/opensuse"><span itemprop="title">openSUSE</span></a></li> &raquo; <li class="u-inline breadcrumbs__item is-current"><span>Privoxy 简明教程</span>
+  </li></ol> 
+<form action="//www.zfanw.com/blog/" class="" id="searchform" method="get" role="search">
+	<label for="s" class="screen-reader-text">搜索：</label>
+	<input type="search" class="u-sizeFull" name="s" spellcheck="true">
+<input type="submit" value="搜索" id="searchform__btn"/>
+</form>
+</header>
+<div class="u-floatLeft u-size1of6 u-sm-sizeFull">
+<div class="nav-pane">
+<div class="nav-pane__body">
+<div class='nav-pane__profile'><img class=u-imgCircle width=100 height=100 src="//www.zfanw.com/blog/wp-content/uploads/2015/05/chenxsan.png" alt="陈三头像" style='border:1px solid #84C2A5;'></div>
+					
+<ul class="u-listUnstyled fz-m nav-pane__menu"><li id="menu-item-16728" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-16728 mt-s mb-s nav-pane__menu__item"><a title="访问博客主页" href="http://www.zfanw.com/blog/">主页</a></li>
+<li id="menu-item-16729" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16729 mt-s mb-s nav-pane__menu__item"><a title="关于陈三" href="http://www.zfanw.com/blog/about">关于</a></li>
+<li id="menu-item-16730" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16730 mt-s mb-s nav-pane__menu__item"><a title="联系陈三" href="http://www.zfanw.com/blog/contact">联系我</a></li>
+<li id="menu-item-16731" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16731 mt-s mb-s nav-pane__menu__item"><a title="网站地图" href="http://www.zfanw.com/blog/sitemap">网站地图</a></li>
+<li id="menu-item-16732" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-16732 mt-s mb-s nav-pane__menu__item"><a href="//www.zfanw.com/blog/feed">订阅博客</a></li>
+</ul></div>
+</div>
+</div>
+
+<section class='u-floatRight u-size5of6 u-sm-sizeFull'>
+<div class='u-borderLeft'>
+<!-- end header -->
+	<article class="u-cf post-13650 post type-post status-publish format-standard hentry category-opensuse category-murmur tag-privoxy" id="post-13650" itemscope itemtype="http://schema.org/BlogPosting">
+		<header class="">
+			<h1 itemprop="headline" class="entry-title">Privoxy 简明教程</h1>
+<div class='mt-l'>
+<div>作者：<a title="查看作者所有文章" rel="author" href="http://www.zfanw.com/blog/author/admin"><span itemprop="creator">陈 三</span></a></div>写于：<time itemprop="dateCreated"  datetime="2014-09-24">2014-09-24</time>  
+<div class="mt-xl"></div></div>
+		</header>
+		<div class="storycontent pure-g" itemprop="articleBody">
+<div class="pure-u-1-1">
+<div class='summary'><strong>概要：</strong><p class="excerpt">教你如何安装、配置、使用 Privoxy。</p></div>
+			<div id="toc_container" class="pure-u-1 pure-u-sm-5-24 u-floatRight toc_white no_bullets"><nav id="myaffix"><p class="toc-title">目录</p><ul class="toc-list nav" role="menu"><li class="toc-list__item" role="menuitem"><a href="#Privoxy"><span class="toc_number toc_depth_1">1</span> Privoxy 用途</a></li><li class="toc-list__item" role="menuitem"><a href="#Privoxy-2"><span class="toc_number toc_depth_1">2</span> Privoxy 安装</a></li><li class="toc-list__item" role="menuitem"><a href="#_Privoxy"><span class="toc_number toc_depth_1">3</span> 启动 Privoxy</a></li><li class="toc-list__item" role="menuitem"><a href="#i"><span class="toc_number toc_depth_1">4</span> 配置浏览器</a></li><li class="toc-list__item" role="menuitem"><a href="#_Privoxy-2"><span class="toc_number toc_depth_1">5</span> 设置 Privoxy</a></li></ul></nav></div><div class="pure-u-1 pure-u-sm-18-24">
+<p>我估计八成人第一遍看 <a href="http://www.privoxy.org/3.0.21/user-manual/index.html" class="link link--borderBottom">Privoxy 手册</a>，只一头雾水。</p>
+
+<p>我此前写过<a href="http://www.zfanw.com/blog/tag/privoxy" class="link link--borderBottom">两篇</a>相关教程，介绍 Privoxy 中屏蔽网页广告、视频广告的用法，较为具体。这里概括性地写一篇简明教程。所谓「站得高，看得远」，一旦对 Privoxy 整体结构有把握，自然胸有成竹，做得到有的放矢地查阅手册，而不是一头栽进茫茫的配置项中。</p>
+
+<h2 class="storycontent-h2"><span id="Privoxy">Privoxy 用途</span><a title="标题链接地址" class="u-floatRight hidden" id="heyPrivoxy" href="#Privoxy"><span class="" aria-hidden="true">#</span></a></h2>
+
+<p>Privoxy 是一个代理软件，代理 &#8211; 简单说，就是进出你电脑的流量的中介。借由它，我们可以控制出去的请求、返回的响应。不必要的请求 &#8211; 比如视频广告的地址、图片广告的地址，我们可以直接 <code>block</code> 掉；不必要的响应内容 &#8211; 比如页面中的文字广告，我们可以借由 <code>filter</code> 过滤掉，不让其显示。</p>
+
+<p>当然，上面只是 Privoxy 最常见、最普通的用法，Privoxy 还有其它用法，这里且按下。</p>
+
+<h2 class="storycontent-h2"><span id="Privoxy-2">Privoxy 安装</span><a title="标题链接地址" class="u-floatRight hidden" id="heyPrivoxy-2" href="#Privoxy-2"><span class="" aria-hidden="true">#</span></a></h2>
+
+<p>Privoxy 支持的平台非常多：</p>
+
+<blockquote>
+  <p>Windows 95 and later versions (98, ME, 2000, XP, Vista, Windows 7 etc.), GNU/Linux (RedHat, SuSE, Debian, Fedora, Gentoo, Slackware and others), Mac OS X (10.4 and upwards on PPC and Intel processors), OS/2, Haiku, DragonFly, FreeBSD, NetBSD, OpenBSD, Solaris, and various other flavors of Unix.</p>
+</blockquote>
+
+<p>Windows 平台的安装自不用说，下载一个 exe 文件一路点击下一步；Linux 平台多数可以通过仓库安装。</p>
+
+<p>比如 Ubuntu：</p>
+
+<pre><code>sudo apt-get install privoxy
+</code></pre>
+
+<p>又比如 openSUSE：</p>
+
+<pre><code>sudo zypper install privoxy
+</code></pre>
+
+<p>一般也建议使用仓库安装。</p>
+
+<p>或者你实在愿意折腾，那就下载<a href="http://sourceforge.net/projects/ijbswa/files/Sources/" class="link link--borderBottom">源代码</a>自己编译安装。</p>
+
+<h2 class="storycontent-h2"><span id="_Privoxy">启动 Privoxy</span><a title="标题链接地址" class="u-floatRight hidden" id="hey_Privoxy" href="#_Privoxy"><span class="" aria-hidden="true">#</span></a></h2>
+
+<p>安装完 Privoxy 后，需要启动它，因为各平台下的各个系统情况不一，这里就不一一介绍，请看<a href="http://www.privoxy.org/user-manual/startup.html" class="link link--borderBottom">手册说明</a>。</p>
+
+<p>openSUSE 下按 <kbd>Alt + F1</kbd> 搜索并打开 <em>Service Manager</em>，查找 privoxy 项，启用并启动它，Privoxy 就会以系统服务的形态运行。</p>
+
+<h2 class="storycontent-h2"><span id="i">配置浏览器</span><a title="标题链接地址" class="u-floatRight hidden" id="heyi" href="#i"><span class="" aria-hidden="true">#</span></a></h2>
+
+<p>大部分时候，我们可能只需要浏览器走 Privoxy 代理，则打开浏览器的代理设置，将 HTTP 与 SSL 代理设置为 <code>127.0.0.1</code>，端口为 8118。</p>
+
+<p>如果想省事，也可以配置系统代理。</p>
+
+<p>配置完浏览器后，在浏览器中打开 <a href="http://p.p" class="link link--borderBottom">http://p.p</a> 网址，看是否显示如下内容：</p>
+
+<blockquote>
+  <p>This is Privoxy 3.0.21 on unknown (127.0.0.1), port 8118, enabled</p>
+</blockquote>
+
+<p>如果有，说明 Privoxy 正常运行且浏览器配置正确。</p>
+
+<h2 class="storycontent-h2"><span id="_Privoxy-2">设置 Privoxy</span><a title="标题链接地址" class="u-floatRight hidden" id="hey_Privoxy-2" href="#_Privoxy-2"><span class="" aria-hidden="true">#</span></a></h2>
+
+<p>以上准备就绪后，可以开始定制我们的 Privoxy 了。</p>
+
+<p>一切从 config 文件说起。</p>
+
+<p>config 文件在各种系统下位置、名称可能并不一样，比如 Windows 系统下，它其实叫 config.txt，在 openSUSE 系统下，它所在的目录为 <em>/etc/privoxy</em>，这个目录是个软链接，指向 <em>/var/lib/privoxy/etc</em>。</p>
+
+<p>但通常，我们并不需要修改 config 文件，这里且让它默认着。</p>
+
+<p>再来介绍两类文件：</p>
+
+<ol>
+<li>action 文件
+
+<ol>
+<li>match-all.action</li>
+<li>default.action</li>
+<li>user.action</li>
+</ol></li>
+<li>filter 文件
+
+<ol>
+<li>default.filter</li>
+<li>user.filter</li>
+</ol></li>
+</ol>
+
+<p>match-all.action、default.action、default.filter 这几个文件，建议不要做修改，因为 Privoxy 升级时会覆盖掉。所以把我们的配置内容写到 user.action 及 user.filter 中 &#8211; 这也是为什么两个文件叫 user.* 的缘故。</p>
+
+<h3>action 文件</h3>
+
+<p>action 文件定义 Privoxy 的动作，比如 <code>{+block}</code>：</p>
+
+<pre><code>{+block{干掉陈三的 blog}}
+.zfanw.com
+</code></pre>
+
+<p>这一句，把我的网址挡掉，凡是 zfanw.com 的请求，均会返回 403 &#8211; Privoxy 直接返回一个被 blocked 的提示页面，内容大概如下：</p>
+
+<blockquote>
+  <p>Your request for http://www.zfanw.com/blog/ was blocked.
+  Block reason: .zfanw.com</p>
+</blockquote>
+
+<p>分析下代码的意义：</p>
+
+<ol>
+<li>第一行，<code>{+block}</code> 是一个指令，<code>block</code>后的 <code>{}</code> 写的是要 block 的原因，不写也可以，作用类似于注释。</li>
+<li>第二行， <code>.zfanw.com</code>，这是一个上述指令要应用的网址，分两个部分，一个 domain，一个 path，domain 部分支持部分通配符，比如 <code>*</code>、<code>?</code>、<code>[0-9]</code>、<code>[a-z]</code>；path 部分是指第一个 <code>/</code> 后的部分网址，支持 POSIX 1003.2 正则表达式，比 domain 部分灵活。具体见<a href="http://www.privoxy.org/user-manual/actions-file.html" class="link link--borderBottom">手册</a>。</li>
+</ol>
+
+<h3>filter 文件</h3>
+
+<p>filter 文件定义过滤<strong>响应</strong>的规则，比如：</p>
+
+<pre><code>FILTER: blockBaiduAd 去除百度推广广告
+s|&lt;/head&gt;|&lt;style type=text/css&gt;\#content_left&gt;table,[id*='00'],\#ec_im_container,\#ec_im_container+div,.ad-block,.EC_zwd_table{display: none !important;}&lt;/style&gt;&lt;/head&gt;|g
+s|&lt;/body&gt;&lt;script.*&lt;/script&gt;&lt;/html&gt;|&lt;/body&gt;&lt;/html&gt;|g
+</code></pre>
+
+<p>第一行中，大写的 <code>FILTER</code> 表示定义一个过滤规则，<code>blockBaiduAd</code> 表示规则名称，再后面是说明。</p>
+
+<p>第二行及第三行，是对返回的页面进行修改。比如你用过 Vi/Vim 或 sed 等工具，应该对 <code>s</code> 这个替换命令很熟悉。简单说，上面的语句就是把页面内的代码作过更换，这样一些文字广告就不在浏览器中显示了。</p>
+
+<p>但是，user.filter 中只是定义过滤的规则，规则的应用，还是要在 action 文件中，所以以上规则写到 user.action 中，如下：</p>
+
+<pre><code># 清理百度推广广告
+{+filter{blockBaiduAd}}
+.baidu.com
+</code></pre>
+
+<p>我想看过 action 文件配置结构的话，就已经知道这一句是什么意思：<code>#</code> 后是一个注释，<code>filter</code> 是指令，要求执行 <code>blockBaiduAd</code> 这条规则，<code>.baidu.com</code> 是应用到的网址。</p>
+
+<p>在整个使用过程中，要多多借助 Privoxy 提供的工具，比如 <a href="http://config.privoxy.org/show-url-info" class="link link--borderBottom">http://config.privoxy.org/show-url-info</a>，可以查看你定义的规则是否对某一条 URL 生效。</p>
+
+<p>最后，如果已经看明白 Privoxy 的用法，并且打算自定义一些规则，欢迎关注我 <a href="https://github.com/chenxsan/Privoxy" class="link link--borderBottom">Github 上的配置文件库</a>。</p>
+</div></div>
+
+<div class="pure-u-1-1">
+
+
+<h2 class="text--accent">相关文章</h2><ul>    <li><a href="http://www.zfanw.com/blog/privoxy-failed-problem.html" rel="bookmark" title="Privoxy 无法启动的问题">Privoxy 无法启动的问题</a></li>
+    <li><a href="http://www.zfanw.com/blog/privoxy-remove-iqiyi-ios-client-ad.html" rel="bookmark" title="Privoxy 去除 iOS 爱奇艺客户端广告">Privoxy 去除 iOS 爱奇艺客户端广告</a></li>
+    <li><a href="http://www.zfanw.com/blog/privoxy-shadowsocks.html" rel="bookmark" title="Privoxy shadowsocks">Privoxy shadowsocks</a></li>
+    <li><a href="http://www.zfanw.com/blog/privoxy-404-no-such-domain.html" rel="bookmark" title="解决 Privoxy 404 No Such Domain 问题">解决 Privoxy 404 No Such Domain 问题</a></li>
+    <li><a href="http://www.zfanw.com/blog/privoxy-forward-ssh.html" rel="bookmark" title="Privoxy 转发 SSH">Privoxy 转发 SSH</a></li>
+</ul></div>
+
+
+ <div class="tag pure-u-1-1">
+<strong>标签</strong>：<span class=""><span class='u-mr--m' itemprop='keywords'><a href='http://www.zfanw.com/blog/tag/privoxy' title='Privoxy' class='fz-m'>Privoxy</a></span></span>
+</div><!-- end div.meta -->
+<div class='pure-u-1'>
+<div class="notice notice--warning">
+<p>评论暂不开放，有问题请：</p>
+<ol>
+<li><a href="https://github.com/chenxsan/report/issues/new?title=Privoxy 简明教程&body=http://www.zfanw.com/blog/privoxy-tutorial.html">在我的 Github report 库提问</a>
+<li>联系我的邮箱 chenxsan@gmail.com
+<li>拨打我的电话 /1855920653[0-9]{1}/
+</ol>
+</div>
+</div>
+		</div>
+	</article>
+
+
+<div class="">
+<aside class='pure-u-1'>
+<div class='hot-articles u-mt--m'>
+<h1>TOP 5</h1>
+   <ul class='u-listStyleCircle'>
+      <li><a href="http://www.zfanw.com/blog/zencoding-vim-tutorial-chinese.html"  title="Emmet.vim 教程">Emmet.vim 教程</a> (3,732)</li><li><a href="http://www.zfanw.com/blog/privoxy-tutorial.html"  title="Privoxy 简明教程">Privoxy 简明教程</a> (2,109)</li><li><a href="http://www.zfanw.com/blog/vimperator-is-easy-to-learn.html"  title="Vimperator 其实很简单">Vimperator 其实很简单</a> (1,452)</li><li><a href="http://www.zfanw.com/blog/require-js.html"  title="Require.js">Require.js</a> (1,238)</li><li><a href="http://www.zfanw.com/blog/bootstrap-scrollspy.html"  title="Bootstrap ScrollSpy 用法">Bootstrap ScrollSpy 用法</a> (1,199)</li>   </ul>
+</div>
+</aside>
+</div>
+
+<div class="pagination">
+<a class="prev pagination__item" href="http://www.zfanw.com/blog/best-practice-contribute-on-github.html" rel="prev">Github 最佳实践</a>  
+<a class="next pagination__item" href="http://www.zfanw.com/blog/a-new-picture-element-in-html.html" rel="next">Picture 元素的故事</a></div>
+
+
+	<!-- begin footer -->
+</div>
+</section>
+<!-- begin sidebar -->
+<!-- end sidebar -->
+<!-- for Yo Sam box 展示大图-->
+<div id="yosam-overlay">
+<img class="js-yoOriginal img--large" src=""/>
+</div>
+<div class='overlay'></div>
+<script>
+/*! LAB.js (LABjs :: Loading And Blocking JavaScript)
+    v2.0.3 (c) Kyle Simpson
+    MIT License
+*/
+(function(o){var K=o.$LAB,y="UseLocalXHR",z="AlwaysPreserveOrder",u="AllowDuplicates",A="CacheBust",B="BasePath",C=/^[^?#]*\//.exec(location.href)[0],D=/^\w+\:\/\/\/?[^\/]+/.exec(C)[0],i=document.head||document.getElementsByTagName("head"),L=(o.opera&&Object.prototype.toString.call(o.opera)=="[object Opera]")||("MozAppearance"in document.documentElement.style),q=document.createElement("script"),E=typeof q.preload=="boolean",r=E||(q.readyState&&q.readyState=="uninitialized"),F=!r&&q.async===true,M=!r&&!F&&!L;function G(a){return Object.prototype.toString.call(a)=="[object Function]"}function H(a){return Object.prototype.toString.call(a)=="[object Array]"}function N(a,c){var b=/^\w+\:\/\//;if(/^\/\/\/?/.test(a)){a=location.protocol+a}else if(!b.test(a)&&a.charAt(0)!="/"){a=(c||"")+a}return b.test(a)?a:((a.charAt(0)=="/"?D:C)+a)}function s(a,c){for(var b in a){if(a.hasOwnProperty(b)){c[b]=a[b]}}return c}function O(a){var c=false;for(var b=0;b<a.scripts.length;b++){if(a.scripts[b].ready&&a.scripts[b].exec_trigger){c=true;a.scripts[b].exec_trigger();a.scripts[b].exec_trigger=null}}return c}function t(a,c,b,d){a.onload=a.onreadystatechange=function(){if((a.readyState&&a.readyState!="complete"&&a.readyState!="loaded")||c[b])return;a.onload=a.onreadystatechange=null;d()}}function I(a){a.ready=a.finished=true;for(var c=0;c<a.finished_listeners.length;c++){a.finished_listeners[c]()}a.ready_listeners=[];a.finished_listeners=[]}function P(d,f,e,g,h){setTimeout(function(){var a,c=f.real_src,b;if("item"in i){if(!i[0]){setTimeout(arguments.callee,25);return}i=i[0]}a=document.createElement("script");if(f.type)a.type=f.type;if(f.charset)a.charset=f.charset;if(h){if(r){e.elem=a;if(E){a.preload=true;a.onpreload=g}else{a.onreadystatechange=function(){if(a.readyState=="loaded")g()}}a.src=c}else if(h&&c.indexOf(D)==0&&d[y]){b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4){b.onreadystatechange=function(){};e.text=b.responseText+"\n//@ sourceURL="+c;g()}};b.open("GET",c);b.send()}else{a.type="text/cache-script";t(a,e,"ready",function(){i.removeChild(a);g()});a.src=c;i.insertBefore(a,i.firstChild)}}else if(F){a.async=false;t(a,e,"finished",g);a.src=c;i.insertBefore(a,i.firstChild)}else{t(a,e,"finished",g);a.src=c;i.insertBefore(a,i.firstChild)}},0)}function J(){var l={},Q=r||M,n=[],p={},m;l[y]=true;l[z]=false;l[u]=false;l[A]=false;l[B]="";function R(a,c,b){var d;function f(){if(d!=null){d=null;I(b)}}if(p[c.src].finished)return;if(!a[u])p[c.src].finished=true;d=b.elem||document.createElement("script");if(c.type)d.type=c.type;if(c.charset)d.charset=c.charset;t(d,b,"finished",f);if(b.elem){b.elem=null}else if(b.text){d.onload=d.onreadystatechange=null;d.text=b.text}else{d.src=c.real_src}i.insertBefore(d,i.firstChild);if(b.text){f()}}function S(c,b,d,f){var e,g,h=function(){b.ready_cb(b,function(){R(c,b,e)})},j=function(){b.finished_cb(b,d)};b.src=N(b.src,c[B]);b.real_src=b.src+(c[A]?((/\?.*$/.test(b.src)?"&_":"?_")+~~(Math.random()*1E9)+"="):"");if(!p[b.src])p[b.src]={items:[],finished:false};g=p[b.src].items;if(c[u]||g.length==0){e=g[g.length]={ready:false,finished:false,ready_listeners:[h],finished_listeners:[j]};P(c,b,e,((f)?function(){e.ready=true;for(var a=0;a<e.ready_listeners.length;a++){e.ready_listeners[a]()}e.ready_listeners=[]}:function(){I(e)}),f)}else{e=g[0];if(e.finished){j()}else{e.finished_listeners.push(j)}}}function v(){var e,g=s(l,{}),h=[],j=0,w=false,k;function T(a,c){a.ready=true;a.exec_trigger=c;x()}function U(a,c){a.ready=a.finished=true;a.exec_trigger=null;for(var b=0;b<c.scripts.length;b++){if(!c.scripts[b].finished)return}c.finished=true;x()}function x(){while(j<h.length){if(G(h[j])){try{h[j++]()}catch(err){}continue}else if(!h[j].finished){if(O(h[j]))continue;break}j++}if(j==h.length){w=false;k=false}}function V(){if(!k||!k.scripts){h.push(k={scripts:[],finished:true})}}e={script:function(){for(var f=0;f<arguments.length;f++){(function(a,c){var b;if(!H(a)){c=[a]}for(var d=0;d<c.length;d++){V();a=c[d];if(G(a))a=a();if(!a)continue;if(H(a)){b=[].slice.call(a);b.unshift(d,1);[].splice.apply(c,b);d--;continue}if(typeof a=="string")a={src:a};a=s(a,{ready:false,ready_cb:T,finished:false,finished_cb:U});k.finished=false;k.scripts.push(a);S(g,a,k,(Q&&w));w=true;if(g[z])e.wait()}})(arguments[f],arguments[f])}return e},wait:function(){if(arguments.length>0){for(var a=0;a<arguments.length;a++){h.push(arguments[a])}k=h[h.length-1]}else k=false;x();return e}};return{script:e.script,wait:e.wait,setOptions:function(a){s(a,g);return e}}}m={setGlobalDefaults:function(a){s(a,l);return m},setOptions:function(){return v().setOptions.apply(null,arguments)},script:function(){return v().script.apply(null,arguments)},wait:function(){return v().wait.apply(null,arguments)},queueScript:function(){n[n.length]={type:"script",args:[].slice.call(arguments)};return m},queueWait:function(){n[n.length]={type:"wait",args:[].slice.call(arguments)};return m},runQueue:function(){var a=m,c=n.length,b=c,d;for(;--b>=0;){d=n.shift();a=a[d.type].apply(null,d.args)}return a},noConflict:function(){o.$LAB=K;return m},sandbox:function(){return J()}};return m}o.$LAB=J();(function(a,c,b){if(document.readyState==null&&document[a]){document.readyState="loading";document[a](c,b=function(){document.removeEventListener(c,b,false);document.readyState="complete"},false)}})("addEventListener","DOMContentLoaded")})(this);
+
+!function(){"use strict"
+function t(e,o){function i(t,e){return function(){return t.apply(e,arguments)}}var r
+if(o=o||{},this.trackingClick=!1,this.trackingClickStart=0,this.targetElement=null,this.touchStartX=0,this.touchStartY=0,this.lastTouchIdentifier=0,this.touchBoundary=o.touchBoundary||10,this.layer=e,this.tapDelay=o.tapDelay||200,this.tapTimeout=o.tapTimeout||700,!t.notNeeded(e)){for(var a=["onMouse","onClick","onTouchStart","onTouchMove","onTouchEnd","onTouchCancel"],c=this,s=0,u=a.length;u>s;s++)c[a[s]]=i(c[a[s]],c)
+n&&(e.addEventListener("mouseover",this.onMouse,!0),e.addEventListener("mousedown",this.onMouse,!0),e.addEventListener("mouseup",this.onMouse,!0)),e.addEventListener("click",this.onClick,!0),e.addEventListener("touchstart",this.onTouchStart,!1),e.addEventListener("touchmove",this.onTouchMove,!1),e.addEventListener("touchend",this.onTouchEnd,!1),e.addEventListener("touchcancel",this.onTouchCancel,!1),Event.prototype.stopImmediatePropagation||(e.removeEventListener=function(t,n,o){var i=Node.prototype.removeEventListener
+"click"===t?i.call(e,t,n.hijacked||n,o):i.call(e,t,n,o)},e.addEventListener=function(t,n,o){var i=Node.prototype.addEventListener
+"click"===t?i.call(e,t,n.hijacked||(n.hijacked=function(t){t.propagationStopped||n(t)}),o):i.call(e,t,n,o)}),"function"==typeof e.onclick&&(r=e.onclick,e.addEventListener("click",function(t){r(t)},!1),e.onclick=null)}}var e=navigator.userAgent.indexOf("Windows Phone")>=0,n=navigator.userAgent.indexOf("Android")>0&&!e,o=/iP(ad|hone|od)/.test(navigator.userAgent)&&!e,i=o&&/OS 4_\d(_\d)?/.test(navigator.userAgent),r=o&&/OS [6-7]_\d/.test(navigator.userAgent),a=navigator.userAgent.indexOf("BB10")>0
+t.prototype.needsClick=function(t){switch(t.nodeName.toLowerCase()){case"button":case"select":case"textarea":if(t.disabled)return!0
+break
+case"input":if(o&&"file"===t.type||t.disabled)return!0
+break
+case"label":case"iframe":case"video":return!0}return/\bneedsclick\b/.test(t.className)},t.prototype.needsFocus=function(t){switch(t.nodeName.toLowerCase()){case"textarea":return!0
+case"select":return!n
+case"input":switch(t.type){case"button":case"checkbox":case"file":case"image":case"radio":case"submit":return!1}return!t.disabled&&!t.readOnly
+default:return/\bneedsfocus\b/.test(t.className)}},t.prototype.sendClick=function(t,e){var n,o
+document.activeElement&&document.activeElement!==t&&document.activeElement.blur(),o=e.changedTouches[0],n=document.createEvent("MouseEvents"),n.initMouseEvent(this.determineEventType(t),!0,!0,window,1,o.screenX,o.screenY,o.clientX,o.clientY,!1,!1,!1,!1,0,null),n.forwardedTouchEvent=!0,t.dispatchEvent(n)},t.prototype.determineEventType=function(t){return n&&"select"===t.tagName.toLowerCase()?"mousedown":"click"},t.prototype.focus=function(t){var e
+o&&t.setSelectionRange&&0!==t.type.indexOf("date")&&"time"!==t.type&&"month"!==t.type?(e=t.value.length,t.setSelectionRange(e,e)):t.focus()},t.prototype.updateScrollParent=function(t){var e,n
+if(e=t.fastClickScrollParent,!e||!e.contains(t)){n=t
+do{if(n.scrollHeight>n.offsetHeight){e=n,t.fastClickScrollParent=n
+break}n=n.parentElement}while(n)}e&&(e.fastClickLastScrollTop=e.scrollTop)},t.prototype.getTargetElementFromEventTarget=function(t){return t.nodeType===Node.TEXT_NODE?t.parentNode:t},t.prototype.onTouchStart=function(t){var e,n,r
+if(t.targetTouches.length>1)return!0
+if(e=this.getTargetElementFromEventTarget(t.target),n=t.targetTouches[0],o){if(r=window.getSelection(),r.rangeCount&&!r.isCollapsed)return!0
+if(!i){if(n.identifier&&n.identifier===this.lastTouchIdentifier)return t.preventDefault(),!1
+this.lastTouchIdentifier=n.identifier,this.updateScrollParent(e)}}return this.trackingClick=!0,this.trackingClickStart=t.timeStamp,this.targetElement=e,this.touchStartX=n.pageX,this.touchStartY=n.pageY,t.timeStamp-this.lastClickTime<this.tapDelay&&t.preventDefault(),!0},t.prototype.touchHasMoved=function(t){var e=t.changedTouches[0],n=this.touchBoundary
+return Math.abs(e.pageX-this.touchStartX)>n||Math.abs(e.pageY-this.touchStartY)>n?!0:!1},t.prototype.onTouchMove=function(t){return this.trackingClick?((this.targetElement!==this.getTargetElementFromEventTarget(t.target)||this.touchHasMoved(t))&&(this.trackingClick=!1,this.targetElement=null),!0):!0},t.prototype.findControl=function(t){return void 0!==t.control?t.control:t.htmlFor?document.getElementById(t.htmlFor):t.querySelector("button, input:not([type=hidden]), keygen, meter, output, progress, select, textarea")},t.prototype.onTouchEnd=function(t){var e,a,c,s,u,l=this.targetElement
+if(!this.trackingClick)return!0
+if(t.timeStamp-this.lastClickTime<this.tapDelay)return this.cancelNextClick=!0,!0
+if(t.timeStamp-this.trackingClickStart>this.tapTimeout)return!0
+if(this.cancelNextClick=!1,this.lastClickTime=t.timeStamp,a=this.trackingClickStart,this.trackingClick=!1,this.trackingClickStart=0,r&&(u=t.changedTouches[0],l=document.elementFromPoint(u.pageX-window.pageXOffset,u.pageY-window.pageYOffset)||l,l.fastClickScrollParent=this.targetElement.fastClickScrollParent),c=l.tagName.toLowerCase(),"label"===c){if(e=this.findControl(l)){if(this.focus(l),n)return!1
+l=e}}else if(this.needsFocus(l))return t.timeStamp-a>100||o&&window.top!==window&&"input"===c?(this.targetElement=null,!1):(this.focus(l),this.sendClick(l,t),o&&"select"===c||(this.targetElement=null,t.preventDefault()),!1)
+return o&&!i&&(s=l.fastClickScrollParent,s&&s.fastClickLastScrollTop!==s.scrollTop)?!0:(this.needsClick(l)||(t.preventDefault(),this.sendClick(l,t)),!1)},t.prototype.onTouchCancel=function(){this.trackingClick=!1,this.targetElement=null},t.prototype.onMouse=function(t){return this.targetElement?t.forwardedTouchEvent?!0:t.cancelable&&(!this.needsClick(this.targetElement)||this.cancelNextClick)?(t.stopImmediatePropagation?t.stopImmediatePropagation():t.propagationStopped=!0,t.stopPropagation(),t.preventDefault(),!1):!0:!0},t.prototype.onClick=function(t){var e
+return this.trackingClick?(this.targetElement=null,this.trackingClick=!1,!0):"submit"===t.target.type&&0===t.detail?!0:(e=this.onMouse(t),e||(this.targetElement=null),e)},t.prototype.destroy=function(){var t=this.layer
+n&&(t.removeEventListener("mouseover",this.onMouse,!0),t.removeEventListener("mousedown",this.onMouse,!0),t.removeEventListener("mouseup",this.onMouse,!0)),t.removeEventListener("click",this.onClick,!0),t.removeEventListener("touchstart",this.onTouchStart,!1),t.removeEventListener("touchmove",this.onTouchMove,!1),t.removeEventListener("touchend",this.onTouchEnd,!1),t.removeEventListener("touchcancel",this.onTouchCancel,!1)},t.notNeeded=function(t){var e,o,i,r
+if(void 0===window.ontouchstart)return!0
+if(o=+(/Chrome\/([0-9]+)/.exec(navigator.userAgent)||[,0])[1]){if(!n)return!0
+if(e=document.querySelector("meta[name=viewport]")){if(-1!==e.content.indexOf("user-scalable=no"))return!0
+if(o>31&&document.documentElement.scrollWidth<=window.outerWidth)return!0}}if(a&&(i=navigator.userAgent.match(/Version\/([0-9]*)\.([0-9]*)/),i[1]>=10&&i[2]>=3&&(e=document.querySelector("meta[name=viewport]")))){if(-1!==e.content.indexOf("user-scalable=no"))return!0
+if(document.documentElement.scrollWidth<=window.outerWidth)return!0}return"none"===t.style.msTouchAction||"manipulation"===t.style.touchAction?!0:(r=+(/Firefox\/([0-9]+)/.exec(navigator.userAgent)||[,0])[1],r>=27&&(e=document.querySelector("meta[name=viewport]"),e&&(-1!==e.content.indexOf("user-scalable=no")||document.documentElement.scrollWidth<=window.outerWidth))?!0:"none"===t.style.touchAction||"manipulation"===t.style.touchAction?!0:!1)},t.attach=function(e,n){return new t(e,n)},"function"==typeof define&&"object"==typeof define.amd&&define.amd?define(function(){return t}):"undefined"!=typeof module&&module.exports?(module.exports=t.attach,module.exports.FastClick=t):window.FastClick=t}();
+window.addEventListener('load', function() {
+    new FastClick(document.body);
+}, false);
+
+/**
+ * imageloaded
+ */
+/*!
+ * imagesLoaded PACKAGED v3.1.8
+ * JavaScript is all like "You images are done yet or what?"
+ * MIT License
+ */
+
+(function(){function e(){}function t(e,t){for(var n=e.length;n--;)if(e[n].listener===t)return n;return-1}function n(e){return function(){return this[e].apply(this,arguments)}}var i=e.prototype,r=this,o=r.EventEmitter;i.getListeners=function(e){var t,n,i=this._getEvents();if("object"==typeof e){t={};for(n in i)i.hasOwnProperty(n)&&e.test(n)&&(t[n]=i[n])}else t=i[e]||(i[e]=[]);return t},i.flattenListeners=function(e){var t,n=[];for(t=0;e.length>t;t+=1)n.push(e[t].listener);return n},i.getListenersAsObject=function(e){var t,n=this.getListeners(e);return n instanceof Array&&(t={},t[e]=n),t||n},i.addListener=function(e,n){var i,r=this.getListenersAsObject(e),o="object"==typeof n;for(i in r)r.hasOwnProperty(i)&&-1===t(r[i],n)&&r[i].push(o?n:{listener:n,once:!1});return this},i.on=n("addListener"),i.addOnceListener=function(e,t){return this.addListener(e,{listener:t,once:!0})},i.once=n("addOnceListener"),i.defineEvent=function(e){return this.getListeners(e),this},i.defineEvents=function(e){for(var t=0;e.length>t;t+=1)this.defineEvent(e[t]);return this},i.removeListener=function(e,n){var i,r,o=this.getListenersAsObject(e);for(r in o)o.hasOwnProperty(r)&&(i=t(o[r],n),-1!==i&&o[r].splice(i,1));return this},i.off=n("removeListener"),i.addListeners=function(e,t){return this.manipulateListeners(!1,e,t)},i.removeListeners=function(e,t){return this.manipulateListeners(!0,e,t)},i.manipulateListeners=function(e,t,n){var i,r,o=e?this.removeListener:this.addListener,s=e?this.removeListeners:this.addListeners;if("object"!=typeof t||t instanceof RegExp)for(i=n.length;i--;)o.call(this,t,n[i]);else for(i in t)t.hasOwnProperty(i)&&(r=t[i])&&("function"==typeof r?o.call(this,i,r):s.call(this,i,r));return this},i.removeEvent=function(e){var t,n=typeof e,i=this._getEvents();if("string"===n)delete i[e];else if("object"===n)for(t in i)i.hasOwnProperty(t)&&e.test(t)&&delete i[t];else delete this._events;return this},i.removeAllListeners=n("removeEvent"),i.emitEvent=function(e,t){var n,i,r,o,s=this.getListenersAsObject(e);for(r in s)if(s.hasOwnProperty(r))for(i=s[r].length;i--;)n=s[r][i],n.once===!0&&this.removeListener(e,n.listener),o=n.listener.apply(this,t||[]),o===this._getOnceReturnValue()&&this.removeListener(e,n.listener);return this},i.trigger=n("emitEvent"),i.emit=function(e){var t=Array.prototype.slice.call(arguments,1);return this.emitEvent(e,t)},i.setOnceReturnValue=function(e){return this._onceReturnValue=e,this},i._getOnceReturnValue=function(){return this.hasOwnProperty("_onceReturnValue")?this._onceReturnValue:!0},i._getEvents=function(){return this._events||(this._events={})},e.noConflict=function(){return r.EventEmitter=o,e},"function"==typeof define&&define.amd?define("eventEmitter/EventEmitter",[],function(){return e}):"object"==typeof module&&module.exports?module.exports=e:this.EventEmitter=e}).call(this),function(e){function t(t){var n=e.event;return n.target=n.target||n.srcElement||t,n}var n=document.documentElement,i=function(){};n.addEventListener?i=function(e,t,n){e.addEventListener(t,n,!1)}:n.attachEvent&&(i=function(e,n,i){e[n+i]=i.handleEvent?function(){var n=t(e);i.handleEvent.call(i,n)}:function(){var n=t(e);i.call(e,n)},e.attachEvent("on"+n,e[n+i])});var r=function(){};n.removeEventListener?r=function(e,t,n){e.removeEventListener(t,n,!1)}:n.detachEvent&&(r=function(e,t,n){e.detachEvent("on"+t,e[t+n]);try{delete e[t+n]}catch(i){e[t+n]=void 0}});var o={bind:i,unbind:r};"function"==typeof define&&define.amd?define("eventie/eventie",o):e.eventie=o}(this),function(e,t){"function"==typeof define&&define.amd?define(["eventEmitter/EventEmitter","eventie/eventie"],function(n,i){return t(e,n,i)}):"object"==typeof exports?module.exports=t(e,require("wolfy87-eventemitter"),require("eventie")):e.imagesLoaded=t(e,e.EventEmitter,e.eventie)}(window,function(e,t,n){function i(e,t){for(var n in t)e[n]=t[n];return e}function r(e){return"[object Array]"===d.call(e)}function o(e){var t=[];if(r(e))t=e;else if("number"==typeof e.length)for(var n=0,i=e.length;i>n;n++)t.push(e[n]);else t.push(e);return t}function s(e,t,n){if(!(this instanceof s))return new s(e,t);"string"==typeof e&&(e=document.querySelectorAll(e)),this.elements=o(e),this.options=i({},this.options),"function"==typeof t?n=t:i(this.options,t),n&&this.on("always",n),this.getImages(),a&&(this.jqDeferred=new a.Deferred);var r=this;setTimeout(function(){r.check()})}function f(e){this.img=e}function c(e){this.src=e,v[e]=this}var a=e.jQuery,u=e.console,h=u!==void 0,d=Object.prototype.toString;s.prototype=new t,s.prototype.options={},s.prototype.getImages=function(){this.images=[];for(var e=0,t=this.elements.length;t>e;e++){var n=this.elements[e];"IMG"===n.nodeName&&this.addImage(n);var i=n.nodeType;if(i&&(1===i||9===i||11===i))for(var r=n.querySelectorAll("img"),o=0,s=r.length;s>o;o++){var f=r[o];this.addImage(f)}}},s.prototype.addImage=function(e){var t=new f(e);this.images.push(t)},s.prototype.check=function(){function e(e,r){return t.options.debug&&h&&u.log("confirm",e,r),t.progress(e),n++,n===i&&t.complete(),!0}var t=this,n=0,i=this.images.length;if(this.hasAnyBroken=!1,!i)return this.complete(),void 0;for(var r=0;i>r;r++){var o=this.images[r];o.on("confirm",e),o.check()}},s.prototype.progress=function(e){this.hasAnyBroken=this.hasAnyBroken||!e.isLoaded;var t=this;setTimeout(function(){t.emit("progress",t,e),t.jqDeferred&&t.jqDeferred.notify&&t.jqDeferred.notify(t,e)})},s.prototype.complete=function(){var e=this.hasAnyBroken?"fail":"done";this.isComplete=!0;var t=this;setTimeout(function(){if(t.emit(e,t),t.emit("always",t),t.jqDeferred){var n=t.hasAnyBroken?"reject":"resolve";t.jqDeferred[n](t)}})},a&&(a.fn.imagesLoaded=function(e,t){var n=new s(this,e,t);return n.jqDeferred.promise(a(this))}),f.prototype=new t,f.prototype.check=function(){var e=v[this.img.src]||new c(this.img.src);if(e.isConfirmed)return this.confirm(e.isLoaded,"cached was confirmed"),void 0;if(this.img.complete&&void 0!==this.img.naturalWidth)return this.confirm(0!==this.img.naturalWidth,"naturalWidth"),void 0;var t=this;e.on("confirm",function(e,n){return t.confirm(e.isLoaded,n),!0}),e.check()},f.prototype.confirm=function(e,t){this.isLoaded=e,this.emit("confirm",this,t)};var v={};return c.prototype=new t,c.prototype.check=function(){if(!this.isChecked){var e=new Image;n.bind(e,"load",this),n.bind(e,"error",this),e.src=this.src,this.isChecked=!0}},c.prototype.handleEvent=function(e){var t="on"+e.type;this[t]&&this[t](e)},c.prototype.onload=function(e){this.confirm(!0,"onload"),this.unbindProxyEvents(e)},c.prototype.onerror=function(e){this.confirm(!1,"onerror"),this.unbindProxyEvents(e)},c.prototype.confirm=function(e,t){this.isConfirmed=!0,this.isLoaded=e,this.emit("confirm",this,t)},c.prototype.unbindProxyEvents=function(e){n.unbind(e.target,"load",this),n.unbind(e.target,"error",this)},s});
+
+$LAB.script("//code.jquery.com/jquery-2.1.4.min.js")
+    .wait(function() {
+        
+
+        // show everything
+        $('.yosam').click(function(e) {
+            var target = $('.js-yoOriginal'),
+                $this = $(this),
+                $overlay = $('#yosam-overlay'),
+                originalSrc = $this.attr('href'),
+                animateShowSetting = {
+                    width: '100%',
+                    height: '100%',
+                    top: 0,
+                    left: 0
+                };
+            $overlay.css({
+                top: e.pageY - $(window).scrollTop(),
+                left: e.pageX - $(window).scrollLeft()
+            });
+
+            // 阻止打开链接
+            e.preventDefault();
+            target.attr('src', originalSrc);
+            $overlay.css('display', 'block').animate(animateShowSetting);
+        });
+
+        // hide everything
+        $('#yosam-overlay').click(function(e) {
+            var animateHideSetting = {
+                width: 0,
+                height: 0,
+                top: e.pageY - $(window).scrollTop(),
+                left: e.pageX - $(window).scrollLeft()
+            };
+            $('#yosam-overlay').animate(animateHideSetting, 500, function() {
+                $('#yosam-overlay').css('display', 'none');
+                $('.js-yoOriginal').attr('src', '');
+            });
+        });
+
+    })
+    .wait(function() {
++function(t){"use strict"
+function e(s,i){this.$body=t(document.body),this.$scrollElement=t(t(s).is(document.body)?window:s),this.options=t.extend({},e.DEFAULTS,i),this.selector=(this.options.target||"")+" .nav li > a",this.offsets=[],this.targets=[],this.activeTarget=null,this.scrollHeight=0,this.$scrollElement.on("scroll.bs.scrollspy",t.proxy(this.process,this)),this.refresh(),this.process()}function s(s){return this.each(function(){var i=t(this),o=i.data("bs.scrollspy"),n="object"==typeof s&&s
+o||i.data("bs.scrollspy",o=new e(this,n)),"string"==typeof s&&o[s]()})}e.VERSION="3.3.4",e.DEFAULTS={offset:10},e.prototype.getScrollHeight=function(){return this.$scrollElement[0].scrollHeight||Math.max(this.$body[0].scrollHeight,document.documentElement.scrollHeight)},e.prototype.refresh=function(){var e=this,s="offset",i=0
+this.offsets=[],this.targets=[],this.scrollHeight=this.getScrollHeight(),t.isWindow(this.$scrollElement[0])||(s="position",i=this.$scrollElement.scrollTop()),this.$body.find(this.selector).map(function(){var e=t(this),o=e.data("target")||e.attr("href"),n=/^#./.test(o)&&t(o)
+return n&&n.length&&n.is(":visible")&&[[n[s]().top+i,o]]||null}).sort(function(t,e){return t[0]-e[0]}).each(function(){e.offsets.push(this[0]),e.targets.push(this[1])})},e.prototype.process=function(){var t,e=this.$scrollElement.scrollTop()+this.options.offset,s=this.getScrollHeight(),i=this.options.offset+s-this.$scrollElement.height(),o=this.offsets,n=this.targets,f=this.activeTarget
+if(this.scrollHeight!=s&&this.refresh(),e>=i)return f!=(t=n[n.length-1])&&this.activate(t)
+if(f&&e<o[0])return this.activeTarget=null,this.clear()
+for(t=o.length;t--;)f!=n[t]&&e>=o[t]&&(void 0===o[t+1]||e<o[t+1])&&this.activate(n[t])},e.prototype.activate=function(e){this.activeTarget=e,this.clear()
+var s=this.selector+'[data-target="'+e+'"],'+this.selector+'[href="'+e+'"]',i=t(s).parents("li").addClass("active")
+i.parent(".dropdown-menu").length&&(i=i.closest("li.dropdown").addClass("active")),i.trigger("activate.bs.scrollspy")},e.prototype.clear=function(){t(this.selector).parentsUntil(this.options.target,".active").removeClass("active")}
+var i=t.fn.scrollspy
+t.fn.scrollspy=s,t.fn.scrollspy.Constructor=e,t.fn.scrollspy.noConflict=function(){return t.fn.scrollspy=i,this},t(window).on("load.bs.scrollspy.data-api",function(){t('[data-spy="scroll"]').each(function(){var e=t(this)
+s.call(e,e.data())})})}(jQuery),+function(t){"use strict"
+function e(e){return this.each(function(){var i=t(this),o=i.data("bs.affix"),n="object"==typeof e&&e
+o||i.data("bs.affix",o=new s(this,n)),"string"==typeof e&&o[e]()})}var s=function(e,i){this.options=t.extend({},s.DEFAULTS,i),this.$target=t(this.options.target).on("scroll.bs.affix.data-api",t.proxy(this.checkPosition,this)).on("click.bs.affix.data-api",t.proxy(this.checkPositionWithEventLoop,this)),this.$element=t(e),this.affixed=null,this.unpin=null,this.pinnedOffset=null,this.checkPosition()}
+s.VERSION="3.3.4",s.RESET="affix affix-top affix-bottom",s.DEFAULTS={offset:0,target:window},s.prototype.getState=function(t,e,s,i){var o=this.$target.scrollTop(),n=this.$element.offset(),f=this.$target.height()
+if(null!=s&&"top"==this.affixed)return s>o?"top":!1
+if("bottom"==this.affixed)return null!=s?o+this.unpin<=n.top?!1:"bottom":t-i>=o+f?!1:"bottom"
+var r=null==this.affixed,l=r?o:n.top,h=r?f:e
+return null!=s&&s>=o?"top":null!=i&&l+h>=t-i?"bottom":!1},s.prototype.getPinnedOffset=function(){if(this.pinnedOffset)return this.pinnedOffset
+this.$element.removeClass(s.RESET).addClass("affix")
+var t=this.$target.scrollTop(),e=this.$element.offset()
+return this.pinnedOffset=e.top-t},s.prototype.checkPositionWithEventLoop=function(){setTimeout(t.proxy(this.checkPosition,this),1)},s.prototype.checkPosition=function(){if(this.$element.is(":visible")){var e=this.$element.height(),i=this.options.offset,o=i.top,n=i.bottom,f=Math.max(t(document).height(),t(document.body).height())
+"object"!=typeof i&&(n=o=i),"function"==typeof o&&(o=i.top(this.$element)),"function"==typeof n&&(n=i.bottom(this.$element))
+var r=this.getState(f,e,o,n)
+if(this.affixed!=r){null!=this.unpin&&this.$element.css("top","")
+var l="affix"+(r?"-"+r:""),h=t.Event(l+".bs.affix")
+if(this.$element.trigger(h),h.isDefaultPrevented())return
+this.affixed=r,this.unpin="bottom"==r?this.getPinnedOffset():null,this.$element.removeClass(s.RESET).addClass(l).trigger(l.replace("affix","affixed")+".bs.affix")}"bottom"==r&&this.$element.offset({top:f-e-n})}}
+var i=t.fn.affix
+t.fn.affix=e,t.fn.affix.Constructor=s,t.fn.affix.noConflict=function(){return t.fn.affix=i,this},t(window).on("load",function(){t('[data-spy="affix"]').each(function(){var s=t(this),i=s.data()
+i.offset=i.offset||{},null!=i.offsetBottom&&(i.offset.bottom=i.offsetBottom),null!=i.offsetTop&&(i.offset.top=i.offsetTop),e.call(s,i)})})}(jQuery);
+
+// 以上为 affix.js + scrollspy.js - 来自 Bootstrap
+        $('#myaffix').affix({
+            offset: {
+                top: 230,
+                bottom: 750
+            }
+        });
+        $('body').scrollspy({
+            target: '#toc_container'
+        });
+    });
+$LAB.script('//cdn.jsdelivr.net/highlight.js/8.5/highlight.min.js').wait(function() {
+    hljs.initHighlightingOnLoad();
+});
+</script>
+</body>
+</html>

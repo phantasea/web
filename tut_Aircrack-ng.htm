@@ -1,0 +1,886 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<meta http-equiv="x-ua-compatible" content="ie=7">
+<meta name="UYId" content="art_264844">
+<title>完全教程 Aircrack-ng破解WEP、WPA-PSK加密利器 - 51CTO.COM</title>
+<meta name="description" content="其实关于无线基础知识的内容还是挺多的，但是由于本书侧重于BT4自身工具使用的讲解，若是再仔细讲述这些外围的知识，这就好比讲述DNS工具时还要把DNS服务器的类型、工作原理及配置讲述一遍一样，哈哈，估计整本书的厚度就需要再翻一、两倍了。">
+<meta name="keywords" content="Aircrack,Aircrack-ng,破解WEP,WPA-PSK,加密利器,工具">
+<!-- base href="http://netsecurity.51cto.com/art/201105/264844_all.htm" -->
+<link href="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/grid.css" rel="stylesheet" type="text/css">
+<link type="text/css" rel="stylesheet" href="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/art_master_top.css">
+<link href="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/css3.css" rel="stylesheet" type="text/css">
+<script language="javaScript" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/base_art.js"></script>
+<script src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/index_1_down.js"></script>
+<style type="text/css">
+.bds_tools a{ padding:0; margin:0;}
+</style>
+</head>
+<body>
+<!-- 导航 开始-->
+<div id="home_top">    <div class="top_nav">        <div class="left" style="width:400px"><div class="logo_51cto" title="51CTO.COM - 技术成就梦想 -  中国领先的IT技术网站"></div><a href="http://www.51cto.com/">首页</a><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/top_bg_xian.gif" style="padding-top: 2px;" height="25" width="16" align="absmiddle"><a onmouseover="show(1,this);" onmouseout="popupClose();" href="http://www.51cto.com/col/35/" target="_blank">技术频道<img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/nav_ico1.gif" style="padding-left: 4px;" align="absmiddle"></a><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/top_bg_xian.gif" height="25" width="16" align="absmiddle"><a onmouseover="show(2,this);" onmouseout="popupClose();" href="http://www.51cto.com/" target="_blank">51CTO旗下网站<img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/nav_ico1.gif" style="padding-left: 4px;" align="absmiddle"></a><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/top_bg_xian.gif" height="25" width="16" align="absmiddle"><a href="http://www.51cto.com/about/map.htm" target="_blank">地图</a> <a href="http://www.51cto.com/about/rss.html" target="_blank"><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/143749870.gif" style="vertical-align:middle; margin-bottom: 5px; margin-left:5px;"></a>       </div>        <div class="right">            <div class="more"><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/top_shequ.gif" height="16" width="27" align="absmiddle">社区：<a href="http://edu.51cto.com/" target="_blank" style="color:#CC0000">学院</a><a href="http://down.51cto.com/" target="_blank">下载</a><a href="http://bbs.51cto.com/" target="_blank">论坛</a><a href="http://blog.51cto.com/" target="_blank">博客</a><a onmouseover="show(3,this)" onmouseout="popupClose()" href="javascript:viod(0);">更多<img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/nav_ico1.gif" style="padding-left: 4px;" align="absmiddle"></a>            </div>            <span id="login_status"><div class="login" id="login_status"></div>    </span>                </div>    </div></div>
+<div class="subMenu1" id="s1" onmouseover="popupNoClose();" onmouseout="popupClose();">
+<ul>
+<li><a href="http://network.51cto.com/" target="_blank">网络</a></li>
+<li><a href="http://netsecurity.51cto.com/" target="_blank">安全</a></li>
+<li><a href="http://developer.51cto.com/" target="_blank">开发</a></li>
+<li><a href="http://database.51cto.com/" target="_blank">数据库</a></li>
+<li><a href="http://server.51cto.com/" target="_blank">服务器</a></li>
+<li><a href="http://os.51cto.com/" target="_blank">系统</a></li>
+<li><a href="http://virtual.51cto.com/" target="_blank">虚拟化</a></li>
+<li><a href="http://cloud.51cto.com/" target="_blank">云计算</a></li>
+<li><a href="http://developer.51cto.com/embed/" target="_blank">嵌入式</a></li>
+<li><a href="http://mobile.51cto.com/" target="_blank">移动开发</a></li>
+</ul>
+</div> 
+<div class="subMenu2" id="s2" onmouseover="popupNoClose()" onmouseout="popupClose()">
+<ul>
+<li><a href="http://www.51cto.com/" target="_blank" title="中国领先的IT技术网站">51CTO.COM</a></li>
+<li><a href="http://www.cioage.com/" target="_blank" title="中国首个专门服务于CIO的专业网站">CIOage.com</a></li>
+<li><a href="http://www.watchstor.com/" target="_blank" title="领先的中文存储网络媒体">WatchStor.com</a></li>
+<li><a href="http://www.hc3i.cn/" target="_blank" title="中国首家专注于数字医疗及医疗信息化的专业网站">HC3i.cn</a></li>
+</ul>
+</div>
+<script src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/jquery-1.js"></script>
+<script>
+$(function(){
+	$(".bann").height(265);	 
+	$(".bann").css("background-color","white");
+});
+
+</script>
+
+<script src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/head_art_more1.js"></script>
+<!-- 登陆信息 -->
+<!-- 导航 结束--> 
+ <div class="g_39 mb10">
+	<div id="tonglanad" class="fl"></div>
+	<div id="list4" class="fr">
+		<ul>
+			<li id="wordlinkad1"></li>
+			<li id="wordlinkad2"></li>
+			<li id="wordlinkad3"></li>
+			<li id="wordlinkad4"></li>
+		</ul>
+	</div>
+<br class="dle">
+</div>
+
+<div class="g_39 menu">
+<div class="subNav_logo"><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/anquan_logo.gif"></div>
+<div class="subNav_l"><a href="http://netsecurity.51cto.com/" target="_blank">首页</a> | <a href="http://netsecurity.51cto.com/col/1073/" target="_blank">动态</a> | <a href="http://netsecurity.51cto.com/col/514/" target="_blank">病毒</a> | <a href="http://netsecurity.51cto.com/col/566/" target="_blank">漏洞</a> | <a href="http://netsecurity.51cto.com/col/518/" target="_blank">黑客</a> | <a href="http://netsecurity.51cto.com/col/1057/" target="_blank">ARP</a> | <a href="http://netsecurity.51cto.com/col/1062/" target="_blank">嗅探扫描</a> | <a href="http://netsecurity.51cto.com/col/1070/" target="_blank">Web安全</a> | <a href="http://netsecurity.51cto.com/col/1066/" target="_blank">邮件安全</a> |&nbsp; <a href="http://publish.51cto.com/list/512/" target="_blank">全部文章</a></div>  
+<div class="search fr">
+<dl>
+<form name="searchform" action="http://www.51cto.com/php/search.php" target="_blank" method="post" style="margin:0px; padding:0px;">
+<dt class="fl"><input name="keyword" class="searchInput f14 input" value="请输入关键字" onfocus="doempty(this, '请输入关键字');" onblur="doempty(this, '请输入关键字');" type="text"></dt>
+<dd class="fl"><input src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/search.gif" type="image"></dd></form>
+</dl>
+</div>
+<br class="dle">
+</div>
+<div class="g_39 b3-s-4273B3 rel">
+<!--width : 26*25 - 15 = 635px-->
+<div class="g_26 fl m_l">
+<div class="brief bgF8F8F8">
+<p class="crumb ">您所在的位置：<a href="http://netsecurity.51cto.com/">网络安全</a> &gt; <a href="http://netsecurity.51cto.com/col/1593/">安全工具</a> &gt;  <b>完全教程 Aircrack-ng破解WEP、WPA-PSK加密利器</b> </p>
+<h1>完全教程 Aircrack-ng破解WEP、WPA-PSK加密利器</h1>
+<div class="msg">
+<div>2011-05-26 13:44  《BT4 Linux 黑客手册》  51CTO.com <span class="f12-a"><a href="#commment" target="_self"></a></span> 字号：<span class="f14-b"><a href="javascript:setfont(12);" target="_self">T</a></span> | <span class="f16-b"><a href="javascript:setfont(16);" target="_self">T</a></span></div>
+<div class="artHd" id="books" style="padding:5px 25px;display:none;"></div>
+<div class="fav"><a href="javascript:favorBox('open');" title="一键收藏，随时查看，分享好友！" target="_self"><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/Fav.gif" alt="一键收藏，随时查看，分享好友！" border="0"></a></div>
+</div>
+<div class="brieftext">
+<p class="f14 green">其实关于无线基础知识的内容还是挺多的，但是由于本书侧重于BT4自身工具使用的讲解，若是再仔细讲述这些外围的知识，这就好比讲述DNS工具时还要把DNS服务器的类型、工作原理及配置讲述一遍一样，哈哈，估计整本书的厚度就需要再翻一、两倍了。</p>
+<p class="ad">AD：<script src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/keywords_ad_new.js"></script>
+</p>
+</div>
+</div>
+<div class="tag bgF8F8F8" id="indexlist" style="display:none;">
+<ul id="indexliststr">
+</ul>
+<br class="dle">
+</div>
+<div class="content bgF8F8F8 f14">
+<div id="content">
+<p></p><p>其实关于无线基础知识的内容还是挺多的，但是由于本书侧重于BT4自身工具使用的讲解，若是再仔细讲述这些外围的知识，这就好比讲述
+DNS工具时还要把DNS服务器的类型、工作原理及配置讲述一遍一样，哈哈，估计整本书的厚度就需要再翻一、两倍了。恩，关于无线网络基础知识建议大家可
+以参考我之前在黑手这里出版的《无线黑客傻瓜书》一书，会很有帮助。</p>
+<p>恩，先说明一下，本章的内容适用于目前市面所有主流品牌无线路由器或AP如Linksys、Dlink、TPLink、BelKin等。涉及内容包括了WEP加密及WPA-PSK加密的无线网络的破解操作实战。</p>
+<p><strong>◆什么是Aircrack-ng</strong></p>
+<p>Aircrack-ng是一款用于破解无线802.11WEP及WPA-PSK加密的工具，该工具在2005年11月之前名字是Aircrack，在其2.41版本之后才改名为Aircrack-ng。</p>
+<p>Aircrack-ng主要使用了两种攻击方式进行WEP破解：一种是FMS攻击，该攻击方式是以发现该WEP漏洞的研究人员名字（Scott 
+Fluhrer、Itsik Mantin及Adi 
+Shamir）所命名；另一种是KoreK攻击，经统计，该攻击方式的攻击效率要远高于FMS攻击。当然，最新的版本又集成了更多种类型的攻击方式。对于
+无线黑客而言，Aircrack-ng是一款必不可缺的无线攻击工具，可以说很大一部分无线攻击都依赖于它来完成；而对于无线安全人员而
+言，Aircrack-ng也是一款必备的无线安全检测工具，它可以帮助管理员进行无线网络密码的脆弱性检查及了解无线网络信号的分布情况，非常适合对企
+业进行无线安全审计时使用。</p>
+<p>Aircrack-ng（注意大小写）是一个包含了多款工具的无线攻击审计套装，这里面很多工具在后面的内容中都会用到，具体见下表1为Aircrack-ng包含的组件具体列表。</p>
+<p style="text-align: center">表1
+</p><table style="border-bottom: medium none; border-left: medium none; width: 413.15pt; border-collapse: collapse; border-top: medium none; border-right: medium none; mso-border-alt: solid black 1.5pt; mso-yfti-tbllook: 416; mso-padding-alt: 0cm 5.4pt 0cm 5.4pt; mso-border-insideh: .75pt solid black" class="MsoNormalTable" border="1" cellpadding="0" cellspacing="0" width="551">
+    <tbody>
+        <tr style="height: 19.25pt; mso-yfti-irow: 0; mso-yfti-firstrow: yes">
+            <td style="border-bottom: black 1.5pt solid; border-left: black 1.5pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 87pt; padding-right: 5.4pt; background: gray; height: 19.25pt; border-top: black 1.5pt solid; border-right: #f0f0f0; padding-top: 0cm; mso-shading: white; mso-pattern: solid gray" valign="top" width="116">
+            <p style="text-align: center; margin: 0cm 0cm 0pt" class="MsoNormal" align="center"><b><span style="font-family: 宋体; color: white; mso-bidi-font-size: 10.5pt; mso-ascii-font-family: Verdana; mso-hansi-font-family: 'Times New Roman'">组件名称</span></b><b><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: white; mso-bidi-font-size: 10.5pt" lang="EN-US"><o:p></o:p></span></b></p>
+            </td>
+            <td style="border-bottom: black 1.5pt solid; border-left: #f0f0f0; padding-bottom: 0cm; padding-left: 5.4pt; width: 326.15pt; padding-right: 5.4pt; background: gray; height: 19.25pt; border-top: black 1.5pt solid; border-right: black 1.5pt solid; padding-top: 0cm; mso-shading: white; mso-pattern: solid gray" valign="top" width="435">
+            <p style="text-align: center; margin: 0cm 0cm 0pt" class="MsoNormal" align="center"><b><span style="font-family: 宋体; color: white; mso-bidi-font-size: 10.5pt; mso-ascii-font-family: Verdana; mso-hansi-font-family: 'Times New Roman'">描</span></b><b><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: white; mso-bidi-font-size: 10.5pt" lang="EN-US"><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span></span></b><b><span style="font-family: 宋体; color: white; mso-bidi-font-size: 10.5pt; mso-ascii-font-family: Verdana; mso-hansi-font-family: 'Times New Roman'">述</span></b><b><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: white; mso-bidi-font-size: 10.5pt" lang="EN-US"><o:p></o:p></span></b></p>
+            </td>
+        </tr>
+        <tr style="height: 45.45pt; mso-yfti-irow: 1">
+            <td style="border-bottom: black 1pt solid; border-left: black 1.5pt solid; padding-bottom: 0cm; background-color: transparent; padding-left: 5.4pt; width: 87pt; padding-right: 5.4pt; height: 45.45pt; border-top: #f0f0f0; border-right: #f0f0f0; padding-top: 0cm; mso-border-top-alt: solid black .75pt; mso-border-left-alt: solid black 1.5pt; mso-border-bottom-alt: solid black .75pt" valign="top" width="116">
+            <p style="margin: 0cm 0cm 0pt" class="MsoNormal"><b style="mso-bidi-font-weight: normal"><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US">aircrack-ng<o:p></o:p></span></b></p>
+            </td>
+            <td style="border-bottom: black 1pt solid; border-left: #f0f0f0; padding-bottom: 0cm; background-color: transparent; padding-left: 5.4pt; width: 326.15pt; padding-right: 5.4pt; height: 45.45pt; border-top: #f0f0f0; border-right: black 1.5pt solid; padding-top: 0cm; mso-border-top-alt: solid black .75pt; mso-border-bottom-alt: solid black .75pt; mso-border-right-alt: solid black 1.5pt" valign="top" width="435">
+            <p style="margin: 0cm 0cm 0pt" class="MsoNormal"><span style="font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-ascii-font-family: Verdana; mso-hansi-font-family: 'Times New Roman'">主要用于</span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US">WEP</span><span style="font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-ascii-font-family: Verdana; mso-hansi-font-family: 'Times New Roman'">及</span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US">WPA-PSK</span><span style="font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-ascii-font-family: Verdana; mso-hansi-font-family: 'Times New Roman'">密码的恢复，只要</span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US">airodump-ng</span><span style="font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-ascii-font-family: Verdana; mso-hansi-font-family: 'Times New Roman'">收集到足够数量的数据包，</span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US">aircrack-ng</span><span style="font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-ascii-font-family: Verdana; mso-hansi-font-family: 'Times New Roman'">就可以自动检测数据包并判断是否可以破解</span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US"><o:p></o:p></span></p>
+            </td>
+        </tr>
+        <tr style="height: 15.6pt; mso-yfti-irow: 2; mso-height-rule: exactly">
+            <td style="border-bottom: black 1pt solid; border-left: black 1.5pt solid; padding-bottom: 0cm; background-color: transparent; padding-left: 5.4pt; width: 87pt; padding-right: 5.4pt; height: 15.6pt; border-top: #f0f0f0; border-right: #f0f0f0; padding-top: 0cm; mso-border-top-alt: solid black .75pt; mso-border-left-alt: solid black 1.5pt; mso-border-bottom-alt: solid black .75pt; mso-height-rule: exactly" valign="top" width="116">
+            <p style="margin: 0cm 0cm 0pt" class="MsoNormal"><b style="mso-bidi-font-weight: normal"><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US">airmon-ng<o:p></o:p></span></b></p>
+            </td>
+            <td style="border-bottom: black 1pt solid; border-left: #f0f0f0; padding-bottom: 0cm; background-color: transparent; padding-left: 5.4pt; width: 326.15pt; padding-right: 5.4pt; height: 15.6pt; border-top: #f0f0f0; border-right: black 1.5pt solid; padding-top: 0cm; mso-border-top-alt: solid black .75pt; mso-border-bottom-alt: solid black .75pt; mso-border-right-alt: solid black 1.5pt; mso-height-rule: exactly" valign="top" width="435">
+            <p style="margin: 0cm 0cm 0pt" class="MsoNormal"><span style="font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-ascii-font-family: Verdana; mso-hansi-font-family: 'Times New Roman'">用于改变无线网卡工作模式，以便其他工具的顺利使用</span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US"><o:p></o:p></span></p>
+            </td>
+        </tr>
+        <tr style="height: 15.6pt; mso-yfti-irow: 3; mso-height-rule: exactly">
+            <td style="border-bottom: black 1pt solid; border-left: black 1.5pt solid; padding-bottom: 0cm; background-color: transparent; padding-left: 5.4pt; width: 87pt; padding-right: 5.4pt; height: 15.6pt; border-top: #f0f0f0; border-right: #f0f0f0; padding-top: 0cm; mso-border-top-alt: solid black .75pt; mso-border-left-alt: solid black 1.5pt; mso-border-bottom-alt: solid black .75pt; mso-height-rule: exactly" valign="top" width="116">
+            <p style="margin: 0cm 0cm 0pt" class="MsoNormal"><b style="mso-bidi-font-weight: normal"><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US">airodump-ng<o:p></o:p></span></b></p>
+            </td>
+            <td style="border-bottom: black 1pt solid; border-left: #f0f0f0; padding-bottom: 0cm; background-color: transparent; padding-left: 5.4pt; width: 326.15pt; padding-right: 5.4pt; height: 15.6pt; border-top: #f0f0f0; border-right: black 1.5pt solid; padding-top: 0cm; mso-border-top-alt: solid black .75pt; mso-border-bottom-alt: solid black .75pt; mso-border-right-alt: solid black 1.5pt; mso-height-rule: exactly" valign="top" width="435">
+            <p style="margin: 0cm 0cm 0pt" class="MsoNormal"><span style="font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-ascii-font-family: Verdana; mso-hansi-font-family: 'Times New Roman'">用于捕获</span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US">802.11</span><span style="font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-ascii-font-family: Verdana; mso-hansi-font-family: 'Times New Roman'">数据报文，以便于</span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US">aircrack-ng</span><span style="font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-ascii-font-family: Verdana; mso-hansi-font-family: 'Times New Roman'">破解</span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US"><o:p></o:p></span></p>
+            </td>
+        </tr>
+        <tr style="height: 15.6pt; mso-yfti-irow: 4; mso-height-rule: exactly">
+            <td style="border-bottom: black 1pt solid; border-left: black 1.5pt solid; padding-bottom: 0cm; background-color: transparent; padding-left: 5.4pt; width: 87pt; padding-right: 5.4pt; height: 15.6pt; border-top: #f0f0f0; border-right: #f0f0f0; padding-top: 0cm; mso-border-top-alt: solid black .75pt; mso-border-left-alt: solid black 1.5pt; mso-border-bottom-alt: solid black .75pt; mso-height-rule: exactly" valign="top" width="116">
+            <p style="margin: 0cm 0cm 0pt" class="MsoNormal"><b style="mso-bidi-font-weight: normal"><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US">aireplay-ng<o:p></o:p></span></b></p>
+            </td>
+            <td style="border-bottom: black 1pt solid; border-left: #f0f0f0; padding-bottom: 0cm; background-color: transparent; padding-left: 5.4pt; width: 326.15pt; padding-right: 5.4pt; height: 15.6pt; border-top: #f0f0f0; border-right: black 1.5pt solid; padding-top: 0cm; mso-border-top-alt: solid black .75pt; mso-border-bottom-alt: solid black .75pt; mso-border-right-alt: solid black 1.5pt; mso-height-rule: exactly" valign="top" width="435">
+            <p style="margin: 0cm 0cm 0pt" class="MsoNormal"><span style="font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-ascii-font-family: Verdana; mso-hansi-font-family: 'Times New Roman'">在进行</span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US">WEP</span><span style="font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-ascii-font-family: Verdana; mso-hansi-font-family: 'Times New Roman'">及</span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US">WPA-PSK</span><span style="font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-ascii-font-family: Verdana; mso-hansi-font-family: 'Times New Roman'">密码恢复时，可以根据需要创建特殊的无线网络数据报文及流量</span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US"><o:p></o:p></span></p>
+            </td>
+        </tr>
+        <tr style="height: 15.6pt; mso-yfti-irow: 5; mso-height-rule: exactly">
+            <td style="border-bottom: black 1pt solid; border-left: black 1.5pt solid; padding-bottom: 0cm; background-color: transparent; padding-left: 5.4pt; width: 87pt; padding-right: 5.4pt; height: 15.6pt; border-top: #f0f0f0; border-right: #f0f0f0; padding-top: 0cm; mso-border-top-alt: solid black .75pt; mso-border-left-alt: solid black 1.5pt; mso-border-bottom-alt: solid black .75pt; mso-height-rule: exactly" valign="top" width="116">
+            <p style="margin: 0cm 0cm 0pt" class="MsoNormal"><b style="mso-bidi-font-weight: normal"><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US">airserv-ng<o:p></o:p></span></b></p>
+            </td>
+            <td style="border-bottom: black 1pt solid; border-left: #f0f0f0; padding-bottom: 0cm; background-color: transparent; padding-left: 5.4pt; width: 326.15pt; padding-right: 5.4pt; height: 15.6pt; border-top: #f0f0f0; border-right: black 1.5pt solid; padding-top: 0cm; mso-border-top-alt: solid black .75pt; mso-border-bottom-alt: solid black .75pt; mso-border-right-alt: solid black 1.5pt; mso-height-rule: exactly" valign="top" width="435">
+            <p style="margin: 0cm 0cm 0pt" class="MsoNormal"><span style="font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-ascii-font-family: Verdana; mso-hansi-font-family: 'Times New Roman'">可以将无线网卡连接至某一特定端口，为攻击时灵活调用做准备</span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US"><o:p></o:p></span></p>
+            </td>
+        </tr>
+        <tr style="height: 15.6pt; mso-yfti-irow: 6; mso-height-rule: exactly">
+            <td style="border-bottom: black 1pt solid; border-left: black 1.5pt solid; padding-bottom: 0cm; background-color: transparent; padding-left: 5.4pt; width: 87pt; padding-right: 5.4pt; height: 15.6pt; border-top: #f0f0f0; border-right: #f0f0f0; padding-top: 0cm; mso-border-top-alt: solid black .75pt; mso-border-left-alt: solid black 1.5pt; mso-border-bottom-alt: solid black .75pt; mso-height-rule: exactly" valign="top" width="116">
+            <p style="margin: 0cm 0cm 0pt" class="MsoNormal"><b style="mso-bidi-font-weight: normal"><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US">airolib-ng<o:p></o:p></span></b></p>
+            </td>
+            <td style="border-bottom: black 1pt solid; border-left: #f0f0f0; padding-bottom: 0cm; background-color: transparent; padding-left: 5.4pt; width: 326.15pt; padding-right: 5.4pt; height: 15.6pt; border-top: #f0f0f0; border-right: black 1.5pt solid; padding-top: 0cm; mso-border-top-alt: solid black .75pt; mso-border-bottom-alt: solid black .75pt; mso-border-right-alt: solid black 1.5pt; mso-height-rule: exactly" valign="top" width="435">
+            <p style="margin: 0cm 0cm 0pt" class="MsoNormal"><span style="font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-ascii-font-family: Verdana; mso-hansi-font-family: 'Times New Roman'">进行</span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US">WPA Rainbow Table</span><span style="font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-ascii-font-family: Verdana; mso-hansi-font-family: 'Times New Roman'">攻击时使用，用于建立特定数据库文件</span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US"><o:p></o:p></span></p>
+            </td>
+        </tr>
+        <tr style="height: 15.6pt; mso-yfti-irow: 7; mso-height-rule: exactly">
+            <td style="border-bottom: black 1pt solid; border-left: black 1.5pt solid; padding-bottom: 0cm; background-color: transparent; padding-left: 5.4pt; width: 87pt; padding-right: 5.4pt; height: 15.6pt; border-top: #f0f0f0; border-right: #f0f0f0; padding-top: 0cm; mso-border-top-alt: solid black .75pt; mso-border-left-alt: solid black 1.5pt; mso-border-bottom-alt: solid black .75pt; mso-height-rule: exactly" valign="top" width="116">
+            <p style="margin: 0cm 0cm 0pt" class="MsoNormal"><b style="mso-bidi-font-weight: normal"><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US">airdecap-ng<o:p></o:p></span></b></p>
+            </td>
+            <td style="border-bottom: black 1pt solid; border-left: #f0f0f0; padding-bottom: 0cm; background-color: transparent; padding-left: 5.4pt; width: 326.15pt; padding-right: 5.4pt; height: 15.6pt; border-top: #f0f0f0; border-right: black 1.5pt solid; padding-top: 0cm; mso-border-top-alt: solid black .75pt; mso-border-bottom-alt: solid black .75pt; mso-border-right-alt: solid black 1.5pt; mso-height-rule: exactly" valign="top" width="435">
+            <p style="margin: 0cm 0cm 0pt" class="MsoNormal"><span style="font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-ascii-font-family: Verdana; mso-hansi-font-family: 'Times New Roman'">用于解开处于加密状态的数据包</span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US"><o:p></o:p></span></p>
+            </td>
+        </tr>
+        <tr style="height: 15.6pt; mso-yfti-irow: 8; mso-height-rule: exactly; mso-yfti-lastrow: yes">
+            <td style="border-bottom: black 1.5pt solid; border-left: black 1.5pt solid; padding-bottom: 0cm; background-color: transparent; padding-left: 5.4pt; width: 87pt; padding-right: 5.4pt; height: 15.6pt; border-top: #f0f0f0; border-right: #f0f0f0; padding-top: 0cm; mso-border-top-alt: solid black .75pt; mso-height-rule: exactly" valign="top" width="116">
+            <p style="margin: 0cm 0cm 0pt" class="MsoNormal"><b style="mso-bidi-font-weight: normal"><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US">tools<o:p></o:p></span></b></p>
+            </td>
+            <td style="border-bottom: black 1.5pt solid; border-left: #f0f0f0; padding-bottom: 0cm; background-color: transparent; padding-left: 5.4pt; width: 326.15pt; padding-right: 5.4pt; height: 15.6pt; border-top: #f0f0f0; border-right: black 1.5pt solid; padding-top: 0cm; mso-border-top-alt: solid black .75pt; mso-height-rule: exactly" valign="top" width="435">
+            <p style="margin: 0cm 0cm 0pt" class="MsoNormal"><span style="font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-ascii-font-family: Verdana; mso-hansi-font-family: 'Times New Roman'">其他用于辅助的工具，如</span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US">airdriver-ng</span><span style="font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-ascii-font-family: Verdana; mso-hansi-font-family: 'Times New Roman'">、</span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US">packetforge-ng</span><span style="font-family: 宋体; mso-bidi-font-size: 10.5pt; mso-ascii-font-family: Verdana; mso-hansi-font-family: 'Times New Roman'">等</span><span style="font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; mso-bidi-font-size: 10.5pt" lang="EN-US"><o:p></o:p></span></p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p></p>
+<p style="text-align: left">Aircrack-ng在 BackTrack4 R2下已经内置（<a target="_blank" href="http://ftp.uio.no/pub/security/backtrack/bt4-r2.iso"><span style="color: #0000ff">下载BackTrack4 R2</span></a>），
+具体调用方法如下图2所示：通过依次选择菜单中“Backtrack”—“Radio Network Analysis” 
+—“80211”—“Cracking”—“Aircrack-ng 
+”，即可打开Aircrack-ng的主程序界面。也可以直接打开一个Shell，在里面直接输入aircrack-ng命令回车也能看到
+aircrack-ng的使用参数帮助。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/1500500.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图2" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/1500500.jpg" border="0" height="520" width="619"></a></p>
+<p style="text-align: center">图2</p>
+<p style="text-align: right"><a target="_blank" href="http://netsecurity.51cto.com/art/201011/235748.htm"><strong>更多安全工具&gt;&gt;进入专题</strong></a></p>
+<p style="text-align: right"><a target="_blank" href="http://network.51cto.com/art/201101/242851.htm"><strong>更多网管软件&gt;&gt;进入专题</strong></a></p>
+<p style="text-align: center">&nbsp;</p>
+<p style="text-align: left"><strong>◆使用Aircrack-ng破解WEP加密无线网络</strong></p>
+<p style="text-align: left">首先讲述破解采用WEP加密内容，启用此类型加密的无线网络往往已被列出严重不安全的网络环境之一。而Aircrack-ng正是破解此类加密的强力武器中的首选，关于使用Aircrack-ng套装破解WEP加密的具体步骤如下。</p>
+<p style="text-align: left">步骤1：载入无线网卡。</p>
+<p style="text-align: left">其实很多新人们老是在开始载入网卡的时候出现一些疑惑，所以我们就把这个基本的操作仔细看看。首先查看当前已经载入的网卡有哪些，输入命令如下：</p>
+<pre>ifconfig</pre>
+<p style="text-align: left">回车后可以看到如下图3所示内容，我们可以看到这里面除了eth0之外，并没有无线网卡。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/1500501.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图3" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/1500501.jpg" border="0" height="497" width="618"></a></p>
+<p style="text-align: center">图3</p>
+<p style="text-align: left">确保已经正确插入USB或者PCMCIA型无线网卡，此时，为了查看无线网卡是否已经正确连接至系统，应输入：</p>
+<pre>ifconfig -a </pre>
+<p style="text-align: left">参数解释：</p>
+<p style="text-align: left">-a&nbsp;显示主机所有网络接口的情况。和单纯的ifconfig命令不同，加上-a参数后可以看到所有连接至当前系统网络接口的适配器。</p>
+<p style="text-align: left">如下图4所示，我们可以看到和上图3相比，出现了名为wlan0的无线网卡，这说明无线网卡已经被BackTrack4 R2 Linux识别。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/1500502.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图4" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/1500502.jpg" border="0" height="495" width="620"></a></p>
+<p style="text-align: center">图4</p>
+<p style="text-align: left">既然已经识别出来了，那么接下来就可以激活无线网卡了。说明一下，无论是有线还是无线网络适配器，都需要激活，否则是无法使用滴。这步就相当于Windows下将“本地连接”启用一样，不启用的连接是无法使用的。</p>
+<p style="text-align: left">在上图4中可以看到，出现了名为wlan0的无线网卡，OK，下面输入：</p>
+<pre>ifconfig wlan0 up </pre>
+<p style="text-align: left">参数解释：</p>
+<p style="text-align: left">up&nbsp;用于加载网卡的，这里我们来将已经插入到笔记本的无线网卡载入驱动。在载入完毕后，我们可以再次使用ifconfig进行确认。如下图5所示，此时，系统已经正确识别出无线网卡了。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/1500503.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图5" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/1500503.jpg" border="0" height="496" width="620"></a></p>
+<p style="text-align: center">图5</p>
+<p style="text-align: left">当然，通过输入iwconfig查看也是可以滴。这个命令专用于查看无线网卡，不像ifconfig那样查看所有适配器。</p>
+<pre>iwconfig </pre>
+<p style="text-align: left">该命令在Linux下用于查看有无无线网卡以及当前无线网卡状态。如下图6所示。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/1500504.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图6" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/1500504.jpg" border="0" height="343" width="621"></a></p>
+<p style="text-align: center">图6</p>
+<p style="text-align: left">步骤2：激活无线网卡至monitor即监听模式。</p>
+<p style="text-align: left">对于很多小黑来说，应该都用过各式各样的嗅探工具来抓取密码之类的数据报文。那么，大家也都知道，用于嗅探的网卡是一定要处于monitor监听模式地。对于无线网络的嗅探也是一样。</p>
+<p style="text-align: left">在Linux下，我们使用Aircrack-ng套装里的airmon-ng工具来实现，具体命令如下：</p>
+<pre>airmon-ng start wlan0 </pre>
+<p style="text-align: left">参数解释：</p>
+<p style="text-align: left">start&nbsp;后跟无线网卡设备名称，此处参考前面ifconfig显示的无线网卡名称；</p>
+<p style="text-align: left">如下图7所示，我们可以看到无线网卡的芯片及驱动类型，在Chipset芯片类型上标明是
+Ralink 2573芯片，默认驱动为rt73usb，显示为“monitor mode enabled on 
+mon0”，即已启动监听模式，监听模式下适配器名称变更为mon0。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/1500505.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图7" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/1500505.jpg" border="0" height="326" width="615"></a></p>
+<p style="text-align: center">图7</p>
+<p style="text-align: left">步骤3：探测无线网络，抓取无线数据包。</p>
+<p style="text-align: left">在激活无线网卡后，我们就可以开启无线数据包抓包工具了，这里我们使用Aircrack-ng套装里的airmon-ng工具来实现，具体命令如下：</p>
+<p style="text-align: left">不过在正式抓包之前，一般都是先进行预来探测，来获取当前无线网络概况，包括AP的SSID、MAC地址、工作频道、无线客户端MAC及数量等。只需打开一个Shell，输入具体命令如下：</p>
+<pre>airodump-ng mon0 </pre>
+<p style="text-align: left">参数解释：</p>
+<p style="text-align: left">mon0为之前已经载入并激活监听模式的无线网卡。如下图8所示。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/1500506.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图8" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/1500506.jpg" border="0" height="86" width="619"></a></p>
+<p style="text-align: center">图8</p>
+<p style="text-align: left">回车后，就能看到类似于下图9所示，这里我们就直接锁定目标是SSID为“TP-LINK”的AP，其BSSID（MAC）为“00：19：E0：EB：33：66”，工作频道为6，已连接的无线客户端MAC为“00：1F：38：C9：71：71”。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/1500507.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图9" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/1500507.jpg" border="0" height="299" width="623"></a></p>
+<p style="text-align: center">图9</p>
+<p style="text-align: left">既然我们看到了本次测试要攻击的目标，就是那个SSID名为TP-LINK的无线路由器，接下来输入命令如下：</p>
+<pre>airodump-ng --ivs –w longas -c 6 wlan0 </pre>
+<p style="text-align: left">参数解释：</p>
+<p style="text-align: left">--ivs&nbsp;这里的设置是通过设置过滤，不再将所有无线数据保存，而只是保存可用于破解的IVS数据报文，这样可以有效地缩减保存的数据包大小；</p>
+<p style="text-align: left">-c&nbsp;这里我们设置目标AP的工作频道，通过刚才的观察，我们要进行攻击测试的无线路由器工作频道为6；</p>
+<p style="text-align: left">-w&nbsp;后跟要保存的文件名，这里w就是“write写”的意思，所以输入自己希望保
+持的文件名，如下图10所示我这里就写为longas。那么，小黑们一定要注意的是：这里我们虽然设置保存的文件名是longas，但是生成的文件却不是
+longase.ivs，而是longas-01.ivs。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/1500508.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图10" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/1500508.jpg" border="0" height="77" width="621"></a></p>
+<p style="text-align: center">图10</p>
+<p style="text-align: left">
+</p><table style="border-bottom: #cccccc 1px dotted; border-left: #cccccc 1px dotted; table-layout: fixed; border-top: #cccccc 1px dotted; border-right: #cccccc 1px dotted" border="0" cellpadding="6" cellspacing="0" width="95%" align="center">
+    <tbody>
+        <tr>
+            <td style="word-wrap: break-word" bgcolor="#fdfddf">
+            <p><span style="color: #000000">注意：这是因为airodump-ng这款工具为了方便后面
+破解时候的调用，所以对保存文件按顺序编了号，于是就多了-01这样的序号，以此类推，在进行第二次攻击时，若使用同样文件名longas保存的话，就会
+生成名为longas-02.ivs的文件，一定要注意哦，别到时候找不到又要怪我没写清楚：）</span></p>
+            <p><span style="color: #000000">啊，估计有的朋友们看到这里，又会问在破解的时候可不可以将这些捕获的数据包一起使用呢，当然可以，届时只要在载入文件时使用longas*.cap即可，这里的星号指代所有前缀一致的文件。</span></p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+在回车后，就可以看到如下图11所示的界面，这表示着无线数据包抓取的开始。<p></p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/1500509.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图11" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/1500509.jpg" border="0" height="267" width="620"></a></p>
+<p style="text-align: center">图11</p>
+<p style="text-align: left">步骤4：对目标AP使用ArpRequest注入攻击</p>
+<p style="text-align: left">若连接着该无线路由器/AP的无线客户端正在进行大流量的交互，比如使用迅雷、电骡进行大文件
+下载等，则可以依靠单纯的抓包就可以破解出WEP密码。但是无线黑客们觉得这样的等待有时候过于漫长，于是就采用了一种称之为“ARP 
+Request”的方式来读取ARP请求报文，并伪造报文再次重发出去，以便刺激AP产生更多的数据包，从而加快破解过程，这种方法就称之为
+ArpRequest注入攻击。具体输入命令如下：</p>
+<pre>aireplay-ng -3 -b AP的mac -h 客户端的mac mon0 </pre>
+<p style="text-align: left">参数解释：</p>
+<p style="text-align: left">-3&nbsp;指采用ARPRequesr注入攻击模式；</p>
+<p style="text-align: left">-b&nbsp;后跟AP的MAC地址，这里就是前面我们探测到的SSID为TPLINK的AP的MAC；</p>
+<p style="text-align: left">-h&nbsp;后跟客户端的MAC地址，也就是我们前面探测到的有效无线客户端的MAC；</p>
+<p style="text-align: left">最后跟上无线网卡的名称，这里就是mon0啦。</p>
+<p style="text-align: left">回车后将会看到如下图12所示的读取无线数据报文，从中获取ARP报文的情况出现。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/15005010.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图12" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/15005010.jpg" border="0" height="178" width="617"></a></p>
+<p style="text-align: center">图12</p>
+<p style="text-align: left">在等待片刻之后，一旦成功截获到ARP请求报文，我们将会看到如下图13所示的大量ARP报文快速交互的情况出现。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/15005011.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图13" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/15005011.jpg" border="0" height="460" width="618"></a></p>
+<p style="text-align: center">图13</p>
+<p style="text-align: left">此时回到airodump-ng的界面查看，在下图14中我们可以看到，作为TP-LINK的packets栏的数字在飞速递增。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/15005012.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图14" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/15005012.jpg" border="0" height="274" width="622"></a></p>
+<p style="text-align: center">图14 </p>
+<p style="text-align: left">步骤5：打开aircrack-ng，开始破解WEP。</p>
+<p style="text-align: left">在抓取的无线数据报文达到了一定数量后，一般都是指IVs值达到2万以上时，就可以开始破解，若不能成功就等待数据报文的继续抓取然后多试几次。注意，此处不需要将进行注入攻击的Shell关闭，而是另外开一个Shell进行同步破解。输入命令如下：</p>
+<pre>aircrack-ng 捕获的ivs文件 </pre>
+<p style="text-align: left">关于IVs的值数量，我们可以从如下图15所示的界面中看到，当前已经接受到的IVs已经达到了1万5千以上，aircrack-ng已经尝试了41万个组合。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/15005013.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图15" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/15005013.jpg" border="0" height="462" width="620"></a></p>
+<p style="text-align: center">图15</p>
+<p style="text-align: left">那么经过很短时间的破解后，就可以看到如下图16中出现“KEY 
+FOUND”的提示，紧跟后面的是16进制形式，再后面的ASCII部分就是密码啦，此时便可以使用该密码来连接目标AP了。 
+一般来说，破解64位的WEP至少需要1万IVs以上，但若是要确保破解的成功，应捕获尽可能多的IVs数据。比如下图16所示的高强度复杂密码破解成功
+依赖于8万多捕获的IVs。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/15005014.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图16" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/15005014.jpg" border="0" height="352" width="617"></a></p>
+<p style="text-align: center"><span style="color: #000000">图16</span></p>
+<p style="text-align: left">
+</p><table style="border-bottom: #cccccc 1px dotted; border-left: #cccccc 1px dotted; table-layout: fixed; border-top: #cccccc 1px dotted; border-right: #cccccc 1px dotted" border="0" cellpadding="6" cellspacing="0" width="95%" align="center">
+    <tbody>
+        <tr>
+            <td style="word-wrap: break-word" bgcolor="#fdfddf"><span style="color: #000000">注
+意：由于是对指定无线频道的数据包捕获，所以有的时候大家会看到如下图17中一样的情景，在破解的时候出现了多达4个AP的数据报文，这是由于这些AP都
+工作在一个频道所致，很常见的。此时，选择我们的目标，即标为1的、SSID位dlink的那个数据包即可，输入1，回车后即可开始破解。</span></td>
+        </tr>
+    </tbody>
+</table>
+<p></p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/15005015.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图17" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/15005015.jpg" border="0" height="363" width="621"></a></p>
+<p style="text-align: center">图17 </p>
+<p style="text-align: left">看到这里，可能有的朋友会说，这些都是弱密码（就是过于简单的密码），所以才这么容易破解，大不了我用更复杂点的密码总可以了吧，比如×#87G之类的，即使是采用更为复杂的密码，这样真的就安全了吗？嘿嘿，那就看看下图18中显示的密码吧：）</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/15005016.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图18" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/15005016.jpg" border="0" height="430" width="620"></a></p>
+<p style="text-align: center">图18</p>
+<p style="text-align: left">正如你所看到的，在上图18中白框处破解出来的密码已经是足够复杂的密码了吧？我们放大看一看，如下图19所示，这样采用了大写字母、小写字母、数字和特殊符号的长达13位的WEP密码，在获得了足够多的IVs后，破解出来只花费了约4秒钟！</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/15005017.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图19" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/15005017.jpg" border="0" height="68" width="318"></a></p>
+<p style="text-align: center">图19</p>
+<p style="text-align: left">现在，你还认为自己的无线网络安全么？哈，这还只是个开始，我们接着往下看。</p>
+<p style="text-align: left">补充一下：</p>
+<p style="text-align: left">若希望捕获数据包时，能够不但是捕获包括IVS的内容，而是捕获所有的无线数据包，也可以在事后分析，那么可以使用如下命令：</p>
+<pre>airodump-ng –w longas -c 6 wlan0 </pre>
+<p style="text-align: left">就是说，不再--ivs过滤，而是全部捕获，这样的话，捕获的数据包将不再是longas-01.ivs，而是longas-01.cap，请大家注意。命令如下图20所示。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/15005018.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图20" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/15005018.jpg" border="0" height="73" width="624"></a></p>
+<p style="text-align: center">图20</p>
+<p style="text-align: left">同样地，在破解的时候，对象也变成了longas-*.cap。命令如下：</p>
+<pre>aircrack-ng 捕获的cap文件 </pre>
+<p style="text-align: left">回车后如下图21所示，一样破解出了密码。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/15005019.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图21" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/15005019.jpg" border="0" height="338" width="617"></a></p>
+<p style="text-align: center">图21</p>
+<p style="text-align: left">可能有的朋友又要问，ivs和cap直接的区别到底在哪儿呢？其实很简单，若只是为了破解的
+话，建议保存为ivs，优点是生成文件小且效率高。若是为了破解后同时来对捕获的无线数据包分析的话，就选为cap，这样就能及时作出分析，比如内网IP
+地址、密码等，当然，缺点就是文件会比较大，若是在一个复杂无线网络环境的话，短短20分钟，也有可能使得捕获的数据包大小超过200MB。</p>
+<p style="text-align: left">如下图22所示，我们使用du命令来比较上面破解所捕获的文件大小。可以看到，longas-01.ivs只有3088KB，也就算是3MB，但是longas-02.cap则达到了22728KB，达到了20MB左右！！</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/15005020.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图22" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/15005020.jpg" border="0" height="201" width="617"></a></p>
+<p style="text-align: center">图22 </p>
+<p style="text-align: left"><strong>◆使用Aircrack-ng破解WPA-PSK加密无线网络</strong></p>
+<p style="text-align: left">结合上小节的内容，下面继续是以BackTrack4 R2 Linux为环境，讲述破解WPA-PSK加密无线网络的具体步骤，详细如下。</p>
+<p style="text-align: left">步骤1：升级Aircrack-ng。</p>
+<p style="text-align: left">前面在第一章1.3节我们已经讲述了升级Aircrack-ng套装的详细步骤，这里也是一样，若条件允许，应将Aircrack-ng升级到最新的Aircrack-ng 1.1版。由于前面我已经给出了详细的步骤，这里就不再重复。</p>
+<p style="text-align: left">除此之外，为了更好地识别出无线网络设备及环境，最好对airodump-ng的OUI库进行升级，先进入到Aircrack-ng的安装目录下，然后输入命令如下：</p>
+<pre>airodump-ng-oui-update </pre>
+<p style="text-align: left">回车后，就能看到如下图23所示的开始下载的提示，稍等一会儿，这个时间会比较长，恩，建议预先升级，不要临阵磨枪。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/15005021.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图23" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/15005021.jpg" border="0" height="191" width="621"></a></p>
+<p style="text-align: center">图23</p>
+<p style="text-align: left">步骤2：载入并激活无线网卡至monitor即监听模式。</p>
+<p style="text-align: left">在进入BackTrack4 R2系统后，载入无线网卡的顺序及命令部分，依次输入下述命令：</p>
+<pre>startx&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 进入到图形界面 <br>ifconfig –a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 查看无线网卡状态<br>ifconfig&nbsp; wlan0&nbsp; up&nbsp;&nbsp;&nbsp;&nbsp; 载入无线网卡驱动<br>airmon-ng&nbsp; start&nbsp; wlan0&nbsp; 激活网卡到monitor模式</pre>
+<p style="text-align: left">如下图24所示，我们可以看到无线网卡的芯片及驱动类型，在Chipset芯片类型上标明是
+Ralink 2573芯片，默认驱动为rt73usb，显示为“monitor mode enabled on 
+mon0”，即已启动监听模式，监听模式下适配器名称变更为mon0。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/15005022.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图24" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/15005022.jpg" border="0" height="398" width="619"></a></p>
+<p style="text-align: center">图24</p>
+<p style="text-align: left">步骤3：探测无线网络，抓取无线数据包。</p>
+<p style="text-align: left">在激活无线网卡后，我们就可以开启无线数据包抓包工具了，这里我们使用Aircrack-ng套装里的airodump-ng工具来实现，具体命令如下：</p>
+<pre>airodump-ng -c 6 –w longas mon0 </pre>
+<p style="text-align: left">参数解释：</p>
+<p style="text-align: left">-c&nbsp;这里我们设置目标AP的工作频道，通过观察，我们要进行攻击测试的无线路由器工作频道为6；</p>
+<p style="text-align: left">-w&nbsp;后跟要保存的文件名，这里w就是“write写”的意思，所以输入自己希望保
+持的文件名，这里我就写为longas。那么，小黑们一定要注意的是：这里我们虽然设置保存的文件名是longas，但是生成的文件却不是
+longas.cap，而是longas-01.cap。</p>
+<p style="text-align: left">mon0&nbsp;为之前已经载入并激活监听模式的无线网卡。如下图25所示。</p>
+<p style="text-align: left">在回车后，就可以看到如下图25所示的界面，这表示着无线数据包抓取的开始。接下来保持这个窗口不动，注意，不要把它关闭了。另外打开一个Shell。进行后面的内容。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/15005023.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图25" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/15005023.jpg" border="0" height="339" width="623"></a></p>
+<p style="text-align: center">图25</p>
+<p style="text-align: left">步骤4：进行Deauth攻击加速破解过程。</p>
+<p style="text-align: left">和破解WEP时不同，这里为了获得破解所需的WPA-PSK握手验证的整个完整数据包，无线黑
+客们将会发送一种称之为“Deauth”的数据包来将已经连接至无线路由器的合法无线客户端强制断开，此时，客户端就会自动重新连接无线路由器，黑客们也
+就有机会捕获到包含WPA-PSK握手验证的完整数据包了。此处具体输入命令如下：</p>
+<pre>aireplay-ng -0 1 –a AP的mac -c 客户端的mac wlan0 </pre>
+<p style="text-align: left">参数解释：</p>
+<p style="text-align: left">-0&nbsp;采用deauth攻击模式，后面跟上攻击次数，这里我设置为1，大家可以根据实际情况设置为10不等；</p>
+<p style="text-align: left">-a&nbsp;后跟AP的MAC地址；</p>
+<p style="text-align: left">-c&nbsp;后跟客户端的MAC地址；</p>
+<p style="text-align: left">回车后将会看到如下图26所示的deauth报文发送的显示。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/15005024.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图26" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/15005024.jpg" border="0" height="185" width="617"></a></p>
+<p style="text-align: center">图26</p>
+<p style="text-align: left">此时回到airodump-ng的界面查看，在下图27中我们可以看到在右上角出现了“WPA handshake”的提示，这表示获得到了包含WPA-PSK密码的4此握手数据报文，至于后面是目标AP的MAC，这里的AP指的就是要破解的无线路由器。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/15005025.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图27" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/15005025.jpg" border="0" height="270" width="627"></a></p>
+<p style="text-align: center">图27</p>
+<p style="text-align: left">若我们没有在airodump-ng工作的界面上看到上面的提示，那么可以增加Deauth的发送数量，再一次对目标AP进行攻击。比如将-0参数后的数值改为10。如下图28所示。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/15005026.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图28" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/15005026.jpg" border="0" height="299" width="620"></a></p>
+<p style="text-align: center">图28</p>
+<p style="text-align: left">步骤5：开始破解WPA-PSK。</p>
+<p style="text-align: left">在成功获取到无线WPA-PSK验证数据报文后，就可以开始破解，输入命令如下：</p>
+<pre>aircrack-ng -w dic 捕获的cap文件 </pre>
+<p style="text-align: left">参数解释：</p>
+<p style="text-align: left">-w&nbsp;后跟预先制作的字典，这里是BT4下默认携带的字典。</p>
+<p style="text-align: left">在回车后，若捕获数据中包含了多个无线网络的数据，也就是能看到多个SSID出现的情况。这就
+意味着其它AP的无线数据皆因为工作在同一频道而被同时截获到，由于数量很少所以对于破解来说没有意义。此处输入正确的选项即对应目标AP的MAC值，回
+车后即可开始破解。如下图29所示为命令输入情况。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/15005027.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图29" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/15005027.jpg" border="0" height="86" width="623"></a></p>
+<p style="text-align: center">图29</p>
+<p style="text-align: left">由下图30可以看到，在双核T7100的主频+4GB内存下破解速度达到近450k/s，即每秒钟尝试450个密码。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/15005028.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图30" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/15005028.jpg" border="0" height="398" width="622"></a></p>
+<p style="text-align: center">图30</p>
+<p style="text-align: left">经过不到1分多钟的等待，我们成功破解出了密码。如下图31所示，在“KEY FOUND”提示的右侧，可以看到密码已被破解出。密码明文为“longaslast”，破解速度约为450 key/s。若是能换成4核CPU的话，还能更快一些。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/15005029.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图31" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/15005029.jpg" border="0" height="390" width="613"></a></p>
+<p style="text-align: center">图31 </p>
+<p style="text-align: left"><strong>◆使用Aircrack-ng破解WPA2-PSK加密无线网络</strong></p>
+<p style="text-align: left">对于启用WPA2-PSK加密的无线网络，其攻击和破解步骤及工具是完全一样的，不同的是，在使用airodump-ng进行无线探测的界面上，会提示为WPA CCMP PSK。如下图32所示。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/15005030.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图32" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/15005030.jpg" border="0" height="133" width="622"></a></p>
+<p style="text-align: center">图32</p>
+<p style="text-align: left">当我们使用aireplay-ng进行deauth攻击后，同样可以获得到WPA握手数据包及提示，如下图33所示。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/15005031.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图33" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/15005031.jpg" border="0" height="132" width="615"></a></p>
+<p style="text-align: center">图33</p>
+<p style="text-align: left">同样地，使用aircrack-ng进行破解，命令如下：</p>
+<pre>aircrack-ng -w dic 捕获的cap文件 </pre>
+<p style="text-align: left">参数解释：</p>
+<p style="text-align: left">-w&nbsp;后跟预先制作的字典文件</p>
+<p style="text-align: left">经过1分多钟的等待，可以在下图34中看到提示：“KEY FOUND！”后面即为WPA2-PSK连接密码19890305。</p>
+<p style="text-align: center"><a target="_blank" href="http://images.51cto.com/files/uploadimg/20110526/15005032.jpg"><img class="fit-image" onload="javascript:if(this.width>498)this.width=498;" onmousewheel="javascript:return big(this)" alt="图34" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/15005032.jpg" border="0" height="375" width="616"></a></p>
+<p style="text-align: center">图34</p>
+<p style="text-align: left">现在，看明白了吧？破解WPA-PSK对硬件要求及字典要求很高，所以只要你多准备一些常用的字典比如生日、8位数字等，这样破解的时候也会增大破解的成功率。</p>
+<p style="text-align: left"><strong>◆使用Aircrack-ng进行无线破解的常见问题</strong></p>
+<p style="text-align: left">恩，下面使一些初学无线安全的小黑们在攻击中可能遇到的问题，列举出来方便有朋友对号入座：</p>
+<p style="text-align: left"><strong>1．我的无线网卡为何无法识别？</strong></p>
+<p style="text-align: left">答：BT4支持的无线网卡有很多，比如对采用Atheros、Prism2和Ralink芯片
+的无线网卡，无论是PCMCIA还是PCI，亦或是USB的，支持性还是很高的。要注意BT4也不是所有符合芯片要求的无线网卡都支持的，有些同型号的但
+是硬件固件版本不同就不可以，具体可以参考Aircrack-ng官方网站的说明。</p>
+<p style="text-align: left"><strong>2．为什么我输入的命令老是提示错误？</strong></p>
+<p style="text-align: left">答：呃……没什么说的，兄弟，注意大小写和路径吧。</p>
+<p style="text-align: left"><strong>3．为什么使用airodump-ng进行的的ArpRequest注入攻击包时，速度很缓慢？？</strong></p>
+<p style="text-align: left">答：原因主要有两个：</p>
+<p style="text-align: left">（1．是可能该无线网卡对这些无线工具的支持性不好，比如很多笔记本自带的无线网卡支持性就不好；</p>
+<p style="text-align: left">（2．是若只是在本地搭建的实验环境的话，会因为客户端与AP交互过少，而出现ARP注入攻击缓慢的情况，但若是个客户端很多的环境，比如商业繁华区或者大学科技楼，很多用户在使用无线网络进行上网，则攻击效果会很显著，最短5分钟即可破解WEP。</p>
+<p style="text-align: left"><strong>4．为什么使用aireplay-ng发送的Deauth攻击包后没有获取到WPA握手包？</strong></p>
+<p style="text-align: left">答：原因主要有两个：</p>
+<p style="text-align: left">（1．是可能该无线网卡对这些无线工具的支持性不好，需要额外的驱动支持；</p>
+<p style="text-align: left">（2．是无线接入点自身问题，有的AP在遭受攻击后会短时间内失去响应，需重起或等待片刻才可恢复正常工作状态。</p>
+<p style="text-align: left"><strong>5．为什么我找不到捕获的cap文件？</strong></p>
+<p style="text-align: left">答：其实这是件很抓狂的问题，虽然在前面使用airodump-ng时提到文件保存的时候，我已经说明默认会保存为“文件名-01.cap”这样的方式，但是依旧会有很多由于过于兴奋导致眼神不济的小黑们抱怨找不到破解文件。</p>
+<p style="text-align: left">好吧，我再举个例子，比如最初捕获时我们命名为longas或者longas.cap，但在
+aircrack-ng攻击载入时使用ls命令察看，就会发现该文件已变成了longas-01.cap，此时，将要破解的文件改为此即可进行破解。若捕
+获文件较多，需要将其合并起来破解的话，就是用类似于“longas*.cap”这样的名字来指代全部的cap文件。这里*指代-01、-02等文件。</p>
+<p style="text-align: left"><strong>6．Linux下捕获的WPA握手文件是否可以放到Windows下破解？</strong></p>
+<p style="text-align: left">答：这个是可以的，不但可以导入windows下shell版本的aircrack-ng破解，还可以导入Cain等工具进行破解。关于Windows下的破解我已在《无线黑客傻瓜书》里做了详细的阐述，这里就不讲述和BT4无关的内容了。</p>
+<hr>
+<p>《BT4 Linux 
+黑客手册》国内第一本关于BackTrack3/4/4R1/4R2/5下内置工具讲解书籍，适用于各类BT4狂热分子、BT4英文能力不强者、BT4初
+哥、BT4宅男宅女、BT4深度学习人士、BT5过渡期待者、BT3迷恋者、BT4无线hacking爱好者、鄙视Windows者及......（此处
+略去1千字），聚众奋力编写6个月，终于粉墨登场！</p>
+<p>全书共15章，全书稿页数近600页，涉及工具近100个，攻防操作案例60个，从有线到无线、从扫描到入侵、从嗅探到PJ、从逆向到取证，全面协助小黑们从零开始一步步学习BT4下各类工具的使用及综合运用。</p>
+<div align="right">【责任编辑：<a class="ln" href="mailto:tongyw@51cto.com">佳佳</a> TEL：（010）68476606】</div><br> 
+<p class="blank10"></p> 
+ 
+ 
+
+
+<div class="f12"> <span class="fl">原文：<a href="http://netsecurity.51cto.com/art/201105/264844.htm" class="blue"><b>完全教程 Aircrack-ng破解WEP、WPA-PSK加密利器</b></a></span> <span class="fr"><a href="http://netsecurity.51cto.com/">返回网络安全首页</a></span> </div>
+<p class="blank1"></p>
+</div>
+<script type="text/javascript">
+/*主站文章页600*60，创建于2013-9-23*/
+var cpro_id = "u1372942";
+</script> <script src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/c.js" type="text/javascript"></script>
+<iframe src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/bulkfollow.html" frameborder="0" height="239" scrolling="no" width="600"></iframe>
+<div class="tips">
+<div style="float:left;">
+<span style="float:left; margin-top:4px;">分享到：</span>
+<!-- Baidu Button BEGIN -->
+    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare" style="margin-right:5px; float:left;">
+        <a class="bds_qzone"></a>
+        <a class="bds_tsina"></a>
+        <a class="bds_tqq"></a>
+        <a class="bds_renren"></a>
+        <a class="bds_t163"></a>
+        <span class="bds_more"></span>
+		<a class="shareCount"></a>
+
+</div>
+<!--<div class="fl"> 
+    </div>
+--><script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=585532"></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+	var bds_config = {'snsKey':{'tsina':'2378297317'}};
+	document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?t=" + new Date().getHours();
+</script>
+<!-- Baidu Button END -->
+
+
+
+</div><div class="fr blue"><a href="javascript:AddFavorite(document.location.href,document.title);" target="_self">收藏</a>|<a href="javascript:window.print();" target="_self">打印</a>|<a id="msnqqcopy" title="分享本资源给好友" target="_self">复制</a></div>
+</div>
+</div>
+<!--内容 end-->
+<div class="topbiaoqing">
+<div class="biaoqing fixfloat pad">
+<ul>
+<li><a href="javascript:getcountscom(264844,1)" target="_self"><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/bq1.jpg"></a>
+<div><a href="javascript:getcountscom(264844,1)" target="_self">给力</a></div>
+<span id="264844_1">(0票)</span></li>
+<li><a href="javascript:getcountscom(264844,2)" target="_self"><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/bq2.jpg"></a>
+<div><a href="javascript:getcountscom(264844,2)" target="_self">动心</a></div>
+<span id="264844_2">(0票)</span></li>
+<li><a href="javascript:getcountscom(264844,3)" target="_self"><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/bq3.jpg"></a>
+<div><a href="javascript:getcountscom(264844,3)" target="_self">废话</a></div>
+<span id="264844_3">(0票)</span></li>
+<li><a href="javascript:getcountscom(264844,4)" target="_self"><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/bq4.jpg"></a>
+<div><a href="javascript:getcountscom(264844,4)" target="_self">专业</a></div>
+<span id="264844_4">(0票)</span></li>
+<li><a href="javascript:getcountscom(264844,5)" target="_self"><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/bq5.jpg"></a>
+<div><a href="javascript:getcountscom(264844,5)" target="_self">标题党</a></div>
+<span id="264844_5">(0票)</span></li>
+<li><a href="javascript:getcountscom(264844,6)" target="_self"><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/bq6.jpg"></a>
+<div><a href="javascript:getcountscom(264844,6)" target="_self">路过</a></div>
+<span id="264844_6">(0票)</span></li>
+</ul>
+</div>
+<script language="javascript"> 
+getcountscom(264844,11);
+
+</script>
+</div>
+<p class="blank10"></p>
+<!--reltag end-->
+
+<p class="blank10"></p>
+<div class="uyan">
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/uyan.js"></script>
+</div>
+<!--box end-->
+
+<div class="bor">
+<div class="titbg pl15">关于<a href="http://www.51cto.com/php/search.php?keyword=Aircrack" target="_blank" class="underline">Aircrack</a>&nbsp;&nbsp;<a href="http://www.51cto.com/php/search.php?keyword=Aircrack-ng" target="_blank" class="underline">Aircrack-ng</a>&nbsp;&nbsp;<a href="http://www.51cto.com/php/search.php?keyword=%C6%C6%BD%E2WEP" target="_blank" class="underline">破解WEP</a>&nbsp;&nbsp;<a href="http://www.51cto.com/php/search.php?keyword=WPA-PSK" target="_blank" class="underline">WPA-PSK</a>&nbsp;&nbsp;<a href="http://www.51cto.com/php/search.php?keyword=%BC%D3%C3%DC%C0%FB%C6%F7" target="_blank" class="underline">加密利器</a>&nbsp;&nbsp;<a href="http://www.51cto.com/php/search.php?keyword=%B9%A4%BE%DF" target="_blank" class="underline">工具</a>的更多文章</div>
+<div class="reltag">
+<ul class="fl list02">
+  <li><a href="http://netsecurity.51cto.com/art/201311/415914.htm" title="微软发布Office“零日”漏洞紧急修复工具">微软发布Office“零日”漏洞紧急修复工具</a></li><li><a href="http://netsecurity.51cto.com/art/201311/415736.htm" title="恶意代码分析利器 – scdbg">恶意代码分析利器 – scdbg</a></li><li><a href="http://netsecurity.51cto.com/art/201311/415622.htm" title="防火墙：满足定制需求和支持新应用的看门人">防火墙：满足定制需求和支持新应用的看门人</a></li><li><a href="http://netsecurity.51cto.com/art/201311/415606.htm" title="安全事件共享构想之OpenIOC">安全事件共享构想之OpenIOC</a></li><li><a href="http://netsecurity.51cto.com/art/201311/415582.htm" title="枚举和分析Windows DACLs工具">枚举和分析Windows DACLs工具</a></li>
+</ul>
+<div class="fr">
+<div class="h5 f12"><a href="http://netsecurity.51cto.com/art/201011/235748.htm" title="网络安全工具百宝箱"><b>网络安全工具百宝箱</b></a></div>
+<a href="http://netsecurity.51cto.com/art/201011/235748.htm" title="网络安全工具百宝箱"><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/212740776.jpg" alt="网络安全工具百宝箱" border="0" height="80" width="100"></a>
+<p class="c666">本专题汇总多种网络安全工具，包括：网络安全工具,漏洞扫描工具,<a class="blue" href="http://netsecurity.51cto.com/art/201011/235748.htm" title="网络安全工具百宝箱">[详细]</a></p>
+</div>
+</div></div>
+
+<p class="blank10"></p>
+
+
+
+<div class="relart fl bor">
+<div class="titbg">
+<h3 class="fl t1">栏目热门</h3>
+<a href="http://netsecurity.51cto.com/click/1593" class="tmore">更多&gt;&gt;</a></div>
+<ul>
+  
+	  <li><a href="http://netsecurity.51cto.com/art/201310/413075.htm" title="PortSpoof：一款好玩的Linux反欺诈工具">PortSpoof：一款好玩的Linux反欺诈工具</a></li>
+	  
+	  <li><a href="http://netsecurity.51cto.com/art/201310/412480.htm" title="绕过VMware虚拟机登录认证神器—VMInjector">绕过VMware虚拟机登录认证神器—VMInjector</a></li>
+	  
+	  <li><a href="http://netsecurity.51cto.com/art/201309/410683.htm" title="浏览器必备的五大安全附加组件">浏览器必备的五大安全附加组件</a></li>
+	  
+	  <li><a href="http://netsecurity.51cto.com/art/201310/413443.htm" title="Key神－万能密码重设工具发布及使用教程">Key神－万能密码重设工具发布及使用教程</a></li>
+	  
+	  <li><a href="http://netsecurity.51cto.com/art/201309/411812.htm" title="寻找大数据时代下的SIEM变革之道">寻找大数据时代下的SIEM变革之道</a></li>
+	  
+</ul>
+</div>
+<div class="cathot fr bor">
+<div class="titbg">
+<h3 class="fl t1">同期最新</h3>
+<a href="http://netsecurity.51cto.com/col/1593" class="tmore">更多&gt;&gt;</a></div>
+<ul>
+	
+	  <li><a href="http://netsecurity.51cto.com/art/201105/264440.htm" title="W3AF：一个web应用安全的攻击、审计平台">W3AF：一个web应用安全的攻击、审计平台</a></li>
+	  
+	  <li><a href="http://netsecurity.51cto.com/art/201105/261028.htm" title="漏洞检测工具Fimap的六种用法">漏洞检测工具Fimap的六种用法</a></li>
+	  
+	  <li><a href="http://netsecurity.51cto.com/art/201103/252558.htm" title="十大工具及应用策略搞定OWASP热门威胁">十大工具及应用策略搞定OWASP热门威胁</a></li>
+	  
+	  <li><a href="http://netsecurity.51cto.com/art/201101/242869.htm" title="Argus：IP网络事务评审工具">Argus：IP网络事务评审工具</a></li>
+	  
+	  <li><a href="http://netsecurity.51cto.com/art/201101/241448.htm" title="cheops/cheops-ng：提供许多简单的网络工具">cheops/cheops-ng：提供许多简单的网络工具</a></li>
+	  
+</ul>
+</div>
+<p class="blank10"></p>
+<div class="bor">
+<div class="titbg">
+<h3 class="fl t1"><a href="http://netsecurity.51cto.com/">网络安全</a></h3>
+<span class="pl10">频道导航</span></div>
+ <ul class="xtlist">
+<li><span class="tit">热门</span> 
+<div><a href="http://netsecurity.51cto.com/col/1074/">安全观察</a>|<a href="http://netsecurity.51cto.com/col/924/">DDoS攻击</a>|<a href="http://netsecurity.51cto.com/col/572/">产品案例</a></div></li>
+<li><span class="tit">保护</span> 
+<div><a href="http://netsecurity.51cto.com/col/1068/">数据保护</a>|<a href="http://netsecurity.51cto.com/col/1537/">终端安全</a>|<a href="http://netsecurity.51cto.com/col/1148/">服务器安全</a></div></li>
+<li class="last"><span class="tit">专题</span> 
+<div><a href="http://netsecurity.51cto.com/col/1156/">专题汇总</a>|<a href="http://netsecurity.51cto.com/secu/Intranet_Security/">内网安全</a>|<a href="http://netsecurity.51cto.com/art/201011/235748.htm">安全工具</a></div></li></ul> 
+</div> 
+<p class="blank10"></p>
+<div class="leftbotcon">
+<div class="bor jdlist">
+<div class="titbg">
+<h3 class="t2">热点推荐</h3></div>
+<ul>
+<li><a onclick="javascript: _gaq.push(['_trackPageview', '/51cto/neirong/d-t-4']);" href="http://mobile.51cto.com/mobile-182392.htm"><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/153546162.jpg"></a> 
+<div class="name"><a onclick="javascript: _gaq.push(['_trackPageview', '/51cto/neirong/d-t-4']);" href="http://mobile.51cto.com/mobile-182392.htm">Android开发应用详解</a></div></li>
+<li><a onclick="javascript: _gaq.push(['_trackPageview', '/51cto/neirong/d-t-4']);" href="http://developer.51cto.com/art/201106/266369.htm"><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/133620622.jpg"></a> 
+<div class="name"><a onclick="javascript: _gaq.push(['_trackPageview', '/51cto/neirong/d-t-4']);" href="http://developer.51cto.com/art/201106/266369.htm">那些性感的让人尖叫的程序员</a></div></li>
+<li><a href="http://developer.51cto.com/art/200907/133407.htm"><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/134217922.jpg"></a> 
+<div class="name"><a href="http://developer.51cto.com/art/200907/133407.htm">HTML5 下一代Web开发标准详解</a></div></li>
+<li><a href="http://developer.51cto.com/art/201104/257581.htm"><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/123123954.jpg"></a> 
+<div class="name"><a href="http://developer.51cto.com/art/201104/257581.htm">高性能WEB开发应用指南</a></div></li>
+<li><a href="http://os.51cto.com/art/200706/49181.htm"><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/195816929.jpg"></a> 
+<div class="name"><a href="http://os.51cto.com/art/200706/49181.htm">Ubuntu开源技术交流频道</a></div></li></ul></div>
+<p class="blank10"></p>
+<div class="bor hotTag"><strong>热门标签：</strong> <a onclick="javascript: _gaq.push(['_trackPageview', '/51cto/neirong/d-2]);" href="http://os.51cto.com/windows/">windows频道</a><a onclick="javascript: _gaq.push(['_trackPageview', '/51cto/neirong/d-w']);" href="http://mobile.51cto.com/">移动开发</a><a onclick="javascript: _gaq.push(['_trackPageview', '/51cto/neirong/d-w']);" href="http://cloud.51cto.com/">云计算</a><a onclick="javascript: _gaq.push(['_trackPageview', '/51cto/neirong/d-w']);" href="http://mobile.51cto.com/mobile/objc/">objective-c</a><a onclick="javascript: _gaq.push(['_trackPageview', '/51cto/neirong/d-w']);" href="http://network.51cto.com/art/200909/151122.htm">tp-link路由器设置图解</a><a onclick="javascript: _gaq.push(['_trackPageview', '/51cto/neirong/d-w']);" href="http://developer.51cto.com/art/200907/133407.htm">html5</a> </div></div>
+<div class="leftbotbox"> </div>
+</div>
+<!--left end-->
+<div class="g_13 fr">
+<div class="focus fixfloat"> 
+ <img style="border: 1px solid #CCCCCC; margin:5px 0px 5px;" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/weixin.png" width="298"><div class="hot">
+<ul>
+<li class="tit"><em>专题</em> <a href="http://network.51cto.com/network/taiyi/">太一星晨高性能机架式产品发布会</a> </li>
+<li class="con"><dl><dt><a href="http://network.51cto.com/network/taiyi/"><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/wKiom1NN9F3B8d-VAAAQZ2Xc_dA613.jpg" border="0"></a></dt>
+<dd>凭借虚拟化技术的支撑，太一星晨不断追求业务精细化管理，高性能，可弹性扩展的多重保障。</dd>
+</dl></li></ul><ol class="hotlist"><li><a href="http://netsecurity.51cto.com/art/201404/435175.htm">互联网安全：OpenSSL“心脏出血”</a></li><li><a href="http://netsecurity.51cto.com/secu/pandian2013/shijian/">2013年终盘点之网络安全事件篇</a></li></ol></div>
+<p id="hzh_one">
+<script language="JavaScript" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/ad.js" type="text/javascript"></script>
+</p>
+</div>
+<div class="rank">
+<div class="tlt">
+      <h3>文章排行</h3>
+      <a onmouseover="change_top10(3);" id="top_3">本月</a><a onmouseover="change_top10(2);" id="top_2">本周</a><a onmouseover="change_top10(1);" class="myon" id="top_1">24小时</a> </div>
+ <div id="top10_1" style="display: block;" class="list"><ul>
+<li><a href="http://netsecurity.51cto.com/art/201105/264844.htm" target="_blank" title="完全教程 Aircrack-ng破解WEP、WPA-PSK">完全教程 Aircrack-ng破解WEP、WPA-PSK</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201404/435105.htm" target="_blank" title="这些开源安全工具，你用过多少">这些开源安全工具，你用过多少</a>
+</li><li><a href="http://netsecurity.51cto.com/art/200903/115574.htm" target="_blank" title="WPA/WPA2加密高速破解的真相">WPA/WPA2加密高速破解的真相</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201109/288603.htm" target="_blank" title="如何学习黑客技术？初级黑客入门速成学">如何学习黑客技术？初级黑客入门速成学</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201404/435075.htm" target="_blank" title="关于OpenSSL“心脏出血”漏洞的分析">关于OpenSSL“心脏出血”漏洞的分析</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201404/435969.htm" target="_blank" title="保护企业数据的七大方法">保护企业数据的七大方法</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201404/435986.htm" target="_blank" title="甲骨文发布大量安全补丁 修复104个漏洞">甲骨文发布大量安全补丁 修复104个漏洞</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201404/435988.htm" target="_blank" title="保护物联网安全的正确方法">保护物联网安全的正确方法</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201404/436117.htm" target="_blank" title="勒索软件“BitCrypt”瞄准比特币!">勒索软件“BitCrypt”瞄准比特币!</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201404/435989.htm" target="_blank" title="物联网：安全雷区">物联网：安全雷区</a>
+</li></ul></div>
+<div id="top10_2" style="display: none;" class="list"><ul>
+<li><a href="http://netsecurity.51cto.com/art/201404/435699.htm" target="_blank" title="科普：详解流量劫持的形成原因">科普：详解流量劫持的形成原因</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201404/435581.htm" target="_blank" title="首席信息安全官必须知道的五大黑客工具">首席信息安全官必须知道的五大黑客工具</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201404/435474.htm" target="_blank" title="记一次完整的办公网渗透到idc过程">记一次完整的办公网渗透到idc过程</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201404/435658.htm" target="_blank" title="卡巴斯基实验室发布全球网络威胁实况地">卡巴斯基实验室发布全球网络威胁实况地</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201404/435489.htm" target="_blank" title="专家解释“愤怒的小鸟”如何变身间谍">专家解释“愤怒的小鸟”如何变身间谍</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201404/435411.htm" target="_blank" title="Heartbleed工程师：这是一场“意外”">Heartbleed工程师：这是一场“意外”</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201404/435454.htm" target="_blank" title="数亿Android用户面临“心脏流血”风险">数亿Android用户面临“心脏流血”风险</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201404/435412.htm" target="_blank" title="全球10大商业软件供应商受Heartbleed影">全球10大商业软件供应商受Heartbleed影</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201404/435397.htm" target="_blank" title="从OpenSSL漏洞看各甲方响应质量">从OpenSSL漏洞看各甲方响应质量</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201404/435600.htm" target="_blank" title="可穿戴设备及路由器将成黑客攻击重灾区">可穿戴设备及路由器将成黑客攻击重灾区</a>
+</li></ul></div>
+<div id="top10_3" style="display: none;" class="list"><ul>
+<li><a href="http://netsecurity.51cto.com/art/201403/434002.htm" target="_blank" title="能“干掉”苹果的中国“黑客”">能“干掉”苹果的中国“黑客”</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201404/435105.htm" target="_blank" title="这些开源安全工具，你用过多少">这些开源安全工具，你用过多少</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201404/435151.htm" target="_blank" title="OpenSSL漏洞简述与网络检测方法">OpenSSL漏洞简述与网络检测方法</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201403/434040.htm" target="_blank" title="黑掉ATM取款机?只需一条短信">黑掉ATM取款机?只需一条短信</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201404/435048.htm" target="_blank" title="揭秘中国顶尖黑客Keen安全团队">揭秘中国顶尖黑客Keen安全团队</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201403/434327.htm" target="_blank" title="路由器被“入侵” 邻居可看遍你的电脑">路由器被“入侵” 邻居可看遍你的电脑</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201404/435075.htm" target="_blank" title="关于OpenSSL“心脏出血”漏洞的分析">关于OpenSSL“心脏出血”漏洞的分析</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201404/435064.htm" target="_blank" title="XP退役：三方博弈">XP退役：三方博弈</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201403/433753.htm" target="_blank" title="黑客开发无人机窃取路人手机隐私信息">黑客开发无人机窃取路人手机隐私信息</a>
+</li><li><a href="http://netsecurity.51cto.com/art/201403/433928.htm" target="_blank" title="金山毒霸引发系统崩溃问题技术分析">金山毒霸引发系统崩溃问题技术分析</a>
+</li></ul></div>
+ 
+ </div>
+<p class="blank1"></p>
+
+<div class="bor">
+<div class="titbg">
+<h3 class="fl t1">热点专题</h3>
+<a href="http://netsecurity.51cto.com/speclist/1593" class="tmore">更多&gt;&gt;</a></div>
+<ul class="plist01">
+<li><a href="http://netsecurity.51cto.com/art/201304/388708.htm" title="春暖花开之日 防火墙升级之时"><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/wKioJlFlB_TACyHMAAAQcgfrNQ8509.jpg" alt="春暖花开之日 防火墙升级之时" height="80" width="100"></a>
+<h5><a href="http://netsecurity.51cto.com/art/201304/388708.htm" title="春暖花开之日 防火墙升级之时">春暖花开之日 防火墙</a></h5>
+<div class="c666">下一代防火墙”（缩写NGFW）一般是指带有入侵检测等超</div>
+</li><li><a href="http://netsecurity.51cto.com/art/201303/386349.htm" title="从隐私安全说“小甜饼”——Cookies"><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/wKioOVFQN7nRgeUOAAAVJSrxnoI951.jpg" alt="从隐私安全说“小甜饼”——Cookies" height="80" width="100"></a>
+<h5><a href="http://netsecurity.51cto.com/art/201303/386349.htm" title="从隐私安全说“小甜饼”——Cookies">从隐私安全说“小甜饼</a></h5>
+<div class="c666">“Cookies”也被称为HTTP cookies、网络cookies或浏览</div>
+</li><li><a href="http://netsecurity.51cto.com/art/201303/386276.htm" title="思科安全数据中心解决方案白皮书下载库"><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/wKioJlFPvHuha3o4AAAazP-eE2Q599.jpg" alt="思科安全数据中心解决方案白皮书下载库" height="80" width="100"></a>
+<h5><a href="http://netsecurity.51cto.com/art/201303/386276.htm" title="思科安全数据中心解决方案白皮书下载库">思科安全数据中心解决</a></h5>
+<div class="c666">创新的思科安全数据中心解决方案是唯一能够保护整个数</div>
+</li> 
+</ul>
+</div>
+<p class="blank10"></p>
+<div class="tagCloud">
+<div class="tlt">
+<h3>热点标签</h3>
+</div>
+<div class="taglist"><a title="应用安全" href="http://netsecurity.51cto.com/secu/appsecurity/">应用安全</a> <a title="安全工具" href="http://netsecurity.51cto.com/art/201011/235748.htm">安全工具</a> <a title="OWASP十大热门威胁及对策" href="http://netsecurity.51cto.com/art/201103/252558.htm">OWASP十大热门威胁及对策</a> <a title="2011" href="http://netsecurity.51cto.com/secu/RSA2011/" rsa="">2011 RSA</a> <a title="VoIP安全" href="http://netsecurity.51cto.com/art/201011/233248.htm">VoIP安全</a> <a title="启明星辰与网御星云战略重组" href="http://netsecurity.51cto.com/art/201101/241725.htm">启明星辰与网御星云战略重组</a> <a title="DDoS" href="http://netsecurity.51cto.com/art/200609/31599.htm">DDoS</a> <a title="ARP攻击" href="http://netsecurity.51cto.com/art/200609/31897.htm">ARP攻击</a> <a title="黑客" href="http://netsecurity.51cto.com/col/518/">黑客</a> <a title="数据库安全" href="http://netsecurity.51cto.com/art/200612/36223.htm">数据库安全</a> <a class="imp" title="内网安全" href="http://netsecurity.51cto.com/secu/Intranet_Security/">内网安全</a> <a title="电子邮件安全" href="http://netsecurity.51cto.com/art/200603/22036.htm">电子邮件安全</a> <a title="网康2011" href="http://netsecurity.51cto.com/secu/netentsec_exhibition2011/">网康2011</a> <a title="拯救第一季" href="http://netsecurity.51cto.com/secu/rescuezm/">拯救第一季</a> <a title="上网行为管理" href="http://netsecurity.51cto.com/secu/netentsec2010/">上网行为管理</a> <a title="拯救第二季" href="http://netsecurity.51cto.com/secu/rescuedlp/end/index.html">拯救第二季</a> <a title="下一代防火墙" href="http://netsecurity.51cto.com/secu/barracuda/con2011/">下一代防火墙</a> <a title="Web应用安全" href="http://netsecurity.51cto.com/secu/barracuda2011/">Web应用安全</a> <a title="云安全" href="http://netsecurity.51cto.com/secu/yunanquan2011/">云安全</a> </div>
+</div>
+<div class="rss">
+<ul>
+<li class="lin f12-c"><a href="http://news.51cto.com/col/1323/"><strong>点击这里查看样刊</strong></a></li>
+<li>
+<dl>
+<dt> </dt>
+<dd><a href="http://home.51cto.com/index.php?s=/Subscribe"><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/dingy.gif"></a></dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="bor">
+<div class="titbg">
+<h3 class="t1">全站热点</h3>
+</div>
+<div class="webhot fixfloat">
+<ul>
+
+<li>
+  <a href="http://netsecurity.51cto.com/secu/PRISM/" title="“棱镜”激醒中国信息安全最弱神经"><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/wKioOVHbcYTSu2qcAAARz_FHziU954.jpg"></a>
+  <div><a href="http://netsecurity.51cto.com/secu/PRISM/" title="“棱镜”激醒中国信息安全最弱神经">“棱镜”激醒中国信息安全最弱神经</a></div>
+</li>
+
+<li>
+  <a href="http://netsecurity.51cto.com/art/201306/397905.htm" title="云计算时代 需要怎样的加密保护"><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/wKioOVHSSlTRHtyeAAAVXhyEen0601.jpg"></a>
+  <div><a href="http://netsecurity.51cto.com/art/201306/397905.htm" title="云计算时代 需要怎样的加密保护">云计算时代 需要怎样的加密保护</a></div>
+</li>
+
+</ul>
+</div>
+<p class="blank1"></p>
+<ul class="list03">
+
+<li><a href="http://book.51cto.com/art/201310/412808.htm" title="大型网站技术架构：核心原理与案例分析">大型网站技术架构：核心原理与案例分</a></li>
+
+<li><a href="http://book.51cto.com/art/201310/412807.htm" title="数据分析：企业的贤内助">数据分析：企业的贤内助</a></li>
+
+<li><a href="http://developer.51cto.com/art/201310/412747.htm" title="Java排序基础应用回顾">Java排序基础应用回顾</a></li>
+
+<li><a href="http://book.51cto.com/art/201310/412679.htm" title="界面设计模式（第2版）">界面设计模式（第2版）</a></li>
+
+<li><a href="http://book.51cto.com/art/201310/412678.htm" title="SDN核心技术剖析和实战指南">SDN核心技术剖析和实战指南</a></li>
+
+</ul>
+</div>
+<p class="blank10"></p>
+<div class="bor">
+<div class="titbg">
+<h3 class="t1">读书</h3>
+</div>
+  
+<div class="catbook"><a href="http://book.51cto.com/art/200801/63463.htm" title="J2EE开发全程实录"><img src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/141009232.gif" border="0" height="98" width="66"></a>
+<h5><a href="http://book.51cto.com/art/200801/63463.htm">J2EE开发全程实录</a></h5>
+<div class="c666 text">J2EE是目前企业级软件开发的首选平台。本书从架构的角度讲解了一个完整的J2EE系统的搭建。内容包括：正则表达式、JSP、Swing、XM</div>
+</div>
+
+
+<ul class="list03">
+
+<li><a href="http://book.51cto.com/art/200704/44810.htm" title="构件中国：面向构件的方法与实践">构件中国：面向构件的方法与实践</a></li>
+
+<li><a href="http://book.51cto.com/art/200704/44832.htm" title="网管员必读—-网络安全">网管员必读—-网络安全</a></li>
+
+<li><a href="http://book.51cto.com/art/200704/44848.htm" title="《网管员必读——网络管理》">《网管员必读——网络管理》</a></li>
+
+<li><a href="http://book.51cto.com/art/200704/44864.htm" title="网管员必读——网络基础(第2版)">网管员必读——网络基础(第2版)</a></li>
+
+</ul>
+</div>
+<p class="blank10"></p>
+<div class="bor">
+<div class="titbg">
+<h3 class="t1 fl">博文推荐</h3>
+<a class="tmore" href="http://blog.51cto.com/">更多&gt;&gt;</a></div>
+
+<ul class="list03">
+ <li><a href="http://fengyp.blog.51cto.com/276754/72405/" target="_blank" title="婚好结，日子难过">婚好结，日子难过</a></li><li><a href="http://eskystar.blog.51cto.com/730/72364/" target="_blank" title="Cisco WLAN 控制器的配置">Cisco WLAN 控制器的配置</a></li><li><a href="http://eskystar.blog.51cto.com/730/72359/" target="_blank" title="Cisco AP 常用配置总结">Cisco AP 常用配置总结</a></li><li><a href="http://zhaogao.blog.51cto.com/205189/72358/" target="_blank" title="紧急通知-在今天或未来几天可能引发一场中美黑客大战！">紧急通知-在今天或未来几天可能引发</a></li>
+</ul>
+</div>
+<p class="blank10"></p>
+<div class="tj">
+<div class="tlt">
+<h3>最新热帖</h3>
+<a class="more" href="http://bbs.51cto.com/hotthreads.php">更多&gt;&gt;</a></div>
+<ul>
+<li><a href="http://bbs.51cto.com/thread-26429-1.html" target="_blank" title="通用WAP网站生成系统(PowerDiamond) v.1">通用WAP网站生成系统(PowerDiamond) </a></li><li><a href="http://bbs.51cto.com/thread-11063-1.html" target="_blank" title="八类大学毕业生求职时不受欢迎">八类大学毕业生求职时不受欢迎</a></li><li><a href="http://bbs.51cto.com/thread-6946-1.html" target="_blank" title="IT人为什么难以拿到高薪？【转帖】">IT人为什么难以拿到高薪？【转帖】</a></li><li><a href="http://bbs.51cto.com/thread-4333-1.html" target="_blank" title="想去外企上班">想去外企上班</a></li>
+</ul>
+</div>
+<div class="picAD">
+<script language="JavaScript" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/ad_003.js" type="text/javascript"></script>
+</div>
+</div>
+<p class="blank1"></p> 
+<!--leftbotcon end-->
+</div> 
+<div class="subweb">
+<h4>51CTO旗下网站</h4>
+<div>
+<a target="_blank" href="http://www.51cto.com/">领先的IT技术网站 51CTO</a>
+<a target="_blank" href="http://www.watchstor.com/">领先的中文存储媒体 WatchStor</a>
+<a target="_blank" href="http://www.cioage.com/">中国首个CIO网站 CIOage</a>
+<a target="_blank" href="http://www.hc3i.cn/">中国首家数字医疗网站 HC3i</a>
+</div>
+</div>
+<div id="ft"><div id="foot" align="center"><script src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/copy_right.js"></script></div></div>
+<script src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/count.js"></script>
+<!-- START GA.js -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-20883758-1']);
+  _gaq.push(['_setDomainName', 'none']);
+  _gaq.push(['_setAllowLinker', true]);
+  _gaq.push(['_addOrganic', 'baidu', 'word']);
+  _gaq.push(['_addOrganic', 'google', 'q']);
+  _gaq.push(['_addOrganic', 'soso', 'w']);
+  _gaq.push(['_addOrganic', '3721', 'name']);
+  _gaq.push(['_addOrganic', 'yodao', 'q']);
+  _gaq.push(['_addOrganic', 'vnet', 'kw']);
+  _gaq.push(['_addOrganic', 'sogou', 'query']);
+  _gaq.push(['_trackPageview']);
+  _gaq.push(['_trackPageLoadTime']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<!-- END GA.js -->
+
+<!-- baidu.js -->
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Ff77ea1ecd95cb2a1bc65cbcb3aaba7d4' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<!--end baidu.js -->
+<script type="text/javascript">
+
+	$("#uyan_cmt_list").next().remove();	
+	$("#uyan_cmt_list").next().css("display","none");	
+</script>
+
+<!-- 新监测代码 -->
+<!-- 新监测代码 -->
+<div id="MyMoveAd" style="display:none">
+<span id="wordlink_1"><script src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/wordlink1.js"></script></span>
+<span id="wordlink_2"><script src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/wordlink2.js"></script></span>
+<span id="wordlink_3"><script src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/wordlink3.js"></script></span>
+<span id="wordlink_4"><script src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/wordlink4.js"></script></span>
+<span id="pinglun"><script language="JavaScript" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/getArtCount.html"></script></span>
+<span id="tonglan"><script language="JavaScript" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/ad_002.js"></script></span>
+<span id="wordlink"><script language="JavaScript" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/ad_004.js"></script></span>
+<script src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/ad_004.js"></script>
+<span id="bookss"><script language="JavaScript" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/getBookData.html"></script></span>
+</div>   
+<script language="javascript" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/favorite.js"></script>
+
+<script language="javaScript" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/dialog_utf8.js"></script>
+<script language="javaScript" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/mail.js"></script>  
+<script type="text/javascript" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/favorbox.js"></script>
+<script language="javascript" src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/clipboard.js"></script>
+<script language="javaScript"> 
+	var thistid=264844; 
+	
+	//收藏按钮
+	var favor_url = 'http://netsecurity.51cto.com/art/201105/264844.htm';  // 如：http://bbs.51cto.com/thread-789649-1.html
+	var favor_title = '完全教程 Aircrack-ng破解WEP、WPA-PSK加密利器';       //  
+	
+	//绑定复制按钮
+	copy('msnqqcopy', 'http://netsecurity.51cto.com/art/201105/264844.htm', '分享到MSN/QQ的链接复制成功!');
+//	copy('bbscopy', '[url=http://netsecurity.51cto.com/art/201105/264844.htm][u]完全教程 Aircrack-ng破解WEP、WPA-PSK加密利器[/u][/url]', '分享到论坛的UBB代码复制成功!');
+
+</script> 
+<script src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/index.html" charset="utf-8"></script>
+<script src="%E5%AE%8C%E5%85%A8%E6%95%99%E7%A8%8BAircrack-ng_files/count.html" language="javascript"></script>
+<script language="javascript">
+document.getElementById('books').innerHTML = document.getElementById("bookss").innerHTML; 
+</script>
+
+
+
+</body></html>

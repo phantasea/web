@@ -1,0 +1,3281 @@
+<!DOCTYPE html>
+<!--[if IE 8 ]><html id="ie8" lang="en-US"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="en-US"><!--<![endif]-->
+	<head>	
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width">
+                <a href="https://plus.google.com/105318999106266025664" rel="publisher" />
+		
+		<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<link rel="pingback" href="http://ubuntuhandbook.org/xmlrpc.php" />
+		<title>3 Ways to Create Wifi Hotspot in Ubuntu 14.04 (Android Support) | UbuntuHandbook</title>
+
+<!-- July 12, noindex for pagination -->
+<meta name="robots" content="noodp,noydir" />
+
+																			<script type="text/javascript">
+					var _gaq = _gaq || [];
+					_gaq.push(['_setAccount', 'UA-42124138-1']);
+					_gaq.push(['_trackPageview']);
+					_gaq.push(['_trackPageLoadTime']);
+
+										
+										
+					(function() {
+						var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+						ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+						var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+					})();
+				</script>
+									<link rel="alternate" type="application/rss+xml" title="UbuntuHandbook &raquo; Feed" href="http://ubuntuhandbook.org/index.php/feed/" />
+<link rel="alternate" type="application/rss+xml" title="UbuntuHandbook &raquo; Comments Feed" href="http://ubuntuhandbook.org/index.php/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="UbuntuHandbook &raquo; 3 Ways to Create Wifi Hotspot in Ubuntu 14.04 (Android Support) Comments Feed" href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/feed/" />
+<link rel='stylesheet' id='arconix-shortcodes-group-css' href='http://ubuntuhandbook.org/wp-content/plugins/bwp-minify/min/?f=wp-content/plugins/arconix-shortcodes/includes/css/arconix-shortcodes.css,wp-content/plugins/simple-social-icons/css/style.css,wp-content/themes/standard/css/lib/bootstrap.css,wp-content/themes/standard/css/lib/bootstrap-responsive.css,wp-content/themes/standard/style.css,wp-content/themes/standard/css/theme-responsive.css' type='text/css' media='all' />
+<link rel='stylesheet' id='digg-digg-group-css' href='http://ubuntuhandbook.org/wp-content/plugins/bwp-minify/min/?f=wp-content/plugins/digg-digg/css/diggdigg-style.css' type='text/css' media='screen' />
+<script type='text/javascript' src='http://ubuntuhandbook.org/wp-content/plugins/bwp-minify/min/?f=wp-includes/js/jquery/jquery.js,wp-content/plugins/q2w3-fixed-widget/js/q2w3-fixed-widget.min.js,wp-content/themes/standard/js/lib/bootstrap.min.js,wp-content/themes/standard/js/lib/jquery.fitvids.js,wp-includes/js/comment-reply.min.js,wp-content/themes/standard/js/lib/md5.js,wp-content/themes/standard/js/theme.main.min.js'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://ubuntuhandbook.org/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://ubuntuhandbook.org/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Geary 0.8 Released with Redesign &amp; Signature Support' href='http://ubuntuhandbook.org/index.php/2014/09/geary-08-signature-support/' />
+<link rel='next' title='Wifi Hotspot: Access Point Mode Is Not Supported By This Device' href='http://ubuntuhandbook.org/index.php/2014/09/wifi-hotspot-access-point-not-supported/' />
+<link rel='canonical' href='http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/' />
+<link rel='shortlink' href='http://ubuntuhandbook.org/?p=3977' />
+<meta name="description" content="Dear readers, I've found a new way to create wireless hotspot in Ubuntu, AP mode with Android devices support, using Unity's Network Manager" /><style type="text/css" media="screen"> .simple-social-icons ul li a, .simple-social-icons ul li a:hover { background-color: #999999 !important; border-radius: 3px; color: #ffffff !important; font-size: 18px; padding: 9px; }  .simple-social-icons ul li a:hover { background-color: #666666 !important; color: #ffffff !important; }</style><style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #f2f2f2; }
+</style>
+
+	</head>
+	<body class="single single-post postid-3977 single-format-standard custom-background">
+
+				
+				
+					<div id="menu-above-header" class="menu-navigation navbar navbar-inverse navbar-fixed-top">
+				<div class="navbar-inner ">
+					<div class="container">
+		
+						<a class="btn btn-navbar" data-toggle="collapse" data-target=".above-header-nav-collapse">
+						  <span class="icon-bar"></span>
+						  <span class="icon-bar"></span>
+						  <span class="icon-bar"></span>
+						</a>
+					
+						<div class="nav-collapse above-header-nav-collapse">													
+							<div class="menu-header-container"><ul id="menu-nav" class="nav nav-menu menu"><li class=" menu-item menu-item-type-custom menu-item-object-custom menu-item-home"><a href="http://ubuntuhandbook.org/" title="Home"  >Home</a></li><li class=" menu-item menu-item-type-post_type menu-item-object-page"><a href="http://ubuntuhandbook.org/index.php/ubuntu-ppas/" title="Ubuntu PPAs"  >Ubuntu PPAs</a></li><li class=" menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://ubuntuhandbook.org/index.php/category/news/" title="News"  >News</a></li><li class=" menu-item menu-item-type-post_type menu-item-object-page"><a href="http://ubuntuhandbook.org/index.php/how-to-install-ubuntu/" title="How to Install Ubuntu"  >How to Install Ubuntu</a></li><li class=" menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://ubuntuhandbook.org/index.php/category/linux-mint/" title="Linux Mint"  >Linux Mint</a></li><li class=" menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://ubuntuhandbook.org/index.php/category/unity/" title="Unity"  >Unity</a></li><li class=" menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://ubuntuhandbook.org/index.php/category/xfce/" title="Xfce"  >Xfce</a></li><li class=" menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://ubuntuhandbook.org/index.php/category/gnome-shell/" title="Gnome Shell"  >Gnome Shell</a></li></ul></div>
+						</div><!-- /.nav-collapse -->		
+						
+												
+					</div> <!-- /container -->
+				</div><!-- /navbar-inner -->
+			</div> <!-- /#menu-above-header -->	
+					
+				
+			<header id="header" class="imageless">
+			
+				<div id="head-wrapper" class="container clearfix">
+				
+															
+
+						<div id="hgroup" class="clearfix">
+						
+							<div id="logo">
+									
+																									
+																											
+                                        <p id="site-title">
+                                            <a href="http://ubuntuhandbook.org/" title="UbuntuHandbook" rel="home">
+                                                UbuntuHandbook                                            </a>
+                                        </p><!-- /#site-title -->
+									
+																		
+									<p><small id="site-description">News, Tutorials, Howtos for Ubuntu Linux</small></p>										
+									
+																
+							</div><!-- /#logo -->
+							
+						         							  
+                                                                  <div id="header-widget">      
+									<div id="simple-social-icons-2" class="header-widget widget simple-social-icons"><ul class="aligncenter"><li class="social-facebook"><a href="http://facebook.com/pages/Ubuntuhandbook/352769634826379" target="_blank">&#xe802;</a></li><li class="social-github"><a href="https://launchpad.net/~ubuntuhandbook1" target="_blank">&#xe80c;</a></li><li class="social-gplus"><a href="https://plus.google.com/105318999106266025664" target="_blank">&#xe801;</a></li><li class="social-rss"><a href="http://feeds.feedburner.com/UbuntuhandbookNewsTutorialsHowtosForUbuntuLinux" target="_blank">&#xe805;</a></li><li class="social-twitter"><a href="http://twitter.com/UbuntuHandbook" target="_blank">&#xe80d;</a></li></ul></div><div id="search-3" class="header-widget widget widget_search"><form role="search" method="get" id="searchform" action="http://ubuntuhandbook.org/"><input placeholder="Search..." type="text" value="" name="s" id="s" /></form></div>                                                                  </div> 					
+								
+						</div><!-- /#hgroup -->
+				
+									
+				</div><!-- /#head-wrapper -->
+
+                                                       
+			</header><!-- /#header -->
+
+			<div id="wrapper">
+	<div class="container">
+		<div class="row">
+
+			
+			<div id="main" class="span8 clearfix" role="main">
+				
+				<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><ul class="breadcrumb"><li class="home-breadcrumb"><a href="http://ubuntuhandbook.org" itemprop="url"><span itemprop="title">Home</span></a><span class="divider">/</span></li><li><a href="http://ubuntuhandbook.org/index.php/category/howtos/" itemprop="url"><span itemprop="title">Howtos</span></a><span class="divider">/</span></li><li class="active">3 Ways to Create Wifi Hotspot in Ubuntu 14.04 (Android Support)</li></ul></div>				
+																			
+<div id="post-3977" class="post-3977 post type-post status-publish format-standard hentry category-howtos tag-ubuntu-14-04 tag-wifi-hotspot-with-android-support post format-standard clearfix">
+
+	<div class="post-header clearfix">
+
+				 
+		<div class="title-wrap clearfix">
+												<h1 class="post-title entry-title">3 Ways to Create Wifi Hotspot in Ubuntu 14.04 (Android Support)</h1>	
+										<div class="post-header-meta">
+													<span class="the-time updated">September 22, 2014</span>
+													<span class="the-comment-link">&mdash;&nbsp;<a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comments" title="Comment on 3 Ways to Create Wifi Hotspot in Ubuntu 14.04 (Android Support)">99 Comments</a></span>
+							</div><!-- /.post-header-meta -->
+		</div><!-- /.title-wrap -->
+
+	</div><!-- /.post-header -->
+
+	<div id="content-3977" class="entry-content clearfix">
+<!-- ads-here -->
+<div style='margin: 5px;padding: 0px;float:left'>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- handbook-block -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:250px"
+     data-ad-client="ca-pub-0256343105258378"
+     data-ad-slot="9088219991"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+			<p><a href="http://ubuntuhandbook.org/wp-content/uploads/2013/12/Ubuntu-Wifi-security.jpg"><img src="http://ubuntuhandbook.org/wp-content/uploads/2013/12/Ubuntu-Wifi-security.jpg" alt="create wifi hotspot in Ubuntu for android" width="240" height="238" class="aligncenter size-full wp-image-2682" /></a></p>
+<p><b>Dear readers, I&#8217;ve found a new way to create wireless hotspot in Ubuntu, AP mode with Android devices support, using Unity&#8217;s Network Manager.</b></p>
+<p>After this tutorial, I&#8217;ve found 3 ways to create wifi hotspot in ap mode:</p>
+<ol>
+<li>Using <b>Ap-hotspot</b>, an open-source app from github: see <a href="http://ubuntuhandbook.org/index.php/2014/02/wifi-hotspot-ubuntu-laptop-android/" target="_blank"><i>this post</i></a>.</li>
+<li>Using <b>KDE connection editor</b>, see <a href="http://ubuntuhandbook.org/index.php/2014/06/share-internet-with-android-ubuntu-1404/" target="_blank"><i>the post</i></a>.</li>
+<li>Using Unity&#8217;s Default Network Manager with a little hack. See below</li>
+</ol>
+<p>Below I will show you how to use Unity&#8217;s default network manager to create a wireless hotspot with Android devices support, tested in 64-bit Ubuntu 1404 with Nexus 4 and Sumsung Galaxy ace3.</p>
+<p><b>1.</b> Disable WIFI and plug in an internet cable to your laptop so that your Ubuntu is connect to a wired internet and wireless is disabled.</p>
+<p><b>2.</b> Go to Network Icon on top panel -> Edit Connections &#8230;, then click the <b>Add</b> button in the pop-up window.</p>
+<p><a href="http://ubuntuhandbook.org/wp-content/uploads/2014/09/edit-network-connections.jpg"><img src="http://ubuntuhandbook.org/wp-content/uploads/2014/09/edit-network-connections.jpg" alt="Edit Network Connections" width="500" height="275" class="aligncenter size-full wp-image-3978" /></a></p>
+<p><b>3.</b> Choose <b>Wi-Fi</b> from the drop-down menu when you&#8217;re asked to choose a connection type:</p>
+<p><a href="http://ubuntuhandbook.org/wp-content/uploads/2014/09/choose-wifi-connection-type.jpg"><img src="http://ubuntuhandbook.org/wp-content/uploads/2014/09/choose-wifi-connection-type.jpg" alt="Choose Connection Type" width="500" height="129" class="aligncenter size-full wp-image-3979" /></a></p>
+<p><b>4.</b> In next window, do:</p>
+<ul>
+<li>Type in a connection name. The name will be used later.</li>
+<li>Type in a SSID</li>
+<li>Select mode: Infrastructure</li>
+<li>Device MAC address: select your wireless card from drop-down menu.</li>
+</ul>
+<p><a href="http://ubuntuhandbook.org/wp-content/uploads/2014/09/create-wifi-hotspot.jpg"><img src="http://ubuntuhandbook.org/wp-content/uploads/2014/09/create-wifi-hotspot.jpg" alt="create-wifi-hotspot" width="370" height="395" class="aligncenter size-full wp-image-3980" /></a></p>
+<p><b>5.</b> Go to <b>Wi-Fi Security</b> tab, select security type <b>WPA &#038; WPA2 Personal</b> and set a password.</p>
+<p><b>6.</b> Go to <b>IPv4 Settings</b> tab, from Method drop-down box select <b>Shared to other computers</b>.</p>
+<p><a href="http://ubuntuhandbook.org/wp-content/uploads/2014/09/wifi-ipv4.jpg"><img src="http://ubuntuhandbook.org/wp-content/uploads/2014/09/wifi-ipv4.jpg" alt="wifi-ipv4" width="370" height="395" class="aligncenter size-full wp-image-3981" /></a></p>
+<p>When done, click the <b>save</b> button.</p>
+<p>After above steps, a configuration file created under <i>/etc/NetworkManager/system-connections</i> directory. File name is same to the connection name you typed in step 4.</p>
+<p>Now press <b>Ctrl+Alt+T</b> on keyboard to open terminal. When it opens, paste the commands below and hit enter to edit the configuration file:</p>
+<pre style="border:none;">gksu gedit /etc/NetworkManager/system-connections/<b>wifi-hotspot</b></pre>
+<p>Replace <b>wifi-hotspt</b> with the connection name you typed in step 4.</p>
+<p>When the file opens, find out the line <code>mode=infrastructure</code>  and change it to <code>mode=ap</code>. Finally save the file.</p>
+<p><a href="http://ubuntuhandbook.org/wp-content/uploads/2014/09/change-mode.jpg"><img src="http://ubuntuhandbook.org/wp-content/uploads/2014/09/change-mode.jpg" alt="Change to AP mode" width="520" height="249" class="aligncenter size-full wp-image-3982" /></a></p>
+<p>When everything&#8217;s done, enable WIFI from Network Manager icon on the panel. It should automatically connect to the hotspot you created. If not, select &#8220;Connect to Hidden Wi-Fi Network &#8230;&#8221; and select it from the drop-down box.</p>
+<p><a href="http://ubuntuhandbook.org/wp-content/uploads/2014/09/wifi-hotspot.jpg"><img src="http://ubuntuhandbook.org/wp-content/uploads/2014/09/wifi-hotspot.jpg" alt="wifi-hotspot" width="497" height="237" class="aligncenter size-full wp-image-3983" /></a></p>
+<p>Now you can search and connect the access point from your Android mobile and enjoy!</p>
+<div class='dd_post_share'><div class='dd_buttons'><div class='dd_button'><div class='dd-twitter-ajax-load dd-twitter-3977'></div><a href="http://twitter.com/share" class="twitter-share-button" data-url="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/" data-count="horizontal" data-text="3 Ways to Create Wifi Hotspot in Ubuntu 14.04 (Android Support)" data-via="UbuntuHandbook" ></a></div><div class='dd_button'><div class='dd-fblike-ajax-load dd-fblike-3977'></div><iframe class="DD_FBLIKE_AJAX_3977" src='' height='0' width='0' scrolling='no' frameborder='0' allowTransparency='true'></iframe></div><div class='dd_button'><div class='dd-google1-ajax-load dd-google1-3977'></div><g:plusone size='medium' href='http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/'></g:plusone></div><div class='dd_button'><script src='//platform.linkedin.com/in.js' type='text/javascript'></script><script type='IN/Share' date-url='http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/' data-counter='right'></script></div></div><div style='clear:both'></div></div><script type="text/javascript"> jQuery(document).ready(function($) { window.setTimeout('loadTwitter_3977()',1000);window.setTimeout('loadFBLike_3977()',1000);window.setTimeout('loadGoogle1_3977()',1000); }); </script><script type="text/javascript"> function loadTwitter_3977(){ jQuery(document).ready(function($) { $('.dd-twitter-3977').remove();$.getScript('http://platform.twitter.com/widgets.js'); }); } function loadFBLike_3977(){ jQuery(document).ready(function($) { $('.dd-fblike-3977').remove();$('.DD_FBLIKE_AJAX_3977').attr('width','130');$('.DD_FBLIKE_AJAX_3977').attr('height','20');$('.DD_FBLIKE_AJAX_3977').attr('src','http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fubuntuhandbook.org%2Findex.php%2F2014%2F09%2F3-ways-create-wifi-hotspot-ubuntu%2F&locale=en_US&layout=button_count&action=recommend&width=130&height=20&colorscheme=light'); }); } function loadGoogle1_3977(){ jQuery(document).ready(function($) { $('.dd-google1-3977').remove();$.getScript('https://apis.google.com/js/plusone.js'); }); }</script><!-- Social Buttons Generated by Digg Digg plugin v5.3.6,
+    Author : Buffer, Inc
+    Website : http://bufferapp.com/diggdigg -->		
+
+		
+	</div><!-- /.entry-content -->
+	
+	<div class="post-meta clearfix">
+
+		<div class="meta-date-cat-tags pull-left">
+		
+										<span class="the-category">In <a href="http://ubuntuhandbook.org/index.php/category/howtos/" title="View all posts in Howtos" >Howtos</a></span>						
+										<span class="the-tags"><a href="http://ubuntuhandbook.org/index.php/tag/ubuntu-14-04/" rel="tag">Ubuntu 14.04</a>, <a href="http://ubuntuhandbook.org/index.php/tag/wifi-hotspot-with-android-support/" rel="tag">wifi hotspot with android support</a></span>						
+		</div><!-- /meta-date-cat-tags -->
+		
+		<div class="meta-comment-link pull-right">
+			<a class="pull-right post-link" href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/" title="permalink">&nbsp;<img src="http://ubuntuhandbook.org/wp-content/themes/standard/images/icn-permalink.png" alt="permalink" /></a>
+					</div><!-- /meta-comment-link -->
+
+	</div><!-- /.post-meta -->
+</div><!-- /#post -->
+						
+
+
+									
+						
+																			<div id="author-box" class="well clearfix">
+								<div class="author-box-image">
+									<img alt='' src='http://1.gravatar.com/avatar/569098ac76af0625799760e1cf078891?s=96&amp;d=blank&amp;r=X' class='avatar avatar-96 photo' height='96' width='96' />								</div><!-- /.author-box-image -->
+								<span class="vcard author"><span class="fn"><a href="http://ubuntuhandbook.org/index.php/about/" rel="author"><h4 class="author-box-name">Ji m</h4></a></span></span>
+								<p>
+									<!--<a class="author-link author-posts-url" href="http://ubuntuhandbook.org/index.php/author/jimingkui/" title="Ji m Posts">Posts</a>
+									
+								-->
+								
+								
+																
+																
+																</p>
+								I'm a freelance blogger who started using Ubuntu 5+ years ago and wishes to share my experiences and some useful tips with Ubuntu beginners and lovers. Please notify me if you find any typo/grammar/language mistakes. English is not my native language. Contact me on <a href="https://plus.google.com/105318999106266025664?rel=author">Google Plus</a> or email to <a href="mailto:ubuntuhandbook1@gmail.com?Subject=Hello%20again">ubuntuhandbook1@gmail.com</a>							</div><!-- /.author-box -->						
+												
+												
+						
+
+	<div id="single-post-nav">
+		<ul class="pager">
+
+			
+							<li class="previous">
+					<span class="previous-page"><a href="http://ubuntuhandbook.org/index.php/2014/09/geary-08-signature-support/" rel="prev" title="Geary 0.8 Released with Redesign &amp; Signature Support"><i class="icon-chevron-left"></i>&nbsp;Geary 0.8 Released with...</a></span>				</li>
+			
+							<li class="next">
+				<span class="no-previous-page-link next-page"><a href="http://ubuntuhandbook.org/index.php/2014/09/wifi-hotspot-access-point-not-supported/" rel="next" title="Wifi Hotspot: Access Point Mode Is Not Supported By This Device">&nbsp;Wifi Hotspot: Access Point...<i class="icon-chevron-right"></i></a></span>				</li>
+					</ul>
+	</div><!-- /#single-post-nav -->
+
+						
+						
+
+
+			<div id="comments" class="clearfix">
+			<h3>99 responses to <em>3 Ways to Create Wifi Hotspot in Ubuntu 14.04 (Android Support)</em></h3>
+			<ol class="commentlist">
+				
+		<li class="comment even thread-even depth-1 clearfix" id="li-comment-1389164">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/6dddd8322bcb183b7ebf23269cb9149c?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1389164">
+
+					<div class="comment-head">
+						<span class="name">
+															Chanish													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1389164" title="Permalink">October 19, 2014 at 2:45 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>wow&#8230;.it really works<br />
+thank you very much for sharing your knowledge</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1389164#respond' onclick='return addComment.moveForm("comment-1389164", "1389164", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-odd thread-alt depth-1 clearfix" id="li-comment-1436613">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/08e030218344f4fe369a4d0cc118a36a?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1436613">
+
+					<div class="comment-head">
+						<span class="name">
+															Abdulbasit F Shaikh													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1436613" title="Permalink">October 22, 2014 at 7:04 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Man&#8230;you are really genius&#8230;thank you very very much&#8230;</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1436613#respond' onclick='return addComment.moveForm("comment-1436613", "1436613", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-even depth-1 clearfix" id="li-comment-1482527">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/b94cc9333495b08d727ffeb1e49ff45d?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1482527">
+
+					<div class="comment-head">
+						<span class="name">
+															Dirk Haar													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1482527" title="Permalink">October 25, 2014 at 10:26 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Hi!<br />
+Looked like the solution to my problem, but ap-hotspots tells me my driver/modem doesn&#8217;t support AP mode. :-( Thanks for the description anyhow.</p>
+<p>But now my WIFI lan doesn&#8217;t work anymore, although I reinstalled the former (standard for 14.04) version of hostapd.</p>
+<p>Any hints?</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1482527#respond' onclick='return addComment.moveForm("comment-1482527", "1482527", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	<ul class='children'>
+
+		<li class="comment byuser comment-author-jimingkui bypostauthor odd alt depth-2 clearfix" id="li-comment-1492002">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/569098ac76af0625799760e1cf078891?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1492002">
+
+					<div class="comment-head">
+						<span class="name">
+															Ji m													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1492002" title="Permalink">October 26, 2014 at 11:15 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>For those AP mode is not supported, you may try this:</p>
+<p><a href="http://ubuntuhandbook.org/index.php/2014/09/wifi-hotspot-access-point-not-supported/" rel="nofollow">http://ubuntuhandbook.org/index.php/2014/09/wifi-hotspot-access-point-not-supported/</a></p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1492002#respond' onclick='return addComment.moveForm("comment-1492002", "1492002", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+</ul>
+</li>
+
+		<li class="comment even thread-odd thread-alt depth-1 clearfix" id="li-comment-1483389">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/b94cc9333495b08d727ffeb1e49ff45d?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1483389">
+
+					<div class="comment-head">
+						<span class="name">
+															Dirk Haar													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1483389" title="Permalink">October 25, 2014 at 11:23 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>After restarting and reinstall of my WIFI it works again.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1483389#respond' onclick='return addComment.moveForm("comment-1483389", "1483389", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-even depth-1 clearfix" id="li-comment-1487807">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/dced0226e56205a63099fd223d404571?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1487807">
+
+					<div class="comment-head">
+						<span class="name">
+															raghav													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1487807" title="Permalink">October 26, 2014 at 4:38 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>i tried this methoad and my mobile detects the network but, it say wep secured and I couldn&#8217;t connect should i need to un-install ap-hotspot</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1487807#respond' onclick='return addComment.moveForm("comment-1487807", "1487807", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	<ul class='children'>
+
+		<li class="comment byuser comment-author-jimingkui bypostauthor even depth-2 clearfix" id="li-comment-1492033">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/569098ac76af0625799760e1cf078891?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1492033">
+
+					<div class="comment-head">
+						<span class="name">
+															Ji m													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1492033" title="Permalink">October 26, 2014 at 11:18 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Reconfigure ap-hotspot via command:</p>
+<pre style="border:none;">sudo ap-hotspot configure</pre>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1492033#respond' onclick='return addComment.moveForm("comment-1492033", "1492033", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+</ul>
+</li>
+
+		<li class="comment odd alt thread-odd thread-alt depth-1 clearfix" id="li-comment-1506323">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/6299c43416942a33672370bd6bc5e3c7?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1506323">
+
+					<div class="comment-head">
+						<span class="name">
+															qumake													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1506323" title="Permalink">October 27, 2014 at 10:27 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>I used the 3rd method (with Default Network Manager)</p>
+<p>Is there any possibility to activate this Wifi Hotspot from the begining?&#8230;because, for me, is a little tiresome to re-activate the Wifi connection everytime I start the system.</p>
+<p>Ubuntu 14.04_x64 (minimal from scratch+MATE)</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1506323#respond' onclick='return addComment.moveForm("comment-1506323", "1506323", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-even depth-1 clearfix" id="li-comment-1533041">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/0e7526ecc41866d770e891da017e9269?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1533041">
+
+					<div class="comment-head">
+						<span class="name">
+															suvz													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1533041" title="Permalink">October 29, 2014 at 10:01 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>using the default network manager there is a problem that is in the phone it says so internet access</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1533041#respond' onclick='return addComment.moveForm("comment-1533041", "1533041", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-odd thread-alt depth-1 clearfix" id="li-comment-1582801">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/7c0892e55164f33a0b1e0c545e0a7680?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1582801">
+
+					<div class="comment-head">
+						<span class="name">
+															shrihari													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1582801" title="Permalink">November 1, 2014 at 6:11 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>i tried with default network manager but it says time out</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1582801#respond' onclick='return addComment.moveForm("comment-1582801", "1582801", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-even depth-1 clearfix" id="li-comment-1622414">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/2a74d455b8218fad16b82205f3e0f61a?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1622414">
+
+					<div class="comment-head">
+						<span class="name">
+															Roshan													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1622414" title="Permalink">November 4, 2014 at 3:52 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>I used the third method.<br />
+system: lenovo b570 / ubuntu 14.04<br />
+android mobile : galaxy nexys / android 4.2.1</p>
+<p>Problem:  every time mobile connects to the hotspot wifi, automatically disconnects after not more than a minute, but galaxy young is connected continiously (android 2.3.6), in the same network</p>
+<p>tried solution:<br />
+1.) changed the wifi freq band to 2.4ghz &#8211; same problem persists</p>
+<p>please reply</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1622414#respond' onclick='return addComment.moveForm("comment-1622414", "1622414", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-odd thread-alt depth-1 clearfix" id="li-comment-1623791">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/5fd974accec8e45f1d38b2e9137de80b?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1623791">
+
+					<div class="comment-head">
+						<span class="name">
+															Ekanath Chougale													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1623791" title="Permalink">November 4, 2014 at 5:38 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Hi.<br />
+Thank you very much for the solution. It really works. It solved the problem I was facing.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1623791#respond' onclick='return addComment.moveForm("comment-1623791", "1623791", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-even depth-1 clearfix" id="li-comment-1663799">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/69058fe33ab33a2e213f873a71d36faf?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1663799">
+
+					<div class="comment-head">
+						<span class="name">
+															Manigandan													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1663799" title="Permalink">November 7, 2014 at 12:56 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Cool.. Tried other 2 methods in Ubuntu 14.04&#8230;.Didn&#8217;t work.. This worked :) Thanks mate&#8230;&#8230; UBUNTU&#8230;&#8230;</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1663799#respond' onclick='return addComment.moveForm("comment-1663799", "1663799", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-odd thread-alt depth-1 clearfix" id="li-comment-1664428">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/d288d2b85292fc01c21df3b8cf66208a?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1664428">
+
+					<div class="comment-head">
+						<span class="name">
+															gocanny													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1664428" title="Permalink">November 7, 2014 at 2:29 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Hi,<br />
+i create the connection as you explained in your post, the modify from mode=infrastructure to mode=ap, save everything but now the connection disappear from my list of hidden wireless network!</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1664428#respond' onclick='return addComment.moveForm("comment-1664428", "1664428", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-even depth-1 clearfix" id="li-comment-1786053">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/0f397b2285ee6f102a43e80bbd138a69?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1786053">
+
+					<div class="comment-head">
+						<span class="name">
+															Emilio													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1786053" title="Permalink">November 12, 2014 at 5:46 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>hello, i have a problem, this hotspot was working really great, and one day, did not connect, i cant connect to hotspot, try to connect to hidden network, and now i dont know what to do, i was hopping you could help me, i saw sudo gedit /etc/NetworkManager/system-connections/wifi-hotspot , and it is bank, or there is nothing on there</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1786053#respond' onclick='return addComment.moveForm("comment-1786053", "1786053", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	<ul class='children'>
+
+		<li class="comment odd alt depth-2 clearfix" id="li-comment-1786351">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/0f397b2285ee6f102a43e80bbd138a69?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1786351">
+
+					<div class="comment-head">
+						<span class="name">
+															Emilio													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1786351" title="Permalink">November 12, 2014 at 6:11 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>well, i did it, i don&#8217;t what happen, but it was working with infrastructure, i changed it again and its working again</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1786351#respond' onclick='return addComment.moveForm("comment-1786351", "1786351", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even depth-2 clearfix" id="li-comment-1831066">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/53f2c01482e5df94fd50a406a97dab93?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1831066">
+
+					<div class="comment-head">
+						<span class="name">
+															Starshine													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1831066" title="Permalink">November 15, 2014 at 9:27 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>I had the same issue,<br />
+sudo gedit /etc/NetworkManager/system-connections/wifi-hotspot<br />
+was giving me a blank file, so i changed it to<br />
+gksu gedit /etc/NetworkManager/system-connections/wifi-hotspot<br />
+and it worked! &#8230;Hope the same works for you.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1831066#respond' onclick='return addComment.moveForm("comment-1831066", "1831066", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	<ul class='children'>
+
+		<li class="comment odd alt depth-3 clearfix" id="li-comment-1921680">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/5a7d68e08557cffb0d9796925a52d524?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1921680">
+
+					<div class="comment-head">
+						<span class="name">
+															Vishnu													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1921680" title="Permalink">November 21, 2014 at 8:29 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Replace wifi-hotspt with the connection name you typed in step 4.</p>
+<p>It is mentioned above too. :)</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1921680#respond' onclick='return addComment.moveForm("comment-1921680", "1921680", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	<ul class='children'>
+
+		<li class="comment even depth-4 clearfix" id="li-comment-2538647">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/9aac7e4d064b06588cbc9f338e46db82?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2538647">
+
+					<div class="comment-head">
+						<span class="name">
+															Ayush													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2538647" title="Permalink">January 12, 2015 at 11:46 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>After replacing also it is giving a blank file</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2538647#respond' onclick='return addComment.moveForm("comment-2538647", "2538647", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	<ul class='children'>
+
+		<li class="comment odd alt depth-5 clearfix" id="li-comment-2801183">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/f9b9f890dfd118f73ba294ddce869052?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2801183">
+
+					<div class="comment-head">
+						<span class="name">
+															Gabriel													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2801183" title="Permalink">February 23, 2015 at 6:41 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Just do &#8220;ls /etc/NetworkManager/system-connections/&#8221; and check what is the name there.</p>
+<p>Thanks Ji m!</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+											</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+
+		<li class="comment even thread-odd thread-alt depth-1 clearfix" id="li-comment-1827665">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/cbaf0b3fa94443679ab82a57c4aa316a?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1827665">
+
+					<div class="comment-head">
+						<span class="name">
+															swapnil													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1827665" title="Permalink">November 15, 2014 at 3:48 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>I got this ERRor after i enterng passwrd</p>
+<p>(gedit:4330): Gtk-WARNING **: Calling Inhibit failed: GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown: The name org.gnome.SessionManager was not provided by any .service files</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1827665#respond' onclick='return addComment.moveForm("comment-1827665", "1827665", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-even depth-1 clearfix" id="li-comment-1846629">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/f160fdc94db4b5b053b42f94d7f4e75a?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1846629">
+
+					<div class="comment-head">
+						<span class="name">
+															Akshit Sharma													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1846629" title="Permalink">November 16, 2014 at 9:24 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Thanks a ton!!! The simplest way I found on net.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1846629#respond' onclick='return addComment.moveForm("comment-1846629", "1846629", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-odd thread-alt depth-1 clearfix" id="li-comment-1853299">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/930121f5b252930b72d2909c84696f8b?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1853299">
+
+					<div class="comment-head">
+						<span class="name">
+															maxvel													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1853299" title="Permalink">November 16, 2014 at 5:37 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>What if no connection file created after I added it?</p>
+<p>&gt;ls /etc/NetworkManager/system-connections<br />
+enp0s25  wlp3s0</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1853299#respond' onclick='return addComment.moveForm("comment-1853299", "1853299", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-even depth-1 clearfix" id="li-comment-1872021">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/be6daf5167f65b3ba944c666cef6babe?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1872021">
+
+					<div class="comment-head">
+						<span class="name">
+															ngux													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1872021" title="Permalink">November 17, 2014 at 6:08 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>GREAT! Thanx, better than ap-hotspot which have an issue on Trusty</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1872021#respond' onclick='return addComment.moveForm("comment-1872021", "1872021", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-odd thread-alt depth-1 clearfix" id="li-comment-1882387">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/1700a17c1eb54d48030459d43dc383ba?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1882387">
+
+					<div class="comment-head">
+						<span class="name">
+															rajan													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1882387" title="Permalink">November 18, 2014 at 1:19 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Really cool! Worked straight away! Thanks a ton!</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1882387#respond' onclick='return addComment.moveForm("comment-1882387", "1882387", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-even depth-1 clearfix" id="li-comment-1974614">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/09d5500d1f7d9cfc4ed07f15ec385edb?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1974614">
+
+					<div class="comment-head">
+						<span class="name">
+															Swaraj Mohapatra													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1974614" title="Permalink">November 25, 2014 at 5:09 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Thanks a lot! I hope Ubuntu fixes little things like these soon. For now, this method works great.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1974614#respond' onclick='return addComment.moveForm("comment-1974614", "1974614", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-odd thread-alt depth-1 clearfix" id="li-comment-1983452">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/215b3918eb8033e2852358014e94c8ac?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1983452">
+
+					<div class="comment-head">
+						<span class="name">
+															totos													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1983452" title="Permalink">November 26, 2014 at 2:14 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Hi &#8230;&#8230;Ji m<br />
+Thanks a lot for Ur Advice solution&#8230;Works great with mine</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1983452#respond' onclick='return addComment.moveForm("comment-1983452", "1983452", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-even depth-1 clearfix" id="li-comment-1998418">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/f54fcf5948fe61286bcf0009e768c177?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-1998418">
+
+					<div class="comment-head">
+						<span class="name">
+															Nuel													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-1998418" title="Permalink">November 27, 2014 at 6:09 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Hi Jim<br />
+I configured just as advised and the hotspot was working fine for one day but after i shut down the laptop, when i turned it on it was no longer working.<br />
+please advise</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=1998418#respond' onclick='return addComment.moveForm("comment-1998418", "1998418", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-odd thread-alt depth-1 clearfix" id="li-comment-2043670">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/438b476deeab1a0d6ee08c561f46b40b?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2043670">
+
+					<div class="comment-head">
+						<span class="name">
+															rav													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2043670" title="Permalink">November 30, 2014 at 6:04 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>thank you very much. ive tried many other things but your thing worked</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2043670#respond' onclick='return addComment.moveForm("comment-2043670", "2043670", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-even depth-1 clearfix" id="li-comment-2071992">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/e78cc6bef12a235e4906e990db7086b4?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2071992">
+
+					<div class="comment-head">
+						<span class="name">
+															Shrikant Sharma													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2071992" title="Permalink">December 3, 2014 at 7:39 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Hi Ji M,<br />
+Thanks bro&#8230;you are amazing&#8230;.worked fine for me&#8230;.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2071992#respond' onclick='return addComment.moveForm("comment-2071992", "2071992", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-odd thread-alt depth-1 clearfix" id="li-comment-2072059">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/e78cc6bef12a235e4906e990db7086b4?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2072059">
+
+					<div class="comment-head">
+						<span class="name">
+															Shrikant Sharma													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2072059" title="Permalink">December 3, 2014 at 7:51 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>My hotsopt is very slow&#8230;when i open web browser then only it works fine. do u have some solution??</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2072059#respond' onclick='return addComment.moveForm("comment-2072059", "2072059", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-even depth-1 clearfix" id="li-comment-2112879">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/89f5e2f87d39e98a6792442226fce158?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2112879">
+
+					<div class="comment-head">
+						<span class="name">
+															Chakradhar													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2112879" title="Permalink">December 6, 2014 at 2:57 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Wow.. U r jus a genius bro.. Thank u so much for sharing this knowledge.. :)</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2112879#respond' onclick='return addComment.moveForm("comment-2112879", "2112879", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-odd thread-alt depth-1 clearfix" id="li-comment-2113273">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/6945451502bc4903066fdfe33bc93b18?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2113273">
+
+					<div class="comment-head">
+						<span class="name">
+															mow													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2113273" title="Permalink">December 6, 2014 at 3:37 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>i dont know why but i can connect to internet only for 2-3 minutes. what could be the problem you think?</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2113273#respond' onclick='return addComment.moveForm("comment-2113273", "2113273", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-even depth-1 clearfix" id="li-comment-2220661">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/bf48e54c2aaaf48c50b39a8297b52479?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2220661">
+
+					<div class="comment-head">
+						<span class="name">
+															nick													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2220661" title="Permalink">December 16, 2014 at 10:01 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>thank you very much Ji m it works fine.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2220661#respond' onclick='return addComment.moveForm("comment-2220661", "2220661", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-odd thread-alt depth-1 clearfix" id="li-comment-2226997">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/00e3d641a047348129d2f81168385cfd?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2226997">
+
+					<div class="comment-head">
+						<span class="name">
+															Manish													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2226997" title="Permalink">December 16, 2014 at 10:04 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Mine is Ubuntu laptop which has admin protected and password can&#8217;t be shared. So i dont have the password to login to my network where the ap os stored. Do you have any other way to create a hotspot.</p>
+<p>Regards,<br />
+Manish.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2226997#respond' onclick='return addComment.moveForm("comment-2226997", "2226997", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-even depth-1 clearfix" id="li-comment-2276464">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/4cf33c2e3878d23f2e1b2713d3c7a3a6?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2276464">
+
+					<div class="comment-head">
+						<span class="name">
+															vamsi													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2276464" title="Permalink">December 20, 2014 at 4:46 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>When i change to &#8220;ap&#8221; in file the Connection name is disappearing ?? and also keep on showing connecting when i use &#8220;hidden network option&#8221; and Create a connection with same name</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2276464#respond' onclick='return addComment.moveForm("comment-2276464", "2276464", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-odd thread-alt depth-1 clearfix" id="li-comment-2276833">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/c68bc3a397a94999323134ebf0ab093c?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2276833">
+
+					<div class="comment-head">
+						<span class="name">
+															mike_a													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2276833" title="Permalink">December 20, 2014 at 5:27 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Cool! I just tried it and it just works. Thank you very much.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2276833#respond' onclick='return addComment.moveForm("comment-2276833", "2276833", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-even depth-1 clearfix" id="li-comment-2353369">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/cd6d16bd58cf58be9b1b0ae04d1b73d0?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2353369">
+
+					<div class="comment-head">
+						<span class="name">
+															hosam													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2353369" title="Permalink">December 26, 2014 at 11:35 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>I did all the steps but the network does not show on my android<br />
+I have xperia p with jellybeans<br />
+can you help me please</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2353369#respond' onclick='return addComment.moveForm("comment-2353369", "2353369", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-odd thread-alt depth-1 clearfix" id="li-comment-2385267">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/aa7773590953c300d50965af9067ed58?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2385267">
+
+					<div class="comment-head">
+						<span class="name">
+															Abdulla													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2385267" title="Permalink">December 29, 2014 at 3:55 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Thanks a lot. works perfect.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2385267#respond' onclick='return addComment.moveForm("comment-2385267", "2385267", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-even depth-1 clearfix" id="li-comment-2418688">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/0762aea5843f4a681f3d2ceabb0123ca?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2418688">
+
+					<div class="comment-head">
+						<span class="name">
+															ginger													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2418688" title="Permalink">January 1, 2015 at 8:08 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Thanks a lot guys. nice and simple step.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2418688#respond' onclick='return addComment.moveForm("comment-2418688", "2418688", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-odd thread-alt depth-1 clearfix" id="li-comment-2521300">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/5ff80bff392ce347dc9dac1a0a75bcd7?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2521300">
+
+					<div class="comment-head">
+						<span class="name">
+															Nurul Faizin													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2521300" title="Permalink">January 10, 2015 at 12:05 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>thanks for this tutorial,,, this is usefull</p>
+<p>and iwant to know how to see how many device and it&#8217;s name, that are currently connected to our shared wifi network , and how to manage who can access this shared connection?</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2521300#respond' onclick='return addComment.moveForm("comment-2521300", "2521300", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-even depth-1 clearfix" id="li-comment-2524110">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/54f9c19e4edd8b2a2b5075985a251cf6?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2524110">
+
+					<div class="comment-head">
+						<span class="name">
+															Devasish													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2524110" title="Permalink">January 10, 2015 at 7:55 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Hi, I am having a problem :(<br />
+After runing the command<br />
+gksu gedit /etc/NetworkManager/system-connections/wifi-hotspot<br />
+I am getting an empty file&#8230;..there is nothing to change :(<br />
+Please help me&#8230;.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2524110#respond' onclick='return addComment.moveForm("comment-2524110", "2524110", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	<ul class='children'>
+
+		<li class="comment byuser comment-author-jimingkui bypostauthor even depth-2 clearfix" id="li-comment-2530459">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/569098ac76af0625799760e1cf078891?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2530459">
+
+					<div class="comment-head">
+						<span class="name">
+															Ji m													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2530459" title="Permalink">January 11, 2015 at 1:40 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>For command:</p>
+<pre style="border:none;">gksu gedit /etc/NetworkManager/system-connections/<b>wifi-hotspot</b></pre>
+<p>You should replace <b>wifi-hotspot</b> with the connection name you created in step 4 (see the pic. in that step).</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2530459#respond' onclick='return addComment.moveForm("comment-2530459", "2530459", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+</ul>
+</li>
+
+		<li class="comment odd alt thread-odd thread-alt depth-1 clearfix" id="li-comment-2530547">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/70f19f4bb02ded33c1a3d57a722e9c58?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2530547">
+
+					<div class="comment-head">
+						<span class="name">
+															Avinash													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2530547" title="Permalink">January 11, 2015 at 1:51 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>I could create hotspot but the problem was with security tab. Whenever I tried to select some security I could not save the respective option and it becomes an open network. Please tell me how to add security in another way. I even tried to add that in that configuration file but still in vain.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2530547#respond' onclick='return addComment.moveForm("comment-2530547", "2530547", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	<ul class='children'>
+
+		<li class="comment even depth-2 clearfix" id="li-comment-2700051">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/7464b743ea3359440c14cef45501bcb0?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2700051">
+
+					<div class="comment-head">
+						<span class="name">
+															sujith													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2700051" title="Permalink">February 4, 2015 at 5:19 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>I could create hotspot but the problem was with security tab. Whenever I tried to select some security I could not save the respective option and it becomes an open network. Please tell me how to add security in another way. I even tried to add that in that configuration file but still in vain.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2700051#respond' onclick='return addComment.moveForm("comment-2700051", "2700051", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+</ul>
+</li>
+
+		<li class="comment odd alt thread-even depth-1 clearfix" id="li-comment-2537194">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/d0cc07f69f9da78a32551ba5affe8b4d?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2537194">
+
+					<div class="comment-head">
+						<span class="name">
+															Umesh													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2537194" title="Permalink">January 12, 2015 at 6:51 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>I could create the hotspot and my android/iphone gets connected successfully but I cannot connect to Internet with this wi-fi connections. I am not able to understand, what am I missing in this setup.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2537194#respond' onclick='return addComment.moveForm("comment-2537194", "2537194", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-odd thread-alt depth-1 clearfix" id="li-comment-2602591">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/d30871d67fcc186a911fb6e746cb1dd4?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2602591">
+
+					<div class="comment-head">
+						<span class="name">
+															Shiv													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2602591" title="Permalink">January 20, 2015 at 10:42 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>i get an error &#8220;your device does not support ap mode&#8221;.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2602591#respond' onclick='return addComment.moveForm("comment-2602591", "2602591", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-even depth-1 clearfix" id="li-comment-2605334">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/4819d3a8c96a5e77aee4838660c8d26b?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2605334">
+
+					<div class="comment-head">
+						<span class="name">
+															vilas													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2605334" title="Permalink">January 20, 2015 at 6:09 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Thank you sir&#8230;It worked for me without any error</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2605334#respond' onclick='return addComment.moveForm("comment-2605334", "2605334", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-odd thread-alt depth-1 clearfix" id="li-comment-2652080">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/bd0692cd68d4e8332bdaf20501af27b6?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2652080">
+
+					<div class="comment-head">
+						<span class="name">
+															jiaana													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2652080" title="Permalink">January 27, 2015 at 12:57 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>my gedit file shows nothing&#8230;i mean it is empty after 6th step!!</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2652080#respond' onclick='return addComment.moveForm("comment-2652080", "2652080", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	<ul class='children'>
+
+		<li class="comment odd alt depth-2 clearfix" id="li-comment-3082912">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/ec3cf96f36d703d9d1737e7b1cafcdb9?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3082912">
+
+					<div class="comment-head">
+						<span class="name">
+															praveen													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3082912" title="Permalink">April 23, 2015 at 5:35 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Instead of going to Edit connections, click on Create New Wi-Fi Network, setup the userid and password, and then use &#8220;gksu gedit /etc/NetworkManager/system-connections/(wifi-hotspot name)&#8221;in the terminal. It will work.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3082912#respond' onclick='return addComment.moveForm("comment-3082912", "3082912", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+</ul>
+</li>
+
+		<li class="comment even thread-even depth-1 clearfix" id="li-comment-2668956">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/6a0e347e434e9a3403d9f584746c144e?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2668956">
+
+					<div class="comment-head">
+						<span class="name">
+															mike													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2668956" title="Permalink">January 30, 2015 at 2:26 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>thanks dude , it worked. :D</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2668956#respond' onclick='return addComment.moveForm("comment-2668956", "2668956", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-odd thread-alt depth-1 clearfix" id="li-comment-2680614">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/5ad70be019f924bca3d74ab7c92241d2?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2680614">
+
+					<div class="comment-head">
+						<span class="name">
+															ernest													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2680614" title="Permalink">February 1, 2015 at 9:53 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>am having a competely blank gedit file even after changing the &#8216;wifi-hotspot&#8217; to the name I gave to the connection.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2680614#respond' onclick='return addComment.moveForm("comment-2680614", "2680614", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	<ul class='children'>
+
+		<li class="comment even depth-2 clearfix" id="li-comment-2819840">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/1debe8cef5dcf7165248099396f15720?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2819840">
+
+					<div class="comment-head">
+						<span class="name">
+															hamfat													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2819840" title="Permalink">February 27, 2015 at 8:43 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>I had similar problem initially so what I did was to start afresh which worked perfectly.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2819840#respond' onclick='return addComment.moveForm("comment-2819840", "2819840", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+</ul>
+</li>
+
+		<li class="comment odd alt thread-even depth-1 clearfix" id="li-comment-2686983">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/933fc41040351501e6138da942ffec92?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2686983">
+
+					<div class="comment-head">
+						<span class="name">
+															syed													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2686983" title="Permalink">February 2, 2015 at 4:32 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Is there any way to disable growl popup notification from ap-hotspot in Ubuntu (while starting and stopping)</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2686983#respond' onclick='return addComment.moveForm("comment-2686983", "2686983", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-odd thread-alt depth-1 clearfix" id="li-comment-2696666">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/425bbebb1535a123632046fdfade942c?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2696666">
+
+					<div class="comment-head">
+						<span class="name">
+															YASSIN													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2696666" title="Permalink">February 3, 2015 at 5:36 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Hy<br />
+I changed the following command gksu gedit /etc/NetworkManager/system-connections/wifi-hotspot,<br />
+by this: sudo gedit /etc/NetworkManager/system-connections/Yassin_ubuntu<br />
+And the file is opened, but it is empty.<br />
+WHAT IS THE PROBLEME??</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2696666#respond' onclick='return addComment.moveForm("comment-2696666", "2696666", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	<ul class='children'>
+
+		<li class="comment byuser comment-author-jimingkui bypostauthor odd alt depth-2 clearfix" id="li-comment-2700588">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/569098ac76af0625799760e1cf078891?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2700588">
+
+					<div class="comment-head">
+						<span class="name">
+															Ji m													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2700588" title="Permalink">February 4, 2015 at 6:42 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>You may go to Computer -> etc ->NetworkManager ->system-connections folder in your file browser and check out the exact file name</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2700588#respond' onclick='return addComment.moveForm("comment-2700588", "2700588", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+</ul>
+</li>
+
+		<li class="comment even thread-even depth-1 clearfix" id="li-comment-2787409">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/5d17a90785257c2cc9923d19925e7b1d?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2787409">
+
+					<div class="comment-head">
+						<span class="name">
+															Michael													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2787409" title="Permalink">February 15, 2015 at 8:43 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Thanks for this tutorial, Ji m. </p>
+<p>I was able to get it to work with all three methods, but once I activate the VPN, none of the devices connected to the hotspot are able to access the Internet. The VPN works on the system hosting the Wi-Fi hotspot, and the connection remains on the devices connected to it, but no data downloads on them. </p>
+<p>Are you familiar with what the problem could be?</p>
+<p>Thanks again!</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2787409#respond' onclick='return addComment.moveForm("comment-2787409", "2787409", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-odd thread-alt depth-1 clearfix" id="li-comment-2795316">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/508ea5f715fa6216fbb4ed1dcf98f3e1?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2795316">
+
+					<div class="comment-head">
+						<span class="name">
+															James MASSA													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2795316" title="Permalink">February 19, 2015 at 4:32 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Wow it worked for me. Ubuntu 13.10. Thank you Ji m.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2795316#respond' onclick='return addComment.moveForm("comment-2795316", "2795316", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-even depth-1 clearfix" id="li-comment-2797841">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/61a06ead5c5f0e1428e25227db81fc60?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2797841">
+
+					<div class="comment-head">
+						<span class="name">
+															John													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2797841" title="Permalink">February 21, 2015 at 3:10 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Thanks for this! I&#8217;m using Network Manager hack and it is working fine. Now I want this wifi hotspot to use a SOCKS proxy 127.0.0.1:8080, how do I do that?</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2797841#respond' onclick='return addComment.moveForm("comment-2797841", "2797841", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-odd thread-alt depth-1 clearfix" id="li-comment-2799907">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/08b0b708dbbeb6bfd6c74e008e47917c?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2799907">
+
+					<div class="comment-head">
+						<span class="name">
+															Akash													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2799907" title="Permalink">February 22, 2015 at 11:31 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Hey Jim,<br />
+I followed this and it perfectly worked in Ubuntu 14.04 but today I installed Ubuntu 12.04 and I have tried this and others too but nothing is working, please help me</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2799907#respond' onclick='return addComment.moveForm("comment-2799907", "2799907", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-even depth-1 clearfix" id="li-comment-2799955">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/8f800e4c0a0dd36522e7676b282e59a0?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2799955">
+
+					<div class="comment-head">
+						<span class="name">
+															rahul													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2799955" title="Permalink">February 22, 2015 at 1:18 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>(gedit:3445): Gtk-WARNING **: Calling Inhibit failed: GDBus.Error:org.freedesktop.DBus.Error.ServiceUnknown: The name org.gnome.SessionManager was not provided by any .service files</p>
+<p>I am getting the following error and my wifi has got disabled. Kindly help.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2799955#respond' onclick='return addComment.moveForm("comment-2799955", "2799955", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-odd thread-alt depth-1 clearfix" id="li-comment-2801721">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/508ea5f715fa6216fbb4ed1dcf98f3e1?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2801721">
+
+					<div class="comment-head">
+						<span class="name">
+															James MASSA													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2801721" title="Permalink">February 24, 2015 at 11:04 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>@rahul<br />
+I get the same error every time I&#8217;m editing the configuration file created under /etc/NetworkManager/system-connections directory. Just go on, sve the file and then activate your wifi. It works for me.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2801721#respond' onclick='return addComment.moveForm("comment-2801721", "2801721", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-even depth-1 clearfix" id="li-comment-2806379">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/becffbfa839b838ae690a454cdfd6e61?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2806379">
+
+					<div class="comment-head">
+						<span class="name">
+															Chamly													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2806379" title="Permalink">February 25, 2015 at 3:42 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Hi</p>
+<p>It work for me and thank for the post.<br />
+but unfortunatly i could not setup sequirity password.<br />
+when i select wpa and wpa2 personal and typed password it not allow to save. </p>
+<p>Any idea.<br />
+please help</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2806379#respond' onclick='return addComment.moveForm("comment-2806379", "2806379", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-odd thread-alt depth-1 clearfix" id="li-comment-2806562">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/8be381658150d4d260dfca04596a48be?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2806562">
+
+					<div class="comment-head">
+						<span class="name">
+															alex													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2806562" title="Permalink">February 25, 2015 at 4:40 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>when i enter this command</p>
+<p>gksu gedit /etc/NetworkManager/system-connections/wifi-hotspot</p>
+<p>the files opens but its blank and i can&#8217;t edit anything , please help<br />
+thankx</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2806562#respond' onclick='return addComment.moveForm("comment-2806562", "2806562", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	<ul class='children'>
+
+		<li class="comment byuser comment-author-jimingkui bypostauthor even depth-2 clearfix" id="li-comment-2810186">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/569098ac76af0625799760e1cf078891?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2810186">
+
+					<div class="comment-head">
+						<span class="name">
+															Ji m													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2810186" title="Permalink">February 26, 2015 at 1:20 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Go to Computer -> etc -> NetworkManager -> system-connections in your file browser and check out the real file name</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2810186#respond' onclick='return addComment.moveForm("comment-2810186", "2810186", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+</ul>
+</li>
+
+		<li class="comment odd alt thread-even depth-1 clearfix" id="li-comment-2816992">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/885df6192e669af6a213b977f2a7314c?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2816992">
+
+					<div class="comment-head">
+						<span class="name">
+															Diganta Chakrobarty													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2816992" title="Permalink">February 27, 2015 at 10:57 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Thank you, It works fine. I had been looking for this for a while.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2816992#respond' onclick='return addComment.moveForm("comment-2816992", "2816992", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-odd thread-alt depth-1 clearfix" id="li-comment-2863819">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/469f2efe8a380d8ae3f2d79c305dd089?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2863819">
+
+					<div class="comment-head">
+						<span class="name">
+															AndreaTO													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2863819" title="Permalink">March 6, 2015 at 2:57 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Thank you very much for the post.<br />
+I have successfully configured my access point (in a snapshot) from my wlan usb-stick following the method number 3.</p>
+<p>I have a question: is it possible to change the static ip of the network?<br />
+I have tried by mean of &#8220;ifconfig&#8221; commands without any result, my gateway still remain statically set to 10.42.0.1.</p>
+<p>Thank you again.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2863819#respond' onclick='return addComment.moveForm("comment-2863819", "2863819", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-even depth-1 clearfix" id="li-comment-2902899">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/4e8ad247fb16827c1580f8e7a1661cb8?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2902899">
+
+					<div class="comment-head">
+						<span class="name">
+															ali													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2902899" title="Permalink">March 13, 2015 at 8:39 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Hi<br />
+I followed all steps but it doesnt work for me.<br />
+It is not showing the created hot spot in my android device wireless list<br />
+what I should do?</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2902899#respond' onclick='return addComment.moveForm("comment-2902899", "2902899", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-odd thread-alt depth-1 clearfix" id="li-comment-2930513">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/85b7b747f28a0cd66fda70e2f53b2b90?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2930513">
+
+					<div class="comment-head">
+						<span class="name">
+															Baron D&#8217;Holbach													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2930513" title="Permalink">March 17, 2015 at 6:58 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Hi,</p>
+<p>I followed the steps, but my Android connection keeps failing during authentication.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2930513#respond' onclick='return addComment.moveForm("comment-2930513", "2930513", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-even depth-1 clearfix" id="li-comment-2959519">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/e1c90b5b0f86802cf3cbe6ddadcd0dad?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2959519">
+
+					<div class="comment-head">
+						<span class="name">
+															<a href="http://sharethingz.com" target="_blank">Ankit Gade</a>
+													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2959519" title="Permalink">March 21, 2015 at 7:54 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>You rock ! You saved my lots of 3G data for mobile ;)</p>
+<p>Thanks again.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2959519#respond' onclick='return addComment.moveForm("comment-2959519", "2959519", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-odd thread-alt depth-1 clearfix" id="li-comment-2963200">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/c55b6a1bec8277f5dc138f8a1f385e6c?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2963200">
+
+					<div class="comment-head">
+						<span class="name">
+															Diws													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2963200" title="Permalink">March 22, 2015 at 8:49 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Worked like a charm.. thanks. Able to connect Windows phones also to hotspot.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2963200#respond' onclick='return addComment.moveForm("comment-2963200", "2963200", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-even depth-1 clearfix" id="li-comment-2994733">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/057e2eb392b95a2ecfc9d32d554e3917?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-2994733">
+
+					<div class="comment-head">
+						<span class="name">
+															Arjun N													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-2994733" title="Permalink">March 27, 2015 at 1:49 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>YES!<br />
+The one tutorial which ACTUALLY worked for my Nokia Lumia 520 Phone !<br />
+Yay !</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=2994733#respond' onclick='return addComment.moveForm("comment-2994733", "2994733", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-odd thread-alt depth-1 clearfix" id="li-comment-3004941">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/2d1231539214957e1cce2ba3bb5929c8?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3004941">
+
+					<div class="comment-head">
+						<span class="name">
+															Tang W													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3004941" title="Permalink">March 28, 2015 at 4:45 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Impressive! Thank U!</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3004941#respond' onclick='return addComment.moveForm("comment-3004941", "3004941", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-even depth-1 clearfix" id="li-comment-3038325">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/92ceba4e9a394458b838c0b040f5bceb?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3038325">
+
+					<div class="comment-head">
+						<span class="name">
+															sanjeev													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3038325" title="Permalink">April 4, 2015 at 4:03 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>I have followed all the steps mentioned above and successfully created wifi network. But i am unable to find that network name in other devices.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3038325#respond' onclick='return addComment.moveForm("comment-3038325", "3038325", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-odd thread-alt depth-1 clearfix" id="li-comment-3045781">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/bb4562cbb4fe189b4c0b309ac9b33fc1?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3045781">
+
+					<div class="comment-head">
+						<span class="name">
+															Sanketh													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3045781" title="Permalink">April 7, 2015 at 8:59 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>How to create a configuration file??<br />
+Sorry im a noob :-(</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3045781#respond' onclick='return addComment.moveForm("comment-3045781", "3045781", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	<ul class='children'>
+
+		<li class="comment odd alt depth-2 clearfix" id="li-comment-3059187">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/96988bf95132546d9c1c60113ac2b0ca?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3059187">
+
+					<div class="comment-head">
+						<span class="name">
+															DaveC49													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3059187" title="Permalink">April 12, 2015 at 9:56 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Now press Ctrl+Alt+T on keyboard to open terminal. When it opens, paste the commands below and hit enter to edit the configuration file:</p>
+<p>gksu gedit /etc/NetworkManager/system-connections/wifi-hotspot<br />
+Replace wifi-hotspt with the connection name you typed in step 4.  (NOTE File was created by step 4).</p>
+<p>When the file opens, find out the line mode=infrastructure and change it to mode=ap. Finally save the file.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3059187#respond' onclick='return addComment.moveForm("comment-3059187", "3059187", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+</ul>
+</li>
+
+		<li class="comment even thread-even depth-1 clearfix" id="li-comment-3059185">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/96988bf95132546d9c1c60113ac2b0ca?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3059185">
+
+					<div class="comment-head">
+						<span class="name">
+															DaveC49													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3059185" title="Permalink">April 12, 2015 at 9:54 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Linux Mint Rebecca (17.1) it is simpler still. Bring up the Network Manager from the status bar icon, click the &#8216;Create a Wireless Hotspot&#8217; Button, configure it and off you go. Note your normal WiFi network is disconnected while the hotspot is active so you have to have a wired connection for this to be useful.</p>
+<p>To reconnect to your WiFi network after disabling the hotspot click on Connect to a Hidden Network button in the Network Manager Select your WiFi network connection from the Connection drop down list and hit the Connect button and you should be restored to normal.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3059185#respond' onclick='return addComment.moveForm("comment-3059185", "3059185", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-odd thread-alt depth-1 clearfix" id="li-comment-3079278">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/571168d41c8d737a38a7a0356a7a6fa4?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3079278">
+
+					<div class="comment-head">
+						<span class="name">
+															Nitya Mukund Das													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3079278" title="Permalink">April 21, 2015 at 9:07 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Thanx a lot!<br />
+Your steps are very to understand and works wonderfully.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3079278#respond' onclick='return addComment.moveForm("comment-3079278", "3079278", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-even depth-1 clearfix" id="li-comment-3086136">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/77eb3b0db82103e3039c97f59adc3079?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3086136">
+
+					<div class="comment-head">
+						<span class="name">
+															Rajesh													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3086136" title="Permalink">April 24, 2015 at 5:08 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Hi Ji m,</p>
+<p>I want to assign some specific IP to the hotspot say 10.10.0.1 but by default its picking 10.42.0.1. Can you please tell where to change such that networkmanager picks the desired IP ?</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3086136#respond' onclick='return addComment.moveForm("comment-3086136", "3086136", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-odd thread-alt depth-1 clearfix" id="li-comment-3123291">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/81ab6fed18e17a945619f3b27963b503?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3123291">
+
+					<div class="comment-head">
+						<span class="name">
+															fx bayu anggara													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3123291" title="Permalink">May 8, 2015 at 3:24 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>greats, work like charm on my freya(elementaryos) with instructions point 3,<br />
+thanks</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3123291#respond' onclick='return addComment.moveForm("comment-3123291", "3123291", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-even depth-1 clearfix" id="li-comment-3127676">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/1c9eb1679364d9825d55d53afc6309a5?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3127676">
+
+					<div class="comment-head">
+						<span class="name">
+															Munni Lal													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3127676" title="Permalink">May 10, 2015 at 7:42 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>I like this is,  awesome great work&#8230;.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3127676#respond' onclick='return addComment.moveForm("comment-3127676", "3127676", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-odd thread-alt depth-1 clearfix" id="li-comment-3127769">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/ef71caaf9c38d1d2c2889709fdefca43?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3127769">
+
+					<div class="comment-head">
+						<span class="name">
+															Rajendar Reddy													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3127769" title="Permalink">May 10, 2015 at 9:05 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Got connected successfully but frequent disconnections happening. My wifi connection lasting only for 1-2 minutes after that got disconnected.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3127769#respond' onclick='return addComment.moveForm("comment-3127769", "3127769", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	<ul class='children'>
+
+		<li class="comment even depth-2 clearfix" id="li-comment-3132454">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/4823df7a321e6802e21088dfe42048c0?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3132454">
+
+					<div class="comment-head">
+						<span class="name">
+															Mohsen Mansouryar													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3132454" title="Permalink">May 12, 2015 at 6:16 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>I have the same problem on Ubuntu 14.04 amd64 :(</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3132454#respond' onclick='return addComment.moveForm("comment-3132454", "3132454", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+</ul>
+</li>
+
+		<li class="comment odd alt thread-even depth-1 clearfix" id="li-comment-3131456">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/607490f8829f1d1eb59b89f88163cde2?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3131456">
+
+					<div class="comment-head">
+						<span class="name">
+															Stefan													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3131456" title="Permalink">May 11, 2015 at 9:20 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>This has been buggin&#8217; me for years! So simple! Solution nr. 3 works wonderfully. Thanks so much!</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3131456#respond' onclick='return addComment.moveForm("comment-3131456", "3131456", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-odd thread-alt depth-1 clearfix" id="li-comment-3135606">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/e92f452b61031f89a1a25ae39d155c92?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3135606">
+
+					<div class="comment-head">
+						<span class="name">
+															Pablo Bounous													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3135606" title="Permalink">May 13, 2015 at 11:08 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Hi,</p>
+<p>It didn&#8217;t worked for me. After modifying the connection file for mode=ap, when I try to connect (open the connection from ubuntu) it stays connected to nothing after trying to do so for a while&#8230;</p>
+<p>Ubuntu 15.04, Toshiba Satellite L505. Realtek 8101E/8102E network chip.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3135606#respond' onclick='return addComment.moveForm("comment-3135606", "3135606", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-even depth-1 clearfix" id="li-comment-3135770">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/9ad13121efbb0863b526f6a603b2fee1?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3135770">
+
+					<div class="comment-head">
+						<span class="name">
+															Swaprava													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3135770" title="Permalink">May 13, 2015 at 12:42 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>This didn&#8217;t work on my ubuntu 14.04 even after following every step. Is there something that I&#8217;m missing? Do I need to reboot before it works?</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3135770#respond' onclick='return addComment.moveForm("comment-3135770", "3135770", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-odd thread-alt depth-1 clearfix" id="li-comment-3142028">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/e7f4f2a5b88eeb9133aab22e0ecb516a?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3142028">
+
+					<div class="comment-head">
+						<span class="name">
+															Bless													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3142028" title="Permalink">May 16, 2015 at 9:56 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Works perfectly. Thanks.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3142028#respond' onclick='return addComment.moveForm("comment-3142028", "3142028", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-even depth-1 clearfix" id="li-comment-3150020">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/4ff13421be614e636a8d93409afa7c0e?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3150020">
+
+					<div class="comment-head">
+						<span class="name">
+															zayyan													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3150020" title="Permalink">May 19, 2015 at 9:30 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>thank you it work also for laptops</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3150020#respond' onclick='return addComment.moveForm("comment-3150020", "3150020", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-odd thread-alt depth-1 clearfix" id="li-comment-3152605">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/56e12ee076e88cc7561e0ce9d67dedda?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3152605">
+
+					<div class="comment-head">
+						<span class="name">
+															tbprassetyo													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3152605" title="Permalink">May 21, 2015 at 12:50 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>this is work !!</p>
+<p>thanks man</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3152605#respond' onclick='return addComment.moveForm("comment-3152605", "3152605", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-even depth-1 clearfix" id="li-comment-3161705">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/8e7cf4cddb4a6abefaa5354416bbb348?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3161705">
+
+					<div class="comment-head">
+						<span class="name">
+															Sam Tang													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3161705" title="Permalink">May 26, 2015 at 8:36 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Still don&#8217;t work. &#8220;the driver doesn&#8217;t support the ap mode&#8221; problem. And I have tried your solution which is to change the driver. My chip is Broadcom corporation BCM43142. and according to the website, it can only use wl driver. Is there anything else I can do?<br />
+BTW I can share wifi in windows system.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3161705#respond' onclick='return addComment.moveForm("comment-3161705", "3161705", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	<ul class='children'>
+
+		<li class="comment even depth-2 clearfix" id="li-comment-3161714">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/8e7cf4cddb4a6abefaa5354416bbb348?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3161714">
+
+					<div class="comment-head">
+						<span class="name">
+															Sam Tang													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3161714" title="Permalink">May 26, 2015 at 8:44 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>also, my iphone device can not use the ad-hoc wifi which is set by the normal unity. Sometimes, the iphone device can find the signal, but the wifi ask me for user name instead of only keywords.<br />
+BTW the /hostapd_1.0-3ubuntu2.1_i386.deb can not be found from your website, is there another source?</p>
+<p>Thank you</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3161714#respond' onclick='return addComment.moveForm("comment-3161714", "3161714", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+</ul>
+</li>
+
+		<li class="comment odd alt thread-odd thread-alt depth-1 clearfix" id="li-comment-3170813">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/d2928b7843f9dae697230ea73d3dd0c5?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3170813">
+
+					<div class="comment-head">
+						<span class="name">
+															m													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3170813" title="Permalink">June 1, 2015 at 5:57 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>my android phone(galaxy y duos lite) is asking for the password again and again and is getting disconnected</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3170813#respond' onclick='return addComment.moveForm("comment-3170813", "3170813", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-even depth-1 clearfix" id="li-comment-3171270">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/7ed1c665d5fb80881c1a783155af0a21?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3171270">
+
+					<div class="comment-head">
+						<span class="name">
+															Shivani Ghatge													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3171270" title="Permalink">June 1, 2015 at 11:33 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>Thanks! Works like a charm!</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3171270#respond' onclick='return addComment.moveForm("comment-3171270", "3171270", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-odd thread-alt depth-1 clearfix" id="li-comment-3173132">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/b54fd2fd94af6684372121033053b0cd?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3173132">
+
+					<div class="comment-head">
+						<span class="name">
+															Antony Andreatos													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3173132" title="Permalink">June 2, 2015 at 3:44 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>OMG! I have spent 3 days reading numerous ubuntu howto&#8217;s w/o result, but this 3rd way is the best ever! thanks a lot man!</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3173132#respond' onclick='return addComment.moveForm("comment-3173132", "3173132", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-even depth-1 clearfix" id="li-comment-3180002">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/81184334fb5bfe33d4f075a221665113?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3180002">
+
+					<div class="comment-head">
+						<span class="name">
+															harsh													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3180002" title="Permalink">June 6, 2015 at 12:03 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>What is SSID? what should i put if im using asus zenfone with android 4.4.2 KK?</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3180002#respond' onclick='return addComment.moveForm("comment-3180002", "3180002", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-odd thread-alt depth-1 clearfix" id="li-comment-3183700">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://1.gravatar.com/avatar/3434b5f6fbb111d3e932e762855ce108?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3183700">
+
+					<div class="comment-head">
+						<span class="name">
+															aditya													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3183700" title="Permalink">June 8, 2015 at 7:35 pm</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>thanks a lot<br />
+works perfectly</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3183700#respond' onclick='return addComment.moveForm("comment-3183700", "3183700", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-even depth-1 clearfix" id="li-comment-3184799">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/a7841f72cb2996f674db52ecdff6ddb4?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3184799">
+
+					<div class="comment-head">
+						<span class="name">
+															snehil													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3184799" title="Permalink">June 9, 2015 at 9:47 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>when i did this.<br />
+gksu gedit /etc/NetworkManager/system-connections/wifi-hotspot</p>
+<p>it shows blank file.<br />
+I have also changed name of my ssid.</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3184799#respond' onclick='return addComment.moveForm("comment-3184799", "3184799", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment odd alt thread-odd thread-alt depth-1 clearfix" id="li-comment-3186321">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/c10b69963959e8d742ef40aa21379155?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3186321">
+
+					<div class="comment-head">
+						<span class="name">
+															ramesh													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3186321" title="Permalink">June 10, 2015 at 9:53 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>When I tried this setting&#8230; my Device MAC address is not properly shown:<br />
+Device MAC address: 00:00:00:00:00:00 (ra0)<br />
+hence unable to save and proceed, what may cause this problem, even i tried by changing the MAC address (look up through command ifconfig -a), but error message came:</p>
+<p>&#8220;Failed to activate connection<br />
+(32) The connection&#8217;s MAC address did not match this device.&#8221;</p>
+<p>I am using HP laptop, and install the device driver from <a href="https://docs.google.com/file/d/0B7kbO9nS2qKEMmQ5elZXVUhDRjA" rel="nofollow">https://docs.google.com/file/d/0B7kbO9nS2qKEMmQ5elZXVUhDRjA</a><br />
+Please help!</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3186321#respond' onclick='return addComment.moveForm("comment-3186321", "3186321", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+
+		<li class="comment even thread-even depth-1 clearfix" id="li-comment-3204797">
+
+			<div class="comment-container clearfix">
+
+									<div class="avatar-holder">
+						<img alt='' src='http://0.gravatar.com/avatar/43b147ef893d13cbed40e287e6f87408?s=50&amp;d=blank&amp;r=X' class='avatar avatar-50 photo' height='50' width='50' />					</div><!-- /.avatar-holder -->
+				
+				<div class="comment-entry"	id="comment-3204797">
+
+					<div class="comment-head">
+						<span class="name">
+															jack													</span>
+													<span class="date"><a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#comment-3204797" title="Permalink">June 18, 2015 at 4:45 am</a></span>
+							<span class="edit"></span>
+											</div><!-- /.comment-head -->
+
+					
+					<div class="comment-text">
+						<p>hi, just done evrything but unable to contact with wifihotspot&#8230;and it is not showing in phone also</p>
+					</div><!-- /.comment-text -->
+
+					<div class="reply clearfix">
+						<a class='comment-reply-link' href='/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/?replytocom=3204797#respond' onclick='return addComment.moveForm("comment-3204797", "3204797", "respond", "3977")'>Reply</a>					</div><!-- /.reply -->
+
+				</div><!-- /.comment-entry -->
+			</div><!-- /comment-container -->
+	</li>
+			</ol>    
+			<div class="comment-navigation clearfix">
+				<div class="comment-prev-nav">
+									</div>
+				<div class="comment-next-nav">
+									</div>
+			</div>
+		</div><!-- /#comments -->
+	
+		
+	
+
+								<div id="respond">
+				<h3 id="reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://ubuntuhandbook.org/wp-comments-post.php" method="post" id="commentform">
+																			<div id="comment-form-wrapper"><div id="comment-form-avatar"><img alt='' src='http://ubuntuhandbook.org/wp-includes/images/blank.gif' class='avatar avatar-30 photo avatar-default' height='30' width='30' /></div>							<div id="comment-form-elements"><p class="comment-form-author"><label for="author">Name</label> <span class="required">*</span><input id="author" name="author" type="text" value="" size="30" aria-required='true' /></p>
+<p class="comment-form-email"><label for="email">Email</label> <span class="required">*</span><input id="email" name="email" type="text" value="" size="30" aria-required='true' /></p>
+<p class="comment-form-url"><label for="url">Website</label><input id="url" name="url" type="text" value="" size="30" /></p></div><!-- /#comment-form-elements --></div><!-- /#comment-form-wrapper -->
+												<p class="comment-form-comment"><label for="comment">Comment</label><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>						<p class="form-allowed-tags">Text formatting is available via select <a id="allowed-tags-trigger" href="javascript:;">HTML</a>.  <pre id="allowed-tags">&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </pre></p>						<p class="form-submit">
+							<input name="submit" type="submit" id="submit" value="Post Comment" />
+							<input type='hidden' name='comment_post_ID' value='3977' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="5c91d2bb35" /></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="51"/></p>					</form>
+							</div><!-- #respond -->
+							
+						
+				 	
+							</div><!-- /#main -->
+			
+							<div id="sidebar" class="span4">
+	<div id="text-6" class="widget widget_text">			<div class="textwidget"><!-- handbook-topright -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:250px"
+     data-ad-client="ca-pub-0256343105258378"
+     data-ad-slot="8925981198"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+		</div>		<div id="recent-posts-2" class="widget widget_recent_entries">		<h4 class="Recent Posts widget-title">Recent Posts</h4>		<ul>
+					<li>
+				<a href="http://ubuntuhandbook.org/index.php/2015/06/install-mupdf-ubuntu-1504/" title="Install MuPDF &#8211; lightweight PDF/XPS viewer in Ubuntu 15.04">Install MuPDF &#8211; lightweight PDF/XPS viewer in Ubuntu 15.04</a>
+						</li>
+					<li>
+				<a href="http://ubuntuhandbook.org/index.php/2015/06/install-nvidia-352-21-ubuntu-1404/" title="How to Install Nvidia 352.21 in Ubuntu 15.04/14.04">How to Install Nvidia 352.21 in Ubuntu 15.04/14.04</a>
+						</li>
+					<li>
+				<a href="http://ubuntuhandbook.org/index.php/2015/06/open-broadcaster-software-ubuntu-14-04/" title="How to Install Open Broadcaster Software in Ubuntu 15.04/14.04">How to Install Open Broadcaster Software in Ubuntu 15.04/14.04</a>
+						</li>
+					<li>
+				<a href="http://ubuntuhandbook.org/index.php/2015/06/how-to-install-handbrake-0-10-2-in-ubuntu-15-0414-04/" title="How to Install Handbrake 0.10.2 in Ubuntu 15.04/14.04">How to Install Handbrake 0.10.2 in Ubuntu 15.04/14.04</a>
+						</li>
+					<li>
+				<a href="http://ubuntuhandbook.org/index.php/2015/06/ubuntu-touch-lockscreen-app-on-desktop/" title="Install Up-Clock &#8211; Ubuntu Touch Style Lockscreen App on Your Desktop">Install Up-Clock &#8211; Ubuntu Touch Style Lockscreen App on Your Desktop</a>
+						</li>
+				</ul>
+		</div><div id="my_popula_posts-2" class="widget widget_my_popula_posts"><h4 class="My Popular Posts widget-title">Popular Posts</h4><ul>                <li>
+                    
+                    <a href="http://ubuntuhandbook.org/index.php/2014/06/share-internet-with-android-ubuntu-1404/">Share Internet Connection With Android in Ubuntu 14.04</a>
+                    <span>08 Jun , 2014</span>
+                </li>
+                            <li>
+                    
+                    <a href="http://ubuntuhandbook.org/index.php/2014/09/3-ways-create-wifi-hotspot-ubuntu/">3 Ways to Create Wifi Hotspot in Ubuntu 14.04 (Android Support)</a>
+                    <span>22 Sep , 2014</span>
+                </li>
+                            <li>
+                    
+                    <a href="http://ubuntuhandbook.org/index.php/2014/04/install-adobe-reader-ubuntu-1404/">Quick Tip: Install Adobe Reader in Ubuntu 14.04 Trusty</a>
+                    <span>26 Apr , 2014</span>
+                </li>
+                            <li>
+                    
+                    <a href="http://ubuntuhandbook.org/index.php/2014/06/skype-4-3-install-in-ubuntu-1404/">Skype 4.3 Released, How to Install it in Ubuntu 14.04/12.04</a>
+                    <span>19 Jun , 2014</span>
+                </li>
+                            <li>
+                    
+                    <a href="http://ubuntuhandbook.org/index.php/2014/02/wifi-hotspot-ubuntu-laptop-android/">Create Wifi Hotspot in Ubuntu Laptop For Android Phones</a>
+                    <span>06 Feb , 2014</span>
+                </li>
+            </ul></div><div id="related-posts-by-taxonomy-2" class="widget related_posts_by_taxonomy"><h4 class="Related Posts By Taxonomy widget-title">Related Posts</h4>
+
+
+<ul>
+	
+		<li><a href="http://ubuntuhandbook.org/index.php/2014/06/share-internet-with-android-ubuntu-1404/" title="Share Internet Connection With Android in Ubuntu 14.04">Share Internet Connection With Android in Ubuntu 14.04</a></li>
+
+	
+		<li><a href="http://ubuntuhandbook.org/index.php/2014/12/enable-telnet-ubuntu-14-04/" title="[Quick Tip] Enable Telnet Service in Ubuntu 14.04">[Quick Tip] Enable Telnet Service in Ubuntu 14.04</a></li>
+
+	
+		<li><a href="http://ubuntuhandbook.org/index.php/2014/11/speed-up-unity-dash-response-ubuntu/" title="How to Speed Up the Unity Dash Response in Ubuntu 14.04 / 14.10">How to Speed Up the Unity Dash Response in Ubuntu 14.04 / 14.10</a></li>
+
+	</ul>
+
+
+</div><div id="text-4" class="widget widget_text">			<div class="textwidget"><!-- handbook-336 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-0256343105258378"
+     data-ad-slot="5460808391"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+		</div></div><!-- /#sidebar -->
+							
+		</div> <!-- /row -->
+	</div><!-- /container -->
+</div> <!-- /#wrapper -->
+
+		<div id="footer" class="clearfix">
+			
+														
+						
+			<div id="sub-floor" class="clearfix">
+				<div class="container">
+					<div class="row-fluid">
+						<div class="span12">
+							<div id="footer-links">
+								<div class="menu-footer-nav-container navbar"><ul id="menu-footer" class="nav menu"><li id="menu-item-39" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-39"><a href="http://ubuntuhandbook.org/index.php/about/">About</a></li>
+</ul></div>							</div><!-- /#footer-links -->
+										
+									
+							<div id="credit">
+																
+															
+									&copy; 2015 <a href="http://ubuntuhandbook.org">UbuntuHandbook</a> &mdash; <a href="http://ubuntuhandbook.org/index.php/privacy-policy/">Privacy Policy</a> &mdash; Standard by 8BIT																
+							</div><!-- /#credits -->
+						</div><!--/span12-->
+					</div><!-- /row -->
+				</div><!-- /.container -->
+			</div><!-- /#sub-floor -->
+		</div><!-- /#footer -->
+		<script type="text/javascript">
+jQuery(document).ready(function(){
+  var q2w3_sidebar_1_options = { "sidebar" : "sidebar-0", "margin_top" : 10, "margin_bottom" : 0, "screen_max_width" : 0, "width_inherit" : true, "widgets" : ['related-posts-by-taxonomy-2','text-4'] };
+  q2w3_sidebar(q2w3_sidebar_1_options);
+  setInterval(function () { q2w3_sidebar(q2w3_sidebar_1_options); }, 1500);
+});
+</script>
+<script type='text/javascript' src='http://ubuntuhandbook.org/wp-content/plugins/bwp-minify/min/?f=wp-content/plugins/akismet/_inc/form.js'></script>
+	</body>
+</html>
