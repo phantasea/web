@@ -1,0 +1,240 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta content="width=device-width,user-scalable=no" name="viewport" />
+<meta name="apple-itunes-app" content="app-id=425349261" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>Ubuntu下用Hexo搭建个人博客及常见问题的解决方案 - CSDN博客</title>
+<link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/css/wapall.css" />
+<script src="http://static.blog.csdn.net/scripts/ajax.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="wrap">
+<div id="header"  >
+<a class="home" href="http://www.csdn.net/"><img src="http://static.blog.csdn.net/images/wapall/home.png"></a> 
+<a class="logo" href="/">
+<img src="http://static.blog.csdn.net/images/wapall/logo.jpg" /></a>
+<a id="loginname"></a>
+</div>
+<div id="nav">
+<a href="/" id="shouye1">首页</a>
+<a href="/column/index" id="zhuanlan1">专栏</a>
+<a href="/People/index" id="zhuanjia1">专家</a>
+<a href="/home/hot" id="rewen1">热文</a>
+</div>
+<div id="main">
+        <div id="top">
+        <div class="avatar">
+        <a href="/blog/u012366161" class="name">Shonminh</a>
+        </div>
+        <div class="content">
+        <h1><a href="#">[原]Ubuntu下用Hexo搭建个人博客及常见问题的解决方案</a></h1>
+        <p class="time"><span>2014-12-21</span><span>阅读184</span> <a href="#comment">评论<span id="sp_cmt">0</span></a></p>
+        <div id="articlecontent">
+        
+<p>说到Hexo搭建个人博客，网上有很多写好的博文，给大家推荐几个。</p>
+<p><a target="_blank" target="_blank" href="http://http://blueyiniu.gitcafe.com/2014/02/22/first-post/">Ubuntu&#43;hexo&#43;github搭建个人博客环境及hexo配置</a>（写的很详细）</p>
+<p><a target="_blank" target="_blank" href="http://http://www.tuicool.com/articles/y6JJV3Z">Hexo在github上构建免费的Web应用</a></p>
+<p></p>
+<ul>
+<li>首先，登录<a target="_blank" target="_blank" href="http://github.com">github</a>，然后创建一个新的仓库（repository),<a target="_blank" target="_blank" href="https://pages.github.com/">这里Github给出了</a>。如下</li></ul>
+<p></p>
+<p><img src="http://img.blog.csdn.net/20141221131846343?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjM2NjE2MQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="如下" align="middle" width="440" height="327"></p>
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px">
+<p></p>
+</blockquote>
+<ul>
+<li>仓库建好之后，我们开始在Ubuntu14.04上安装Git环境。</li></ul>
+<p>终端输入：</p>
+<p></p>
+<pre name="code" class="plain">sudo apt-get install git-core</pre>
+<p>检查git是否装好：</p>
+<p></p>
+<pre name="code" class="plain">git --version</pre><br>
+<ul>
+<li>安装node.js</li></ul>
+<p>安装node.js之前先确定你要安装了G&#43;&#43;，cURL,</p>
+<p></p>
+<pre name="code" class="plain">sudo apt-get install g++
+</pre><pre name="code" class="plain">sudo apt-get install cURL</pre>接着安装nvm,(用nvm的方式来安装node.js)
+<p></p>
+<p></p>
+<pre name="code" class="plain">curl https://raw.github.com/creationix/nvm/master/install.sh | sh</pre>
+<p><br>
+</p>
+<p><strong>如果</strong>这种方法安装nvm显示出错，你可以直接去<a target="_blank" target="_blank" href="https://github.com/creationix/nvm">nvm的github主页</a>把zip包下载下来，解压之后运行install.sh</p>
+<p>好了，等了几十分钟，安装nvm完毕。</p>
+<p>重启终端。</p>
+<p>接下来安装node.js。</p>
+<p></p>
+<pre name="code" class="plain">nvm install 0.10
+</pre>
+<p></p>
+<p><br>
+</p>
+检查node.js是否装好：
+<p></p>
+<pre name="code" class="plain">nvm ls</pre>显示我的版本是v0.10.34。<br>
+<img src="http://img.blog.csdn.net/20141221184842475?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjM2NjE2MQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""><br>
+<br>
+<p></p>
+<p>重启终端</p>
+<p>输入：</p>
+<pre name="code" class="plain">nvm use 0.10</pre>
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px">
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px">
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px">
+<p></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<ul>
+<li>静态文件的生成</li></ul>
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px">
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px">
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px">
+<p></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>初始化hexo：</p>
+<p></p>
+<pre name="code" class="plain">hexo init hexo</pre>生成文件：
+<p></p>
+<p></p>
+<pre name="code" class="plain">hexo g</pre>在本地服务器登录：
+<p></p>
+<p></p>
+<pre name="code" class="plain">hexo s </pre>
+<p></p>
+<p><span style="font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif; color:rgb(51,51,51)"><span style="font-size:14px; line-height:22.3999996185303px"><strong>如果</strong>显示的是正常网页，则说明没有错误，但是如果是这样的：</span></span></p>
+<p><span style="color:rgb(51,51,51); font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif; font-size:14px; line-height:22.3999996185303px">&lt;%- partial('_partial/head') %&gt;</span><br style="color:rgb(51,51,51); font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif; font-size:14px; line-height:22.3999996185303px">
+<span style="color:rgb(51,51,51); font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif; font-size:14px; line-height:22.3999996185303px">&lt;%- partial('_partial/header') %&gt;</span><br style="color:rgb(51,51,51); font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif; font-size:14px; line-height:22.3999996185303px">
+<span style="color:rgb(51,51,51); font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif; font-size:14px; line-height:22.3999996185303px">&lt;%- body %&gt;</span><br style="color:rgb(51,51,51); font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif; font-size:14px; line-height:22.3999996185303px">
+<span style="color:rgb(51,51,51); font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif; font-size:14px; line-height:22.3999996185303px">&lt;% if (theme.sidebar &amp;&amp; theme.sidebar !== 'bottom'){ %&gt; &lt;%- partial('_partial/sidebar') %&gt; &lt;% } %&gt;</span><br style="color:rgb(51,51,51); font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif; font-size:14px; line-height:22.3999996185303px">
+<span style="color:rgb(51,51,51); font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif; font-size:14px; line-height:22.3999996185303px">&lt;%- partial('_partial/footer') %&gt;</span><br style="color:rgb(51,51,51); font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif; font-size:14px; line-height:22.3999996185303px">
+<span style="color:rgb(51,51,51); font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif; font-size:14px; line-height:22.3999996185303px">&lt;%- partial('_partial/mobile-nav') %&gt; &lt;%- partial('_partial/after-footer') %&gt;</span></p>
+<p><span style="font-family:Helvetica Neue,Helvetica,Segoe UI,Arial,freesans,sans-serif; color:#333333"><span style="font-size:14px; line-height:22.3999996185303px">这说明服务器解析错误，解决方案：</span></span></p>
+<p><span style="font-family:Helvetica Neue,Helvetica,Segoe UI,Arial,freesans,sans-serif; color:#333333"><span style="font-size:14px; line-height:22.3999996185303px"></span></span></p>
+<pre name="code" class="plain">npm install hexo-renderer-ejs --save
+npm install hexo-renderer-stylus --save
+npm install hexo-renderer-marked --save</pre>再退出hexo，关闭网页，重新执行 hexo s。正常网页如下：
+<p></p>
+<p><span style="font-family:Helvetica Neue,Helvetica,Segoe UI,Arial,freesans,sans-serif; color:#333333"><span style="font-size:14px; line-height:22.3999996185303px"><img src="http://img.blog.csdn.net/20141221214249546?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjM2NjE2MQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" align="middle" alt=""><br>
+<br>
+</span></span></p>
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px">
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px">
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px">
+<p></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<ul>
+<li>接下来就是配置git了。这里给出<a target="_blank" target="_blank" href="http://my.oschina.net/hongdengyan/blog?disp=2&amp;catalog=376796&amp;sort=time&amp;p=1">Git常用命令</a>。关于如何生成密钥以及SSH的链接，<a target="_blank" target="_blank" href="http://www.blogways.net/blog/2013/04/10/generating-ssh-keys-4-github.html">可以看这里。</a></li></ul>
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px">
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px">
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px">
+<p></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>验证公钥是否添加正确：</p>
+<p><span style="color:rgb(51,51,51)"><span style="line-height:17.142858505249px; background-color:rgb(240,240,240)"></span></span></p>
+<pre name="code" class="plain">ssh -T git@github.com</pre>显示如下：
+<p></p>
+<p><img src="http://img.blog.csdn.net/20141221221801870?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMjM2NjE2MQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""><br>
+<br>
+则说明你已经正确配置了。</p>
+<p>接着编辑_config.yml文件。（在你安装hexo的目录下，仔细找找），在文档最后一行找到如下内容并修改为：</p>
+<p></p>
+<pre name="code" class="javascript">deploy:
+ type: github
+ repository: https://github.com/Shonminh/Shonminh.github.io.git
+ branch: master</pre>注意：上面语句有缩排，注意一点，要不然最后一步就会报错。
+<p></p>
+<p><strong>最后一步</strong>，把你本地的静态文件上传至github：</p>
+<p></p>
+<pre name="code" class="plain">hexo d</pre>在浏览器里面输入你的Blog地址：usrname.github.io &nbsp; &nbsp;可能要等几分钟，你就可以看见你的blog了。<br>
+<p><br>
+</p>
+<br>
+<br>
+<p></p>
+<p></p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<br>
+<p></p>
+<p><br>
+</p>
+<p><br>
+</p>
+
+        </div>
+        </div>
+        <div class="next_page">
+            <a href="/blog/u012366161/42030623" class="next_btn">上一篇</a>
+            <a href="/blog/u012366161/45507929" class="next_btn">下一篇</a>
+        </div>
+        <div class="view">
+        <a href="/account/login" class="button">请先登录后，再发表评论！</a>
+        </div>
+        <div class="comment_sub">
+        <span class="lf10">查看评论</span>
+        <ul id="cmt_ul">        </ul>
+        <a href="/comment/42059813" class="lf10">更多评论（0）</a>
+        </div>
+        </div>
+        <script type="text/javascript" src="http://static.blog.csdn.net/scripts/Ajax.js"></script>
+        <script type="text/javascript">
+            function subform() {
+                if (!el('con').value) {
+                    el('con').focus();
+                    return;
+                }
+                Ajax.post('/comment/42059813?save=1', 'con=' + encodeURIComponent(el('con').value));
+                alert('评论成功！');
+
+                var li = document.createElement('li');
+                var s = '<p class="time"><span>' + (parseInt(el('sp_cmt').innerHTML, 10) + 1) + '楼</span><a class="name">我</a><span>刚刚</span></p>';
+                s += '<p>' + el('con').value + '</p>';
+                li.innerHTML = s;
+                el('cmt_ul').insertBefore(li, el('cmt_ul').firstChild);
+            }
+        </script>
+
+</div>
+
+<div class="back-top" id="ding1">
+<a href="#" onclick="document.body.scrollTop=0;return false;">
+<img src="http://static.blog.csdn.net/images/wapall/back-top.jpg" />回顶部</a>
+</div>
+<div id="footer">
+<p><a class="now" href="/">移动版</a>|<a href="http://blog.csdn.net" onclick="document.cookie='wap-pc=1; domain=blog.csdn.net; path=/;';">桌面版</a></p>
+<p>&copy;1999-2012, CSDN.NET, All Rights Reserved</p>
+</div>
+
+</div>
+<script src="http://static.blog.csdn.net/scripts/wapall.js" type="text/javascript"></script>
+</body>
+<script type="text/javascript">
+    var username = getUN();
+    if (username == '') {
+        el('loginname').innerHTML = "登录";
+        el('loginname').href = "/account/login";
+    }
+    else {
+        el('loginname').innerHTML = username;
+        el('loginname').href = "/blog/"+username;
+    
+    } 
+</script>
+</html>
