@@ -1,0 +1,672 @@
+<!DOCTYPE html PUBliC "-//W3C//dtD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/dtD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<link rel="stylesheet" href="http://www.2cto.com/statics/css/article.css" type="text/css" />
+
+<link href="http://www.2cto.com/statics/css/dialog.css" rel="stylesheet" type="text/css" />
+<title>Bash星号的那点事 - Linux操作系统：Ubuntu_Centos_Debian - 红黑联盟</title>
+<meta name="keywords" content="Bash,星号,的" />
+<meta name="description" content="Bash星号的那点事星号，这是个神奇的符号，在bash中，星号也充满魔力，它是通配符之一。简单列举下星号的功能，被称为万能字符不是没有理由的.1)文件名匹配: 默认情况下匹配所有非隐藏文件(即非.开头到文件)2)字..." />
+<script type="text/javascript" src="http://www.2cto.com/statics/js/jquery.min.js"></script>
+<script type="text/javascript" src="http://www.2cto.com/statics/js/jquery.sgallery.js"></script>
+<script type="text/javascript" src="http://www.2cto.com/statics/js/search_common.js"></script>
+<script type="text/javascript" src="http://cbjs.baidu.com/js/m.js"></script>
+<script type="text/javascript" src="http://www.2cto.com/statics/js/json.js"></script>
+<script language="javascript" type="text/javascript" src="http://www.2cto.com/statics/js/dialog.js"></script>
+
+
+</head>
+
+<body>
+<div class="line_top_box">
+	<dl class="top_box_left">
+		<dd class="left_logo"><a href="http://www.2cto.com"></a></dd>
+		<dd class="left_menu_link">
+																<a class='Channel' href='/News/'>资讯</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/Article/'>安全</a>&nbsp;|&nbsp;
+													<a class='Channel' href='http://bbs.2cto.com'>论坛</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/Soft/'>下载</a>&nbsp;|&nbsp;
+													<a class='Channel' href='http://book.2cto.com'>读书</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/kf/'>程序开发</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/database/'>数据库</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/os/'>系统</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/net/'>网络</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/ebook/'>电子书</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/weixin/'>微信学院</a>&nbsp;|&nbsp;
+													<a class='Channel' href='http://zz.2cto.com/'>站长学院</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/ym/'>源码</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/QQ/'>QQ</a>&nbsp;|&nbsp;
+													<a class='Channel' href='http://space.2cto.com'>专栏</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/px/'>考试</a>&nbsp;|&nbsp;
+														</dd>
+	</dl>
+</div>
+<div class="line_top_lmbox">
+	<dl class="lmpic"></dl>
+	<dl class="lmlinkbox"><dd>
+										<a class='Channel' href='http://www.2cto.com/os/linux/'>Linux</a>|
+							<a class='Channel' href='http://www.2cto.com/os/windows/'>Windows</a>|
+							<a class='Channel' href='http://www.2cto.com/os/dos/'>Dos命令行</a>|
+							<a class='Channel' href='http://www.2cto.com/os/liulanqi/'>浏览器</a>|
+							<a class='Channel' href='http://www.2cto.com/os/xuniji/'>虚拟机</a>|
+							<a class='Channel' href='http://www.2cto.com/os/qita/'>其他</a>|
+								</dd></dl>
+	<dl class="LoginBox"><dd><script type="text/javascript">document.write('<iframe src="http://www.2cto.com/index.php?m=member&c=index&a=mini&forward='+encodeURIComponent(location.href)+'&siteid=1" allowTransparency="true"  width="150" height="32" frameborder="0" scrolling="no"></iframe>')</script></dd></dl>
+</div>
+<div class="divline8"></div>
+<div class="tadv">
+
+<a target="_blank" href="http://vip.2cto.com/"><img src="http://www.2cto.com/adv/980-80.gif" width="980" height="90" /></a>
+<!-- 广告位：顶部banner -->
+<script type="text/javascript">BAIDU_CLB_fillSlot("298612");</script>
+
+</div>
+
+
+<div class="divline8"></div>
+<div class="it165_box">
+	<div class="box_left">
+		
+		<dl class="box_p">
+			<dd class="pRight"><a href="http://www.2cto.com">首页</a><span> > </span><a href="http://www.2cto.com/os/">系统</a> > <a href="http://www.2cto.com/os/linux/">Linux</a> >  正文</dd>
+			<script type="text/javascript">BAIDU_CLB_fillSlot("703722");</script>
+			</dl>
+		<dl class="box_t"><dd>Bash星号的那点事</dd></dl>
+																										<dl class="box_INFO">
+			<dd class="frinfo line_blue">2013-05-11  &nbsp;&nbsp;&nbsp;&nbsp;
+
+<a style="font-weight:bold;padding:5px 0px 5px 20px;background:url('http://www.2cto.com/statics/images/icon/user_comment.png') left center no-repeat" href="#SOHUCS" id="changyan_count_unit"></a><a href="#SOHUCS">&nbsp;个评论</a>
+<script type="text/javascript" src="http://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+
+&nbsp;&nbsp;  来源：www.igigo.net&nbsp;&nbsp;  </dd>
+			<dd class="frsize line_blue">
+			<span id='favorite'>
+				<a href="javascript:;" onclick="add_favorite('Bash星号的那点事');" class="t6">收藏</a>
+			</span>&nbsp;&nbsp;
+				<a target="_blank" href="http://www.2cto.com/index.php?m=member&c=content&a=publish&modid=1&siteid=1"><img border="0" src="http://www.2cto.com/statics/images/dl.jpg" />我要投稿</a>
+			</dd>
+			
+		</dl>
+		<dl class="box_body" id="fontzoom"><dd id="Article">
+		<div>Bash星号的那点事</div>
+<div>&nbsp;</div>
+<div>星号，这是个神奇的符号，在bash中，星号也充满魔力，它是通配符之一。</div>
+<div>简单列举下星号的功能，被称为万能字符不是没有理由的.</div>
+<div>1)文件名匹配: 默认情况下匹配所有非隐藏文件(即非.开头到文件)</div>
+<div>2)字符串匹配: 匹配任意字符</div>
+<div>3)$*匹配所有参数</div>
+<div>4)${array[*]}，表示了所有数组元素</div>
+<div>5)乘法运算</div>
+<div>6)** 冪运算</div>
+<div>7)** bash4中提供的更牛b的文件名匹配，包含递归功能</div>
+<div>接下我们来见识下它强大到魔力：</div>
+<div>1)文件名匹配:</div>
+<div>&nbsp;</div>
+<div>igi@gentoo ~ $ ls</div>
+<div>a &nbsp;b &nbsp;c &nbsp;d</div>
+<div>igi@gentoo ~ $ ls -A</div>
+<div>a &nbsp;b &nbsp;c &nbsp;d &nbsp;.t &nbsp;.u &nbsp;.v &nbsp;.w &nbsp;.x &nbsp;.y</div>
+<div>igi@gentoo ~ $ echo *</div>
+<div>a b c d</div>
+<div>我们可以看到，*号匹配了所有非隐藏文件名，如果要匹配所有文件名(包括隐藏文件)，可以打开dotglob开关</div>
+<div>&nbsp;</div>
+<div>igi@gentoo ~ $ ls -A</div>
+<div>a &nbsp;b &nbsp;c &nbsp;d &nbsp;.t &nbsp;.u &nbsp;.v &nbsp;.w &nbsp;.x &nbsp;.y</div>
+<div>igi@gentoo ~ $ echo *</div>
+<div>a b c d</div>
+<div>igi@gentoo ~ $ shopt -s dotglob</div>
+<div>igi@gentoo ~ $ echo *</div>
+<div>a b c d .t .u .v .w .x .y</div>
+<div>如果只是匹配隐藏文件呢？可别想得太复杂了哦</div>
+<div>&nbsp;</div>
+<div>igi@gentoo ~ $ ls -a</div>
+<div>. &nbsp;.. &nbsp;a &nbsp;b &nbsp;c &nbsp;d &nbsp;.t &nbsp;.u &nbsp;.v &nbsp;.w &nbsp;.x &nbsp;.y</div>
+<div>igi@gentoo ~ $ echo .*</div>
+<div>. .. .t .u .v .w .x .y</div>
+<div>需要注意到是，.*会把当前目录下到.目录和..目录也匹配进去</div>
+<div>&nbsp;</div>
+<div>2)字符串匹配:这一般用在case语句、字符串截取中</div>
+<div>&nbsp;</div>
+<div>igi@gentoo ~ $ case &quot;abc&quot; in</div>
+<div>&gt; a)</div>
+<div>&gt; &nbsp; echo &#39;a&#39;</div>
+<div>&gt; &nbsp; ;;</div>
+<div>&gt; a*)</div>
+<div>&gt; &nbsp; echo &#39;a*&#39;</div>
+<div>&gt; &nbsp; ;;</div>
+<div>&gt; esac</div>
+<div>a*</div>
+<div>igi@gentoo ~ $ var=&#39;abc123&#39;</div>
+<div>igi@gentoo ~ $ echo &quot;${var%c*}&quot;</div>
+<div>ab</div>
+<div>可以看到*号匹配了任意字符，在这里，先提醒一下，这里用的是模式匹配，而不是正则(正则与模式匹配不同，以后到文章中，将会仔细对比这两者到区别)</div>
+<div>&nbsp;</div>
+<div>3)$*表示所有参数</div>
+<div>&nbsp;</div>
+<div>igi@gentoo ~ $ foo() { for i in $*; do echo &quot;var: $i&quot;; done; }</div>
+<div>igi@gentoo ~ $ foo a b &quot;c cc&quot;</div>
+<div>var: a</div>
+<div>var: b</div>
+<div>var: c</div>
+<div>var: cc</div>
+<div>igi@gentoo ~ $ foo() { for i in &quot;$*&quot;; do echo &quot;var: $i&quot;; done; }</div>
+<div>igi@gentoo ~ $ IFS=&quot;|&quot; foo a b &quot;c cc&quot;</div>
+<div>var: a|b|c cc</div>
+<div>最后到例子中，我设置了新到IFS变量，只是为了让大家更清晰到看到，bash是如何对待&rdquo;$*&rdquo;的，bash用IFS变量，把所有参数拼成一个字符串，这就是&rdquo;$*&rdquo;</div>
+<div>这里先说下$@和&rdquo;$@&rdquo;，在没有用双引号包围时，$@和$*一样表示了 $1 $2 $3 &hellip;</div>
+<div>而&rdquo;$@&rdquo; 则与&rdquo;$*&rdquo;不同，&rdquo;$@&rdquo;表示了 &ldquo;$1&Prime; &ldquo;$2&Prime; &ldquo;$3&Prime; &hellip;(注意这里到双引号，双引号中的字符串是一个整体)，似乎有点不明白，看看下面的例子</div>
+<div>&nbsp;</div>
+<div>igi@gentoo ~ $ foo() { for i in $*;do echo &quot;var: $i&quot;;done;}</div>
+<div>igi@gentoo ~ $ foo a b &quot;c cc&quot;</div>
+<div>var: a</div>
+<div>var: b</div>
+<div>var: c</div>
+<div>var: cc</div>
+<div>igi@gentoo ~ $ foo() { for i in $@;do echo &quot;var: $i&quot;;done;}</div>
+<div>igi@gentoo ~ $ foo a b &quot;c cc&quot;</div>
+<div>var: a</div>
+<div>var: b</div>
+<div>var: c</div>
+<div>var: cc</div>
+<div>igi@gentoo ~ $ foo() { for i in &quot;$*&quot;;do echo &quot;var: $i&quot;;done;}</div>
+<div>igi@gentoo ~ $ foo a b &quot;c cc&quot;</div>
+<div>var: a b c cc</div>
+<div>igi@gentoo ~ $ foo() { for i in &quot;$@&quot;;do echo &quot;var: $i&quot;;done;}</div>
+<div>igi@gentoo ~ $ foo a b &quot;c cc&quot;</div>
+<div>var: a</div>
+<div>var: b</div>
+<div>var: c cc</div>
+<div>4)${array[*]}表示所有数组元素</div>
+<div>&nbsp;</div>
+<div>igi@gentoo ~ $ array=( a b &quot;c cc&quot; )</div>
+<div>igi@gentoo ~ $ for i in ${array[*]};do echo &quot;array: $i&quot;; done</div>
+<div>array: a</div>
+<div>array: b</div>
+<div>array: c</div>
+<div>array: cc</div>
+<div>igi@gentoo ~ $ for i in ${array[@]};do echo &quot;array: $i&quot;; done</div>
+<div>array: a</div>
+<div>array: b</div>
+<div>array: c</div>
+<div>array: cc</div>
+<div>igi@gentoo ~ $ for i in &quot;${array[*]}&quot;;do echo &quot;array: $i&quot;; done</div>
+<div>array: a b c cc</div>
+<div>igi@gentoo ~ $ for i in &quot;${array[@]}&quot;;do echo &quot;array: $i&quot;; done</div>
+<div>array: a</div>
+<div>array: b</div>
+<div>array: c cc</div>
+<div>细心的你应该不难看出，这和$*是一样的，我就不罗嗦了。</div>
+<div>&nbsp;</div>
+<div>5、6)*号乘法运算, **冪运算</div>
+<div>&nbsp;</div>
+<div>igi@gentoo ~ $ ((num=3*4))</div>
+<div>igi@gentoo ~ $ echo $num</div>
+<div>12</div>
+<div>igi@gentoo ~ $ let num=3*3</div>
+<div>igi@gentoo ~ $ echo $num</div>
+<div>9</div>
+<div>igi@gentoo ~ $ ((num=2**4))</div>
+<div>igi@gentoo ~ $ echo $num</div>
+<div>16</div>
+<div>igi@gentoo ~ $ let num=2**2</div>
+<div>igi@gentoo ~ $ echo $num</div>
+<div>4</div>
+<div>乘法运算和冪运算应该很容易理解吧。</div>
+<div>&nbsp;</div>
+<div>7)bash4中更牛B的通配符**</div>
+<div>&nbsp;</div>
+<div>igi@gentoo ~/test $ tree</div>
+<div>.</div>
+<div>├── a</div>
+<div>│ &nbsp; ├── 1</div>
+<div>│ &nbsp; ├── 2</div>
+<div>│ &nbsp; ├── 3</div>
+<div>│ &nbsp; ├── 4</div>
+<div>│ &nbsp; └── 5</div>
+<div>└── c</div>
+<div>&nbsp; &nbsp; ├── 2.txt</div>
+<div>&nbsp; &nbsp; ├── 3.txt</div>
+<div>&nbsp; &nbsp; ├── 4.txt</div>
+<div>&nbsp; &nbsp; └── dir</div>
+<div>&nbsp;</div>
+<div>3 directories, 8 files</div>
+<div>igi@gentoo ~/test $ shopt globstar</div>
+<div>globstar &nbsp; &nbsp; &nbsp; &nbsp;off</div>
+<div>igi@gentoo ~/test $ echo **</div>
+<div>a c</div>
+<div>igi@gentoo ~/test $ echo **/</div>
+<div>a/ c/</div>
+<div>igi@gentoo ~/test $ echo *</div>
+<div>a c</div>
+<div>igi@gentoo ~/test $ echo **</div>
+<div>a c</div>
+<div>igi@gentoo ~/test $ echo */</div>
+<div>a/ c/</div>
+<div>igi@gentoo ~/test $ echo **/</div>
+<div>a/ c/</div>
+<div>默认情况下，globstar是关闭的，也就是**与*是一样的，我们来看看打开globstar后是怎么个牛b法？</div>
+<div>&nbsp;</div>
+<div>igi@gentoo ~/test $ tree</div>
+<div>.</div>
+<div>├── a</div>
+<div>│ &nbsp; ├── 1</div>
+<div>│ &nbsp; ├── 2</div>
+<div>│ &nbsp; ├── 3</div>
+<div>│ &nbsp; ├── 4</div>
+<div>│ &nbsp; └── 5</div>
+<div>└── c</div>
+<div>&nbsp; &nbsp; ├── 2.txt</div>
+<div>&nbsp; &nbsp; ├── 3.txt</div>
+<div>&nbsp; &nbsp; ├── 4.txt</div>
+<div>&nbsp; &nbsp; └── dir</div>
+<div>&nbsp;</div>
+<div>3 directories, 8 files</div>
+<div>igi@gentoo ~/test $ shopt -s globstar</div>
+<div>igi@gentoo ~/test $ shopt globstar</div>
+<div>globstar &nbsp; &nbsp; &nbsp; &nbsp;on</div>
+<div>igi@gentoo ~/test $ echo *</div>
+<div>a c</div>
+<div>igi@gentoo ~/test $ echo **</div>
+<div>a a/1 a/2 a/3 a/4 a/5 c c/2.txt c/3.txt c/4.txt c/dir</div>
+<div>igi@gentoo ~/test $ echo */</div>
+<div>a/ c/</div>
+<div>igi@gentoo ~/test $ echo **/</div>
+<div>a/ c/ c/dir/</div>
+<div>可以看到打开globstar后，**递归的匹配了所有文件和目录， 如果**后面跟着/(即是**/)，则只匹配目录。</div>
+<div>问题来了，如果递归显示以.txt结尾到文件，是不是**.txt? 非也，来看看</div>
+<div>&nbsp;</div>
+<div>igi@gentoo ~/test $ shopt -s globstar</div>
+<div>igi@gentoo ~/test $ shopt globstar</div>
+<div>globstar &nbsp; &nbsp; &nbsp; &nbsp;on</div>
+<div>igi@gentoo ~/test $ find . -name &#39;*.txt&#39;</div>
+<div>./a.txt</div>
+<div>./c/3.txt</div>
+<div>./c/2.txt</div>
+<div>./c/4.txt</div>
+<div>igi@gentoo ~/test $ echo **.txt</div>
+<div>a.txt</div>
+<div>igi@gentoo ~/test $ echo **/*.txt</div>
+<div>a.txt c/2.txt c/3.txt c/4.txt</div>
+<div>看到了吧，**.txt是无法递归的，而**/*.txt就可以了，同理， foo**这样也不行，**/foo*这样到才可以。</div>
+<div>这个功能是bash4才有的哦，使用之前，先确认下你到bash版本。</div>
+<div>&nbsp;</div>
+<div>接下来，我们来看看常见到错误</div>
+<div>1)用单引号或双引号包围了星号</div>
+<div>在&rsquo;Bash引号的那点事&lsquo;中我讲过，单引号中到字符都只有字符的原本意义，而双引号中，*号也是它本身到字符意义，在单双引号中，*号将失去它到魔力，这里就不再罗嗦</div>
+<div>如果在双引号中，$*将表示一个由所有参数拼接而成到字符串，上面已经提到过。</div>
+<div>&nbsp;</div>
+<div>2)没有考虑星号匹配不到任何文件的情况</div>
+<div>如果指定到目录下没有任何文件时，使用星号匹配，会有啥现象？</div>
+<div>&nbsp;</div>
+<div>igi@gentoo ~ $ rm -rf *</div>
+<div>igi@gentoo ~ $ ls</div>
+<div>igi@gentoo ~ $ echo *</div>
+<div>*</div>
+<div>看到了吧，如果星号匹配不到任何文件时，它变回了自己原本到意思(就是字符*)</div>
+<div>&nbsp;</div>
+<div>igi@gentoo ~ $ ls</div>
+<div>a &nbsp;b &nbsp;c &nbsp;d</div>
+<div>igi@gentoo ~ $ for i in *;do echo &quot;file: $i&quot; ;done</div>
+<div>file: a</div>
+<div>file: b</div>
+<div>file: c</div>
+<div>file: d</div>
+<div>igi@gentoo ~ $ rm -rf *</div>
+<div>igi@gentoo ~ $ ls</div>
+<div>igi@gentoo ~ $ for i in *;do echo &quot;file: $i&quot; ;done</div>
+<div>file: *</div>
+<div>只是一个echo时，似乎没多大问题，但你想想，如果你在for中对文件做某些操作，如果匹配不到，变成对*号文件进行操作，我想结果肯定不是你要的，多数情况下，我们想要是，匹配不到则不进行任何操作，有没有办法？办法很多，例如你可以先做个判断，bash中，有个nullglob, 利用它，我们可以直接达到我们要到效果。</div>
+<div>&nbsp;</div>
+<div>igi@gentoo ~ $ rm -rf *</div>
+<div>igi@gentoo ~ $ shopt nullglob</div>
+<div>nullglob &nbsp; &nbsp; &nbsp; &nbsp;off</div>
+<div>igi@gentoo ~ $ for i in *;do echo &quot;file: $i&quot;; done</div>
+<div>file: *</div>
+<div>igi@gentoo ~ $ shopt -s nullglob</div>
+<div>igi@gentoo ~ $ for i in *;do echo &quot;file: $i&quot;; done</div>
+<div>igi@gentoo ~ $</div>
+<div>当然你也可以设置failglob，使得匹配不到文件时报错，这里就不再罗嗦了。</div>
+<div>&nbsp;</div>
+<div>3)混淆模式匹配和正则</div>
+<div>先申明，这两者是不同到，这里不打算详细阐述，只列举些常见错误做法</div>
+<div>&nbsp;</div>
+<div>igi@gentoo ~/test $ ls</div>
+<div>foo-a-log &nbsp;foo-b-log &nbsp;foo-c-log &nbsp;zoo-a-log &nbsp;zoo-b-log &nbsp;zoo-c-log</div>
+<div>igi@gentoo ~/test $ ls foo.*</div>
+<div>ls: cannot access foo.*: No such file or directory</div>
+<div>igi@gentoo ~/test $ ls foo*</div>
+<div>foo-a-log &nbsp;foo-b-log &nbsp;foo-c-log</div>
+<div>.*在正则中匹配了所有，但请记住，shell中绝大多数用的是模式匹配([[ &quot;$string&quot; =~ RE ]]例外)</div>
+<div>在模式匹配中*匹配了所有，?匹配了单个字符，.号没有特殊意义，还是.号</div>
+<div>所以，第二个命令才是正确</div>
+						</dd></dl>
+		<script type="text/javascript">
+		<!--
+		$(function(){
+		  $('#Article img').LoadImage(true, 630, 560,'http://www.2cto.com/statics/images/s_nopic.gif');    
+		})
+		
+		//-->
+		</script>
+	<div id="pages" class="box_body" id="fontzoom">	</div>
+	<dl style="width:650px;height:100px;padding-top:10px;float:left;padding-left:10px">
+		<dd><script type="text/javascript">BAIDU_CLB_fillSlot("771048");</script></dd>
+	</dl>
+	<dl class="box_Nsc">
+		<dd class="lcopy"><a class="ckcopy" onclick="copyToClipBoard()">点击复制链接 与好友分享!</a><a class="ckhome" href="http://www.2cto.com/">回本站首页</a></dd>
+		<script> 
+		function copyToClipBoard(){ 
+		var clipBoardContent=document.title + '\r\n' + document.location; 
+		clipBoardContent+='\r\n'; 
+		window.clipboardData.setData("Text",clipBoardContent); 
+		alert("恭喜您！复制成功"); 
+		} 
+		</script>
+
+		<div class="Article-Tool">
+
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_mshare" data-cmd="mshare" title="分享到一键分享"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+                                
+	  </div>
+
+		
+		</dd>
+		<dd class="bbstt">您对本文章有什么意见或着疑问吗？请到<a href="http://bbs.2cto.com/">论坛讨论</a>您的关注和建议是我们前行的参考和动力&nbsp;&nbsp; </dd>
+	</dl>
+	<dl class="box_NPre">
+		<dd class="TLineX"><strong>上一篇：</strong><a href="http://www.2cto.com/os/201305/209976.html">VIM使用系列：.vimrc配置文件和项目管理脚本</a></dd>
+		<dd><strong>下一篇：</strong><a href="http://www.2cto.com/os/201305/210029.html">Bash空格的那点事</a></dd>
+	</dl>
+	<dl class="linetb"></dl>
+
+	<dl class="about"><dd>相关文章</dd></dl>
+				<div class="alistline"><a href="http://www.2cto.com/os/201006/50587.html" target=blank>SUSE Linux系统BASH下配置JAVA环境变量</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/os/201107/98092.html" target=blank> 为bash着色，设置多彩的终端</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/os/201109/103780.html" target=blank>Bash内置变量</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/os/201109/103781.html" target=blank> Bash数组</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/os/201112/115159.html" target=blank>Bash 使用技巧大补贴  </a></div>
+			<div class="alistline"><a href="http://www.2cto.com/os/201202/120793.html" target=blank>linux shell bash 比较操作</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/os/201203/124526.html" target=blank>AIX中的Bash颜色更改与配置</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/os/201206/136640.html" target=blank>ubuntu下source、sh、bash、./执行脚本</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/os/201206/137250.html" target=blank>bash echo去回车和翻译转义字符</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/os/201207/140507.html" target=blank>Linux命令行报bash:.....:command no</a></div>
+			<dl class="linetb"></dl>
+	<dl style="width:650px;height:70px;padding-top:10px;float:left;padding-left:10px">
+		<dd><script type="text/javascript">BAIDU_CLB_fillSlot("182716");</script></dd>
+	</dl>
+
+	<dl style="width:650px;float:left;padding-left:10px">
+		<dd><script type="text/javascript">BAIDU_CLB_fillSlot("517916");</script></dd>
+	</dl>
+	<dl class="linetb"></dl>
+	<dl class="about"><dd>图文推荐</dd></dl>
+	<div class="picbox">
+						<dl class="wbox">
+			<dd class="npicbox"><a target="_blank" href="http://www.2cto.com/os/201502/378216.html"><img src='http://www.2cto.com/uploadfile/Collfiles/20150226/thumb_126_90_2015022609420170.png'  width='126' height='90' border='0' /></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/os/201502/378216.html">Linux的/etc/inittab</a></dd>
+		</dl>
+				<dl class="wbox">
+			<dd class="npicbox"><a target="_blank" href="http://www.2cto.com/os/201502/376303.html"><img src='http://www.2cto.com/uploadfile/Collfiles/20150209/thumb_126_90_20150209094653123.png'  width='126' height='90' border='0' /></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/os/201502/376303.html">tftp/nfs等常用Linux</a></dd>
+		</dl>
+				<dl class="wbox">
+			<dd class="npicbox"><a target="_blank" href="http://www.2cto.com/os/201502/376277.html"><img src='http://www.2cto.com/uploadfile/Collfiles/20150209/thumb_126_90_2015020909464691.png'  width='126' height='90' border='0' /></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/os/201502/376277.html">Linux查看网络端口对</a></dd>
+		</dl>
+				<dl class="wbox">
+			<dd class="npicbox"><a target="_blank" href="http://www.2cto.com/os/201502/375962.html"><img src='http://www.2cto.com/uploadfile/Collfiles/20150207/thumb_126_90_2015020709452314.png'  width='126' height='90' border='0' /></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/os/201502/375962.html">redhat enterprise </a></dd>
+		</dl>
+					</div>
+
+<!--高速版，加载速度快，使用前需测试页面的兼容性-->
+<div id="SOHUCS"></div>
+<script>
+  (function(){
+    var appid = 'cyrBEfE7C',
+    conf = 'prod_830794cf494da8b808afb2994cfe0fee';
+    var doc = document,
+    s = doc.createElement('script'),
+    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+    s.type = 'text/javascript';
+    s.charset = 'utf-8';
+    s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+    h.insertBefore(s,h.firstChild);
+    window.SCS_NO_IFRAME = true;
+  })()
+</script> 
+
+
+	<dl style="width:650px;float:left;padding-left:10px">
+		<dd><script type="text/javascript">BAIDU_CLB_fillSlot("771057");</script></dd>
+	</dl>
+	</div>
+	<div class="box_right">
+		<div style="float:left;width:300px;background:white;padding-left:10px;height:250px">
+			<a target="_blank" href="http://vip.2cto.com/"><img src="http://www.2cto.com/adv/300-250.gif" width="300" height="250" /></a></div>
+		<div class="box_right_line"><div class="xline"></div></div>
+		<div class="box_right_box">
+			<dl class="bTitle"><dd onmousemove="m_tab(1)" id="indexW" class="tablinkschecked">排行</dd><dd onmousemove="m_tab(2)" id="hotW" class="tablinkscheck">热门</dd></dl>
+		</div>
+		<div class="box_right_box">
+			<div class="paddingbox">
+				<dl class="index" id="index">
+					<dd class="picline"></dd>
+															<dd class="list">301 | <a target="_blank" title="linux下查看磁盘空间" href="http://www.2cto.com/os/201207/142116.html">linux下查看磁盘空间</a></dd>
+										<dd class="list">259 | <a target="_blank" title="Linux tar打包命令" href="http://www.2cto.com/os/201109/103833.html">Linux tar打包命令</a></dd>
+										<dd class="list">236 | <a target="_blank" title="Ubuntu 12.04中文输入法的安装" href="http://www.2cto.com/os/201207/144189.html">Ubuntu 12.04中文输入法的安装</a></dd>
+										<dd class="list">217 | <a target="_blank" title="Linux下清除history历史记录" href="http://www.2cto.com/os/201308/239110.html">Linux下清除history历史记录</a></dd>
+										<dd class="list">166 | <a target="_blank" title="Cannot open /dev/ttyS0: Permission denied解决" href="http://www.2cto.com/os/201305/213722.html">Cannot open /dev/ttyS0: Permissi</a></dd>
+										<dd class="list">134 | <a target="_blank" title="CentOS 6下yum安装cacti" href="http://www.2cto.com/os/201107/97230.html">CentOS 6下yum安装cacti</a></dd>
+										<dd class="list">133 | <a target="_blank" title="php-fpm.conf重要参数max_children和request_terminate_timeout" href="http://www.2cto.com/os/201301/184035.html">php-fpm.conf重要参数max_children和r</a></dd>
+										<dd class="list">132 | <a target="_blank" title="Nginx配置文件nginx.conf中文详解（总结）" href="http://www.2cto.com/os/201212/176520.html">Nginx配置文件nginx.conf中文详解（总</a></dd>
+														</dl>
+				<dl class="index" id="hot" style="display:none">
+					<dd class="picline"></dd>
+															<dd class="list"><a target="_blank" title="Ubuntu 12.04中文输入法的安装" href="http://www.2cto.com/os/201207/144189.html">Ubuntu 12.04中文输入法的安装</a></dd>
+										<dd class="list"><a target="_blank" title="Linux tar打包命令" href="http://www.2cto.com/os/201109/103833.html">Linux tar打包命令</a></dd>
+										<dd class="list"><a target="_blank" title="linux下查看磁盘空间" href="http://www.2cto.com/os/201207/142116.html">linux下查看磁盘空间</a></dd>
+										<dd class="list"><a target="_blank" title="linux系统时间修改及同步" href="http://www.2cto.com/os/201109/103909.html">linux系统时间修改及同步</a></dd>
+										<dd class="list"><a target="_blank" title="linux 的date命令及系统时间设置" href="http://www.2cto.com/os/201108/102154.html">linux 的date命令及系统时间设置</a></dd>
+										<dd class="list"><a target="_blank" title="Linux tail 命令详解" href="http://www.2cto.com/os/201111/110143.html">Linux tail 命令详解</a></dd>
+										<dd class="list"><a target="_blank" title="LINUX下搭建FTP服务器" href="http://www.2cto.com/os/201107/98311.html">LINUX下搭建FTP服务器</a></dd>
+										<dd class="list"><a target="_blank" title="Nginx配置文件nginx.conf中文详解（总结）" href="http://www.2cto.com/os/201212/176520.html">Nginx配置文件nginx.conf中文详解（总</a></dd>
+														</dl>
+			</div>
+			<script type="text/javascript">
+			<!--
+				function m_tab(index)
+				{
+					if (index == 1){
+						document.getElementById("indexW").className = "tablinkschecked";
+						document.getElementById("hotW").className = "tablinkscheck";
+						document.getElementById("index").style.display = "block";
+						document.getElementById("hot").style.display = "none";
+					}
+					else{
+						document.getElementById("hotW").className = "tablinkschecked";
+						document.getElementById("indexW").className = "tablinkscheck";
+						document.getElementById("index").style.display = "none";
+						document.getElementById("hot").style.display = "block";
+					}
+				}
+			//-->
+			</script>
+		</div>
+		<div class="rightlineT"><div class="rxline"></div></div>
+		<div style="float:left;width:300px;background:white;padding-left:10px;height:60px">
+				<!-- 广告位：内容页右侧小广告位 -->
+			<script type="text/javascript">BAIDU_CLB_fillSlot("406189");</script>
+		</div>
+		<div class="rightlineT"><div class="rxline"></div></div>
+		<div style="float:left;width:300px;background:white;padding-left:10px;height:80px">
+				<!-- 广告位：内容页右侧小广告位 -->
+			<script type="text/javascript">BAIDU_CLB_fillSlot("703749");</script>
+		</div>
+		<div class="rightlineNo"></div>
+		<div class="box_right_box">
+			<dl class="bTitle borT"><dd class="newarc"></dd></dl>
+		</div>
+		<div class="box_right_box">
+			<div class="paddingbox">
+				<dl class="index">
+									<iframe frameborder="0" name="Iframe1" src="http://www.2cto.com/bbsdy/index.html" width="100%" height="200">	
+				您的浏览器不支持嵌入式框架，或者当前配置为不显示嵌入式框架。
+			</iframe>
+								</dl>
+			</div>
+		</div>
+                                <div class="rightlineT"><div class="rxline"></div></div>
+
+		<div style="float:left;width:300px;background:white;padding-left:10px;height:250px"><script type="text/javascript">BAIDU_CLB_fillSlot("182692");</script> </div>
+		<div class="box_right_line"><div class="xline"></div></div>
+		<div class="box_right_box">
+			<dl class="bTitle">
+				<dd onmousemove="m_tabs(1)" id="ArticlesW" class="tablinkschecked">文章</dd>
+				<dd onmousemove="m_tabs(2)" id="DownW" class="tablinkscheck">下载</dd>
+				<dd onmousemove="m_tabs(3)" id="BookW" class="tablinkscheck">读书</dd>
+			</dl>
+		</div>
+		<div class="box_right_box">
+			<div class="paddingbox">
+				<dl class="index" id="Articles">
+					<dd class="picline"></dd>
+															<dd class="list">·&nbsp;<a target="_blank" title="Win2000下关闭无用端口" href="http://www.2cto.com/Article/200410/1.html">Win2000下关闭无用端口</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="禁止非法用户登录综合设置 [win9x篇]" href="http://www.2cto.com/Article/200410/2.html">禁止非法用户登录综合设置 [win9x篇]</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="关上可恶的后门——消除NetBIOS隐患" href="http://www.2cto.com/Article/200410/3.html">关上可恶的后门——消除NetBIOS隐患</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="网络入侵检测系统" href="http://www.2cto.com/Article/200410/4.html">网络入侵检测系统</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="潜伏在Windows默认设置中的陷井" href="http://www.2cto.com/Article/200410/5.html">潜伏在Windows默认设置中的陷井</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="调制解调器的不安全" href="http://www.2cto.com/Article/200410/6.html">调制解调器的不安全</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="构建Windows 2000服务器的安全防护林" href="http://www.2cto.com/Article/200410/7.html">构建Windows 2000服务器的安全防护林</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="SQL Server 2000的安全配置" href="http://www.2cto.com/Article/200410/8.html">SQL Server 2000的安全配置</a></dd>
+														</dl>
+				<dl class="index" id="Down" style="display:none">
+					<dd class="picline"></dd>
+															<dd class="list">·&nbsp;<a target="_blank" title="Windows优化大师注册机源码" href="http://www.2cto.com/soft/200409/53.html">Windows优化大师注册机源码</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="Process Viewer 汉化版" href="http://www.2cto.com/soft/200409/62.html">Process Viewer 汉化版</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="Aspcode动画教程" href="http://www.2cto.com/soft/200409/79.html">Aspcode动画教程</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="WIN 2000服务器防止ICMP数据包攻击教程" href="http://www.2cto.com/soft/200409/128.html">WIN 2000服务器防止ICMP数据包攻击教程</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="实现网络隐身的简单方法" href="http://www.2cto.com/soft/200409/129.html">实现网络隐身的简单方法</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="手工进行克隆帐号" href="http://www.2cto.com/soft/200409/130.html">手工进行克隆帐号</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="用W32DASM破解网页合并器的密码" href="http://www.2cto.com/soft/200409/134.html">用W32DASM破解网页合并器的密码</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="注册表操作动画教程" href="http://www.2cto.com/soft/200409/138.html">注册表操作动画教程</a></dd>
+														</dl>
+				<dl class="index" id="Book" style="display:none">
+					<dd class="picline"></dd>
+															<dd class="list">·&nbsp;<a target="_blank" title="黑客攻防技术宝典：Web实战篇（第2版）" href="http://book.2cto.com/201206/20.html">黑客攻防技术宝典：Web实战篇（第2版）</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="超级网管员——网络安全" href="http://book.2cto.com/201207/43.html">超级网管员——网络安全</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="代码大全（第二版）" href="http://book.2cto.com/201207/64.html">代码大全（第二版）</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="软件之道:软件开发争议问题剖析" href="http://book.2cto.com/201207/68.html">软件之道:软件开发争议问题剖析</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="CSS插件工具箱" href="http://book.2cto.com/201207/78.html">CSS插件工具箱</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="CSS入门经典(第3版)" href="http://book.2cto.com/201207/139.html">CSS入门经典(第3版)</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="C#并行编程高级教程：精通.NET 4 Parallel Extension" href="http://book.2cto.com/201207/169.html">C#并行编程高级教程：精通.NET 4 Pa</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="CMMI+敏捷整合开发" href="http://book.2cto.com/201207/190.html">CMMI+敏捷整合开发</a></dd>
+														</dl>
+			</div>
+			<script type="text/javascript">
+			<!--
+				function m_tabs(index)
+				{
+					if (index == 1){
+						document.getElementById("ArticlesW").className = "tablinkschecked";
+						document.getElementById("DownW").className = "tablinkscheck";
+						document.getElementById("BookW").className = "tablinkscheck";
+						document.getElementById("Articles").style.display = "block";
+						document.getElementById("Down").style.display = "none";
+						document.getElementById("Book").style.display = "none";
+					}
+					else if (index == 2){
+						document.getElementById("ArticlesW").className = "tablinkscheck";
+						document.getElementById("DownW").className = "tablinkschecked";
+						document.getElementById("BookW").className = "tablinkscheck";
+						document.getElementById("Articles").style.display = "none";
+						document.getElementById("Down").style.display = "block";
+						document.getElementById("Book").style.display = "none";
+					}
+					else{
+						document.getElementById("ArticlesW").className = "tablinkscheck";
+						document.getElementById("DownW").className = "tablinkscheck";
+						document.getElementById("BookW").className = "tablinkschecked";
+						document.getElementById("Articles").style.display = "none";
+						document.getElementById("Down").style.display = "none";
+						document.getElementById("Book").style.display = "block";
+					}
+				}
+			//-->
+			</script>
+		</div>
+		<div class="rightlineNo"></div>
+		<div class="box_right_box">
+			<dl class="bTitle borT"><dd class="newdown"></dd></dl>
+		</div>
+		<div class="box_right_box">
+			<div class="paddingbox">
+				<dl class="index">
+															<dd class="picbox"><a target="_blank" class="plink" href="http://www.2cto.com/os/201110/109294.html"><img class='pic1' src='http://up.2cto.com/2011/1028/20111028121517768.png'  width='126' height='90' border='0' /></a><span><a href="http://www.2cto.com/os/201110/109294.html">Linux开启VNC桌面及加</a></span></dd>
+										<dd class="picbox"><a target="_blank" class="plink" href="http://www.2cto.com/os/201207/143614.html"><img class='pic1' src='http://up.2cto.com/2012/0726/20120726102655137.png'  width='126' height='90' border='0' /></a><span><a href="http://www.2cto.com/os/201207/143614.html">在U盘上安装Linux系统</a></span></dd>
+															<dd class="picline"></dd>
+															<dd class="list">&#9642;&nbsp;<a target="_blank" href="http://www.2cto.com/os/201110/109294.html">Linux开启VNC桌面及加密连接</a></dd>
+										<dd class="list">&#9642;&nbsp;<a target="_blank" href="http://www.2cto.com/os/201203/123708.html">BackTrack5完全配置</a></dd>
+										<dd class="list">&#9642;&nbsp;<a target="_blank" href="http://www.2cto.com/os/201207/141873.html">linux下开机启动DB2,WAS,TDS服务</a></dd>
+										<dd class="list">&#9642;&nbsp;<a target="_blank" href="http://www.2cto.com/os/201207/143614.html">在U盘上安装Linux系统解决方案</a></dd>
+										<dd class="list">&#9642;&nbsp;<a target="_blank" href="http://www.2cto.com/os/201207/144253.html">Ubuntu 12.04下安装QQ 2012 Beta3</a></dd>
+										<dd class="list">&#9642;&nbsp;<a target="_blank" href="http://www.2cto.com/os/201208/146522.html">CentOS 6.3安装nginx操作指南</a></dd>
+										<dd class="list">&#9642;&nbsp;<a target="_blank" href="http://www.2cto.com/os/201208/146986.html">CentOS 5.5安装图解</a></dd>
+										<dd class="list">&#9642;&nbsp;<a target="_blank" href="http://www.2cto.com/os/201210/163194.html">Ubuntu Server 12.04 LTS安装指引</a></dd>
+														</dl>
+			</div>
+			<div class="xline"></div>
+		</div>
+		<div class="box_right_line"><div class="xline"></div></div>
+		<div style="float:left;width:300px;background:white;padding-left:10px;height:250px">
+			<script type="text/javascript">BAIDU_CLB_fillSlot("771043");</script></div>
+		<div class="box_right_line"><div class="xline"></div></div>
+	</div>
+</div>
+<script type="text/javascript">
+<!--
+function showLogin(){
+	window.art.dialog({id:'Login',iframe:'http://www.2cto.com/index.php?m=member&c=index&a=login&tupe=mini', title:'快捷登陆', width:'450', height:'310', lock:true}, function(){var d = window.art.dialog({id:'Login'}).data.iframe;var form = d.document.getElementById('dosubmit');form.click();return false;}, function(){window.art.dialog({id:'Login'}).close()});void(0);
+}
+function add_favorite(title) {
+		$.getJSON('http://www.2cto.com/api.php?op=add_favorite&title='+encodeURIComponent(title)+'&url='+encodeURIComponent(location.href)+'&'+Math.random()+'&callback=?', function(data){
+			if(data.status==1)	{
+				$("#favorite").html('收藏成功');
+			} else {
+				alert('请登陆');
+				window.location.href='http://home.2cto.com/?forward='+encodeURIComponent(location.href);
+			}
+		});
+	}
+//-->
+</script>
+<script language="JavaScript" src="http://www.2cto.com/api.php?op=count&id=210024&modelid=1"></script>
+<!-- 广告位：右侧漂浮 -->
+<script type="text/javascript">BAIDU_CLB_fillSlot("137946");</script>
+
+<div style="width:980px;padding:8px 0px 8px 0px;margin:auto"><script type="text/javascript">BAIDU_CLB_fillSlot("333829");</script></div>
+<div class="foot">
+<p>
+<a target="_blank" href="http://www.2cto.com/about">关于我们</a> |
+<a target="_blank" href="http://www.2cto.com/about/contact.html">联系我们</a> |
+<a target="_blank" href="http://www.2cto.com/about/ads.html">广告服务</a> |
+<a target="_blank" href="http://www.2cto.com/about/touzi.html">投资合作</a> |
+<a target="_blank" href="http://www.2cto.com/about/Copyright.html">版权申明</a> |
+<a target="_blank" href="http://www.2cto.com/about/faq.html">在线帮助</a> |
+<a target="_blank" href="http://www.2cto.com/about/map.html">网站地图</a> |
+<a target="_blank" href="http://www.2cto.com/about/tg.html">作品发布</a> |
+<a target="_blank" href="http://vip.2cto.com/"><span style="COLOR: red">Vip技术培训</span></a>
+<br />
+<span class="style4">版权所有: <a href="http://www.2cto.com" target="_blank">红黑联盟</a>--致力于做最好的IT技术学习网站<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F1898984a3d796e86ad73ad1f4bc9f240' type='text/javascript'%3E%3C/script%3E"));
+</script>    
+</span>
+</div></body>
+
+</html>

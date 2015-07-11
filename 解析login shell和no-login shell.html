@@ -1,0 +1,455 @@
+<!DOCTYPE html PUBliC "-//W3C//dtD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/dtD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<link rel="stylesheet" href="http://www.2cto.com/statics/css/article.css" type="text/css" />
+
+<link href="http://www.2cto.com/statics/css/dialog.css" rel="stylesheet" type="text/css" />
+<title>解析login shell和no-login shell - Linux操作系统：Ubuntu_Centos_Debian - 红黑联盟</title>
+<meta name="keywords" content="解析,login,shell" />
+<meta name="description" content="解析login shell和no-login shelllogin shell：取得bash 时需要完整的登入流程，就称为login shell。举例来说，同tty1~tty6登入时， 需要输入用户名和密码，此时取得的bash就称为login shellnon-login s..." />
+<script type="text/javascript" src="http://www.2cto.com/statics/js/jquery.min.js"></script>
+<script type="text/javascript" src="http://www.2cto.com/statics/js/jquery.sgallery.js"></script>
+<script type="text/javascript" src="http://www.2cto.com/statics/js/search_common.js"></script>
+<script type="text/javascript" src="http://cbjs.baidu.com/js/m.js"></script>
+<script type="text/javascript" src="http://www.2cto.com/statics/js/json.js"></script>
+<script language="javascript" type="text/javascript" src="http://www.2cto.com/statics/js/dialog.js"></script>
+
+
+</head>
+
+<body>
+<div class="line_top_box">
+	<dl class="top_box_left">
+		<dd class="left_logo"><a href="http://www.2cto.com"></a></dd>
+		<dd class="left_menu_link">
+																<a class='Channel' href='/News/'>资讯</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/Article/'>安全</a>&nbsp;|&nbsp;
+													<a class='Channel' href='http://bbs.2cto.com'>论坛</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/Soft/'>下载</a>&nbsp;|&nbsp;
+													<a class='Channel' href='http://book.2cto.com'>读书</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/kf/'>程序开发</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/database/'>数据库</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/os/'>系统</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/net/'>网络</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/ebook/'>电子书</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/weixin/'>微信学院</a>&nbsp;|&nbsp;
+													<a class='Channel' href='http://zz.2cto.com/'>站长学院</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/ym/'>源码</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/QQ/'>QQ</a>&nbsp;|&nbsp;
+													<a class='Channel' href='http://space.2cto.com'>专栏</a>&nbsp;|&nbsp;
+													<a class='Channel' href='/px/'>考试</a>&nbsp;|&nbsp;
+														</dd>
+	</dl>
+</div>
+<div class="line_top_lmbox">
+	<dl class="lmpic"></dl>
+	<dl class="lmlinkbox"><dd>
+										<a class='Channel' href='http://www.2cto.com/os/linux/'>Linux</a>|
+							<a class='Channel' href='http://www.2cto.com/os/windows/'>Windows</a>|
+							<a class='Channel' href='http://www.2cto.com/os/dos/'>Dos命令行</a>|
+							<a class='Channel' href='http://www.2cto.com/os/liulanqi/'>浏览器</a>|
+							<a class='Channel' href='http://www.2cto.com/os/xuniji/'>虚拟机</a>|
+							<a class='Channel' href='http://www.2cto.com/os/qita/'>其他</a>|
+								</dd></dl>
+	<dl class="LoginBox"><dd><script type="text/javascript">document.write('<iframe src="http://www.2cto.com/index.php?m=member&c=index&a=mini&forward='+encodeURIComponent(location.href)+'&siteid=1" allowTransparency="true"  width="150" height="32" frameborder="0" scrolling="no"></iframe>')</script></dd></dl>
+</div>
+<div class="divline8"></div>
+<div class="tadv">
+
+<a target="_blank" href="http://vip.2cto.com/"><img src="http://www.2cto.com/adv/980-80.gif" width="980" height="90" /></a>
+<!-- 广告位：顶部banner -->
+<script type="text/javascript">BAIDU_CLB_fillSlot("298612");</script>
+
+</div>
+
+
+<div class="divline8"></div>
+<div class="it165_box">
+	<div class="box_left">
+		
+		<dl class="box_p">
+			<dd class="pRight"><a href="http://www.2cto.com">首页</a><span> > </span><a href="http://www.2cto.com/os/">系统</a> > <a href="http://www.2cto.com/os/linux/">Linux</a> >  正文</dd>
+			<script type="text/javascript">BAIDU_CLB_fillSlot("703722");</script>
+			</dl>
+		<dl class="box_t"><dd>解析login shell和no-login shell</dd></dl>
+																										<dl class="box_INFO">
+			<dd class="frinfo line_blue">2013-06-29  &nbsp;&nbsp;&nbsp;&nbsp;
+
+<a style="font-weight:bold;padding:5px 0px 5px 20px;background:url('http://www.2cto.com/statics/images/icon/user_comment.png') left center no-repeat" href="#SOHUCS" id="changyan_count_unit"></a><a href="#SOHUCS">&nbsp;个评论</a>
+<script type="text/javascript" src="http://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+
+&nbsp;&nbsp;  &nbsp;&nbsp;  作者：pstar</dd>
+			<dd class="frsize line_blue">
+			<span id='favorite'>
+				<a href="javascript:;" onclick="add_favorite('解析login shell和no-login shell');" class="t6">收藏</a>
+			</span>&nbsp;&nbsp;
+				<a target="_blank" href="http://www.2cto.com/index.php?m=member&c=content&a=publish&modid=1&siteid=1"><img border="0" src="http://www.2cto.com/statics/images/dl.jpg" />我要投稿</a>
+			</dd>
+			
+		</dl>
+		<dl class="box_body" id="fontzoom"><dd id="Article">
+		<div>解析login shell和no-login shell</div>
+<div>&nbsp;</div>
+<div>login shell：取得bash 时需要完整的登入流程，就称为login shell。举例来说，同tty1~tty6登入时， 需要输入用户名和密码，此时取得的bash就称为login shell</div>
+<div>&nbsp;</div>
+<div>non-login shell:取得bash介面的方法不需要重复登入的动作。</div>
+<div>&nbsp;</div>
+<div>举两个例子</div>
+<div>（1）以X window登入linux后，再以X 的图形化介面启动终端机，此时那个终端机并不需要再次的输入用户名和密码，那个bash的环境就称为non-login shell</div>
+<div>（2）在原本的bash环境中再次下达bash这个指令，同样没有要求输入用户名和密码，那个第二个bash也是non-login shell</div>
+<div>&nbsp;</div>
+<div>login shell 和 no-login shell 的执行顺序：</div>
+<div>Login shells：</div>
+<div>/etc/profile</div>
+<div>&nbsp; &nbsp; /etc/profile.d</div>
+<div>~/.bash_profile</div>
+<div>&nbsp; &nbsp; ~/.bashrc</div>
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /etc/bashrc</div>
+<div>&nbsp;</div>
+<div>Non-login shells：</div>
+<div>~/.bashrc</div>
+<div>&nbsp; &nbsp; /etc/bashrc</div>
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /etc/profile.d</div>
+<div>&nbsp;</div>
+<div>注意：</div>
+<div>/etc/profile：整个<a href="http://www.2cto.com/os/" target="_blank" class="keylink">系统</a>的环境</div>
+<div>放在~里的是个人设置，一般放在~/.bashrc</div>
+<div>&nbsp;</div>
+<div>如果想执行当前目录的脚本,有2种方法： 可以运行./script.sh &nbsp;(需要有可执行权限)</div>
+<div>(1)使bash新生成一个子bash来执行，例如：./script.sh (需要有可执行权限)。在此情况下, 脚本对环境变量的更改只对子bash有效.</div>
+<div>(2) 可使用source命令来直接执行脚本(可用&#39;.&#39;来代替source). 它与上面的方法有两点区别:</div>
+<div>&nbsp; &nbsp; &nbsp;1, 脚本文件不需要执行权限.</div>
+<div>&nbsp; &nbsp; &nbsp;2, 就在当前bash中执行, bash不会新fork一个子bash来执行它, 所以脚本对环境变量的更改会影响到当前bash.</div>
+<div>所以当希望使修改的环境变量生效，用source即可。</div>
+<div>&nbsp;</div>
+						</dd></dl>
+		<script type="text/javascript">
+		<!--
+		$(function(){
+		  $('#Article img').LoadImage(true, 630, 560,'http://www.2cto.com/statics/images/s_nopic.gif');    
+		})
+		
+		//-->
+		</script>
+	<div id="pages" class="box_body" id="fontzoom">	</div>
+	<dl style="width:650px;height:100px;padding-top:10px;float:left;padding-left:10px">
+		<dd><script type="text/javascript">BAIDU_CLB_fillSlot("771048");</script></dd>
+	</dl>
+	<dl class="box_Nsc">
+		<dd class="lcopy"><a class="ckcopy" onclick="copyToClipBoard()">点击复制链接 与好友分享!</a><a class="ckhome" href="http://www.2cto.com/">回本站首页</a></dd>
+		<script> 
+		function copyToClipBoard(){ 
+		var clipBoardContent=document.title + '\r\n' + document.location; 
+		clipBoardContent+='\r\n'; 
+		window.clipboardData.setData("Text",clipBoardContent); 
+		alert("恭喜您！复制成功"); 
+		} 
+		</script>
+
+		<div class="Article-Tool">
+
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_mshare" data-cmd="mshare" title="分享到一键分享"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+                                
+	  </div>
+
+		
+		</dd>
+		<dd class="bbstt">您对本文章有什么意见或着疑问吗？请到<a href="http://bbs.2cto.com/">论坛讨论</a>您的关注和建议是我们前行的参考和动力&nbsp;&nbsp; </dd>
+	</dl>
+	<dl class="box_NPre">
+		<dd class="TLineX"><strong>上一篇：</strong><a href="http://www.2cto.com/os/201306/223761.html">shell脚本中的$默认变量</a></dd>
+		<dd><strong>下一篇：</strong><a href="http://www.2cto.com/os/201306/223763.html">如何使用ssh-keygen生成key</a></dd>
+	</dl>
+	<dl class="linetb"></dl>
+
+	<dl class="about"><dd>相关文章</dd></dl>
+				<div class="alistline"><a href="http://www.2cto.com/os/200804/25994.html" target=blank>Apache服务器中限制针对某一目录的CGI</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/os/200907/40297.html" target=blank>防止apache的php扩展名解析漏洞</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/os/201004/46852.html" target=blank>apache的php扩展名解析漏洞</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/os/201006/50466.html" target=blank>Linux系统下Samba Server的配置文件解</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/os/201006/50674.html" target=blank>关于Linux操作系统makefile实例详细解</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/os/201006/50682.html" target=blank>Linux操作系统下配置Tomcat多个实例解</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/os/201006/50689.html" target=blank>实例解析：Linux操作系统上SSH无法启动</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/os/201006/50708.html" target=blank>实例解析：Uboot对非Linux kernel的引</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/os/201008/54317.html" target=blank>实例解析：找回丢失的Linux系统Grub密</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/os/201009/74496.html" target=blank>解析Linux操作系统僵尸进程</a></div>
+			<dl class="linetb"></dl>
+	<dl style="width:650px;height:70px;padding-top:10px;float:left;padding-left:10px">
+		<dd><script type="text/javascript">BAIDU_CLB_fillSlot("182716");</script></dd>
+	</dl>
+
+	<dl style="width:650px;float:left;padding-left:10px">
+		<dd><script type="text/javascript">BAIDU_CLB_fillSlot("517916");</script></dd>
+	</dl>
+	<dl class="linetb"></dl>
+	<dl class="about"><dd>图文推荐</dd></dl>
+	<div class="picbox">
+						<dl class="wbox">
+			<dd class="npicbox"><a target="_blank" href="http://www.2cto.com/os/201502/378216.html"><img src='http://www.2cto.com/uploadfile/Collfiles/20150226/thumb_126_90_2015022609420170.png'  width='126' height='90' border='0' /></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/os/201502/378216.html">Linux的/etc/inittab</a></dd>
+		</dl>
+				<dl class="wbox">
+			<dd class="npicbox"><a target="_blank" href="http://www.2cto.com/os/201502/376303.html"><img src='http://www.2cto.com/uploadfile/Collfiles/20150209/thumb_126_90_20150209094653123.png'  width='126' height='90' border='0' /></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/os/201502/376303.html">tftp/nfs等常用Linux</a></dd>
+		</dl>
+				<dl class="wbox">
+			<dd class="npicbox"><a target="_blank" href="http://www.2cto.com/os/201502/376277.html"><img src='http://www.2cto.com/uploadfile/Collfiles/20150209/thumb_126_90_2015020909464691.png'  width='126' height='90' border='0' /></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/os/201502/376277.html">Linux查看网络端口对</a></dd>
+		</dl>
+				<dl class="wbox">
+			<dd class="npicbox"><a target="_blank" href="http://www.2cto.com/os/201502/375962.html"><img src='http://www.2cto.com/uploadfile/Collfiles/20150207/thumb_126_90_2015020709452314.png'  width='126' height='90' border='0' /></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/os/201502/375962.html">redhat enterprise </a></dd>
+		</dl>
+					</div>
+
+<!--高速版，加载速度快，使用前需测试页面的兼容性-->
+<div id="SOHUCS"></div>
+<script>
+  (function(){
+    var appid = 'cyrBEfE7C',
+    conf = 'prod_830794cf494da8b808afb2994cfe0fee';
+    var doc = document,
+    s = doc.createElement('script'),
+    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+    s.type = 'text/javascript';
+    s.charset = 'utf-8';
+    s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+    h.insertBefore(s,h.firstChild);
+    window.SCS_NO_IFRAME = true;
+  })()
+</script> 
+
+
+	<dl style="width:650px;float:left;padding-left:10px">
+		<dd><script type="text/javascript">BAIDU_CLB_fillSlot("771057");</script></dd>
+	</dl>
+	</div>
+	<div class="box_right">
+		<div style="float:left;width:300px;background:white;padding-left:10px;height:250px">
+			<a target="_blank" href="http://vip.2cto.com/"><img src="http://www.2cto.com/adv/300-250.gif" width="300" height="250" /></a></div>
+		<div class="box_right_line"><div class="xline"></div></div>
+		<div class="box_right_box">
+			<dl class="bTitle"><dd onmousemove="m_tab(1)" id="indexW" class="tablinkschecked">排行</dd><dd onmousemove="m_tab(2)" id="hotW" class="tablinkscheck">热门</dd></dl>
+		</div>
+		<div class="box_right_box">
+			<div class="paddingbox">
+				<dl class="index" id="index">
+					<dd class="picline"></dd>
+															<dd class="list">314 | <a target="_blank" title="linux下查看磁盘空间" href="http://www.2cto.com/os/201207/142116.html">linux下查看磁盘空间</a></dd>
+										<dd class="list">279 | <a target="_blank" title="Linux tar打包命令" href="http://www.2cto.com/os/201109/103833.html">Linux tar打包命令</a></dd>
+										<dd class="list">245 | <a target="_blank" title="Ubuntu 12.04中文输入法的安装" href="http://www.2cto.com/os/201207/144189.html">Ubuntu 12.04中文输入法的安装</a></dd>
+										<dd class="list">217 | <a target="_blank" title="Linux下清除history历史记录" href="http://www.2cto.com/os/201308/239110.html">Linux下清除history历史记录</a></dd>
+										<dd class="list">137 | <a target="_blank" title="Nginx配置文件nginx.conf中文详解（总结）" href="http://www.2cto.com/os/201212/176520.html">Nginx配置文件nginx.conf中文详解（总</a></dd>
+										<dd class="list">134 | <a target="_blank" title="CentOS 6下yum安装cacti" href="http://www.2cto.com/os/201107/97230.html">CentOS 6下yum安装cacti</a></dd>
+										<dd class="list">133 | <a target="_blank" title="php-fpm.conf重要参数max_children和request_terminate_timeout" href="http://www.2cto.com/os/201301/184035.html">php-fpm.conf重要参数max_children和r</a></dd>
+										<dd class="list">127 | <a target="_blank" title="Linux如何在vi里搜索关键字" href="http://www.2cto.com/os/201308/238732.html">Linux如何在vi里搜索关键字</a></dd>
+														</dl>
+				<dl class="index" id="hot" style="display:none">
+					<dd class="picline"></dd>
+															<dd class="list"><a target="_blank" title="Ubuntu 12.04中文输入法的安装" href="http://www.2cto.com/os/201207/144189.html">Ubuntu 12.04中文输入法的安装</a></dd>
+										<dd class="list"><a target="_blank" title="Linux tar打包命令" href="http://www.2cto.com/os/201109/103833.html">Linux tar打包命令</a></dd>
+										<dd class="list"><a target="_blank" title="linux下查看磁盘空间" href="http://www.2cto.com/os/201207/142116.html">linux下查看磁盘空间</a></dd>
+										<dd class="list"><a target="_blank" title="linux系统时间修改及同步" href="http://www.2cto.com/os/201109/103909.html">linux系统时间修改及同步</a></dd>
+										<dd class="list"><a target="_blank" title="linux 的date命令及系统时间设置" href="http://www.2cto.com/os/201108/102154.html">linux 的date命令及系统时间设置</a></dd>
+										<dd class="list"><a target="_blank" title="Linux tail 命令详解" href="http://www.2cto.com/os/201111/110143.html">Linux tail 命令详解</a></dd>
+										<dd class="list"><a target="_blank" title="LINUX下搭建FTP服务器" href="http://www.2cto.com/os/201107/98311.html">LINUX下搭建FTP服务器</a></dd>
+										<dd class="list"><a target="_blank" title="Nginx配置文件nginx.conf中文详解（总结）" href="http://www.2cto.com/os/201212/176520.html">Nginx配置文件nginx.conf中文详解（总</a></dd>
+														</dl>
+			</div>
+			<script type="text/javascript">
+			<!--
+				function m_tab(index)
+				{
+					if (index == 1){
+						document.getElementById("indexW").className = "tablinkschecked";
+						document.getElementById("hotW").className = "tablinkscheck";
+						document.getElementById("index").style.display = "block";
+						document.getElementById("hot").style.display = "none";
+					}
+					else{
+						document.getElementById("hotW").className = "tablinkschecked";
+						document.getElementById("indexW").className = "tablinkscheck";
+						document.getElementById("index").style.display = "none";
+						document.getElementById("hot").style.display = "block";
+					}
+				}
+			//-->
+			</script>
+		</div>
+		<div class="rightlineT"><div class="rxline"></div></div>
+		<div style="float:left;width:300px;background:white;padding-left:10px;height:60px">
+				<!-- 广告位：内容页右侧小广告位 -->
+			<script type="text/javascript">BAIDU_CLB_fillSlot("406189");</script>
+		</div>
+		<div class="rightlineT"><div class="rxline"></div></div>
+		<div style="float:left;width:300px;background:white;padding-left:10px;height:80px">
+				<!-- 广告位：内容页右侧小广告位 -->
+			<script type="text/javascript">BAIDU_CLB_fillSlot("703749");</script>
+		</div>
+		<div class="rightlineNo"></div>
+		<div class="box_right_box">
+			<dl class="bTitle borT"><dd class="newarc"></dd></dl>
+		</div>
+		<div class="box_right_box">
+			<div class="paddingbox">
+				<dl class="index">
+									<iframe frameborder="0" name="Iframe1" src="http://www.2cto.com/bbsdy/index.html" width="100%" height="200">	
+				您的浏览器不支持嵌入式框架，或者当前配置为不显示嵌入式框架。
+			</iframe>
+								</dl>
+			</div>
+		</div>
+                                <div class="rightlineT"><div class="rxline"></div></div>
+
+		<div style="float:left;width:300px;background:white;padding-left:10px;height:250px"><script type="text/javascript">BAIDU_CLB_fillSlot("182692");</script> </div>
+		<div class="box_right_line"><div class="xline"></div></div>
+		<div class="box_right_box">
+			<dl class="bTitle">
+				<dd onmousemove="m_tabs(1)" id="ArticlesW" class="tablinkschecked">文章</dd>
+				<dd onmousemove="m_tabs(2)" id="DownW" class="tablinkscheck">下载</dd>
+				<dd onmousemove="m_tabs(3)" id="BookW" class="tablinkscheck">读书</dd>
+			</dl>
+		</div>
+		<div class="box_right_box">
+			<div class="paddingbox">
+				<dl class="index" id="Articles">
+					<dd class="picline"></dd>
+															<dd class="list">·&nbsp;<a target="_blank" title="Win2000下关闭无用端口" href="http://www.2cto.com/Article/200410/1.html">Win2000下关闭无用端口</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="禁止非法用户登录综合设置 [win9x篇]" href="http://www.2cto.com/Article/200410/2.html">禁止非法用户登录综合设置 [win9x篇]</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="关上可恶的后门——消除NetBIOS隐患" href="http://www.2cto.com/Article/200410/3.html">关上可恶的后门——消除NetBIOS隐患</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="网络入侵检测系统" href="http://www.2cto.com/Article/200410/4.html">网络入侵检测系统</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="潜伏在Windows默认设置中的陷井" href="http://www.2cto.com/Article/200410/5.html">潜伏在Windows默认设置中的陷井</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="调制解调器的不安全" href="http://www.2cto.com/Article/200410/6.html">调制解调器的不安全</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="构建Windows 2000服务器的安全防护林" href="http://www.2cto.com/Article/200410/7.html">构建Windows 2000服务器的安全防护林</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="SQL Server 2000的安全配置" href="http://www.2cto.com/Article/200410/8.html">SQL Server 2000的安全配置</a></dd>
+														</dl>
+				<dl class="index" id="Down" style="display:none">
+					<dd class="picline"></dd>
+															<dd class="list">·&nbsp;<a target="_blank" title="Windows优化大师注册机源码" href="http://www.2cto.com/soft/200409/53.html">Windows优化大师注册机源码</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="Process Viewer 汉化版" href="http://www.2cto.com/soft/200409/62.html">Process Viewer 汉化版</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="Aspcode动画教程" href="http://www.2cto.com/soft/200409/79.html">Aspcode动画教程</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="WIN 2000服务器防止ICMP数据包攻击教程" href="http://www.2cto.com/soft/200409/128.html">WIN 2000服务器防止ICMP数据包攻击教程</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="实现网络隐身的简单方法" href="http://www.2cto.com/soft/200409/129.html">实现网络隐身的简单方法</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="手工进行克隆帐号" href="http://www.2cto.com/soft/200409/130.html">手工进行克隆帐号</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="用W32DASM破解网页合并器的密码" href="http://www.2cto.com/soft/200409/134.html">用W32DASM破解网页合并器的密码</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="注册表操作动画教程" href="http://www.2cto.com/soft/200409/138.html">注册表操作动画教程</a></dd>
+														</dl>
+				<dl class="index" id="Book" style="display:none">
+					<dd class="picline"></dd>
+															<dd class="list">·&nbsp;<a target="_blank" title="黑客攻防技术宝典：Web实战篇（第2版）" href="http://book.2cto.com/201206/20.html">黑客攻防技术宝典：Web实战篇（第2版）</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="超级网管员——网络安全" href="http://book.2cto.com/201207/43.html">超级网管员——网络安全</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="代码大全（第二版）" href="http://book.2cto.com/201207/64.html">代码大全（第二版）</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="软件之道:软件开发争议问题剖析" href="http://book.2cto.com/201207/68.html">软件之道:软件开发争议问题剖析</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="CSS插件工具箱" href="http://book.2cto.com/201207/78.html">CSS插件工具箱</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="CSS入门经典(第3版)" href="http://book.2cto.com/201207/139.html">CSS入门经典(第3版)</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="C#并行编程高级教程：精通.NET 4 Parallel Extension" href="http://book.2cto.com/201207/169.html">C#并行编程高级教程：精通.NET 4 Pa</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="CMMI+敏捷整合开发" href="http://book.2cto.com/201207/190.html">CMMI+敏捷整合开发</a></dd>
+														</dl>
+			</div>
+			<script type="text/javascript">
+			<!--
+				function m_tabs(index)
+				{
+					if (index == 1){
+						document.getElementById("ArticlesW").className = "tablinkschecked";
+						document.getElementById("DownW").className = "tablinkscheck";
+						document.getElementById("BookW").className = "tablinkscheck";
+						document.getElementById("Articles").style.display = "block";
+						document.getElementById("Down").style.display = "none";
+						document.getElementById("Book").style.display = "none";
+					}
+					else if (index == 2){
+						document.getElementById("ArticlesW").className = "tablinkscheck";
+						document.getElementById("DownW").className = "tablinkschecked";
+						document.getElementById("BookW").className = "tablinkscheck";
+						document.getElementById("Articles").style.display = "none";
+						document.getElementById("Down").style.display = "block";
+						document.getElementById("Book").style.display = "none";
+					}
+					else{
+						document.getElementById("ArticlesW").className = "tablinkscheck";
+						document.getElementById("DownW").className = "tablinkscheck";
+						document.getElementById("BookW").className = "tablinkschecked";
+						document.getElementById("Articles").style.display = "none";
+						document.getElementById("Down").style.display = "none";
+						document.getElementById("Book").style.display = "block";
+					}
+				}
+			//-->
+			</script>
+		</div>
+		<div class="rightlineNo"></div>
+		<div class="box_right_box">
+			<dl class="bTitle borT"><dd class="newdown"></dd></dl>
+		</div>
+		<div class="box_right_box">
+			<div class="paddingbox">
+				<dl class="index">
+															<dd class="picbox"><a target="_blank" class="plink" href="http://www.2cto.com/os/201110/109294.html"><img class='pic1' src='http://up.2cto.com/2011/1028/20111028121517768.png'  width='126' height='90' border='0' /></a><span><a href="http://www.2cto.com/os/201110/109294.html">Linux开启VNC桌面及加</a></span></dd>
+										<dd class="picbox"><a target="_blank" class="plink" href="http://www.2cto.com/os/201207/143614.html"><img class='pic1' src='http://up.2cto.com/2012/0726/20120726102655137.png'  width='126' height='90' border='0' /></a><span><a href="http://www.2cto.com/os/201207/143614.html">在U盘上安装Linux系统</a></span></dd>
+															<dd class="picline"></dd>
+															<dd class="list">&#9642;&nbsp;<a target="_blank" href="http://www.2cto.com/os/201110/109294.html">Linux开启VNC桌面及加密连接</a></dd>
+										<dd class="list">&#9642;&nbsp;<a target="_blank" href="http://www.2cto.com/os/201203/123708.html">BackTrack5完全配置</a></dd>
+										<dd class="list">&#9642;&nbsp;<a target="_blank" href="http://www.2cto.com/os/201207/141873.html">linux下开机启动DB2,WAS,TDS服务</a></dd>
+										<dd class="list">&#9642;&nbsp;<a target="_blank" href="http://www.2cto.com/os/201207/143614.html">在U盘上安装Linux系统解决方案</a></dd>
+										<dd class="list">&#9642;&nbsp;<a target="_blank" href="http://www.2cto.com/os/201207/144253.html">Ubuntu 12.04下安装QQ 2012 Beta3</a></dd>
+										<dd class="list">&#9642;&nbsp;<a target="_blank" href="http://www.2cto.com/os/201208/146522.html">CentOS 6.3安装nginx操作指南</a></dd>
+										<dd class="list">&#9642;&nbsp;<a target="_blank" href="http://www.2cto.com/os/201208/146986.html">CentOS 5.5安装图解</a></dd>
+										<dd class="list">&#9642;&nbsp;<a target="_blank" href="http://www.2cto.com/os/201210/163194.html">Ubuntu Server 12.04 LTS安装指引</a></dd>
+														</dl>
+			</div>
+			<div class="xline"></div>
+		</div>
+		<div class="box_right_line"><div class="xline"></div></div>
+		<div style="float:left;width:300px;background:white;padding-left:10px;height:250px">
+			<script type="text/javascript">BAIDU_CLB_fillSlot("771043");</script></div>
+		<div class="box_right_line"><div class="xline"></div></div>
+	</div>
+</div>
+<script type="text/javascript">
+<!--
+function showLogin(){
+	window.art.dialog({id:'Login',iframe:'http://www.2cto.com/index.php?m=member&c=index&a=login&tupe=mini', title:'快捷登陆', width:'450', height:'310', lock:true}, function(){var d = window.art.dialog({id:'Login'}).data.iframe;var form = d.document.getElementById('dosubmit');form.click();return false;}, function(){window.art.dialog({id:'Login'}).close()});void(0);
+}
+function add_favorite(title) {
+		$.getJSON('http://www.2cto.com/api.php?op=add_favorite&title='+encodeURIComponent(title)+'&url='+encodeURIComponent(location.href)+'&'+Math.random()+'&callback=?', function(data){
+			if(data.status==1)	{
+				$("#favorite").html('收藏成功');
+			} else {
+				alert('请登陆');
+				window.location.href='http://home.2cto.com/?forward='+encodeURIComponent(location.href);
+			}
+		});
+	}
+//-->
+</script>
+<script language="JavaScript" src="http://www.2cto.com/api.php?op=count&id=223762&modelid=1"></script>
+<!-- 广告位：右侧漂浮 -->
+<script type="text/javascript">BAIDU_CLB_fillSlot("137946");</script>
+
+<div style="width:980px;padding:8px 0px 8px 0px;margin:auto"><script type="text/javascript">BAIDU_CLB_fillSlot("333829");</script></div>
+<div class="foot">
+<p>
+<a target="_blank" href="http://www.2cto.com/about">关于我们</a> |
+<a target="_blank" href="http://www.2cto.com/about/contact.html">联系我们</a> |
+<a target="_blank" href="http://www.2cto.com/about/ads.html">广告服务</a> |
+<a target="_blank" href="http://www.2cto.com/about/touzi.html">投资合作</a> |
+<a target="_blank" href="http://www.2cto.com/about/Copyright.html">版权申明</a> |
+<a target="_blank" href="http://www.2cto.com/about/faq.html">在线帮助</a> |
+<a target="_blank" href="http://www.2cto.com/about/map.html">网站地图</a> |
+<a target="_blank" href="http://www.2cto.com/about/tg.html">作品发布</a> |
+<a target="_blank" href="http://vip.2cto.com/"><span style="COLOR: red">Vip技术培训</span></a>
+<br />
+<span class="style4">版权所有: <a href="http://www.2cto.com" target="_blank">红黑联盟</a>--致力于做最好的IT技术学习网站<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F1898984a3d796e86ad73ad1f4bc9f240' type='text/javascript'%3E%3C/script%3E"));
+</script>    
+</span>
+</div></body>
+
+</html>
