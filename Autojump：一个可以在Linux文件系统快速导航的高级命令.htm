@@ -1,0 +1,482 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<title>Autojump：一个可以在 Linux 文件系统快速导航的高级 cd 命令_Linux教程_Linux公社-Linux系统门户网站</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+<link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
+<link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon"/>
+<meta name="description" content="对于那些主要通过控制台或终端使用 Linux 命令行来工作的 Linux 用户来说，他们真切地感受到了 Linux 的强大。 然而在 Linux 的分"/>
+<meta name="keywords" content="Autojump,Linux命令,Autojump：一个可以在 Linux 文件系统快速导航的高级 cd 命令,Linux,Linux教程,Linux系统,Linux安装,Ubuntu,Fedora,RedHat,SUSE,CentOS,红旗Linux"/>
+<link rel="canonical" href="http://www.linuxidc.com/Linux/2015-08/121421.htm"/>
+<meta name="generator" content="Linux公社"/>
+<meta name="generator" content="Linux"/>
+<link rel="stylesheet" href="../../style/systems/style.css" type="text/css"/>
+<meta name="generator" content="专业的Linux网站"/>
+<script type="text/javascript" src="../../inc/jquery.js"></script>
+<script type="text/javascript" src="../../inc/iwms.js"></script>
+<script type="text/javascript">iwms.urlPrefix="../../";</script>
+
+<script type="text/javascript" src="../../inc/show.js"></script>
+</head>
+<body>
+<div class="topBar">
+	<div class="twidth">
+	
+	<div style="float:right">
+		<script type="text/javascript" src="../../inc/language.js"></script>
+	</div>
+	
+	<div id="topUser">你好，游客 <a href="#" onclick="iwms.logPop()">登录</a>
+	<a href="../../memberreg.aspx" rel="nofollow">注册</a>
+	<a href="../../search.aspx" rel="nofollow">搜索</a>
+	</div>
+	</div>
+</div>
+<div class="twidth">
+<div id="sitehead">
+<div class="l"></div>
+<div class="r"></div>
+<div class="m">
+	<table width="100%">
+	<tr align="center"><td width="160">
+	<a href="http://www.linuxidc.com/"><img style="filter: chroma(color=#FFFFFF);" src="../../pic/logo.jpg" alt="Linux公社" width="155" height="53" border="0" /></a>
+	</td><td>
+	<div align="center"><script src="/linuxfile/linux.js" type="text/javascript" language="javaScript"></script></div>
+	</td>
+	</tr></table>
+</div>
+</div>
+<div id="navbar">
+<div class="l"></div>
+<div class="r"></div>
+<div class="m">
+	<a href="../../index.htm" class="first">首页</a><a href="../../it/">Linux新闻</a><a href="../../Linuxit/" class="thisclass">Linux教程</a><a href="../../MySql/">数据库技术</a><a href="../../RedLinux/">Linux编程</a><a href="../../Apache/">服务器应用</a><a href="../../Unix/">Linux安全</a><a href="../../download/">Linux下载</a><a href="../../Linuxrz/">Linux认证</a><a href="../../theme/">Linux主题</a><a href="../../Linuxwallpaper/">Linux壁纸</a><a href="../../linuxsoft/">Linux软件</a><a href="../../digi/">数码</a><a href="../../mobile/">手机</a><a href="../../diannao/">电脑</a>
+
+</div>
+</div>
+
+<div id="navsub">
+<div class="l"></div>
+<div class="r"></div>
+<div class="m">
+	<a href="../../index.htm">首页</a> → <a href="../../Linuxit/">Linux教程</a>
+</div>
+</div>
+<div class="linuxe1"><script type="text/javascript" language="javaScript" src="/linuxfile/linuxe1.js"></script></div>
+<div class="linux1"><script type="text/javascript" language="javaScript" src="/linuxfile/linux1.js"></script></div>
+<div class="linuxa"><script type="text/javascript" language="javaScript" src="/linuxfile/linuxa.js"></script></div>
+<div class="linuxa1"><script type="text/javascript" language="javaScript" src="/linuxfile/linuxa1.js"></script></div>
+<table id="middle" width="100%" cellspacing="0" cellpadding="0" style="table-layout:fixed">
+<tr valign="top"><td>
+
+	<div class="mframe mR">
+	<div class="tl"></div>
+	<div class="tr"></div>
+	<div class="tm">
+		<div class="moreR">
+			背景：<script type="text/javascript">WriteBg()</script>
+		</div>
+		<span class="tt">阅读新闻</span>
+	</div>
+	<div class="wrapper">
+	<div class="ml"></div>
+	<div class="mr"></div>
+	<div class="mm" id="bodyTd">
+		<div id="printBody" style="word-break:break-all;">
+			<div style="text-align:center"><h1 class="aTitle">Autojump：一个可以在 Linux 文件系统快速导航的高级 cd 命令</h1></div>
+			
+			<table width="97%" align="center">
+				<tr>
+				<td width="140">[日期：2015-08-10]</td>
+				<td align="center">来源：Linux中国&nbsp;
+				作者：Linux</td>
+				<td width="160" align="right">[字体：<a href="javascript:ContentSize(16)">大</a> <a href="javascript:ContentSize(0)">中</a> <a href="javascript:ContentSize(12)">小</a>]
+				</td></tr>
+			</table>
+<div id="li_all">
+<div id="li_1"><script type="text/javascript" src="/linuxfile/linux201.js"></script></div>
+<div id="li_2"><script type="text/javascript" src="/linuxfile/linux2.js"></script></div>
+</div>
+			<div id="content"><div class="linux19"><script type="text/javascript" language="javaScript" src="/linuxfile/linux19.js"></script></div> <p>对于那些主要通过控制台或终端使用 Linux 命令行来工作的 Linux 用户来说，他们真切地感受到了 Linux 的强大。 然而在 Linux 的分层文件系统中进行导航有时或许是一件头疼的事，尤其是对于那些新手来说。</p>
+<p>现在，有一个用 Python 写的名为 <code>autojump</code> 的 Linux 命令行实用程序，它是 Linux &lsquo;cd&rsquo;命令的高级版本。</p>
+<p class="article_img"><img src="../../upload/2015_08/150810113071791.jpg" alt="Autojump 命令" /></p>
+<p class="article_img_desc"><em>Autojump &ndash; Linux 文件系统导航的最快方式</em></p>
+<p>这个应用原本由 Jo&euml;l Schaerer 编写，现在由 +William Ting 维护。</p>
+<p>Autojump 应用可以从用户那里学习并帮助用户在 Linux 命令行中进行更轻松的目录导航。与传统的 <code>cd</code> 命令相比，autojump 能够更加快速地导航至目的目录。</p>
+<h4 id="toc_1">autojump 的特色</h4>
+<ul>
+<li>自由开源的应用，在 GPL V3 协议下发布。</li>
+<li>自主学习的应用，从用户的导航习惯中学习。</li>
+<li>更快速地导航。不必包含子目录的名称。</li>
+<li>对于大多数的标准 Linux 发行版本，能够在软件仓库中下载得到，它们包括 Debian (testing/unstable), <a href="http://www.linuxidc.com/topicnews.aspx?tid=2" target="_blank" title="Ubuntu">Ubuntu</a>, Mint, Arch, Gentoo, Slackware, <a href="http://www.linuxidc.com/topicnews.aspx?tid=14" target="_blank" title="CentOS">CentOS</a>, <a href="http://www.linuxidc.com/topicnews.aspx?tid=10" target="_blank" title="RedHat">RedHat</a> 和 <a href="http://www.linuxidc.com/topicnews.aspx?tid=5" target="_blank" title="Fedora">Fedora</a>。</li>
+<li>也能在其他平台中使用，例如 OS X(使用 Homebrew) 和 Windows (通过 Clink 来实现)</li>
+<li>使用 autojump 你可以跳至任何特定的目录或一个子目录。你还可以用文件管理器打开某个目录，并查看你在某个目录中所待时间的统计数据。</li>
+</ul>
+<h4 id="toc_2">前提</h4>
+<ul>
+<li>版本号不低于 2.6 的 Python</li>
+</ul>
+<p>&nbsp;</p>
+<h4 id="toc_3">第 1 步: 做一次完整的系统升级</h4>
+<p>1、 以 <strong>root</strong> 用户的身份，做一次系统更新或升级，以此保证你安装有最新版本的 Python。</p>
+<ol class="linenums">
+<li class="L0"><code><span class="com"># apt-get update &amp;&amp; apt-get upgrade &amp;&amp; apt-get dist-upgrade [基于 APT 的系统]</span></code></li>
+<li class="L1"><code><span class="com"># yum update &amp;&amp; yum upgrade [基于 YUM 的系统]</span></code></li>
+<li class="L2"><code><span class="com"># dnf update &amp;&amp; dnf upgrade [基于 DNF 的系统]</span></code></li>
+</ol>
+<p><strong>注</strong> : 这里特别提醒，在基于 YUM 或 DNF 的系统中，更新和升级执行相同的行动，大多数时间里它们是通用的，这点与基于 APT 的系统不同。</p>
+<p>&nbsp;</p>
+<h4 id="toc_4">第 2 步: 下载和安装 Autojump</h4>
+<p>2、 正如前面所言，在大多数的 Linux 发行版本的软件仓库中， autojump 都可获取到。通过包管理器你就可以安装它。但若你想从源代码开始来安装它，你需要克隆源代码并执行 python 脚本，如下面所示：</p>
+<p>&nbsp;</p>
+<h4 id="toc_5">从源代码安装</h4>
+<p>若没有安装 git，请安装它。我们需要使用它来克隆 git 仓库。</p>
+<ol class="linenums">
+<li class="L0"><code><span class="com"># apt-get install git [基于 APT 的系统]</span></code></li>
+<li class="L1"><code><span class="com"># yum install git [基于 YUM 的系统]</span></code></li>
+<li class="L2"><code><span class="com"># dnf install git [基于 DNF 的系统]</span></code></li>
+</ol>
+<p>一旦安装完 git，以普通用户身份登录，然后像下面那样来克隆 autojump：</p>
+<ol class="linenums">
+<li class="L0"><code><span class="pln">$ git clone git</span><span class="pun">:</span><span class="com">//github.com/joelthelion/autojump.git</span></code></li>
+</ol>
+<p>接着，使用 <code>cd</code> 命令切换到下载目录。</p>
+<ol class="linenums">
+<li class="L0"><code><span class="pln">$ cd autojump</span></code></li>
+</ol>
+<p>下载，赋予安装脚本文件可执行权限，并以 root 用户身份来运行安装脚本。</p>
+<ol class="linenums">
+<li class="L0"><code><span class="com"># chmod 755 install.py</span></code></li>
+<li class="L1"><code><span class="com"># ./install.py</span></code></li>
+</ol>
+<p>&nbsp;</p>
+<h4 id="toc_6">从软件仓库中安装</h4>
+<p>3、 假如你不想麻烦，你可以以 <strong>root</strong> 用户身份从软件仓库中直接安装它:</p>
+<p>在 Debian, Ubuntu, Mint 及类似系统中安装 autojump :</p>
+<ol class="linenums">
+<li class="L0"><code><span class="com"># apt-get install autojump</span></code></li>
+</ol>
+<p>为了在 Fedora, CentOS, RedHat 及类似系统中安装 autojump, 你需要启用 <a href="../../Linux/2013-12/93433.htm">EPEL 软件仓库</a>。<a href="../../Linux/2013-12/93433.htm">http://www.linuxidc.com/Linux/2013-12/93433.htm</a></p>
+<ol class="linenums">
+<li class="L0"><code><span class="com"># yum install epel-release</span></code></li>
+<li class="L1"><code><span class="com"># yum install autojump</span></code></li>
+<li class="L2"><code><span class="pun">或</span></code></li>
+<li class="L3"><code><span class="com"># dnf install autojump</span></code></li>
+</ol>
+<p>&nbsp;</p>
+<h4 id="toc_7">第 3 步: 安装后的配置</h4>
+<p>4、 在 Debian 及其衍生系统 (Ubuntu, Mint,&hellip;) 中, 激活 autojump 应用是非常重要的。</p>
+<p>为了暂时激活 autojump 应用，即直到你关闭当前会话或打开一个新的会话之前让 autojump 均有效，你需要以常规用户身份运行下面的命令:</p>
+<ol class="linenums">
+<li class="L0"><code><span class="pln">$ source </span><span class="pun">/</span><span class="pln">usr</span><span class="pun">/</span><span class="pln">share</span><span class="pun">/</span><span class="pln">autojump</span><span class="pun">/</span><span class="pln">autojump</span><span class="pun">.</span><span class="pln">sh on startup</span></code></li>
+</ol>
+<p>为了使得 autojump 在 BASH shell 中永久有效，你需要运行下面的命令。</p>
+<ol class="linenums">
+<li class="L0"><code><span class="pln">$ echo </span><span class="str">'. /usr/share/autojump/autojump.sh'</span><span class="pun">&gt;&gt;</span><span class="pun">~/.</span><span class="pln">bashrc</span></code></li>
+</ol>
+<p>&nbsp;</p>
+<h4 id="toc_8">第 4 步: Autojump 的预测试和使用</h4>
+<p>5、 如先前所言， autojump 将只跳到先前 <code>cd</code> 命令到过的目录。所以在我们开始测试之前，我们要使用 <code>cd</code> 切换到一些目录中去，并创建一些目录。下面是我所执行的命令。</p>
+<ol class="linenums">
+<li class="L0"><code><span class="pln">$ cd</span></code></li>
+<li class="L1"><code><span class="pln">$ cd</span></code></li>
+<li class="L2"><code><span class="pln">$ cd </span><span class="typ">Desktop</span><span class="pun">/</span></code></li>
+<li class="L3"><code><span class="pln">$ cd</span></code></li>
+<li class="L4"><code><span class="pln">$ cd </span><span class="typ">Documents</span><span class="pun">/</span></code></li>
+<li class="L5"><code><span class="pln">$ cd</span></code></li>
+<li class="L6"><code><span class="pln">$ cd </span><span class="typ">Downloads</span><span class="pun">/</span></code></li>
+<li class="L7"><code><span class="pln">$ cd</span></code></li>
+<li class="L8"><code><span class="pln">$ cd </span><span class="typ">Music</span><span class="pun">/</span></code></li>
+<li class="L9"><code><span class="pln">$ cd</span></code></li>
+<li class="L0"><code><span class="pln">$ cd </span><span class="typ">Pictures</span><span class="pun">/</span></code></li>
+<li class="L1"><code><span class="pln">$ cd</span></code></li>
+<li class="L2"><code><span class="pln">$ cd </span><span class="typ">Public</span><span class="pun">/</span></code></li>
+<li class="L3"><code><span class="pln">$ cd</span></code></li>
+<li class="L4"><code><span class="pln">$ cd </span><span class="typ">Templates</span></code></li>
+<li class="L5"><code><span class="pln">$ cd</span></code></li>
+<li class="L6"><code><span class="pln">$ cd </span><span class="pun">/</span><span class="kwd">var</span><span class="pun">/</span><span class="pln">www</span><span class="pun">/</span></code></li>
+<li class="L7"><code><span class="pln">$ cd</span></code></li>
+<li class="L8"><code><span class="pln">$ mkdir autojump</span><span class="pun">-</span><span class="pln">test</span><span class="pun">/</span></code></li>
+<li class="L9"><code><span class="pln">$ cd</span></code></li>
+<li class="L0"><code><span class="pln">$ mkdir autojump</span><span class="pun">-</span><span class="pln">test</span><span class="pun">/</span><span class="pln">a</span><span class="pun">/</span><span class="pun">&amp;&amp;</span><span class="pln"> cd autojump</span><span class="pun">-</span><span class="pln">test</span><span class="pun">/</span><span class="pln">a</span><span class="pun">/</span></code></li>
+<li class="L1"><code><span class="pln">$ cd</span></code></li>
+<li class="L2"><code><span class="pln">$ mkdir autojump</span><span class="pun">-</span><span class="pln">test</span><span class="pun">/</span><span class="pln">b</span><span class="pun">/</span><span class="pun">&amp;&amp;</span><span class="pln"> cd autojump</span><span class="pun">-</span><span class="pln">test</span><span class="pun">/</span><span class="pln">b</span><span class="pun">/</span></code></li>
+<li class="L3"><code><span class="pln">$ cd</span></code></li>
+<li class="L4"><code><span class="pln">$ mkdir autojump</span><span class="pun">-</span><span class="pln">test</span><span class="pun">/</span><span class="pln">c</span><span class="pun">/</span><span class="pun">&amp;&amp;</span><span class="pln"> cd autojump</span><span class="pun">-</span><span class="pln">test</span><span class="pun">/</span><span class="pln">c</span><span class="pun">/</span></code></li>
+<li class="L5"><code><span class="pln">$ cd</span></code></li>
+</ol>
+<p>现在，我们已经切换到过上面所列的目录，并为了测试创建了一些目录，一切准备就绪，让我们开始吧。</p>
+<p><strong>需要记住的一点</strong> : <code>j</code> 是 autojump 的一个封装，你可以使用 <code>j</code> 来代替 autojump， 相反亦可。</p>
+<p>6、 使用 -v 选项查看安装的 autojump 的版本。</p>
+<ol class="linenums">
+<li class="L0"><code><span class="pln">$ j </span><span class="pun">-</span><span class="pln">v</span></code></li>
+<li class="L1"><code><span class="pun">或</span></code></li>
+<li class="L2"><code><span class="pln">$ autojump </span><span class="pun">-</span><span class="pln">v</span></code></li>
+</ol>
+<p class="article_img"><img src="../../upload/2015_08/150810113071792.png" alt="查看 Autojump 的版本" /></p>
+<p class="article_img_desc"><em>查看 Autojump 的版本</em></p>
+<p>7、 跳到先前到过的目录 &lsquo;/var/www&lsquo;。</p>
+<ol class="linenums">
+<li class="L0"><code><span class="pln">$ j www</span></code></li>
+</ol>
+<p class="article_img"><img src="../../upload/2015_08/150810113071793.png" alt="跳到目录" /></p>
+<p class="article_img_desc"><em>跳到目录</em></p>
+<p>8、 跳到先前到过的子目录&lsquo;/home/avi/autojump-test/b&lsquo; 而不键入子目录的全名。</p>
+<ol class="linenums">
+<li class="L0"><code><span class="pln">$ jc b</span></code></li>
+</ol>
+<p class="article_img"><img src="../../upload/2015_08/150810113071796.png" alt="跳到子目录" /></p>
+<p class="article_img_desc"><em>跳到子目录</em></p>
+<p>9、 使用下面的命令，你就可以从命令行打开一个文件管理器，例如 GNOME Nautilus ，而不是跳到一个目录。</p>
+<ol class="linenums">
+<li class="L0"><code><span class="pln">$ jo www</span></code></li>
+</ol>
+<p class="article_img"><img src="../../upload/2015_08/150810113071795.png" alt="打开目录" /></p>
+<p class="article_img_desc"><em>打开目录</em></p>
+<p class="article_img"><img style="cursor: pointer; width: 734px;" src="../../upload/2015_08/150810113071794.png" alt="在文件管理器中打开目录" /></p>
+<p class="article_img_desc"><em>在文件管理器中打开目录</em></p>
+<p>你也可以在一个文件管理器中打开一个子目录。</p>
+<ol class="linenums">
+<li class="L0"><code><span class="pln">$ jco c</span></code></li>
+</ol>
+<p class="article_img"><img src="../../upload/2015_08/150810113071797.png" alt="打开子目录" /></p>
+<p class="article_img_desc"><em>打开子目录</em></p>
+<p class="article_img"><img style="cursor: pointer; width: 734px;" src="../../upload/2015_08/150810113071798.png" alt="在文件管理器中打开子目录" /></p>
+<p class="article_img_desc"><em>在文件管理器中打开子目录</em></p>
+<p>10、 查看每个文件夹的权重和全部文件夹计算得出的总权重的统计数据。文件夹的权重代表在这个文件夹中所花的总时间。 文件夹权重是该列表中目录的数字。(LCTT 译注: 在这一句中，我觉得原文中的 if 应该为 is)</p>
+<ol class="linenums">
+<li class="L0"><code><span class="pln">$ j </span><span class="pun">--</span><span class="pln">stat</span></code></li>
+</ol>
+<p class="article_img"><img src="../../upload/2015_08/150810113071799.png" alt="查看文件夹统计数据" /></p>
+<p class="article_img_desc"><em>查看文件夹统计数据</em></p>
+<p><strong>提醒</strong> : autojump 存储其运行日志和错误日志的地方是文件夹 <code>~/.local/share/autojump/</code>。千万不要重写这些文件，否则你将失去你所有的统计状态结果。</p>
+<ol class="linenums">
+<li class="L0"><code><span class="pln">$ ls </span><span class="pun">-</span><span class="pln">l </span><span class="pun">~</span><span class="str">/.local/</span><span class="pln">share</span><span class="pun">/</span><span class="pln">autojump</span><span class="pun">/</span></code></li>
+</ol>
+<p class="article_img"><img src="../../upload/2015_08/1508101130717910.png" alt="Autojump 的日志" /></p>
+<p class="article_img_desc"><em>Autojump 的日志</em></p>
+<p>11、 假如需要，你只需运行下面的命令就可以查看帮助 :</p>
+<ol class="linenums">
+<li class="L0"><code><span class="pln">$ j </span><span class="pun">--</span><span class="pln">help</span></code></li>
+</ol>
+<p class="article_img"><img style="cursor: pointer; width: 734px;" src="../../upload/2015_08/1508101130717911.png" alt="Autojump 的帮助和选项" /></p>
+<p class="article_img_desc"><em>Autojump 的帮助和选项</em></p>
+<p>&nbsp;</p>
+<h4 id="toc_9">功能需求和已知的冲突</h4>
+<ul>
+<li>autojump 只能让你跳到那些你已经用 <code>cd</code> 到过的目录。一旦你用 <code>cd</code> 切换到一个特定的目录，这个行为就会被记录到 autojump 的数据库中，这样 autojump 才能工作。不管怎样，在你设定了 autojump 后，你不能跳到那些你没有用 <code>cd</code> 到过的目录。</li>
+<li>你不能跳到名称以破折号 (-) 开头的目录。或许你可以考虑阅读我的有关<a href="http://www.tecmint.com/manage-linux-filenames-with-special-characters/">操作文件或目录</a> 的文章，尤其是有关操作那些以&lsquo;-&lsquo; 或其他特殊字符开头的文件和目录的内容。</li>
+<li>在 BASH shell 中，autojump 通过修改 <code>$PROMPT_COMMAND</code> 环境变量来跟踪目录的行为，所以强烈建议不要去重写 <code>$PROMPT_COMMAND</code> 这个环境变量。若你需要添加其他的命令到现存的 <code>$PROMPT_COMMAND</code> 环境变量中，请添加到<code>$PROMPT_COMMAND</code> 环境变量的最后。</li>
+</ul>
+<p>&nbsp;</p>
+<h4 id="toc_10">结论:</h4>
+<p>假如你是一个命令行用户， autojump 是你必备的实用程序。它可以简化许多事情。它是一个在命令行中导航 Linux 目录的绝佳的程序。请自行尝试它，并在下面的评论框中让我知晓你宝贵的反馈。保持联系，保持分享。喜爱并分享，帮助我们更好地传播。</p>
+<hr />
+<p>via: <a href="http://www.tecmint.com/autojump-a-quickest-way-to-navigate-linux-filesystem/" target="_blank">Autojump - An Advanced 'cd' Command to Quickly Navigate Linux Filesystem</a></p>
+<p>作者：<a href="http://www.tecmint.com/author/avishek/">Avishek Kumar</a> 译者：<a href="https://github.com/FSSlc">FSSlc</a> 校对：<a href="https://github.com/wxy">wxy</a></p>
+<p>本文由 <a href="https://github.com/LCTT/TranslateProject">LCTT</a> 原创翻译，<a href="https://linux.cn/">Linux中国</a> 荣誉推出</p>
+<p><span style="font-size: small;"><strong>本文永久更新链接地址</strong></span>：<a href="../../Linux/2015-08/121421.htm">http://www.linuxidc.com/Linux/2015-08/121421.htm</a></p><a href="http://www.linuxidc.com" target="_blank"><img src="/linuxfile/logo.gif" alt="linux" width="15" height="17" /></div>
+<div class="linux301"><script type="text/javascript" src="/linuxfile/linux301.js"></script></div>
+<div class="linux3"><script type="text/javascript" src="/linuxfile/linux3.js"></script></div>
+<div class="linux302"><script type="text/javascript" src="/linuxfile/linux302.js"></script></div>		
+			
+			
+		</div>
+		<div style="padding:0 15px">
+			<ul id="digg" class="digg">
+				<li class="digg1">0</li>
+				<li class="digg2"><a href="###" onclick="iwms.diggIt(this,iwms.aId)">顶一下</a></li>
+			</ul>	
+		</div>
+<div class="linuxfx"><script type="text/javascript" language="javaScript" src="/linuxfile/fx.js"></script></div>	
+<div class="linux8"><script type="text/javascript" language="javaScript" src="/linuxfile/linux8.js"></script></div>
+<div class="linux801"><script type="text/javascript" language="javaScript" src="/linuxfile/linux801.js"></script></div>
+		<div class="nearNews">
+			<div class="prevNews"><a href="../../Linux/2015-08/121415.htm">Linux 新手常用命令</a></div>
+			<div class="nextNews"><a href="../../Linux/2015-08/121422.htm">pfSense 2.2.4通过iso镜像进行本地硬盘安装</a></div>
+		</div>
+	</div>
+	</div>
+	<div class="bl"></div>
+	<div class="br"></div>
+	<div class="bm"></div>
+	</div>
+	
+	<div class="mframe mR">
+	<div class="tl"></div>
+	<div class="tr"></div>
+	<div class="tm">
+		<span class="tt">相关资讯</span> &nbsp; &nbsp; &nbsp;
+		<a href="../../search.aspx?where=nkey&amp;keyword=984" target="_blank">Linux命令</a>&nbsp; <a href="../../search.aspx?where=nkey&amp;keyword=30404" target="_blank">autojump</a>&nbsp; 
+	</div>
+	<div class="wrapper">
+	<div class="ml"></div>
+	<div class="mr"></div>
+	<div class="mm">
+		<table width='100%'><tr><td width='50%' valign='top'><ul class='nl'><li><a href="../../Linux/2015-08/121202.htm"  target="_blank"  title="Linux命令教程:du命令 查看磁盘空间">Linux命令教程:du命令 查看磁盘空</a>&nbsp; <span class="gray">(08月06日)</span></li>
+<li><a href="../../Linux/2015-08/121195.htm"  target="_blank"  title="Linux命令教程:cat命令 查看文件内容">Linux命令教程:cat命令 查看文件内</a>&nbsp; <span class="gray">(08月06日)</span></li>
+<li><a href="../../Linux/2015-07/120561.htm"  target="_blank" >Linux里命令的对话框whiptail</a>&nbsp; <span class="gray">(07月25日)</span></li>
+</ul></td><td width='50%' valign='top'><ul class='nl'><li><a href="../../Linux/2015-08/121196.htm"  target="_blank"  title="Linux命令教程: Ubuntu的apt-get命令">Linux命令教程: Ubuntu的apt-get命</a>&nbsp; <span class="gray">(08月06日)</span></li>
+<li><a href="../../Linux/2015-07/120578.htm"  target="_blank" >Linux命令的类型</a>&nbsp; <span class="gray">(07月26日)</span></li>
+<li><a href="../../Linux/2015-04/115791.htm"  target="_blank" >Linux ./configure --prefix命令</a>&nbsp; <span class="gray">(04月04日)</span></li>
+</ul></td></tr></table>
+	</div>
+	</div>
+	<div class="bl"></div>
+	<div class="br"></div>
+	<div class="bm"></div>
+	</div>
+
+	<div class="mframe mR">
+	<div class="tl"></div>
+	<div class="tr"></div>
+	<div class="tm">
+		<span class="tt">图片资讯</span> &nbsp; &nbsp; &nbsp;
+	</div>
+	<div class="wrapper">
+	<div class="ml"></div>
+	<div class="mr"></div>
+	<div class="mm">
+<div class="imgList"><ul><li style="width:25%"><a href="../../Linux/2015-03/115305.htm"  target="_blank"  title="20个 Unix/Linux 命令技巧"><img src="../../upload/2015_03/150322081292371t.jpg" alt="20个 Unix/Linux 命令技巧" width="120" height="90"/>20个 Unix/Linux 命令</a></li><li style="width:25%"><a href="../../Linux/2015-02/112804.htm"  target="_blank"  title="常用Linux命令之APT-GET"><img src="../../upload/2015_02/150204064898271t.jpg" alt="常用Linux命令之APT-GET" width="120" height="90"/>常用Linux命令之APT-</a></li><li style="width:25%"><a href="../../Linux/2015-02/112637.htm"  target="_blank"  title="20条Linux命令面试问答"><img src="../../upload/2015_02/150201172747751t.jpg" alt="20条Linux命令面试问答" width="120" height="90"/>20条Linux命令面试问</a></li><li style="width:25%"><a href="../../Linux/2014-12/110103.htm"  target="_blank"  title="Linux基础教程：全面学习 pwd 命令"><img src="../../upload/2014_12/141203095528761t.jpg" alt="Linux基础教程：全面学习 pwd 命令" width="120" height="90"/>Linux基础教程：全面</a></li><li style="width:25%"><a href="../../Linux/2014-11/109038.htm"  target="_blank"  title="9 个需要注意使用的 Linux 命令"><img src="../../upload/2014_11/14110608501417t.jpg" alt="9 个需要注意使用的 Linux 命令" width="120" height="90"/>9 个需要注意使用的 </a></li><li style="width:25%"><a href="../../Linux/2014-08/105920.htm"  target="_blank"  title="Linux slabtop命令——显示内核片缓存信息"><img src="../../upload/2014_08/140828123226511t.jpg" alt="Linux slabtop命令——显示内核片缓存信息" width="120" height="90"/>Linux slabtop命令—</a></li><li style="width:25%"><a href="../../Linux/2014-08/105819.htm"  target="_blank"  title="badblocks命令检查Linux中硬盘损坏的扇区和区块"><img src="../../upload/2014_08/140825204836321t.jpg" alt="badblocks命令检查Linux中硬盘损坏的扇区和区块" width="120" height="90"/>badblocks命令检查</a></li><li style="width:25%"><a href="../../Linux/2014-08/105429.htm"  target="_blank"  title="Linux系统中‘dmesg’命令处理故障和收集系统信息的7种用法"><img src="../../upload/2014_08/140811212355951t.jpg" alt="Linux系统中‘dmesg’命令处理故障和收集系统信息的7种用法" width="120" height="90"/>Linux系统中‘dmesg’</a></li></ul></div>
+	</div>
+	</div>
+	<div class="bl"></div>
+	<div class="br"></div>
+	<div class="bm"></div>
+	</div>
+	
+	
+	<div class="mframe mR">
+	<div class="tl"></div>
+	<div class="tr"></div>
+	<div class="tm">
+		<span class="tt">本文评论</span>
+		 	　　<a href="../../remark.aspx?id=121421" target="_blank">查看全部评论</a> <span class="gray">(0)</span>
+	</div>
+	<div class="wrapper">
+	<div class="ml"></div>
+	<div class="mr"></div>
+	<div class="mm">
+		<table width="100%" style="margin:6px">		
+		<tr><td width="100%">
+			<form action="" name="fmRemarkSt" onsubmit="return remark.post(this);">
+			<input type="hidden" value="1" name="face"/>
+			表情： <img src="../../pic/b.gif" alt="表情" class="face1" style="cursor:pointer;vertical-align:middle" onclick="remark.dispFace(this)" onmouseout="remark.hideFace()"/>
+			姓名： <input type="text" name="username" value="" maxlength="15" style="width:60px" class="inputbg"/>
+			<input type="checkbox" id="rmAnonymitySt" onclick="remark.anony(this)"/><label for="rmAnonymitySt">匿名</label>
+			字数 <input type="text" id="bodyLen" size="3" readonly="readonly" style="border-width:0;background:transparent;vertical-align:middle" value="0"/>
+			<br/>
+			<textarea name="body" cols="40" rows="4" onkeydown="remark.dispLen(this)" onkeyup="remark.handle(event,this);remark.dispLen(this)" style="width:40em;height:100px;margin:3px 0;overflow-y:auto"></textarea>
+				<br/>
+		　　　<input type="checkbox" checked="checked" id="rmAgreeSt"/><label for="rmAgreeSt">同意评论声明</label>
+		　　　<button type="submit" style="width:50px">发表</button>
+			</form>
+		</td></tr>
+		<tr><td width="100%">
+			评论声明
+			<ul style="list-style-type:square;margin:5px 0 0 1em;padding:0">
+			<li>尊重网上道德，遵守中华人民共和国的各项有关法律法规</li>
+			<li>承担一切因您的行为而直接或间接导致的民事或刑事法律责任</li>
+			<li>本站管理人员有权保留或删除其管辖留言中的任意内容</li>
+			<li>本站有权在网站内转载或引用您的评论</li>
+			<li>参与本评论即表明您已经阅读并接受上述条款</li>
+			</ul>
+		</td></tr>
+		</table>
+		<script type="text/javascript" src="../../inc/remark.js"></script>
+		<script type="text/javascript">
+			remark.maxSize=500;
+			remark.minSize=2;
+			remark.sourceEle=$(document.fmRemarkSt).find("button").get(0);
+			iwms.vCode="D2BDA41E";
+			iwms.user.name.length==0 ? $i("rmAnonymitySt").click() : $i("rmAnonymitySt").form.username.value=iwms.user.name;
+		</script>
+		
+		<div class="reCont" id="reContainer"></div>
+	</div>
+	</div>
+	<div class="bl"></div>
+	<div class="br"></div>
+	<div class="bm"></div>
+	</div>
+	
+</td><td width="300" valign="top">
+<div class="linux901"><script type="text/javascript" language="javaScript" src="/linuxfile/linux901.js"></script></div>
+<div class="linux902"><script type="text/javascript" language="javaScript" src="/linuxfile/linux902.js"></script></div>
+<div class="linux903"><script type="text/javascript" language="javaScript" src="/linuxfile/linux903.js"></script></div>
+<div class="linux905"><script type="text/javascript" language="javaScript" src="/linuxfile/linux905.js"></script></div>
+	
+	<div class="lframe">
+	<div class="tl"></div>
+	<div class="tr"></div>
+	<div class="tm">
+		<span class="tt">最新资讯</span>
+	</div>
+	<div class="wrapper">
+	<div class="ml"></div>
+	<div class="mr"></div>
+	<div class="mm">
+		<ul class="nl">
+<li><a href="../../Linux/2015-08/121422.htm" target="_blank">pfSense 2.2.4通过iso镜像进行本地硬盘安装</a></li>
+<li><a href="../../Linux/2015-08/121421.htm" target="_blank" title="Autojump：一个可以在 Linux 文件系统快速导航的高级 cd 命令">Autojump：一个可以在 Linux 文件系统快速导航</a></li>
+<li><a href="../../Linux/2015-08/121420.htm" target="_blank" title="VMware Workstation 11.0.0多国语言（含简体中文）官方下载">VMware Workstation 11.0.0多国语言（含简体中</a></li>
+<li><a href="../../Linux/2015-08/121419.htm" target="_blank">Hibernate Search 5.5.0.Alpha1 发布下载</a></li>
+<li><a href="../../Linux/2015-08/121418.htm" target="_blank" title="高性能JavaScript编程(高清PDF原版)及中英文对照版 PDF">高性能JavaScript编程(高清PDF原版)及中英文对</a></li>
+<li><a href="../../Linux/2015-08/121417.htm" target="_blank">高性能JavaScript DOM编程</a></li>
+<li><a href="../../Linux/2015-08/121416.htm" target="_blank" title="JavaScript高级程序设计笔记 事件冒泡和事件捕获">JavaScript高级程序设计笔记 事件冒泡和事件捕</a></li>
+<li><a href="../../Linux/2015-08/121415.htm" target="_blank">Linux 新手常用命令</a></li>
+<li><a href="../../Linux/2015-08/121414.htm" target="_blank" title="CoreOS 766.0.0 Alpha 发布下载，服务器操作系统">CoreOS 766.0.0 Alpha 发布下载，服务器操作系</a></li>
+<li><a href="../../Linux/2015-08/121413.htm" target="_blank">KDE Applications 15.08 RC 发布下载</a></li>
+</ul>
+	</div>
+	</div>
+	<div class="bl"></div>
+	<div class="br"></div>
+	<div class="bm"></div>
+	</div>
+
+	<div class="lframe">
+	<div class="tl"></div>
+	<div class="tr"></div>
+	<div class="tm">
+		<span class="tt">本周热门</span>
+	</div>
+	<div class="wrapper">
+	<div class="ml"></div>
+	<div class="mr"></div>
+	<div class="mm">
+		<ul class="nl">
+<li><a href="../../Linux/2014-04/100369.htm" target="_blank" class="highlight">Windows 7下硬盘安装Ubuntu 14.04图文教程</a></li>
+<li><a href="../../Linux/2014-10/108430.htm" target="_blank">Windows 7下硬盘安装Ubuntu 14.10图文教程</a></li>
+<li><a href="../../Linux/2013-05/84014.htm" target="_blank">Android 手机上安装并运行 Ubuntu 12.04</a></li>
+<li><a href="../../Linux/2014-09/106230.htm" target="_blank">GitHub 使用教程图文详解</a></li>
+<li><a href="../../Linux/2011-08/40437.htm" target="_blank">Linux常用命令大全</a></li>
+<li><a href="../../Linux/2011-01/31238.htm" target="_blank">Linux守护进程HALD</a></li>
+<li><a href="../../Linux/2015-01/111958.htm" target="_blank">Android SDK Manager国内无法更新的解决方案</a></li>
+<li><a href="../../Linux/2014-04/100645.htm" target="_blank">Ubuntu 14.04 LTS下安装Google Chrome浏览器</a></li>
+<li><a href="../../Linux/2012-05/59663.htm" target="_blank">Ubuntu 12.04和Windows 7双系统安装图解</a></li>
+<li><a href="../../Linux/2012-12/76515.htm" target="_blank" class="highlight">VMware虚拟机下安装BackTrack5(BT5)+汉化教程</a></li>
+</ul>
+	</div>
+	</div>
+	<div class="bl"></div>
+	<div class="br"></div>
+	<div class="bm"></div>
+	</div>
+	<div class="linuxy9"><script type="text/javascript" language="javaScript" src="/linuxfile/y9.js"></script></div>	
+</td></tr>
+</table>
+<div class="linux906"><script type="text/javascript" language="javaScript" src="/linuxfile/linux906.js"></script></div>
+<div id="footer">
+<a href="http://www.linuxidc.com/aboutus.htm">Linux公社简介</a> - <a href="http://www.linuxidc.com/adsense.htm">广告服务</a> - <a href="http://www.linuxidc.com/sitemap.aspx">网站地图</a> - <a href="http://www.linuxidc.com/help.htm">帮助信息</a> - <a href="http://www.linuxidc.com/contactus.htm">联系我们</a><br />本站（LinuxIDC）所刊载文章不代表同意其说法或描述，仅为提供更多信息，也不构成任何建议。<br /><script type="text/javascript" language="javaScript" src="/linuxfile/qq.js"></script><br />
+<script type="text/javascript" language="javaScript" src="/linuxfile/foot.js"></script><br />Copyright &copy; 2006-2015　<a href="http://www.linuxidc.com/">Linux公社</a>　All rights reserved 沪ICP备15008072号-1号
+	<script type="text/javascript">iwms.aId=121421;$(function(){iwms.imgCont=$i('content');iwms.imgResize();InitContStyle();iwms.getVars();})</script>
+	
+</div>
+</div>
+<script type="text/javascript" language="javaScript" src="/linuxren/linuxren1.js"></script>
+<script type="text/javascript" language="javaScript" src="/linuxren/linuxren2.js"></script>
+<script type="text/javascript" language="javaScript" src="/linuxren/linuxren3.js"></script>
+</body>
+</html>

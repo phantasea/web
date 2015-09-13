@@ -1,0 +1,1272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+     
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    
+<head>   
+    
+     
+    <script type="text/javascript" src="http://c.csdnimg.cn/pubfooter/js/tracking.js" charset="utf-8"></script>  
+
+    <script type="text/javascript">
+        var protocol = window.location.protocol;
+        document.write('<script type="text/javascript" src="' + protocol + '//csdnimg.cn/pubfooter/js/repoAddr2.js?v=' + Math.random() + '"></' + 'script>');
+    </script>
+
+     <script id="allmobilize" charset="utf-8" src="http://a.yunshipei.com/46aae4d1e2371e4aa769798941cef698/allmobilize.min.js"></script>
+ <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+    <title>Linux文件操作学习总结 - xiaoweibeibei的专栏
+        - 博客频道 - CSDN.NET</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="使用DataGrid的自定义视图，可以扩展一行显示更多的细节下文定义的divview其实是使用了datagrid的view配置，重写了其默认的renderRow方法。基于这种实现，我们可以显示更多样式的view。" />
+    <script src="http://static.blog.csdn.net/scripts/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://static.blog.csdn.net/scripts/ad.js?v=1.1"></script>
+        <!--new top-->
+               <link rel="stylesheet" href="http://static.csdn.net/public/common/toolbar/css/index.css">        <!--new top-->
+
+    <link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/dark1/css/style.css?v=1.1" />
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/xiaoweibeibei/rss/list" />
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico" />
+    <link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/default.css" />
+ 
+
+
+</head>
+<body>
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="http://static.csdn.net/public/common/toolbar/js/html.js" type="text/javascript"></script>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/xiaoweibeibei">xiaoweibeibei的专栏</a></h2>
+            <h3>举胸中块磊与雷庭碰杯，倾一腔热血与朝阳争辉！</h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>
+            
+                <li id="btnContents"><a href="http://blog.csdn.net/xiaoweibeibei?viewmode=contents"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_mulu'])">
+                    <img src="http://static.blog.csdn.net/images/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/xiaoweibeibei?viewmode=list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_zhaiyao'])">
+                    <img src="http://static.blog.csdn.net/images/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/xiaoweibeibei/rss/list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_RSS'])">
+                    <img src="http://static.blog.csdn.net/images/ico_rss.gif">订阅</span></a></li>                
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "xiaoweibeibei";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/xiaoweibeibei";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod='popu_3' > 
+
+<a href="http://blog.csdn.net/csdnproduct/article/details/48048293">
+<font color=blue> CSDN专家精选，微信开发学习路线大有看头！
+</font></a>
+&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/47808555"><font color=red>【博乐】点评美文，得C币</font></a>
+&nbsp;&nbsp;&nbsp;
+  
+
+<a href="http://huiyi.csdn.net/activity/product/goods_list?project_id=2387">
+<font color=blue>iOS开发前沿与Swift探秘
+</font></a>
+&nbsp;&nbsp;&nbsp;
+
+<a href="http://download.csdn.net/album/detail/2089">
+<font color=red>Swift初级教程大汇总
+</font></a>
+&nbsp;&nbsp;&nbsp;
+
+</div>                        </div>
+                        
+
+  
+<link href="http://static.blog.csdn.net/css/comment1.css" type="text/css" rel="stylesheet" />
+<link href="http://static.blog.csdn.net/css/style1.css" type="text/css" rel="stylesheet" />
+<script language='JavaScript' type='text/javascript' src='http://download.csdn.net/js/jquery.cookie.js'></script>
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/search-service/main.js"></script>
+<link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0" />
+<script type="text/javascript" src="http://static.blog.csdn.net/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS_HTML"></script>
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+           
+            var isBole = false;
+            
+          
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Original"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="/xiaoweibeibei/article/details/6556951">
+        Linux文件操作学习总结            
+        </a></span>
+    </h1>
+</div>
+
+   
+
+    <div class="article_manage">
+        <span class="link_categories">
+        分类：
+            <a href="/xiaoweibeibei/article/category/799801" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_fenlei']);">linux 下C编程</a> 
+        </span>
+    <span class="link_postdate">2011-06-20 18:51</span>
+    <span class="link_view" title="阅读次数">6280人阅读</span>
+    <span class="link_comments" title="评论次数"><a href="#comments" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(0)</span>
+    <span class="link_collect"><a href="javascript:void(0);" onclick="javascript:collectArticle('Linux文件操作学习总结','6556951');return false;" title="收藏">收藏</a></span>
+    <span class="link_report"><a href="#report"  onclick="javascript:report(6556951,2);return false;" title="举报">举报</a></span>
+    
+</div>
+<div class="tag2box"><a href='http://www.csdn.net/tag/linux' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">linux</a><a href='http://www.csdn.net/tag/struct' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">struct</a><a href='http://www.csdn.net/tag/cmd' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">cmd</a><a href='http://www.csdn.net/tag/symlink' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">symlink</a><a href='http://www.csdn.net/tag/%e7%a3%81%e7%9b%98' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">磁盘</a><a href='http://www.csdn.net/tag/%e7%bb%88%e7%ab%af' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">终端</a></div>
+
+  
+
+  
+  
+     
+
+<div id="article_content" class="article_content">
+<p class="MsoNormal" style="text-align: center;" align="center"><span style="font-family: 宋体; font-size: 12pt;">文件类型：普通文件（文本文件，二进制文件）、目录文件、链接文件、设备文件、管道文件。<span lang="EN-US"></span></span></p>
+<p class="MsoNormal" style="text-align: left;" align="left"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">&nbsp;&nbsp;&nbsp; </span><span style="font-family: 宋体; font-size: 12pt;">文件的权限：读、写、执行<span lang="EN-US"></span></span></p>
+<p class="MsoNormal" style="text-align: left;" align="left"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">&nbsp;&nbsp;&nbsp; </span><span style="font-family: 宋体; font-size: 12pt;">文件的相关信息：目录结构、索引节点、文件数据<span lang="EN-US"></span></span></p>
+<h1 style="margin: 0cm 0cm 0pt;"><span style="font-family: 宋体;">索引节点的</span><span lang="EN-US">stat</span><span style="font-family: 宋体;">结构</span><span lang="EN-US"></span></h1>
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">struct stat{</span></p>
+<p class="MsoNormal" style="text-indent: 21pt;"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">dev_t st_dev;//</span><span style="font-family: 宋体; font-size: 12pt;">文件使用的设备号<span lang="EN-US"></span></span></p>
+<p class="MsoNormal" style="text-indent: 21pt;"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">ino_t st_inl;//</span><span style="font-family: 宋体; font-size: 12pt;">索引节点号<span lang="EN-US"></span></span></p>
+<p class="MsoNormal" style="text-indent: 21pt;"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">mode_t st_mode;//</span><span style="font-family: 宋体; font-size: 12pt;">文件访问权限<span lang="EN-US"></span></span></p>
+<p class="MsoNormal" style="text-indent: 21pt;"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">nlink_t st_nlink;//</span><span style="font-family: 宋体; font-size: 12pt;">文件的硬链接数<span lang="EN-US"></span></span></p>
+<p class="MsoNormal" style="text-indent: 21pt;"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">uid_t st_uid;//</span><span style="font-family: 宋体; font-size: 12pt;">所用者用户识别号<span lang="EN-US"></span></span></p>
+<p class="MsoNormal" style="text-indent: 21pt;"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">gid_t st_gid;//</span><span style="font-family: 宋体; font-size: 12pt;">组识别号<span lang="EN-US"></span></span></p>
+<p class="MsoNormal" style="text-indent: 21pt;"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">dev_t st_rdev;//</span><span style="font-family: 宋体; font-size: 12pt;">设备文件的设备号<span lang="EN-US"></span></span></p>
+<p class="MsoNormal" style="text-indent: 21pt;"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">off_t st_size;//</span><span style="font-family: 宋体; font-size: 12pt;">以字节为单位的文件容量<span lang="EN-US"></span></span></p>
+<p class="MsoNormal" style="text-indent: 21pt;"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">unsigned long st_blksize;//</span><span style="font-family: 宋体; font-size: 12pt;">包含该文件的磁盘块的大小<span lang="EN-US"></span></span></p>
+<p class="MsoNormal" style="text-indent: 21pt;"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">unsigned long st_blocks;//</span><span style="font-family: 宋体; font-size: 12pt;">文件所占的磁盘块<span lang="EN-US"></span></span></p>
+<p class="MsoNormal" style="text-indent: 21pt;"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">time_t st_atime;//</span><span style="font-family: 宋体; font-size: 12pt;">最后一次访问该文件的时间<span lang="EN-US"></span></span></p>
+<p class="MsoNormal" style="text-indent: 21pt;"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">time_t st_mtime;//</span><span style="font-family: 宋体; font-size: 12pt;">最后一次修改该文件的时间<span lang="EN-US"></span></span></p>
+<p class="MsoNormal" style="text-indent: 21pt;"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">time_t st_ctime;//</span><span style="font-family: 宋体; font-size: 12pt;">最后一次改变该文件状态的时间<span lang="EN-US"></span></span></p>
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">} ;</span></p>
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">&nbsp;&nbsp;&nbsp; </span><span style="font-family: 宋体; font-size: 12pt;">在该结构体中，<span lang="EN-US">st_dev</span>对应于每一个文件名，代表包含这个文件名和相应的索引节点的文件系统的设备号，<span lang="EN-US">st_rdev</span>则只有字符设备和快设备具有，表示的是实际设备的设备号<span lang="EN-US"></span></span></p>
+<h1 style="margin: 0cm 0cm 0pt;"><span style="font-family: 宋体;">文件操作相关函数</span><span lang="EN-US"></span></h1>
+<h2 style="line-height: 171%; margin: 0cm 0cm 0pt;"><span style="font-family: 宋体;">文件创建</span><span lang="EN-US"></span></h2>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">函数</span></strong><span style="font-family: 宋体; font-size: 12pt;">：<span lang="EN-US">int creat(const char *pathname,mode_t mode);</span></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">头文件：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">sys/types.h&nbsp; &nbsp;&nbsp; sys/stat.h&nbsp;&nbsp; fcntl.h</span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">说明：<span lang="EN-US"></span></span></strong></p>
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">&nbsp;&nbsp;&nbsp; mode</span><span style="font-family: 宋体; font-size: 12pt;">取值如下：<span lang="EN-US"></span></span></p>
+<div>
+<table class="MsoTableGrid" style="border-collapse: collapse;" border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="padding-bottom: 0cm; padding-left: 5.4pt; width: 104.65pt; padding-right: 5.4pt; padding-top: 0cm; border: windowtext 1pt solid;" width="140" valign="top">
+<p class="MsoNormal" style="text-align: center;" align="center"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">mode取值</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 175.95pt; padding-right: 5.4pt; border-top: windowtext 1pt solid; border-right: windowtext 1pt solid; padding-top: 0cm;" width="235" valign="top">
+<p class="MsoNormal" style="text-align: center;" align="center"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">含义</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 104.65pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="140" valign="top">
+<p class="MsoNormal" style="text-align: center;" align="center"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">S_IRUSR</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 175.95pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="235" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">文件所有者的读权限</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 104.65pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="140" valign="top">
+<p class="MsoNormal" style="text-align: center;" align="center"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">S_IWUSR</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 175.95pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="235" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">文件安所有者的写权限</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 104.65pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="140" valign="top">
+<p class="MsoNormal" style="text-align: center;" align="center"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">S_IXUSR</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 175.95pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="235" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">文件所有者的执行权限</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 104.65pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="140" valign="top">
+<p class="MsoNormal" style="text-align: center;" align="center"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">S_IRGRP</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 175.95pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="235" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">文件所有者同组用户的读权限</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 104.65pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="140" valign="top">
+<p class="MsoNormal" style="text-align: center;" align="center"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">S_IWGRP</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 175.95pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="235" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">文件所有者同组用户的写权限</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 104.65pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="140" valign="top">
+<p class="MsoNormal" style="text-align: center;" align="center"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">S_IXGRP</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 175.95pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="235" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">文件所有者同组用户的执行权限</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 104.65pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="140" valign="top">
+<p class="MsoNormal" style="text-align: center;" align="center"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">S_IROTH</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 175.95pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="235" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">其他用户的读权限</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 104.65pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="140" valign="top">
+<p class="MsoNormal" style="text-align: center;" align="center"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">S_IWOTH</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 175.95pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="235" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">其他用户的写权限</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 104.65pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="140" valign="top">
+<p class="MsoNormal" style="text-align: center;" align="center"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">S_IXOTH</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 175.95pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="235" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">其他用户的执行权限</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">Linux</span><span style="font-family: 宋体; font-size: 12pt;">系统中还定义了几个权限组合：<span lang="EN-US"></span></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">S_IRWXU =(S_IRUSR|S_IWUSR|S_IXUSR)</span></strong></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">S_IRWXG =(S_IWGRP|S_IWGRP|S_IXGRP)</span></strong></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">S_IRWXO=(S_IROTH|S_IWOTH|S_IXOTH)</span></strong></p>
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;">当调用成功时，返回该文件的描述符，失败返回<span lang="EN-US">-1</span>，此时文件以只读方式打开。<span lang="EN-US"></span></span></p>
+<h2 style="line-height: 171%; margin: 0cm 0cm 0pt;"><span style="line-height: 171%; font-family: 宋体; font-size: 12pt;">文件打开<span lang="EN-US"></span></span></h2>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">函数：</span></strong><span style="font-family: 宋体; font-size: 12pt;">（<span lang="EN-US">1</span>）<span lang="EN-US"> int open( const char *pathname,int flags);</span></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">&nbsp;&nbsp; </span></strong><span style="font-family: 宋体; font-size: 12pt;">（<span lang="EN-US">2</span>）<span lang="EN-US">int open(const char *pathname,int flags,mode_t mode);<strong></strong></span></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">头文件：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">sys/types.h&nbsp; &nbsp;&nbsp; sys/stat.h&nbsp;&nbsp; fcntl.h<strong></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">说明：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">flags</span><span style="font-family: 宋体; font-size: 12pt;">用于描述文件打开参数，通过按位逻辑加得到，其中<span lang="EN-US">O_RDONLY,O_WRONLY</span>和<span lang="EN-US">O_RDWR</span>，<span lang="EN-US">3</span>个值必需包含其中一种。<span lang="EN-US">flags</span>取值如下：<strong><span lang="EN-US"></span></strong></span></p>
+<table class="MsoTableGrid" style="border-collapse: collapse;" border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="padding-bottom: 0cm; padding-left: 5.4pt; width: 76.3pt; padding-right: 5.4pt; padding-top: 0cm; border: windowtext 1pt solid;" width="102" valign="top">
+<p class="MsoNormal" style="text-align: center;" align="center"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">flags取值</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 349.8pt; padding-right: 5.4pt; border-top: windowtext 1pt solid; border-right: windowtext 1pt solid; padding-top: 0cm;" width="466" valign="top">
+<p class="MsoNormal" style="text-align: center;" align="center"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">含义</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 76.3pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="102" valign="top">
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">O_RDONLY</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 349.8pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="466" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">以只读方式打开</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 76.3pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="102" valign="top">
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">O_WRONLY</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 349.8pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="466" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">以只写方式打开</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 76.3pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="102" valign="top">
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">O_RDWR</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 349.8pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="466" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">以读写方式打开</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 76.3pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="102" valign="top">
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">O_CREAT</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 349.8pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="466" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">若所打开文件不存在，则创建此文件</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 76.3pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="102" valign="top">
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">O_EXCL</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 349.8pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="466" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">若打开文件时设置了O_CREAT位且该文件存在，则导致失败</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 76.3pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="102" valign="top">
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">O_NOCTTY</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 349.8pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="466" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">若在打开tty时进程没有控制tty则不控制终端</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 76.3pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="102" valign="top">
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">O_TRUNC</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 349.8pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="466" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">若以只写或读写方式打开一个已存在文件时，将该文件截至0</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 76.3pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="102" valign="top">
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">O_APPEND</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 349.8pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="466" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">以追加的方式打开，将文件添加内容时将指针置于文件末尾</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 76.3pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="102" valign="top">
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">O_NONBLOCK</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 349.8pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="466" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">用于非阻塞接口I/O，若操作不能无延迟的完成，则在操作前返回</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 76.3pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="102" valign="top">
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">O_NODELAY</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 349.8pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="466" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">同O_NONBLACK</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 76.3pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="102" valign="top">
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">O_SYNC</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 349.8pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="466" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">只在数据被写入外存或其他设备之后才返回</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">&nbsp;&nbsp;&nbsp; </span><span style="font-family: 宋体; font-size: 12pt;">当调用成功时，返回要打开文件的描述符，调用失败返回<span lang="EN-US">-1</span>，并置<span lang="EN-US">errno</span>为相应错误号。<span lang="EN-US"></span></span></p>
+<h2 style="line-height: 171%; margin: 0cm 0cm 0pt;"><span style="line-height: 171%; font-family: 宋体; font-size: 12pt;">文件关闭<span lang="EN-US"></span></span></h2>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">函数：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">int close</span><span style="font-family: 宋体; font-size: 12pt;">（<span lang="EN-US">int fd</span>）<span lang="EN-US">;<strong></strong></span></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">头文件：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">unistd.h<strong></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体;">说明：<span lang="EN-US"></span></span></strong></p>
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">&nbsp;&nbsp;&nbsp; </span><span style="font-family: 宋体; font-size: 12pt;">成功时返回<span lang="EN-US">0</span>，失败时返回<span lang="EN-US">-1</span>，并置<span lang="EN-US">errno</span>为<span lang="EN-US">EBADF.</span>当打开一个文件是，该文件描述中的引用计数加<span lang="EN-US">1</span>，关闭一个文件时，该文件的引用计数减<span lang="EN-US">1</span>，当引用计数为<span lang="EN-US">0</span>时，<span lang="EN-US">close</span>调用不仅释放该文件的描述符，还将释放该文件所占的描述表项。<span lang="EN-US"></span></span></p>
+<h2 style="line-height: 171%; margin: 0cm 0cm 0pt;"><span style="font-family: 宋体;">文件写操作</span><span lang="EN-US"></span></h2>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">函数：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">ssize_t write(int fd,void *buf,size_t count);<strong></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">头文件：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">unistd.h<strong></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">说明： </span></strong><span style="font-family: 宋体; font-size: 12pt;">调用成功返回所写入段字节数，失败返回<span lang="EN-US">-1 </span>，并设置相应的<span lang="EN-US">errno</span>。<strong><span lang="EN-US"></span></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体;" lang="EN-US">&nbsp;</span></strong></p>
+<h2 style="line-height: 171%; margin: 0cm 0cm 0pt;"><span style="font-family: 宋体;">文件读操作</span><span lang="EN-US"></span></h2>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">函数：<span lang="EN-US">ssize_t read(int fd ,void *buf,size_t count);</span></span></strong></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">头文件：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">unistd.h <strong></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">说明：</span></strong><span style="font-family: 宋体; font-size: 12pt;">调用成功返回所读取的字节数，失败返回<span lang="EN-US">-1</span>，并设置相应的<span lang="EN-US">errno</span>。<span lang="EN-US"></span></span></p>
+<h2 style="line-height: 171%; margin: 0cm 0cm 0pt;"><span style="font-family: 宋体;">文件定位操作</span><span lang="EN-US"></span></h2>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">函数：<span lang="EN-US">off_t lseek(int fildes.off_t offset,int whence);</span></span></strong></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">头文件：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">unistd.h<strong></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">说明：</span></strong><span style="font-family: 宋体; font-size: 12pt;">调用成功返回相对于文件开头的实际偏移量，失败返回<span lang="EN-US">-1</span>，并设置相应<span lang="EN-US">errno</span>。<span lang="EN-US">whence</span>取值如下：<span lang="EN-US"></span></span></p>
+<div>
+<table class="MsoTableGrid" style="border-collapse: collapse;" border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="padding-bottom: 0cm; padding-left: 5.4pt; width: 111.75pt; padding-right: 5.4pt; padding-top: 0cm; border: windowtext 1pt solid;" width="149" valign="top">
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">Whence取值</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 177.15pt; padding-right: 5.4pt; border-top: windowtext 1pt solid; border-right: windowtext 1pt solid; padding-top: 0cm;" width="236" valign="top">
+<p class="MsoNormal" style="text-align: center;" align="center"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">含义</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 111.75pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="149" valign="top">
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">SEEK_SET</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 177.15pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="236" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">从文件开头计算偏移量；</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 111.75pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="149" valign="top">
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">SEEK_CUR</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 177.15pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="236" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">从当前位置计算偏移量；</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 111.75pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="149" valign="top">
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">SEEK_END</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 177.15pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="236" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">从文件的末尾计算偏移量</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="MsoNormal"><strong><span style="font-family: 宋体;" lang="EN-US">&nbsp;</span></strong></p>
+<h2 style="line-height: 171%; margin: 0cm 0cm 0pt;"><span style="font-family: 宋体;">文件属性修改</span><span lang="EN-US"></span></h2>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">函数：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">(1) int chown(const char *pathname,uid_t owner,gid_t group);</span></p>
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">&nbsp;&nbsp;&nbsp; &nbsp; (2) int fchown(int fd,uid_t owner,gid_t group);</span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">头文件：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">sys/types.h&nbsp; &nbsp; unistd.h<strong></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">说明：</span></strong><span style="font-family: 宋体; font-size: 12pt;">改变文件的所有者，由于涉及权限问题，只有<span lang="EN-US">root</span>用户可以调用<span lang="EN-US">chown</span>和<span lang="EN-US">fchown</span>来任意改变一个文件的所有者及所属的组，普通用户没有这个权限，普通用户只能修改自己所有的文件的组识别号，切只能在其所属的组中进行选择。<span lang="EN-US"></span></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">&nbsp;</span></strong></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">函数：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">(1)int chmod(char *pathname,mode_t mode)</span><span style="font-family: 宋体; font-size: 12pt;">；<span lang="EN-US"></span></span></p>
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">&nbsp;&nbsp;&nbsp; &nbsp; (2)int fchmod(int fd,mode_t mode;</span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">头文件：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">sys/types.h&nbsp; &nbsp; unistd.h<strong></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">说明： </span></strong><span style="font-family: 宋体; font-size: 12pt;">改变文件的访问权限，关于权限的设置和<span lang="EN-US">chmod</span>命令类似，调用成功返回<span lang="EN-US">0</span>，失败返回<span lang="EN-US">-1</span>，并设置<span lang="EN-US">errno</span>。<strong><span lang="EN-US"></span></strong></span></p>
+<h2 style="line-height: 171%; margin: 0cm 0cm 0pt;"><span style="line-height: 171%; font-family: 宋体; font-size: 12pt;">文件重命名</span><span style="line-height: 171%; font-size: 12pt;" lang="EN-US"></span></h2>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">函数：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">int rename( const char *oldname,const char *newname);</span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">头文件：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">stdio.h<strong></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">说明：</span></strong><span style="font-family: 宋体; font-size: 12pt;">当<span lang="EN-US">newname</span>和<span lang="EN-US">oldname</span>指向相同，则<span lang="EN-US">rename</span>调用不做任何操作成功返回。<strong><span lang="EN-US"></span></strong></span></p>
+<table class="MsoTableGrid" style="border-collapse: collapse;" border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="padding-bottom: 0cm; padding-left: 5.4pt; width: 106.5pt; padding-right: 5.4pt; padding-top: 0cm; border: windowtext 1pt solid;" width="142" valign="top">
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">oldname指向</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 90.3pt; padding-right: 5.4pt; border-top: windowtext 1pt solid; border-right: windowtext 1pt solid; padding-top: 0cm;" width="120" valign="top">
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">newname指向文件不存在</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 3cm; padding-right: 5.4pt; border-top: windowtext 1pt solid; border-right: windowtext 1pt solid; padding-top: 0cm;" width="113" valign="top">
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">newname指向普通文件</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 144.25pt; padding-right: 5.4pt; border-top: windowtext 1pt solid; border-right: windowtext 1pt solid; padding-top: 0cm;" width="192" valign="top">
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">newname指向目录文件</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 106.5pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="142" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">oldname指向普通文件</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 90.3pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="120" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">文件被重命名</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 3cm; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="113" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">文件重命名</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 144.25pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="192" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">错误返回</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 106.5pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="142" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">oldname指向目录文件</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 90.3pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="120" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">文件重命名</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 3cm; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="113" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">错误</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 144.25pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="192" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">newname所指向的目录文件为空目录则该目录被删除，oldname被重新命名，否则出错返回</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<h2 style="line-height: 171%; margin: 0cm 0cm 0pt;"><span lang="EN-US">dup</span><span style="font-family: 宋体;">和</span><span lang="EN-US">dup2</span><span style="font-family: 宋体;">调用</span><span lang="EN-US"></span></h2>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">函数：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">(1)int dup(int fd); (2) int dup2( int fd,int fd2); <strong></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">头文件：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">unistd.h<strong></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">说明：</span></strong><span style="font-family: 宋体; font-size: 12pt;">该调用都将复制文件描述符，两个调用成功执行时都将返回新得到的文件描述符，其区别在于（<span lang="EN-US">2</span>）可以预先制定文件描述符<span lang="EN-US">fd2</span>，如果<span lang="EN-US">fd2</span>正在被使用，则先关闭<span lang="EN-US">fd2</span>，如果<span lang="EN-US">fd2</span>和<span lang="EN-US">fd</span>相同，则不关闭该文件正常返回；<span lang="EN-US"></span></span></p>
+<h2 style="line-height: 171%; margin: 0cm 0cm 0pt;"><span lang="EN-US">stat</span><span style="font-family: 宋体;">、</span><span lang="EN-US">fstat</span><span style="font-family: 宋体;">和</span><span lang="EN-US">lstat</span><span style="font-family: 宋体;">调用</span><span lang="EN-US"></span></h2>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">函数：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">(1) int stat(const char *pathname,struct stat *sbuf);</span></p>
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; (2) int fstat(int fd,struct stat *sbuf);</span></p>
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (3) int lstat(const char *pathname,struct stat*buf);</span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">头文件：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">sys/types.h&nbsp; &nbsp;&nbsp; sys/stat.h&nbsp;&nbsp; unistd.h<strong></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">说明：</span></strong><span style="font-family: 宋体; font-size: 12pt;">对于<span lang="EN-US">lstat</span>而言，当访问一个符号链接时，<span lang="EN-US">lstat</span>只返回链接本身的信息，而<span lang="EN-US">stat</span>和<span lang="EN-US">fstat</span>将追踪到链接的末端文件，也就是所连接的文件。<span lang="EN-US"></span></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体;" lang="EN-US">&nbsp;</span></strong></p>
+<h2 style="line-height: 171%; margin: 0cm 0cm 0pt;"><span lang="EN-US">fsync</span><span style="font-family: 宋体;">调用</span><span lang="EN-US"></span></h2>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">函数：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">int fsync(int fd);<strong></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">头文件：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">unistd.h<strong></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">说明：</span></strong><span style="font-family: 宋体; font-size: 12pt;">将保存在缓冲区内的要写入文件描述符<span lang="EN-US">fd</span>的所有数据刷新到要写入的文件中，当调用成功返回<span lang="EN-US">0</span>，调用失败返回<span lang="EN-US">-1</span>，并设置<span lang="EN-US">errno</span>。<strong><span lang="EN-US"></span></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体;" lang="EN-US">&nbsp;</span></strong></p>
+<h2 style="line-height: 171%; margin: 0cm 0cm 0pt;"><span lang="EN-US">flock</span><span style="font-family: 宋体;">调用</span><span lang="EN-US"></span></h2>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">函数：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">int flock(int fd,int operation);</span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">头文件：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">sys/types.h<strong></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">说明：</span></strong><span style="font-family: 宋体; font-size: 12pt;">将文件描述符所对应的文件加锁或解锁，<span lang="EN-US">operation</span>用于表示不同的上锁或解锁方式，取值如下：<span lang="EN-US"></span></span></p>
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">LOCK_SH:</span><span style="font-family: 宋体; font-size: 12pt;">共享锁<span lang="EN-US">&nbsp;&nbsp;&nbsp; LOCK_EX:</span>独占锁<span lang="EN-US">&nbsp;&nbsp; LOCK_UN:</span>解锁<span lang="EN-US"></span></span></p>
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">&nbsp;&nbsp;&nbsp; </span><span style="font-family: 宋体; font-size: 12pt;">一个进程对一个文件只能有一个独占锁，但可以有多个共享锁，如果一个进程不试图去锁一个已经被上锁的文件，就不可以对其访问。当调用成功时返回<span lang="EN-US">0</span>，失败时返回<span lang="EN-US">-1</span>。<strong><span lang="EN-US"></span></strong></span></p>
+<h2 style="line-height: 171%; margin: 0cm 0cm 0pt;"><span lang="EN-US">fcntl</span><span style="font-family: 宋体;">调用</span><span lang="EN-US"></span></h2>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">函数：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">(1) int fcntl(int fd,int cmd);</span></p>
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; (2) int fcntl(int fd,int cmd,long arg);</span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">头文件：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">unistd.h&nbsp;&nbsp; fcntl.h<strong></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">说明：</span></strong><span style="font-family: 宋体; font-size: 12pt;">参数<span lang="EN-US">arg</span>为可选参数，对应于<span lang="EN-US">cmd</span>的某些可取值，对应于执行某些特殊操作；调用成功时返回<span lang="EN-US">0</span>，失败是返回<span lang="EN-US">-1</span>，并设置<span lang="EN-US">errno</span>，此外，<span lang="EN-US">fcntl</span>调用能完成的大部分操作都可以用其他调用来完成。<span lang="EN-US">cmd</span>的取值如下：<strong><span lang="EN-US"></span></strong></span></p>
+<table class="MsoTableGrid" style="border-collapse: collapse;" border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="padding-bottom: 0cm; padding-left: 5.4pt; width: 90.45pt; padding-right: 5.4pt; padding-top: 0cm; border: windowtext 1pt solid;" width="121" valign="top">
+<p class="MsoNormal" style="text-align: center;" align="center"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">cmd取值</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 335.65pt; padding-right: 5.4pt; border-top: windowtext 1pt solid; border-right: windowtext 1pt solid; padding-top: 0cm;" width="448" valign="top">
+<p class="MsoNormal" style="text-align: center;" align="center"><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">相应操作</span></strong><strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></strong></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 90.45pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="121" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">F_DUPFD</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 335.65pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="448" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">复制文件描述符</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 90.45pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="121" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">F_GETFD</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 335.65pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="448" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">获取文件描述符</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 90.45pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="121" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">F_SETFD</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 335.65pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="448" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">设置close-on-exec标志</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 90.45pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="121" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">F_GETFL</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 335.65pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="448" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">获取open调用设置的标志</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 90.45pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="121" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">F_SETFL</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 335.65pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="448" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">设置open调用设置的标志</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 90.45pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="121" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">F_GETLK</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 335.65pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="448" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">获取离散的文件锁</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 90.45pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="121" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">F_SETLK</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 335.65pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="448" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">设置获得离散的文件锁，不等待</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 90.45pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="121" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">F_SETLKW</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 335.65pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="448" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">设置获得离散的文件锁，必要时等待</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 90.45pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="121" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">F_GETOWN</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 335.65pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="448" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">检索将收到SIGIO和SIGURG信号灯进程id或进程组号</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+<tr>
+<td style="border-bottom: windowtext 1pt solid; border-left: windowtext 1pt solid; padding-bottom: 0cm; padding-left: 5.4pt; width: 90.45pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="121" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">F_SETOWN</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+<td style="border-bottom: windowtext 1pt solid; border-left: medium none; padding-bottom: 0cm; padding-left: 5.4pt; width: 335.65pt; padding-right: 5.4pt; border-top: medium none; border-right: windowtext 1pt solid; padding-top: 0cm;" width="448" valign="top">
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">设置进程id或进程组号</span><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US"></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="MsoNormal"><strong><span style="font-family: 宋体;" lang="EN-US">&nbsp;</span></strong></p>
+<h2 style="line-height: 171%; margin: 0cm 0cm 0pt;"><span style="font-family: 宋体;">特殊文件操作</span><span lang="EN-US"></span></h2>
+<h3 style="line-height: normal; margin: 0cm 0cm 0pt;"><span style="font-family: 宋体; font-size: 14pt;">创建目录</span><span style="font-size: 14pt;"> <span lang="EN-US"></span></span></h3>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">函数：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">int mkdir(const char *pathname,mde_t mode);</span><strong><span style="font-size: 12pt;" lang="EN-US"></span></strong></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">头文件：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">sys/types.h&nbsp;&nbsp; sys/stat.h</span><strong><span style="font-size: 12pt;" lang="EN-US"></span></strong></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">说明：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">mode</span><span style="font-family: 宋体; font-size: 12pt;">的值与表示其权限，<span lang="EN-US">mode</span>的值由当前的<span lang="EN-US">umask</span>的值得反值与设置的<span lang="EN-US">mode</span>相与确定，该目录的所有者为调用<span lang="EN-US">mkdir</span>创建它的进程的有效用户标识号。调用成功返回<span lang="EN-US">0</span>，失败返回<span lang="EN-US">-1</span>，并设置<span lang="EN-US">errno</span>。</span><strong><span style="font-size: 12pt;" lang="EN-US"></span></strong></p>
+<h3 style="line-height: normal; margin: 0cm 0cm 0pt;"><span style="font-family: 宋体; font-size: 14pt;">删除目录</span><span style="font-size: 14pt;" lang="EN-US"></span></h3>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">函数：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">int rmdir(const char *pathname);</span><strong><span style="font-size: 12pt;" lang="EN-US"></span></strong></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">头文件：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">unistd.h</span><strong><span style="font-size: 12pt;" lang="EN-US"></span></strong></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">说明：</span></strong><span style="font-family: 宋体; font-size: 12pt;">当目录为空时，调用此函数可以将其删除，否则将删除失败。调用成功返回<span lang="EN-US">0</span>，失败返回<span lang="EN-US">-1</span>，并设置<span lang="EN-US">errno</span>。</span><strong><span style="font-size: 12pt;" lang="EN-US"></span></strong></p>
+<h3 style="line-height: normal; margin: 0cm 0cm 0pt;"><span style="font-family: 宋体; font-size: 14pt;">打开目录</span><span style="font-size: 14pt;" lang="EN-US"></span></h3>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">函数：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">DIR * opendir(const char *pathname);</span><strong><span style="font-size: 12pt;" lang="EN-US"></span></strong></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">头文件：</span></strong><span style="font-family: 宋体; font-size: 12pt;"> <span lang="EN-US">sys/types.h&nbsp;&nbsp;&nbsp; dirent.h</span></span><strong><span style="font-size: 12pt;" lang="EN-US"></span></strong></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">说明：</span></strong><span style="font-family: 宋体; font-size: 12pt;">调用返回值为<span lang="EN-US">DIR</span>类型，用于指向目录文件的结构指针。调用成功返回目录指针，调用失败返回<span lang="EN-US">NULL</span>。</span><strong><span style="font-size: 12pt;" lang="EN-US"></span></strong></p>
+<h3 style="line-height: normal; margin: 0cm 0cm 0pt;"><span style="font-family: 宋体; font-size: 14pt;">关闭目录</span><span style="font-size: 14pt;" lang="EN-US"></span></h3>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">函数：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">int closedir( DIR *dp);</span><strong><span style="font-size: 12pt;" lang="EN-US"></span></strong></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">头文件：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">sys/types.h&nbsp;&nbsp;&nbsp; dirent.h</span><strong><span style="font-size: 12pt;" lang="EN-US"></span></strong></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">说明：</span></strong><span style="font-family: 宋体; font-size: 12pt;">参数为要关闭的目录文件指针，该指针有<span lang="EN-US">opendir</span>返回，调用成功返回<span lang="EN-US">0</span>，失败返回<span lang="EN-US">-1</span>，并设置<span lang="EN-US">errno</span>。</span><strong><span style="font-size: 12pt;" lang="EN-US"></span></strong></p>
+<h3 style="line-height: normal; margin: 0cm 0cm 0pt;"><span style="font-family: 宋体; font-size: 14pt;">读取目录</span><span style="font-size: 14pt;" lang="EN-US"></span></h3>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">函数：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">struct dirent * readdir(DIP *dp);</span><strong><span style="font-size: 12pt;" lang="EN-US"></span></strong></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">头文件：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">sys/types.h&nbsp;&nbsp;&nbsp; dirent.h</span><strong><span style="font-size: 12pt;" lang="EN-US"></span></strong></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">说明：</span></strong><span style="font-family: 宋体; font-size: 12pt;">用于访问目录指针<span lang="EN-US">dp</span>的目录文件，其返回值为<span lang="EN-US">dirent</span>结构体指针，<span lang="EN-US">dirent</span>结构如下：</span><strong><span style="font-size: 12pt;" lang="EN-US"></span></strong></p>
+<p class="MsoNormal" style="text-indent: 21pt;"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">struct drent{</span></p>
+<p class="MsoNormal" style="text-indent: 21pt; margin-left: 21pt;"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">ino_t&nbsp; d_ino;//</span><span style="font-family: 宋体; font-size: 12pt;">目录节点号<span lang="EN-US"></span></span></p>
+<p class="MsoNormal" style="text-indent: 21pt; margin-left: 21pt;"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">off_t d_off;//</span><span style="font-family: 宋体; font-size: 12pt;">节点偏移量<span lang="EN-US"></span></span></p>
+<p class="MsoNormal" style="text-indent: 21pt; margin-left: 21pt;"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">unsigned short d_reclen;//</span><span style="font-family: 宋体; font-size: 12pt;">记录长度<span lang="EN-US"></span></span></p>
+<p class="MsoNormal" style="text-indent: 21pt; margin-left: 21pt;"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">unsigned char d_type;//</span><span style="font-family: 宋体; font-size: 12pt;">文件类型<span lang="EN-US"></span></span></p>
+<p class="MsoNormal" style="text-indent: 21pt; margin-left: 21pt;"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">char d_name[256];//</span><span style="font-family: 宋体; font-size: 12pt;">目录链接的文件名<span lang="EN-US"></span></span></p>
+<p class="MsoNormal" style="text-indent: 21pt;"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">}</span></p>
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;">当目录中没有更多链接时，返回<span lang="EN-US">0</span>。<span lang="EN-US"></span></span></p>
+<h3 style="line-height: normal; margin: 0cm 0cm 0pt;"><span style="font-family: 宋体; font-size: 14pt;">创建硬链接</span><span style="font-size: 14pt;" lang="EN-US"></span></h3>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">函数：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">int&nbsp; link(char *pathname1,char *pathname2);<strong></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">头文件：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">unistd.h<strong></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">说明：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">pathname1</span><span style="font-family: 宋体; font-size: 12pt;">为已经存在的文件，<span lang="EN-US">pathname2</span>为要建立的链接，<span lang="EN-US">pathname1</span>和<span lang="EN-US">pathname2</span>之西那个的路径必须在同一个文件系统中，只用超级用户才能创建一个指向目录文件的新的连接文件。调用成功返回<span lang="EN-US">0</span>，失败返回<span lang="EN-US">-1</span>。<strong><span lang="EN-US"></span></strong></span></p>
+<p class="MsoNormal"><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">&nbsp;</span></p>
+<h3 style="line-height: normal; margin: 0cm 0cm 0pt;"><span style="font-family: 宋体; font-size: 14pt;">移除硬链接</span><span style="font-size: 14pt;" lang="EN-US"></span></h3>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">函数：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">int unlink(char *pathname);<strong></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">头文件：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">unistd.h<strong></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">说明：</span></strong><span style="font-family: 宋体; font-size: 12pt;">要移除一个文件的链接，必须要有对该目录的写权限和执行权限，当调用<span lang="EN-US">unlink</span>时，目录的索引节点计数将减<span lang="EN-US">1</span>，当链接计算器为<span lang="EN-US">0</span>时，索引节点和文件数据块将被释放。<strong><span lang="EN-US"></span></strong></span></p>
+<h3 style="line-height: normal; margin: 0cm 0cm 0pt;"><span style="font-family: 宋体; font-size: 14pt;">创建符号链接</span><span style="font-size: 14pt;" lang="EN-US"></span></h3>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">函数：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">int symlink(const char *actualpath,const char *sympath);<strong></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">头文件：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">unistd.h<strong></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">说明：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">acturalpath</span><span style="font-family: 宋体; font-size: 12pt;">为真实存在的文件，<span lang="EN-US">sympath</span>为新创建的指向<span lang="EN-US">acturalpath</span>的符号链接，调用成功返回<span lang="EN-US">0</span>，失败返回<span lang="EN-US">-1</span>，并设置<span lang="EN-US">errno</span>。<strong><span lang="EN-US"></span></strong></span></p>
+<h3 style="line-height: normal; margin: 0cm 0cm 0pt;"><span style="font-family: 宋体; font-size: 14pt;">打开链接</span><span style="font-size: 14pt;" lang="EN-US"></span></h3>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">函数：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">int readlink(const char *pathname, char *buf,int bufsize);</span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">头文件：</span></strong><span style="font-family: 宋体; font-size: 12pt;" lang="EN-US">unistd.h<strong></strong></span></p>
+<p class="MsoNormal"><strong><span style="font-family: 宋体; font-size: 12pt;">说明：</span></strong><span style="font-family: 宋体; font-size: 12pt;">调用成功时，返回值为写入缓冲区的字节数，调用失败时，返回值为<span lang="EN-US">0</span>，并设置<span lang="EN-US">errno</span>。<span lang="EN-US"></span></span></p>    
+        <div  style="padding-top:20px">         
+            <p  style="font-size:12px;" >版权声明：本文为博主原创文章，未经博主允许不得转载。</p>
+        </div>
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox" style="float: right;">
+<a href="#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"  style="background-position:0 -52px !important"></a>
+<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"style="background-position:0 -104px !important"></a>
+<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"style="background-position:0 -260px !important"></a>
+<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"style="background-position:0 -208px !important"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"style="background-position:0 -1612px !important" ></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   <link rel="stylesheet" href="http://static.blog.csdn.net/css/blog_detail.css" />
+
+    
+<!--172.16.140.12-->
+<ul class="article_next_prev">
+            <li class="prev_article"><span  onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian']);location.href='/xiaoweibeibei/article/details/6552498';">上一篇</span><a href="/xiaoweibeibei/article/details/6552498" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian'])">Linux进程通信学习总结</a></li>
+            <li class="next_article"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian']);location.href='/xiaoweibeibei/article/details/6561897';">下一篇</span><a href="/xiaoweibeibei/article/details/6561897" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian'])">Linux基于流的操作学习总结</a></li>
+</ul>
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+ 
+
+        <div id="digg" ArticleId="6556951">
+            <dl id="btnDigg" class="digg digg_disable">
+               
+                 <dt>顶</dt>
+                <dd>2</dd>
+            </dl>
+            <dl id="btnBury" class="digg digg_disable">
+              
+                  <dt>踩</dt>
+                <dd>0</dd>
+            </dl>
+        </div>
+      
+</div>
+<div id="suggest"></div>
+         <script  language="javascript" type='text/javascript'>     
+             $(function(){
+                 $.get("/xiaoweibeibei/svc/GetSuggestContent/6556951",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+<style>
+.blog-ass-articl dd {
+color: #369;
+width: 99%; /*修改行*/
+float: left;
+overflow: hidden;
+font: normal normal 12px/23px "SimSun";
+height: 23px;
+margin: 0;
+padding: 0 0 0 10px;
+margin-right: 30px;
+background: url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;
+}
+</style>
+
+<dl class="blog-ass-articl" id="res-relatived" > 
+     <dt><span>猜你在找</span></dt>    
+
+
+   
+
+
+    <div id="adCollege" style="width: 42%;float: left;"> 
+        <script src="http://csdnimg.cn/jobreco/job_reco.js" type="text/javascript"></script> 
+        <script type="text/javascript">
+            csdn.position.showEdu({
+                sourceType: "blog",
+                searchType: "detail",
+                searchKey: "6556951",
+                username: "",
+                recordcount: "5",
+                containerId: "adCollege" //容器DIV的id。 
+            });
+        </script> 
+    </div>  
+
+    
+     <div id="res"  data-mod="popu_36"  class="tracking-ad" style="width: 42%;float: left;margin-right: 30px;"></div>
+   
+</dl>
+
+<div id="job_blog_reco">
+<script src="http://c.csdnimg.cn/jobreco/job_reco.js" type="text/javascript"></script>
+   
+     <script type="text/javascript">
+         csdn.position.show({
+         sourceType: "blog",
+         tplType: "blogDetail",
+         searchType: "detail",
+         searchKey: "6556951",
+             username: "",
+         containerId: "job_blog_reco"
+        }); 
+    </script>
+
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            var searchtitletags = 'Linux文件操作学习总结' + ',' + $("#tags").html();
+            searchService({
+                index: 'blog',
+                query: searchtitletags,
+                from: 5,
+                size: 5,
+                appendTo: '#res',
+                url: 'recommend',
+                his: 2,
+                client: "blog_cf_enhance",
+                tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+            });
+        }, 500);
+    });    
+
+ </script>   
+
+    <div id="ad_cen">
+   
+          <script type="text/javascript">
+              new Ad(4, 'ad_cen');
+          </script>
+    </div>
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list">
+    </div>
+    <div id="comment_bar">
+    </div>
+    <div id="comment_form">
+    </div>
+
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '6556951';
+    var commentscount = 0;
+    var islock = false
+</script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/comment.js"></script>
+    <div id="ad_bot">
+    </div>
+    <script type="text/javascript">
+        setTimeout(function(){
+            new Ad(5, 'ad_bot');
+        },500);  
+    </script>
+<div id="report_dialog">
+</div>
+
+<div id="d-top"  style="bottom:60px;">
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="http://static.blog.csdn.net/images/blog-icon-reply.png" alt="快速回复">
+        </a>    
+
+    <a id="d-top-a" class="btn btn-top backtop"  style="display: none;" title="返回顶部" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_huidaodingbu'])" style="">         
+         <img src="http://static.blog.csdn.net/images/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+<div class="tag_list" style="display:none"></div>
+  <script  language="javascript" type='text/javascript'>     
+      $(function(){
+              setTimeout(function(){
+                  $.get("/xiaoweibeibei/svc/GetTagContent",function(data){
+                      $(".tag_list").html(data).show();
+                  });     
+              });
+          },500);                       
+ </script> 
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });
+        },200);  
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }    
+
+</script>
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/xiaoweibeibei" target="_blank">
+    <img src="http://avatar.csdn.net/F/1/6/1_xiaoweibeibei.jpg" title="访问我的空间" style="max-width:90%"/>
+    </a>
+    <br />
+    <span><a href="http://my.csdn.net/xiaoweibeibei" class="user_name" target="_blank">xiaoweibeibei</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter"  title="[发私信]" onclick="window.open('http://msg.csdn.net/letters/model?receiver=xiaoweibeibei','_blank','height=350,width=700');_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_sixin'])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>34281次</span></li>
+    <li>积分：<span>588</span> </li>    
+    <li >等级： <span style="position:relative;display:inline-block;z-index:1" >
+            <img src="http://c.csdnimg.cn/jifen/images/xunzhang/jianzhang/blog3.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：588 </div>
+        </span>  </li>
+    <li>排名：<span>千里之外</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>24篇</span></li>
+    <li>转载：<span>0篇</span></li>
+    <li>译文：<span>0篇</span></li>
+    <li>评论：<span>3条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字" /></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog" />
+        <input type="hidden" name="q" id="inputQ" />
+        <input type="hidden" name="t" value="blog" />
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";
+            window.location.href = url;
+        }   
+    });
+</script><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="/xiaoweibeibei/article/category/799801" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">linux 下C编程</a><span>(14)</span>
+                </li>
+                 <li>
+                    <a href="/xiaoweibeibei/article/category/741434" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Linux点点滴滴</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="/xiaoweibeibei/article/category/741435" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">生活点滴</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/xiaoweibeibei/article/category/822578" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">算法相关</a><span>(5)</span>
+                </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list">
+<!--归档统计-->
+<li><a href="/xiaoweibeibei/article/month/2013/11">2013年11月</a><span>(1)</span></li><li><a href="/xiaoweibeibei/article/month/2012/04">2012年04月</a><span>(1)</span></li><li><a href="/xiaoweibeibei/article/month/2011/07">2011年07月</a><span>(5)</span></li><li><a href="/xiaoweibeibei/article/month/2011/06">2011年06月</a><span>(6)</span></li><li><a href="/xiaoweibeibei/article/month/2011/05">2011年05月</a><span>(7)</span></li><li><a href="/xiaoweibeibei/article/month/2011/04">2011年04月</a><span>(1)</span></li><li><a href="/xiaoweibeibei/article/month/2011/03">2011年03月</a><span>(2)</span></li><li><a href="/xiaoweibeibei/article/month/2010/12">2010年12月</a><span>(1)</span></li>
+</div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="/xiaoweibeibei/article/details/6556951" title="Linux文件操作学习总结">Linux文件操作学习总结</a><span>(6277)</span>
+</li>
+<li>
+<a href="/xiaoweibeibei/article/details/6552498" title="Linux进程通信学习总结">Linux进程通信学习总结</a><span>(3727)</span>
+</li>
+<li>
+<a href="/xiaoweibeibei/article/details/6070936" title="ipv6 address 的设定">ipv6 address 的设定</a><span>(1946)</span>
+</li>
+<li>
+<a href="/xiaoweibeibei/article/details/6584250" title="套接字编程基础">套接字编程基础</a><span>(1946)</span>
+</li>
+<li>
+<a href="/xiaoweibeibei/article/details/6425447" title="Linux下关于结构体对齐的总结">Linux下关于结构体对齐的总结</a><span>(1861)</span>
+</li>
+<li>
+<a href="/xiaoweibeibei/article/details/6257315" title="ubuntu10.04使apt-get install 命令在代理模式下有效">ubuntu10.04使apt-get install 命令在代理模式下有效</a><span>(1783)</span>
+</li>
+<li>
+<a href="/xiaoweibeibei/article/details/6552496" title="Linux进程学习总结">Linux进程学习总结</a><span>(1724)</span>
+</li>
+<li>
+<a href="/xiaoweibeibei/article/details/6598697" title="linux UDP编程学习总结">linux UDP编程学习总结</a><span>(1714)</span>
+</li>
+<li>
+<a href="/xiaoweibeibei/article/details/6561897" title="Linux基于流的操作学习总结">Linux基于流的操作学习总结</a><span>(1300)</span>
+</li>
+<li>
+<a href="/xiaoweibeibei/article/details/6615289" title="linux gcc及gdb常用功能学习总结">linux gcc及gdb常用功能学习总结</a><span>(784)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="/xiaoweibeibei/article/details/6552498" title="Linux进程通信学习总结">Linux进程通信学习总结</a><span>(2)</span>
+</li>
+<li>
+<a href="/xiaoweibeibei/article/details/6257315" title="ubuntu10.04使apt-get install 命令在代理模式下有效">ubuntu10.04使apt-get install 命令在代理模式下有效</a><span>(1)</span>
+</li>
+<li>
+<a href="/xiaoweibeibei/article/details/6556951" title="Linux文件操作学习总结">Linux文件操作学习总结</a><span>(0)</span>
+</li>
+<li>
+<a href="/xiaoweibeibei/article/details/6561897" title="Linux基于流的操作学习总结">Linux基于流的操作学习总结</a><span>(0)</span>
+</li>
+<li>
+<a href="/xiaoweibeibei/article/details/6571186" title="Linux信号及信号处理学习总结">Linux信号及信号处理学习总结</a><span>(0)</span>
+</li>
+<li>
+<a href="/xiaoweibeibei/article/details/6584250" title="套接字编程基础">套接字编程基础</a><span>(0)</span>
+</li>
+<li>
+<a href="/xiaoweibeibei/article/details/6586431" title="linux TCP简单编程学习总结">linux TCP简单编程学习总结</a><span>(0)</span>
+</li>
+<li>
+<a href="/xiaoweibeibei/article/details/6591059" title="Linux网络编程学习总结">Linux网络编程学习总结</a><span>(0)</span>
+</li>
+<li>
+<a href="/xiaoweibeibei/article/details/6598697" title="linux UDP编程学习总结">linux UDP编程学习总结</a><span>(0)</span>
+</li>
+<li>
+<a href="/xiaoweibeibei/article/details/6615289" title="linux gcc及gdb常用功能学习总结">linux gcc及gdb常用功能学习总结</a><span>(0)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend"></ul>
+</div>
+<script type="text/javascript">
+ new Ad(12, 'ad_commend');
+</script><div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="/xiaoweibeibei/article/details/6257315#comments">ubuntu10.04使apt-get install 命令在代理模式下有效</a>
+    <p style="margin:0px;"><a href="/dingyan708811" class="user_name">dingyan708811</a>:
+在这句话Acquire::http::proxy  &quot;http://用户名：密码@代理地址&quot;;的最后...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/xiaoweibeibei/article/details/6552498#comments">Linux进程通信学习总结</a>
+    <p style="margin:0px;"><a href="/yhacanytime" class="user_name">yhacanytime</a>:
+
+    </p>
+    </li>
+    <li>
+   
+         <a href="/xiaoweibeibei/article/details/6552498#comments">Linux进程通信学习总结</a>
+    <p style="margin:0px;"><a href="/pengwentao" class="user_name">pengwentao</a>:
+写得真详细，值得好好研究学习。
+    </p>
+    </li>
+</ul>
+</div>
+    </div>
+    <div class="clear">
+    </div>
+ </div>   
+            <div class="clear">
+            </div>
+        </div>
+        
+
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/cnick/cnick.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="http://medal.blog.csdn.net/showblogmedal.ashx?blogid=943519"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/JavaScript1.js"></script>
+
+    <script type="text/javascript" src="http://passport.csdn.net/content/loginbox/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script>
+<script type="text/javascript" src="http://www.csdn.net/ui/scripts/Csdn/counter.js"></script>
+<script type="text/javascript" src="http://ad.csdn.net/scripts/ad-blog.js"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a>"
+                    + "<a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+    });
+</script>
+
+
+
+
+    </div>
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnId="header_notice_num" wrapId="note1" count="5" subCount="5" type="text/javascript" src="http://static.csdn.net/public/common/toolbar/js/toolbar.js"></script>     <!--new top-->
+   
+    <link href="http://c.csdnimg.cn/comm_ask/css/ask_float_block.css" type="text/css" rel="stylesheet" />
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/wmd.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/showdown.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/prettify.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/apps/ask_float_block.js'></script>
+   
+</body>
+</html>   
+ 
