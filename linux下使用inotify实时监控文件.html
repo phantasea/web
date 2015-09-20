@@ -1,0 +1,320 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="zh-CN" />
+<title>linux下使用inotify实时监控文件变更，做完整性检查-Linux教程-爱好Linux技术网</title>
+<meta name="keywords" content="linux,inotify,实时,监控文件" />
+<meta name="description" content="linux下使用inotify实时监控文件变更，做完整性检查,linux,inotify,实时,监控文件" />
+<link href="http://www.ahlinux.com/statics/css/gray.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+</head>
+<body>
+
+<div class="header_c">
+<div class="logo"><a href="http://www.ahlinux.com/"><img src="http://www.ahlinux.com/statics/images/logo.jpg" alt="爱好Linux技术网-Linux操作系统命令安装下载视频教程学习网站!"></a></div>
+<!--end标志-->
+<div class="h_adv">
+<script type="text/javascript">
+    /*920*65 创建于 2014-12-23*/
+    var cpro_id = "u1874611";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+</div>
+<!--end广告条-->
+</div>
+<!--end头文件中-->
+
+<ul class="nav">
+
+	<ul class="nav">
+	<li><a href="http://www.ahlinux.com"><span>首页</span></a></li>
+		<li><a href="http://www.ahlinux.com/news/"  title="新闻">新闻</a></li>
+		<li><a href="http://www.ahlinux.com/start/"  title="入门">入门</a></li>
+		<li><a href="http://www.ahlinux.com/dev/"  title="编程">编程</a></li>
+		<li><a href="http://www.ahlinux.com/server/"  title="应用">应用</a></li>
+		<li><a href="http://www.ahlinux.com/db/"  title="数据库">数据库</a></li>
+		<li><a href="http://www.ahlinux.com/mainte/"  title="运维">运维</a></li>
+		<li><a href="http://www.ahlinux.com/release/"  title="发行版">发行版</a></li>
+		<li><a href="http://bbs.ahlinux.com/">论坛</a></li>
+	<li><a href="http://bbs.ahlinux.com/">博客</a></li>
+	</ul>
+
+</ul>
+<!--end导航-->
+<div class="clear_div h_one">
+<div class="i_left">
+
+<div class="clear_div blue_border display_box">
+
+<dl class="l_site blue_link"><dd>当前位置：<a href="http://www.ahlinux.com">首页</a>&nbsp;>&nbsp;<a href="http://www.ahlinux.com/start/">入门</a> > <a href="http://www.ahlinux.com/start/base/">Linux教程</a> >  linux下使用inotify实时监控文件变更，做完整性检查</dd></dl>
+<dl class="clear_div display_th"><dt><h1>linux下使用inotify实时监控文件变更，做完整性检查</h1></dt>
+<dd><span>发布时间：2014-12-31 22:31:52&nbsp;&nbsp;&nbsp;编辑：AHLinux.com</span></dd>
+</dl>
+<!-- 点击数需要JS -->
+<script language="JavaScript" src="http://www.ahlinux.com/api.php?op=count&id=16798&modelid=1"></script>
+
+<div class="clear_div display_wen">
+<div class="summary" >完整性检查是HIDS的重要组成部分之一，linux下做完整性检查的思路有3个
+1、哈希对比
+2、签名校验
+3、inotify
+方法有2个：
+A、定期检测，例如通过cron或程序内置计时器
+B、实时检测，inotify
+1、2一般和A，3一般和   </div><div id="con_all">
+<div id="con_ad1"></div>
+<div id="con_ad8"><!--预留广告位--></div>
+<div class="bk24"></div>
+</div>
+<div id="zth_content">
+
+<P>完整性检查是HIDS的重要组成部分之一，linux下做完整性检查的思路有3个</P>
+<P>1、哈希对比</P>
+<P>2、签名校验</P>
+<P>3、inotify</P>
+<P>方法有2个：</P>
+<P>A、定期检测，例如通过cron或程序内置计时器</P>
+<P>B、实时检测，inotify</P>
+<P>1、2一般和A，3一般和B。用inotify做完整性检查的程序现在貌似还没现成比较好用的，谁推荐一个。</P>
+<P>内核2.6.13以上，RHEL5默认支持inotify，RHEL4不确认这个功能是否有backport，查看英文原文：Inotify: Efficient, Real-Time Linux File System Event Monitoring。</P>
+<P><BR>作者 Michael Prokop 译者 张永利 发布于 2010年9月22日 上午12时0分</P>
+<P>概要 – 为什么需要监控文件系统？<BR>在日常工作中，人们往往需要知道在某些文件(夹)上都有那些变化，比如：</P>
+<P>通知配置文件的改变 <BR>跟踪某些关键的系统文件的变化 <BR>监控某个分区磁盘的整体使用情况 <BR>系统崩溃时进行自动清理 <BR>自动触发备份进程 <BR>向服务器上传文件结束时发出通知 <BR>通常使用文件轮询的通知机制，但是这种机制只适用于经常改变的文件(因为它可以确保每过x秒就可以得到i/o)，其他情况下都非常低效，并且有时候会丢失某些类型的变化，例如文件的修改时间没有改变。像Tripwire这样的数据完整性系统，它们基于时间调度来跟踪文件变化，但是如果想实时监控文件的变化的话，那么时间调度就束手无策了。Inotify就这样应运而生了。本文将简要介绍inotify，告诉我们如何监控文件夹，如何一有变化就报告相关消息事件，并介绍了一些相关工具， 我们可以把它们添加到自己的工具箱中。</P>
+<P>Inotify到底是什么？<BR>Inotify是一种文件变化通知机制，Linux内核从2.6.13开始引入。在BSD和Mac OS系统中比较有名的是kqueue，它可以高效地实时跟踪Linux文件系统的变化。近些年来，以fsnotify作为后端，几乎所有的主流Linux发行版都支持Inotify机制。如何知道你的Linux内核是否支持Inotify机制呢？很简单，执行下面这条命令：</P>
+<P>% grep INOTIFY_USER /boot/config-$(uname -r)<BR>CONFIG_INOTIFY_USER=y如果输出(‘CONFIG_INOTIFY_USER=y’)，那么你可以马上享受Inotify之旅了。</P>
+<P>简单的文件变化通知样例：<BR>好的开始是成功的一半，对于了解Inotify机制来说，让我们从使用inotifywait程序开始，它包含在inotify-tools工具包中。假如我们打算监控/srv/test文件夹上的操作，只需执行：</P>
+<P>% inotifywait -rme modify,attrib,move,close_write,create,delete,delete_self /srv/test<BR>Setting up watches.&nbsp; Beware: since -r was given, this may take a while!<BR>Watches established.上述任务运行的同时，我们在另一个<a href="http://www.ahlinux.com/shell/" target="_blank" class="keylink">shell</a>里依次执行以下操作：创建文件夹，然后在新文件夹下创建文件，接着删除新创建的文件：</P>
+<P>% mkdir /srv/test/infoq<BR>% echo TODO &gt; /srv/test/infoq/article.txt<BR>% rm /srv/test/infoq/article.txt在运行inotifywait的shell中将会打印以下信息：</P>
+<P>/srv/test/ CREATE,ISDIR infoq<BR>/srv/test/infoq/ CREATE article.txt<BR>/srv/test/infoq/ MODIFY article.txt<BR>/srv/test/infoq/ CLOSE_WRITE,CLOSE article.txt<BR>/srv/test/infoq/ DELETE article.txt显而易见，只要有变化我们就会收到相关的通知。如果想了解关于Inotify提供的事件(如modify, atrrib等)的详细信息，请参考inotifywatch的manpage。实际使用时，如果并不想监控某个大文件夹，那么就可以使用inotifywait的exclude选项。例如：我们要忽略文件夹/srv/test/large，那么就可以这样来建立监控:</P>
+<P>% inotifywait --exclude ^/srv/test/(large|ignore)/ -rme modify,attrib,move,close_write,create,delete,delete_self /srv/test<BR>Setting up watches.&nbsp; Beware: since -r was given, this may take a while!<BR>Watches established.上面的例子中，在exclude选项的匹配串中我们使用了正则表达式，因为我们不想将名称中含有large或ignore的文件也排除掉。我们可以测试一下：</P>
+<P>% echo test &gt; /srv/test/action.txt<BR>% echo test &gt; /srv/test/large/no_action.txt<BR>% echo test &gt; /srv/test/ignore/no_action.txt<BR>% echo test &gt; /srv/test/large-name-but-action.txt这里inotifywait应该只会报告’action.txt’和’large-name-but-action.txt’两个文件的变化，而忽略子文件夹’large’和’ignore’下的文件，结果也确实如此；</P>
+<P>/srv/test/ CREATE action.txt<BR>/srv/test/ MODIFY action.txt<BR>/srv/test/ CLOSE_WRITE,CLOSE action.txt<BR>/srv/test/ CREATE large-name-but-action.txt<BR>/srv/test/ MODIFY large-name-but-action.txt<BR>/srv/test/ CLOSE_WRITE,CLOSE large-name-but-action.txt另外，通过使用-t选项我们还可以定义inotifywait的监控时间，既可以让它执行一段时间，也可以让它一直运行。util-linux-ng的logger命令也可以实现此功能，不过得先把相关的消息事件发送到syslog，然后从syslog<a href="http://www.ahlinux.com/server/" target="_blank" class="keylink">服务器</a>再分析整合。</P>
+<P>Inotifywatch – 使用inotify来统计文件系统访问信息<BR>Inotify-tools中还有一个工具叫inotifywatch，它会先监听文件系统的消息事件，然后统计每个被监听文件或文件夹的消息事件，之后输出统计信息。比如我们想知道某个文件夹上有那些操作：</P>
+<P>% inotifywatch -v -e access -e modify -t 120 -r ~/InfoQ<BR>Establishing watches...<BR>Setting up watch(es) on /home/mika/InfoQ<BR>OK, /home/mika/InfoQ is now being watched.<BR>Total of 58 watches.<BR>Finished establishing watches, now collecting statistics.<BR>Will listen for events for 120 seconds.<BR>total&nbsp; modify&nbsp; filename<BR>2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /home/mika/InfoQ/inotify/很显然，这里我们监控的是~/InfoQ文件夹，并且可以看到/home/mika/InfoQ/inotify上发生了两个事件。方法虽简单，但却很有效。</P>
+<P>Inotify的配置选项<BR>使用Inotify时，要特别注意内核中关于它的两个配置。首先/proc/sys/fs/inotify/max_user_instances 规定了每个用户所能创建的Inotify实例的上限；其次/proc/sys/fs/inotify/max_user_watches规定了每个Inotify实例最多能关联几个监控(watch)。你可以很容易地试验在运行过程中达到上限，如：</P>
+<P>% inotifywait -r /<BR>Setting up watches.&nbsp; Beware: since -r was given, this may take a while!<BR>Failed to watch /; upper limit on inotify watches reached!<BR>Please increase the amount of inotify watches allowed per user via `/proc/sys/fs/inotify/max_user_watches.如果要改变这些配置，只要向相应的文件写入新值即可，如下所示：</P>
+<P># cat /proc/sys/fs/inotify/max_user_watches<BR>8192<BR># echo 16000 &gt; /proc/sys/fs/inotify/max_user_watches<BR># cat /proc/sys/fs/inotify/max_user_watches<BR>16000使用Inotify的一些工具<BR>近一段时间出现了很多基于Inotify的超炫的工具，如incron，它是一个类似于cron的守护进程(daemon)，传统的cron守护进程都是在规定的某个时间段内执行，而incron由于使用了Inotify，可以由事件触发执行。同时incron的安装简单而直观，比如在debian上，首先在/etc/incron.allow中添加使用incron的用户(debian默认不允许用户使用incron，因为如果incron使用不慎的话，例如形成死循环，则会导致系统宕机)： </P>
+<P># echo username &gt; /etc/incron.allow然后调用”incrontab -e“, 在弹出的编辑器中插入我们自己的规则，例如下面的这条简单的规则，文件一变化incron就会发邮件通知我们：</P>
+<P>/srv/test/ IN_CLOSE_WRITE <a href="http://www.ahlinux.com/server/mail/" target="_blank" class="keylink">mail</a> -s "$@/$#
+" root从现在开始，一旦/src/test文件夹中的文件被修改，就会发送一封<a href="http://www.ahlinux.com/server/mail/" target="_blank" class="keylink">邮件</a>。但是注意不要让incron监控整个子目录树，因为Inotify只关注inodes，而不在乎是文件还是文件夹，所以基于Inotify的软件都需要自己来处理/预防递归问题。关于incontab详细使用，请参考incrontab的manpage。</P>
+<P>如果你还要处理incoming文件夹，那么你可能需要inoticoming。当有文件进入incoming文件夹时Inoticoming就会执行某些动作，从而可以用inoticoming来管理debian的软件仓库(例如软件仓库中一旦有上传源码包或是新添加的二进制包就立刻自动进行编译)，另外，还可以用它来监控系统是否有新上传文件，如果有就发送通知。类似的工具还有(它们都各有专长)：inosync(基于消息通知机制的文件夹同步服务)，iwatch(基于Inotify的程序，对文件系统进行实时监控)，以及lsyncd(一个守护进程(daemon)，使用rsync同步本地文件夹)。</P>
+<P>Inotify甚至对传统的Unix工具也进行了改进，例如tail。使用inotail，同时加上-f选项，就可以取代每秒轮询文件的做法。此外，GNU 的coreutils从版本7.5开始也支持Inotify了，我们可以运行下面的<a href="http://www.ahlinux.com/start/cmd/" target="_blank" class="keylink">命令</a>来确认：</P>
+<P># strace -e inotify_init,inotify_add_watch <a href="http://www.ahlinux.com/start/cmd/9044.html" target="_blank" class="keylink">tail</a> -f ~log/syslog<BR>[...]<BR>inotify_<a href="http://www.ahlinux.com/start/cmd/525.html" target="_blank" class="keylink">init</a>()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 4<BR>inotify_add_<a href="http://www.ahlinux.com/start/cmd/862.html" target="_blank" class="keylink">watch</a>(4, "/var/log/syslog", IN_MODIFY|IN_ATTRIB|IN_DELETE_SELF|IN_MOVE_SELF) = 1从现在开始，通过轮询来确实文件是否需要重新读取的方法应该作为古董了。</P>
+<P>在脚本中使用Inotify<BR>Inotify机制并不局限于工具，在脚本语言中也完全可以享受Inotify的乐趣，如Python中可以使用pyinotify和inotifyx，Perl中有Filesys-Notify-Simple和Linux-Inotify2，Inotify的Ruby版有ruby-inotifyrb-inoty和fssm。</P>
+<P>总结<BR>综上所述，
+<ul class="l_text clear_div">
+<li>本文来自：<a href="http://www.ahlinux.com">爱好Linux技术网</a></li>
+<li>本文链接：<a href="http://www.ahlinux.com/start/base/16798.html">http://www.ahlinux.com/start/base/16798.html</a></li>
+</ul>
+
+<!--内容关联投票-->
+
+<div class="clear_div page"></div>
+<!--end页码-->
+</div>
+
+<div class="contentBottomAd">
+
+<script type="text/javascript">
+var cpro_id="u2162723";
+(window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id]={at:"3",rsi0:"750",rsi1:"250",pat:"6",tn:"baiduCustNativeAD",rss1:"#FFFFFF",conBW:"1",adp:"1",ptt:"0",titFF:"%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91",titFS:"14",rss2:"#000000",titSU:"0",ptbg:"90",piw:"0",pih:"0",ptp:"0"}
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+</div>
+
+</div>
+<!--end正文-->
+
+<ul class="clear_div share">
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"32"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+</ul>
+
+</div>
+<!--end边框-->
+<p style="margin-bottom:10px">
+	<strong>相关热词搜索：</strong>
+			<a href="http://www.ahlinux.com/tag/linux.html" class="blue">linux</a>
+			<a href="http://www.ahlinux.com/tag/inotify.html" class="blue">inotify</a>
+			<a href="http://www.ahlinux.com/tag/%E5%AE%9E%E6%97%B6.html" class="blue">实时</a>
+			<a href="http://www.ahlinux.com/tag/%E7%9B%91%E6%8E%A7%E6%96%87%E4%BB%B6.html" class="blue">监控文件</a>
+	</p>
+<dl class="clear_div other_news">
+<dd><b>下一篇:</b><a href="http://www.ahlinux.com/start/base/16797.html">Linux下将Tinyxml编译为静态库</a></dd>
+<dt><b>上一篇:</b><a href="http://www.ahlinux.com/start/base/16799.html">Linux下给普通用户添加Sudo权限</a></dt>
+</dl>
+
+ 	<dl class="h_th"><dd><h4>相关文章</h4></dd></dl>
+	<ul class="clear_div h_list blue_related" id="xgwz">
+				<li><span class="date">2014-10-18</span><a href="http://www.ahlinux.com/start/base/2916.html" title="不错的crontab教程" target="_blank">不错的crontab教程</a></li>
+				<li><span class="date">2014-10-18</span><a href="http://www.ahlinux.com/start/base/2917.html" title="linux 查看设置时区和时间" target="_blank">linux 查看设置时区和时间</a></li>
+				<li><span class="date">2014-10-18</span><a href="http://www.ahlinux.com/start/base/2919.html" title="Linux下如何编译安装OpenSSH" target="_blank">Linux下如何编译安装OpenSSH</a></li>
+				<li><span class="date">2014-10-18</span><a href="http://www.ahlinux.com/start/base/2920.html" title="Linux HostName设置详解" target="_blank">Linux HostName设置详解</a></li>
+				<li><span class="date">2014-10-18</span><a href="http://www.ahlinux.com/start/base/2922.html" title="了解linux系统硬盘分区概念" target="_blank">了解linux系统硬盘分区概念</a></li>
+				<li><span class="date">2014-10-18</span><a href="http://www.ahlinux.com/start/base/2924.html" title="了解Linux的/etc/services文件" target="_blank">了解Linux的/etc/services文件</a></li>
+				<li><span class="date">2014-10-18</span><a href="http://www.ahlinux.com/start/base/2926.html" title="提高linux系统安全的几个小措施" target="_blank">提高linux系统安全的几个小措施</a></li>
+				<li><span class="date">2014-10-18</span><a href="http://www.ahlinux.com/start/base/2927.html" title="linux系统脚本启动顺序详解" target="_blank">linux系统脚本启动顺序详解</a></li>
+				<li><span class="date">2014-10-18</span><a href="http://www.ahlinux.com/start/base/2928.html" title="linux系统设置静态路由" target="_blank">linux系统设置静态路由</a></li>
+				<li><span class="date">2014-10-18</span><a href="http://www.ahlinux.com/start/base/2930.html" title="linux下改变网卡编号的方法" target="_blank">linux下改变网卡编号的方法</a></li>
+				<li><span class="date">2014-10-18</span><a href="http://www.ahlinux.com/start/base/2931.html" title="linux虚拟网卡的配置方法" target="_blank">linux虚拟网卡的配置方法</a></li>
+				<li><span class="date">2014-10-18</span><a href="http://www.ahlinux.com/start/base/2936.html" title="安装radiusplugin" target="_blank">安装radiusplugin</a></li>
+				<li><span class="date">2014-10-18</span><a href="http://www.ahlinux.com/start/base/2942.html" title="SELinux入门" target="_blank">SELinux入门</a></li>
+				<li><span class="date">2014-10-18</span><a href="http://www.ahlinux.com/start/base/2943.html" title="Linux PAM认证详解" target="_blank">Linux PAM认证详解</a></li>
+				<li><span class="date">2014-10-18</span><a href="http://www.ahlinux.com/start/base/2944.html" title="Linux双网卡单网关设置" target="_blank">Linux双网卡单网关设置</a></li>
+				<li><span class="date">2014-10-18</span><a href="http://www.ahlinux.com/start/base/2947.html" title="linux过往时间表示法" target="_blank">linux过往时间表示法</a></li>
+				<li><span class="date">2014-10-18</span><a href="http://www.ahlinux.com/start/base/2948.html" title="Linux安全设置阻止扫站检测与攻击" target="_blank">Linux安全设置阻止扫站检测与攻击</a></li>
+				<li><span class="date">2014-10-18</span><a href="http://www.ahlinux.com/start/base/2949.html" title="linux磁盘配额管理" target="_blank">linux磁盘配额管理</a></li>
+				<li><span class="date">2014-10-18</span><a href="http://www.ahlinux.com/start/base/2951.html" title="Linux/UNIX下终端和控制台实现彩色字体显示" target="_blank">Linux/UNIX下终端和控制台实现彩色字体显示</a></li>
+				<li><span class="date">2014-10-18</span><a href="http://www.ahlinux.com/start/base/2952.html" title="学习使用Linux下的分区工具" target="_blank">学习使用Linux下的分区工具</a></li>
+			</ul>
+  
+<div class="clear_div list_t"></div>
+<!--end广告条-->
+
+<div class="clear_div sky_border list_o">
+<div class="l_hot clear_div">关键词：</div>
+<!--end热门搜索-->
+</div>
+<!--end边框-->
+<div class="clear_div gray_border list_d">
+<script type="text/javascript" src="http://www.ahlinux.com/index.php?m=mood&c=index&a=init&id=19-16798-1"></script><h4 class="gray_th">相关评论</h4>
+            <iframe src="http://www.ahlinux.com/index.php?m=comment&c=index&a=init&commentid=content_19-16798-1&iframe=1" width="100%" height="100%" id="comment_iframe" frameborder="0" scrolling="no"></iframe>
+        <!--兼容版，可保证页面完全兼容-->
+<div id="SOHUCS"></div>
+</div>
+<div class="clear_div gray_border list_d">
+<!--兼容版，可保证页面完全兼容-->
+<div id="SOHUCS"></div>
+</div>
+<!--end相关评论-->
+<!--end边框-->
+
+</div>
+<!--end左边-->
+<div class="i_right">
+<div id="ss">
+  <form action="http://www.ahlinux.com/index.php" method="get" target="_blank">
+    <input type="hidden" name="m" value="search" />
+    <input type="hidden" name="c" value="index" />
+    <input type="hidden" name="a" value="init" />
+    <input type="hidden" name="typeid" value="1" id="typeid" />
+    <input type="hidden" name="siteid" value="1" id="siteid" />
+    <input type="text" class="text form-input" name="q" id="q" />
+	<input type="submit" id="form-submit" class="form-submit" value="搜 索" class="button" />
+  </form>
+</div>
+
+<div class="clear_div list_p">
+<script type="text/javascript">
+    /*300*250 创建于 2014-12-23*/
+    var cpro_id = "u1874626";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+
+</div>
+<!--end广告条-->
+
+<div class="clear_div gray_border list_o">
+<div class="tab_nav r_tab_nav"><dl><dt><h3>浏览排行</h3></dt></dl></div>
+<!--end标签导航-->
+<div class="tab_box r_tab_box">
+<div>
+<ul class="clear_div r_tad tad_list">
+			  <li><span class="r_num">1</span><a href="http://www.ahlinux.com/start/base/21679.html" title="Linux下配置ShadowSocks(Server&Client)">Linux下配置ShadowSocks(Server&Client)</a></li>
+		  <li><span class="r_num">2</span><a href="http://www.ahlinux.com/start/base/8298.html" title="利用树莓派搭建自带翻墙的路由器">利用树莓派搭建自带翻墙的路由器</a></li>
+		  <li><span class="r_num">3</span><a href="http://www.ahlinux.com/start/base/7266.html" title="CentOS 搭建DNS服务器，实现局域网域名访问">CentOS 搭建DNS服务器，实现局域网域名访问</a></li>
+		  <li><span class="r_num">4</span><a href="http://www.ahlinux.com/start/cmd/392.html" title="Linux用户管理命令(useradd、adduser)">Linux用户管理命令(useradd、adduser)</a></li>
+		  <li><span class="r_num">5</span><a href="http://www.ahlinux.com/start/base/22310.html" title="Linux分屏利器tmux小记">Linux分屏利器tmux小记</a></li>
+		  <li><span class="r_num">6</span><a href="http://www.ahlinux.com/start/base/6724.html" title="shadowsocks的多用户配置">shadowsocks的多用户配置</a></li>
+		  <li><span class="r_num">7</span><a href="http://www.ahlinux.com/start/base/10045.html" title="vim中go的语法高亮设置">vim中go的语法高亮设置</a></li>
+		  <li><span class="r_num">8</span><a href="http://www.ahlinux.com/start/base/13767.html" title="在 Linux 上使用 eCryptFS 加密文件和目录">在 Linux 上使用 eCryptFS 加密文件和目录</a></li>
+		  <li><span class="r_num">9</span><a href="http://www.ahlinux.com/start/base/23259.html" title="Linux GDB常用命令一栏">Linux GDB常用命令一栏</a></li>
+		  <li><span class="r_num">10</span><a href="http://www.ahlinux.com/start/base/19763.html" title="kali Linux系列教程之BeFF安装与集成Metasploit">kali Linux系列教程之BeFF安装与集成Metasploit</a></li>
+		</ul>
+</div>
+<!--end排行-->
+</div>
+<!--end标签内容-->
+</div>
+
+<div class="clear_div list_o gray_border">
+<h3 class="h_r_th">推荐文章</h3>
+<ul class="clear_div h_news">
+<li><a href="http://www.ahlinux.com/start/base/22623.html" title="linux安全配置检查项">linux安全配置检查项</a></li> 
+<li><a href="http://www.ahlinux.com/start/base/18174.html" title="Linux下的磁盘分割和文件系统">Linux下的磁盘分割和文件系统</a></li> 
+<li><a href="http://www.ahlinux.com/start/base/18173.html" title="Linux开机流程以及运行级别">Linux开机流程以及运行级别</a></li> 
+<li><a href="http://www.ahlinux.com/start/base/18160.html" title="在Linux上为指定IP端口模拟网络收发包延迟">在Linux上为指定IP端口模拟网络收发包延迟</a></li> 
+<li><a href="http://www.ahlinux.com/start/base/15773.html" title="关于Linux的10个最常见问题">关于Linux的10个最常见问题</a></li> 
+<li><a href="http://www.ahlinux.com/start/base/10043.html" title="iproute2 对决 net-tools">iproute2 对决 net-tools</a></li> 
+<li><a href="http://www.ahlinux.com/start/base/4115.html" title="运维老鸟教你安装centos6.5如何选择安装包">运维老鸟教你安装centos6.5如何选择安装包</a></li> 
+<li><a href="http://www.ahlinux.com/start/base/3753.html" title="linux防火墙iptables配置规则实例教程">linux防火墙iptables配置规则实例教程</a></li> 
+<li><a href="http://www.ahlinux.com/start/base/3664.html" title="linux挂载硬盘与格式化分区">linux挂载硬盘与格式化分区</a></li> 
+<li><a href="http://www.ahlinux.com/start/base/3653.html" title="Linux基础教程之管道与重定向">Linux基础教程之管道与重定向</a></li> 
+</ul>
+</div>
+<!--end推荐文章-->
+<div class="clear_div list_o">
+<script></script>
+</div>
+<!--end广告条-->
+
+<div class="clear_div list_o gray_border">
+<h3 class="h_r_th">最近更新</h3>
+<ul class="clear_div h_news">
+<li><a href="http://www.ahlinux.com/start/base/23264.html" title="Linux中查看NUMA信息">Linux中查看NUMA信息</a></li> 
+<li><a href="http://www.ahlinux.com/start/base/23260.html" title="sublime 配置 vim模式 并修改 Esc快捷键">sublime 配置 vim模式 并修改 Esc快捷键</a></li> 
+<li><a href="http://www.ahlinux.com/start/base/23259.html" title="Linux GDB常用命令一栏">Linux GDB常用命令一栏</a></li> 
+<li><a href="http://www.ahlinux.com/start/base/23257.html" title="实现关闭ssh继续运行程序">实现关闭ssh继续运行程序</a></li> 
+<li><a href="http://www.ahlinux.com/start/base/23219.html" title="五个 Linux 下用户空间的调试工具">五个 Linux 下用户空间的调试工具</a></li> 
+<li><a href="http://www.ahlinux.com/start/base/23217.html" title="如何在脚本中获取进程ID（PID）">如何在脚本中获取进程ID（PID）</a></li> 
+<li><a href="http://www.ahlinux.com/start/base/23216.html" title="linux 下运行多个tomcat">linux 下运行多个tomcat</a></li> 
+<li><a href="http://www.ahlinux.com/start/base/23210.html" title="linux下 /etc/profile、~/.bash_profile ~/.profile的执行过程">linux下 /etc/profile、~/.bash_profile ~/.profile的执行过程</a></li> 
+<li><a href="http://www.ahlinux.com/start/base/23204.html" title="如何通过命令行创建和设置一个MySQL用户">如何通过命令行创建和设置一个MySQL用户</a></li> 
+<li><a href="http://www.ahlinux.com/start/base/23203.html" title="使用C#给Linux写Shell脚本">使用C#给Linux写Shell脚本</a></li> 
+</ul>
+</div>
+<!--end推荐文章-->
+
+<div id="xtad" class="clear_div list_p xtad" style="background-color:#fdfdff;">
+<script type="text/javascript">
+    /*300*250 创建于 2014-12-23*/
+    var cpro_id = "u1874633";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+<br/>
+<script type="text/javascript">
+    /*300*250 创建于 2014-12-23*/
+    var cpro_id = "u1874779";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+
+</div>
+<!--end广告条-->
+
+</div>
+<!--end右边-->
+</div>
+<!--end中间区域-->
+<script language="JavaScript" src="http://www.ahlinux.com/api.php?op=count&id=16798&modelid=1"></script>
+﻿<dl class="clear_div2 footer">
+<dt>关于本站 | 网站地图 | 联系我们 | 免责声明 | 友情链接
+</dt> 
+
+<dd>皖ICP备09020804号<p>CopyRight &copy; 2009-2014 <a href="http://www.ahlinux.com"><strong>爱好Linux技术网</strong></a> AHLinux.com , All Rights Reserved.
+</p></dd>
+</dl>
+</div>
+<!--end文件底-->
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<div class="tongji">
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F2fb3113ba85413b904886fcce5510d09' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script src="http://s4.cnzz.com/z_stat.php?id=1253528220&web_id=1253528220" language="JavaScript"></script>
+</div>
+<script type="text/javascript" src="http://www.ahlinux.com/statics/js/global.js"></script>
+</body>
+</html>

@@ -1,0 +1,990 @@
+
+					<!doctype html>
+<html>
+<head>
+<script type="text/javascript">
+if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))){
+	try{
+		if(/iPad/i.test(navigator.userAgent)){
+		}else{
+			var re = /^[\S]*[\\\/]([0-9]+)_*([0-9])*\.shtml/;
+			var wapUrl = window.location.pathname.replace(\"_all\",\"\").replace(re,function(m,p1,p2){
+				if(p1){
+					if(p2){
+						return "http://m.it168.com/article_" + parseInt(p1,10) + "_p" + parseInt(p2,10) + ".html";					
+					}else{					
+						return "http://m.it168.com/article_" + parseInt(p1,10) + ".html";
+					}
+				}else{
+					return "http://m.it168.com";
+				}
+			});
+			window.location.href = wapUrl;			
+		}
+	}catch(e){}
+}
+</script>
+<title>Inotify+Rsync实现linux文件实时同步-IT168 技术开发专区</title>
+<meta charset="gb2312" />
+<meta name="description" content="公司一套系统的同步使用的donotify，不能实现子目录的实时同步，通过查资料，发现inotify可以实现子目录的实时同步，以下为笔记。"/>
+<base target="_blank" />
+
+
+
+<script type="text/javascript">
+	var reqUrl = window.location.href.toLowerCase();
+	if (reqUrl.lastIndexOf("itpub.net")>0)
+	{
+		document.domain='itpub.net';
+	}
+	else
+	{
+				document.domain='it168.com';
+			}
+	var articleONeCode = "000000000855000";
+	var articleCode = "855000";
+	var articlePath = "http://tech.it168.com/a2010/0301/855/000000855000.shtml";
+	var articleUrl = "http://tech.it168.com/a2010/0301/855/000000855000.shtml";
+	var articleTitle = "Inotify+Rsync实现linux文件实时同步";
+	var articlecuPage = 1;
+	var articlePageCount = 0;
+	var articleChannelCode = "4";
+	var chanstr = "4";
+	var articleTypeName="技术";
+        var channelNameSt = "技术开发";
+	var typeid = "";
+	var pinpaiid = "";
+	var productid ="";
+	var brndnamestr="";
+	var pageType = "article";
+	</script>
+
+<script type="text/javascript">
+var channelpropertyid=4; //频道id
+var channelpropertycateid="";//频道属性
+var articlePropertyID=6;//文章属性
+var SeriesId=""; //产品小类id
+var BrandId=""; //品牌id
+
+</script>
+
+<script type="text/javascript" src="http://168.it168.com/a/h96.js"></script>
+<link rel="stylesheet" href="/detailinclude/article2015/include/style.css?v=new20150917">
+<link rel="StyleSheet" href="http://open.pcpop.com/css/It168Article.css?v=20120723000" type="text/css" media="screen" />
+<script type="text/javascript" src="/detailinclude/article2015/include/jquery-1.7.2.min.js"></script>
+
+
+
+</head>
+<body>
+<div id="ADV_20300" class="top_nav_adv"  style="display:none;"><script>LG('ADV_20300');</script></div>
+<div id="ADV_1311"  class="top_nav_adv"  style="display:none;"><script>LG('ADV_1311');</script></div>
+<div id="ADV_20769" class="top_nav_adv"  style="display:none;"><script>LG('ADV_20769');</script></div>
+<div class="big_nav">
+<div class="login" id="LoginFalse"><a href="/" target="_self" id="login">登录</a> / <a href="/" target="_self" id="Register">注册</a></div>
+<div class="login" id="LoginTrue" style="display:none;" ><a ><span id="logintrueName"></span><em></em></a>
+<div class="zhanghao" style="display:none;"><a href="http://u.it168.com" class="first">账号信息</a><a href="/" id="log_out" target="_self">退出登录</a></div></div>
+  <ul class="nav" id="nav">
+    <li id="n1" style="background:none; border-left:1px solid #fff;border-right:1px solid #fff;" ><a href="http://www.it168.com">IT168首页</a></li>
+    <li><a href="http://mobile.it168.com/" >手机</a><i></i>
+      <div class="div">
+        <div class="div1 float_l" id="channel_mobile" > 
+			<a  href="http://mobile.it168.com" >手机频道</a> 
+			<a  href="http://peijian.it168.com" >手机配件</a>
+			<a href="http://4g.it168.com" >4G频道</a>
+			<a  href="http://3g.it168.com" >3G频道</a> 
+			<a  href="http://jiyouhui.it168.com" >机友会论坛</a>
+			<a  href="http://sony.it168.com" >索尼论坛</a> 
+		</div>
+		
+        <div class="div2 float_r">
+		
+			 	<a href="http://mobile.it168.com/tu/1761542_1.shtml" >最个性的定制化旗舰 Moto X Style开箱</a>
+	<a href="http://mobile.it168.com/tu/1762166_1.shtml" >2.5D双面玻璃纯简白 iuni N1开箱图赏</a>
+	<a href="http://mobile.it168.com/a2015/0917/1762/000001762805.shtml" >售2699元 荣耀7 Plus首发麒麟950</a>
+	<a href="http://mobile.it168.com/a2015/0916/1762/000001762467.shtml" >中国大陆周四凌晨1点推送iOS 9</a>
+	<a href="http://mobile.it168.com/tu/1761408_1.shtml" >IT168毒图党：超薄金属机身Galaxy A8</a>
+<div><a  href="http://mobile.it168.com/" class="more3">更多手机文章>></a></div>
+		</div>
+      </div>
+    </li>
+    <li><a onclick="ga('send','event','it168_channel','click','nav_channel');" href="http://notebook.it168.com" >整机</a><i></i>
+      <div class="div">
+        <div class="div1 float_l" id="channel_notebook" >
+		<a onclick="ga('send','event','it168_channel','click','nav_channel');" href="http://notebook.it168.com" >笔记本</a> <a onclick="ga('send','event','it168_channel','click','nav_channel');" href="http://ultrabook.it168.com" >超极本</a> <a onclick="ga('send','event','it168_channel','click','nav_channel');" href="http://aio.it168.com" >一体电脑</a> <a onclick="ga('send','event','it168_channel','click','nav_channel');" href="http://pc.it168.com" >台式机</a> <a onclick="ga('send','event','it168_channel','click','nav_channel');" href="http://pc.it168.com/sypc.shtml" >商用电脑</a> <a onclick="ga('send','event','it168_channel','click','nav_channel');" href="http://benyouhui.it168.com/" >本友会论坛</a>  </div>
+        <div class="div2 float_r">
+			<a href="http://notebook.it168.com/a2015/0916/1762/000001762441.shtml" >漂亮的实力派 戴尔新游匣15 7000评测</a>
+	<a href="http://notebook.it168.com/a2015/0914/1761/000001761933.shtml" >预装win10轻松4K 华硕VivoBook4000评测</a>
+	<a href="http://notebook.it168.com/a2015/0917/1762/000001762807.shtml" >飞行堡垒领跑 热销笔记本TOP10排行榜</a>
+	<a href="http://notebook.it168.com/a2015/0916/1762/000001762458.shtml" >最高效能大集结 2015版X1 Carbon大热门</a>
+	<a href="http://notebook.it168.com/a2015/0917/1762/000001762808.shtml" >领航配置豪华游戏王 神舟战神Z7M仅5979</a>
+<div><a  href="http://pc.it168.com/" class="more3" >更多整机文章>></a></div></div>
+      </div></li>
+    <li id="n1"><a href="http://diy.it168.com" >DIY硬件</a><i class="w78"></i>
+      <div class="div">
+        <div class="div1 float_l"><a href="http://cpu.it168.com" >CPU</a> <a href="http://mb.it168.com" >主板</a> <a href="http://vga.it168.com" >显卡</a> <a href="http://mouse.it168.com" >键盘鼠标</a> <a href="http://power.it168.com" >机箱电源</a> <a href="http://memory.it168.com" >内存硬盘</a> <a href="http://diybbs.it168.com" >烧友会论坛</a> </div>
+        <div class="div2 float_r">
+		
+			<a href="http://mb.it168.com/a2015/0907/1760/000001760184.shtml" >Skylake普及先锋 华硕Z170-A主板解析</a>
+	<a href="http://vga.it168.com/a2015/0908/1760/000001760536.shtml" >高速DDR5显卡 影驰GTX750 Ti大将888元</a>
+	<a href="http://mouse.it168.com/a2015/0915/1762/000001762289.shtml" >激光游戏鼠标 黑爵AJ100国美售价149元</a>
+	<a href="http://memory.it168.com/a2015/0908/1760/000001760283.shtml" >128G固态硬盘 笔记本配件仅售399元</a>
+	<a href="http://vga.it168.com/a2015/0914/1761/000001761797.shtml" >《上古世纪》玩家福利 华硕猛禽GTX950</a>
+<div><a href="http://diy.it168.com/" class="more3" >更多DIY硬件文章>></a></div></div>
+      </div></li>
+    <li><a href="http://dc.it168.com" >摄影</a><i></i>
+      <div class="div">
+        <div class="div1 float_l"><a href="http://dc.it168.com" >数码相机</a> <a href="http://dandian.it168.com/" >单电之家</a> <a href="http://pj.it168.com" >摄影配件</a> <a href="http://dv.it168.com" >DV摄像机</a> <a href="http://photobbs.it168.com" >摄友会论坛</a>  </div>
+        <div class="div2 float_r">
+		
+			<a href="http://dc.it168.com/a2015/0914/1761/000001761927.shtml" >A7SII登场 索尼A7系列6款相机应如何选</a>
+	<a href="http://dc.it168.com/a2015/0917/1762/000001762801.shtml" >超强代入感 第一视角电影《Hardcore》</a>
+	<a href="http://dc.it168.com/a2015/0916/1762/000001762551.shtml" >索尼无损RAW终于来了？是否有损重要吗</a>
+	<a href="http://dc.it168.com/a2015/0917/1762/000001762791.shtml" >支持4K录制 索尼RX1 Mark II即将到来</a>
+	<a href="http://dc.it168.com/a2015/0914/1761/000001761728.shtml" >一张图210MB 佳能1亿像素单反或推迟发</a>
+<div><a href="http://dc.it168.com/" class="more3" >更多摄影文章>></a></div></div>
+      </div></li>
+    <li id="n1"><a href="http://digital.it168.com" >消费数码</a><i class="w78"></i>
+      <div class="div">
+        <div class="div1 float_l"><a href="http://pad.it168.com" >平板</a><a href="http://earphone.it168.com" >耳机</a> <a href="http://lcd.it168.com" >显示器</a> <a href="http://sound.it168.com" >音箱</a>  </div>
+        <div class="div2 float_r">
+		
+			<a href="http://pad.it168.com/a2015/0915/1762/000001762103.shtml" >能拍好照片的平板 三星Tab S2超值购</a>
+	<a href="http://pad.it168.com/a2015/0917/1762/000001762858.shtml" >全面释放Windows潜力 CoreM平板热力榜</a>
+	<a href="http://pad.it168.com/a2015/0915/1762/000001762350.shtml" >千元金属商务平板 中柏平板5s天猫上市</a>
+	<a href="http://pad.it168.com/tu/1763394_1.shtml" >真是薄无极限 三星平板Tab S2外观赏析</a>
+	<a href="http://pad.it168.com/a2015/0918/1763/000001763459.shtml" >中秋送绝美佳礼 三星Tab S2平板最实惠</a>
+<div><a href="http://digital.it168.com/" class="more3" >更多消费数码文章>></a></div>
+		
+		</div>
+      </div></li>
+    <li id="n1"><a href="http://elec.it168.com" >数字家电</a><i class="w78"></i>
+      <div class="div">
+        <div class="div1 float_l"><a href="http://elec.it168.com" >数字家电</a> <a href="http://smart.it168.com" >小家电</a> <a href="http://tv.it168.com" >智能电视</a> <a href="http://elife.it168.com" >智能生活</a> </div>
+        <div class="div2 float_r">		
+       	<a href="http://elec.it168.com/a2015/0914/1761/000001761741.shtml" >超高清内置WIFIW网络 海尔42寸电视2499</a>
+	<a href="http://elec.it168.com/a2015/0915/1762/000001762224.shtml" >深度清洁 美的6公斤银色滚筒洗衣机1298</a>
+	<a href="http://elec.it168.com/a2015/0918/1763/000001763189.shtml" >限时团购 海尔55英寸平板电视仅2999元</a>
+	<a href="http://elec.it168.com/a2015/0917/1763/000001763033.shtml" >智能健康生活 国美热销小家电TOP排行榜</a>
+	<a href="http://smart.it168.com/a2015/0916/1762/000001762432.shtml" >团购进行时 飞龙出口立式烧烤炉仅369元</a>
+<div><a href="http://elec.it168.com/" class="more3" >更多数字家电文章>></a></div></div>	   
+      </div></li>
+    <li><a href="javascript:void(0);" >企业IT</a><i></i>
+      <div class="div_1">
+        <div class="div1 float_r">
+		<a href="http://server.it168.com" >服务器</a> 
+		<a href="http://net.it168.com" >网络通信</a> 
+		<a href="http://storage.it168.com" >存储</a> 
+		<a href="http://safe.it168.com" >企业安全</a> 
+		<a href="http://virtual.it168.com/" >虚拟化</a>
+		<a href="http://datacenter.it168.com" >数据中心</a>
+		<a href="http://wireless.it168.com" >无线组网</a> 
+		</div>
+        <div class="div2 float_l">		
+        <a href="http://www.it168.com/redian/2015HCC/" title="IT168现场直击：2015华为云计算大会" >IT168现场直击：2015华为云计算大会</a><a href="http://server.it168.com/a2015/0918/1763/000001763496.shtml" title="英特尔云到端解决方案全面助力计算创新" >英特尔云到端解决方案全面助力计算创新</a><a href="http://net.it168.com/a2015/0918/1763/000001763170.shtml" title="华为HCC2015从云端实现敏捷的无尽可能" >华为HCC2015从云端实现敏捷的无尽可能</a><a href="http://net.it168.com/a2015/0915/1762/000001762377.shtml" title="巨头不再孤独 思科联合推出SD-WAN方案" >巨头不再孤独 思科联合推出SD-WAN方案</a><a href="http://storage.it168.com/a2015/0916/1762/000001762662.shtml" title="购前必读：升级到全闪存阵列的四大建议" >购前必读：升级到全闪存阵列的四大建议</a><div><a href="http://server.it168.com/" class="more3" >更多企业IT文章>></a></div></div>	
+      </div></li>
+	  <li id="n1" ><a href="javascript:void(0);" >企业商用</a><i class="w78"></i>
+      <div class="div_1">
+        <div class="div1 float_r">
+		<a href="http://tech.it168.com" >技术开发</a> 
+		<a href="http://cio.it168.com" >信息化</a> 
+		<a href="http://cloud.it168.com" >云计算</a> 
+		<a href="http://cioctoclub.it168.com" >CIO Club</a> 
+		<a href="http://www.it168.com/tag/4326_1.shtml" >大数据</a>  
+		</div>
+        <div class="div2 float_l">		
+	   <a href="http://tech.it168.com/a2015/0918/1763/000001763168.shtml" title="倪光南致辞Tizen:共同建设智能终端生态" >倪光南致辞Tizen:共同建设智能终端生态</a><a href="http://www.it168.com/remen/hangyedata/" title="大数据开启商业新未来" >大数据开启商业新未来</a><a href="http://cio.it168.com/a2015/0916/1762/000001762753.shtml" title="简负超越成长型企业商业变革跨越与突破" >简负超越成长型企业商业变革跨越与突破</a><a href="http://cloud.it168.com/a2015/0918/1763/000001763258.shtml" title="业内专家对话 解读OpenStack四大难点" >业内专家对话 解读OpenStack四大难点</a><a href="http://cio.it168.com/a2015/0902/1759/000001759339.shtml" title="北京市计算中心OpenStack强云记" >北京市计算中心OpenStack强云记</a><div><a href="http://cloud.it168.com/" class="more3" >更多企业商用文章>></a></div></div>
+      </div></li>
+    
+    <li><a href="javascript:void(0);" >办公</a><i></i>
+      <div class="div">
+        <div class="div1 float_l">
+		<a href="http://oa.it168.com" >办公频道</a> 
+		<a href="http://print.it168.com" >打印机</a> 
+		<a href="http://mfp.it168.com" >复合机</a> 
+		<a href="http://projector.it168.com" >投影机</a> 
+		<a href="http://3dprint.it168.com" >3D打印</a> 
+		<a href="http://oa.chinaunix.net" >办公论坛</a>  
+		</div>
+        <div class="div2 float_r">
+ 
+		<a href="http://oa.it168.com/a2015/0915/1762/000001762316.shtml" title="省钱省心省时 佳能打印机六年保修推荐" >省钱省心省时 佳能打印机六年保修推荐</a><a href="http://print.it168.com/a2015/0918/1763/000001763251.shtml" title="革命性的技术变革 浅谈惠普智捷技术" >革命性的技术变革 浅谈惠普智捷技术</a><a href="http://oa.it168.com/topic/2015/9-9/VivitekHP/" title="科技融入生活 户外新装备应用体验解析" >科技融入生活 户外新装备应用体验解析</a><a href="http://mfp.it168.com/a2015/0813/1754/000001754219.shtml" title="智能商务办公 万元彩色数码复合机推荐" >智能商务办公 万元彩色数码复合机推荐</a><div><a href="http://oa.it168.com/" class="more3" >更多办公文章>></a></div></div>
+      </div></li>
+    <li><a href="javascript:void(0);" >互动</a><i></i>
+      <div class="div_1">
+        <div class="div1 float_r">
+			<a href="http://www.chinaunix.net" >Chinaunix</a> 
+			<a href="http://www.itpub.net" >ITPUB</a> 
+			<a href="http://wenku.it168.com" >IT文库</a> 
+			<a href="http://dtcc.it168.com" >数据库大会</a> 
+			<a href="http://sacc.it168.com" >架构师大会</a>  
+		</div>
+        <div class="div2 float_l">		      
+	   <a href="http://bbs.chinaunix.net/thread-4187920-1-1.html" title="帮帮他，运维屌丝能通过试用期吗？" >帮帮他，运维屌丝能通过试用期吗？</a><a href="http://bbs.chinaunix.net/thread-4187172-1-1.html" title="黑客攻防技能知多少？ 投票有壕礼！" >黑客攻防技能知多少？ 投票有壕礼！</a><a href="http://www.itpub.net/thread-1937539-1-1.html" title="从数据中挖掘宝藏，你真地准备好了吗？" >从数据中挖掘宝藏，你真地准备好了吗？</a><a href="http://www.itpub.net/thread-1937910-1-1.html" title="新浪瘫了，网友怒了！" >新浪瘫了，网友怒了！</a><a href="http://www.itpub.net/thread-1922133-1-1.html" title="互联网+怎么飞？O2O怎么玩？" >互联网+怎么飞？O2O怎么玩？</a><div><a href="http://www.itpub.net/" class="more3" >更多互动文章>></a></div></div>
+      </div></li>	  
+	<li><a href="javascript:void(0);" >社区</a><i></i>
+    <div class="div_2"><a href="http://benyouhui.it168.com" >本友会</a><a href="http://www.itpub.net/forum.php" >ITPUB社区</a><a href="http://blog.itpub.net/" >ITPub博客</a><a href="http://jiyouhui.it168.com" >机友会</a><a href="http://bbs.chinaunix.net/" >CU社区</a><a href="http://blog.chinaunix.net/" >CU博客</a><a href="http://photobbs.it168.com/" >摄友会</a><a href="http://www.itpub.net/star/" >IT名人堂</a><a href="http://www.chinaunix.net/talk" >大话IT</a><a href="http://diybbs.it168.com/" >烧友会</a><a href="http://selftest.chinaunix.net/" >技术自测</a><a href="http://oa.chinaunix.net/" >办公论坛</a><a href="http://wp.it168.com/" >WP论坛</a></div>
+    </li>
+	
+    <li id="n2"><a href="#" ><em></em><b>全部频道</b></a><em class="em1"></em><i class="w100"></i>
+    
+    <div class="div_3"><dl class="first"><dt><a href="http://mobile.it168.com" >手机</a></dt><dd><a href="http://mobile.it168.com" >手机频道</a></dd>
+    <dd><a href="http://peijian.it168.com/" >手机配件</a></dd>
+    <dd><a href="http://4g.it168.com/" >4G频道</a></dd>
+    <dd><a href="http://3g.it168.com" >3G频道</a></dd>
+    <dd><a href="http://jiyouhui.it168.com" >机友会论坛</a></dd>
+    <dd><a href="http://sony.it168.com" >索尼论坛</a></dd>
+    </dl><dl><dt><a href="http://notebook.it168.com" >整机</a></dt><dd><a href="http://notebook.it168.com" >笔记本</a></dd>
+    <dd><a href="http://ultrabook.it168.com" >超极本</a></dd>
+    <dd><a href="http://aio.it168.com" >一体电脑</a></dd>
+    <dd><a href="http://pc.it168.com" >台式机</a></dd>
+    <dd><a href="http://pc.it168.com/sypc.shtml" >商用电脑</a></dd>
+    <dd><a href="http://benyouhui.it168.com" >本友会论坛</a></dd>
+    </dl>
+    <dl><dt><a href="http://diy.it168.com/" >DIY硬件</a></dt><dd><a href="http://cpu.it168.com" >CPU</a></dd>
+    <dd><a href="http://mb.it168.com" >主板</a></dd>
+    <dd><a href="http://vga.it168.com" >显卡</a></dd>
+    <dd><a href="http://mouse.it168.com" >键盘鼠标</a></dd>
+    <dd><a href="http://power.it168.com" >机箱电源</a></dd>
+    <dd><a href="http://memory.it168.com" >内存硬盘</a></dd> 
+    <dd><a href="http://diybbs.it168.com" >烧友会论坛</a></dd>
+    </dl>
+    <dl><dt><a href="http://dc.it168.com" >摄影</a></dt><dd><a href="http://dc.it168.com" >数码相机</a></dd>
+    <dd><a href="http://dandian.it168.com/" >单电之家</a></dd>
+    <dd><a href="http://pj.it168.com" >摄影配件</a></dd>
+    <dd><a href="http://dv.it168.com" >DV摄像机</a></dd>
+    <dd><a href="http://photobbs.it168.com" >摄友会论坛</a></dd>
+  
+    </dl>
+    <dl><dt><a href="http://digital.it168.com" >消费数码</a></dt>
+	<dd><a href="http://pad.it168.com" >平板</a></dd>
+	<dd><a href="http://earphone.it168.com" >耳机</a></dd>
+
+    <dd><a href="http://lcd.it168.com" >显示器</a></dd>
+    <dd><a href="http://sound.it168.com" >音箱</a></dd>
+ 
+    </dl>
+    <dl><dt><a href="http://elec.it168.com" >数字家电</a></dt><dd><a href="http://elec.it168.com" >数字家电</a></dd>
+    <dd><a href="http://smart.it168.com/" >小家电</a></dd>
+    <dd><a href="http://tv.it168.com/" >智能电视</a></dd>
+	<dd><a href="http://elife.it168.com/" >智能生活</a></dd>
+ 
+    </dl>
+	
+    <dl><dt><a href="http://server.it168.com/" >企业IT</a></dt>
+	<dd><a href="http://server.it168.com" >服务器</a></dd>
+    <dd><a href="http://net.it168.com" >网络通信</a></dd>
+	<dd><a href="http://storage.it168.com/" >存储</a></dd>
+    <dd><a href="http://safe.it168.com" >企业安全</a></dd>
+	<dd><a href="http://virtual.it168.com" >虚拟化</a></dd>
+	<dd><a href="http://datacenter.it168.com" >数据中心</a></dd>
+    <dd><a href="http://wireless.it168.com" >无线组网</a></dd>
+    </dl>
+
+    <dl><dt><a href="http://cloud.it168.com/" >企业商用</a></dt>
+	<dd><a href="http://tech.it168.com" >技术开发</a></dd>
+	<dd><a href="http://cio.it168.com" >信息化</a></dd>
+    <dd><a href="http://cloud.it168.com" >云计算</a></dd>
+    <dd><a href="http://cioctoclub.it168.com/" >CIO Club</a></dd>
+    <dd><a href="http://www.it168.com/tag/4326_1.shtml" >大数据</a></dd>
+    </dl>
+	
+	 <dl><dt><a href="http://oa.it168.com " >办公</a></dt>
+	 <dd><a href="http://oa.it168.com " >办公频道</a></dd>
+    <dd><a href="http://print.it168.com" >打印机</a></dd>
+    <dd><a href="http://mfp.it168.com/" >复合机</a></dd>
+    <dd><a href="http://projector.it168.com/" >投影机</a></dd>
+    <dd><a href="http://3dprint.it168.com/" >3D打印</a></dd>
+    <dd><a href="http://oa.chinaunix.net/" >办公论坛</a></dd>
+    </dl>
+	
+	 <dl><dt><a href="http://www.itpub.net/" >互动</a></dt>
+	 <dd><a href="http://www.chinaunix.net/" >Chinaunix</a></dd>
+	<dd><a href="http://www.itpub.net" >ITPub社区</a></dd>
+    <dd><a href="http://wenku.it168.com" >IT文库</a></dd>
+    <dd><a href="http://dtcc.it168.com" >数据库大会</a></dd>
+	<dd><a href="http://sacc.it168.com" >架构师大会</a></dd>
+   
+    </dl>
+	
+	<dl><dt><a href="javascript:void(0);" >社区</a></dt>
+	<dd><a href="http://benyouhui.it168.com" >本友会</a></dd>
+	<dd><a href="http://jiyouhui.it168.com" >机友会</a></dd>
+	<dd><a href="http://photobbs.it168.com/" >摄友会</a></dd>
+	<dd><a href="http://diybbs.it168.com/" >烧友会</a></dd>
+	<dd><a href="http://www.chinaunix.net" >Chinaunix</a></dd>
+	<dd><a href="http://www.itpub.net/" >ITPUB</a></dd>
+    </dl>
+	</div></li>
+  </ul>
+</div>
+
+
+<!-- end -->
+
+<div class="crumbs"><a class="pindao" href="http://tech.it168.com">IT168<span>技术开发</span>频道</a>
+  <div class="crumbs2"><a href="http://www.it168.com/">IT168首页</a> &gt; <a href="http://tech.it168.com" target="_blank">技术开发</a> &gt; <a href="http://tech.it168.com/chanel-4-att-6-page-1.shtml" target="_blank">技术开发技术</a> &gt; 正文</div>
+  <div class="search">
+    <form id="SouSearch" name="SouSearch" method="post">
+      <input type="text" class="inp1" id="q" name="q" value="请输入要查询的关键词"  onfocus="if(this.value == '请输入要查询的关键词'){ this.value = '';}" onblur="if(this.value =='') {this.value = '请输入要查询的关键词'}">
+      <input type="submit" value="" class="btn1">
+    </form>
+  </div>
+</div>
+
+
+<div class="w1000">
+  <div class="l1">
+	<div style="display:none;">
+<div id="ADV_1417"><script>LG('ADV_1417');</script></div>
+</div>
+	<form action="" method="get" target="_blank" id="urlFrm" style="display:none"></form>
+  <h1>Inotify+Rsync实现linux文件实时同步</h1>
+    <div class="time">
+      <div class="time_fen"><a href="#articlecomment" target="_self" class="pinglun"><b id="duoshuo_commentcount">0</b>条评论</a></div>2010-03-03 09:34 &nbsp;&nbsp;
+	IT168网站原创
+　作者: 《开源时代》xjc2694　编辑: <a href="http://archive.it168.com/user/%f1%fb%c0%ef/" rel="nofollow">覃里</a><span style="padding-left:10px; display:none;" class="It168_ArticleDsCount_span" ><b id ="It168_ArticleDsCount">0</b>购买</span></div>
+    <div class="main" id="detailWord">
+		
+		<p>　　【<b>IT168 技术文档</b>】公司一套系统的同步使用的donotify，不能实现子目录的实时同步，通过查资料，发现inotify可以实现子目录的实时同步，以下为笔记。</p><p>　　<b>一、介绍</b></p><p>　　Inotify 是文件系统事件监控机制，作为 dnotify 的有效替代。dnotify 是较早内核支持的文件监控机制。Inotify 是一种强大的、细粒度的、异步的机制，它满足各种各样的文件监控需要，不仅限于安全和性能。</p><p>　　inotify 可以监视的文件系统事件包括：</p><p>　　IN_ACCESS，即文件被访问</p><p>　　IN_MODIFY，文件被 write</p><p>　　IN_ATTRIB，文件属性被修改，如 chmod、chown、touch 等</p><p>　　IN_CLOSE_WRITE，可写文件被 close</p><p>　　IN_CLOSE_NOWRITE，不可写文件被 close</p><p>　　IN_OPEN，文件被 open</p><p>　　IN_MOVED_FROM，文件被移走,如 mv</p><p>　　IN_MOVED_TO，文件被移来，如 mv、cp</p><p>　　IN_CREATE，创建新文件</p><p>　　IN_DELETE，文件被删除，如 rm</p><p>　　IN_DELETE_SELF，自删除，即一个可执行文件在执行时删除自己</p><p>　　IN_MOVE_SELF，自移动，即一个可执行文件在执行时移动自己</p><p>　　IN_UNMOUNT，宿主文件系统被 umount</p><p>　　IN_CLOSE，文件被关闭，等同于(IN_CLOSE_WRITE | IN_CLOSE_NOWRITE)</p><p>　　IN_MOVE，文件被移动，等同于(IN_MOVED_FROM | IN_MOVED_TO)</p><p>　　注：上面所说的文件也包括目录。</p><p>　<b>　二、为能在shell下使用inotify特性，需要安装inotify-tools</b></p><p>　　1、inotify-tools：The general purpose of this package is to allow inotify's features to be used from within shell scripts.</p><p>　　下载地址：<a href="http://inotify-tools.sourceforge.net/">http://inotify-tools.sourceforge.net/</a></p><p>　　编译安装</p><p>　　./configure</p><p>　　make</p><p>　　make install</p><p>　　完成后，注意查看manpage，man inotify 、 man inotifywait</p><p>　　 1）inotifywait 仅执行阻塞，等待 inotify 事件。您可以监控任何一组文件和目录，或监控整个目录树(目录、子目录、子目录的子目录等等)。在 shell 脚本中使用 inotifywait。</p><p>　　 2）inotifywatch 收集关于被监视的文件系统的统计数据，包括每个 inotify 事件发生多少次。</p><p>　　2、inotify的系统相关参数：</p><p>　　/proc interfaces</p><p>　　The following interfaces can be used to limit the amount of kernel memory consumed by inotify:</p><p>　　/proc/sys/fs/inotify/max_queued_events</p><p>　　The value in this file is used when an application calls inotify_init(2) to set an upper limit on the number of events that can be queued to the corresponding inotify instance. Events in excess of this limit are dropped, but an IN_Q_OVERFLOW event is always generated.</p><p>　　/proc/sys/fs/inotify/max_user_instances</p><p>　　This specifies an upper limit on the number of inotify instances that can be created per real user ID.</p><p>　　/proc/sys/fs/inotify/max_user_watches</p><p>　　This specifies a limit on the number of watches that can be associated with each inotify instance.</p><p>　　3、inotifywait 相关的参数(更多，查看manpage)：</p><p>　　inotifywait</p><p>　　This command simply blocks for inotify events, making it appropriate for use in shell scripts. It can watch any set of files and directories, and can recursively watch entire directory trees.</p><p>　　-m, --monitor</p><p>　　Instead of exiting after receiving a single event, execute indefinitely. The default behaviour is to exit after the first event occurs.</p><p>　　-r, --recursive</p><p>　　Watch all subdirectories of any directories passed as arguments. Watches will be set up recursively to an unlimited depth. Symbolic links are not</p><p>　　traversed. Newly created subdirectories will also be watched.</p><p>　　-q, --quiet</p><p>　　If specified once, the program will be less verbose. Specifically, it will not state when it has completed establishing all inotify watches.</p><p>　　-e <event>, --event <event></event></event></p><p>&nbsp;　　Listen for specific event(s) only. The events which can be listened for are listed in the EVENTS section. This option can be specified more than once. If omitted, all events are listened for. use&ldquo;，&rdquo;separate multi events</p><br/><p>　<b>　三、使用</b></p><p>　　1.查看是否支持inotify，从kernel 2.6.13开始正式并入内核，RHEL5已经支持。看看是否有 /proc/sys/fs/inotify/目录，以确定内核是否支持inotify&nbsp;</p><div style="border-right: windowtext 0.5pt solid; padding-right: 5.4pt; border-top: windowtext 0.5pt solid; padding-left: 5.4pt; background: #e6e6e6; padding-bottom: 4px; border-left: windowtext 0.5pt solid; width: 98%; word-break: break-all; padding-top: 4px; border-bottom: windowtext 0.5pt solid"><div><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><span style="color: #000000">[root@RHEL5 Rsync]# ll </span><span style="color: #000000">/</span><span style="color: #000000">proc</span><span style="color: #000000">/</span><span style="color: #000000">sys</span><span style="color: #000000">/</span><span style="color: #000000">fs</span><span style="color: #000000">/</span><span style="color: #000000">inotify<br />total </span><span style="color: #000000">0</span><span style="color: #000000"><br /></span><span style="color: #000000">-</span><span style="color: #000000">rw</span><span style="color: #000000">-</span><span style="color: #000000">r</span><span style="color: #000000">--</span><span style="color: #000000">r</span><span style="color: #000000">--</span><span style="color: #000000"> </span><span style="color: #000000">1</span><span style="color: #000000"> root root </span><span style="color: #000000">0</span><span style="color: #000000"> Oct&nbsp;&nbsp;</span><span style="color: #000000">9</span><span style="color: #000000"> </span><span style="color: #000000">09</span><span style="color: #000000">:</span><span style="color: #000000">36</span><span style="color: #000000"> max_queued_events<br /></span><span style="color: #000000">-</span><span style="color: #000000">rw</span><span style="color: #000000">-</span><span style="color: #000000">r</span><span style="color: #000000">--</span><span style="color: #000000">r</span><span style="color: #000000">--</span><span style="color: #000000"> </span><span style="color: #000000">1</span><span style="color: #000000"> root root </span><span style="color: #000000">0</span><span style="color: #000000"> Oct&nbsp;&nbsp;</span><span style="color: #000000">9</span><span style="color: #000000"> </span><span style="color: #000000">09</span><span style="color: #000000">:</span><span style="color: #000000">36</span><span style="color: #000000"> max_user_instances<br /></span><span style="color: #000000">-</span><span style="color: #000000">rw</span><span style="color: #000000">-</span><span style="color: #000000">r</span><span style="color: #000000">--</span><span style="color: #000000">r</span><span style="color: #000000">--</span><span style="color: #000000"> </span><span style="color: #000000">1</span><span style="color: #000000"> root root </span><span style="color: #000000">0</span><span style="color: #000000"> Oct&nbsp;&nbsp;</span><span style="color: #000000">9</span><span style="color: #000000"> </span><span style="color: #000000">09</span><span style="color: #000000">:</span><span style="color: #000000">36</span><span style="color: #000000"> max_user_watches</span></div></div><p>　　2.关于递归：</p><p>　　inotifywait</p><p>　　This command simply blocks for inotify events, making it appropriate for use in shell scripts. It can watch any set of files and directories, and can recursively watch entire directory trees.</p><p>　　3.使用：</p><div style="border-right: windowtext 0.5pt solid; padding-right: 5.4pt; border-top: windowtext 0.5pt solid; padding-left: 5.4pt; background: #e6e6e6; padding-bottom: 4px; border-left: windowtext 0.5pt solid; width: 98%; word-break: break-all; padding-top: 4px; border-bottom: windowtext 0.5pt solid"><div><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><span style="color: #000000">#</span><span style="color: #000000">!/</span><span style="color: #000000">bin</span><span style="color: #000000">/</span><span style="color: #000000">sh<br />src</span><span style="color: #000000">=/</span><span style="color: #000000">opt</span><span style="color: #000000">/</span><span style="color: #000000">webmail<br />des</span><span style="color: #000000">=/</span><span style="color: #000000">tmp<br />ip</span><span style="color: #000000">=</span><span style="color: #000000">192.168</span><span style="color: #000000">.</span><span style="color: #000000">7.192</span><span style="color: #000000"><br /></span><span style="color: #000000">/</span><span style="color: #000000">usr</span><span style="color: #000000">/</span><span style="color: #000000">local</span><span style="color: #000000">/</span><span style="color: #000000">bin</span><span style="color: #000000">/</span><span style="color: #000000">inotifywait </span><span style="color: #000000">-</span><span style="color: #000000">mrq </span><span style="color: #000000">--</span><span style="color: #000000">timefmt </span><span style="color: #000000">'</span><span style="color: #000000">%d/%m/%y %H:%M</span><span style="color: #000000">'</span><span style="color: #000000"> </span><span style="color: #000000">--</span><span style="color: #000000">format&nbsp;&nbsp;</span><span style="color: #000000">'</span><span style="color: #000000">%T %w%f</span><span style="color: #000000">'</span><span style="color: #000000"> \<br /></span><span style="color: #000000">-</span><span style="color: #000000">e modify,delete,create,attrib \<br />${src} \<br /></span><span style="color: #000000">|</span><span style="color: #000000"> </span><span style="color: #0000ff">while</span><span style="color: #000000"> read&nbsp;&nbsp;file<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">do</span><span style="color: #000000"><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rsync </span><span style="color: #000000">-</span><span style="color: #000000">avz </span><span style="color: #000000">--</span><span style="color: #000000">delete </span><span style="color: #000000">--</span><span style="color: #000000">progress ${src} root@${ip}:${des} </span><span style="color: #000000">&amp;&amp;</span><span style="color: #000000"><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </span><span style="color: #000000">&quot;</span><span style="color: #000000">${src} was rsynced</span><span style="color: #000000">&quot;</span><span style="color: #000000"><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </span><span style="color: #000000">&quot;</span><span style="color: #000000">---------------------------------------------------------------------------</span><span style="color: #000000">&quot;</span><span style="color: #000000"><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;done</span></div></div><p>　　注：当要排出同步某个目录时，为rsync添加--exculde=PATTERN参数，注意，路径是相对路径。详细查看man rsync</p><p>　　当要排除都某个目录的事件监控的处理时，为inotifywait添加--exclude或--excludei参数。详细查看man inotifywait</p><p>　　另：/usr/local/bin/inotifywait -mrq --timefmt '%d/%m/%y %H:%M' --format '%T %w%f' \</p><p>　　-e modify,delete,create,attrib \</p><p>　　${src} \</p><p>　　上面的命令返回的值类似于：</p><p>　　10/03/09 15:31 /wwwpic/1</p><p>　　这3个返回值做为参数传给read，关于此处，有人是这样写的：</p><p>　　inotifywait -mrq -e create,move,delete,modify $SRC | while read D E F;do细化了返回值。</p><p>　　注：要取得监控文件发生的事件，在--format处指定%e参数，同时，使用--event参数来指定要监控的事件即可，如--format '%T %w%f %e' --event modify,delete,create,attrib</p><p>　　说明：当文件系统发现指定目录下有如上的条件的时候就触发相应的指令，是一种主动告之的而非我用循环比较目录下的文件的异动，该程序在运行时，更改目录内的文件时系统内核会发送一个信号，这个信号会触发运行rsync命令，这时会同步源目录和目标目录。</p><p>　　--timefmt：指定输出时的输出格式</p><p>　　--format： '%T %w%f'指定输出的格式，上面的输出类似于：12/10/08 06:34 /opt/webmail/dovecot-1.1.2/src/test/1</p><p>　　小脚本，同步到多台主机：</p><div style="border-right: windowtext 0.5pt solid; padding-right: 5.4pt; border-top: windowtext 0.5pt solid; padding-left: 5.4pt; background: #e6e6e6; padding-bottom: 4px; border-left: windowtext 0.5pt solid; width: 98%; word-break: break-all; padding-top: 4px; border-bottom: windowtext 0.5pt solid"><div><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><span style="color: #000000">文件:<br />inotify_rsync.tar.gz<br />大小:<br />1KB<br />下载:<br /><a href="http://blogimg.chinaunix.net/blog/upfile2/090421135237.gz">下载</a></span></div></div><p>　　更改后，更简单，适用于同步到相同的目录，监控多目录，多文件，同步到多台服务器</p><div style="border-right: windowtext 0.5pt solid; padding-right: 5.4pt; border-top: windowtext 0.5pt solid; padding-left: 5.4pt; background: #e6e6e6; padding-bottom: 4px; border-left: windowtext 0.5pt solid; width: 98%; word-break: break-all; padding-top: 4px; border-bottom: windowtext 0.5pt solid"><div><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><span style="color: #000000">#</span><span style="color: #000000">!/</span><span style="color: #000000">bin</span><span style="color: #000000">/</span><span style="color: #000000">sh<br />#set </span><span style="color: #000000">-</span><span style="color: #000000">x<br />#var <br />src</span><span style="color: #000000">=</span><span style="color: #000000">&quot;</span><span style="color: #000000">/usr/local/nginx/html/lib /usr/local/nginx/html/www /usr/local/nginx/html/var/www.work.com.conf.php</span><span style="color: #000000">&quot;</span><span style="color: #000000"><br />des_ip</span><span style="color: #000000">=</span><span style="color: #000000">&quot;</span><span style="color: #000000">172.18.1.35 172.18.1.36 172.18.1.37 172.18.1.38</span><span style="color: #000000">&quot;</span><span style="color: #000000"><br />#function<br />inotify_fun ()<br />{<br /></span><span style="color: #000000">/</span><span style="color: #000000">usr</span><span style="color: #000000">/</span><span style="color: #000000">local</span><span style="color: #000000">/</span><span style="color: #000000">bin</span><span style="color: #000000">/</span><span style="color: #000000">inotifywait </span><span style="color: #000000">-</span><span style="color: #000000">mrq </span><span style="color: #000000">--</span><span style="color: #000000">timefmt </span><span style="color: #000000">'</span><span style="color: #000000">%d/%m/%y-%H:%M</span><span style="color: #000000">'</span><span style="color: #000000"> </span><span style="color: #000000">--</span><span style="color: #000000">format </span><span style="color: #000000">'</span><span style="color: #000000">%T %w%f</span><span style="color: #000000">'</span><span style="color: #000000"> \<br /></span><span style="color: #000000">-</span><span style="color: #000000">e modify,delete,create,move $</span><span style="color: #000000">1</span><span style="color: #000000">|</span><span style="color: #0000ff">while</span><span style="color: #000000"> read time file<br /></span><span style="color: #0000ff">do</span><span style="color: #000000"> <br /></span><span style="color: #0000ff">for</span><span style="color: #000000"> ip in $des_ip<br /></span><span style="color: #0000ff">do</span><span style="color: #000000"><br />echo </span><span style="color: #000000">&quot;</span><span style="color: #000000">`date +%Y%m%d-%T`: rsync -avzq --delete --progress $1 $ip:`dirname $1`</span><span style="color: #000000">&quot;</span><span style="color: #000000"><br />rsync </span><span style="color: #000000">-</span><span style="color: #000000">avzq </span><span style="color: #000000">--</span><span style="color: #000000">delete </span><span style="color: #000000">--</span><span style="color: #000000">progress $</span><span style="color: #000000">1</span><span style="color: #000000"> $ip:`dirname $</span><span style="color: #000000">1</span><span style="color: #000000">`<br />echo<br />done<br />done<br />}<br />#main<br /></span><span style="color: #0000ff">for</span><span style="color: #000000"> a in $src<br /></span><span style="color: #0000ff">do</span><span style="color: #000000"><br />inotify_fun $a </span><span style="color: #000000">&amp;</span><span style="color: #000000"> <br />done</span></div></div><p>　　参考：<a href="http://www.ibm.com/developerworks/cn/linux/l-ubuntu-inotify/index.html">http://www.ibm.com/developerworks/cn/linux/l-ubuntu-inotify/index.html</a></p><br/><p>　　关于减少rsync的遍历，未完：考虑到被监测的目录每次有一下时间时都会触发rsync，modify, delete,create,move每次rsync都会遍历源目录，当被监测目录内文件特别多时，会造成系统资源的严重消耗，所以，让rsync每次只同步修改的文件。因为，如果从监控目录mv走一个目录，那么rsync只会报告找不到你移走的目录而无法删除备份机的应该删除的目录。所以，对于删除这个事件，没有办法了，只能同步被删除文件或目录的上级目录了。将事件分为两部分，modify, create, move事件，触发rsync，只同步修改了的文件。delete事件，同步被删除文件或目录的上级目录(不能越过要同步的根目录)。</p><p>　　关于脚本内容的一些说明：</p><p>　　rsync.conf里的目录格式一定要注意，没有最后的&ldquo;/&quot;</p><p>　　boot.sh</p><p>　　对于rsync命令的目标地址，是由两部分组成的：</p><p>　　1、rsync.conf里的dest</p><p>　　des=`grep '^dest' ${basedir}/rsync.conf| cut -d '=' -f 2 `</p><p>　　2、被修改了的文件的完全路径，去掉源目录部分，去掉被修改的文件的文件名。</p><p>　　mb=`echo $file|awk -F &quot;/&quot; '{NF=NF-1;OFS=&quot;/&quot;;print $0}'|sed &quot;s#$src##g&quot;`</p><p>　　boot.sh</p><p>　　############################################################</p><p>　<b>　先做个记录，脚本在delete部分还有问题</b></p><div style="border-right: windowtext 0.5pt solid; padding-right: 5.4pt; border-top: windowtext 0.5pt solid; padding-left: 5.4pt; background: #e6e6e6; padding-bottom: 4px; border-left: windowtext 0.5pt solid; width: 98%; word-break: break-all; padding-top: 4px; border-bottom: windowtext 0.5pt solid"><div><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><span style="color: #000000">#</span><span style="color: #000000">!/</span><span style="color: #000000">bin</span><span style="color: #000000">/</span><span style="color: #000000">sh<br />#<br />basedir</span><span style="color: #000000">=/</span><span style="color: #000000">home</span><span style="color: #000000">/</span><span style="color: #000000">jason</span><span style="color: #000000">/</span><span style="color: #000000">Rsync<br />destNum</span><span style="color: #000000">=</span><span style="color: #000000">`grep </span><span style="color: #000000">-</span><span style="color: #000000">c </span><span style="color: #000000">'</span><span style="color: #000000">^dest</span><span style="color: #000000">'</span><span style="color: #000000"> ${basedir}</span><span style="color: #000000">/</span><span style="color: #000000">rsync.conf`<br />src</span><span style="color: #000000">=</span><span style="color: #000000">`grep </span><span style="color: #000000">'</span><span style="color: #000000">local directory=</span><span style="color: #000000">'</span><span style="color: #000000"> ${basedir}</span><span style="color: #000000">/</span><span style="color: #000000">rsync.conf</span><span style="color: #000000">|</span><span style="color: #000000">cut </span><span style="color: #000000">-</span><span style="color: #000000">d </span><span style="color: #000000">'</span><span style="color: #000000">=</span><span style="color: #000000">'</span><span style="color: #000000"> </span><span style="color: #000000">-</span><span style="color: #000000">f </span><span style="color: #000000">2</span><span style="color: #000000">`<br />des</span><span style="color: #000000">=</span><span style="color: #000000">`grep </span><span style="color: #000000">'</span><span style="color: #000000">^dest</span><span style="color: #000000">'</span><span style="color: #000000"> ${basedir}</span><span style="color: #000000">/</span><span style="color: #000000">rsync.conf</span><span style="color: #000000">|</span><span style="color: #000000"> cut </span><span style="color: #000000">-</span><span style="color: #000000">d </span><span style="color: #000000">'</span><span style="color: #000000">=</span><span style="color: #000000">'</span><span style="color: #000000"> </span><span style="color: #000000">-</span><span style="color: #000000">f </span><span style="color: #000000">2</span><span style="color: #000000"> `<br />#<br />inotifywait </span><span style="color: #000000">-</span><span style="color: #000000">mrq </span><span style="color: #000000">--</span><span style="color: #000000">timefmt </span><span style="color: #000000">'</span><span style="color: #000000">%d/%m/%y %H:%M</span><span style="color: #000000">'</span><span style="color: #000000"> </span><span style="color: #000000">--</span><span style="color: #000000">format&nbsp;&nbsp;</span><span style="color: #000000">'</span><span style="color: #000000">%T %w%f %e</span><span style="color: #000000">'</span><span style="color: #000000"> \<br /></span><span style="color: #000000">--</span><span style="color: #000000">event modify,create,move,delete&nbsp;&nbsp;${src} </span><span style="color: #000000">|</span><span style="color: #000000"> </span><span style="color: #0000ff">while</span><span style="color: #000000"> read&nbsp;&nbsp;date time file event<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">do</span><span style="color: #000000"><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo $event<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">for</span><span style="color: #000000"> i in $des<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">do</span><span style="color: #000000"><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff">case</span><span style="color: #000000"> $event in<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY</span><span style="color: #000000">|</span><span style="color: #000000">CREATE</span><span style="color: #000000">|</span><span style="color: #000000">MOVE</span><span style="color: #000000">|</span><span style="color: #000000">MODIFY,ISDIR</span><span style="color: #000000">|</span><span style="color: #000000">CREATE,ISDIR</span><span style="color: #000000">|</span><span style="color: #000000">MODIFY,ISDIR)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#echo $src<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no_src_root_file_name</span><span style="color: #000000">=</span><span style="color: #000000">`echo $file</span><span style="color: #000000">|</span><span style="color: #000000">sed </span><span style="color: #000000">&quot;</span><span style="color: #000000">s#$src##g</span><span style="color: #000000">&quot;</span><span style="color: #000000">`<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final_target_dest</span><span style="color: #000000">=</span><span style="color: #000000">$i$no_src_root_file_name<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo rsync </span><span style="color: #000000">-</span><span style="color: #000000">avz </span><span style="color: #000000">--</span><span style="color: #000000">delete </span><span style="color: #000000">--</span><span style="color: #000000">progress $file $final_target_dest<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rsync </span><span style="color: #000000">-</span><span style="color: #000000">avz </span><span style="color: #000000">--</span><span style="color: #000000">delete </span><span style="color: #000000">--</span><span style="color: #000000">progress $file $final_target_dest<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE</span><span style="color: #000000">|</span><span style="color: #000000">DELETE,ISDIR)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;src_file_up_dir</span><span style="color: #000000">=</span><span style="color: #000000">`echo $file</span><span style="color: #000000">|</span><span style="color: #000000">awk </span><span style="color: #000000">-</span><span style="color: #000000">F</span><span style="color: #000000">&quot;</span><span style="color: #000000">/</span><span style="color: #000000">&quot;</span><span style="color: #000000"> </span><span style="color: #000000">'</span><span style="color: #000000">{NF=NF-1;OFS=&quot;/&quot;;print $0}</span><span style="color: #000000">'</span><span style="color: #000000">`<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no_root_src_file_up_dir</span><span style="color: #000000">=</span><span style="color: #000000">`echo $file</span><span style="color: #000000">|</span><span style="color: #000000">awk </span><span style="color: #000000">-</span><span style="color: #000000">F</span><span style="color: #000000">&quot;</span><span style="color: #000000">/</span><span style="color: #000000">&quot;</span><span style="color: #000000"> </span><span style="color: #000000">'</span><span style="color: #000000">{NF=NF-2;OFS=&quot;/&quot;;print $0}</span><span style="color: #000000">'</span><span style="color: #000000">|</span><span style="color: #000000">sed </span><span style="color: #000000">&quot;</span><span style="color: #000000">s#$src##g</span><span style="color: #000000">&quot;</span><span style="color: #000000">`<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final_target_dest_up_dir</span><span style="color: #000000">=</span><span style="color: #000000">$i$no_root_src_file_up_dir<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;&nbsp;&nbsp;&nbsp;rsync </span><span style="color: #000000">-</span><span style="color: #000000">avz </span><span style="color: #000000">--</span><span style="color: #000000">delete </span><span style="color: #000000">--</span><span style="color: #000000">progress $src_file_up_dir $final_target_dest_up_dir<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rsync </span><span style="color: #000000">-</span><span style="color: #000000">avz </span><span style="color: #000000">--</span><span style="color: #000000">delete </span><span style="color: #000000">--</span><span style="color: #000000">progress $src_file_up_dir $final_target_dest_up_dir<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;esac<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;done<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;done<br />############################################################################################<br />rsync.conf<br />local directory</span><span style="color: #000000">=/</span><span style="color: #000000">EBS</span><span style="color: #000000">/</span><span style="color: #000000">www</span><span style="color: #000000">/</span><span style="color: #000000">projects<br />#dest_here<br />dest</span><span style="color: #000000">=</span><span style="color: #000000">root@</span><span style="color: #000000">174.129</span><span style="color: #000000">.</span><span style="color: #000000">219.40</span><span style="color: #000000">:</span><span style="color: #000000">/</span><span style="color: #000000">EBS</span><span style="color: #000000">/</span><span style="color: #000000">www<br /></span><span style="color: #000000">20090723</span><span style="color: #000000">：<br /></span><span style="color: #000000">--</span><span style="color: #000000">format </span><span style="color: #000000">'</span><span style="color: #000000">%T %w%f</span><span style="color: #000000">'</span></div></div><p>　　其中的%f参数： %f When an event occurs within a directory, this will be replaced with the name of the File which caused he event to occur. Otherwise, this will be replaced with an empty string.</p><p>　　如果不加%f参数，当一个文件夹里的文件发生变化时，不会输出文件名(需要自己echo脚本里read的变量)，而时输出发生变化的文件的文件夹名，可以将这一点用于减少rsync遍历中的delete事件。</p><p>　　另外，%w是用于输出发生变化的文件的。</p><p>　　%w This will be replaced with the name of the Watched file on which an event occurred.</p>
+				
+																				    </div>
+
+			<div class="biaoqian">标签：
+					<a href="http://www.it168.com/tag/110_1.shtml" target="_blank">开源</a>
+						,					<a href="http://www.it168.com/tag/165_1.shtml" target="_blank">linux</a>
+						,					<a href="http://www.it168.com/tag/2897_1.shtml" target="_blank">IT业界</a>
+										</div>
+		<!--分享-->
+    	 <div class="fenxiang2">
+	  <div class="bshare-custom"><span>分享到：</span>
+		  <a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
+		  <a title="分享到QQ空间" class="bshare-qzone"></a>
+		  <a title="分享到腾讯微博" class="bshare-qqmb"></a>
+		  <a title="分享到QQ好友" class="bshare-qqim"></a>
+		  <a title="分享到微信" class="bshare-weixin"></a>
+	  </div>
+	  <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&uuid=39ee7cdf-1831-4573-8a77-c882c4a8f83b&pophcol=2&lang=zh"></script><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script> 
+	
+	  <a href="javascript:void(0);" target="_self" class="zan" data="855000" ><span class="InitZan"><i class="or"><span id="IT168zanNum"  >0</span></i> 个人觉得赞</span><span id="unTap_zan" style="display:none;">好文章 点个赞</span><span id="tap_zan"  style="display:none;">您已经赞过了</span><em class="numZan1" >+1</em></a>
+	</div>
+	
+		<!--电商-->
+<!--电商-->
+	<!--趣分期s-->
+	<div class="bor3" id="QFQParentBox" style="display: none;">
+	<div class="tit2"><a style = "float:right;font-size:12px;font-weight:normal" href="http://qufenqi.it168.com/">查看更多热销产品></a>大学生分期购物销量榜</div>
+	<div style="margin-top: 10px;" id="QFQBox"></div>
+</div>
+<script src="http://s.it168.com/AppService/QFQ/js/js.js?v=20141217004" type="text/javascript"></script>
+<script type="text/javascript">
+	var QFQProduct = new QFQProductLogic();
+	QFQProduct.ParentDivID = 'QFQParentBox';//外层容器ID（默认隐藏状态）
+	QFQProduct.DivID = 'QFQBox';//内层容器ID
+	QFQProduct.Width = 668;//模块宽度
+	QFQProduct.SiteID = 2;//站点1：PCPOP 2：IT168	
+	QFQProduct.LoadData();  
+</script>
+	<!--趣分期e-->	
+		<div class="pb20">
+      <div class="tit2"><b>相关文章</b>
+        <div class="guanjianzi"><a href="http://www.it168.com/hotwords/318747_1.shtml">inotify</a> <a href="http://www.it168.com/hotwords/105691_1.shtml">Rsync</a> <a href="http://www.it168.com/hotwords/121_1.shtml">开源</a> <a href="http://www.it168.com/hotwords/116_1.shtml">linux</a> </div>
+      </div>
+      <div class="xiangguan">
+        <div class="xiangguan_l">
+          <ul class="list2">
+            						<li><span>2010-03-03</span><a title="四大理由 将开源ERP软件拒之门外" href="http://tech.it168.com/a2010/0301/854/000000854624.shtml" target="_blank"></a></li>						<li><span>2010-03-03</span><a title="五款开源OS浏览器推荐" href="http://tech.it168.com/a2010/0301/854/000000854631.shtml" target="_blank"></a></li>						<li><span>2010-03-03</span><a title="刘有涛：开源技术是云计算的基石" href="http://tech.it168.com/a2010/0301/854/000000854647.shtml" target="_blank"></a></li>						          </ul>
+        </div>
+        <div class="xiangguan_r"  id="ADV_20842" style="display:none;"><script>LG('ADV_20842');</script></div>
+      </div>
+    </div>
+		<!--推荐阅读-->
+	<!--<div name="RecommendedRead" id="RecommendedRead"></div> -->
+	
+	<div id="ADV_20260" style="display:none;text-align: center;margin-top: 10px;font-weight: bold;font-size: 14px;"><script>LG('ADV_20260');</script></div>
+	<div style="display:none;" id="zjl"></div>
+	<div name="articlecomment" id="articlecomment"></div>
+    <div class="pb20">
+      <div class="tit2"><b>网友评论</b>
+		<div class="pinglun2" id="pinglun2">已有<span id="duoshuo_commentcount2">0</span>条评论</div>
+	  </div>
+<div class="ds-thread" data-thread-key="855000" data-title="Inotify+Rsync实现linux文件实时同步" data-author-key="" data-channel-key="4" data-url="http://tech.it168.com/a2010/0301/855/000000855000.shtml"></div>
+    </div>
+	<div id="ADV_1905" class="mt8" style="display:none;"><script>LG('ADV_1905');</script></div>
+	
+	<!-- 百分点位置 -->
+	<!-- 百分点 -->
+<div id="baifendian"></div>
+<script type="text/javascript">
+function getCookie(name) {
+             var arr = document.cookie.split("; ");
+             for (var i = 0, len = arr.length; i < len; i++) {
+                 var item = arr[i].split("=");
+                 if (item[0] == name) {
+                     return item[1];
+                 }
+             }
+             return "";
+         }
+function setCookie(name, value, time) {
+             var strsec = getsec(time);
+             var exp = new Date();
+             exp.setTime(exp.getTime() + strsec * 1);
+             document.cookie = name + "=" + escape(value) + ";path=/;domain=.it168.com;expires=" + exp.toGMTString();
+         }
+ function getsec(str)
+         {
+
+             var str1=str.substring(1,str.length)*1;
+             var str2=str.substring(0,1);
+             if (str2=="s")
+             {
+                 return str1*1000;
+             }
+             else if (str2=="h")
+             {
+                 return str1*60*60*1000;
+             }
+             else if (str2=="d")
+             {
+                 return str1*24*60*60*1000;
+             }
+         }
+function Isuser_cookie() {
+             if (getCookie('pu_cookie') == "") {
+                 if (getCookie('user_cookie2') == "") {
+                     var timeValue = Date.parse(new Date());
+                     setCookie("user_cookie2", timeValue, "d30");
+                 }
+                 return getCookie('user_cookie2');
+             } else {
+                 return getCookie('pu_cookie');
+             }
+
+         }
+</script>
+<script type="text/javascript">
+var bfd_user_Id = Isuser_cookie();
+var bfd_user_cookie = Isuser_cookie();
+window["_BFD"] = window["_BFD"] || {};
+_BFD.client_id = "Cit168";
+_BFD.BFD_USER = {	
+		"user_id" : bfd_user_Id, //网站当前用户id，如果未登录就为0或空字符串		
+		"user_cookie" : bfd_user_cookie //网站当前用户的cookie，不管是否登录都需要传		
+};
+_BFD.script = document.createElement("script");
+_BFD.script.type = "text/javascript";
+_BFD.script.async = true;
+_BFD.script.charset = "utf-8";
+_BFD.script.src = (('https:' == document.location.protocol?'https://ssl-static1':'http://static1')+'.bfdcdn.com/service/it168/it168_PC.js');
+document.getElementsByTagName("head")[0].appendChild(_BFD.script);
+</script>
+
+<!--百分点代码：单品页-->
+<script type="text/javascript">
+	window["_BFD"] = window["_BFD"] || {};
+	_BFD.BFD_INFO = {
+	
+	    "id" : "",   //文章id
+	    
+		"title" : "",   //文章标题
+	
+		"pic" : "",   //文章图片地址
+	
+		"category" : "",   //文章类别
+	
+		"ptime" : "",   //文章发表时间，时间戳格式 ,例如2015-6-12 14:27:53 转换成时间戳格式为 : 1434090473
+	
+		"author" : "",   //文章作者
+		
+		"abstract" : "",     //当前文章的简介
+			
+		"user_id" : "", //网站当前用户id，如果未登录就为0或空字符串
+		
+		"page_type" : "" //当前页面全称，请勿修改
+	};
+	
+</script>
+
+<div id="ADV_19317" class="mt10"><script>LG('ADV_19317');</script></div>
+		
+  </div>  
+  <div class="r1">
+	<!-- ad -->
+	<div id="ADV_1907" style="display:none;"><script>LG('ADV_1907');</script></div>
+	<div id="ADV_1274" style="display:none;" class="mt8"><script>LG('ADV_1274');</script></div>
+	    
+		
+		<div id="ADV_1275" class="mt8" style="display:none;"><script>LG('ADV_1275');</script></div>
+	<div class="mt8" style="display:none;" id="ADV_1276">
+<script>LG('ADV_1276');</script>
+</div>
+	
+	<div id="ADV_2739" class="mt8" style="display:none;"><script>LG('ADV_2739');</script></div>
+	<style>
+  .box0915{ border:1px solid #e1e1e1; width:298px; height:195px; margin-bottom:15px;}
+  .box0915 ul{ width:280px; overflow:hidden; clear:both; margin:0 auto;}
+  .box0915 li{ float:left; width:140px; height:162px;}
+  .box0915 li span{ display:block; text-align:center; line-height:40px; font-size:14px;}
+  .box0915 li img{ display:block; margin:0 auto;}
+  .box0915 p{ display:block; margin:0 auto; width:280px; line-height:30px;border-top:1px dashed #ccc; text-align:center;color:#03f;}
+  .box0915 p a{ color:#03f;}
+</style>
+<div class="box0915">
+<ul>
+		<li><span>IT168企业级</span><img style="width: 100px;height: 100px;" alt="IT168企业级" src="http://image4.it168.com/2015/9/17/b86eaa2b-3a8c-45f3-9e01-dfcf89c93733.jpg" complete="complete"></li>
+		<li><span>IT168文库</span><img style="width: 100px;height: 100px;" alt="IT168文库" src="http://image4.it168.com/2015/9/17/02f04f90-1c3d-405b-bbba-9c46208c2b43.jpg" complete="complete"></li>
+ </ul>
+    <p><a href="http://wenku.it168.com/note/1/39">扫码送文库金币</a></p>
+</div>
+<div class="bor">
+  <div class="tab02" >
+	<ul class="Tab_Nav" id="tab04">
+	  <li data="0" id="wenku"><span class="here">相关文档</span></li>
+	  <li data="1"><span>最新文档</span></li>
+	  <li data="2"><span>热门文档</span></li>
+	</ul>
+  </div>
+  <div class="tab01Cont" id="tab04_Content0" style="display:block;" >
+	<ul class="list4">
+	  <br>正在努力加载文档，请稍等…<br>
+	</ul>
+  </div>
+  <div class="tab01Cont" id="tab04_Content1" >
+	<ul class="list4">
+	  <li ><a href="http://wenku.it168.com/d_001638938.shtml" >微信公众号开发教程——各种消息的接收</a></li>
+<li ><a href="http://wenku.it168.com/d_001640957.shtml" >我持续推动Rust语言支持Windows XP系统</a></li>
+<li ><a href="http://wenku.it168.com/d_001640924.shtml" >Rust Once, Run Everywhere.docx</a></li>
+<li ><a href="http://wenku.it168.com/d_001640930.shtml" >Rust的包管理器Cargo.docx</a></li>
+<li ><a href="http://wenku.it168.com/d_001639119.shtml" >Ｃ＃登陆程序设计，用Ｃ＃语言实现登陆</a></li>
+<li ><a href="http://wenku.it168.com/d_001640939.shtml" >Rust的应用案例和Rust使用感想.docx</a></li>
+<li ><a href="http://wenku.it168.com/d_001638940.shtml" >玩转微信公众平台之搭建新浪SAE服务器.</a></li>
+<li ><a href="http://wenku.it168.com/d_001640363.shtml" >结构化和面向对象的系统分析设计方法的</a></li>
+<li ><a href="http://wenku.it168.com/d_001639122.shtml" >webservice与android实现通信(C#与andr</a></li>
+<li class="ba0"><a href="http://wenku.it168.com/d_001640926.shtml" >rust内联汇编.docx</a></li>
+
+	</ul>
+  </div>
+  <div class="tab01Cont" id="tab04_Content2">
+	<ul class="list4">
+	  <li ><a href="http://wenku.it168.com/d_001638945.shtml" >微信公众号开发之编辑模式使用.docx</a></li>
+<li ><a href="http://wenku.it168.com/d_001638283.shtml" >Thinking in Java(第四版英文).pdf</a></li>
+<li ><a href="http://wenku.it168.com/d_001633791.shtml" >飞凌IMX6产品介绍 Cortex-A9四核Freesc</a></li>
+<li ><a href="http://wenku.it168.com/d_001638942.shtml" >微信公众号开发之图文消息全攻略.docx</a></li>
+<li ><a href="http://wenku.it168.com/d_001634310.shtml" >艾比利认证计费产品U盘版安装包_虚拟机</a></li>
+<li ><a href="http://wenku.it168.com/d_001636530.shtml" >REDIS 入门指南.pdf</a></li>
+<li ><a href="http://wenku.it168.com/d_001639123.shtml" >C# 获取程序所在路径.txt</a></li>
+<li ><a href="http://wenku.it168.com/d_001640956.shtml" >Rust并不需要关闭Socket.docx</a></li>
+<li ><a href="http://wenku.it168.com/d_001634864.shtml" >AV Foundation开发秘籍——实践掌握iOS</a></li>
+<li class="ba0"><a href="http://wenku.it168.com/d_001636821.shtml" >报表工具FineReport单数据集分页SQL实现</a></li>
+
+	</ul>
+  </div>
+</div>
+<div class="bor">
+  <div class="tab02" >
+	<ul class="Tab_Nav" id="tab_RW">
+	  <li data="0"><span class="here">一周热文</span></li>
+	  <li data="1"><span>一周热评</span></li>
+	  <li data="2"><span>一周热帖</span></li>
+	</ul>
+  </div>
+  <div class="tab01Cont" id="tab_RW_Content0" style="display:block;" onClick="_gaq.push(['_trackEvent', 'blockArea', 'Click', 'hotArticle',2,true]);">
+	<ul class="list4">
+	  		<li ><a href="http://tech.it168.com/a2015/0908/1760/000001760358.shtml" >大事件:K-DB对彪Oracle 老鱼现场观摩记</a></li>
+		<li ><a href="http://tech.it168.com/a2015/0909/1760/000001760592.shtml" >大数据2.0再掀狂潮 你准备好了吗？</a></li>
+		<li ><a href="http://tech.it168.com/a2015/0909/1760/000001760623.shtml" >基于LoadRunner12的性能测试</a></li>
+		<li ><a href="http://tech.it168.com/a2015/0902/1759/000001759494.shtml" >专访日志易CEO:解读时间序列机器数据</a></li>
+		<li ><a href="http://tech.it168.com/a2015/0911/1761/000001761436.shtml" >大数据时代 命令行技术过时了吗？</a></li>
+		<li ><a href="http://tech.it168.com/a2015/0915/1762/000001762384.shtml" >未来房价涨or跌？大数据告诉你</a></li>
+		<li class="ba0"><a href="http://tech.it168.com/a2015/0908/1760/000001760258.shtml" >使用SQL对记录进行分页的3种方式</a></li>
+	
+	</ul>
+  </div>
+  <div class="tab01Cont" id="tab_RW_Content1" >
+	<ul class="list4">
+	  <li ><a href="http://tech.it168.com/a2015/0915/1762/000001762384.shtml" >未来房价涨or跌？大数据告诉你</a></li>
+<li class="ba0"><a href="http://tech.it168.com/a2015/0911/1761/000001761436.shtml" >大数据时代 命令行技术过时了吗？</a></li>
+
+	</ul>
+  </div>
+  <div class="tab01Cont" id="tab_RW_Content2" onClick="_gaq.push(['_trackEvent', 'blockArea', 'Click', 'hotRecommendation',2,true]);">
+	<ul class="list4">
+	  <li><a href="http://www.itpub.net/thread-100750-1-1.html"  title="oracle的事务与锁与回滚段 的block 的一点摸索">oracle的事务与锁与回滚段 的block</a></li>
+<li><a href="http://www.itpub.net/thread-728617-1-1.html"  title="如何在weblogic 9.2下面设置中文字符">如何在weblogic 9.2下面设置中文字</a></li>
+<li><a href="http://www.itpub.net/thread-234279-1-1.html"  title="Oracle9i 高级复制实施手记">Oracle9i 高级复制实施手记</a></li>
+<li><a href="http://www.itpub.net/thread-267549-1-1.html"  title="小弟向各位大侠请教个问题：在sql server中怎样用sql得到库中所有的表名，以及表的结">小弟向各位大侠请教个问题：在sql </a></li>
+<li><a href="http://www.itpub.net/thread-259343-1-1.html"  title="老贴新用：Orcle 10G配置管理等经典技术问答索引：文档链接整理(2006-02-24更新)">老贴新用：Orcle 10G配置管理等经典</a></li>
+
+	  <li ><a href="http://bbs.chinaunix.net/thread-4184021-1-1.html"  title="[大话IT]MySQL使用自增ID和UUID的优劣势比较">[大话IT]MySQL使用自增ID和UUID的优</a></li>
+<li ><a href="http://bbs.chinaunix.net/thread-4184784-1-1.html"  title="Python3是趋势？还是坑!会在5年内普及使用吗？">Python3是趋势？还是坑!会在5年内普</a></li>
+<li ><a href="http://bbs.chinaunix.net/thread-4183918-1-1.html"  title="开放容器项目正式更名为OCI，Oracle等公司加入带来的技术架构进化">开放容器项目正式更名为OCI，Oracl</a></li>
+<li ><a href="http://bbs.chinaunix.net/thread-4184554-1-1.html"  title="大话Unix/Linux内核">大话Unix/Linux内核</a></li>
+<li class="ba0"><a href="http://bbs.chinaunix.net/thread-4178874-1-1.html"  title="讨论关于现有LB和HA优点与缺点，你所用的软件有哪些？">讨论关于现有LB和HA优点与缺点，你</a></li>
+
+	</ul>
+  </div>
+</div>
+	<div id="ADV_19468"><script>LG('ADV_19468');</script></div>
+<div class="bor">
+  <div class="tab02" >
+	<ul class="Tab_Nav" id="tab_BW">
+	  <li data="0"><span class="here">推荐博文</span></li>
+	  <li data="1"><span>热门博文</span></li>
+	  <li data="2"><span>博文分类</span></li>
+	</ul>
+  </div>
+  <div class="tab01Cont" id="tab_BW_Content0" style="display:block;" >
+	<ul class="list4" onClick="_gaq.push(['_trackEvent', 'blockArea', 'Click', 'recommendArticle',2,true]);">
+	  <li ><a href="http://blog.chinaunix.net/uid-25498312-id-5196686.html"  title="数据流图与软件工程生命周期">数据流图与软件工程生命周期</a></li>
+<li ><a href="http://blog.chinaunix.net/uid-21633169-id-5194582.html"  title="python模拟一个浏览器">python模拟一个浏览器</a></li>
+<li ><a href="http://blog.chinaunix.net/uid-27216042-id-5193220.html"  title="php 安全过滤">php 安全过滤</a></li>
+<li ><a href="http://blog.chinaunix.net/uid-429659-id-5191779.html"  title="Python中reactor,factory,protocol的学习笔记">Python中reactor,factory,protocol</a></li>
+<li ><a href="http://blog.chinaunix.net/uid-301743-id-5178586.html"  title="Jetty JNDI开发实战(上)">Jetty JNDI开发实战(上)</a></li>
+<li ><a href="http://blog.chinaunix.net/uid-30233942-id-5176844.html"  title="python实现将IP地址转换成长整形">python实现将IP地址转换成长整形</a></li>
+<li ><a href="http://blog.chinaunix.net/uid-25784620-id-5176651.html"  title="编程点滴（一）">编程点滴（一）</a></li>
+<li ><a href="http://blog.chinaunix.net/uid-28852942-id-5176579.html"  title="BLE广播数据的抓包解析">BLE广播数据的抓包解析</a></li>
+<li ><a href="http://blog.chinaunix.net/uid-301743-id-5169325.html"  title="利用mod_wsgi部署Django应用">利用mod_wsgi部署Django应用</a></li>
+<li class="ba0"><a href="http://blog.chinaunix.net/uid-20682147-id-5166006.html"  title="Google的dense_hash注意点">Google的dense_hash注意点</a></li>
+
+
+	</ul>
+  </div>
+  <div class="tab01Cont" id="tab_BW_Content1" >
+	<ul class="list4">
+	  <li ><a href="http://blog.itpub.net/29254281/viewspace-1800617"  title="实现秒杀的几个想法(续)">实现秒杀的几个想法(续)</a></li>
+<li ><a href="http://blog.itpub.net/23718752/viewspace-1800593"  title="一个dg警告发现的硬件问题">一个dg警告发现的硬件问题</a></li>
+<li ><a href="http://blog.itpub.net/35489/viewspace-1800328"  title="RMAN - backup archivelog all 与 backup database plus archivelog 区别">RMAN - backup archivelog all 与 </a></li>
+<li ><a href="http://blog.itpub.net/7728585/viewspace-1799304"  title="mysql (ICP) 索引条件下推对比ORACLE进行说明">mysql (ICP) 索引条件下推对比ORAC</a></li>
+<li ><a href="http://blog.itpub.net/28602568/viewspace-1797410"  title="Oracle 巧用外部表将大量excel数据导入数据库 ">Oracle 巧用外部表将大量excel数据</a></li>
+<li ><a href="http://blog.itpub.net/23718752/viewspace-1795908"  title="原来Oracle也不喜欢“蜀黍”">原来Oracle也不喜欢“蜀黍”</a></li>
+<li ><a href="http://blog.itpub.net/29654823/viewspace-1795780"  title="oracle 存储过程案例（去重操作）">oracle 存储过程案例（去重操作）</a></li>
+<li ><a href="http://blog.itpub.net/23718752/viewspace-1786927"  title="KDB和Oracle的性能pk小记">KDB和Oracle的性能pk小记</a></li>
+<li ><a href="http://blog.itpub.net/30162081/viewspace-1784677"  title="如何在线操作监听日志listener.log">如何在线操作监听日志listener.log</a></li>
+<li class="ba0"><a href="http://blog.itpub.net/23718752/viewspace-1784544"  title="关于奇怪的并行进程分析(一)">关于奇怪的并行进程分析(一)</a></li>
+
+	</ul>
+  </div>
+  <div class="tab01Cont" id="tab_BW_Content2">
+	<ul class="list4" onClick="_gaq.push(['_trackEvent', 'blockArea', 'Click', 'recommendProduct',2,true]);">
+		<li ><a href="http://blog.chinaunix.net/architecture.html" >架构与运维</a></li>
+		<li ><a href="http://blog.chinaunix.net/program.html" >程序设计</a></li>
+		<li ><a href="http://blog.chinaunix.net/os.html" >操作系统</a></li>
+		<li ><a href="http://blog.itpub.net/oracle/" >Oracle</a></li>
+		<li ><a href="http://blog.chinaunix.net/database.html" >数据库</a></li>
+		<li ><a href="http://blog.itpub.net/linux/" >linux</a></li>
+		<li ><a href="http://blog.chinaunix.net/mysql.html" >Mysql</a></li>
+		<li ><a href="http://blog.chinaunix.net/java.html" >Java</a></li>
+		<li ><a href="http://blog.chinaunix.net/cplus.html" >C++</a></li>
+		<li class="ba0"><a href="http://blog.chinaunix.net/bigdata.html" >大数据</a></li>
+	</ul>
+  </div>
+</div>
+<div class="bor">
+  <div class="tit3"><a>源码下载</a></div>
+  <ul class="list4" onClick="_gaq.push(['_trackEvent', 'blockArea', 'Click', 'recommendArticle',2,true]);">
+	<li ><a href="http://code.it168.com/d-69201.shtml" title="棉花测土施肥推荐系统">棉花测土施肥推荐系统</a></li>
+<li ><a href="http://code.it168.com/d-21702.shtml" title="ASP无组件BMP汉字生成类+汉字点阵库">ASP无组件BMP汉字生成类+汉字点阵库</a></li>
+<li ><a href="http://code.it168.com/d-26247.shtml" title="WebAdmin 2005 完美版">WebAdmin 2005 完美版</a></li>
+<li ><a href="http://code.it168.com/d-28628.shtml" title="武汉某培训机构全站代码">武汉某培训机构全站代码</a></li>
+<li ><a href="http://code.it168.com/d-17941.shtml" title="HxCMS Ver8.0(8月26日修正版)">HxCMS Ver8.0(8月26日修正版)</a></li>
+<li ><a href="http://code.it168.com/d-12174.shtml" title="一个VC++课程管理程序，MSSQL数据库">一个VC++课程管理程序，MSSQL数据库</a></li>
+<li ><a href="http://code.it168.com/d-29703.shtml" title="翼希简单入门留言本源码">翼希简单入门留言本源码</a></li>
+<li ><a href="http://code.it168.com/d-18518.shtml" title="盘古通用报名系统 v2.0">盘古通用报名系统 v2.0</a></li>
+<li ><a href="http://code.it168.com/d-18197.shtml" title="VB在Windows桌面为程序建立快捷方式">VB在Windows桌面为程序建立快捷方式</a></li>
+<li class="ba0"><a href="http://code.it168.com/d-36370.shtml" title="一个简单的俄罗斯方块游戏(SDK)VC源代码">一个简单的俄罗斯方块游戏(SDK)VC源代码</a></li>
+
+  </ul>
+</div>
+<div class="bor">
+  <div class="tab01">
+	<ul class="Tab_Nav" id="tab_01">
+	  <li data="0"><span class="here">推荐文章</span></li>
+	  <li data="1"><span>推荐产品</span></li>
+	</ul>
+  </div>
+  <div class="tab01Cont" id="tab_01_Content0"  style="display:block;">
+	<ul class="list4" onClick="_gaq.push(['_trackEvent', 'blockArea', 'Click', 'recommendArticle',2,true]);">
+	  <li ><a href="http://cloud.it168.com/a2014/0827/1660/000001660720.shtml" >谁在用阿里云?云计算用户须知10个问题</a></li>
+<li ><a href="http://www.it168.com/remen/activity/" >IT168文库3周年庆，金币充值买1送1！</a></li>
+<li ><a href="http://blog.chinaunix.net/uid-579346-id-4011564.html" >实战：完善Windows Server自动化运维</a></li>
+<li ><a href="http://wenku.it168.com/huiyi/2121" >不容错过！12位SEO大佬精彩案例分享</a></li>
+<li ><a href="http://wenku.it168.com/wenji/2313" >百度直达号轻应用开发运营指南</a></li>
+<li ><a href="http://blog.chinaunix.net/uid-26000296-id-4009690.html" >liunx系统中时钟与同步详解</a></li>
+<li ><a href="http://blog.chinaunix.net/uid-22312037-id-4008229.html" >Android之开发环境搭建实例解析</a></li>
+<li ><a href="http://blog.chinaunix.net/uid-59434-id-4008171.html" >系统运维：运用Ntop监控网络流量</a></li>
+<li ><a href="http://mobile.it168.com/a2013/1210/1571/000001571706.shtml" >史诗级影音表现酷派大观4演绎视听盛宴</a></li>
+<li ><a href="http://notebook.it168.com/topic/2013/12-20/Yoga2Pro/" >360°旗舰翻转本 Yoga 2 Pro 图解评测</a></li>
+<li ><a href="http://www.it168.com/remen/nsfocus13/" >下一代防火墙</a></li>
+<li ><a href="http://mobile.it168.com/a2013/1213/1573/000001573399.shtml" >酷派大观4 CoolLife UI5.0系统绚丽登场</a></li>
+<li ><a href="http://mobile.it168.com/a2014/0214/1592/000001592781.shtml" >直降200元送情人好选择 魅族MX3仅1999</a></li>
+<li ><a href="http://tech.it168.com/a2014/0903/1663/000001663196.shtml" >阿里云的“工匠精神”和“情怀”</a></li>
+<li class="ba0"><a href="http://mobile.it168.com/a2014/0213/1592/000001592729.shtml" >卖断货了怎么办?魅族MX3产量加倍</a></li>
+
+	</ul>
+  </div>
+  <div class="tab01Cont" id="tab_01_Content1" >
+	<ul class="list4" onClick="_gaq.push(['_trackEvent', 'blockArea', 'Click', 'recommendProduct',2,true]);">
+	  <li ><a href="http://product.it168.com/list/b/03020022_i12899_1.shtml" title = "iPhone5s土豪金">iPhone5s土豪金</a></li>
+<li ><a href="http://product.it168.com/list/b/03021184_i12777_1.shtml" title = "小米3">小米3</a></li>
+<li ><a href="http://product.it168.com/detail/doc/644554/index.shtml" title = "努比亚Z5S mini">努比亚Z5S mini</a></li>
+<li ><a href="http://product.it168.com/detail/doc/644544/index.shtml" title = "努比亚Z5S">努比亚Z5S</a></li>
+<li ><a href="http://product.it168.com/detail/doc/615469/index.shtml" title = "iPhone5c4G手机">iPhone5c4G手机</a></li>
+<li ><a href="http://product.it168.com/detail/doc/628554/index.shtml" title = "iPhone5s4G手机">iPhone5s4G手机</a></li>
+<li ><a href="http://product.it168.com/detail/doc/647705/index.shtml" title = "华为荣耀3C">华为荣耀3C</a></li>
+<li ><a href="http://product.it168.com/detail/doc/657844/index.shtml" title = "华为荣耀3X">华为荣耀3X</a></li>
+<li ><a href="http://product.it168.com/detail/doc/614645/index.shtml" title = "三星S5">三星S5</a></li>
+<li ><a href="http://product.it168.com/list/b/0162_1.shtml" title = "空气净化器">空气净化器</a></li>
+<li ><a href="http://product.it168.com/detail/doc/665569/index.shtml" title = "iPhone Air">iPhone Air</a></li>
+<li ><a href="http://product.pcpop.com/000317875/Index.html" title = "iPhone6">iPhone6</a></li>
+<li ><a href="http://product.it168.com/list/b/1596_1.shtml" title = "单反相机">单反相机</a></li>
+<li ><a href="http://product.it168.com/detail/doc/629424/index.shtml" title = "小米3电信版">小米3电信版</a></li>
+<li ><a href="http://product.it168.com/list/b/1549_1.shtml" title = "取暖器">取暖器</a></li>
+<li ><a href="http://product.it168.com/list/b/0640_1.shtml" title = "液晶电视">液晶电视</a></li>
+<li ><a href="http://product.it168.com/list/b/1589_1.shtml" title = "冰箱">冰箱</a></li>
+<li ><a href="http://product.it168.com/list/b/1590_1.shtml" title = "洗衣机">洗衣机</a></li>
+<li ><a href="http://product.it168.com/list/b/1591_1.shtml" title = "热水器">热水器</a></li>
+<li ><a href="http://product.it168.com/list/b/1576_1.shtml" title = "加湿器">加湿器</a></li>
+<li ><a href="http://product.it168.com/detail/doc/646745/index.shtml" title = "红米电信版">红米电信版</a></li>
+<li ><a href="http://product.it168.com/list/b/15881542_1.shtml" title = "格力空调">格力空调</a></li>
+<li ><a href="http://product.it168.com/list/b/1588_1.shtml" title = "空调">空调</a></li>
+<li ><a href="http://product.it168.com/list/b/1591_1.shtml" title = "热水器什么牌子好">热水器什么牌子好</a></li>
+<li ><a href="http://product.it168.com/list/b/1591_1.shtml" title = "空气能热水器">空气能热水器</a></li>
+<li ><a href="http://product.it168.com/list/b/1576_1.shtml" title = "加湿器哪个牌子好">加湿器哪个牌子好</a></li>
+<li ><a href="http://product.it168.com/list/b/15887154_1.shtml" title = "美的空调">美的空调</a></li>
+<li ><a href="http://product.it168.com/list/b/15916359_1.shtml" title = "万和热水器">万和热水器</a></li>
+<li ><a href="http://product.it168.com/list/b/0302_s_2572-15437s_1.shtml" title = "4G手机">4G手机</a></li>
+<li class="ba0"><a href="http://product.it168.com/detail/doc/527498/index.shtml" title = "小米盒子">小米盒子</a></li>
+
+	</ul>
+  </div>
+</div>
+<div class="mt10"><div id="ADV_16603"><script>LG('ADV_16603');</script></div></div>
+
+<script type="text/javascript" src="http://product.pcpop.com/js/eb/SequelLian9_124.js"></script>
+<script type="text/javascript">
+	var line = SequelLian.init();
+	line.ChannelId = 4; //频道id(参数)
+	line.ChannelPageId = 9; //频道页id(参数)
+	line.ChannelPageBlockId = 124; //频道页面块id(参数)
+	line.DivIds = "detailWord"; //需要操作a标签的div(用id获取div),可传多个(参数)   id与class必选其一,且只能先其一
+	line.OtherID=articleCode;
+	line.BindEvent();
+</script>
+
+
+
+	
+	
+  </div>
+  <div class="clear"></div>
+  <!--编辑推荐  手工位-->
+     <div class="tit2"><b>编辑推荐</b> </div>
+<ul class="list6">
+<li><a href="http://digital.it168.com/a2015/0724/1749/000001749045.shtml" ><img src="http://image4.it168.com/2015/8/20/75d9a40e-6f16-48ea-a06e-9a474c9b3674.jpg" width="180" height="120" alt="能不能让人家安静地敷个面膜" /><span>能不能让人家安静地敷个面膜</span></a></li>
+<li><a href="http://mp.weixin.qq.com/s?__biz=MjM5NjU1MzM1Mw==&mid=244342322&idx=1&sn=80bb79dc86af64368dbf5352091f21dc#rd" ><img src="http://image4.it168.com/2015/9/11/ae3b6187-dcc7-4b44-88cd-2de6733f1578.jpg" width="180" height="120" alt="带你征服你不懂的“三体”" /><span>带你征服你不懂的“三体”</span></a></li>
+<li><a href="http://mp.weixin.qq.com/s?__biz=MjM5NjU1MzM1Mw==&mid=241484899&idx=1&sn=0a9a39c3b10007c9a15bca52f627bc8c#rd" ><img src="http://image4.it168.com/2015/8/20/0c45f0a0-970a-4f06-82f6-f5c097ea14ba.jpg" width="180" height="120" alt="Win10用的不顺心？回滚呀" /><span>Win10用的不顺心？回滚呀</span></a></li>
+<li><a href="http://mp.weixin.qq.com/s?__biz=MjM5NjU1MzM1Mw==&mid=245063663&idx=1&sn=c5c40c73627c3182012e541799d2bf3b#rd" ><img src="http://image4.it168.com/2015/9/1/d2ff2c81-e1c7-46ea-869e-ff4ff47526f7.jpg" width="180" height="120" alt="国产千元手机 买到你就赚了" /><span>国产千元手机 买到你就赚了</span></a></li>
+<li><a href="http://shike.it168.com" ><img src="http://image4.it168.com/2015/6/2/3c85b0c0-895e-48b6-902a-ae98aa4c6092.jpg" width="180" height="120" alt="每周都有免费试用" /><span>每周都有免费试用</span></a></li>
+</ul>
+
+
+<div id="ajax">
+</div>
+<div id="commonajax" style="display:none"></div>
+
+
+
+
+
+<script src="http://stat.it168.com/ClickPv.js" type="text/javascript"></script>
+<script type="text/javascript">
+  function dpjscallback(SensisID)
+	{
+	ArticleTruePV(1);
+	}
+</script>
+<script language="javascript" src="/detailinclude/jscript/Global.js?2012712"></script>
+	<div class="it168_fl" style="margin: 0 0 220px 500px;height: 200px;">
+	  <a href="javascript:;" target="_self" style="height: 200px;">
+		<div>系统架构师大会</div><img style="width: 110px;" alt="系统架构师大会" src="http://image4.it168.com/2015/6/10/4f4428d3-90b8-423b-aea1-e797bab51e1d.jpg" complete="complete">
+		<div>点击或扫描关注</div>
+	  </a>
+	</div>
+
+	<div class="it168_fl2">
+	  <a target="_self">
+		<div>IT168企业级微信关注送礼</div><img alt="IT168企业级微信关注送礼" src="http://image4.it168.com/2014/7/9/b7069c0f-38c6-4ed2-8e92-5bf5a2165330.jpg" complete="complete">
+		<div>扫描关注</div>
+	  </a>
+	</div>
+
+<script>if(typeof(BLA)!='undefined'){BLA();}</script>
+<div class="footer">
+  <p> <a href="http://www.it168.com/bottomfile/about.shtml" rel="nofollow">盛拓传媒简介</a><a href="http://www.it168.com/bottomfile/it168.shtml" rel="nofollow">关于IT168</a><a href="http://www.it168.com/bottomfile/hzhb.shtml" rel="nofollow">合作伙伴</a><a href="http://www.it168.com/bottomfile/ggfw.shtml" rel="nofollow">广告服务</a><a href="http://www.it168.com/bottomfile/sytk.shtml" rel="nofollow">使用条款</a><a href="http://www.it168.com/bottomfile/tgzn.shtml" rel="nofollow">投稿指南</a><a href="http://www.wintalent.cn:8031/wt5/sequelmedia/web/index" rel="nofollow">诚聘精英</a><a href="http://www.it168.com/bottomfile/lxwm.shtml" rel="nofollow">联系我们</a><a href="http://www.it168.com/bottomfile/sitemap/sitemap.html" rel="nofollow">网站导航</a><a href="http://archive.it168.com/" rel="nofollow">往日回顾</a> </p>
+  <address>
+  北京皓辰网域网络信息技术有限公司. 版权所有 京ICP证:060528号 北京市公安局海淀分局网监中心备案编号：1101082001<br>
+  广播电视节目制作经营许可证:(京) 字第1234号&nbsp; <a href="http://www.it168.com/huiyuan/it168.html" rel="nofollow">中国互联网协会会员</a>&nbsp; 测绘资质证书:乙测资字11005067&nbsp; 网络文化经营许可证:京网文[2012]0421-133号
+  </address>
+</div>
+<!--     href="${ProductUrl}" class="chanpin" >本文产品       -->
+<div class="fu">
+<a href="http://www.it168.com" class="index">首页</a>
+<a href="#articlecomment" class="pinglun3" target="_self">评论</a>
+<a href="javascript:void(0);" class="fanhui" target="_self" >返回顶部</a>
+</div>
+<script type="text/javascript" src="/detailinclude/article2015/include/common.js?v=new20150608"></script>
+<!-- 划词搜索 -->
+<script type="text/javascript" src="http://ajax.useso.com/ajax/libs/jquery/1.7.2/jquery.min.js?ver=3.4.2"></script>  <script type='text/javascript'>
+jQuery(document).ready(function(){ var miniBlogShare = function() { $('<img id="huaci" title="搜索一下" src="http://cpro.baidustatic.com/cpro/ui/noexpire/img/2.0.0/icon.png" />').appendTo('body'); $('#huaci').css({ display : 'none', position : 'absolute', cursor : 'pointer' }); var funGetSelectTxt = function() { var txt = ''; if(document.selection) { txt = document.selection.createRange().text; } else { txt = document.getSelection(); } return txt.toString();}; $('html,body').mouseup(function(e) { if (e.target.id == 'huaci') { return } e = e || window.event; var txt = funGetSelectTxt(), sh = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0, left = (e.clientX - 40 < 0) ? e.clientX + 20 : e.clientX - 40, top = (e.clientY - 40 < 0) ? e.clientY + sh + 20 : e.clientY + sh - 40; if (txt) { $('#huaci').css({ display : 'inline', left : left, top : top }); } else { $('#huaci').css('display', 'none'); } }); $('#huaci').click(function() { var txt = funGetSelectTxt(), title = $('title').html(); if (txt) { window.open('http://www.baidu.com/s?si=www.it168.com&cl=3&ct=2097152&tn=04021058_cpr&word="'+txt+'"'); } }); }(); });
+</script> 
+
+
+<script>
+/*********多数配置**************/
+	if (typeof (duoshuoImg) == 'undefined')    var	duoshuoImg='http://adshow.it168.com/newImage/23.gif';
+var duoshuoQuery = {
+  short_name:"it168",
+  component_style: {
+         'textbox' : "background: url("+duoshuoImg+") no-repeat 410px 0px;"
+     }
+};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'utf-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	function mycallback(json) 
+	{
+		var data = json.response;
+		if (data != null && typeof (data) != "undefined" && data.length != 0) {
+			if(data['4:855000'].comments>0)
+			{
+				document.getElementById('duoshuo_commentcount').innerHTML=data['4:855000'].comments;
+				document.getElementById('duoshuo_commentcount2').innerHTML=data['4:855000'].comments;
+			}else
+			{
+				document.getElementById('pinglun2').innerHTML='暂无评论，等你来评';
+			}
+		}
+	}
+	// 左右翻页
+	document.onkeydown=function(e){
+	  e = (e) ? e : event;
+    var code = (e.charCode) ? e.charCode : ((e.keyCode) ? e.keyCode : ((e.which) ? e.which : 0));
+	  if(code==37 && (1 > 1)){
+	    //进入上一页
+	    location.href = 'http://tech.it168.com/a2010/0301/855/000000855000.shtml';
+	   }
+	  if(code==39 && (2 <= 0)){
+	   location.href = 'http://tech.it168.com/a2010/0301/855/000000855000_-1.shtml';
+	  }
+}
+</script>
+	<script type="text/javascript" charset="UTF-8" src="http://it168.duoshuo.com/api/threads/counts.jsonp?callback=mycallback&threads=4:855000"></script>
+<!-- Duoshuo Comment END -->
+<!-- 百度统计签，it168统计签 -->
+<script language="javascript" src="http://stat.it168.com/pv.js"></script>
+<script>
+var click_channelid =24;
+function sendPV(upurl){    
+    var pvTrack = new PvTrack();
+    pvTrack.type = 11; // 频道类别ID
+    pvTrack.channel = 24; // 频道ID
+    pvTrack.pageType = 103;
+	pvTrack.referrer = upurl;
+    pvTrack.track();
+}
+window.setTimeout("sendPV('')", 500);
+</script>
+
+<!-- 谷歌统计签 -->
+
+<script src="http://sjk.it168.com/care.js" language="javascript" type="text/javascript"> </script>
+<script language="javascript" type="text/javascript">
+    CAREACURSE.acurse('sjk.it168.com', 2, 'it168_dsurl_count', location.href);
+</script>
+
+<script type='text/javascript' src='http://topic.it168.com/StatisticsUserAct/js/StatisticsUserAct.js'></script>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-20433473-1']);
+  _gaq.push(['_addOrganic', 'baidu', 'word']);
+  _gaq.push(['_addOrganic', 'google', 'q']);
+  _gaq.push(['_addOrganic', 'soso', 'w']);
+  _gaq.push(['_addOrganic', 'yodao', 'q']);
+  _gaq.push(['_addOrganic', 'vnet', 'kw']);
+  _gaq.push(['_addOrganic', 'sogou', 'query']);
+  _gaq.push(['_addOrganic', '118114', 'kw']);
+  _gaq.push(['_addOrganic', '3721', 'name']);
+  _gaq.push(['_setDomainName', '.it168.com']);
+ _gaq.push(['_trackPageview']);
+ 
+ //频道
+	$('.float_l a').each(function(){
+		$(this).bind("click",function(){
+			//ga('send','event','it168_channel','click','nav_channel');
+			_gaq.push(['_trackEvent','it168_channel','click','nav_channel_click']);
+		});
+	});
+	//文章
+	$('.float_r a').each(function(){
+		$(this).bind("click",function(){
+			//ga('send','event','article','click','nav_article');
+			_gaq.push(['_trackEvent','it168_article','click','nav_article_click']);
+		});
+	});
+ 
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = 
+true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + 
+'.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, 
+s);
+  })();
+/*************************************/
+if(articleChannelCode == "20")
+{
+document.getElementById("ADV_3009").style.display="inline";
+}
+
+
+/*给正文加nofollow*/
+$(function(){
+	$(".cont1 a").each(function(obj){
+	var href=$(this).attr("href");
+	if(typeof(href)!= "undefined" )
+	{
+	if(href.indexOf("it168.com")==-1 && href.indexOf("pcpop.com")==-1)
+	 {
+	   $(this).attr('rel','nofollow');
+	 }
+	}
+		
+	});
+});
+</script>
+<!--taobao 天猫 start-->
+<script type="text/javascript"> (function(win,doc){if((!tab_it168_iniMenu)||(typeof(Isalimamatk)!="undefined"))return; var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0]; if (!win.alimamatk_show) { s.charset = "gbk"; s.async = true; s.src = "http://a.alimama.cn/tkapi.js"; h.insertBefore(s, h.firstChild); }; var o = { pid: "mm_96676214_7484044_25040797",/*推广单元ID，用于区分不同的推广渠道*/ appkey: "",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/ unid: ""/*自定义统计字段*/ }; win.alimamatk_onload = win.alimamatk_onload || []; win.alimamatk_onload.push(o); })(window,document);</script>
+<!--taobao 天猫 end-->
+
+
+
+
+<!-- 新版顶部 新增ga监测代码 -->
+
+
+</body>
+</html>

@@ -1,0 +1,705 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <meta content="360doc" name="classification" />
+    
+    <link rel="alternate" media="only screen and (max-width: 640px)" href="http://www.360doc.cn/article/8547696_260203376.html"/>
+    <meta content="audit,日志,审计" name=keywords>
+    <meta content="linux的审计功能（audit）" name=description>
+    <meta name="mobile-agent" content="format=html5;url=http://www.360doc.cn/article/8547696_260203376.html"/>
+
+    <meta content="www.360doc.com" name="author" />
+
+    <title>
+        linux的审计功能（audit）
+    </title>
+    <link href="http://bdimg.share.baidu.com/static/css/bdsstyle.css?cdnversion=20130704" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="http://www.360doc.com/js/jquery1.js?t=2015041801"></script>
+    <script type="text/javascript" src="http://www.360doc.com/js/jQuery.md5.js?t=2013121101"></script>
+    
+    <script type="text/javascript" language="javascript">
+        window.onerror = ignoreError;
+        function ignoreError() {
+            return true;
+        }
+    </script>
+
+  <link href="http://css.360doc.com/wzhead-cleaned.css?t=2014082004" rel="stylesheet" type="text/css" />
+    <link href="http://css.360doc.com/wz20130912-cleaned.css?t=20150916082" rel="stylesheet" type="text/css" />
+
+
+    
+
+    <script type="text/javascript" src="/js/indexhead.js?t=2014082801"></script>
+    <script type="text/javascript" src="/js/showarticlefollow20130912.js?t=20150916082"></script>
+</head>
+<body style="font-family: Arial, Helvetica, sans-serif;" onmouseup="setDragEnd()"
+    onmousemove="DragDiv();" onclick="delAllDiv(event)">
+
+
+    <span id="LayerLogin" ></span>
+    <div style="position: fixed; width: 100%; z-index: 1000;">
+        <div class="mainnav">
+            <div class="mainnav1">
+                <div class="lf360" style="padding-left: 5px;">
+                  <a href="http://www.360doc.com/index.html"><img src="http://pubimage.360doc.com/newsite/logoo.gif" /></a>
+                </div>
+                <div style="width: 625px; padding-top: 0px; padding-left: 4px; position: absolute;">
+                    <table height="34" border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr id="daohangtr">
+                                <td style="width: 185px; _width: 0px; *width: 0px !important;"></td>
+                                <td class="navwz1" width="95">
+                                    <a href="http://www.360doc.com/index.html">首&nbsp;页</a>
+                                </td>
+                                <td width="100" class="  navwz1">
+                                    <a href="http://www.360doc.com/readroom.html">阅览室</a>
+                                </td>
+                                <td width="88" class="  navwz1">
+                                    <a href="http://www.360doc.com/weekstar.html">馆友</a>
+                                </td>
+                                <td width="132" class="  navwz1">
+                                    <a href="http://www.360doc.com/my360doc.aspx">我的图书馆</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="rt360" style="padding-top: 6px; width: 133px; padding-left: 38px;" id="outerdiv">
+                </div>
+                <div class=" rt360" style="padding-top: 6px; padding-right: 0px;">
+                    <div class="lf360 serch">
+                        <input name="input2" class="serchpt" id="txtSearchword" onkeydown="ongosearch()"
+                            onkeyup="showIntelliSense()" onfocus="if(this.value=='搜文章 找馆友') this.value='';this.style.color='#272727'"
+                            onblur="if(!this.value) {this.value='搜文章 找馆友';this.style.color='#b2b2b2';}" onpaste="showIntelliSense1()"
+                            type="text" value="搜文章 找馆友">
+                    </div>
+                    <div class="lf360 ssuo">
+                        <a id="searchlinkid" href="javascript:gosearch();"></a>
+                    </div>
+                    <div id="divsearch" style="margin-top: 25px; margin-left: 1px; display: block; position: absolute; z-index: 100;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navxt">
+        </div>
+    </div>
+    <div style="height: 44px; _height: 0px; width: 100%;"></div>
+
+    <div class="both">
+    </div>
+    <div id="docTotalInfo" class="mainzt">
+        <table class="index_main" border="0" cellpadding="0" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td align="left" valign="top" width="727px">
+                        <div id='ADAboveArtContent'>
+                        </div>
+                        <div style="height: 7px;">
+                        </div>
+                        <table border="0" cellpadding="0" cellspacing="0" class="mainbj" id="docArtClass">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <table border="0" cellpadding="0" cellspacing="0" style="width: 100%; text-align: center;">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <table style="width: 100%; text-align: left;" border="0" cellpadding="0" cellspacing="0">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="biaoti">
+                                                                        <div class="biaoti2 lf360">
+                                                                            linux的审计功能（audit）
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="height: 32px;">
+
+
+                                                                        <div style="width: 670px; height: 28px; padding-left: 26px; color: #777b7a;">
+                                                                            <table>
+                                                                                <tr>
+                                                                                    <td>收藏人：<span class="name" onclick="wzhitnew(1);"><A href="http://www.360doc.com/userhome/8547696" target="_blank">捉虫子吃的松树</A></span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div class="btzctsg" id="spanfollowstatus">
+                                                                                        </div>
+                                                                                        <script>isfollow(8547696);</script>
+
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div class="ytdh1"><a onclick="doctalk();wzhitnew(106);" href="javascript:void(0)"></a></div>
+
+                                                                                    </td>
+
+                                                                                </tr>
+                                                                            </table>
+                                                                        </div>
+
+
+
+
+                                                                        <div class="wztopxx">
+                                                                            <div style="float: left; height: 28px; padding-top: 7px;">
+                                                                                <table cellpadding="0" cellspacing="0" style="position: relative; z-index: 4">
+                                                                                    <tbody>
+                                                                                        <tr>
+
+                                                                                            <td>
+                                                                                                2013-01-14&nbsp;|&nbsp;阅：<span id="360doc_Readnum"></span>&nbsp;&nbsp;<span
+                                                                                                    style="position: relative;">转：<span onclick="wzhitnew(3)" id="360doc_saverNum"></span><span
+                                                                                                        id="360doc_saverUser"></span></span>&nbsp;&nbsp;
+
+
+
+                                                                                            </td>
+
+                                                                                            <td>
+                                                                                                <div style="position: relative;">
+                                                                                                    &nbsp;|&nbsp;<span id="docsource"></span>
+                                                                                                </div>
+                                                                                                <div class="sekuaibox" style="display: none; margin-left: 48px;" id="zihaoboxID">
+                                                                                                    <div style="padding-top: 10px; padding-left: 5px;">
+                                                                                                        <div class="lf360 danxunbt">
+                                                                                                            <input id="artdocfont3" onclick="ChangeArtSize(3, this); wzhitnew(15); " name="radio"
+                                                                                                                type="radio" value="1" />
+                                                                                                        </div>
+                                                                                                        <div class="lf360 danxunwz" onclick="ChangeArtSize(3,this);wzhitnew(15); " style="cursor: pointer;">
+                                                                                                            大
+                                                                                                        </div>
+                                                                                                        <div class="lf360 danxunbt">
+                                                                                                            <input id="artdocfont2" onclick="ChangeArtSize(2, this); wzhitnew(16); " name="radio"
+                                                                                                                type="radio" value="2" />
+                                                                                                        </div>
+                                                                                                        <div class="lf360 danxunwz" onclick="ChangeArtSize(2,this);wzhitnew(16); " style="cursor: pointer;">
+                                                                                                            中
+                                                                                                        </div>
+                                                                                                        <div class="lf360 danxunbt">
+                                                                                                            <input id="artdocfont1" onclick="ChangeArtSize(1, this); wzhitnew(17); " name="radio"
+                                                                                                                type="radio" value="3" />
+                                                                                                        </div>
+                                                                                                        <div class="lf360 danxunwz" onclick="ChangeArtSize(1,this);wzhitnew(17); " style="cursor: pointer;">
+                                                                                                            小
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="sekuaibox" style="margin-left: 76px; display: none;" id="sekuaiboxID">
+                                                                                                    <div style="padding-top: 10px; padding-left: 5px;">
+                                                                                                        <img src="http://pubimage.360doc.com/wz/cr1.gif" id="docArtC1" onclick="ChangeArtClass(1,this);wzhitnew(18);"
+                                                                                                            style="cursor: pointer;" /><img src="http://pubimage.360doc.com/wz/cr2.gif" id="docArtC2"
+                                                                                                                onclick="ChangeArtClass(2,this);wzhitnew(19);" style="cursor: pointer;" /><img src="http://pubimage.360doc.com/wz/cr3.gif"
+                                                                                                                    id="docArtC3" onclick="ChangeArtClass(3,this);wzhitnew(20);" style="cursor: pointer;" /><img
+                                                                                                                        src="http://pubimage.360doc.com/wz/cr4.gif" id="docArtC4" onclick="ChangeArtClass(4,this);wzhitnew(21);"
+                                                                                                                        style="cursor: pointer;" /><img src="http://pubimage.360doc.com/wz/cr5.gif" id="docArtC5"
+                                                                                                                            onclick="ChangeArtClass(5,this);wzhitnew(22);" style="cursor: pointer;" /><img src="http://pubimage.360doc.com/wz/cr6.gif"
+                                                                                                                                id="docArtC6" onclick="ChangeArtClass(6,this);wzhitnew(23);" style="cursor: pointer;" />
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <div style="padding-left: 10px;">
+                                                                                                    <a href="javascript:void(0)">
+                                                                                                        <img onmouseover="changedivdisplay(1);" src="http://pubimage.360doc.com/wz/wz1.gif" /></a>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <div style="padding-left: 10px;" onmouseover="changedivdisplay(2);">
+                                                                                                    <a href="javascript:void(0)">
+                                                                                                        <img src="http://pubimage.360doc.com/wz/wz2.gif" /></a>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                            <td>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#" onclick=" setTimeout(showShareLayer, 10);wzhitnew(4);">分享</a>&nbsp;</td>
+                                                                                            <td>
+                                                                                                <a href="#" onclick="  setTimeout(showShareLayer, 10);wzhitnew(5);">
+                                                                                                    <img style="cursor: pointer;" src="http://pubimage.360doc.com/wz/tb10.gif"></a><div
+                                                                                                        class="fenxiang" id="fenxiangLayer" style="display: none; border: none; width: 110px; margin-left: -28px; _margin-left: -40px;">
+                                                                                                    </div>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                            <div id="resavelayer1" class="rt360">
+                                                                            </div>
+
+
+                                                                            <div id="shareweixinabove" class="rt360">
+                                                                            </div>
+
+
+                                                                            <table cellpadding="0" cellspacing="0" style="text-align: center; margin: 0px auto;">
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <div id="AlertArt1" style="display: none; position: absolute;">
+                                                                                            </div>
+                                                                                            <div id="SendToFriends1" style="display: none; position: absolute; z-index: 100;">
+                                                                                            </div>
+                                                                                            <div class="lf360 zcbutton" style="margin-left: 100px;">
+                                                                                            </div>
+                                                                                            <div class="lf360">
+                                                                                                &nbsp;&nbsp;
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        
+                                                        <table class="wenzhangcss" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="xiantao">
+                                                                        </div>
+
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="left" valign="top" width="670px" style="height: 200px;">
+                                                                        <span id="articlecontent" onmousedown="newhighlight = true;" onmouseup="NewHighlight(event)">
+                                                                            <table>
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td width="670px" style="position: relative;">
+
+                                                                                            <span style="font-size: 29px; line-height: 1.5;">PART ONE</span><div><span style="font-family: Arial; font-size: 14px; line-height: 26px;">为了满足这样的需求：记录文件变化、记录用户对文件的读写，甚至记录系统调用，文件变化通知。</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><strong style="font-family: Arial; font-size: 14px; line-height: 26px;">什么是audit</strong><br><span style="font-family: Arial; font-size: 14px; line-height: 26px;">The Linux Audit Subsystem is a system to Collect information regarding events occurring on the system(s)&nbsp;</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;">Kernel events (syscall events)</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;">User events (audit-enabled programs)</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;">syslog会记录系统状态(硬件警告、软件的log), 但syslog属于应用层, log归咎与软件, 并不会记录所有动作. 于是audit来记录更多信息。</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><strong style="font-family: Arial; font-size: 14px; line-height: 26px;"><br>audit命令</strong><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;">auditctl audit系统管理工具，用来获取状态，增加删除监控规则。</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;">ausearch 查询audit log工具</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;">aureport 输出audit系统报告</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><strong style="font-family: Arial; font-size: 14px; line-height: 26px;"><br>auditctl示例</strong><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;">auditctl -w /etc/passwd -p war -k password_file</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;">auditctl -w /tmp -p e -k webserver_watch_tmp</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;">-w 监控文件路径 /etc/passwd,&nbsp;</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;">-p 监控文件筛选 r(读) w(写) x(执行) a(属性改变)</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;">-k 筛选字符串，用于查询监控日志</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;">auditctl -a exit,never -S mount</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;">auditctl -a entry,always -S all -F pid=1005</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;">-S 监控系统调用</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;">-F 给出更多监控条件(pid/path/egid/euid等)</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><strong style="font-family: Arial; font-size: 14px; line-height: 26px;"><br>日志查询</strong><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;">设置了监控后，会在/var/log/audit/audit.log里出现日志。</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;">可以用此命令查看日志：</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;">ausearch -f /etc/passwd -x rm</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;">-k &nbsp;利用auditctl指定的key查询</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;">-x &nbsp;执行程序</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;"># ausearch -ts today -k password-file</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;"># ausearch -ts 3/12/07 -k password-file</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;">-ts 指定时间后的log (start time)</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;">-te 指定时间前的log (end time)</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><strong style="font-family: Arial; font-size: 14px; line-height: 26px;"><br>audit库</strong><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;">libaudit和libaudit-python</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><span style="font-family: Arial; font-size: 14px; line-height: 26px;">不过完全找不到文档。我也觉得这个东西用得上的时候不多。除非.....</span><br style="font-family: Arial; font-size: 14px; line-height: 26px;"><div><span style="font-family: Arial; font-size: 14px; line-height: 26px;"><br></span></div><div><span style="font-family: Arial; font-size: 14px; line-height: 26px;"><br></span></div><div><span style="font-family: Arial; font-size: 14px; line-height: 26px;"><b></b></span></div><div><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);"><span style="font-size: 18px; font-family: Arial, Helvetica, sans-serif; line-height: 1.5;"></span><span style="font-family: Arial, Helvetica, sans-serif; line-height: 1.5;"></span><span style="font-size: 29px; font-family: Arial, Helvetica, sans-serif; line-height: 1.5;">PART TWO</span></p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">2.6 Linux内核有用日志记录事件的能力，比如记录系统调用和文件访问。然后，管理员可以评审这些日志，确定可能存在的安全裂口，比如失败的登录尝试，或者用户对系统文件不成功的访问。这种功能称为Linux审计系统，在Red Hat Enterprise Linux 5中已经可用。&nbsp;<br>要使用Linux Auditing System，可采用下面的步骤：&nbsp;<br>(1) 配置审计守护进程。&nbsp;<br>(2) 添加审计规则和观察器来收集所需的数据。&nbsp;<br>(3) 启动守护进程，它启用了内核中的Linux Auditing System并开始进行日志记录。&nbsp;<br>(4) 通过生成审计报表和搜索日志来周期性地分析数据。&nbsp;<br>本章将详细讨论各个部分。&nbsp;<br>25.1&nbsp; 配置审计守护进程&nbsp;<br>Red Hat Enterprise Linux 5内核中的Linux Auditing System默认是关闭的。当启动审计守护进程时，启用这个内核特性。要在启动时不通过守护进程auditd来启用Linux Auditing System，只需用audit= 1参数来引导。如果这个参数设置为1，而且auditd没有运行，则审计日志会被写到/var/log/messages中。&nbsp;<br>要使用auditd和实用程序来生成日志文件报表，必须安装audit RPM程序包。如果没有安装，则参见第3章“操作系统更新”了解关于程序包安装的指令。&nbsp;<br>用了auditd，管理员就可以定制产生的审计日志。下面只是一部分可用的自定义配置：&nbsp;<br>● 设置审计消息的专用日志文件&nbsp;<br>● 确定是否循环使用日志文件&nbsp;<br>● 如果日志文件的启动用掉了太多磁盘空间则发出警告&nbsp;<br>● 配置审计规则记录更详细的信息&nbsp;<br>● 激活文件和目录观察器&nbsp;<br>这些设置值及更多设置值位于/etc/audit/auditd.conf文件中，它包含修改审计守护进程的行为的选项。每个选项均应在独立的一行上，后面跟着等于号(=)和这个选项的值。程序清单25-1显示了默认配置文件。&nbsp;<br>程序清单25-1&nbsp; 默认审计守护进程参数&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; #&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; # This file controls the configuration of the audit daemon&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; #&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; log_file = /var/log/audit/audit.log&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; log_format = RAW&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; priority_boost = 3&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; flush = INCREMENTAL&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; freq = 20&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; num_logs = 4&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; dispatcher = /sbin/audispd&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; disp_qos = lossy&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; max_log_file = 5&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; max_log_file_action = ROTATE&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; space_left = 75&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; space_left_action = SYSLOG&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; action_mail_acct = root&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; admin_space_left = 50&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; admin_space_left_action = SUSPEND&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; disk_full_action = SUSPEND&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; disk_error_action = SUSPEND&nbsp;<br>可以配置下面这些选项(参见程序清单25-1了解默认值)：&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; log_file&nbsp;<br>审计日志文件的完整路径。如果您配置守护进程向除默认/var/log/audit/外的目录中写日志文件时，一定要修改它上面的文件权限，使得只有根用户有读、写和执行权限。所有其他用户都不能访问这个目录或这个目录中的日志文件。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; log_format&nbsp;<br>写日志时要使用的格式。当设置为RAW时，数据会以从内核中检索到的格式写到日志文件中。当设置为NOLOG时，数据不会写到日志文件中，但是如果用dispatcher选项指定了一个，则数据仍然会发送到审计事件调度程序中。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; priority_boost&nbsp;<br>审计应采用多少优先级推进守护进程。必须是非负数。0表示没有变化。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; flush&nbsp;<br>多长时间向日志文件中写一次数据。值可以是NONE、INCREMENTAL、DATA和SYNC之一。如果设置为NONE，则不需要做特殊努力来将数据刷新到日志文件中。如果设置为INCREMENTAL，则用freq选项的值确定多长时间发生一次向磁盘的刷新。如果设置为DATA，则审计数据和日志文件一直是同步的。如果设置为SYNC，则每次写到日志文件时，数据和元数据是同步的。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; freq&nbsp;<br>如果flush设置为INCREMETNAL，审计守护进程在写到日志文件中前从内核中接收的记录数。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; num_logs&nbsp;<br>max_log_file_action设置为ROTATE时要保存的日志文件数目。必须是0~99之间的数。如果设置为小于2，则不会循环日志。如果递增了日志文件的数目，就可能有必要递增/etc/audit/audit.rules中的内核backlog设置值，以便留出日志循环的时间。如果没有设置num_logs值，它就默认为0，意味着从来不循环日志文件。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; dispatcher&nbsp;<br>当启动这个守护进程时，由审计守护进程自动启动程序。所有守护进程都传递给这个程序。可以用它来进一步定制报表或者以与您的自定义分析程序兼容的不同格式产生它们。自定义程序的示例代码可以在/usr/share/doc/audit- &lt;version&gt;/skeleton.c中找到。由于调度程序用根用户特权运行，因此使用这个选项时要极其小心。这个选项不是必需的。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; disp_qos&nbsp;<br>控制调度程序与审计守护进程之间的通信类型。有效值为lossy和lossless。如果设置为lossy，若审计守护进程与调度程序之间的缓冲区已满 (缓冲区为128千字节)，则发送给调度程序的引入事件会被丢弃。然而，只要log_format没有设置为nolog，事件就仍然会写到磁盘中。如果设置为lossless，则在向调度程序发送事件之前和将日志写到磁盘之前，调度程序会等待缓冲区有足够的空间。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; max_log_file&nbsp;<br>以兆字节表示的最大日志文件容量。当达到这个容量时，会执行max_log_file _action指定的动作。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; max_log_file_action&nbsp;<br>当达到max_log_file的日志文件大小时采取的动作。值必须是IGNORE、SYSLOG、SUSPEND、ROTATE和KEEP_LOGS之一。如果设置为IGNORE，则在日志文件达到max_log_file后不采取动作。如果设置为SYSLOG，则当达到文件容量时会向系统日志/var /log/messages中写入一条警告。如果设置为SUSPEND，则当达到文件容量后不会向日志文件写入审计消息。如果设置为ROTATE，则当达到指定文件容量后会循环日志文件，但是只会保存一定数目的老文件，这个数目由num_logs参数指定。老文件的文件名将为audit.log.N，其中 N是一个数字。这个数字越大，则文件越老。如果设置为KEEP_LOGS，则会循环日志文件，但是会忽略num_logs参数，因此不会删除日志文件。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; space_left&nbsp;<br>以兆字节表示的磁盘空间数量。当达到这个水平时，会采取space_left_action参数中的动作。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; space_left_action&nbsp;<br>当磁盘空间量达到space_left中的值时，采取这个动作。有效值为IGNORE、SYSLOG、EMAIL、SUSPEND、SINGLE和 HALT。如果设置为IGNORE，则不采取动作。如果设置为SYSLOG，则向系统日志/var/log/messages写一条警告消息。如果设置为 EMAIL，则从action_mail_acct向这个地址发送一封电子邮件，并向/var/log/messages中写一条警告消息。如果设置为 SUSPEND，则不再向审计日志文件中写警告消息。如果设置为SINGLE，则系统将在单用户模式下。如果设置为SALT，则系统会关闭。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; action_mail_acct&nbsp;<br>负责维护审计守护进程和日志的管理员的电子邮件地址。如果地址没有主机名，则假定主机名为本地地址，比如root。必须安装sendmail并配置为向指定电子邮件地址发送电子邮件。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; admin_space_left&nbsp;<br>以兆字节表示的磁盘空间数量。用这个选项设置比space_left_action更多的主动性动作，以防万一space_left_action没有让管理员释放任何磁盘空间。这个值应小于space_left_action。如果达到这个水平，则会采取admin_space_left_ action所指定的动作。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; admin_space_left_action&nbsp;<br>当自由磁盘空间量达到admin_space_left指定的值时，则采取动作。有效值为IGNORE、SYSLOG、EMAIL、SUSPEND、SINGLE和HALT。与这些值关联的动作与space_left_action中的相同。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; disk_full_action&nbsp;<br>如果含有这个审计文件的分区已满，则采取这个动作。可能值为IGNORE、SYSLOG、SUSPEND、SINGLE和HALT。与这些值关联的动作与space_left _action中的相同。&nbsp;<br>提示：&nbsp;<br>如果不循环审计日志文件，则含有/var/log/audit/的分区可能变满并引起系统错误。因此，建议让/var/log/audit/位于一个单独的专用分区。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; disk_error_action&nbsp;<br>如果在写审计日志或循环日志文件时检测到错误时采取的动作。值必须是IGNORE、SYSLOG、SUSPEND、SINGLE和HALT之一。与这些值关的动作与space_left_action中的相同。&nbsp;<br>/etc/sysconfig/auditd文件可以用来设置带EXTRAOPTIONS参数的auditd的命令行选项。唯一的命令行选项-f以调试模式安排守护进程。如果启用了调试模式，则会出现标准错误消息而不是日志文件。AUDITD_LANG设置值可以用来修改守护进程的位置。如果设置为 none，则所有位置信息会从审计环境中删除。如果AUDITD_CLEAN _STOP选项设置为yes，则当用service auditd stop命令停止守护进程时，会删除审计规则与观察器。要了解关于审计规则的更多信息，请参见下一节。&nbsp;<br>25.2&nbsp; 编写审计规则与观察器&nbsp;<br>Linux Auditing System可以用来为事件写规则，比如系统调用，比如用auditctl命令行实用程序观察文件或目录上的操作。如果用初始化脚本启动auditd(用 service auditd start命令)，则规则和观察器可以添加到/etc/audit/audit.rules中，以便在启动守护进程时执行它们。只有根用户可以读或修改这个文件。&nbsp;<br>/etc/audit.audit.rules中的每个规则和观察器必须单独在一行中，以#开头的行会被忽略。规则和观察器是auditctl命令行选项，前面没有auditctl命令。它们从上到下阅读文件。如果一个或多个规则或观察器互相冲突，则使用找到的第一个。&nbsp;<br>25.2.1&nbsp; 编写审计规则&nbsp;<br>要添加审计规则，可在/etc/audit/audit.rules文件中用下面的语法：&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; -a &lt;list&gt;,&lt;action&gt; &lt;options&gt;&nbsp;<br>警告：&nbsp;<br>如果在运行守护进程时添加规则/etc/audit/audit.rules，则一定要以根用户身份用service auditd restart命令启用修改。也可以使用service auditd reload命令，但是这种方法不会提供配置文件错误的消息。&nbsp;<br>列表名必须是下列名称之一。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; task&nbsp;<br>每个任务的列表。只有当创建任务时才使用。只有在创建时就已知的字段(比如UID)才可以用在这个列表中。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; entry&nbsp;<br>系统调用条目列表。当进入系统调用确定是否应创建审计时使用。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; exit&nbsp;<br>系统调用退出列表。当退出系统调用以确定是否应创建审计时使用。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; user&nbsp;<br>用户消息过滤器列表。内核在将用户空间事件传递给审计守护进程之前使用这个列表过滤用户空间事件。有效的字段只有uid、auid、gid和pid。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; exclude&nbsp;<br>事件类型排除过滤器列表。用于过滤管理员不想看到的事件。用msgtype字段指定您不想记录到日志中的消息。&nbsp;<br>这个动作必须下面的动作之一：&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; never&nbsp;<br>不生成审计记录。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; always&nbsp;<br>分配审计上下文，总是把它填充在系统调用条目中，总是在系统调用退出时写一个审计记录。&nbsp;<br>&lt;options&gt;可以包括下面几个选项中的一个或多个。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; -s &lt;syscall&gt;&nbsp;<br>根据名称或数字指定一个系统。要指定所有系统调用，可使用all作为系统调用名称。如果程序使用了这个系统调用，则开始一个审计记录。可以为相同的规则指定多个系统调用，每个系统调用必须用-S启动。在相同的规则中指定多个系统，而不是列出单独的规则，这样可以导致更好的性能，因为只需要评价一个规则。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; - F &lt;name[=,!=,&lt;,&gt;,&lt;=]value&gt;&nbsp;<br>指定一个规则字段。如果为一个规则指定了多个字段，则只有所有字段都为真才能启动一个审计记录。每个规则都必须用-F启动，最多可以指定64个规则。如果用用户名和组名作为字段，而不是用UID和GID，则会将它们解析为UID和GID以进行匹配。下面是有效的字段名：&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pid&nbsp;<br>进程ID。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ppid&nbsp;<br>父进程的进程ID。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uid&nbsp;<br>用户ID。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; euid&nbsp;<br>有效用户ID。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; suid&nbsp;<br>设置用户ID。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fsuid&nbsp;<br>文件系统用户ID。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gid&nbsp;<br>组ID。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; egid&nbsp;<br>有效组ID。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sgid&nbsp;<br>设置组ID。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fsgid&nbsp;<br>文件系统组ID。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; auid&nbsp;<br>审计ID，或者用户登录时使用的原始ID。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; msgtype&nbsp;<br>消息类型号。只应用在排除过滤器列表上。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pers&nbsp;<br>OS Personality Number。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; arch&nbsp;<br>系统调用的处理器体系结构。指定精确的体系结构，比如i686(可以通过uname -m命令检索)或者指定b32来使用32位系统调用表，或指定b64来使用64位系统调用表。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; devmajor&nbsp;<br>Device Major Number。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; devminor&nbsp;<br>Device Minor Number。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; inode&nbsp;<br>Inode Number。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; exit&nbsp;<br>从系统调用中退出值。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; success&nbsp;<br>系统调用的成功值。1表是真/是，0表示假/否。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a0，a1，a2，a3&nbsp;<br>分别表示系统调用的前4个参数。只能用数字值。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; key&nbsp;<br>设置用来标记事件的审计日志事件消息的过滤键。参见程序清单25-2和程序清单25-3中的示例。当添加观察器时，类似于使用-k选项。参见“编写审计规则与观察器”了解关于-k选项的详细信息。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; obj_user&nbsp;<br>资源的SELinux用户。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; obj_role&nbsp;<br>资源的SELinux角色。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; obj_type&nbsp;<br>资源的SELinux类型。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; obj_lev_low&nbsp;<br>资源的SELinux低级别。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; obj_lev_high&nbsp;<br>资源的SELinux高级别。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; subj_role&nbsp;<br>程序的SELinux角色。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; subj_type&nbsp;<br>程序的SELinux类型。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; subj_sen&nbsp;<br>程序的SELinux敏感性。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; subj_clr&nbsp;<br>程序的SELinux安全级别(clearance)。&nbsp;<br>-a选项向列表末尾添加规则。要向列表开头添加规则，可用-A替换-a。删除语法相同的规则，用-d替换-a。要删除所有规则，可指定-D选项。程序清单25-2含有一些示例审计规则，比如/etc/audit/audit.rules。&nbsp;<br>程序清单25-2&nbsp; 示例审计规则&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; #Record all file opens from user 501&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; #Use with caution since this can quickly&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; #produce a large quantity of records&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; -a exit,always -S open -F uid=501 -F key=501open&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; #Record file permission changes&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; -a entry,always -S chmod&nbsp;<br>提示：&nbsp;<br>如果安装了audit程序包，则其他示例在/usr/share/doc/audit-&lt;version&gt;/目录的*.rules文件中。&nbsp;<br>当发生了定义的规则中的动作时，如果有一个规则在/etc/audit/auditd.conf中定义则它会通过调度程序发送，然后会有一条日志消息写到/var/log/audit/audit.log中。例如，程序清单25-3中含有程序清单25-2中的第一个规则的日志项，日志文件从用户501 打开。这个规则包括一个过滤键，它出现在程序清单25-3中日志项的末尾。&nbsp;<br>程序清单25-3&nbsp; 示例审计规则日志消息&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; type=SYSCALL msg=audit(1168206647.422:5227): arch=c000003e syscall=2&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; success=no exit=-2 a0=7fff37fc5a40 a1=0 a2=2aaaaaaab000 a3=0 items=1&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; ppid=26640 pid=2716 auid=501 uid=501 gid=501 euid=501 suid=501 fsuid=501&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; egid=501 sgid=501 fsgid=501 tty=pts5 comm="vim" exe="/usr/bin/vim"&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; key="501open"&nbsp;<br>25.2.2&nbsp; 编写审计观察器&nbsp;<br>Linux Auditing System也允许管理员观察文件和目录。如果一个观察器放在一个文件或目录上，则会记录成功或失败的动作，比如打开和执行文件或目录。要添加观察器，可使用-w选项，后面跟着一个要观察的文件或目录。&nbsp;<br>警告：&nbsp;<br>如果在守护进程运行时您添加了观察器/etc/audit/audit.rules，则一定要以根用户身份用service auditd restart命令启用修改。也可以用service auditd reload命令，但是它不会通知您关于配置文件错误的消息。&nbsp;<br>程序清单25-4中含有包括在/etc/audit/audit.rules文件中的示例规则。如果与-w结合起来使用-k &lt;key&gt;选项，则由观察器产生的所有记录会含有一个警报词(限制为31个字节)，因此可以将该观察器的记录轻松地从日志文件中过滤出来。要限制文件或目录观察器为某些动作，可使用-p选项，后面跟着下面的选项中的一个或多个：r表示观察读动作，w表示观察写动作，x表示观察执行动作，a表示在末尾添加动作。要删除一个观察器，可使用由后面跟着文件或目录的-W选项。&nbsp;<br>程序清单25-4&nbsp; 示例审计观察器&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; #Watch for changes to sysconfig files&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; -w /etc/sysconfig -k SYSCONFIG&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; #Watch for changes to audit config files&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; -w /etc/audit/audit.rules -k AUDIT_RULES&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; -w /etc/audit/auditd.conf -k AUDIT_CONF&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; -w /var/log/audit/ -k LOG_AUDIT&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; #Watch to see who tries to start the VPN client&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; -w /usr/bin/vpnc -k VPNC -p x&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; #Watch password files&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; -w /etc/group -k PASSWD&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; -w /etc/passwd -k PASSWD&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; -w /etc/shadow -k PASSWD&nbsp;<br>例如，程序清单25-4包括了关键过滤器PASSWD的口令文件上的一个观察器。程序清单25-5含有删除一个用户后/var/log/audit /audit.log中的日志项，它会修改正在观察的这些口令文件。正如程序清单25-3中带过滤键的规则的示例，这个键被添加到日志项的末尾，因此可以轻松地将它从日志项的其余部分过滤出来。&nbsp;<br>程序清单25-5&nbsp; 审计观察器的示例日志项&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; type=SYSCALL msg=audit(1168227741.656:17915): arch=c000003e syscall=82&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; success=yes exit=0 a0=7fff00975dd0 a1=60a700 a2=0 a3=22 items=5 ppid=26575&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; pid=4147 auid=501 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0 fsgid=0&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; tty=pts4 comm="userdel" exe="/usr/sbin/userdel" key="PASSWD"&nbsp;<br>25.2.3&nbsp; 定制auditctl&nbsp;<br>配置审计系统参数的命令行选项也能包括在/etc/audit/audit.rules中。表25-1列出了这些选项。&nbsp;<br>表25-1&nbsp; 配置审计系统参数的auditctl选项&nbsp;<br>选&nbsp;&nbsp;&nbsp; 项&nbsp;<br>说&nbsp;&nbsp;&nbsp; 明&nbsp;<br>-b &lt;backlog&gt;&nbsp;<br>允许的未完成审计缓冲区的最大数目。内核中的默认值为64。如果缓冲区已满，则内核引用通过-f选项设置的失败标志，以确定采取哪个动作&nbsp;<br>-e [0,1]&nbsp;<br>设置为0禁用审计，或者设置为1启用审计。对于为了故障检修或其他目的而临时禁用审计会很有用&nbsp;<br>-f [0,1,2]&nbsp;<br>设置用于通知内核如何处理关键错误(比如审计缓冲区已满或者内核内存用完)的失败标志。有效值是0(没有动作)，1(用printk将消息记录到/var/log/messages)和2(混乱)。默认值为1，但是2更安全。&nbsp;<br>-r &lt;rate&gt;&nbsp;<br>以每秒钟的消息条数为单位的速率限制。如果设置为0，则没有限制。如果超出了速率限制，则内核会咨询-f选项中的失败标志来确定采取哪个动作&nbsp;<br>-i&nbsp;<br>当从一个文件中读取规则时忽略错误&nbsp;<br>要验证设置了这些选项，可用auditctl -s命令查看状态。输出类似下面这样：&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; AUDIT_STATUS: enabled=1 flag=1 pid=1954 rate_limit=0 backlog_limit=256&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; lost=0 backlog=0&nbsp;<br>25.3&nbsp; 启动和停止守护进程&nbsp;<br>当配置守护进程和添加规则与观察器时，可以以根用户身份执行service auditd start命令启动守护进程。要停止它，可使用service auditd stop命令。要使它自动在运行时启动，则应作为根用户执行chkconfig auditd on命令。&nbsp;<br>如果当您修改守护进程的配置时守护进程已经在运行，则应以根用户身份执行service auditd restart命令启用修改。要验证规则与观察器已经修改，应以根用户身份执行auditctl -1命令列出所有活动的规则和观察器。例如，程序清单25-6显示了程序清单25-2和25-4中的规则和观察器的auditctl -1输出。&nbsp;<br>25.4&nbsp; 分析记录&nbsp;<br>如果使用了auditd，则除非用/etc/audit/audtid.conf中的log_file参数修改了文件名，否则审计消息会写到/var /log/audit.log中。日志文件是文本文件，可以通过less实用程序或文本编辑器(比如Emacs或Vi)阅读。消息的格式为从内核中接收的格式，顺序也是接收时的顺序。aureport实用程序可以用来从日志文件中生成汇总报表。ausearch实用程序可以用来基于一些条件搜索报表。这些条件可以是：审计事件ID、文件名、UID或GID、消息类型和系统调用名等。&nbsp;<br>除非将守护进程配置为循环日志文件和像前面“配置审计守护进程”一节中介绍的那样删除老文件，否则/var/log/audit/中的日志文件永远不会被删除。管理员应经常检查日志，删除老日志或者移到备份存储器中。如果不周期性地删除日志，它们会填满整个磁盘的。因为这个原因，所以建议把/var /log/audit/放在一个单独的专用分区上，这样就不会影响写其他日志文件或者引起其他系统错误。&nbsp;<br>提示：&nbsp;<br>要强制立即循环日志文件，可以以根用户身份执行service auditd rotate命令。老日志文件的文件名将为audit.log.N，其中N是一个数字。这个数字越大，日志文件越老。&nbsp;<br>25.4.1&nbsp; 生成报表&nbsp;<br>要生成审计消息的报表，可使用aureport。为了安全起见，/var/log/audit/目录和其中的所有审计日志文件只对根用户可读。因此，您必须作为根用户执行aureport命令。如果执行aureport时没有使用任何选项，则会显示程序清单25-7中所示的汇总报表。&nbsp;<br>表25-2&nbsp; 生成特定报表的aureport选项&nbsp;<br>选&nbsp;&nbsp;&nbsp; 项&nbsp;<br>说&nbsp;&nbsp;&nbsp; 明&nbsp;<br>-a&nbsp;<br>报告关于访问向量缓冲(access vector cache，AVC)的消息&nbsp;<br>-c&nbsp;<br>报告关于配置修改的消息&nbsp;<br>-cr&nbsp;<br>报告关于crypto事件的消息&nbsp;<br>-e&nbsp;<br>报告关于事件的消息&nbsp;<br>-f&nbsp;<br>报告关于文件的消息&nbsp;<br>-h&nbsp;<br>报告关于主机的消息&nbsp;<br>-l&nbsp;<br>报告关于登录的消息&nbsp;<br>-m&nbsp;<br>报告关于账户修改的消息&nbsp;<br>-ma&nbsp;<br>报告关于Mandatory Access Control(MAC)事件的消息&nbsp;<br>-p&nbsp;<br>报告关于进程的消息&nbsp;<br>-s&nbsp;<br>报告关于系统调用的消息&nbsp;<br>-tm&nbsp;<br>报告关于终端的消息&nbsp;<br>要以更可读的格式产生结果，比如用它们映射到的用户名替换UID，则也要使用-i选项：&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; aureport -&lt;flag&gt; -i&nbsp;<br>要显示每个日志的启动和停止时间，可以添加-t选项：&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; aureport -&lt;flag&gt; -i -t&nbsp;<br>要显示等于或早于特定时间的事件，可以添加-te选项，并在后面跟着结束日期和结束时间。用数字格式表示您所在地点的日期和时间，并以24小时制格式表示时间。例如，对于en_us.UTF-8这个地方，可使用日期格式MM/DD/YY：&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; aureport -&lt;flag&gt; -i -te &lt;end date&gt; &lt;end time&gt;&nbsp;<br>要显示等于或者晚于特定时间的事件，添加-ts选项，后面跟着开始日期和时间。采用与-te选项相同的日期和时间格式化规则。&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; aureport -&lt;flag&gt; -i -ts &lt;start date&gt; &lt;start time&gt;&nbsp;<br>要仅显示失败事件，则使用- -failure，注意这个选项前面有两条虚线而不是一条：&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; aureport -&lt;flag&gt; -i --failed&nbsp;<br>要仅显示成功事件，则使用- -success，注意这个选项前面有两条虚线而不是一条：&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; aureport -&lt;flag&gt; -i --success&nbsp;<br>有些报表也可以用- -summary选项以汇总格式生成；注意这个选项前面有两条虚线作前缀：&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; aureport -&lt;flag&gt; -i --summary&nbsp;<br>要产生汇总报表而不是关于一个地区的报表，可使用-r选项：&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; aureport -r -i&nbsp;<br>要产生来自一个日志文件的报表而不是默认报表，则可用-if选项指定它：&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; aureport -&lt;flag&gt; -i -if /var/log/audit/audit.log.1&nbsp;<br>25.4.1&nbsp; 搜索记录&nbsp;<br>除了生成事件报表并用aureport汇总外，管理员也可以用ausearch搜索审计记录。以根用户身份执行ausearch命令，后面跟着表 25-3中的一个或多个选项。如果指定了多个选项，则显示的结果会对两个请求都匹配。要检索匹配一个选项或另一个选项的条件，则执行两次不同的搜索并亲自组合结果。&nbsp;<br>25.5&nbsp; 用审计跟踪进程&nbsp;<br>autrace实用程序可以用来生成特定进程中的审计记录。当autrace在运行时，没有其他规则或观察器可以启用。对于其他审计实用程序，autrace必须以根用户身份运行。要审计跟踪一个进程，需采用下列步骤：&nbsp;<br>(1) 暂时关闭所有规则与观察器：&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; auditctl -D&nbsp;<br>(2) (可选)要把审计记录从进程中隔离开，需强制一个日志文件循环：&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; service auditd rotate&nbsp;<br>autrace的日志将放在/var/log/audit/audit.log中。&nbsp;<br>(3) 在命令行执行autrace：&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; autrace &lt;command to trace&gt;&nbsp;<br>(4) 等待直到进程完成。将显示一条类似于下面这个消息：&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; Trace complete. You can locate the records with 'ausearch -i -p 10773'&nbsp;<br>(5) 重启审计守护进程来重新启用规则和观察器：&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp; service auditd restart&nbsp;<br>(6) 用ausearch显示关于跟踪的详细信息。</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">&nbsp;</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">很久没写kidlinux了，今天的高度高点吧，呵呵。&nbsp;<br>最近公司在做基于我们自己RBA框架的审计，为了对这个东西做测试，写图形界面吃尽了苦头，这个东西刚搞完又得过国家认证，最近很是紧张了一把。&nbsp;<br>网上关于审计的资料太少了，有也是高深的不适合我们低级程序员阅读的。本着我为人人人人为我的精神，特拟此文。</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">审计（audit）是linux安全体系的重要组成部分，他是一种“被动”的防御体系。在内核里有内核审计模块，核外有核外的审计后台进程auditd。&nbsp;<br>应用程序给内核发送审计消息，内核的审计模块再把消息转发给用户空间的后台进程auditd处理。大概就是这么回事，我不是太深入，如果需要更多的内容，自己去查阅相关资料。如果没有好的资料，我推荐一本，《linux安全体系分析与编程》作者倪继利 。<a rel="nofollow" href="http://my.chinaunix.net/link.php?url=http://book.csdn.net%2Fbookfiles%2F574%2F" style="color: rgb(97, 97, 97); text-decoration: initial;">这里是CSDN上该书的电子版</a></p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">审计说穿了就是把和系统安全有关的事件记录下来：谁谁谁在什么时候做了什么事，结果是啥。</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">审计的消息来源主要有两方面：1.内核（我不太确定）、应用程序（audit-libs-devel包里面有编程接口）产生的。2.系统管理员添加的审计规则，匹配规则的事件都将被记录下来。</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">规则添加：&nbsp;<br>1 添加文件监视：&nbsp;<br>该规则能监视文件被读、写、执行、修改文件属性的操作，并记录&nbsp;<br>auditctl -w /etc/passwd -p rwax&nbsp;<br>上述命令记录/etc/passwd 被读、写、执行修改属性的操作&nbsp;<br>2 系统调用入口监视（entry链表）&nbsp;<br>该规则在进入系统调用的时候触发，记录此时的执行上下文&nbsp;<br>auditctl -a entry,always -F UID=root -S mkdir&nbsp;<br>上述命令记录uid为root的用户调用mkdir系统调用的情况&nbsp;<br>3 系统调用出口（exit链表）&nbsp;<br>同系统调用入口规则，不同的是在退出系统调用的时候被触发&nbsp;<br>4 任务规则（task表）&nbsp;<br>该规则在调用fork（） 或者clone（）产生新进程的时候触发，因此，该规则适用的“域”仅仅是此时可见的，例如uid gid pid 等等。（参见man auditctl和<a rel="nofollow" href="http://my.chinaunix.net/link.php?url=http://book.csdn.net%2Fbookfiles%2F574%2F10057418862.shtml" style="color: rgb(97, 97, 97); text-decoration: initial;">这里</a>&nbsp;<br>auditctl -a task,always -F uid=root</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">5 可信应用程序规则（user表）&nbsp;<br>按照各种资料上的说法，这里的user表是用来过滤消息的，内核传递给审计后台进程之前先查询这个表。&nbsp;<br>但是，不管怎么设置规则都达不到这个效果。如下：&nbsp;<br>auditctl -a user,always -F uid=root&nbsp;<br>添加上述规则，发现root的行为被记录。这样添加规则还是被记录：&nbsp;<br>auditctl -a user,never -F uid=root&nbsp;<br>后来发现我的CentOS里面system-config-audit上面，该链表被命名为“可信应用程序”。受此启发写了个小程序，向审计内核里写消息，发现这样的消息被过滤了。&nbsp;<br>这点需要进一步验证。</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">6 过滤规则（exclude表）&nbsp;<br>这个表是用来过滤消息的，也就是不想看到的消息可以在这里写规则进行过滤。&nbsp;<br>例如：不想看到用户登陆类型的消息，可以如下添加规则：&nbsp;<br>auditctl -a exclude,always -F msgtype=USER_LOGIN&nbsp;<br>这里过滤是以“消息类型”为对象的。</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">&nbsp;</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">下面的图片说明了Linux Audit的各个组成之间是如何</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">相互作用的：</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);"><img alt="linux的审计功能（audit）（转） - llei - llei的学习笔记" src="http://image58.360doc.com/DownloadImg/2013/01/1422/29606889_1.gif" style="border: 0px; max-width: 100%;"><img alt="linux的审计功能（audit）（转） - llei - llei的学习笔记" src="http://image58.360doc.com/DownloadImg/2013/01/1422/29606889_2.png" style="border: 0px; max-width: 100%;"></p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">图片上实线代表数据流，虚线代表组件关之间的控制系</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">auditd</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">Audit 守护进程负负责把内核产生的信息写入到硬盘上，这些信息是由应用程序和系统活动所触发产生的。Audit守护进程如何启动取决于它的配置文件，/etc /sysconfig/auditd。Audit系统函数的启动受文件/etc/audit/auditd.conf的控制。有关auditd更多的信息参照第三节：配置Audit守护进程。</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">auditctl</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">auditctl功能用来控制Audit系统，它控制着生成日志的各种变量，以及内核审计的各种接口，还有决定跟踪哪些事件的规则。关于auditctl的更多信息参照第四节：用auditctl控制Audit系统。</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">audit rules</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">在/etc/audit/audit.rules中包含了一连串auditctl命令，这些命令在audit系统被启用的时候被立即加载。更所关于审计规则的信息请参看第五节：给audit系统传递变量</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">aureport</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">aureport的功能是能够从审计日志里面提取并产生一个个性化的报告，这些日志报告很容易被脚本化，并能应用于各种应用程序之中，如去描述结果，更多信息参看第六节：理解审计日志和生成审计报告</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">ausearch</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">这个功能能让我们从审计日志之中通过关键词或者是格式化录入日志中的其它特征变量查询我们想要看到的信息。详细信息请参看第七节：用ausearch查询audit守护进程的的日志。</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">audispd</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">这是一个审计调度进程，它可以为将审计的信息转发给其它应用程序，而不是只能将审计日志写入硬盘上的审计日志文件之中。</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">autrace</p><p style="line-height: 25px; margin: 0px 0px 10px; padding: 0px; color: rgb(21, 21, 21); font-family: Arial, Helvetica, simsun, u5b8bu4f53; font-size: 14px; background-color: rgb(252, 252, 252);">这个功能更总类似于strace，跟踪某一个进程，并将跟踪的结果写入日志文件之中。更多详细信息请参看第八节：用autrace分析进程</p></div></div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                            <div id="viewerPlaceHolder" style="width: 717px; height: 700px; display: none;">
+                                                                            </div>
+                                                                        </span>
+                                                                        <table>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="left">
+                                                                        <a name="anchordoc1" id="anchordoc1"></a>
+                                                                        <div style="height: 28px">
+                                                                            <div style="font-size: 14px; color: #797b7a; float: left;">
+                                                                                来自：<span class="name" onclick="wzhitnew(59)"><A href="http://www.360doc.com/userhome/8547696" target="_blank">捉虫子吃的松树</A></span>&nbsp;>&nbsp;<span
+                                                                                    id="cname" onclick="wzhitnew(60)"></span>
+                                                                            </div>
+                                                                            <div style="float: left;">
+                                                                                <div class="btzctsg" id="spanfollowstatus1">
+                                                                                </div>
+                                                                                <script>isfollow(8547696);</script>
+
+                                                                            </div>
+                                                                            <div style="float: left;">
+                                                                                <div class="ytdh1"><a onclick="doctalk();wzhitnew(107);" href="javascript:void(0)"></a></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div>
+                                                                            <div class="modlist lf360 list" style="padding-top: 0px;">
+                                                                                <ul>
+                                                                                    <div id='lastart'>
+                                                                                    </div>
+                                                                                    <div id='nextart'>
+                                                                                    </div>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="left">
+                                                                        <div style="padding-top: 12px;">
+                                                                            <div id='docAdBelowContent'>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="text-align: left;">
+                                                                        <div style="padding-top: 15px; width: 670px;">
+                                                                            <table style="width: 670px;" cellpadding="0" cellspacing="0">
+                                                                                <tbody>
+                                                                                    <tr>
+
+                                                                                        <td style="width: 530px;">
+                                                                                            <div class=" lf360" style="cursor: pointer" onmouseover="ChangeBtnStyle(1);" onmouseout="ChangeBtnStyle(2);">
+                                                                                                <div class="zscbt">
+                                                                                                    <a href="javascript:void(0);" onclick="SaveArt();wzhitnew(26);">
+                                                                                                        <div id="zscbtword" class="lf360 xianhua" style="padding-left: 38px;">
+                                                                                                            转藏到我的图书馆
+                                                                                                        </div>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div style="margin-left: 10px; cursor: pointer;" class="lf360 xhmainbox" id="sendflowerdiv"
+                                                                                                onclick='Showflowerlayer("sendedLayer1");wzhitnew(27)' onmouseover="ChangeFlowerBtnStyle(1);"
+                                                                                                onmouseout="ChangeFlowerBtnStyle(2);">
+
+                                                                                                <div id="flowimg2" class="lf360">
+                                                                                                    <div style="padding-left: 10px; padding-top: 10px;">
+                                                                                                        <img id="flowimg3" src="http://pubimage.360doc.com/wz/huahuanew.gif">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div id="flowimg5" class=" lf360 xianhua">
+                                                                                                    献花(<span id="articleflowernum">0</span>)<div id='flowernumadd' class="addtionone">
+                                                                                                        +1
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                            </div>
+
+
+
+
+                                                                                            <div class="lf360" style="cursor: pointer; padding-left: 10px;" onmouseover="ChangeBtnStyle(3);" onmouseout="ChangeBtnStyle(4);">
+                                                                                                <div class="fxwxbt">
+
+                                                                                                    <a href="javascript:void(0);" onclick="shareWeixin();wzhitnew(64);">
+                                                                                                        <div id="fxwxword" class="lf360 xianhua" style="padding-left: 38px;">
+                                                                                                            分享到微信
+                                                                                                        </div>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            </div>
+
+
+                                                                                             <div class="lf360" style="cursor: pointer; padding-left: 10px;" onmouseover="ChangeBtnStyle(5);" onmouseout="ChangeBtnStyle(6);">
+                                                                                                <div class="ywzwbt">
+
+                                                                                                    <a id="ywzwa" href=" http://www.baidu.com/s?wd=audit+%e6%97%a5%e5%bf%97+%e5%ae%a1%e8%ae%a1&tn=SE_hldp01010_6r0gix1f" onclick="wzhitnew(100);" target="_blank">
+                                                                                                        <div id="ywzwword" class="lf360 xianhua" style="padding-left: 44px;">
+                                                                                                            以文找文
+                                                                                                        </div>
+                                                                                                    </a>
+
+                                                                                                </div>
+                                                                                            </div>
+
+
+                                                                                    
+                                                                                        </td>
+                                                                                        <td style="vertical-align: bottom; font-size: 12px;" width="140">
+                                                                                            <div class="rt360" id="sharediv2">
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td height="10"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="lswzbox" style="padding-top: 10px;">
+                            <div>
+                                <table cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td width="330" valign="top">
+                                                <div class="lswz" style="height: 300px;">
+                                                    <div class="lstwtop">
+                                                        <div class="lswztit">
+                                                            <div class=" lf360">
+                                                                <div class="titwx1">
+                                                                    类似文章
+                                                                </div>
+                                                            </div>
+                                                            <div class="rt360" style="padding-top: 5px; padding-right: 9px;">
+                                                                <a href=http://www.360doc.com/relevant/260203376_more.shtml  target='_blank'  onclick='wzhitnew(38)'>更多</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modlist2 list">
+                                                            <ul>
+                                                                
+                                                                        <li style="height: 30px; line-height: 30px;"><span>
+                                                                            <a href=http://www.360doc.com/content/11/0520/10/2054285_118067887.shtml target=_blank onclick='wzhitnew(37)'>Linux 系统 审计 脚本</a></span></li>
+                                                                    
+                                                                        <li style="height: 30px; line-height: 30px;"><span>
+                                                                            <a href=http://www.360doc.com/content/06/1223/14/16444_303941.shtml target=_blank onclick='wzhitnew(37)'>Linux系统调用</a></span></li>
+                                                                    
+                                                                        <li style="height: 30px; line-height: 30px;"><span>
+                                                                            <a href=http://www.360doc.com/content/12/0326/05/9318309_197714938.shtml target=_blank onclick='wzhitnew(37)'>让Windows 7跳过帐户设定</a></span></li>
+                                                                    
+                                                                        <li style="height: 30px; line-height: 30px;"><span>
+                                                                            <a href=http://www.360doc.com/content/13/0608/13/11965070_291493517.shtml target=_blank onclick='wzhitnew(37)'>oracle常用的系统表</a></span></li>
+                                                                    
+                                                                        <li style="height: 30px; line-height: 30px;"><span>
+                                                                            <a href=http://www.360doc.com/content/11/0404/11/23948_107093594.shtml target=_blank onclick='wzhitnew(37)'>深入SOC2.0：安全审计与管理平台的融合</a></span></li>
+                                                                    
+                                                                        <li style="height: 30px; line-height: 30px;"><span>
+                                                                            <a href=http://www.360doc.com/content/11/1012/15/7695581_155478448.shtml target=_blank onclick='wzhitnew(37)'>oracle中以dba_、user_、v$_、all_、ses...</a></span></li>
+                                                                    
+                                                                        <li style="height: 30px; line-height: 30px;"><span>
+                                                                            <a href=http://www.360doc.com/content/10/0325/22/818135_20278525.shtml target=_blank onclick='wzhitnew(37)'>让Windows 7重现XP经典：跳过帐户设定</a></span></li>
+                                                                    
+                                                                        <li style="height: 30px; line-height: 30px;"><span>
+                                                                            <a href=http://www.360doc.com/content/12/0328/13/2660674_198570323.shtml target=_blank onclick='wzhitnew(37)'>SELinux Tutorial</a></span></li>
+                                                                    
+                                                            </ul>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                            <td width="330" valign="top">
+                                                <div class="lswz" style="margin-left: 9px; height: 300px;">
+                                                      <div class="lstwtop">
+                                                        <div class="lswztit">
+                                                            <div class=" lf360">
+                                                                <div class="titwx1">
+                                                                    热门推广
+                                                                </div>
+                                                            </div>
+                                                            <div class="rt360" style="padding-top: 5px; padding-right: 9px;">
+                                                            </div>
+                                                        </div>
+                                                        <div class="modlist2 list" id="dochotartabovecontent">
+                                                        
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div style="background-color: #fafafa; width: 670px; height: 317px; margin-top: 10px;">
+                                    <div style=' padding-top:7px; padding-left:12px; '> <div style=' height:30px;'><div class='titwx3 lf360'>猜你喜欢</div><div class=' rt360' style=' padding-right:18px;'><img onclick='changefiveart2("19999","19999");wzhitnew(62);' src='http://pubimage.360doc.com/wz/hyz.gif' onmouseover='this.src="http://pubimage.360doc.com/wz/hyza.gif"' onmouseout='this.src="http://pubimage.360doc.com/wz/hyz.gif"' width='76' height='24' style='cursor:pointer;' /></div></div><table cellpadding='0' cellspacing='0'><tr id='fivearttdid' style="height:138px"><td valign='top' width='131'><div><a onclick='wzhitnew(39);' href='http://www.360doc.com/content/14/0319/07/535749_361757419.shtml' target='_blank'><img src='http://artpic.360doc.com/14/0325/08/535749_201403250827130362_a361757419.jpg' width='114' height='86'/></a></div><div class='lan twentit'><a  onclick='wzhitnew(40);' href='http://www.360doc.com/content/14/0319/07/535749_361757419.shtml' target='_blank'>名画搞笑短片《向高大上开炮》&nbsp;</a></div></td><td valign='top' width='131'><div><a onclick='wzhitnew(39);' href='http://www.360doc.com/content/13/0712/05/8874353_299316721.shtml' target='_blank'><img src='http://artpic.360doc.com/13/0830/16/8874353_201308301612360656_a299316721.jpg' width='114' height='86'/></a></div><div class='lan twentit'><a  onclick='wzhitnew(40);' href='http://www.360doc.com/content/13/0712/05/8874353_299316721.shtml' target='_blank'>千古高论 旷世绝学</a></div></td><td valign='top' width='131'><div><a onclick='wzhitnew(39);' href='http://www.360doc.com/content/13/0606/11/156610_290882216.shtml' target='_blank'><img src='http://artpic.360doc.com/13/0828/17/156610_201308281738400556.jpg' width='114' height='86'/></a></div><div class='lan twentit'><a  onclick='wzhitnew(40);' href='http://www.360doc.com/content/13/0606/11/156610_290882216.shtml' target='_blank'>2013喜剧电影 《囧人之越挠越痒》</a></div></td><td valign='top' width='131'><div><a onclick='wzhitnew(39);' href='http://www.360doc.com/content/14/0302/17/13795892_357112270.shtml' target='_blank'><img src='http://artpic.360doc.com/14/0326/09/357112270_201403260945140799.jpg' width='114' height='86'/></a></div><div class='lan twentit'><a  onclick='wzhitnew(40);' href='http://www.360doc.com/content/14/0302/17/13795892_357112270.shtml' target='_blank'>吃什么容易怀孕,而且怀男孩</a></div></td><td valign='top' width='131'><div><a onclick='wzhitnew(39);' href='http://www.360doc.com/content/05/1017/17/2087_20446.shtml' target='_blank'><img src='http://artpic.360doc.com/13/1129/11/20446_201311291103410359.jpg' width='114' height='86'/></a></div><div class='lan twentit'><a  onclick='wzhitnew(40);' href='http://www.360doc.com/content/05/1017/17/2087_20446.shtml' target='_blank'>自制美味朝鲜泡菜</a></div></td></tr><tr id='fivearttdidtwo'><td valign='top' width='131'><div><a onclick='wzhitnew(39);' href='http://www.360doc.com/content/12/0530/18/6237655_214804637.shtml' target='_blank'><img src='http://artpic.360doc.com/13/1004/23/214804637_201310042319110030.jpg' width='114' height='86'/></a></div><div class='lan twentit'><a  onclick='wzhitnew(40);' href='http://www.360doc.com/content/12/0530/18/6237655_214804637.shtml' target='_blank'>党政机关公文格式解读与实训</a></div></td><td valign='top' width='131'><div><a onclick='wzhitnew(39);' href='http://www.360doc.com/content/13/0427/18/11510087_281347552.shtml' target='_blank'><img src='http://artpic.360doc.com/13/1003/16/281347552_201310031623230249.jpg' width='114' height='86'/></a></div><div class='lan twentit'><a  onclick='wzhitnew(40);' href='http://www.360doc.com/content/13/0427/18/11510087_281347552.shtml' target='_blank'>甘草和生姜 助你摆脱鼻炎困扰</a></div></td><td valign='top' width='131'><div><a onclick='wzhitnew(39);' href='http://www.360doc.com/content/13/0617/22/7607720_293585255.shtml' target='_blank'><img src='http://artpic.360doc.com/13/1004/11/293585255_201310041128240045.jpg' width='114' height='86'/></a></div><div class='lan twentit'><a  onclick='wzhitnew(40);' href='http://www.360doc.com/content/13/0617/22/7607720_293585255.shtml' target='_blank'>初中生作文写作指导名师讲义(重要)</a></div></td><td valign='top' width='131'><div><a onclick='wzhitnew(39);' href='http://www.360doc.com/content/12/1130/17/5613219_251219581.shtml' target='_blank'><img src='http://artpic.360doc.com/13/0930/15/251219581_201309301519400451.jpg' width='114' height='86'/></a></div><div class='lan twentit'><a  onclick='wzhitnew(40);' href='http://www.360doc.com/content/12/1130/17/5613219_251219581.shtml' target='_blank'>简单三步做出开店级零食---花生芝麻糖</a></div></td><td valign='top' width='131'><div><a onclick='wzhitnew(39);' href='http://www.360doc.com/content/14/1221/13/13504251_434571862.shtml' target='_blank'><img src='http://artpic2.360doc.com/14/1224/09/13504251_201412240917580120_a434571862.jpg' width='114' height='86'/></a></div><div class='lan twentit'><a  onclick='wzhitnew(40);' href='http://www.360doc.com/content/14/1221/13/13504251_434571862.shtml' target='_blank'>不爱被开涮的领导不是好领导</a></div></td></tr></table></div>
+                                   
+                                    <div id="adabtest">
+                                    </div>
+
+                                </div>
+
+
+
+
+
+                                <div id="Reflction" style="padding-top: 15px; padding-left: 15px;">
+                                    <div id="360docRefTN">
+                                    </div>
+                                    <div id="360docRefCT">
+                                    </div>
+                                    <div id="360docRefPB" align="center">
+                                    </div>
+                                </div>
+                                <a name="sf"></a>
+                                
+                                <div id="ReflectionPart">
+                                    <div style="height: 206px; margin: 0px 0px;">
+                                        <div class="plbox">
+                                            <div class="plmain">
+                                                <div class="titwx" style="height: 23px;">
+                                                    发表评论：
+                                                </div>
+                                                <textarea name="SendRefTB" id="SendRefTB" style="width: 100%; height: 75px; border: 1px solid #e7e7e7; background-color: #fff; overflow: auto; font-size: 12px;"
+                                                    onfocus="testContent(1);" onblur="testContent(2)"></textarea>
+                                                <div style="text-align: right; padding-right: 3px; padding-top: 6px;">
+                                                    <div class="huifubt">
+                                                        <a id="ImgSendPL" href="javascript:void(0);"></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td align="center" valign="top" width="18px"></td>
+                    <td align="left" valign="top" width="252px">
+                        
+
+
+<div style='height: 98px' id="artrightad1">
+ 
+</div>
+
+
+    <div class="remenwz" style="height:219px;"><div class="rementop"><div class="titwx" style=" padding-top:10px; padding-left:24px;">最新文章</div></div><div class="modlist3 list" style=" padding-left:15px;"><ul><li><span><a href=http://www.360doc.com/content/15/0122/10/8547696_442760071.shtml target=_blank onclick='wzhitnew(51)'>windows Notepad++ 上配置 vs ...</a></span></li><li><span><a href=http://www.360doc.com/content/14/1227/09/8547696_436086440.shtml target=_blank onclick='wzhitnew(51)'>解决安卓手机超大文件夹.thumbn...</a></span></li><li><span><a href=http://www.360doc.com/content/14/1226/21/8547696_436023316.shtml target=_blank onclick='wzhitnew(51)'>手机存储空间不足，教你快速解决</a></span></li><li><span><a href=http://www.360doc.com/content/14/0620/10/8547696_388272260.shtml target=_blank onclick='wzhitnew(51)'>Win7下如何删除“顽固文件”cyg...</a></span></li><li><span><a href=http://www.360doc.com/content/09/1115/20/416474_9098732.shtml target=_blank onclick='wzhitnew(51)'>数码标准照片的尺寸大小（一寸...</a></span></li><li><span><a href=http://www.360doc.com/content/14/0330/11/8547696_364887109.shtml target=_blank onclick='wzhitnew(51)'>无为而治 不劳而获——释老毛谈...</a></span></li></ul> <div class=" rt360" style=" padding-right:23px;"><a href="http://www.360doc.com/userhome/8547696" target="_blank" onclick="wzhitnew(52);">更多</a></div></div></div>
+
+
+<div class="both" style="padding-top: 10px; height: 260px;">
+   <iframe id="ifartad1" height="250px" width="250px" frameborder="0" scrolling="no"></iframe>
+    <div style="height: 10px;">
+    </div>
+</div>
+
+<div class="remenwz" id="artrighthotarticle">
+    <div class="rementop">
+        <div class="titwx" style="padding-top: 10px; padding-left: 24px;">
+            热门文章</div>
+    </div>
+    <div class="modlist3 list" style="padding-left: 15px;">
+        <ul>
+            
+                    <li><span>
+                        <a href=http://www.360doc.com/content/15/0619/16/6932394_479231215.shtml target=_blank onclick='wzhitnew(55)'>夏日自制冰棍大绝配，此时不制...</a></span></li>
+                
+                    <li><span>
+                        <a href=http://www.360doc.com/content/14/1221/20/7436990_434669921.shtml target=_blank onclick='wzhitnew(55)'>42个锻炼大脑的方法，照着做，...</a></span></li>
+                
+                    <li><span>
+                        <a href=http://www.360doc.com/content/15/0905/11/9570732_497007277.shtml target=_blank onclick='wzhitnew(55)'>祝寿联</a></span></li>
+                
+                    <li><span>
+                        <a href=http://www.360doc.com/content/15/0721/14/6948999_486414643.shtml target=_blank onclick='wzhitnew(55)'>心肌梗塞的救命秘方</a></span></li>
+                
+                    <li><span>
+                        <a href=http://www.360doc.com/content/14/0220/12/276037_354161911.shtml target=_blank onclick='wzhitnew(55)'>戏曲电影大全</a></span></li>
+                
+                    <li><span>
+                        <a href=http://www.360doc.com/content/13/1126/16/709425_332322121.shtml target=_blank onclick='wzhitnew(55)'>【视频】SMG揭秘档案 2  (经典...</a></span></li>
+                
+                    <li><span>
+                        <a href=http://www.360doc.com/content/15/0521/10/418127_472148407.shtml target=_blank onclick='wzhitnew(55)'>吴国平：数学学习，这样学习最...</a></span></li>
+                
+                    <li><span>
+                        <a href=http://www.360doc.com/content/15/0412/22/8413713_462750323.shtml target=_blank onclick='wzhitnew(55)'>中国古典文学丛书（89册）</a></span></li>
+                
+                    <li><span>
+                        <a href=http://www.360doc.com/content/15/0417/12/14567236_463862496.shtml target=_blank onclick='wzhitnew(55)'>女人的态度决定婚姻的质量</a></span></li>
+                
+                    <li><span>
+                        <a href=http://www.360doc.com/content/14/0325/17/12014965_363652856.shtml target=_blank onclick='wzhitnew(55)'>如何原谅出轨的另一半？出轨了...</a></span></li>
+                
+                    <li><span>
+                        <a href=http://www.360doc.com/content/15/0731/15/14567236_488566034.shtml target=_blank onclick='wzhitnew(55)'>一漂亮少妇在饭店洗碗，给自己...</a></span></li>
+                
+                    <li><span>
+                        <a href=http://www.360doc.com/content/15/0627/17/22854455_481060212.shtml target=_blank onclick='wzhitnew(55)'>长发抚臀玉体匀，脸俏颈秀雪乳韵</a></span></li>
+                
+        </ul>
+        <div class=" rt360" style="padding-right: 23px;">
+            <a href="http://www.360doc.com/readroom.html" target="_blank" onclick='wzhitnew(56)'>更多>></a></div>
+    </div>
+</div>
+
+<div class="both" style="padding-top: 10px;">
+    <iframe id="ifartad2" height="250px" width="250px" frameborder="0" scrolling="no"></iframe>
+</div>
+<br />
+
+
+ <iframe id="ifartrightsogou" height="328px" width="250px" frameborder="0" scrolling="no"></iframe>
+
+
+
+<script>
+    function change(pro_name, i) {
+        var pro = document.getElementById(pro_name); 
+        var pro_arr = pro.getElementsByTagName("span");
+
+        for (var m = 0; m < pro_arr.length; m++) {
+            pro_arr[m].className = "unclecked link_black";
+        }
+        pro_arr[i].className = "checked link_bai";
+
+        if (i == 1) {
+            document.getElementById("qh_ul_1").style.display = "";
+            document.getElementById("qh_ul_0").style.display = "none";
+        }
+        else if (i == 0) {
+            document.getElementById("qh_ul_1").style.display = "none";
+            document.getElementById("qh_ul_0").style.display = "";
+        }
+    }
+</script>
+
+                        <div class="both" id="divad5" style="padding-top: 11px; zoom: 1;">
+                            <div id="divad4" style="display: none;">
+                                <div>
+                                    <iframe id="ifartad" height="250px" width="250px" frameborder="0" scrolling="no"></iframe>
+                                </div>
+                                <div class="ggwz">
+                                    <a href="javascript:void(0);" onclick="closead(2);">关闭</a>
+                                </div>
+                                <div style="height: 13px;">
+                                </div>
+                            </div>
+                            <div style="clear: both; display: none;" id="divad6">
+                                <div id="adfloatbaidu">
+                                    <iframe id="ifartadfloadbaidu" height="250px" width="250px" frameborder="0" scrolling="no"></iframe>
+                                </div>
+                                <div class="ggwz">
+                                    <a href="javascript:void(0);" onclick="closead(3);">关闭</a>
+                                </div>
+                                <div style="height: 13px;">
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <input type="hidden" id="docarttitle" value="linux%e7%9a%84%e5%ae%a1%e8%ae%a1%e5%8a%9f%e8%83%bd%ef%bc%88audit%ef%bc%89" />
+    <input type="hidden" id="artreadroomid" value="0" />
+    <script>var asw='linux%e7%9a%84%e5%ae%a1%e8%ae%a1%e5%8a%9f%e8%83%bd%ef%bc%88audit%ef%bc%89'</script>
+    <div id="docdiviframe"></div>
+
+
+    <script language="javascript" type="text/javascript">
+        var appName = navigator.appName.toLowerCase();
+        if (appName.indexOf("microsoft internet explorer") > -1) {
+            document.write("<scr" + "ipt type='text/javascript' src='http://www.360doc.com/js/StickySystemIE20130911.js?t=2015080301'></sc" + "ript>");
+        }
+        else {
+
+            document.write("<scr" + "ipt type='text/javascript' src='http://www.360doc.com/js/StickySystemOther20130911.js?t=2015080301'></sc" + "ript>");
+        }
+    </script>
+
+    <script>GerLookingUserInfo(1,8547696,1,1,'-1',-1,10,0);OutputSource('http%3a%2f%2fblog.csdn.net%2fottoCho%2farticle%2fdetails%2f7252521');OutputCategory(8547696,4,'%e3%80%8aIT%e3%80%8b');OutputLastNextArt('%e5%ba%94%e8%af%a5%e7%9f%a5%e9%81%93%e7%9a%84Linux%e6%8a%80%e5%b7%a7','http://www.360doc.com/content/13/0109/23/8547696_259260161.shtml',0);OutputLastNextArt('%e8%ae%a9Vim%e6%9f%a5%e6%89%be%e5%ad%97%e7%ac%a6%e5%bf%bd%e7%95%a5%e5%a4%a7%e5%b0%8f%e5%86%99','http://www.360doc.com/content/13/0116/14/8547696_260509353.shtml',1);</script>
+
+    <script type="text/javascript">
+        var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fd86954201130d615136257dde062a503' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+
+    <script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=6857724" src="http://bdimg.share.baidu.com/static/js/bds_s_v2.js?cdnversion=384393"></script>
+
+    <script type="text/javascript">
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date() / 3600000);
+    </script>
+    <!-- Baidu Button END -->
+    <script src="http://bdimg.share.baidu.com/static/js/logger.js?cdnversion=384393"></script>
+
+
+</body>
+</html>

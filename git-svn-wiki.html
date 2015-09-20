@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<title>git-svn - Git SCM Wiki</title>
+<meta charset="UTF-8" />
+<meta name="generator" content="MediaWiki 1.19.24" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Git SCM Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://git.wiki.kernel.org/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Git SCM Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://git.wiki.kernel.org/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.monobook&amp;only=styles&amp;skin=monobook&amp;*" />
+<!--[if IE 6]><link rel="stylesheet" href="/skins/monobook/IE60Fixes.css?303" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="/skins/monobook/IE70Fixes.css?303" media="screen" /><![endif]--><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://git.wiki.kernel.org/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=monobook&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
+
+/* cache key: korg_mediawiki_git:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
+</style>
+
+<script src="https://git.wiki.kernel.org/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=monobook&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Git-svn","wgTitle":"Git-svn","wgCurRevisionId":29671,"wgArticleId":2381,"wgIsArticle":true,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["GitDocumentation","Git-svn documentation"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgRelevantPageName":"Git-svn","wgRestrictionEdit":[],"wgRestrictionMove":[]});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function($){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":5,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"monobook","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":
+0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"en","language":"en","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;},{},{});mw.loader.implement("user.tokens",function($){mw.user.tokens.set({"editToken":"+\\","watchToken":false});;},{},{});
+
+/* cache key: korg_mediawiki_git:resourceloader:filter:minify-js:7:74a832f2292f1f4d40d425d223444e78 */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax"]);
+}</script>
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Git-svn skin-monobook action-view">
+<div id="globalWrapper">
+<div id="column-content"><div id="content">
+	<a id="top"></a>
+	
+	<h1 id="firstHeading" class="firstHeading"><span dir="auto">git-svn</span></h1>
+	<div id="bodyContent" class="mw-body">
+		<div id="siteSub">From Git SCM Wiki</div>
+		<div id="contentSub"></div>
+		<div id="jump-to-nav" class="mw-jump">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>
+		<!-- start content -->
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This tutorial collects information for users of git as subversion client, using git-svn. As Git is distributed, commits (aka change sets) are referenced by hashes instead of svn's serial version numbers. Git tracks contents, not files or directories. Consider to use a real svn client to rename directories, as git-svn produces a lot of renames in svn, instead of one like the original. git-svn is not a good tool to convert from svn to git, see <a href="/index.php/Interfaces,_frontends,_and_tools#Subversion" title="Interfaces, frontends, and tools"> here for better options</a>.
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#checkout_.2F_clone.2C_log.2C_configure_basics"><span class="tocnumber">1</span> <span class="toctext">checkout / clone, log, configure basics</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#commit"><span class="tocnumber">2</span> <span class="toctext">commit</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#commit_to_local_Git"><span class="tocnumber">2.1</span> <span class="toctext">commit to local Git</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#commit_to_remote_SVN"><span class="tocnumber">2.2</span> <span class="toctext">commit to remote SVN</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#undo_changes"><span class="tocnumber">3</span> <span class="toctext">undo changes</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#basic_workflow.2C_check_out.2C_fix.2C_check_in_to_svn"><span class="tocnumber">4</span> <span class="toctext">basic workflow, check out, fix, check in to svn</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#workflow_with_quickly_setting_away_your_main_work_and_do_a_quick_fix"><span class="tocnumber">5</span> <span class="toctext">workflow with quickly setting away your main work and do a quick fix</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#workflow_with_local_fix.2Ffeature_branch"><span class="tocnumber">6</span> <span class="toctext">workflow with local fix/feature branch</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#howto.27s"><span class="tocnumber">7</span> <span class="toctext">howto's</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#How_to_use_local_git_branches_with_git_svn"><span class="tocnumber">7.1</span> <span class="toctext">How to use local git branches with git svn</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#An_Alternate_Method_Using_.60git-svn_rebase.60"><span class="tocnumber">7.2</span> <span class="toctext">An Alternate Method Using `git-svn rebase`</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#git_svn_rebase_fails.2C_what_now.3F"><span class="tocnumber">7.3</span> <span class="toctext">git svn rebase fails, what now?</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="#Remote_svn_branches_and_git-svn"><span class="tocnumber">8</span> <span class="toctext">Remote svn branches and git-svn</span></a>
+<ul>
+<li class="toclevel-2 tocsection-14"><a href="#add_a_branch_afterwards"><span class="tocnumber">8.1</span> <span class="toctext">add a branch afterwards</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#clone_with_branches"><span class="tocnumber">8.2</span> <span class="toctext">clone with branches</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#Some_links"><span class="tocnumber">9</span> <span class="toctext">Some links</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="checkout_.2F_clone.2C_log.2C_configure_basics"> checkout / clone, log, configure basics </span></h2>
+<pre>
+ git svn clone -r HEAD https://mysvnsrv.org/rep/trunk folder
+ git log -5
+ git status
+ git svn info
+ git config --list
+</pre>
+<p>Create a .gitignore file on the toplevel to replicate svn's ignore properties.
+</p>
+<pre>echo "folder/or/file/to/ignore" &gt; .gitignore
+</pre>
+<p>Make sure to remove directories from the svn tree if there are no files left in it. This is important for a directory move to have no left-overs. As well assure that line endings are UNIX style, and git does not tinker with them (see below "git svn rebase fails" if it tinkers). An example to change the line endings for java files, and switch of warnings:
+</p>
+<pre>git config --global svn.rmdir true
+git config --global core.autocrlf input
+git config --global core.safecrlf false
+</pre>
+<h2> <span class="mw-headline" id="commit"> commit </span></h2>
+<h3> <span class="mw-headline" id="commit_to_local_Git"> commit to local Git </span></h3>
+<p>Git automatically tracks contents and therefor automatically detects all changes done with file browsers, programming tools etc.
+</p>
+<pre>git diff
+git add --all
+git diff --cached
+git commit -m "whatebber"
+</pre>
+<p>If there is a warning like
+</p>
+<pre> warning: CRLF will be replaced by LF in bladiblu/dir/...
+ The file will have its original line endings in your working directory.
+</pre>
+<p>consider converting all files to UNIX eol style, here an example for java:
+</p>
+<pre>  find . -name *.java -exec dos2unix --d2u {} \;
+</pre>
+<p>If not, and git svn rebase fails because of line endings (true for git &lt;= 1.8.1) see howto's below.
+</p>
+<h3> <span class="mw-headline" id="commit_to_remote_SVN"> commit to remote SVN </span></h3>
+<p>To see what is going to be committed one can choose the following options. 
+</p>
+<pre>gitk git-svn..
+gitk
+git log remotes/git-svn.. --oneline
+git svn dcommit --dry-run
+</pre>
+<p>To really commit
+</p>
+<pre>git svn dcommit
+</pre>
+<h2> <span class="mw-headline" id="undo_changes"> undo changes </span></h2>
+<p>Undo (backout, revert) changes and commits is done with standard git commands.
+</p><p>Things already committed to svn can be reverted:
+</p>
+<pre>git revert &lt;hash&gt;
+git svn dcommit
+</pre>
+<p>Things in the working tree can be reset (reverted) to what is checked in via "reset". A "clean" removes unknown files and directories from the working tree:
+</p>
+<pre>git reset --hard
+git clean -d -x -n
+</pre>
+<p>Also, single files can be reset to a previous version. one caret means one version back:
+</p>
+<pre>git checkout HEAD^ -- singlefile
+git commit --amend
+</pre>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="basic_workflow.2C_check_out.2C_fix.2C_check_in_to_svn"> basic workflow, check out, fix, check in to svn </span></h2>
+<pre>git svn clone -r HEAD <a rel="nofollow" class="external free" href="https://mysvnsrv.org/rep">https://mysvnsrv.org/rep</a>
+... hack, hack, hack ...
+git add --all
+git commit -m "qick fix"
+git svn dcommit
+</pre>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="workflow_with_quickly_setting_away_your_main_work_and_do_a_quick_fix"> workflow with quickly setting away your main work and do a quick fix </span></h2>
+<pre>git svn clone -r HEAD <a rel="nofollow" class="external free" href="https://mysvnsrv.org/rep">https://mysvnsrv.org/rep</a>
+git checkout -b bugfix-id-123
+... hack, hack, hack ...
+git stash "main work, save it for the moment"
+git stash list
+... hack on quick fix ...
+git commit -m "qick fix"
+git svn dcommit
+git stash pop
+... continue hack, hack, hack ...
+</pre>
+<h2> <span class="mw-headline" id="workflow_with_local_fix.2Ffeature_branch"> workflow with local fix/feature branch </span></h2>
+<pre>git svn clone <a rel="nofollow" class="external free" href="https://mysvnsrv.org/rep">https://mysvnsrv.org/rep</a>
+git checkout -b bugfix-id-123
+&lt;hack, hack, hack&gt;
+git add --all
+git commit -m "fixed issue 123"
+git checkout master
+git svn rebase
+git merge bugfix-id-123
+git svn dcommit
+</pre>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="howto.27s"> howto's </span></h2>
+<h3> <span class="mw-headline" id="How_to_use_local_git_branches_with_git_svn"> How to use local git branches with git svn </span></h3>
+<p><a rel="nofollow" class="external text" href="http://www.kernel.org/pub/software/scm/git/docs/git-svn.html">git-svn(1)</a> allows you to use git as an interface to a Subversion repository. However, there are a number of caveats when doing this because Subversion's branching model is less powerful. <a rel="nofollow" class="external text" href="http://www.kernel.org/pub/software/scm/git/docs/git-merge.html">git-merge(1)</a> should not be used on the branch you intend to <i>git svn dcommit</i> from because the merge object cannot be expressed in a useful form to the Subversion repository when committing. This essentially makes it impossible to usefully use git branches for local development - yet the branching/merging mechanism is one of the most powerful features that git provides.
+</p><p>There are two ways to get around the <i>git merge</i> problem and so be able to use git branches for (local) development. For the following, assume you've branched and the commit genealogy looks like:
+</p>
+<pre>
+     C--E--F branch
+    /
+A--B--D master
+</pre>
+<p>The first merge solution is to replicate the changes you made on your branch to <i>master</i> using <a rel="nofollow" class="external text" href="http://www.kernel.org/pub/software/scm/git/docs/git-cherry-pick.html">git-cherry-pick(1)</a> (or alternatively <a rel="nofollow" class="external text" href="http://www.kernel.org/pub/software/scm/git/docs/git-format-patch.html">git-format-patch(1)</a> and <a rel="nofollow" class="external text" href="http://www.kernel.org/pub/software/scm/git/docs/git-am.html">git-am(1)</a>). However, it can be rather laborious determining the list of required commits (C,E,F) and iteratively re-applying them to <i>master</i> (C', E', F').
+</p>
+<pre>
+     C--E--F branch
+    /
+A--B--D--C'--E'--F' master
+</pre>
+<p>Whilst this does allow you to develop multiple projects simultaneously and independently, this work-around isn't much friendlier than just working directly on <i>master</i> in the first place.
+</p><p>The second solution takes advantage of <a rel="nofollow" class="external text" href="http://www.kernel.org/pub/software/scm/git/docs/git-rebase.html">git-rebase(1)</a> and <a rel="nofollow" class="external text" href="http://www.kernel.org/pub/software/scm/git/docs/git-branch.html">git-branch(1)</a>. When you want to merge your changes back to <i>master</i> you rebase your branch with respect to <i>master</i> HEAD (i.e. what the Subversion repository looks like):
+</p>
+<pre>
+git checkout &lt;branch&gt;
+git rebase master
+</pre>
+<p>Your branch now looks like <i>master</i> plus the extra changes you made on the branch:
+</p>
+<pre>
+        C&quot;--E&quot;--F&quot; branch
+       /
+A--B--D master
+</pre>
+<p>In fact, it's what you'd ideally like to <i>git svn dcommit</i> now (or later) but it's stuck on the wrong branch. So now we tell git that we'd like to pretend that the branching never happened and that <i>branch</i> is what <i>master</i> should really look like:
+</p>
+<pre>
+git branch -M master
+</pre>
+<p>The -M specifies that we want to do a forced rename of the branch (forced because <i>master</i> already exists):
+</p>
+<pre>
+A--B--D--C&quot;--E&quot;--F&quot; master
+</pre>
+<p>Note that this destroys the development branch in the process* so this should only be done when you've finished development on the branch. However, there's nothing stopping you from re-branching again:
+</p>
+<pre>
+git checkout -b &lt;branch&gt;
+</pre>
+<pre>
+                   o branch
+                  /
+A--B--D--C&quot;--E&quot;--F&quot; master
+</pre>
+<ul><li> Technically we destroyed the old <i>master</i> branch but since <i>branch</i> can no longer be referred to by name it appears as though that is the object that was destroyed.
+</li></ul>
+<h3> <span class="mw-headline" id="An_Alternate_Method_Using_.60git-svn_rebase.60"> An Alternate Method Using `git-svn rebase` </span></h3>
+<p>If you have a branch like above, you can often perform a <code>git-svn rebase</code> on the branch directly. Instead of rebasing to master, this rebases the branch directly onto the latest remote revision in subversion. Then you can <code>git-svn dcommit</code> <i>in the branch</i>. Finally, check out <code>master</code> and do another <code>git-svn rebase</code> to bring it up to date. This will merge in the changes from the branch as well as any new changes in subversion. Note that with this method, the branch sticks around, but afterwards <code>gitk</code> will show that it marks the same history as <code>master</code> -- until you commit to it again or delete it, anyway.
+</p>
+<h3> <span class="mw-headline" id="git_svn_rebase_fails.2C_what_now.3F"> git svn rebase fails, what now? </span></h3>
+<p>Especially if on Windows, a "git svn rebase" might fail with a merge conflict, e.g. because of line endings (at least with git &lt;= 1.8.1). If this happens you might want to put the changes in a dedicated branch "wip" (work in progress), reset the master onto a commit which is in svn, and then cherry pick the changes from wip onto master. Interestingly this is not sensitive to line ending style.
+</p>
+<h2> <span class="mw-headline" id="Remote_svn_branches_and_git-svn"> Remote svn branches and git-svn </span></h2>
+<h3> <span class="mw-headline" id="add_a_branch_afterwards"> add a branch afterwards </span></h3>
+<p>To track a branch created on a non-standard location in subversion add it to git:
+</p>
+<pre>
+ brnch=mymodule-1.0
+ git config --add svn-remote.${brnch}.url https://mysvnsrv.org/rep/branches/${brnch}/code
+ git config --add svn-remote.${brnch}.fetch&#160;:refs/remotes/${brnch}
+ git svn fetch -r HEAD ${brnch}
+</pre>
+<p>to switch over to another branch use one of
+</p>
+<pre>
+git reset --hard remotes/branch
+git checkout branch
+</pre>
+<h3> <span class="mw-headline" id="clone_with_branches"> clone with branches </span></h3>
+<h2> <span class="mw-headline" id="Some_links"> Some links </span></h2>
+<ul><li> <a href="/images-git/7/78/Git-svn-cheatsheet.pdf" class="internal" title="Git-svn-cheatsheet.pdf">git-svn cheatsheet</a> - all important git-svn commands on a page
+</li><li> <a href="/index.php/GitSvnCrashCourse" title="GitSvnCrashCourse">GitSvnCrashCourse</a>, if you know svn, and want to learn git
+</li><li> <a rel="nofollow" class="external text" href="http://www.kernel.org/pub/software/scm/git/docs/git-svn.html">git-svn</a>
+</li><li> <a href="/index.php/GitSvnSwitch" title="GitSvnSwitch">GitSvnSwitch</a>
+</li><li> git-svn homepage: <a rel="nofollow" class="external free" href="http://www.kernel.org/pub/software/scm/git/docs/git-svn.html">http://www.kernel.org/pub/software/scm/git/docs/git-svn.html</a>
+</li><li> <a rel="nofollow" class="external free" href="http://trac.parrot.org/parrot/wiki/git-svn-tutorial">http://trac.parrot.org/parrot/wiki/git-svn-tutorial</a>
+</li><li> <a rel="nofollow" class="external free" href="http://maymay.net/blog/2009/02/24/how-to-use-git-svn-as-the-only-subversion-client-youll-need">http://maymay.net/blog/2009/02/24/how-to-use-git-svn-as-the-only-subversion-client-youll-need</a>
+</li><li> Git cheat sheets: <a rel="nofollow" class="external text" href="http://zrusin.blogspot.ch/2007/09/git-cheat-sheet.html">Zack Rusin's</a>, <a rel="nofollow" class="external text" href="http://jan-krueger.net/development/git-cheat-sheet-take-two">in A4 by Jan Krüger</a>, <a rel="nofollow" class="external text" href="http://jan-krueger.net/development/git-cheat-sheet-extended-edition">2 sheets by Jan Krüger</a>
+</li><li> <a rel="nofollow" class="external text" href="http://en.wikibooks.org/wiki/Git/git-svn">git-svn on en.wikibooks.org</a>
+</li><li> tcoffee description, including tagging, committing to a branch: <a rel="nofollow" class="external free" href="http://code.google.com/p/tcoffee/wiki/SvnUsingGitClient">http://code.google.com/p/tcoffee/wiki/SvnUsingGitClient</a> 
+</li><li>  <a rel="nofollow" class="external text" href="http://utsl.gen.nz/talks/git-svn/intro.html">An introduction to git-svn for Subversion/SVK users and deserters</a> by Sam Vilain describes how to import from and work with Subversion repositories and SVK mirrors. Also describes why would one want to choose Git over Subversion.
+</li><li> <a rel="nofollow" class="external text" href="http://michael-prokop.at/blog/2007/12/03/git-svn-in-30-minutes/">git(-svn) in 30 minutes</a> on <a rel="nofollow" class="external text" href="http://michael-prokop.at/blog">mikas blog</a>, not only about git-svn.
+</li><li> <a rel="nofollow" class="external text" href="http://wiki.samba.org/index.php/Using_Git_for_Samba_Development">Using Git for Samba Development</a> and <a rel="nofollow" class="external text" href="http://wiki.samba.org/index.php/Using_Git-SVN_for_Samba4_Development">Using Git-SVN for Samba4 Development</a>
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 218/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key korg_mediawiki_git:pcache:idhash:2381-0!*!0!!en!*!* and timestamp 20150916010107 -->
+</div><div class="printfooter">
+Retrieved from "<a href="https://git.wiki.kernel.org/index.php?title=Git-svn&amp;oldid=29671">https://git.wiki.kernel.org/index.php?title=Git-svn&amp;oldid=29671</a>"</div>
+		<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/index.php/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/index.php/Category:GitDocumentation" title="Category:GitDocumentation">GitDocumentation</a></li><li><a href="/index.php?title=Category:Git-svn_documentation&amp;action=edit&amp;redlink=1" class="new" title="Category:Git-svn documentation (page does not exist)">Git-svn documentation</a></li></ul></div></div>		<!-- end content -->
+				<div class="visualClear"></div>
+	</div>
+</div></div>
+<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+				<li id="ca-nstab-main" class="selected"><a href="/index.php/Git-svn" primary="1" context="subject" title="View the content page [c]" accesskey="c">Page</a></li>
+				<li id="ca-talk" class="new"><a href="/index.php?title=Talk:Git-svn&amp;action=edit&amp;redlink=1" primary="1" context="talk" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+				<li id="ca-viewsource"><a href="/index.php?title=Git-svn&amp;action=edit" primary="1" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+				<li id="ca-history"><a href="/index.php?title=Git-svn&amp;action=history" rel="archives" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Git-svn" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+<a href="/index.php/Main_Page" style="background-image: url(/skins/common/images-git/wiki.png);" title="Visit the main page"></a>
+	</div>
+	<div class="generated-sidebar portlet" id="p-Starting_points">
+		<h5>Starting points</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Installation"><a href="/index.php/Installation">Installation</a></li>
+				<li id="n-Git-Tools-.28interfaces.2C-frontends.2C-and-tools.29"><a href="/index.php/InterfacesFrontendsAndTools">Git Tools (interfaces, frontends, and tools)</a></li>
+				<li id="n-Git-Documentation"><a href="/index.php/GitDocumentation">Git Documentation</a></li>
+				<li id="n-Git-Community-Support"><a href="/index.php/GitCommunity">Git Community Support</a></li>
+				<li id="n-Projects-using-Git"><a href="/index.php/GitProjects">Projects using Git</a></li>
+				<li id="n-FAQ"><a href="/index.php/GitFaq">FAQ</a></li>
+				<li id="n-Git-Hosting"><a href="/index.php/GitHosting">Git Hosting</a></li>
+				<li id="n-Git-Links"><a href="/index.php/GitLinks">Git Links</a></li>
+				<li id="n-Git-Compared"><a href="/index.php/GitComparison">Git Compared</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="generated-sidebar portlet" id="p-navigation">
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-mainpage-description"><a href="/index.php/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li>
+				<li id="n-recentchanges"><a href="/index.php/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+				<li id="n-randompage"><a href="/index.php/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>
+				<li id="n-help"><a href="/index.php/Help:Contents" title="The place to find out">Help</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/index.php" id="searchform">
+				<input type='hidden' name="title" value="Special:Search"/>
+				<input type="search" name="search" title="Search Git SCM Wiki [f]" accesskey="f" id="searchInput" />
+				<input type="submit" name="go" value="Go" title="Go to a page with this exact name if exists" id="searchGoButton" class="searchButton" />&#160;
+				<input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton" />
+			</form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><a href="/index.php/Special:WhatLinksHere/Git-svn" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+				<li id="t-recentchangeslinked"><a href="/index.php/Special:RecentChangesLinked/Git-svn" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+				<li id="t-specialpages"><a href="/index.php/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+				<li><a href="/index.php?title=Git-svn&amp;printable=yes" rel="alternate">Printable version</a></li>
+				<li id="t-permalink"><a href="/index.php?title=Git-svn&amp;oldid=29671" title="Permanent link to this revision of the page">Permanent link</a></li>
+			</ul>
+		</div>
+	</div>
+</div><!-- end of the left (by default at least) column -->
+<div class="visualClear"></div>
+<div id="footer">
+	<div id="f-poweredbyico">
+		<a href="//www.mediawiki.org/"><img src="/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+	</div>
+	<ul id="f-list">
+		<li id="lastmod"> This page was last modified on 31 March 2014, at 14:53.</li>
+		<li id="privacy"><a href="/index.php/Git_SCM_Wiki:Privacy_policy" title="Git SCM Wiki:Privacy policy">Privacy policy</a></li>
+		<li id="about"><a href="/index.php/Git_SCM_Wiki:About" title="Git SCM Wiki:About">About Git SCM Wiki</a></li>
+		<li id="disclaimer"><a href="/index.php/Git_SCM_Wiki:General_disclaimer" title="Git SCM Wiki:General disclaimer">Disclaimers</a></li>
+	</ul>
+</div>
+</div>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.user","mediawiki.page.ready"], null, true);
+}</script>
+<script src="https://git.wiki.kernel.org/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=monobook&amp;*"></script>
+<!-- Served in 0.110 secs. --></body></html>
