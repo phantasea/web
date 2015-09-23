@@ -1,0 +1,532 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+
+<title>Linux中fstab文件的配置和理解 - 技术文档 - 系统管理 Linux时代 - 开源、自由、共享 - 中国最大的Linux技术社区</title>
+<meta name="keywords" content="Linux中fstab文件的配置和理解 - 技术文档 - 系统管理 Linux时代 - 开源、自由、共享 - 中国最大的Linux技术社区">
+<meta name="description" content="Linux中fstab文件的配置和理解 - 技术文档 - 系统管理  系统管理 Linux 技术文档">
+
+<link href="/css/all.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+
+<!--
+
+.STYLE1 {color: #FF0000}
+
+.STYLE2 {font-size: 14px}
+
+-->
+
+</style>
+
+</head>
+
+
+
+<body>
+
+<table width="950" border="0" align="center" cellpadding="0" cellspacing="0">
+
+  <tr>
+
+    <td height="27">	<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" width="100%">
+	<tr><FORM name="login" action="http://linux.chinaunix.net/bbs/logging.php?action=login"  method=post>
+	<td><script language="javascript" src="http://linux.chinaunix.net/bbs/loginbox.php"></script></td>
+	</form>
+	<td align="right">
+	·<a href="http://www.chinaunix.net" class="list1">ChinaUnix首页</a>
+
+	·<a href="http://bbs.chinaunix.net" class="list1">论坛</a>
+	·<a href="http://blog.chinaunix.net" class="list1">博客</a>&nbsp;
+	</td>
+	</tr>
+	</table></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="1" bgcolor="#CCCCCC"></td>
+
+  </tr>
+
+  <tr>
+
+    <td><table width="100%" border="0" cellpadding="0" cellspacing="0">
+
+      <tr>
+
+        <td height="84"><img src="/images/logo.jpg" /></td>
+
+        <td align="right" ><IFRAME SRC="http://count.chinaunix.net/iframe.php?id=54" width="750" height="80" frameborder="0"  scrolling="no"></IFRAME>
+</td>
+
+      </tr>
+
+    </table></td>
+
+  </tr>
+
+  <tr>
+
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+      <tr>
+
+        <td width="3"><img src="/images/bgtop1.jpg" width="3" height="26" /></td>
+
+        <td width="944" background="/images/bgtop2.gif" class="whitetop">
+<a href="http://linux.chinaunix.net/" target="_blank">Linux首页</a> |
+<a href="http://linux.chinaunix.net/news/">Linux新闻</a> |
+<a target="_blank" href="http://linux.chinaunix.net/bbs" style=color:red><b>Linux论坛</b></a> |
+<a href="http://linux.chinaunix.net/techdoc/">Linux文档</a> |
+<a target="_blank" href="http://download.chinaunix.net/disc/linux/">Linux下载</a> |
+<a target="_blank" href="http://blog.chinaunix.net/techart.php?frmid=6">Linux博客</a> |
+<a target="_blank" href="http://search.chinaunix.net/">Linux搜索</a> |
+<a target="_blank" href="http://linux.chinaunix.net/bbs/index.php?gid=68">开源项目孵化平台</a>
+ |
+<a target="_blank" href="http://linux.chinaunix.net/ebook/"  style=color:red>《开源时代》</a></td>
+
+        <td width="3" align="right"><img src="/images/bgtop3.jpg" width="3" height="26" /></td>
+
+      </tr>
+
+    </table></td>
+
+  </tr>
+
+</table>
+
+<table width="950" border="0" align="center" cellpadding="0" cellspacing="0">
+
+<tr>
+
+    <td valign="bottom" class="BlkLightblue">
+<a target="_blank" href="http://linux.chinaunix.net/techdoc/beginner/">
+		新手入门</a> | <span lang="zh-cn">
+		<a target="_blank" href="http://linux.chinaunix.net/techdoc/install/">
+		安装启动</a> | </span>
+		<a target="_blank" href="http://linux.chinaunix.net/techdoc/system/">
+		管理员指南</a> | <a target="_blank" href="http://man.chinaunix.net/">开发手册</a> 
+		| <a target="_blank" href="http://linux.chinaunix.net/techdoc/desktop/">
+		桌面应用</a> |
+		<a target="_blank" href="http://linux.chinaunix.net/techdoc/develop/">
+		程序开发</a> |
+		<a target="_blank" href="http://linux.chinaunix.net/techdoc/database/">
+		数据库</a> | <span lang="zh-cn">
+		<a target="_blank" href="http://linux.chinaunix.net/techdoc/net/">网络技术</a>|
+<a target="_blank" href="http://linux.chinaunix.net/topics/2007-01-25/15/index.shtml">
+CentOS</a></span> |
+<a target="_blank" href="http://linux.chinaunix.net/search2.php?key=fedora&id=0">
+Fedora</a> <span lang="zh-cn">| </span>
+<a target="_blank" href="http://linux.chinaunix.net/search2.php?key=mysql&id=0">
+MySQL</a>
+
+<span lang="zh-cn">| </span>
+<a target="_blank" href="http://linux.chinaunix.net/search2.php?key=apache&id=0">
+Apache</a>
+
+<span lang="zh-cn">| </span>
+<a target="_blank" href="http://linux.chinaunix.net/search2.php?key=ubuntu&id=0">
+<font color="#FF0000">Ubuntu</font></a>
+
+<span lang="zh-cn">| </span>
+<a target="_blank" href="http://linux.chinaunix.net/topics/2008-07-10/18/index.shtml">
+<font color="#FF0000">Gentoo</font></a>| </span>
+<b>
+<a target="_blank" href="http://linux.chinaunix.net/topics/2008-07-30/19/index.shtml">
+<font color="#FF0000">OSCON08</font></a></b>
+</td>
+
+</tr>
+<tr><td>
+
+</td></tr>
+  <tr>
+
+    <td height="30" valign="bottom">&nbsp;&nbsp;<a href="http://linux.chinaunix.net">Linux时代</a> &gt;&gt;  <a href="http://linux.chinaunix.net/techdoc/" class='list1'>技术文档</a> >> <a href="http://linux.chinaunix.net/techdoc/system/" class='list1'>系统管理</a></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="1" bgcolor="#CCCCCC"></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="8"></td>
+
+  </tr>
+
+</table><table width="950" border="0" align="center" cellpadding="0" cellspacing="0">
+
+  <tr>
+
+    <td valign="top" class="BLKtext"><table width="660" border="0" align="center" cellpadding="0" cellspacing="0">
+
+      <tr>
+
+        <td height="8">&nbsp;</td>
+
+      </tr>
+
+      <tr>
+
+        <td height="30" class="Ftext1">Linux中fstab文件的配置和理解</td>
+
+      </tr>
+
+      <tr>
+
+        <td><table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+
+          <tr>
+
+            <td height="1" bgcolor="#CCCCCC"></td>
+
+          </tr>
+
+        </table></td>
+
+      </tr>
+
+      <tr>
+
+        <td height="40" align="center">来源: 
+ ChinaUnix博客 　日期：
+2007.06.07 01:32　(共有<span class="STYLE1" id ="postcount"></span>条评论)  <a href="http://linux.chinaunix.net/bbs/thread-959536-1-1.html" target="_blank">我要评论</a></td>
+
+      </tr>
+
+      <tr>
+
+        <td>&nbsp;</td>
+
+      </tr>
+
+      <tr>
+
+        <td class="F14">
+<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Linux中fstab文件的配置和理解<br />
+@作者：micle<br />
+@时间：2007.6.7<br />
+fstab(/etc/fstab)是Linux下比较重要的配置文件，它包含了系统在启动时挂载文件系统和存储设备的详细信息。下面是我机子上的fstab文件：<br />
+LABEL=/&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;/&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;ext3&nbsp; &nbsp; defaults&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;1 1<br />
+LABEL=/boot1&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;/boot&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; ext3&nbsp; &nbsp; defaults&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;1 2<br />
+tmpfs&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; /dev/shm&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; tmpfs&nbsp; &nbsp;defaults&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;0 0<br />
+devpts&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;/dev/pts&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; devpts&nbsp;&nbsp;gid=5,mode=620&nbsp;&nbsp;0 0<br />
+sysfs&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; /sys&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;sysfs&nbsp; &nbsp;defaults&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;0 0<br />
+proc&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;/proc&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; proc&nbsp; &nbsp; defaults&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;0 0<br />
+LABEL=SWAP-sda11&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;swap&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;swap&nbsp; &nbsp; defaults&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;0 0<br />
+/dev/sda6&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;/mnt/winE&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;vfat&nbsp; &nbsp; defaults&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;0 0<br />
+/dev/sda8&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;/mnt/winG&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;ntfs&nbsp; &nbsp; defaults&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;0 0<br />
+可以看到这个文件有六列，下面以最后一列为例一一作解释，这里假设你对mount命令比较熟悉：<br />
+1.&nbsp; &nbsp; 第1列是需要挂载的文件系统或存储设备，这里为我Windows上的G盘，分区为/dev/sda8.<br />
+2.&nbsp; &nbsp; 第2列是挂载点，我选择为/mnt/winG.<br />
+3.&nbsp; &nbsp; 第3列指定文件系统或分区的类型，我的G盘是NTFS类型的，在Linux下表示为ntfs.<br />
+&nbsp; &nbsp;File types:<br />
+&nbsp; &nbsp;Linux file systems: ext2, ext3, jfs, reiserfs, reiser4, xfs, swap.<br />
+&nbsp; &nbsp;Windows:<br />
+&nbsp; &nbsp; vfat = FAT 32, FAT 16<br />
+&nbsp; &nbsp; ntfs= NTFS<br />
+&nbsp; &nbsp;Note: For NTFS rw ntfs-3g<br />
+&nbsp; &nbsp;CD/DVD/iso: iso9660<br />
+&nbsp; &nbsp;Network file systems:<br />
+&nbsp; &nbsp;nfs: server:/shared_directory /mnt/nfs nfs&nbsp;&nbsp;0 0 <br />
+&nbsp; &nbsp;smb: //win_box/shared_folder /mnt/samba smbfs rw,credentials=/home/user_name/winbox-credentials.txt 0 0<br />
+&nbsp; &nbsp;auto: The file system type (ext3, iso9660, etc) it detected automatically. Usually works. Used for removable devices (CD/DVD, Floppy drives, or USB/Flash drives) as the file system may vary on these devices.<br />
+4.&nbsp; &nbsp; 第4列为挂载选项，详细参考man mount. 下面列出一些常用的选项：<br />
+&nbsp; &nbsp;auto: 系统自动挂载，fstab默认就是这个选项<br />
+&nbsp; &nbsp;ro: read-only<br />
+&nbsp; &nbsp;rw: read-write<br />
+&nbsp; &nbsp;defaults: rw, suid, dev, exec, auto, nouser, and async.<br />
+5.&nbsp; &nbsp; 第5列为dump选项，设置是否让备份程序dump备份文件系统，0为忽略，1为备份。<br />
+6.&nbsp; &nbsp; 第6列为fsck选项，告诉fsck程序以什么顺序检查文件系统，0为忽略。<br />
+参考资料：<br />
+“How to edit and understand /etc/fstab”:<br />
+http://www.tuxfiles.org/linuxhelp/fstab.html<br />
+&quot;How to fstab&quot;:<br />
+http://ubuntuforums.org/showthread.php?t=283131<br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br />
+<br />
+<b>本文来自ChinaUnix博客，如果查看原文请点：</b><a href="http://blog.chinaunix.net/u/23240/showart_316377.html" target="_blank">http://blog.chinaunix.net/u/23240/showart_316377.html</a> 
+</td>
+
+      </tr>
+
+
+      <tr>
+
+        <td height="20" align="right"> 　 <a href="http://linux.chinaunix.net/bbs/thread-959536-1-1.html"  target="_blank">发表评论</a>
+
+  <a href="http://linux.chinaunix.net/bbs/thread-959536-1-1.html"  target="_blank">查看评论</a>(共有<span class="STYLE1" id ="postcount2"></span>条评论)
+<a href="http://linux.chinaunix.net/bbs/forum-2-1.html" target="_blank">我要提问</a>
+</td>
+
+      </tr>
+      <tr>
+
+        <td>&nbsp;</td>
+
+      </tr>
+
+      
+
+    </table>
+
+
+</td>
+
+    <td width="8">&nbsp;</td>
+
+    <td width="245" valign="top" bgcolor="#FFF9EB">
+<center><br>
+<form action="/search2.php" method="GET">
+<input type="text" name="key" size="15"><input type=hidden name="id" value=0 ><input type="submit" value="搜索">
+</form>
+<br>
+</center>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+      <tr>
+
+        <td height="27" background="/images/bg245.jpg" class="F13"><table width="100%"><tr><td class="F13">最新资讯</td><td align="right"><a href="/news" target="_blank">更多>></a>&nbsp;</td></tr></table></td>
+
+      </tr>
+
+      <tr>
+
+        <td valign="top" bgcolor="#FFFFFF" class="BLKtext" ><table width="97%" border="0" align="center" cellpadding="0" cellspacing="0">
+
+          <tr>
+
+            <td height="5"></td>
+
+          </tr>
+
+          <tr>
+
+            <td>· <a href='/news/2010/12/10/1175491.shtml' title='谷歌劝说诺基亚采用Android操作系统' target='_blank'>谷歌劝说诺基亚采用Android操作..</a><br />
+· <a href='/news/2010/12/10/1175493.shtml' title='Apache 基金会确认退出 JCP 执行委员会' target='_blank'>Apache 基金会确认退出 JCP 执..</a><br />
+· <a href='/news/2010/12/07/1175306.shtml' title='Chrome 10 新功能探秘：新增GPU混合加速功能' target='_blank'>Chrome 10 新功能探秘：新增GP..</a><br />
+· <a href='/news/2010/12/07/1175307.shtml' title='金山宣布开源其安全软件' target='_blank'>金山宣布开源其安全软件</a><br />
+· <a href='/news/2010/12/07/1175309.shtml' title='女黑客在开源会议上抱受骚扰' target='_blank'>女黑客在开源会议上抱受骚扰</a><br />
+· <a href='/news/2010/12/07/1175310.shtml' title='21款值得关注的Linux游戏' target='_blank'>21款值得关注的Linux游戏</a><br />
+· <a href='/news/2010/12/07/1175311.shtml' title='马化腾：腾讯半年后彻底转型，开放和分享' target='_blank'>马化腾：腾讯半年后彻底转型，..</a><br />
+· <a href='/news/2010/12/07/1175305.shtml' title='[多图] Chrome OS 预发布版本多图赏析' target='_blank'>[多图] Chrome OS 预发布版本多..</a><br />
+· <a href='/news/2010/12/01/1175001.shtml' title='Lubuntu 11.04 默认应用抢先一览' target='_blank'>Lubuntu 11.04 默认应用抢先一览</a><br />
+· <a href='/news/2010/12/01/1175002.shtml' title='Red Hat宣布收购云计算软件提供商Makara' target='_blank'>Red Hat宣布收购云计算软件提供..</a><br />
+</td>
+
+          </tr>
+
+          <tr>
+
+            <td height="5"></td>
+
+          </tr>
+
+        </table></td>
+
+      </tr>
+
+      <tr>
+
+        <td height="10" bgcolor="#FFFFFF"></td>
+
+      </tr>
+
+      <tr></table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+      <tr>
+
+        <td height="27" background="/images/bg245.jpg" class="F13"><table width="100%"><tr><td class="F13">论坛热点</td><td align="right"><a href="/bbs" target="_blank">更多>></a>&nbsp;</td></tr></table></td>
+
+      </tr>
+
+      <tr>
+
+        <td valign="top" bgcolor="#FFFFFF" class="BLKtext" ><table width="97%" border="0" align="center" cellpadding="0" cellspacing="0">
+
+          <tr>
+
+            <td height="5"></td>
+
+          </tr>
+
+          <tr>
+
+            <td>· <a href='http://bbs.chinaunix.net/thread-3687970-1-1.html' title='do_execve时候用户栈中参数的位置问题' target='_blank'>do_execve时候用户栈中参数的..</a><br />
+· <a href='http://bbs.chinaunix.net/thread-3687969-1-1.html' title='swapinfo -atm 问题' target='_blank'>swapinfo -atm 问题</a><br />
+· <a href='http://bbs.chinaunix.net/thread-3687968-1-1.html' title='Linux 的优点简述' target='_blank'>Linux 的优点简述</a><br />
+· <a href='http://bbs.chinaunix.net/thread-3687967-1-1.html' title='VM虚拟机上得Red Hat Linux上搭建的ftp服务器，windows登陆不进去，但一个局域网其他' target='_blank'>VM虚拟机上得Red Hat Linux上..</a><br />
+· <a href='http://bbs.chinaunix.net/thread-3687965-1-1.html' title='我看成了上海男人喜欢女人毛多还是毛少' target='_blank'>我看成了上海男人喜欢女人毛..</a><br />
+· <a href='http://bbs.chinaunix.net/thread-3687964-1-1.html' title='校车展览，看了你就知道' target='_blank'>校车展览，看了你就知道</a><br />
+· <a href='http://bbs.chinaunix.net/thread-3687963-1-1.html' title='在遇到他之前，唯一需要做的，就是让自己足够优秀。在遇到他之前，请把最好的年华留给' target='_blank'>在遇到他之前，唯一需要做的..</a><br />
+· <a href='http://bbs.chinaunix.net/thread-3687962-1-1.html' title='GRUB的疑问' target='_blank'>GRUB的疑问</a><br />
+· <a href='http://bbs.chinaunix.net/thread-3687961-1-1.html' title='从来没有人真正付足书价——所付的只是印刷费' target='_blank'>从来没有人真正付足书价——..</a><br />
+· <a href='http://bbs.chinaunix.net/thread-3687960-1-1.html' title='云存储 vs 网盘' target='_blank'>云存储 vs 网盘</a><br />
+</td>
+
+          </tr>
+
+          <tr>
+
+            <td height="5"></td>
+
+          </tr>
+
+        </table></td>
+
+      </tr>
+
+      <tr>
+
+        <td height="10" bgcolor="#FFFFFF"></td>
+
+      </tr>
+
+      <tr></table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+      <tr>
+
+        <td height="27" background="/images/bg245.jpg" class="F13"><table width="100%"><tr><td class="F13">文档更新</td><td align="right"><a href="/techdoc" target="_blank">更多>></a>&nbsp;</td></tr></table></td>
+
+      </tr>
+
+      <tr>
+
+        <td valign="top" bgcolor="#FFFFFF" class="BLKtext" ><table width="97%" border="0" align="center" cellpadding="0" cellspacing="0">
+
+          <tr>
+
+            <td height="5"></td>
+
+          </tr>
+
+          <tr>
+
+            <td>· <a href='/techdoc/develop/2012/03/16/3686893.shtml' title='orcale queue' target='_blank'>orcale queue</a><br />
+· <a href='/techdoc/develop/2012/03/16/3686868.shtml' title='谁可以推荐几本经典的操作系统的书（英文版）' target='_blank'>谁可以推荐几本经典的操作系统的..</a><br />
+· <a href='/techdoc/develop/2012/03/16/3686867.shtml' title='【北京】某物联网公司招云计算应用高级开发工程师' target='_blank'>【北京】某物联网公司招云计算应..</a><br />
+· <a href='/techdoc/develop/2012/03/16/3686866.shtml' title='【北京】某物联网公司招云计算应用高级开发工程师' target='_blank'>【北京】某物联网公司招云计算应..</a><br />
+· <a href='/techdoc/develop/2012/03/16/3686865.shtml' title='谁能推荐几本关于操作系统的书' target='_blank'>谁能推荐几本关于操作系统的书</a><br />
+· <a href='/techdoc/develop/2012/03/16/3686864.shtml' title='如何添加网络接口eth1' target='_blank'>如何添加网络接口eth1</a><br />
+· <a href='/techdoc/develop/2012/03/16/3686863.shtml' title='葡萄牙语入门教材的选取与经验分享' target='_blank'>葡萄牙语入门教材的选取与经验分享</a><br />
+· <a href='/techdoc/develop/2012/03/16/3686862.shtml' title='葡萄牙语就业前景分析' target='_blank'>葡萄牙语就业前景分析</a><br />
+· <a href='/techdoc/develop/2012/03/16/3686861.shtml' title='葡萄牙语学习经验交流' target='_blank'>葡萄牙语学习经验交流</a><br />
+· <a href='/techdoc/develop/2012/03/16/3686860.shtml' title='Щ' target='_blank'>Щ</a><br />
+</td>
+
+          </tr>
+
+   
+        </table></td>
+
+      </tr>
+
+
+      <tr></table>
+</td>
+
+  </tr>
+
+</table>
+<script src="/js/threadcount.php?tid=959536"></script>
+<table width="950" border="0" align="center" cellpadding="0" cellspacing="0">
+
+  <tr>
+
+    <td>&nbsp;</td>
+
+  </tr>
+
+</table>
+
+<table width="950" border="0" align="center" cellpadding="0" cellspacing="0">
+
+  <tr>
+
+    <td height="2" bgcolor="#308CF6"></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="30" align="center"><a href="http://www.chinaunix.net/about/index.shtml" target="_blank">关于我们</a> | <a href="http://www.chinaunix.net/about/connect.html" target="_blank">联系方式</a> | <a href="http://www.chinaunix.net/about/service.html" target="_blank">广告合作</a> | <a href="http://www.wintalent.cn:8031/wt5/sequelmedia/web/index" target="_blank">诚聘英才</a> | <a href="http://www.chinaunix.net/about/channel.html" target="_blank">网站地图</a> | <a href="http://www.chinaunix.net/about/friend.html" target="_blank">友情链接</a> | <a href="http://linux.chinaunix.net/bbs/register.php" target="_blank">免费注册</a></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="2" bgcolor="#308CF6"></td>
+
+  </tr>
+
+  <tr>
+
+    <td align="center"><p>Copyright &copy; 2001-2009 ChinaUnix.net All Rights Reserved</p>
+
+        <p>感谢所有关心和支持过ChinaUnix的朋友们<br />
+	<p>
+ <a href="http://www.it168.com/images/icp.jpg" target="_blank">京ICP证:060528号</a></p></td>
+
+  </tr>
+
+</table>
+
+<!-- 统计 START -->
+<script src="http://stat.it168.com/pv.js" type="text/javascript"></script>
+<script>
+function sendPV(){
+    var pvTrack = new PvTrack();
+    pvTrack.type = 10; // 频道类别ID
+    pvTrack.channel = 22; // 频道ID
+   
+    pvTrack.pageType = 0;
+    pvTrack.track();
+}
+window.setTimeout("sendPV()", 0);
+</script>
+<script language="javascript" src="http://bbs.chinaunix.net/googlepv/pv.js" type="text/javascript"></script>
+<!-- 统计 .END -->
+<div style='display:none'>
+<script type="text/javascript"> 
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F0ee5e8cdc4d43389b3d1bfd76e83216b' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-11982772-4");
+pageTracker._trackPageview();
+} catch(err) {}
+</script>
+<script type='text/javascript' src='http://168.it168.com/js/601.js'></script>
+
+
+
+</body>
+
+</html>
