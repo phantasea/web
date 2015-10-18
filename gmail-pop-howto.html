@@ -1,0 +1,260 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+                      "http://www.w3.org/TR/html4/strict.dtd"
+><html lang="en"
+  ><head
+    ><meta http-equiv="Content-Type" content="text/html; charset=US-ASCII"
+    ><title
+      >Configuring your incoming email client for Gmail: fetchmail</title
+    ><link rel="author" rev="made" title="Charles Levert"
+           href="mailto:charles.levert@gmail.com"
+    ><link rel="license"
+           title="Creative Commons Attribution-ShareAlike 2.5 License"
+           href="http://creativecommons.org/licenses/by-sa/2.5/"
+    ><style type="text/css"
+      >	body {
+		color: black;
+		background-color: white;
+	}
+	h1, h2, h3, h4, h5, h6 {
+		font-family: sans-serif;
+		color: #006;
+	}
+	h1 { text-align: center }
+	a:link, a:visited { color: blue }
+	a:active { color: red }
+	a:hover { background-color: #FF9 }
+	p, li { font-family: serif }
+	pre {
+		margin-left: 3em;
+		padding: 5px;
+		font: smaller monospace;
+		color: #036;
+		background-color: #CCC;
+		overflow: auto;
+	}
+	tt, code, samp, kbd, var { color: #036 }</style
+  ></head
+  ><body
+    ><h1
+      >Configuring your incoming email client for Gmail: fetchmail</h1
+
+    ><ol
+      ><li
+        ><p
+          ><a href="http://gmail.google.com/support/bin/answer.py?answer=13273"
+            >Enable POP in your Gmail account.</a
+        ></p
+      ></li
+
+      ><li
+        ><p
+          >Find out where X.509/&ldquo;privacy-enhanced-mail (PEM)&rdquo;
+           certificates live on your system,
+           e.g., in the <tt>/usr/share/ssl/certs/</tt> directory.
+           The &ldquo;<tt>locate .pem</tt>&rdquo; command
+           may help you figure this out,
+           or you can just create a new world-readable directory
+           exclusively for this.</p
+      ></li
+
+      ><li
+        ><p
+          >The Gmail POP3-over-SSL (pop3s) server
+           presents a <b>server</b> certificate
+           at every secure-socket-layer (SSL) connection establishment;
+           we will want to be able to verify its authenticity.</p
+        ><p
+          >(A new <b>server</b> certificate was rolled out by Gmail
+           on 2005-12-13 when the old one expired on that same day
+           with a few minutes of POP service unavailability.)</p
+        ><p
+          >That <b>server</b> certificate is itself signed
+           by a certificate authority (CA),
+           Equifax Secure (now GeoTrust),
+           using a self-signed <b>root</b> certificate
+           having the &ldquo;Equifax Secure Certificate Authority&rdquo;
+           organizational unit name (OU) and no common name (CN).
+           You need to download, install in its own file,
+           and index this <b>root</b> certificate.</p
+        ><pre
+>sh# <b>cd /usr/share/ssl/certs</b>
+sh# <b>wget -O Equifax_Secure_Certificate_Authority.pem \
+         https://www.geotrust.com/resources/root_certificates/certificates/Equifax_Secure_Certificate_Authority.cer</b>
+sh# <b>chmod 644 Equifax_Secure_Certificate_Authority.pem</b>
+sh# <b>openssl x509 -in Equifax_Secure_Certificate_Authority.pem \
+                 -fingerprint -subject -issuer -serial -hash -noout</b>
+MD5 Fingerprint=67:CB:9D:C0:13:24:8A:82:9B:B2:17:1E:D1:1B:EC:D4
+subject= /C=US/O=Equifax/OU=Equifax Secure Certificate Authority
+issuer= /C=US/O=Equifax/OU=Equifax Secure Certificate Authority
+serial=35DEF4CF
+594f1775
+sh# <b>c_rehash .</b>
+sh# <b>file 594f1775.*</b>
+594f1775.0: symbolic link to `Equifax_Secure_Certificate_Authority.pem'
+</pre
+        ><p
+          >The <tt>c_rehash</tt> command is
+           a Perl script that comes with the OpenSSL toolkit;
+           it creates symbolic links to certificate files
+           (with a &ldquo;<tt>.pem</tt>&rdquo; extension)
+           using symlink names based on a hash of
+           each certificate's whole subject name.
+           Fetchmail uses the OpenSSL libraries
+           and will only try to open the installed file by looking it up
+           under the <tt>594f1775.0</tt> (or <tt>594f1775.1</tt> and so on)
+           file name in the end.</p
+        ><p
+          >The <b>server</b> certificate itself
+           does not need to be stored anywhere.</p
+      ></li
+
+      ><li
+        ><p
+          >The fetchmail client does not need
+           to present a <b>client</b> certificate.
+           Instead, client authentication is performed using
+           the <tt>USER</tt> and <tt>PASS</tt>
+           post-office-protocol version 3 (POP3) commands
+           within the SSL connection,
+           once it has been properly established.</p
+      ></li
+
+      ><li
+        ><p
+          >Edit the appropriate <tt>.fetchmailrc</tt> file,
+           depending on how you run fetchmail
+           (i.e., as <tt>root</tt> or as a lesser-privileged local user).
+           The contents of this file are documented
+           by the fetchmail(1) man page,
+           which can be consulted using
+           the &ldquo;<tt>man fetchmail</tt>&rdquo; command.
+           You will need an entry such as this one:</p
+        ><pre
+>poll pop.gmail.com with proto POP3
+    user '<i>eric.schmidt</i>@gmail.com' there with password '<i>xxxxxxxx</i>' is <i>eric</i> here
+        options keep ssl sslfingerprint '59:51:61:89:CD:DD:B2:35:94:BB:44:97:A0:39:D5:B4'
+            sslcertck sslcertpath /usr/share/ssl/certs
+</pre
+        ><p
+          >Add any other option according to your preferences.
+           If other family members also have a Gmail account
+           and this is <tt>root</tt>'s <tt>.fetchmailrc</tt> file,
+           you can add similar three-line <tt>user</tt> subsections
+           under this same <tt>poll</tt> section;
+           the last two lines will redundantly be identical
+           for every Gmail account.</p
+        ><p
+          >The specified password is that of the Gmail account,
+           not the local user's password.
+           Since this configuration file contain passwords,
+           it must be non-world-readable:</p
+        ><pre
+>sh# <b>chmod 600 $HOME/.fetchmailrc</b>
+</pre
+        ><p
+          >The MD5 fingerprint is that of
+           the &ldquo;pop.gmail.com&rdquo; <b>server</b> certificate
+           delivered by the Gmail POP3-over-SSL server,
+           not that of the &ldquo;Equifax Secure Certificate Authority&rdquo;
+           <b>root</b> certificate.</p
+        ><p
+          >Note that this will not be enough to perform
+           certificate-revocation-list (CRL) verifications,
+           which fetchmail/OpenSSL does not support;
+           however, this shortcoming is <i>somewhat</i> mitigated
+           by the MD5 fingerprint verification,
+           at the price of a loss in unattended flexibility
+           (should Gmail wish to change its
+           <b>server</b> certificate for some unlikely reason).</p
+        ><p
+          >There is no need to inform fetchmail
+           that the POP3-over-SSL (pop3s) TCP port is 995;
+           it's smart enough to figure it out on its own.</p
+        ><p
+          >Note that POP3-over-SSL is not the same as regular (non-SSL) POP3
+           with use of the <tt>STLS</tt> command and capability
+           (i.e., RFC&nbsp;2595's POP3 STARTTLS extension),
+           which Gmail does not support.</p
+      ></li
+
+      ><li
+        ><p
+          >You should be able to test this with</p
+        ><pre
+>sh# <b>fetchmail -d0 -v pop.gmail.com</b>
+</pre
+        ><p
+          >once you complete the email-forwarding/email-delivery part
+           of fetchmail's configuration and integration
+           (which is beyond the email-retrieval scope
+           of this help document).</p
+      ></li
+
+      ><li
+        ><p
+          >The Gmail POP3-over-SSL server specifies that
+           it does not want to be polled more than once
+           every five minutes (i.e., 300 seconds),
+           as can be verified by executing the following command:</p
+        ><pre
+>sh$ <b>openssl s_client -connect pop.gmail.com:995 -CApath /usr/share/ssl/certs -quiet</b>
+depth=1 /C=US/O=Equifax/OU=Equifax Secure Certificate Authority
+verify return:1
+depth=0 /C=US/ST=California/L=Mountain View/O=Google Inc./CN=pop.gmail.com
+verify return:1
++OK Gpop <i>x99xx9999xxx</i> ready.
+<b>CAPA</b>
++OK Capability list follows
+USER
+RESP-CODES
+EXPIRE 0
+LOGIN-DELAY 300
+X-GOOGLE-VERHOEVEN
+.
+<b>USER <i>eric.schmidt</i>@gmail.com</b>
++OK send PASS
+<b>PASS <i>xxxxxxxx</i></b>
++OK Welcome.
+<b>CAPA</b>
++OK Capability list follows
+USER
+RESP-CODES
+PIPELINING
+EXPIRE 0
+LOGIN-DELAY 300
+TOP
+UIDL
+X-GOOGLE-VERHOEVEN
+.
+<b>QUIT</b>
++OK Farewell.
+read:errno=0
+</pre
+        ><p
+          >(Authenticating is not strictly necessary for this test.
+           It was done to show how Gmail's POP3 server presents
+           a different list of capabilities before and after login.)</p
+        ><p
+          >Make sure to respect this delay if automatic polling is configured.
+           This can be achieved by specifying
+           &ldquo;<tt>set daemon 300</tt>&rdquo;
+           in the <tt>.fetchmailrc</tt> file,
+           or by specifying &ldquo;<tt>-d 300</tt>&rdquo;
+           on the fetchmail command line,
+           where 300 can be replaced by a greater number if desired.</p
+      ></li
+    ></ol
+
+    ><p
+      ><b
+        >* Did you click &lsquo;Save Changes&rsquo;
+         after <a href="http://gmail.google.com/support/bin/answer.py?answer=13273"
+          >enabling POP in Gmail</a
+        >?</b
+      >
+       To ensure that Gmail can communicate with your mail client,
+       be sure to click &lsquo;Save Changes&rsquo;
+       on the Gmail &lsquo;Mail Settings&rsquo; page.</p
+  ></body
+></html
+>

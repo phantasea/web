@@ -1,0 +1,529 @@
+<HEAD>
+<TITLE>Procmail How-To Page</TITLE>
+<LINK REV="made" HREF="mailto:ian@umbc.edu">
+</HEAD>
+
+<H1>Mail Filtering with Procmail</H1>
+This document is meant as a gentle introduction to the use of
+<I>Procmail</I>.  It was last updated on <I>22 September 1997</I>, but
+it's been some time since I've added groundbreaking new content.  If
+you have suggestions for new material, drop me an email! <P>
+
+<blockquote><b>NOTE:</b> (9/30/2003) It's hard to believe, but I still
+get Procmail questions from readers of this tutorial, after six years!
+At this point, most of the questions I get are about how to filter
+spam with Procmail.  I've included <a href="#antispam">some links</a>
+on this issue at the end of the tutorial.</blockquote>  
+
+This file is currently maintained by Ian Soboroff.  I can be
+reached at <A HREF="mailto:ian@umbc.edu"><I>ian@umbc.edu</I></A>.
+Please feel free to mail me concerning questions, additions, or
+corrections.<P>
+
+Since there seems to be a bit of confusion on this point, I didn't
+write Procmail.  I wish I had, since it's a fine piece of software,
+but I only wrote this tutorial.  I am not a source for Procmail
+software distributions, or for help on compiling or installing it.
+You can 
+<A HREF="ftp://ftp.informatik.rwth-aachen.de/pub/packages/procmail/">
+get the software via FTP</A>, and you should find manual pages and
+such with the distribution there.  Once you've got Procmail set up (or
+confirmed that it is already set up at your site!), come on back and
+follow this tutorial. <P>
+
+<HR>
+<H2>Table of Contents</H2>
+<UL>
+<LI><A HREF="#intro">What is it?</A>
+<LI><A HREF="#gettingstarted">Getting Started</A>
+	<UL>
+	<LI><A HREF="#example">Example .procmailrc</A>
+	<LI><A HREF="#assign">Assignments</A>
+	<LI><A HREF="#recipes">Recipes</A>
+	<LI><A HREF="#regexps">Regular Expressions</A>
+	</UL>
+<LI><A HREF="#tutorial">Tutorial</A>
+<LI><A HREF="#what_now">What Now?</A> (other information resources,
+and where to find Procmail)
+</UL>
+
+<HR>
+<A NAME="intro">
+<H2>What is it?</H2></A>
+Procmail is a program for filtering electronic mail.  It is very
+useful for presorting and preprocessing large amounts of incoming
+mail.  You can use it to sort out mail from mailing lists, to dispose
+of junk mail, to send automatic replies, or even to run a mailing
+list.<P>
+
+You control Procmail yourself, through a file that you put in your
+home directory.  This Web page will guide you through the complexities
+of writing this file.<P>
+
+This web page is meant to cover the basics.  First, I'll walk through
+a <A HREF="#gettingstarted">sample filter setup</A>.  After that, I'll
+build a set of filters from scratch as a <A HREF="#tutorial">tutorial</A>.  
+This should be sufficient to get you up and running, using most of
+Procmail's normal features.<P>
+
+Procmail has several manual pages (online help); their titles and how
+to read them is discussed <A HREF="#what_now">at the end</A>.  I've
+also included links to a couple spam-filtering utilities; for more,
+you might try <a href="http://www.google.com/search?q=spam+filter+procmail">
+Googling for "spam filter procmail"</a><P>
+
+<HR>
+<A NAME="gettingstarted">
+<H2>Getting Started</H2></A>
+This document is geared towards using Procmail on the student and
+faculty systems at UMBC (i.e., UMBC7, 8, or 9, or the general-use
+workstations).  If you're planning on using Procmail on a different
+system, you should consult your system administrator.  You can find a
+link to the Procmail ftp site <A HREF="#what_now">at the end</A> of
+this file.<P>
+
+Currently, these UMBC systems are already running Procmail.  All you
+need to do is compose a special file, called <I>.procmailrc</I> (don't
+forget that leading dot!), which describes the sorting criteria.  Once
+you have this file in your $MAIL directory, Procmail will automatically
+be run on any incoming mail you receive.<P>
+
+<BLOCKQUOTE>
+<I>Side Note -- a bit of Unix trickery</I><P>
+Files in Unix that begin with a dot '.' are <I>hidden</I> files.  So,
+when you use the <CODE>ls</CODE> command to view the files in your
+home directory, you may not see the .procmailrc file, or any other
+so-called "dot-files", right away.  To see hidden files in your
+directory, use the '-a' option, as in <CODE>ls -a</CODE>.  The '-a'
+stands for "all files," and will show you both hidden and visible
+files in one listing.
+</BLOCKQUOTE>
+
+The whole trick to Procmail is writing the .procmailrc file.
+However, to the beginner, the format may look like some magical
+incantation, so I'll start with a small example (actually, an excerpt
+from my personal .procmailrc!) and walk through it.  This is going to
+entail discussion of a lot of particulars and details, but don't
+worry; if things seem to digress or just plain stop making sense, odds
+are they'll be explained more fully later.  After that, I'll construct
+a new .procmailrc, tutorial-style. <P>
+
+<A NAME="example">
+Sample <CODE>.procmailrc</CODE>:</A>
+<BLOCKQUOTE>
+<PRE>
+# .procmailrc
+# routes incoming mail to appropriate mailboxes
+PATH=/usr/bin:/usr/local/bin
+MAILDIR=$HOME/.mailspool   # all mailboxes are in .mailspool/
+DEFAULT=$HOME/.mailspool/ian
+LOGFILE=/dev/null
+SHELL=/bin/sh
+
+# Put mail from DC-Linux mailing list into mailbox dclinux
+:0:
+* ^(From|Cc|To).*dc-linux
+dclinux
+
+</PRE></BLOCKQUOTE>
+
+Now, don't panic, it's not as bad as it looks.  A .procmailrc has two
+parts, <I>assignments</I> and <I>recipes</I>.  The assignments set up
+variables so that Procmail knows where programs and mailboxes are;
+that's the top part.  The recipe is the incantation at the bottom.
+Anything preceeded by a hash mark (#) is a <I>comment</I>, and is
+ignored.<P>
+
+<A NAME="assign">
+<H3>Assignments</H3></A>
+The assignments section tells Procmail where to find things, such as
+your mailboxes, or programs that it might need to run.  The set of
+assignments above pretty much cover what most users should need; the
+full set is discussed in the <I>procmailrc</I> man page.<P>
+
+Here are descriptions of the assignments in the excerpt above.  They
+take the format <I>variable-name</I> = <I>value</I>.
+<DL><DT><PRE>PATH=/bin:/usr/bin:/usr/local/bin</PRE>
+<DD>This tells Procmail where to look for other programs.  Here at
+UMBC, the procmail programs are in /usr/local/bin.  I also have /bin
+and /usr/bin here, for programs that might be run from there.
+Directories are separated by colons.
+<DT><PRE>MAILDIR=$HOME/.mailspool   # all mailboxes are in .mailspool/</PRE>
+<DD>MAILDIR is the location of your mailboxes.  $HOME stands for your
+home directory; therefore, this points to the .mailspool directory in
+my home directory.  Most users have this directory, containing their
+incoming-mail folder, however, you should probably double-check that
+the directory exists.
+<DT><PRE>DEFAULT=$HOME/.mailspool/ian</PRE>
+<DD>DEFAULT is the default place for Procmail to put your mail; this
+should be your regular incoming mailbox.  For me and most users, this
+is $HOME/.mailspool/ian (except with your username); but it could be
+something else, such as $HOME/.Maildrop.
+<DT><PRE>LOGFILE=/dev/null</PRE>
+<DD>This specifies the name of a file to use as a usage log, to which
+Procmail will write any diagnostic or error messages during its
+activity.  In this example, logging is being done to /dev/null, which
+is kind of a system black-hole for dumping unwanted data; no logs will
+be kept by this .procmailrc file.  As an example, the following
+LOGFILE assignment creates daily logs with the appropriate date, using
+the UNIX <I>date</I> command:
+<DD><BLOCKQUOTE><PRE>LOGFILE=$MAILDIR/log.`date +%y-%m-%d`</PRE></BLOCKQUOTE>
+<DD>These logs would go in the same place as the mailboxes, specified
+above in the MAILDIR assignment.  Logs can be useful for tracking down
+errors; use them with new recipes, then delete them when you know they
+work.
+<DT><PRE>SHELL=/bin/sh</PRE>
+<DD>This defines a shell, or operating environment, for Procmail to
+run other commands in.
+</DL>
+
+<A NAME="recipes">
+<H3>Recipes</H3></A>
+OK, now with that boring stuff out of the way, now we can get on to
+the interesting part -- recipes.  Recipes are where the real work of
+filtering is done.  Things can get kind of complex here, but bear with
+the details for now... the tutorial afterwards should clear up any
+remaining fuzziness.<P>
+
+Recipes have the following format:
+<BLOCKQUOTE><PRE>
+:0 [<I>flags</I>] [: [<I>lock-file</I>] ]
+zero or more <I>conditions</I>
+one action line
+</PRE></BLOCKQUOTE>
+
+The flags and lock-file business I'll cover later.  The idea is that
+if the conditions are met, the action is performed.  Now, let's look
+again at the simple recipe from above, which filters my mail from a
+DC-area Linux users group into it's own mailbox:
+<BLOCKQUOTE><PRE>
+# Put mail from DC-Linux mailing list into mailbox dclinux
+:0:
+* ^(From|Cc|To).*dc-linux
+dclinux
+</PRE></BLOCKQUOTE>
+
+The action line in this case is simple: it's just 'dclinux,' the name
+of the folder to put the mail into.  The action could also be an
+address to forward the mail to, or a program to start, or even a block
+of commands.  We'll see more complex examples later.<P>
+
+The condition tells Procmail what to look for in a mail message.  They
+begin with a '*', and the rest is a <I>pattern</I> to look for.  If
+part of the message matches this pattern, then Procmail will apply the
+action.  The pattern is called a <I>regular expression</I>, and takes
+some explaining.  To briefly translate before I dive in, this pattern
+translates to:
+<BLOCKQUOTE> 
+<I>at the beginning of a line, 'From' or 'Cc' or 'To', followed by
+some number of characters, followed by 'dc-linux'.</I>
+</BLOCKQUOTE>
+Thus, this pattern would match messages with 'dc-linux' in the From,
+Cc, or To lines of the header.  Neat, huh?<P>
+
+Most .procmailrc files have more than one recipe.  The rule is, unless
+you tell it otherwise, Procmail will stop at the first recipe that
+matches the message.  I'll show how to get around this in the 
+<A HREF="#tutorial">tutorial</A>.
+
+<A NAME="regexps">
+<H3>Regular Expressions</H3></A>
+Regular expressions are actually reasonably simple, once you get the
+hang of them.<P>
+
+First and foremost, any character that isn't a special character
+mentioned below matches itself.  This includes all letters and
+numbers, and some punctuation.  That is to say, the regular
+expression 
+<PRE>	Bob</PRE> 
+matches the string "Bob".  In Procmail, regular expressions are
+<I>case insensitive</I>, so this will also match "bob", or "bOb", or
+"BOB", for that matter.   <P>
+
+A dot '.' matches <I>any character except a newline</I>.  So, the
+expression 
+<PRE>	.ob Jones</PRE> 
+will match the string "Bob Jones", but
+also "Rob Jones" and "Qob Jones", too.<P>
+
+Any character followed by a star '*' matches that character repeated 0
+or more times.  Thus, 
+<PRE>	Bob* Jones</PRE>
+matches "Bo Jones", "Bob Jones", or "Bobbbbbbbbbb Jones".  The
+expression ".*" matches any number of unspecified characters.<P>
+
+Related are the '+' and '?' modifiers.  The expression <CODE>"a+"</CODE>
+matches <I>one or more</I> a's.  The expression <CODE>"a?"</CODE>
+matches <I>zero or one</I> a.<P>
+
+You can use parentheses to group an expression for use with a
+modifier.  So, the expression
+<PRE>	B(ob)+</PRE>
+matches "Bob", and also "Bobobobobobob".<P>
+
+If one character in a pattern could be one of several, you can use a
+<I>character class</I>.  For example:
+<PRE>	Part [abcd]</PRE>
+matches "Part a", "Part b", "Part c", and "Part d".  If the first
+character of a class is '^', the class matches anything _not_ in the
+class.  For example:
+<PRE>	[^aeiou]+</PRE>
+matches any series of one or more non-vowel characters.<P>
+
+One more operator is the '|' (vertical-bar) character.  It is used to
+match either of two expressions.  For example:
+<PRE>	Bob|Joe</PRE>
+will match "Bob" or "Joe".<P>
+
+The last two special characters I want to mention are '^' and '$'.
+Incidentially, here I'm referring to a '^' that <I>isn't</I> inside a
+character class.  '^' means the beginning of a line, and '$' means the
+end of one.  So,
+<PRE>	^To:</PRE>
+would match the letters 'To:' at the beginning of a line.  If that
+looks suspiciously like part of a mail header, consider it a preview.
+;-) <P>
+
+This comprises most of the special characters that Procmail uses in
+regular expressions.  There are a few others, but the 
+<A HREF="#what_now">manual pages</A> for <I>egrep</I> and
+<I>procmailrc</I> explains them as well, and if I'm not careful this
+will turn into a help sheet on regular expressions!<P>
+
+Now, what is all this about <I>matching</I>, anyway?  Well, now you
+should be able to see that your regular expression recipe represents a
+pattern in a mail message.  We will use regualr expressions to tell
+Procmail what patterns to look for.  Next, I'll walk through the
+construction of several recipes, and you'll see how it's done.<P>
+
+<HR>
+<A NAME="tutorial">
+<H2>Recipe Concoction Tutorial</H2></A>
+
+Now, let's construct a .procmailrc file as we might in real-life.
+Hopefully this will make a lot of the cluttered details up above make
+a little more sense.  For other examples, read the <I>procmailex</I>
+<A HREF="#what_now">manual page</A>.<P>
+
+We're going to use the same assignments section as described 
+<A HREF="#assign">above</A>.  Unless you have your mailbox in an odd
+place, or want to use logs, you'll probably find what I've included
+to be just fine.<P>
+
+Let's say we belong (as I do) to the mailing list Israeline, which
+sends out daily news clipping collections from Israeli news sources.
+It might be nice to automatically have these digests automatically
+placed in a special mail folder, which we'll call 'israel'.<P>
+
+Mail from this list comes addressed like so:
+<PRE>To: Multiple recipients of list &lt;israeline@nysernet.org&gt;</PRE>
+This has changed in the past, but it always has that address in it, so
+we'll use part of that as our pattern.  Our pattern will be to match
+"a line starting with 'To:' and containing 'israeline'", or
+<CODE>^To:.*israeline</CODE>.  The recipe will look like this:
+<PRE>
+:0:                # the last colon means use a lockfile
+* ^To:.*israeline
+israel             # put these messages in the 'israel' folder
+</PRE>
+
+One thing to remember, by the way, is don't put any comments on a
+condition line.  If you do, Procmail will think the comment is part of
+the pattern!<P>
+
+Ok, now what's all this about a 'lockfile'?  Well, suppose two
+israeline messages came in at about the same time.  It's very possible
+that the mail system would fire up two copies of Procmail, and each
+would try to write its message to your 'israel' folder!  By using a
+lockfile, the first Procmail that gets run will 'lock' the folder so
+only it can write to it; any other Procmail trying to write to that
+folder will have to wait until the first is finished.  Using lockfiles
+may slow down your mail delivery ever so slightly, but it's better
+than mangled mail.<P>
+
+Now, suppose your colleague Bob likes to send you lists of jokes that he
+finds around the Net every so often, usually with "joke" or "funny" in
+the subject line.  We don't want this frivolity cluttering our
+otherwise clean, businesslike work mailbox, so we'll forward it to our
+account at the university.  The tricky part is we want to make sure we
+don't forward Bob's vital business memos too.  We'll use two
+conditions in the recipe; one to match mail from Bob, and one to match
+the subject.  Here's how the recipe looks:
+<PRE>
+:0  # forward jokes to my wossamatta u. account
+* ^From.*bob
+* ^Subject:.*(joke|funny)
+! rocky@wossamatta.edu
+</PRE>
+
+Three things to note here.  First, forwarding mail is done with the '!'
+at the beginning of the action line, followed by the address.  Second,
+notice that I don't have a colon after 'From' in that condition.  This
+is a quirk of mail headers; there are header From lines with and
+without colons, so leaving it off is the safest bet.  Third, since
+we're just forwarding the mail and not writing to a file, we don't
+need a lockfile.<P>
+
+Of course, even though I'm sending the joke mail off somewhere else,
+I'd still like to read the jokes, even if they're not in my mailbox!
+We could print out those messages, as well as forwarding them; that
+way we could read them and no one would know...<P>
+
+The new thing here, besides having an action run a program, is that
+we're going to modify the above recipe so we have two actions.  We'll
+do this with a technique called <I>nesting</I>.  Here's the modified
+recipe:
+<PRE>
+:0:  # forward jokes to my wossamatta u. account
+* ^From.*bob
+* ^Subject:.*(joke|funny)
+{
+  :0 c
+  ! rocky@wossamatta.edu
+
+  :0
+  | lpr -Pacsps
+}
+</PRE>
+
+Instead of an action line, we're using a nested <I>block</I>, which is
+enclosed in braces.  This block is like a secondary .procmailrc file;
+in it, we can put any number of recipes, which will only be used if
+the 'parent' recipe applies.<P>
+
+The first recipe in the block is to send off the mail.  It uses a flag
+in its first line, a 'c'.  The 'c' flag means to <I>copy</I> the mail,
+so that the next recipe also gets a copy of the mail, since
+ordinarily, mail only goes to the first recipe that fits it.  The 'c'
+flag allows us to apply two recipes to a single message.<P>
+
+We send a message to a program using the vertical bar '|' symbol to
+start off the action line.  This means "send the message as input to
+the following program."  In Unix this is called a "pipe".  So, here
+we're piping the mail message to the program "lpr", which will print
+the message on the printer "acsps".<P>
+
+In a similar way, let's archive the messages we get from another
+mailing list, called (let's say) "junk".  So, while we deliver the
+messages to our mailbox, we'll keep the body of the messages in a
+compressed file, which we could unpack later.
+<PRE>
+:0 bc:   # archive things sent to junk mailing list
+* ^To:.*junk
+| gzip >> junk-archive.gz
+</PRE>
+
+Here we're using two flags.  The 'b' flag means that the action line
+will just take the body of the message, and not the header.  The 'c'
+line, again, means to just take a copy of the message for this recipe,
+and pass it along to the recipes after.  We're using that because we
+want to archive the message, but we'd also like it to be filed in our
+mail inbox as usual.<P>
+
+The pipe is another Unixism, telling Procmail to send the message to
+the compression program "gzip", which will squash the text and put it
+at the end of the file "junk-archive.gz".  This file can be
+uncompressed for later reading with the "gunzip" command, like so:
+<PRE>	gunzip junk-archive.gz</PRE>
+
+This covers most of the basic recipes that one might create.  The
+limit from here is only your own needs.  The manual pages (described
+below) will be your best course now.  The page called
+<I>procmailrc</I> describes all the flags you can use, and the page
+called <I>procmailex</I> contains more examples.<P>
+
+As a sort of quiz, look at the following recipe of mine and try to
+figure out what it does.  I used it as the first recipe in my
+.procmailrc when I went traveling recently:
+<PRE>
+:0 Wc: vacation.lock
+|/usr/sbin/vacation ian
+</PRE>
+
+<I>(hint: look at the manual page for the program 'vacation', and also
+look at the example in 'procmailex' about sending automatic
+replies)</I>
+
+<HR>
+<A NAME="what_now">
+<H2>What Now?</H2></A>
+Everything you can do with Procmail isn't explained here.  Once
+you've read this document and practiced a bit, though, you can also
+refer to the <I>man pages</I>.  Man pages are on-line help; typing 
+<BLOCKQUOTE><STRONG>man</STRONG> <I>topic</I></BLOCKQUOTE>
+where <I>topic</I> is usually a command name.  Procmail has several
+man pages which explain aspects of the program:
+
+<DL>
+<DT><I>procmail</I>
+<DD>The basic description of the program.  It discusses options to the
+procmail program, and has a couple examples at the end.
+<DT><I>procmailrc</I>
+<DD>Detailed description of the format of the .procmailrc file, which
+controls all the filtering.
+<DT><I>procmailex</I>
+<DD>Several working examples of .procmailrc entries.  A very useful
+resource.
+<DT><I>procmailsc</I>
+<DD>Discusses weight-scoring, a technique for very expert-level
+filtering.
+</DL>
+
+So, for example, to read the <I>procmailex</I> man page, one would
+type
+<BLOCKQUOTE><PRE>umbc9[1]% <I>man procmailex</I></PRE></BLOCKQUOTE>
+
+The regular expressions used by Procmail are the same as those used by
+the Unix program <I>egrep</I>; these in turn are an extension of the
+set used by <I>ed</I>, a time-worn editor program.  <I>ed</I>'s man
+page is the online bible for regular expressions.  <I>egrep</I>'s man
+page discusses the extensions.  The <I>procmailrc</I> man page gives a
+summary.<P>
+
+Procmail is written by Stephen R. van den Berg, at RWTH-Aachen,
+Germany.  The latest version can be found at 
+<A HREF="ftp://ftp.informatik.rwth-aachen.de/pub/packages/procmail/">
+ftp.informatik.rwth-aachen.de</A> <P>
+
+Also, the <A HREF="news:comp.mail.misc">comp.mail.misc</A> newsgroup
+occasionally has traffic on Procmail and mail filtering in general. <P>
+
+<a name="antispam"><b>(added 9/2003)</b></a>
+I get a lot of questions on spam filtering with
+Procmail.  I don't recommend trying to write individual scripts by
+hand... the spammers are too good, and you'll spend all the time you
+save writing new Procmail scripts.  Instead, you should consider using
+an external filter, whose output you can process with Procmail.  Here
+are a couple spam-filtering (and generic filtering) packages you can
+easily use along with Procmail, and which will do a much better job
+than hand-tuned filtering scripts.
+<p>
+<dl>
+<dt><b>ifile</b> (<a href="http://www.nongnu.org/ifile/"> 
+http://www.nongnu.org/ifile/</a>)
+<dd> I put this first because it's what I currently use.  ifile is a
+generic email filtering program which can be used to filter out spam,
+or even sort all your incoming mail.  It uses the now-well-known
+"Naive Bayes" algorithm to learn what features "look like" spam.
+(When someone in the spam filtering community finally discovers SVMs,
+and codes them up as efficiently as ifile does, let me know.)  There
+is a link here which describes how to use ifile with Procmail.
+<br>
+<dt><b>SpamAssassin</b> (<a href="http://spamassassin.org/"> 
+http://spamassassin.org/</a>)
+<dd>This is one of the best rule-based spam filters.  Their web page
+tells how to use it with Procmail.  If you are at UMBC (which I'm not
+anymore... if this doesn't work, ask systems@umbc.edu, not me),
+SpamAssassin is already set up and ready to use.  See
+<a href="http://www.csee.umbc.edu/systems/spamassassin.html">
+http://www.csee.umbc.edu/systems/spamassassin.html</a> for local
+details.
+</dl>
+<p>
+
+Good luck!
+
+<HR>
+<ADDRESS>Ian Soboroff -- ian@umbc.edu -- University of Maryland
+Baltimore County</ADDRESS>
+

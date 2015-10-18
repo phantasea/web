@@ -1,0 +1,116 @@
+<html>
+<head>
+<TITLE>[精华] Procmail常用的选项 - ChinaUnix.net</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<META NAME ="keywords" CONTENT="Linux,Freebsd,Solaris,Sco,HP-UX,IBM-AIX,cisco,oracle,java,cgi,mysql,perl,Apache,proFTP,Sendmail,Qmail,DNS,Squid,Rsync,SSL"> 
+<META NAME="description" CONTENT="ChinaUnix.net">
+<style type="text/css">
+h1{
+font-size:24px;
+margin: 0px;
+}
+td,select,input {font-size:14px}
+.content {
+font-family: Tahoma,MS Shell Dlg,宋体;
+font-size: 14px;
+line-height: 130%
+}
+.l17 {line-height:170%;}
+.f24 {font-size:24px;}
+.f14{font-size:14px;line-height:130%;}
+A:link {color: #0000ff;}
+A:visited {color: #800080;}
+A:active,A:hover {color : #ff0000}
+A.a02:link,A.a02:visited {text-decoration:none;color: #0000ff;}
+A.a02:active,A.a02:hover {text-decoration:none;color : #ff0000}
+</style>
+
+
+</head>
+<body topmargin=5 marginheight=5 leftmargin=0 marginwidth=0 >
+<center>
+
+<!--导航start-->
+<table width=760 border=0 cellspacing=0 cellpadding=0>
+<tr><td>
+<script src=http://www.chinaunix.net/title.js></script>
+</td></tr>
+</table>
+<!--导航end-->
+<!--头部结束-->
+
+<!--通栏广告开始-->
+<table width=760 border=0 cellspacing=0 cellpadding=0>
+<tr><td height=2></td></tr>
+<tr><td>
+<script src=http://www.chinaunix.net/tuiguang/jh_top.js></script>
+</td></tr>
+</table>
+<!--通栏广告结束-->
+
+<table width=760 border=0 cellspacing=0 cellpadding=0 height=30>
+<tr><td align=left valign=middle>
+<font color=#0000ff><a href=http://www.chinaunix.net/ class=a02>ChinaUnix首页</a> &gt; 
+<a href=http://www.chinaunix.net/jh class=a02>精华文章</a> &gt; 
+<a href=/jh/14 class=a02>Mail服务器</a> &gt; 正文</font>
+</td>
+<form name=_search action="http://search.chinaunix.net/cgi-bin/search" method=post">
+<td align=right valign=middle>
+<input type=text name=key size=20 value='' class="t2"> <INPUT TYPE=submit name=enter VALUE="搜索">
+</td>
+</form>
+</tr>
+</table>
+<table width=760 border=0 cellspacing=0 cellpadding=0>
+<tr><td height=3></td></tr>
+<tr><td height=1 bgcolor=#747474><img src=http://image2.sina.com.cn/c.gif width=1 height=1></td></tr>
+</table>
+
+<table width=760 border=0 cellspacing=0 cellpadding=0>
+<tr><td valign=top align=center rowspan=2 bgcolor=#EDF0F5>
+<br>
+	<table width=90% border=0 cellspacing=0 cellpadding=0>
+	<tr><th class=f24><font color=#05006C><h1>[精华] Procmail常用的选项</h1></font></th></tr>
+	<tr><td height=><hr size=1 bgcolor=#d9d9d9></td></tr>
+	<tr><td height=20 align=center> http://www.chinaunix.net 作者:<a href=http://bbs.chinaunix.net/viewpro.php?uid=51991 target=_blank>snolidge</a>&nbsp;&nbsp;发表于：2003-05-23 12:20:58</td></tr>
+	<tr><td height=30 align=center>
+【<a href=http://bbs.chinaunix.net/post.php?action=reply&fid=14&tid=73984 target=_blank>发表评论</a>】
+【<a href=http://bbs.chinaunix.net/viewthread.php?tid=73984 target=_blank>查看原文</a>】
+【<a href=http://bbs.chinaunix.net/forumdisplay.php?fid=14>Mail服务器讨论区</a>】【<a href="javascript:window.close()">关闭</a>】
+	</td></tr>
+	<tr><td class=l17><font id="zoom" class=f14>
+<!-- 正文begin -->
+	<table width=100% border=0 cellspacing=0 cellpadding=0 style="table-layout: fixed; word-wrap: break-word"><tr><td>
+<br>
+Procmail是一个自动化的mail处理过虑程序,在linux上已经作为sendmail&nbsp;<br>缺省的本地邮递器,因此可以直接使用他而不需要什么其他特别的配置.&nbsp;<br>如果你使用的还是sendmail+binmail,可以使用.forward文件,在其中加&nbsp;<br>入&nbsp;<br>|&nbsp;/usr/bin/procmail&nbsp;<br>及可.&nbsp;<br><br>procmail主要依靠~/.procmailrc中的信息来处理邮件.&nbsp;<br>如果这个配制文件不存在,则procmail只是简单的将邮件&nbsp;<br>保存到用户的缺省信箱中.&nbsp;<br><br>首先简单介绍一下正则表达式.&nbsp;<br>正则表达式,称为常规表达式,用于描述字符模式.procmail&nbsp;<br>用其进行字符串匹配判断.常规表达式的基本语法有&nbsp;<br>^&nbsp;行首&nbsp;<br>$&nbsp;行尾&nbsp;<br>(&nbsp;)&nbsp;聚合元素&nbsp;<br>(...|...|...)&nbsp;或,可选项之一进行匹配&nbsp;<br>如:(abc|dev|ghi)可以匹配abc,dev,ghi&nbsp;<br>[...]&nbsp;封闭集中匹配一个字符&nbsp;<br>如:[abcde]可以匹配a,b,c,d,e&nbsp;<br>[^...]&nbsp;求补集中匹配一个字符&nbsp;<br><br>+&nbsp;一次或多次模式&nbsp;<br>如:aba+匹配aba,abaa...不匹配ab&nbsp;<br>-&nbsp;最多一次模式&nbsp;<br>如:aba-匹配ab,aba,不匹配abaa,abaaa....&nbsp;<br>*&nbsp;零次或多次模式&nbsp;<br>如:aba*匹配ab,aba,abaa,abaaa......&nbsp;<br>.&nbsp;匹配任意字符&nbsp;<br><br>{n,m}&nbsp;进行n-m次匹配&nbsp;<br>{n}&nbsp;进行n次匹配&nbsp;<br>{n,}&nbsp;进行至少n此匹配&nbsp;<br><br>\s&nbsp;空白符&nbsp;<br>\S&nbsp;非空白符&nbsp;<br>\d&nbsp;数字&nbsp;<br>\d&nbsp;非数字&nbsp;<br>\w&nbsp;字母或数字&nbsp;<br>\w&nbsp;非字母和数字&nbsp;<br><br>procmail使用与egrep相同的正则表达式,缺省时忽略大小写.&nbsp;<br><br>下面来看几个简单的例子&nbsp;<br><br>将所有来自peter标题含有computer的信转发给william&nbsp;<br>同时在本地留一个保存一个备份在文件petcomp中&nbsp;<br>:0&nbsp;<br>*&nbsp;^From:.*peter&nbsp;<br>*&nbsp;^Subject:.*computer&nbsp;<br>{&nbsp;<br>:0&nbsp;c&nbsp;<br>!&nbsp;william@somewhere.edu&nbsp;<br><br>:0&nbsp;<br>petcomp&nbsp;<br>}&nbsp;<br><br>这个也等价于&nbsp;<br>:0&nbsp;c&nbsp;<br>*&nbsp;^From:.*peter&nbsp;<br>*&nbsp;^Subject:.*computer&nbsp;<br>!&nbsp;william@somewhere.edu&nbsp;<br><br>:0&nbsp;A&nbsp;<br>petcomp&nbsp;<br><br>规则的一般格式是:&nbsp;<br>:0&nbsp;[flages]&nbsp;[:[locallockfile]]&nbsp;<br>&lt;零个或多个条件,每个一行&gt;;&nbsp;<br>&lt;动作命令&gt;;&nbsp;<br><br>:0是规则开始,&nbsp;后面可以跟一些单字符选项.接着就是用*开头的正则表达式条件.&nbsp;<br>procmail用内置的egrep对邮件首部进行搜索,如果满足所有条件则执行最后&nbsp;<br>的命令,命令行{}表示复和语句,!表示要转信(forwarding),|表示要执行程序,&nbsp;<br>邮件通过标准输入传递给程序.如果命令是文件名,则procmail直接将邮件存&nbsp;<br>入该文件中&nbsp;<br><br>下面是常用的选项:&nbsp;<br>H&nbsp;搜索匹配邮件头部&nbsp;<br>B&nbsp;搜索匹配整个邮件&nbsp;<br>D&nbsp;匹配时区分大小写&nbsp;<br>A&nbsp;如果前面最近的一个没有A或a选项的规则执行,则本规则有效&nbsp;<br>a&nbsp;如果上面一条规则执行,则本规则有效&nbsp;<br>E&nbsp;同A相反,前面最近的没有E或e选项的规则没有执行,则本规则有效&nbsp;<br>e&nbsp;同a相反&nbsp;<br>h&nbsp;通过管道传送邮件首部(缺省)&nbsp;<br>b&nbsp;通过管道传送邮件主体(缺省)&nbsp;<br>c&nbsp;产生一个复制&nbsp;<br>I&nbsp;忽略所有写操作中的错误&nbsp;<br>r&nbsp;源始模式,及procmail不对mail进行任何模式的处理&nbsp;<br><br>以上只是Procmail的简单介绍,&nbsp;<br>man&nbsp;procmail&nbsp;<br>man&nbsp;procmailrc&nbsp;<br>man&nbsp;procmailex&nbsp;<br>可以获得更加详细的信息<br>
+<br>
+<br>
+<hr><b>&nbsp;<a href=http://bbs.chinaunix.net/viewpro.php?uid=31805 target=_blank>gadfly</a> 回复于：2003-05-22 13:26:35</b><br><br>
+呵呵，不知道和maildrop比，有什么优缺点。<br><br>能更详细点就好了。<br><br>
+<hr><b>&nbsp;<a href=http://bbs.chinaunix.net/viewpro.php?uid=44198 target=_blank>bycd</a> 回复于：2003-05-23 11:40:40</b><br><br>
+引用：<i><u>原帖由&nbsp;"gadfly"&nbsp;发表：</u><br>呵呵，不知道和maildrop比，有什么优缺点。<br><br>能更详细点就好了。</i><br><br><br>man&nbsp;procmailex<br><br>
+<hr><b>&nbsp;<a href=http://bbs.chinaunix.net/viewpro.php?uid=12018 target=_blank>netloafer</a> 回复于：2003-05-23 12:20:58</b><br><br>
+呵呵，不错的文章……<br><br>
+
+<br>
+<br>
+</td></tr>
+<tr><td height=1 bgcolor=#747474><img src=http://image2.sina.com.cn/c.gif width=1 height=1></td></tr>
+<tr><td><br>
+原文链接：<a href=http://bbs.chinaunix.net/viewthread.php?tid=73984>http://bbs.chinaunix.net/viewthread.php?tid=73984</a><br>
+转载请注明作者名及原文出处<br><br><br>
+                          
+  </td></tr></table>
+<!-- 正文end -->
+	
+		</td></tr>
+	</table>
+</td></tr>
+</table>
+
+<hr width=760 size=2>
+<script src=http://www.chinaunix.net/tail.js></script>
+</center>
+<script type="text/javascript" src="http://www.chinaunix.net/statpv.js"></script>
+</body>
+</html>

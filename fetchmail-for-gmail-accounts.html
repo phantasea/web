@@ -1,0 +1,479 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--php hardening, hardening joomla, fail2ban on Centos5, ModSecurity2 on Apache2, Malware Remove, Crack WiFi passwords, Sniff SSL passwords with ettercap, Snort2BGP, sis190.c, Remove private AS, Install Elastix on VPS, Auto-reboot Linux after kernel panic, DHCP Option Codes, i386 packages under x86_64, Optimize Apache/httpd.conf, Optimize Qmail, Optimize server load, PHP Optimizers, PHP5 Support allong with PHP4, PXE boot install rescue, Setup OpenVPN, Proxy Auto Configuration, Setup DansGuardian with Squid and Clamavis, Setup postfix on nonstandard port, Setup Postfixadmin / PostgreSQL / Courier / Squirrelmail / SpamAssassin / ClamAV on Debian Etch, Setup vsftp with no shell access, Squid proxy with authentication, Tcpdump filters, Useful regular expressions -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb" >
+<head>
+  <base href="http://www.linuxexpert.ro/Linux-Tutorials/fetchmail-for-gmail-accounts.html" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="index, follow" />
+  <meta name="keywords" content="fetchmail google, fetchmail gmail, fetchmail ssl google, fetchmail ssl gmail, fetchmail google certificate, mail secure server" />
+  
+  <meta name="author" content="andrei.tanase@starhost.ro" />
+  <meta name="description" content="If you have a Gmail account you may want to grab(fetch) your emails to your local mail account." />
+  
+  <title>Fetchmail for Gmail accounts | Linux Tutorials</title>
+  <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <script type="text/javascript" src="/media/system/js/mootools.js"></script>
+  <script type="text/javascript" src="/media/system/js/caption.js"></script>
+
+<link rel="stylesheet" href="/templates/system/css/system.css" type="text/css" />
+<link rel="stylesheet" href="/templates/siteground-j15-27/css/template.css" type="text/css" />
+<meta name="copyright" content="Copyright Linuxexpert 2008. All rights reserved" />
+<meta name="owner" content="Linuxexpert, www.linuxexpert.ro" />
+<meta name="publisher" content="Linuxexpert, www.linuxexpert.ro" />
+<meta name="author" content="Linuxexpert, www.linuxexpert.ro" />
+<meta name="Audience" content="all" />
+<meta name="distribution" content="global" />
+<meta name="language" content="english" />
+<meta name="rating" content="General" />
+<meta name="expires" content="never" />
+<meta name="googlebot" content="index,follow" />
+<meta name="revisit-after" content="1 days" />
+<meta http-equiv="content-language" content="en" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="google-site-verification" content="VUL1KUxr3ttHVOwrOHQLuwML4GtZM3zQDElSZQ-lH3g" />
+<meta name="google-site-verification" content="kyELr1nElXws3y2WgIutlVXc2cBfDXIcYdwwrnQkTz8" />
+<meta name="msvalidate.01" content="E2D42DD56052E8A684277E7DACD76E73" />
+<meta name="y_key" content="f9312996fe683aba" />
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-29545348-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<meta http-equiv="Content-Language" content="en" /></head>
+<body id="page_bg">
+	<div class="center">		
+		<div id="wrapper">
+			<div id="area">	
+				<div id="header_top"></div>
+				<div id="header">
+					<div id="logo">
+						<a href="/index.php">www.linuxexpert.ro</a>
+					</div>
+				</div>
+				<div id="content">
+					<div class="pill_m">
+						<div id="pillmenu">
+							
+						</div>
+					</div>	
+				<div id="content_top"></div>
+					<div id="leftcolumn">	
+								<div class="module_menu">
+			<div>
+				<div>
+					<div>
+													<h3>Tutorials</h3>
+											<ul class="menu"><li class="item1"><a href="http://www.linuxexpert.ro/"><span>Home</span></a></li><li class="parent item3"><a href="/BGP-Tutorials/bgp-quick-ref.html"><span>BGP Tutorials</span></a></li><li class="parent item90"><a href="/cPanel-Tutorials/install-softaculous.html"><span>cPanel Tutorials</span></a></li><li class="parent active item2"><a href="/Linux-Tutorials/linux-tutorials.html"><span>Linux Tutorials</span></a><ul><li class="item12"><a href="/Linux-Tutorials/auto-reboot-linux-after-kernel-panic.html"><span>Auto-reboot Linux after kernel panic</span></a></li><li class="item31"><a href="/Linux-Tutorials/building-a-firewall-with-iptables.html"><span>Building a firewall with Iptables</span></a></li><li class="item70"><a href="/Linux-Tutorials/change-array-raid-1-disks-order-or-slots-using-mdadm.html"><span>Change array RAID 1 disk order</span></a></li><li class="item15"><a href="/Linux-Tutorials/configure-ntfs-3g-on-linux-slackware.html"><span>Configure ntfs-3g on Linux Slackware</span></a></li><li class="item61"><a href="/Linux-Tutorials/setup-dansguardian-with-squid-and-clamav.html"><span>DansGuardian with Squid and ClamAV</span></a></li><li class="item33"><a href="/Linux-Tutorials/dhcp-option-codes.html"><span>DHCP Option Codes</span></a></li><li id="current" class="active item35"><a href="/Linux-Tutorials/fetchmail-for-gmail-accounts.html"><span>Fetchmail for Gmail accounts</span></a></li><li class="item10"><a href="/Linux-Tutorials/install-atheros-ar242x-pci-express-adapter.html"><span>Install  Atheros AR242x PCI Express Adapter</span></a></li><li class="item60"><a href="/Linux-Tutorials/install-awstats-with-directadmin.html"><span>Install awstats with DirectAdmin</span></a></li><li class="item37"><a href="/Linux-Tutorials/install-dbdmysql-via-cpan-shell.html"><span>Install DBD::mysql via CPAN shell</span></a></li><li class="item88"><a href="/Linux-Tutorials/install-djbdns-on-ubuntu.html"><span>Install DjbDNS on Ubuntu</span></a></li><li class="item28"><a href="/Linux-Tutorials/installing-fail2ban-on-centos5.html"><span>Installing fail2ban on Centos 5</span></a></li><li class="item63"><a href="/Linux-Tutorials/install-godaddy-ssl-certificate.html"><span>Install GoDaddy SSL Certificate</span></a></li><li class="item52"><a href="/Linux-Tutorials/install-i386-packages-under-x8664.html"><span>Install i386 packages under x86_64</span></a></li><li class="item67"><a href="/Linux-Tutorials/install-linux-via-usb-flashdrive.html"><span>Install Linux via USB flashdrive</span></a></li><li class="item14"><a href="/Linux-Tutorials/modsecurity-install.html"><span>Install ModSecurity2 on Apache2.0.x</span></a></li><li class="item73"><a href="/Linux-Tutorials/install-nginx-on-centos.html"><span>Install Nginx on CentOS</span></a></li><li class="item64"><a href="/Linux-Tutorials/install-webalizer-with-ispconfig.html"><span>Install webalizer with ispconfig</span></a></li><li class="item13"><a href="/Linux-Tutorials/install-intel-abgn-wireless-on-linux.html"><span>Install intel A/B/G/N wireless on linux</span></a></li><li class="item38"><a href="/Linux-Tutorials/install-zend-a-apc-php-optimizers.html"><span>Install Zend &amp; APC PHP Optimizers</span></a></li><li class="item9"><a href="/Linux-Tutorials/kernel-upgrade.html"><span>Kernel Upgrade</span></a></li><li class="item34"><a href="/Linux-Tutorials/mobile-phone-access-via-bluetooth-on-linux.html"><span>Mobile phone access via bluetooth</span></a></li><li class="item45"><a href="/Linux-Tutorials/optimize-and-tune-apache-for-performance.html"><span>Optimize and Tune Apache for performance</span></a></li><li class="item46"><a href="/Linux-Tutorials/optimize-mysql-server-load.html"><span>Optimize MySQL</span></a></li><li class="item59"><a href="/Linux-Tutorials/optimize-qmail.html"><span>Optimize Qmail</span></a></li><li class="item30"><a href="/Linux-Tutorials/optimize-server-load-via-kernel-sysctl.html"><span>Optimize server load</span></a></li><li class="item57"><a href="/Linux-Tutorials/setup-postfixadmin-postgresql-courier-squirrelmail-spamassassin-clamav-on-debian.html"><span>Perfect Mailserver on Debian</span></a></li><li class="item8"><a href="/Linux-Tutorials/pidgin-now-playin-status-message.html"><span>Pidgin &quot;Now Playing&quot; Status Message</span></a></li><li class="item20"><a href="/Linux-Tutorials/php-hardening.html"><span>PHP hardening</span></a></li><li class="item25"><a href="/Linux-Tutorials/php-hardening-with-suhosin.html"><span>PHP hardening with Suhosin</span></a></li><li class="item11"><a href="/Linux-Tutorials/php5-support-allong-with-php4.html"><span>PHP5 Support allong with PHP4</span></a></li><li class="item74"><a href="/Linux-Tutorials/previewing-your-site-before-making-dns-changes.html"><span>Previewing your site before making DNS changes</span></a></li><li class="item44"><a href="/Linux-Tutorials/proxy-auto-configuration.html"><span>Proxy Auto Configuration</span></a></li><li class="item36"><a href="/Linux-Tutorials/pxe-boot-install-rescue.html"><span>PXE boot install rescue</span></a></li><li class="item85"><a href="/Linux-Tutorials/setup-awstats-on-centos.html"><span>Setup awstats on CentOS</span></a></li><li class="item76"><a href="/Linux-Tutorials/setup-ec2-amazon-l2tp-ipsec-vpn.html"><span>Setup EC2 Amazon L2TP IPSec VPN</span></a></li><li class="item79"><a href="/Linux-Tutorials/setup-email-piping-with-qmail.html"><span>Setup email piping with Qmail</span></a></li><li class="item68"><a href="/Linux-Tutorials/setup-exim-with-dkim.html"><span>Setup Exim with DKIM</span></a></li><li class="item71"><a href="/Linux-Tutorials/setup-exim-smart-relay-with-cpanel.html"><span>Setup Exim smart relay with cPanel</span></a></li><li class="item49"><a href="/Linux-Tutorials/setup-openvpn.html"><span>Setup OpenVPN</span></a></li><li class="item54"><a href="/Linux-Tutorials/setup-postfix-on-nonstandard-port.html"><span>Setup postfix on nonstandard port</span></a></li><li class="item69"><a href="/Linux-Tutorials/setup-ss5-socks-proxy.html"><span>Setup SS5 Socks Proxy</span></a></li><li class="item51"><a href="/Linux-Tutorials/setup-vsftp-with-no-shell-access.html"><span>Setup vsftp with no shell access</span></a></li><li class="item62"><a href="/Linux-Tutorials/sendmail-smart-relay-with-gmail-auth.html"><span>Sendmail smart relay with gmail auth</span></a></li><li class="item7"><a href="/Linux-Tutorials/squid-proxy-ncsa-authentication.html"><span>Squid proxy NCSA authentication</span></a></li><li class="item55"><a href="/Linux-Tutorials/tcpdump-filters.html"><span>Tcpdump filters</span></a></li><li class="item75"><a href="/Linux-Tutorials/upgrade-php-to-53-in-plesk-10.html"><span>Upgrade PHP to 5.3 in Plesk 10</span></a></li><li class="item43"><a href="/Linux-Tutorials/useful-regular-expressions.html"><span>Useful regular expressions</span></a></li><li class="item53"><a href="/Linux-Tutorials/setup-x-with-sis-771671-vga-controller.html"><span>X with [SiS] 771/671 VGA controller</span></a></li></ul></li><li class="parent item22"><a href="/Joomla-Tutorials/remove-joomla-description-meta-tag.html"><span>Joomla Tutorials</span></a></li><li class="item5"><a href="/looking-glasses.html"><span>Looking Glasses</span></a></li><li class="item6"><a href="/optimize-firefox.html"><span>Optimize Firefox</span></a></li><li class="parent item26"><a href="/Security/sniff-ssl-passwords-with-ettercap.html"><span>Security</span></a></li><li class="parent item41"><a href="/Troubleshooting/ssh-conection-closed-by-remote-host.html"><span>Troubleshooting</span></a></li><li class="parent item18"><a href="/Unix-Tutorials/unix-tutorials.html"><span>Unix Tutorials</span></a></li><li class="parent item92"><a href="/Virtualization-Tutorials/vmware-snmp-enable.html"><span>Virtualization Tutorials</span></a></li><li class="parent item17"><a href="/VoIP-Tutorials/voip-tutorials.html"><span>VoIP Tutorials</span></a></li></ul>					</div>
+				</div>
+			</div>
+		</div>
+			<div class="module">
+			<div>
+				<div>
+					<div>
+													<h3>Products and Services</h3>
+											<ul class="menu"><li class="item65"><a href="/Home.html"><span>Home</span></a></li><li class="item48"><a href="/Products-and-Services/linux-products-and-services.html"><span>Linux Products and Services</span></a></li><li class="item66"><a href="/Products-and-Services/buy-vpn-account.html"><span>Buy VPN Account</span></a></li><li class="item83"><a href="/Products-and-Services/privacy-policy-for-linuxexpert.html"><span>Privacy Policy for Linuxexpert</span></a></li><li class="item58"><a href="/Products-and-Services/remove-iframe-php-encoded-viruses-and-other-malware.html"><span>Remove malware</span></a></li></ul>					</div>
+				</div>
+			</div>
+		</div>
+			<div class="module">
+			<div>
+				<div>
+					<div>
+													<h3>Most Read</h3>
+											<ul class="mostread">
+	<li class="mostread">
+		<a href="/Linux-Tutorials/setup-ss5-socks-proxy.html" class="mostread">
+			Setup SS5 Socks Proxy</a>
+	</li>
+	<li class="mostread">
+		<a href="/Linux-Tutorials/install-webalizer-with-ispconfig.html" class="mostread">
+			Install webalizer with ispconfig</a>
+	</li>
+	<li class="mostread">
+		<a href="/Security/sniff-ssl-passwords-with-ettercap.html" class="mostread">
+			Sniff SSL passwords with ettercap</a>
+	</li>
+	<li class="mostread">
+		<a href="/Linux-Tutorials/optimize-and-tune-apache-for-performance.html" class="mostread">
+			Optimize and Tune Apache for performance</a>
+	</li>
+	<li class="mostread">
+		<a href="/Linux-Tutorials/setup-awstats-on-centos.html" class="mostread">
+			Setup awstats on CentOS</a>
+	</li>
+</ul>					</div>
+				</div>
+			</div>
+		</div>
+			<div class="module">
+			<div>
+				<div>
+					<div>
+													<h3>Who's Online</h3>
+											 We have&nbsp;21 guests&nbsp;online					</div>
+				</div>
+			</div>
+		</div>
+	
+						
+					</div>
+					
+					
+					<div id="maincolumn">	
+						<div class="nopad">
+							
+															<table class="contentpaneopen">
+<tr>
+		<td class="contentheading" width="100%"><h1>
+					Fetchmail for Gmail accounts</h1></td>
+				
+				<td align="right" width="100%" class="buttonheading">
+		<a href="/Linux-Tutorials/fetchmail-for-gmail-accounts/Print.html" title="Print" onclick="window.open(this.href,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no'); return false;" rel="nofollow"><img src="/images/M_images/printButton.png" alt="Print"  /></a>		</td>
+		
+				<td align="right" width="100%" class="buttonheading">
+		<a href="/component/option,com_mailto/link,aHR0cDovL3d3dy5saW51eGV4cGVydC5yby9MaW51eC1UdXRvcmlhbHMvZmV0Y2htYWlsLWZvci1nbWFpbC1hY2NvdW50cy5odG1s/tmpl,component/" title="E-mail" onclick="window.open(this.href,'win2','width=400,height=350,menubar=yes,resizable=yes'); return false;"><img src="/images/M_images/emailButton.png" alt="E-mail"  /></a>		</td>
+					</tr>
+</table>
+
+<table class="contentpaneopen">
+
+
+
+<tr>
+<td valign="top">
+
+<!-- google_ad_section_start -->
+<blockquote> </blockquote>
+<blockquote>If you have a Gmail account you may want to grab(fetch) your emails to your</blockquote>
+<blockquote>local mail account.</blockquote>
+<blockquote>Here is a step by step tutorial: </blockquote>
+<blockquote>First you need to configure gmail to allow pop3 mail downloading for your account: "Settings =&gt; Forwarding and POP" in your gmail web account.</blockquote>
+<blockquote>Check if your fetchmail has ssl support:<br /></blockquote>
+<blockquote><em>$ldd /usr/bin/fetchmail</em></blockquote>
+<blockquote><em>linux-gate.so.1 =&gt; (0xffffe000)<br /></em></blockquote>
+<blockquote><em>libcrypt.so.1 =&gt; /lib/libcrypt.so.1 (0xb7fb7000)<br /></em></blockquote>
+<blockquote><em>libresolv.so.2 =&gt; /lib/libresolv.so.2 (0xb7fa2000)<br /></em></blockquote>
+<blockquote><em>libssl.so.0.9.7 =&gt; /usr/lib/libssl.so.0.9.7 (0xb7f71000)<br /></em></blockquote>
+<blockquote><em>libcrypto.so.0.9.7 =&gt; /usr/lib/libcrypto.so.0.9.7 (0xb7e6e000)<br /></em></blockquote>
+<blockquote><em>libc.so.6 =&gt; /lib/libc.so.6 (0xb7d56000)<br /></em></blockquote>
+<blockquote><em>libdl.so.2 =&gt; /lib/libdl.so.2 (0xb7d52000)</em></blockquote>
+<blockquote><em>/lib/ld-linux.so.2 (0xb7feb000)</em><br /></blockquote>
+<blockquote>If you see something like "libssl.so.0...." then yours has it.</blockquote>
+<blockquote>Getting the certificates<br /></blockquote>
+<blockquote> Creating a directory "'~/.certs"'<br /></blockquote>
+<blockquote><em>$ mkdir ~/.certs</em><br /></blockquote>
+<blockquote>Getting the gmail certificate provided by the gmail pop server:</blockquote>
+<blockquote><em>$ openssl s_client -connect pop.gmail.com:995 -showcerts</em><em><br /></em></blockquote>
+<blockquote>You should see something along the lines of:<br /></blockquote>
+<blockquote><em>CONNECTED(00000003)<br /></em></blockquote>
+<blockquote><em>depth=0 /C=US/ST=California/L=Mountain View/O=Google Inc./CN=pop.gmail.com<br /></em></blockquote>
+<blockquote><em>verify error:num=20:unable to get local issuer certificate<br /></em></blockquote>
+<blockquote><em>verify return:1<br /></em></blockquote>
+<blockquote><em>depth=0 /C=US/ST=California/L=Mountain View/O=Google Inc./CN=pop.gmail.com<br /></em></blockquote>
+<blockquote><em>verify error:num=27:certificate not trusted<br /></em></blockquote>
+<blockquote><em>verify return:1<br /></em></blockquote>
+<blockquote><em>depth=0 /C=US/ST=California/L=Mountain View/O=Google Inc./CN=pop.gmail.com<br /></em></blockquote>
+<blockquote><em>verify error:num=21:unable to verify the first certificate<br /></em></blockquote>
+<blockquote><em>verify return:1<br /></em></blockquote>
+<blockquote><em>---<br /></em></blockquote>
+<blockquote><em>Certificate chain<br /></em></blockquote>
+<blockquote><em> 0 s:/C=US/ST=California/L=Mountain View/O=Google Inc./CN=pop.gmail.com<br /></em></blockquote>
+<blockquote><em>  i:/C=US/O=Equifax/OU=Equifax Secure Certificate Authority</em><br /></blockquote>
+<blockquote><em>-----BEGIN CERTIFICATE-----<br /></em></blockquote>
+<blockquote><em>MIIC3TCCAkagAwIBAgIDBZIAMA0GCSqGSIb3DQEBBQUAME4xCzAJBgNVBAYTAlVT<br /></em></blockquote>
+<blockquote><em>MRAwDgYDVQQKEwdFcXVpZmF4MS0wKwYDVQQLEyRFcXVpZmF4IFNlY3VyZSBDZXJ0<br /></em></blockquote>
+<blockquote><em>aWZpY2F0ZSBBdXRob3JpdHkwHhcNMDUxMTE1MjEyMjQ0WhcNMDcxMTE2MjEyMjQ0<br /></em></blockquote>
+<blockquote><em>WjBoMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN<br /></em></blockquote>
+<blockquote><em>TW91bnRhaW4gVmlldzEUMBIGA1UEChMLR29vZ2xlIEluYy4xFjAUBgNVBAMTDXBv<br /></em></blockquote>
+<blockquote><em>cC5nbWFpbC5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMP8LCYiLGJ/<br /></em></blockquote>
+<blockquote><em>RihwcOi1V/zHVTw0Gfu+mI141Vjuuj2DtQoav8emwlXbu8gZoKP9GeMWpX1Vo9qN<br /></em></blockquote>
+<blockquote><em>4gkslIToHmDnIwGjcaEAfpdhSR9g54Kf5Y7BEXVyco6mTIlpe9vsbV0dmB1FvLP2<br /></em></blockquote>
+<blockquote><em>1N09dkUJfi7V0fjb8mcn3QYu6+6QNoxPAgMBAAGjga4wgaswDgYDVR0PAQH/BAQD<br /></em></blockquote>
+<blockquote><em>AgTwMB0GA1UdDgQWBBTdASsopgao1m8hcEg0cDZhucltljA6BgNVHR8EMzAxMC+g<br /></em></blockquote>
+<blockquote><em>LaArhilodHRwOi8vY3JsLmdlb3RydXN0LmNvbS9jcmxzL3NlY3VyZWNhLmNybDAf<br /></em></blockquote>
+<blockquote><em>BgNVHSMEGDAWgBRI5mj5K9KylddH2CMgEE8zmJCf1DAdBgNVHSUEFjAUBggrBgEF<br /></em></blockquote>
+<blockquote><em>BQcDAQYIKwYBBQUHAwIwDQYJKoZIhvcNAQEFBQADgYEAln3/pVqYnUXA1TVGzOqX<br /></em></blockquote>
+<blockquote><em>LFhohGxpuNkr1UJnQmYxmZeB07uPBYRX8c0JXEKs29TmAHRsLhmp8kF36F11Dxgi<br /></em></blockquote>
+<blockquote><em>Xm/Y8I9zgWHoMj7SL3Ve/u8K8K7XcUyUuaWmldLQAREafpFy+f+KYHGuAVh8hjy6<br /></em></blockquote>
+<blockquote><em>XyPlMCqj+PNp8QXjgOcgO68=<br /></em></blockquote>
+<blockquote><em>-----END CERTIFICATE-----<br /></em></blockquote>
+<blockquote><em>---<br /></em></blockquote>
+<blockquote><em>Server certificate<br /></em></blockquote>
+<blockquote><em>subject=/C=US/ST=California/L=Mountain View/O=Google Inc./CN=pop.gmail.com<br /></em></blockquote>
+<blockquote><em>issuer=/C=US/O=Equifax/OU=Equifax Secure Certificate Authority<br /></em></blockquote>
+<blockquote><em>---<br /></em></blockquote>
+<blockquote><em>No client certificate CA names sent<br /></em></blockquote>
+<blockquote><em>---<br /></em></blockquote>
+<blockquote><em>SSL handshake has read 891 bytes and written 338 bytes<br /></em></blockquote>
+<blockquote><em>---<br /></em></blockquote>
+<blockquote><em>New, TLSv1/SSLv3, Cipher is DES-CBC3-SHA<br /></em></blockquote>
+<blockquote><em>Server public key is 1024 bit<br /></em></blockquote>
+<blockquote><em>SSL-Session:<br /></em></blockquote>
+<blockquote><em>  Protocol : TLSv1<br /></em></blockquote>
+<blockquote><em>  Cipher : DES-CBC3-SHA<br /></em></blockquote>
+<blockquote><em>  Session-ID: 2B7DBD96435D71F6D09A5DE95FD37C21132B118B98FBA33DAAAA646B155BB333<br /></em></blockquote>
+<blockquote><em>  Session-ID-ctx:<br /></em></blockquote>
+<blockquote><em>  Master-Key: 3A74300160B4E7B5424160EC1F7A7A700E107BAA8C23B2BFC66B22E7DF03D2F359551E7E08218C835FC956AF9A04A3C1<br /></em></blockquote>
+<blockquote><em>  Key-Arg : None<br /></em></blockquote>
+<blockquote><em>  Start Time: 1134859072<br /></em></blockquote>
+<blockquote><em>  Timeout : 300 (sec)<br /></em></blockquote>
+<blockquote><em>  Verify return code: 21 (unable to verify the first certificate)<br /></em></blockquote>
+<blockquote><em>---<br /></em></blockquote>
+<blockquote><em>+OK Gpop i16pf3941185wxd ready.</em><br /></blockquote>
+<blockquote><br /></blockquote>
+<blockquote>Copy everything from (and including) the "-----BEGIN CERTIFICATE-----" to the "-----END CERTIFICATE-----", and save it in your new .certs directory as "'gmail.pem"'. You also need a copy of the certificate of the issuer, in google's case "Equifax Secure Certificate Authority".</blockquote>
+<blockquote><em>~/.certs$ wget --no-check-certificate -O equifax.pem https://www.geotrust.com/resources/root_certificates/certificates/Equifax_Secure_Certificate_Authority.cer  </em></blockquote>
+<blockquote>For your ease I will put the needed code in here which you just need to copy/paste into a new file called "'equifax.pem"':<br /></blockquote>
+<blockquote><em>-----BEGIN CERTIFICATE-----<br /></em></blockquote>
+<blockquote><em>MIIDIDCCAomgAwIBAgIENd70zzANBgkqhkiG9w0BAQUFADBOMQswCQYDVQQGEwJV<br /></em></blockquote>
+<blockquote><em>UzEQMA4GA1UEChMHRXF1aWZheDEtMCsGA1UECxMkRXF1aWZheCBTZWN1cmUgQ2Vy<br /></em></blockquote>
+<blockquote><em>dGlmaWNhdGUgQXV0aG9yaXR5MB4XDTk4MDgyMjE2NDE1MVoXDTE4MDgyMjE2NDE1<br /></em></blockquote>
+<blockquote><em>MVowTjELMAkGA1UEBhMCVVMxEDAOBgNVBAoTB0VxdWlmYXgxLTArBgNVBAsTJEVx<br /></em></blockquote>
+<blockquote><em>dWlmYXggU2VjdXJlIENlcnRpZmljYXRlIEF1dGhvcml0eTCBnzANBgkqhkiG9w0B<br /></em></blockquote>
+<blockquote><em>AQEFAAOBjQAwgYkCgYEAwV2xWGcIYu6gmi0fCG2RFGiYCh7+2gRvE4RiIcPRfM6f<br /></em></blockquote>
+<blockquote><em>BeC4AfBONOziipUEZKzxa1NfBbPLZ4C/QgKO/t0BCezhABRP/PvwDN1Dulsr4R+A<br /></em></blockquote>
+<blockquote><em>cJkVV5MW8Q+XarfCaCMczE1ZMKxRHjuvK9buY0V7xdlfUNLjUA86iOe/FP3gx7kC<br /></em></blockquote>
+<blockquote><em>AwEAAaOCAQkwggEFMHAGA1UdHwRpMGcwZaBjoGGkXzBdMQswCQYDVQQGEwJVUzEQ<br /></em></blockquote>
+<blockquote><em>MA4GA1UEChMHRXF1aWZheDEtMCsGA1UECxMkRXF1aWZheCBTZWN1cmUgQ2VydGlm<br /></em></blockquote>
+<blockquote><em>aWNhdGUgQXV0aG9yaXR5MQ0wCwYDVQQDEwRDUkwxMBoGA1UdEAQTMBGBDzIwMTgw<br /></em></blockquote>
+<blockquote><em>ODIyMTY0MTUxWjALBgNVHQ8EBAMCAQYwHwYDVR0jBBgwFoAUSOZo+SvSspXXR9gj<br /></em></blockquote>
+<blockquote><em>IBBPM5iQn9QwHQYDVR0OBBYEFEjmaPkr0rKV10fYIyAQTzOYkJ/UMAwGA1UdEwQF<br /></em></blockquote>
+<blockquote><em>MAMBAf8wGgYJKoZIhvZ9B0EABA0wCxsFVjMuMGMDAgbAMA0GCSqGSIb3DQEBBQUA<br /></em></blockquote>
+<blockquote><em>A4GBAFjOKer89961zgK5F7WF0bnj4JXMJTENAKaSbn+2kmOeUJXRmm/kEd5jhW6Y<br /></em></blockquote>
+<blockquote><em>7qj/WsjTVbJmcVfewCHrPSqnI0kBBIZCe/zuf6IWUrVnZ9NA2zsmWLIodz2uFHdh<br /></em></blockquote>
+<blockquote><em>1voqZiegDfqnc1zqcPGUIWVEX/r87yloqaKHee9570+sB3c4<br /></em></blockquote>
+<blockquote><em>-----END CERTIFICATE----- </em></blockquote>
+<blockquote>Now you have both certificates stored in ~/.certs. you just need to rehash them so ssl (and fetchmail) can read and use them:<br /></blockquote>
+<blockquote><em>$ c_rehash ~/.certs/<br /></em></blockquote>
+<blockquote><em>Doing /home/user/.certs/<br /></em></blockquote>
+<blockquote><em>equifax.pem =&gt; 594f1775.0<br /></em></blockquote>
+<blockquote><em>gmail.pem =&gt; 7f549ca4.0</em></blockquote>
+<p> </p>
+<blockquote>To check that you have the correct and working certificates,  make a ssl connection to the gmail server testing your 2 new certificates:<br /></blockquote>
+<blockquote><em>openssl s_client -connect pop.gmail.com:995 -CApath ~/.certs/<br /></em></blockquote>
+<blockquote><em>... ...<br /></em></blockquote>
+<blockquote><em>---<br /></em></blockquote>
+<blockquote><em>+OK Gpop h19pf3704794wxd ready.</em><em><br /></em></blockquote>
+<blockquote>There should be much more data inbetween, however the important thing to note is the final (or similar) "+OK Gpop h19pf3704794wxd ready." If not, please retrace the above steps to confirm you have it correct.<br /></blockquote>
+<blockquote>Setting up fetchmail</blockquote>
+<blockquote> <br /></blockquote>
+<blockquote>You need to configure out ~/.fetchmailrc file check every 90 seconds automatically if we have mail, and if so to download it.  For this fetchmail example I am going to use the username (locally on the system) as "user", the gmail address of "
+ <script language='JavaScript' type='text/javascript'>
+ <!--
+ var prefix = 'm&#97;&#105;lt&#111;:';
+ var suffix = '';
+ var attribs = '';
+ var path = 'hr' + 'ef' + '=';
+ var addy38170 = 'g&#105;g&#105;' + '&#64;';
+ addy38170 = addy38170 + 'gm&#97;&#105;l' + '&#46;' + 'c&#111;m';
+ document.write( '<a ' + path + '\'' + prefix + addy38170 + suffix + '\'' + attribs + '>' );
+ document.write( addy38170 );
+ document.write( '<\/a>' );
+ //-->
+ </script><script language='JavaScript' type='text/javascript'>
+ <!--
+ document.write( '<span style=\'display: none;\'>' );
+ //-->
+ </script>This e-mail address is being protected from spambots. You need JavaScript enabled to view it
+ <script language='JavaScript' type='text/javascript'>
+ <!--
+ document.write( '</' );
+ document.write( 'span>' );
+ //-->
+ </script>", and the password of "secretpassword":<br /></blockquote>
+<blockquote><em>$ cat .fetchmailrc<br />  set daemon 90<br />  set syslog<br />  set postmaster user<br /><br />#
+ <script language='JavaScript' type='text/javascript'>
+ <!--
+ var prefix = 'm&#97;&#105;lt&#111;:';
+ var suffix = '';
+ var attribs = '';
+ var path = 'hr' + 'ef' + '=';
+ var addy36058 = 'g&#105;g&#105;' + '&#64;';
+ addy36058 = addy36058 + 'gm&#97;&#105;l' + '&#46;' + 'c&#111;m';
+ document.write( '<a ' + path + '\'' + prefix + addy36058 + suffix + '\'' + attribs + '>' );
+ document.write( addy36058 );
+ document.write( '<\/a>' );
+ //-->
+ </script><script language='JavaScript' type='text/javascript'>
+ <!--
+ document.write( '<span style=\'display: none;\'>' );
+ //-->
+ </script>This e-mail address is being protected from spambots. You need JavaScript enabled to view it
+ <script language='JavaScript' type='text/javascript'>
+ <!--
+ document.write( '</' );
+ document.write( 'span>' );
+ //-->
+ </script><br />  poll pop.gmail.com<br />  proto POP3<br />  port 995<br />  auth password<br />  user '
+ <script language='JavaScript' type='text/javascript'>
+ <!--
+ var prefix = 'm&#97;&#105;lt&#111;:';
+ var suffix = '';
+ var attribs = '';
+ var path = 'hr' + 'ef' + '=';
+ var addy94446 = 'g&#105;g&#105;' + '&#64;';
+ addy94446 = addy94446 + 'gm&#97;&#105;l' + '&#46;' + 'c&#111;m';
+ document.write( '<a ' + path + '\'' + prefix + addy94446 + suffix + '\'' + attribs + '>' );
+ document.write( addy94446 );
+ document.write( '<\/a>' );
+ //-->
+ </script><script language='JavaScript' type='text/javascript'>
+ <!--
+ document.write( '<span style=\'display: none;\'>' );
+ //-->
+ </script>This e-mail address is being protected from spambots. You need JavaScript enabled to view it
+ <script language='JavaScript' type='text/javascript'>
+ <!--
+ document.write( '</' );
+ document.write( 'span>' );
+ //-->
+ </script>' there<br />  with password 'secretpassword' is user here<br />  nokeep<br />  ssl<br />  sslcertpath /home/user/.certs/</em><br /><br /><br /></blockquote>
+<blockquote>Right, save the file, and now we can do a test verbosely to see if it works. Note: mail will be downloaded into your system-default mailbox, depending on your system. Hopefully you already know where that is located. Do the verbose test with:<br /></blockquote>
+<blockquote><em>$ fetchmail -d0 -vk pop.gmail.com</em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: 6.2.5.2 querying pop.gmail.com (protocol POP3) at Sun Dec 18 00:24:05 2008: poll started</em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: Issuer Organization: Equifax</em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: Unknown Issuer CommonName</em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: Server CommonName: pop.gmail.com</em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: pop.gmail.com key fingerprint: 59:51:61:89:CD:DD:B2:35:94:BB:44:97:A0:39:D5:B4</em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: POP3&lt; +OK Gpop i34pf3725375wxd ready.</em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: POP3&gt; CAPA</em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: POP3&lt; +OK Capability list follows</em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: POP3&lt; USER</em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: POP3&lt; RESP-CODES</em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: POP3&lt; EXPIRE 0</em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: POP3&lt; LOGIN-DELAY 300</em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: POP3&lt; X-GOOGLE-VERHOEVEN</em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: POP3&lt; .</em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: POP3&gt; USER 
+ <script language='JavaScript' type='text/javascript'>
+ <!--
+ var prefix = 'm&#97;&#105;lt&#111;:';
+ var suffix = '';
+ var attribs = '';
+ var path = 'hr' + 'ef' + '=';
+ var addy14349 = 'g&#105;g&#105;' + '&#64;';
+ addy14349 = addy14349 + 'gm&#97;&#105;l' + '&#46;' + 'c&#111;m';
+ document.write( '<a ' + path + '\'' + prefix + addy14349 + suffix + '\'' + attribs + '>' );
+ document.write( addy14349 );
+ document.write( '<\/a>' );
+ //-->
+ </script><script language='JavaScript' type='text/javascript'>
+ <!--
+ document.write( '<span style=\'display: none;\'>' );
+ //-->
+ </script>This e-mail address is being protected from spambots. You need JavaScript enabled to view it
+ <script language='JavaScript' type='text/javascript'>
+ <!--
+ document.write( '</' );
+ document.write( 'span>' );
+ //-->
+ </script></em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: POP3&lt; +OK send PASS</em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: POP3&gt; PASS *</em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: POP3&lt; +OK Welcome.</em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: POP3&gt; STAT</em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: POP3&lt; +OK 0 0</em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: No mail for 
+ <script language='JavaScript' type='text/javascript'>
+ <!--
+ var prefix = 'm&#97;&#105;lt&#111;:';
+ var suffix = '';
+ var attribs = '';
+ var path = 'hr' + 'ef' + '=';
+ var addy38308 = 'g&#105;g&#105;' + '&#64;';
+ addy38308 = addy38308 + 'gm&#97;&#105;l' + '&#46;' + 'c&#111;m';
+ document.write( '<a ' + path + '\'' + prefix + addy38308 + suffix + '\'' + attribs + '>' );
+ document.write( addy38308 );
+ document.write( '<\/a>' );
+ //-->
+ </script><script language='JavaScript' type='text/javascript'>
+ <!--
+ document.write( '<span style=\'display: none;\'>' );
+ //-->
+ </script>This e-mail address is being protected from spambots. You need JavaScript enabled to view it
+ <script language='JavaScript' type='text/javascript'>
+ <!--
+ document.write( '</' );
+ document.write( 'span>' );
+ //-->
+ </script> at pop.gmail.com</em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: POP3&gt; QUIT</em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: POP3&lt; +OK Farewell.</em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: 6.2.5.2 querying pop.gmail.com (protocol POP3) at Sun Dec 18 00:24:10 2008: poll completed</em><em><br /></em></blockquote>
+<blockquote><em>fetchmail: normal termination, status 1</em></blockquote>
+<blockquote> </blockquote>
+<blockquote>Your output might be longer if you had mail waiting already for you to download from gmail. This above example had an empty mailbox, but as you see it logged in successfully, and logged out successfully too.<br /></blockquote>
+<blockquote><br /></blockquote>
+<blockquote>If this is all working fine, then you can start your fetchmail daemon with the command:<br /></blockquote>
+<blockquote><em>$ fetchmail</em></blockquote>
+<p> </p>
+<p> </p>
+<!-- google_ad_section_end -->
+<br/><center>
+<script type="text/javascript"><!--
+google_ad_client = "pub-2960179611211892";
+google_alternate_ad_url = "http://www.alternate-ad-url.com/alternate";
+google_ad_width = 336; 
+google_ad_height = 280; 
+google_ad_format = "336x280_as"; 
+google_ad_type = "text_image"; 
+google_ad_channel = ""; 
+google_color_border = "848484";
+google_font = "Verdana";
+google_font_size = "10pt";
+google_color_bg = "848484"; 
+google_color_link = "0F0F0F"; 
+google_color_text = "333333"; 
+google_color_url = "0F0F0F"; 
+google_ui_features = "rc:6";
+//--> 
+</script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</center>
+
+<p>
+<font color="#124F7D">
+<p>Note:
+<p>
+<strong>         We use </strong> Hosting and <strong>VPS</strong> Hosting, from:
+<a href= "http://www.star-host.org">www.star-host.org</a>
+<p>We like and trust them.
+<p>Good prices, high security.
+</font></script></td>
+</tr>
+
+</table>
+<span class="article_separator">&nbsp;</span>
+
+													</div>	
+				</div>
+				
+			</div>
+		</div>
+		<div id="content_bottom"></div>
+		<div class="clr"></div>
+	</div>				
+		
+	
+	</div>	
+	<div id="footer">
+		<p>
+			Valid <a href="http://validator.w3.org/check/referer">XHTML</a> and <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a>.
+		</p>
+		<div id="sgf">
+			 	www.linuxexpert.ro 		</div>
+	</div>	
+</body>
+</html>
