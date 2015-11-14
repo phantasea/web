@@ -1,0 +1,954 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+     
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    
+<head>   
+    
+     
+    <script type="text/javascript" src="http://c.csdnimg.cn/pubfooter/js/tracking.js" charset="utf-8"></script>  
+
+    <script type="text/javascript">
+        var protocol = window.location.protocol;
+        document.write('<script type="text/javascript" src="' + protocol + '//csdnimg.cn/pubfooter/js/repoAddr2.js?v=' + Math.random() + '"></' + 'script>');
+    </script>
+
+     <script id="allmobilize" charset="utf-8" src="http://a.yunshipei.com/46aae4d1e2371e4aa769798941cef698/allmobilize.min.js"></script>
+ <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+    <title>Bash String Manipulation Examples – Length, Substring, Find and Replace - 宁静志远 淡泊明志
+        - 博客频道 - CSDN.NET</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="这里演示了加密文本，利用特定字符来定位位置sockdata=PHIDOHBBNIEFMNDIBJLENNEBBODILAEAPMIHHKMKBOKILJOJHGPDDBEOPMCEMLAPJNFDLOJCPHEAMEDNPINODFMBMLFPFHLLGBNPPHEEMNFMNMCGNFEJFKIDOGBECBFJEBICBBLPMNHJAHJPCLNHKKEJMBLLNKFFKMPJJH" />
+    <script src="http://static.blog.csdn.net/scripts/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://static.blog.csdn.net/scripts/ad.js?v=1.1"></script>
+        <!--new top-->
+               <link rel="stylesheet" href="http://static.csdn.net/public/common/toolbar/css/index.css">        <!--new top-->
+
+    <link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/default/css/style.css?v=1.1" />
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/daniel_zwn/rss/list" />
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico" />
+    <link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/default.css" />
+ 
+
+
+</head>
+<body>
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="http://static.csdn.net/public/common/toolbar/js/html.js" type="text/javascript"></script>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/daniel_zwn">宁静志远 淡泊明志</a></h2>
+            <h3>星星点点，默默努力着</h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>
+            
+                <li id="btnContents"><a href="http://blog.csdn.net/daniel_zwn?viewmode=contents"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_mulu'])">
+                    <img src="http://static.blog.csdn.net/images/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/daniel_zwn?viewmode=list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_zhaiyao'])">
+                    <img src="http://static.blog.csdn.net/images/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/daniel_zwn/rss/list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_RSS'])">
+                    <img src="http://static.blog.csdn.net/images/ico_rss.gif">订阅</span></a></li>                
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "daniel_zwn";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/daniel_zwn";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod='popu_3' > 
+
+<a href="http://bbs.csdn.net/topics/391857175">
+<font color=red>想听课？来发话题吧
+</font></a>
+&nbsp;&nbsp;&nbsp;
+
+<a href="http://www.csdn.net/app/">
+<font color=blue>CSDN APP 博客上线
+</font></a>
+&nbsp;&nbsp;&nbsp;
+<a href="http://bbs.csdn.net/topics/391856835">
+<font color=red>双11赚“双喜“，奖励多多
+</font></a>
+&nbsp;&nbsp;&nbsp;
+<a href="http://blog.csdn.net/blogdevteam/article/details/49612641">
+<font color=blue>有奖征文：云服务器使用初体验 
+</font></a>
+</div>                        </div>
+                        
+
+<!--AdForward Begin:-->
+<script type="text/javascript" ads-src="http://csdnim.qtmojo.com/main/s?user=csdn|blog|fumeiti&db=csdnim&border=0&local=yes&js=ie" src="http://creatim.qtmojo.cn/td/AllyesDeliver.min.js" charset="gbk"></script>
+<!--AdForward End-->
+
+  
+<link href="http://static.blog.csdn.net/css/comment1.css" type="text/css" rel="stylesheet" />
+<link href="http://static.blog.csdn.net/css/style1.css" type="text/css" rel="stylesheet" />
+<script language='JavaScript' type='text/javascript' src='http://download.csdn.net/js/jquery.cookie.js'></script>
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/search-service/main.js"></script>
+<link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0" />
+<script type="text/javascript" src="http://static.blog.csdn.net/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS_HTML"></script>
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+           
+            var isBole = false;
+            
+          
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Repost"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="/daniel_zwn/article/details/7328319">
+        Bash String Manipulation Examples – Length, Substring, Find and Replace            
+        </a></span>
+    </h1>
+</div>
+
+   
+
+    <div class="article_manage">
+    <span class="link_postdate">2012-03-07 12:47</span>
+    <span class="link_view" title="阅读次数">844人阅读</span>
+    <span class="link_comments" title="评论次数"><a href="#comments" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(0)</span>
+    <span class="link_collect"><a href="javascript:void(0);" onclick="javascript:collectArticle('Bash String Manipulation Examples – Length, Substring, Find and Replace','7328319');return false;" title="收藏">收藏</a></span>
+    <span class="link_report"><a href="#report"  onclick="javascript:report(7328319,2);return false;" title="举报">举报</a></span>
+    
+</div>
+<div class="tag2box"><a href='http://www.csdn.net/tag/bash' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">bash</a><a href='http://www.csdn.net/tag/string' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">string</a><a href='http://www.csdn.net/tag/shell' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">shell</a><a href='http://www.csdn.net/tag/command' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">command</a><a href='http://www.csdn.net/tag/variables' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">variables</a><a href='http://www.csdn.net/tag/ebook' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">ebook</a></div>
+
+  
+
+  
+  
+     
+
+<div id="article_content" class="article_content">
+
+<div class="headline_area">
+<h1 class="entry-title"><span style="font-weight:normal; font-size:12px">by <span class="author vcard fn">
+Sasikala</span> on <abbr class="published" title="2010-07-23">July 23, 2010 &nbsp;source link:<a href="http://www.thegeekstuff.com/2010/07/bash-string-manipulation/">http://www.thegeekstuff.com/2010/07/bash-string-manipulation/</a></abbr></span></h1>
+</div>
+<div class="format_text entry-content">
+<div style="padding-bottom:5px; margin:7px 0px 6px; padding-left:5px; padding-right:5px; padding-top:5px">
+<div style="padding-bottom:2px; padding-left:2px; width:90px; padding-right:2px; float:left; padding-top:2px">
+</div>
+<div></div>
+</div>
+<p>In bash shell, when you use a dollar sign followed by a variable name, shell expands the variable with its value. This feature of shell is called parameter expansion.</p>
+<p>But parameter expansion has numerous other forms which allow you to expand a parameter and modify the value or substitute other values in the expansion process. In this article, let us review how to use the parameter expansion concept for string manipulation
+ operations.</p>
+<p>This article is part of the on-going bash tutorial series. Refer to our earlier article on
+<a href="http://www.thegeekstuff.com/2010/06/bash-shell-brace-expansion/">bash { } expansion</a>.<br>
+<span id="more-5264"></span></p>
+<h3>1. Identify String Length inside Bash Shell Script</h3>
+<pre>${#string}</pre>
+<p>The above format is used to get the length of the given bash variable.</p>
+<pre>$ cat len.sh
+#! /bin/bash
+
+var=&quot;Welcome to the geekstuff&quot;
+
+echo ${#var}
+
+$ ./len.sh
+24
+</pre>
+<p>To understand more about bash variables, read <a href="http://www.thegeekstuff.com/2010/05/bash-variables/">
+6 Practical Bash Global and Local Variable Examples</a>.</p>
+<h3>2. Extract a Substring from a Variable inside Bash Shell Script</h3>
+<p>Bash provides a way to extract a substring from a string. The following example expains how to parse n characters starting from a particular position.</p>
+<pre>${string:position}</pre>
+<p>Extract substring from $string at $position</p>
+<pre>${string:position:length}</pre>
+<p>Extract $length of characters substring from $string starting from $position. In the below example, first echo statement returns the substring starting from 15th position. Second echo statement returns the 4 characters starting from 15th position. Length
+ must be the number greater than or equal to zero.</p>
+<pre>$ cat substr.sh
+#! /bin/bash
+
+var=&quot;Welcome to the geekstuff&quot;
+
+echo ${var:15}
+echo ${var:15:4}
+
+$ ./substr.sh
+geekstuff
+geek
+</pre>
+<p>Also, refer to our earlier article to understand more about <a href="http://www.thegeekstuff.com/2010/05/bash-shell-special-parameters/">
+$*, $@, $#, $$, $!, $?, $-, $_ bash special parameters</a>.</p>
+<h3>3. Shortest Substring Match</h3>
+<p>Following syntax deletes the shortest match of $substring from front of $string</p>
+<pre>${string#substring}</pre>
+<p>Following syntax deletes the shortest match of $substring from back of $string</p>
+<pre>${string%substring}</pre>
+<p>Following sample shell script explains the above two shortest substring match concepts.</p>
+<pre>$ cat shortest.sh
+#! /bin/bash
+
+filename=&quot;bash.string.txt&quot;
+
+echo ${filename#*.}
+echo ${filename%.*}
+
+$ ./shortest.sh
+After deletion of shortest match from front: string.txt
+After deletion of shortest match from back: bash.string
+</pre>
+<p>In the first echo statement substring ‘*.’ matches the characters and a dot, and # strips from the front of the string, so it strips the substring “bash.” from the variable called filename. In second echo statement substring ‘.*’ matches the substring starts
+ with dot, and % strips from back of the string, so it deletes the substring ‘.txt’</p>
+<h3>4. Longest Substring Match</h3>
+<p>Following syntax deletes the longest match of $substring from front of $string</p>
+<pre>${string##substring}</pre>
+<p>Following syntax deletes the longest match of $substring from back of $string</p>
+<pre>${string%%substring}</pre>
+<p>Following sample shell script explains the above two longest substring match concepts.</p>
+<pre>$ cat longest.sh
+#! /bin/bash
+
+filename=&quot;bash.string.txt&quot;
+
+echo &quot;After deletion of longest match from front:&quot; ${filename##*.}
+echo &quot;After deletion of longest match from back:&quot; ${filename%%.*}
+
+$ ./longest.sh
+After deletion of longest match from front: txt
+After deletion of longest match from back: bash
+</pre>
+<p>In the above example, ##*. strips longest match for ‘*.’ which matches “bash.string.” so after striping this, it prints the remaining txt. And %%.* strips the longest match for .* from back which matches “.string.txt”, after striping&nbsp; it returns “bash”.</p>
+<h3>5. Find and Replace String Values inside Bash Shell Script</h3>
+<h4>Replace only first match</h4>
+<pre>${string/pattern/replacement}</pre>
+<p>It matches the pattern in the variable $string, and replace only the first match of the pattern with the replacement.</p>
+<pre>$ cat firstmatch.sh
+#! /bin/bash
+
+filename=&quot;bash.string.txt&quot;
+
+echo &quot;After Replacement:&quot; ${filename/str*./operations.}
+
+$ ./firstmatch.sh
+After Replacement: bash.operations.txt
+</pre>
+<h4>Replace all the matches</h4>
+<pre>${string//pattern/replacement}</pre>
+<p>It replaces all the matches of pattern with replacement.</p>
+<pre>$ cat allmatch.sh
+#! /bin/bash
+
+filename=&quot;Path of the bash is /bin/bash&quot;
+
+echo &quot;After Replacement:&quot; ${filename//bash/sh}
+
+$ ./allmatch.sh
+After Replacement: Path of the sh is /bin/sh
+</pre>
+<p>Taking about find and replace, refer to our earlier articles – <a href="http://www.thegeekstuff.com/2009/09/unix-sed-tutorial-replace-text-inside-a-file-using-substitute-command/">
+sed substitute examples</a> and <a href="http://www.thegeekstuff.com/2009/04/vi-vim-editor-search-and-replace-examples/">
+Vim find and replace</a>.</p>
+<h4>Replace beginning and end</h4>
+<pre>${string/#pattern/replacement</pre>
+<p>Following syntax replaces with the replacement string, only when the pattern matches beginning of the $string.</p>
+<pre>${string/%pattern/replacement</pre>
+<p>Following syntax replaces with the replacement string, only when the pattern matches at the end of the given $string.</p>
+<pre>$ cat posmatch.sh
+#! /bin/bash
+
+filename=&quot;/root/admin/monitoring/process.sh&quot;
+
+echo &quot;Replaced at the beginning:&quot; ${filename/#\/root/\/tmp}
+echo &quot;Replaced at the end&quot;: ${filename/%.*/.ksh}
+
+$ ./posmatch.sh
+Replaced at the beginning: /tmp/admin/monitoring/process.sh
+Replaced at the end: /root/admin/monitoring/process.ksh
+</pre>
+<h3>Recommended Reading</h3>
+<p><a href="http://www.thegeekstuff.com/bash-101-hacks-ebook/" rel="nofollow"><img class="alignright" title="Bash 101 Hacks" src="http://static.thegeekstuff.com/images/bash-132.png" alt=""></a><strong><a href="http://www.thegeekstuff.com/bash-101-hacks-ebook/" rel="nofollow">Bash
+ 101 Hacks</a>, by Ramesh Natarajan</strong>. I spend most of my time on Linux environment. So, naturally I’m a huge fan of Bash command line and shell scripting. 15 years back, when I was working on different flavors of *nix, I used to write lot of code on
+ C shell and Korn shell. Later years, when I started working on Linux as system administrator, I pretty much automated every possible task using Bash shell scripting. Based on my Bash experience, I’ve written Bash 101 Hacks eBook that contains 101 practical
+ examples on both Bash command line and shell scripting. If you’ve been thinking about mastering Bash, do yourself a favor and read this book, which will help you take control of your Bash command line and shell scripting.</p>
+</div>
+    
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox" style="float: right;">
+<a href="#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"  style="background-position:0 -52px !important"></a>
+<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"style="background-position:0 -104px !important"></a>
+<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"style="background-position:0 -260px !important"></a>
+<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"style="background-position:0 -208px !important"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"style="background-position:0 -1612px !important" ></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   <link rel="stylesheet" href="http://static.blog.csdn.net/css/blog_detail.css" />
+
+    
+<!--172.16.140.12-->
+<ul class="article_next_prev">
+            <li class="prev_article"><span  onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian']);location.href='/daniel_zwn/article/details/5702972';">上一篇</span><a href="/daniel_zwn/article/details/5702972" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian'])">柔性项目管理</a></li>
+            <li class="next_article"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian']);location.href='/daniel_zwn/article/details/7401058';">下一篇</span><a href="/daniel_zwn/article/details/7401058" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian'])">How to Become a Freelance WebDeveloper</a></li>
+</ul>
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+ 
+
+        <div id="digg" ArticleId="7328319">
+            <dl id="btnDigg" class="digg digg_disable">
+               
+                 <dt>顶</dt>
+                <dd>0</dd>
+            </dl>
+            <dl id="btnBury" class="digg digg_disable">
+              
+                  <dt>踩</dt>
+                <dd>0</dd>
+            </dl>
+        </div>
+      
+</div>
+<div id="suggest"></div>
+         <script  language="javascript" type='text/javascript'>     
+             $(function(){
+                 $.get("/daniel_zwn/svc/GetSuggestContent/7328319",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+<style>
+.blog-ass-articl dd {
+color: #369;
+width: 99%; /*修改行*/
+float: left;
+overflow: hidden;
+font: normal normal 12px/23px "SimSun";
+height: 23px;
+margin: 0;
+padding: 0 0 0 10px;
+margin-right: 30px;
+background: url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;
+}
+</style>
+
+<dl class="blog-ass-articl" id="res-relatived" > 
+     <dt><span>猜你在找</span></dt>    
+
+
+   
+
+
+    <div id="adCollege" style="width: 42%;float: left;"> 
+        <script src="http://csdnimg.cn/jobreco/job_reco.js" type="text/javascript"></script> 
+        <script type="text/javascript">
+            csdn.position.showEdu({
+                sourceType: "blog",
+                searchType: "detail",
+                searchKey: "7328319",
+                username: "",
+                recordcount: "5",
+                containerId: "adCollege" //容器DIV的id。 
+            });
+        </script> 
+    </div>  
+
+    
+     <div id="res"  data-mod="popu_36"  class="tracking-ad" style="width: 42%;float: left;margin-right: 30px;"></div>
+   
+</dl>
+
+
+
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            var searchtitletags = 'Bash String Manipulation Examples – Length, Substring, Find and Replace' + ',' + $("#tags").html();
+            searchService({
+                index: 'blog',
+                query: searchtitletags,
+                from: 5,
+                size: 5,
+                appendTo: '#res',
+                url: 'recommend',
+                his: 2,
+                client: "blog_cf_enhance",
+                tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+            });
+        }, 500);
+    });    
+
+ </script>   
+
+    <div id="ad_cen">        
+<!--AdForward Begin:-->
+<script type="text/javascript" src="http://csdnim.qtmojo.com/main/s?user=csdn|blog|banner2&db=csdnim&border=0&local=yes&js=ie" charset="gbk"></script>
+<!--AdForward End-->    </div>  
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list">
+    </div>
+    <div id="comment_bar">
+    </div>
+    <div id="comment_form">
+    </div>
+
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '7328319';
+    var commentscount = 0;
+    var islock = false
+</script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/comment.js"></script>
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top"  style="bottom:60px;">
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="http://static.blog.csdn.net/images/blog-icon-reply.png" alt="快速回复">
+        </a>    
+
+    <a id="d-top-a" class="btn btn-top backtop"  style="display: none;" title="返回顶部" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_huidaodingbu'])" style="">         
+         <img src="http://static.blog.csdn.net/images/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+<div class="tag_list" style="display:none"></div>
+  <script  language="javascript" type='text/javascript'>     
+      $(function(){
+              setTimeout(function(){
+                  $.get("/daniel_zwn/svc/GetTagContent",function(data){
+                      $(".tag_list").html(data).show();
+                  });     
+              });
+          },500);                       
+ </script> 
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });
+        },200);  
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }    
+
+</script>
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/daniel_zwn" target="_blank">
+    <img src="http://avatar.csdn.net/4/1/A/1_daniel_zwn.jpg" title="访问我的空间" style="max-width:90%"/>
+    </a>
+    <br />
+    <span><a href="http://my.csdn.net/daniel_zwn" class="user_name" target="_blank">daniel_zwn</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter"  title="[发私信]" onclick="window.open('http://msg.csdn.net/letters/model?receiver=daniel_zwn','_blank','height=350,width=700');_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_sixin'])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>17115次</span></li>
+    <li>积分：<span>284</span> </li>    
+    <li >等级： <span style="position:relative;display:inline-block;z-index:1" >
+            <img src="http://c.csdnimg.cn/jifen/images/xunzhang/jianzhang/blog2.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：284 </div>
+        </span>  </li>
+    <li>排名：<span>千里之外</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>9篇</span></li>
+    <li>转载：<span>5篇</span></li>
+    <li>译文：<span>1篇</span></li>
+    <li>评论：<span>6条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字" /></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog" />
+        <input type="hidden" name="q" id="inputQ" />
+        <input type="hidden" name="t" value="blog" />
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";
+            window.location.href = url;
+        }   
+    });
+</script><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="/daniel_zwn/article/category/260355" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">C/C++</a><span>(0)</span>
+                </li>
+                 <li>
+                    <a href="/daniel_zwn/article/category/165742" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">C语言专题</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/daniel_zwn/article/category/260353" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">JAVA</a><span>(0)</span>
+                </li>
+                 <li>
+                    <a href="/daniel_zwn/article/category/260354" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">VC++</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/daniel_zwn/article/category/171991" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">一种生活</a><span>(0)</span>
+                </li>
+                 <li>
+                    <a href="/daniel_zwn/article/category/260356" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">数据库</a><span>(0)</span>
+                </li>
+                 <li>
+                    <a href="/daniel_zwn/article/category/260352" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">汇编</a><span>(0)</span>
+                </li>
+                 <li>
+                    <a href="/daniel_zwn/article/category/166143" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">窗外</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="/daniel_zwn/article/category/366167" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">转载——他山之石</a><span>(0)</span>
+                </li>
+                 <li>
+                    <a href="/daniel_zwn/article/category/705034" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">软件工程</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/daniel_zwn/article/category/705036" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">项目管理</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/daniel_zwn/article/category/1110332" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">自由职业</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/daniel_zwn/article/category/1111724" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">elance</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/daniel_zwn/article/category/1111725" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">odesk</a><span>(1)</span>
+                </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list">
+<!--归档统计-->
+<li><a href="/daniel_zwn/article/month/2012/08">2012年08月</a><span>(1)</span></li><li><a href="/daniel_zwn/article/month/2012/03">2012年03月</a><span>(2)</span></li><li><a href="/daniel_zwn/article/month/2010/06">2010年06月</a><span>(1)</span></li><li><a href="/daniel_zwn/article/month/2009/04">2009年04月</a><span>(1)</span></li><li><a href="/daniel_zwn/article/month/2008/02">2008年02月</a><span>(1)</span></li><li><a href="/daniel_zwn/article/month/2007/12">2007年12月</a><span>(1)</span></li><li><a href="/daniel_zwn/article/month/2007/10">2007年10月</a><span>(2)</span></li><li><a href="/daniel_zwn/article/month/2006/05">2006年05月</a><span>(1)</span></li><li><a href="/daniel_zwn/article/month/2006/01">2006年01月</a><span>(2)</span></li><li><a href="/daniel_zwn/article/month/2005/12">2005年12月</a><span>(3)</span></li>
+</div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="/daniel_zwn/article/details/1822482" title="javax.sound的简单使用。">javax.sound的简单使用。</a><span>(3232)</span>
+</li>
+<li>
+<a href="/daniel_zwn/article/details/579732" title="关于内存分配函数realloc()的思考">关于内存分配函数realloc()的思考</a><span>(2342)</span>
+</li>
+<li>
+<a href="/daniel_zwn/article/details/744132" title="VHDL语法学习笔记">VHDL语法学习笔记</a><span>(1443)</span>
+</li>
+<li>
+<a href="/daniel_zwn/article/details/7845448" title="Elance提现那点破事">Elance提现那点破事</a><span>(1218)</span>
+</li>
+<li>
+<a href="/daniel_zwn/article/details/555454" title="C语言中的可变长参数">C语言中的可变长参数</a><span>(1108)</span>
+</li>
+<li>
+<a href="/daniel_zwn/article/details/7328319" title="Bash String Manipulation Examples – Length, Substring, Find and Replace">Bash String Manipulation Examples – Length, Substring, Find and Replace</a><span>(844)</span>
+</li>
+<li>
+<a href="/daniel_zwn/article/details/584122" title="位域  (网络见的.)">位域  (网络见的.)</a><span>(832)</span>
+</li>
+<li>
+<a href="/daniel_zwn/article/details/7401058" title="How to Become a Freelance WebDeveloper">How to Become a Freelance WebDeveloper</a><span>(631)</span>
+</li>
+<li>
+<a href="/daniel_zwn/article/details/559711" title="日记，12.22 ">日记，12.22 </a><span>(627)</span>
+</li>
+<li>
+<a href="/daniel_zwn/article/details/561125" title="圣诞节，做个小结">圣诞节，做个小结</a><span>(596)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="/daniel_zwn/article/details/1822482" title="javax.sound的简单使用。">javax.sound的简单使用。</a><span>(4)</span>
+</li>
+<li>
+<a href="/daniel_zwn/article/details/555454" title="C语言中的可变长参数">C语言中的可变长参数</a><span>(1)</span>
+</li>
+<li>
+<a href="/daniel_zwn/article/details/559711" title="日记，12.22 ">日记，12.22 </a><span>(1)</span>
+</li>
+<li>
+<a href="/daniel_zwn/article/details/7401058" title="How to Become a Freelance WebDeveloper">How to Become a Freelance WebDeveloper</a><span>(0)</span>
+</li>
+<li>
+<a href="/daniel_zwn/article/details/7328319" title="Bash String Manipulation Examples – Length, Substring, Find and Replace">Bash String Manipulation Examples – Length, Substring, Find and Replace</a><span>(0)</span>
+</li>
+<li>
+<a href="/daniel_zwn/article/details/5702972" title="柔性项目管理">柔性项目管理</a><span>(0)</span>
+</li>
+<li>
+<a href="/daniel_zwn/article/details/4087520" title="test from Acc.">test from Acc.</a><span>(0)</span>
+</li>
+<li>
+<a href="/daniel_zwn/article/details/2112126" title="【转】使用Windows的启动菜单来启动Linux系统">【转】使用Windows的启动菜单来启动Linux系统</a><span>(0)</span>
+</li>
+<li>
+<a href="/daniel_zwn/article/details/1910729" title="『转』Fedora系统Eclipse不能Debug的解决方法 ">『转』Fedora系统Eclipse不能Debug的解决方法 </a><span>(0)</span>
+</li>
+<li>
+<a href="/daniel_zwn/article/details/1843025" title="fedora7 软件安装记事 播放MP3问题 EVA ">fedora7 软件安装记事 播放MP3问题 EVA </a><span>(0)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend">
+<ul>
+<li><a href="http://blog.csdn.net/xlgen157387/article/details/49781487" target="_blank">* Nginx初探</a></li>
+
+<li><a href="http://blog.csdn.net/xfxyy_sxfancy/article/details/49758323"  target="_blank">*编译器架构的王者LLVM——（6）多遍翻译的宏翻译系统</a></li>
+<li><a href="http://blog.csdn.net/chenyufeng1991/article/details/49765291" target="_blank">* 我的第一个Apple Watch小游戏——猜数字（Swift）</a></li>
+<li><a href="http://blog.csdn.net/lovehuangjiaju/article/details/49747437" target="_blank">*Spark源码阅读：第十节 Standalone运行模式解析</a></li>
+<li><a href="http://blog.csdn.net/coder_pig/article/details/49745363" target="_blank">* Android基础入门教程——8.3.16 Canvas API详解(Part 1)</a></li>
+<li><a href="http://blog.csdn.net/lmj623565791/article/details/49734867"target="_blank">*Android 一个改善的okHttp封装库</a></li>
+
+</ul></ul>
+</div>
+
+
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="/daniel_zwn/article/details/1822482#comments">javax.sound的简单使用。</a>
+    <p style="margin:0px;"><a href="/wh2010td" class="user_name">wh2010td</a>:
+想请教楼主一个问题，javax.sound.sampled不能import，是什么愿意呢？
+    </p>
+    </li>
+    <li>
+   
+         <a href="/daniel_zwn/article/details/1822482#comments">javax.sound的简单使用。</a>
+    <p style="margin:0px;"><a href="/Kyle_lwq" class="user_name">Kyle_lwq</a>:
+非常有用
+    </p>
+    </li>
+    <li>
+   
+         <a href="/daniel_zwn/article/details/555454#comments">C语言中的可变长参数</a>
+    <p style="margin:0px;"><a href="/preciousboy" class="user_name">preciousboy</a>:
+不错的资料
+    </p>
+    </li>
+    <li>
+   
+         <a href="/daniel_zwn/article/details/555454#comments">javax.sound的简单使用。</a>
+    <p style="margin:0px;"><a href="/pengpengwudi" class="user_name">pengpengwudi</a>:
+java不支持wma
+    </p>
+    </li>
+    <li>
+   
+         <a href="/daniel_zwn/article/details/555454#comments">javax.sound的简单使用。</a>
+    <p style="margin:0px;"><a href="/flying_all" class="user_name">flying_all</a>:
+谢谢
+    </p>
+    </li>
+    <li>
+   
+         <a href="/daniel_zwn/article/details/559711#comments">日记，12.22 </a>
+    <p style="margin:0px;"><a href="/小雨" class="user_name">小雨</a>:
+看完了，觉得每次你写的东西都是那样的深刻，好触及人的心灵！
+    </p>
+    </li>
+</ul>
+</div>
+
+
+<div id="custom_column_963687" class="panel">
+<ul class="panel_head"><span>朋友兄弟链接</span></ul>
+<ul class="panel_body">
+<ul><li><a href="http://blog.csdn.net/crystal521/" target=_blank>云老大</a></li><li><a href="http://blog.csdn.net/bm1408/" target=_blank>1哥，心中的牛人</a></li><li><a href="http://blog.csdn.net/nethaoke/" target=_blank>豪客，一个在苦难中挣扎的兄弟</a> (<a href="http://blog.csdn.net/nethaoke/" target=_blank>RSS</a>)</li></ul>
+</ul>
+</div>    </div>
+    <div class="clear">
+    </div>
+ </div>   
+            <div class="clear">
+            </div>
+        </div>
+        
+
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/cnick/cnick.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="http://medal.blog.csdn.net/showblogmedal.ashx?blogid=101177"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/JavaScript1.js"></script>
+
+    <script type="text/javascript" src="http://passport.csdn.net/content/loginbox/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script>
+<script type="text/javascript" src="http://www.csdn.net/ui/scripts/Csdn/counter.js"></script>
+<script type="text/javascript" src="http://ad.csdn.net/scripts/ad-blog.js"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a>"
+                    + "<a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+    });
+</script>
+
+
+
+
+    </div>
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnId="header_notice_num" wrapId="note1" count="5" subCount="5" type="text/javascript" src="http://static.csdn.net/public/common/toolbar/js/toolbar.js"></script>     <!--new top-->
+   
+    <link href="http://c.csdnimg.cn/comm_ask/css/ask_float_block.css" type="text/css" rel="stylesheet" />
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/wmd.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/showdown.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/prettify.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/apps/ask_float_block.js'></script>
+   
+</body>
+</html>   
+ 
