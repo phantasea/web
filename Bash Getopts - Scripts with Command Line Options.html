@@ -1,0 +1,1346 @@
+ <!DOCTYPE html>
+<html lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+<meta charset="UTF-8"/>
+<title>Bash Getopts - Scripts with Command Line Options</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="template" content="Genbu 1.3.0"/>
+<meta name="generator" content="WordPress 4.3.1"/>
+ 
+<meta name="description" content="This tutorial provides example code to process command line switches or options in bash scripts using getopts. bash getopts"/>
+<link rel="canonical" href="//tuxtweaks.com/2014/05/bash-getopts/"/>
+<link rel="publisher" href="//plus.google.com/u/0/Tuxtweaks/posts"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Bash Getopts - Scripts with Command Line Options"/>
+<meta property="og:description" content="This tutorial provides example code to process command line switches or options in bash scripts using getopts. bash getopts"/>
+<meta property="og:url" content="http://tuxtweaks.com/2014/05/bash-getopts/"/>
+<meta property="og:site_name" content="Tux Tweaks"/>
+<meta property="article:publisher" content="https://www.facebook.com/TuxTweaks"/>
+<meta property="article:author" content="https://www.facebook.com/TuxTweaks"/>
+<meta property="article:tag" content="bash"/>
+<meta property="article:tag" content="command line"/>
+<meta property="article:tag" content="getopts"/>
+<meta property="article:tag" content="HowTo"/>
+<meta property="article:tag" content="linux"/>
+<meta property="article:section" content="bash"/>
+<meta property="article:published_time" content="2014-05-21T10:32:26+00:00"/>
+<meta property="article:modified_time" content="2015-01-19T11:57:26+00:00"/>
+<meta property="og:updated_time" content="2015-01-19T11:57:26+00:00"/>
+<meta property="fb:admins" content="10206932678621722"/>
+<meta property="og:image" content="http://tuxtweaks.com/wp-content/uploads/2014/05/01_Getopts_wm.png"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:description" content="This tutorial provides example code to process command line switches or options in bash scripts using getopts. bash getopts"/>
+<meta name="twitter:title" content="Bash Getopts - Scripts with Command Line Options"/>
+<meta name="twitter:site" content="@tuxtweaks"/>
+<meta name="twitter:domain" content="Tux Tweaks"/>
+<meta name="twitter:image" content="http://tuxtweaks.com/wp-content/uploads/2014/05/01_Getopts_wm.png"/>
+<meta name="twitter:creator" content="@tuxtweaks"/>
+ 
+<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"http:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/tuxtweaks.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.3.1"}};
+			!function(a,b,c){function d(a){var c=b.createElement("canvas"),d=c.getContext&&c.getContext("2d");return d&&d.fillText?(d.textBaseline="top",d.font="600 32px Arial","flag"===a?(d.fillText(String.fromCharCode(55356,56812,55356,56807),0,0),c.toDataURL().length>3e3):(d.fillText(String.fromCharCode(55357,56835),0,0),0!==d.getImageData(16,16,1,1).data[0])):!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g;c.supports={simple:d("simple"),flag:d("flag")},c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.simple&&c.supports.flag||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+<style type="text/css">img.wp-smiley,img.emoji{display:inline!important;border:none!important;box-shadow:none!important;height:1em!important;width:1em!important;margin:0 .07em!important;vertical-align:-0.1em!important;background:none!important;padding:0!important;}</style>
+<link rel='stylesheet' id='theme-open-sans-font-css' href='//fonts.googleapis.com/css?family=Open+Sans%3A400%2C300%2C300italic%2C400italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic&#038;ver=1.3.0' type='text/css' media='all'/>
+<link rel='stylesheet' id='dashicons-css' href='//tuxtweaks.com/wp-includes/css/dashicons.min.css?ver=4.3.1' type='text/css' media='all'/>
+<link rel='stylesheet' id='parent-css' href='//tuxtweaks.com/wp-content/themes/genbu/style.min.css?ver=1.3.0' type='text/css' media='all'/>
+<link rel='stylesheet' id='style-css' href='//tuxtweaks.com/wp-content/themes/tuxlite/style.css?ver=1.0.0' type='text/css' media='all'/>
+<link rel='stylesheet' id='jetpack-top-posts-widget-css' href='//tuxtweaks.com/wp-content/plugins/jetpack/modules/widgets/top-posts/style.css?ver=20141013' type='text/css' media='all'/>
+<link rel='stylesheet' id='slb_core-css' href='//tuxtweaks.com/wp-content/plugins/simple-lightbox/client/css/app.css?ver=2.5.2' type='text/css' media='all'/>
+<link rel='stylesheet' id='genericons-css' href='//tuxtweaks.com/wp-content/plugins/jetpack/_inc/genericons/genericons/genericons.css?ver=3.1' type='text/css' media='all'/>
+<link rel='stylesheet' id='jetpack_css-css' href='//tuxtweaks.com/wp-content/plugins/jetpack/css/jetpack.css?ver=3.7.2' type='text/css' media='all'/>
+<script type='text/javascript' src='//tuxtweaks.com/wp-includes/js/jquery/jquery.js?ver=1.11.3'></script>
+<script type='text/javascript' src='//tuxtweaks.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<style type='text/css'>img#wpstats{display:none}</style>
+<style type="text/css" id="custom-header-css">.custom-header #site-title a,.custom-header #site-title a:hover{color:#444444;}</style>
+<style type="text/css" id="custom-background-css">body.custom-background{background-color:#1a4e88;}</style>
+ 
+<meta name="verify-v1" content="/z0sw8KHnPyRFdtZTJe783xAQco1K32IK2XjXqMg6tg="/>
+ 
+ 
+<meta name="y_key" content="d5729f2bedb56037"/>
+ 
+ 
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-5579814-2', 'tuxtweaks.com');
+  ga('require', 'displayfeatures');
+  ga('send', 'pageview');
+
+</script>
+ 
+</head>
+<body class="wordpress ltr en en-us child-theme y2015 m11 d18 h07 wednesday logged-out custom-background custom-header display-header-text singular singular-post singular-post-2813 post-format-standard no-js sidebar-primary-active sidebar-secondary-active menu-primary-active menu-footer-active wp-is-not-mobile custom-header-no-image custom-header-text custom-header-text-color layout-sidebar1-content" dir="ltr" itemscope="itemscope" itemtype="http://schema.org/WebPage"><script type="text/javascript">
+//<![CDATA[
+try{(function(a){var b="http://",c="tuxtweaks.com",d="/cdn-cgi/cl/",e="img.gif",f=new a;f.src=[b,c,d,e].join("")})(Image)}catch(e){}
+//]]>
+</script>
+<script type="text/javascript">document.body.className = document.body.className.replace('no-js','js');</script>
+<div id="container">
+<div class="skip-link">
+<a class="screen-reader-text" href="#content">Skip to content</a>
+</div>
+<header id="header" role="banner" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
+<div id="branding">
+<h1 id="site-title" itemprop="headline"><a href="http://tuxtweaks.com" rel="home">Tux Tweaks</a></h1> <h2 id="site-description" itemprop="description">Linux Tweaks, HowTo&#039;s and Reviews</h2>
+</div> 
+</header> 
+<nav id="menu-primary" class="menu" role="navigation" aria-label="Navigation Menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+<div class="menu-container menu-dropdown menu-search">
+<div id="menu-toggle-primary" class="menu-toggle">
+<a class="menu-toggle-open" href="#menu-primary"><span class="screen-reader-text">Main</span></a>
+<a class="menu-toggle-close" href="#menu-toggle-primary"><span class="screen-reader-text">Main</span></a>
+</div> 
+<div class="wrap"><ul id="menu-primary-items" class="menu-items"><li id="menu-item-2915" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-2915"><a href="http://tuxtweaks.com/">Home</a></li>
+<li id="menu-item-2916" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2916"><a href="http://tuxtweaks.com/about/">About This Site</a></li>
+<li id="menu-item-2917" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2917"><a href="http://tuxtweaks.com/privacy-policy/">Privacy Policy</a></li>
+<li id="menu-item-2919" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2919"><a href="http://tuxtweaks.com/support-tux-tweaks/">Support Tux Tweaks</a></li>
+<li id="menu-item-2918" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2918"><a href="http://tuxtweaks.com/hosting/">Hosting</a></li>
+</ul></div>
+<form role="search" method="get" class="search-form" action="//tuxtweaks.com/">
+<a href="#search-menu" class="search-toggle"><span class="screen-reader-text">Expand Search Form</span></a>
+<input id="search-menu" type="search" class="search-field" placeholder="Search&hellip;" value="" name="s"/>
+<button class="search-submit button"><span class="screen-reader-text">Search</span></button>
+</form>
+</div> 
+</nav> 
+<div id="main">
+<div class="main-inner">
+<div class="main-wrap">
+<main id="content" class="content" role="main" itemprop="mainContentOfPage" itemscope itemtype="http://schema.org/Blog">
+<div class="content-entry-wrap">
+<article id="post-2813" class="entry post publish author-Linerd post-2813 format-standard has-post-thumbnail category-bash category-command-line category-howto category-linux post_tag-bash post_tag-command-line post_tag-getopts post_tag-howto post_tag-linux" itemscope="itemscope" itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
+<div class="entry-wrap">
+<header class="entry-header">
+<h1 class="entry-title" itemprop="headline"><a href="http://tuxtweaks.com/2014/05/bash-getopts/" rel="bookmark" itemprop="url">Bash Getopts &#8211; Scripts with Command Line Options</a></h1>
+<div class="entry-byline">
+<span class="entry-author" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person"><a href="http://tuxtweaks.com/author/Linerd/" title="Posts by Linerd" rel="author" class="url fn n" itemprop="url"><span itemprop="name">Linerd</span></a></span>
+<time class="entry-published updated" datetime="2014-05-21T10:32:26-05:00" title="Wednesday, May 21, 2014, 10:32 am">May 21, 2014</time>
+<a href="http://tuxtweaks.com/2014/05/bash-getopts/#comments" class="comments-link" itemprop="discussionURL">4</a> </div> 
+</header> 
+<div class="entry-content" itemprop="articleBody">
+<div class="wpInsert wpInsertInPostAd wpInsertRight" style="float: right; margin: 5px 5px 30px 5px; padding: 0px;"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ 
+<ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-1081038784488579" data-ad-slot="8068946416"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div><p>I've always wanted to know how to create command line options for my Bash scripts. After some research I found there are two functions available to handle this; <strong>getopt</strong> and <strong>getopts</strong>. I'm not going to get into the debate about which one is better. <strong>getopts</strong> is a shell builtin and seems a little easier to implement than <strong>getopt</strong>, so I'll go with that for now.</p>
+<p><span id="more-2813"></span></p>
+<h2>bash <strong>getopts</strong></h2>
+<p>I started out just trying to figure out how to process command line switches in my scripts. Eventually, I added some other useful functionality that makes this a good starting template for any interactive script. I've also included a help function with text formatting to make it a little easier to read.</p>
+<p>Rather than go into a lengthy explanation of how <strong>getopts</strong> works in <strong>bash</strong>, I think it's simpler to just show some working code in a script.</p>
+<div class="term"></p>
+<pre>#!/bin/bash
+
+######################################################################
+#This is an example of using getopts in Bash. It also contains some
+#other bits of code I find useful.
+#Author: Linerd
+#Website: http://tuxtweaks.com/
+#Copyright 2014
+#License: Creative Commons Attribution-ShareAlike 4.0
+#http://creativecommons.org/licenses/by-sa/4.0/legalcode
+######################################################################
+
+#Set Script Name variable
+SCRIPT=`basename ${BASH_SOURCE[0]}`
+
+#Initialize variables to default values.
+OPT_A=A
+OPT_B=B
+OPT_C=C
+OPT_D=D
+
+#Set fonts for Help.
+NORM=`tput sgr0`
+BOLD=`tput bold`
+REV=`tput smso`
+
+#Help function
+function HELP {
+  echo -e \\n"Help documentation for ${BOLD}${SCRIPT}.${NORM}"\\n
+  echo -e "${REV}Basic usage:${NORM} ${BOLD}$SCRIPT file.ext${NORM}"\\n
+  echo "Command line switches are optional. The following switches are recognized."
+  echo "${REV}-a${NORM}  --Sets the value for option ${BOLD}a${NORM}. Default is ${BOLD}A${NORM}."
+  echo "${REV}-b${NORM}  --Sets the value for option ${BOLD}b${NORM}. Default is ${BOLD}B${NORM}."
+  echo "${REV}-c${NORM}  --Sets the value for option ${BOLD}c${NORM}. Default is ${BOLD}C${NORM}."
+  echo "${REV}-d${NORM}  --Sets the value for option ${BOLD}d${NORM}. Default is ${BOLD}D${NORM}."
+  echo -e "${REV}-h${NORM}  --Displays this help message. No further functions are performed."\\n
+  echo -e "Example: ${BOLD}$SCRIPT -a foo -b man -c chu -d bar file.ext${NORM}"\\n
+  exit 1
+}
+
+#Check the number of arguments. If none are passed, print help and exit.
+NUMARGS=$#
+echo -e \\n"Number of arguments: $NUMARGS"
+if [ $NUMARGS -eq 0 ]; then
+  HELP
+fi
+
+### Start getopts code ###
+
+#Parse command line flags
+#If an option should be followed by an argument, it should be followed by a ":".
+#Notice there is no ":" after "h". The leading ":" suppresses error messages from
+#getopts. This is required to get my unrecognized option code to work.
+
+while getopts :a:b:c:d:h FLAG; do
+  case $FLAG in
+    a)  #set option "a"
+      OPT_A=$OPTARG
+      echo "-a used: $OPTARG"
+      echo "OPT_A = $OPT_A"
+      ;;
+    b)  #set option "b"
+      OPT_B=$OPTARG
+      echo "-b used: $OPTARG"
+      echo "OPT_B = $OPT_B"
+      ;;
+    c)  #set option "c"
+      OPT_C=$OPTARG
+      echo "-c used: $OPTARG"
+      echo "OPT_C = $OPT_C"
+      ;;
+    d)  #set option "d"
+      OPT_D=$OPTARG
+      echo "-d used: $OPTARG"
+      echo "OPT_D = $OPT_D"
+      ;;
+    h)  #show help
+      HELP
+      ;;
+    \?) #unrecognized option - show help
+      echo -e \\n"Option -${BOLD}$OPTARG${NORM} not allowed."
+      HELP
+      #If you just want to display a simple error message instead of the full
+      #help, remove the 2 lines above and uncomment the 2 lines below.
+      #echo -e "Use ${BOLD}$SCRIPT -h${NORM} to see the help documentation."\\n
+      #exit 2
+      ;;
+  esac
+done
+
+shift $((OPTIND-1))  #This tells getopts to move on to the next argument.
+
+### End getopts code ###
+
+
+### Main loop to process files ###
+
+#This is where your main file processing will take place. This example is just
+#printing the files and extensions to the terminal. You should place any other
+#file processing tasks within the while-do loop.
+
+while [ $# -ne 0 ]; do
+  FILE=$1
+  TEMPFILE=`basename $FILE`
+  #TEMPFILE="${FILE##*/}"  #This is another way to get the base file name.
+  FILE_BASE=`echo "${TEMPFILE%.*}"`  #file without extension
+  FILE_EXT="${TEMPFILE##*.}"  #file extension
+
+
+  echo -e \\n"Input file is: $FILE"
+  echo "File withouth extension is: $FILE_BASE"
+  echo -e "File extension is: $FILE_EXT"\\n
+  shift  #Move on to next input file.
+done
+
+### End main loop ###
+
+exit 0
+</pre>
+<p></div>
+<p>Paste the above text into a text editor and then save it somewhere in your executable path. I chose to call the script <em><strong>options</strong></em> and I saved it under <strong><em>/home/linerd/bin</em></strong>. Once you save it, make sure to make it executable.</p>
+<div class="term">chmod +x ~/bin/options</div>
+<p>Now you can run the script. Try running it with the <strong>-h</strong> switch to show the help information.</p>
+<div class="term">options -h</div>
+<p>Now try running it with an unsupported option.</p>
+<div class="term">options -z</div>
+<p>Finally, getopts can handle your command line options in any order. The only rule is that the file or files you are processing have to come after all of the option switches.</p>
+<div class="term">options -d bar -c chu -b man -a foo example1.txt example2.txt</div>
+<p>So you can see from these examples how you can set variables in your scripts with command line options. There's more  going on than just getopts in this script, but I think these are valuable additions that make this a good starting template for new scripts. If you'd like to learn more about bash getopts, you can find the documentation buried deep within the bash man page in the "Builtins" section. You can also find info in the <a title="Getopts - Bash Reference Manual" href="http://www.gnu.org/software/bash/manual/html_node/Bourne-Shell-Builtins.html" target="_blank">Bash Reference Manual</a>.</p>
+<h2>What Next?</h2>
+<p>So what will you use <strong>getopts</strong> for? Let me know in the comments.</p>
+<p>&nbsp;</p>
+<p>Copyright TuxTweaks.com. This content originally appeared at <a title="bash getopts" href="http://tuxtweaks.com/2014/05/bash-getopts/"><span id="sample-permalink" tabindex="-1">http://tuxtweaks.com/2014/05/<span id="editable-post-name" title="Temporary permalink. Click to edit this part.">bash-getopts</span>/</span></a></p>
+<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-facebook"><a rel="nofollow" data-shared="sharing-facebook-2813" class="share-facebook sd-button share-icon" href="http://tuxtweaks.com/2014/05/bash-getopts/?share=facebook" target="_blank" title="Share on Facebook"><span>Facebook</span></a></li><li class="share-twitter"><a rel="nofollow" data-shared="sharing-twitter-2813" class="share-twitter sd-button share-icon" href="http://tuxtweaks.com/2014/05/bash-getopts/?share=twitter" target="_blank" title="Click to share on Twitter"><span>Twitter</span></a></li><li class="share-google-plus-1"><a rel="nofollow" data-shared="sharing-google-2813" class="share-google-plus-1 sd-button share-icon" href="http://tuxtweaks.com/2014/05/bash-getopts/?share=google-plus-1" target="_blank" title="Click to share on Google+"><span>Google</span></a></li><li class="share-reddit"><a rel="nofollow" data-shared="" class="share-reddit sd-button share-icon" href="http://tuxtweaks.com/2014/05/bash-getopts/?share=reddit" target="_blank" title="Click to share on Reddit"><span>Reddit</span></a></li><li class="share-linkedin"><a rel="nofollow" data-shared="sharing-linkedin-2813" class="share-linkedin sd-button share-icon" href="http://tuxtweaks.com/2014/05/bash-getopts/?share=linkedin" target="_blank" title="Click to share on LinkedIn"><span>LinkedIn</span></a></li><li><a href="#" class="sharing-anchor sd-button share-more"><span>More</span></a></li><li class="share-end"></li></ul><div class="sharing-hidden"><div class="inner" style="display: none;"><ul><li class="share-email"><a rel="nofollow" data-shared="" class="share-email sd-button share-icon" href="http://tuxtweaks.com/2014/05/bash-getopts/?share=email" target="_blank" title="Click to email this to a friend"><span>Email</span></a></li><li class="share-pocket"><a rel="nofollow" data-shared="" class="share-pocket sd-button share-icon" href="http://tuxtweaks.com/2014/05/bash-getopts/?share=pocket" target="_blank" title="Click to share on Pocket"><span>Pocket</span></a></li><li class="share-end"></li><li class="share-tumblr"><a rel="nofollow" data-shared="" class="share-tumblr sd-button share-icon" href="http://tuxtweaks.com/2014/05/bash-getopts/?share=tumblr" target="_blank" title="Click to share on Tumblr"><span>Tumblr</span></a></li><li class="share-print"><a rel="nofollow" data-shared="" class="share-print sd-button share-icon" href="http://tuxtweaks.com/2014/05/bash-getopts/#print" target="_blank" title="Click to print"><span>Print</span></a></li><li class="share-end"></li><li class="share-pinterest"><a rel="nofollow" data-shared="sharing-pinterest-2813" class="share-pinterest sd-button share-icon" href="http://tuxtweaks.com/2014/05/bash-getopts/?share=pinterest" target="_blank" title="Click to share on Pinterest"><span>Pinterest</span></a></li><li class="share-end"></li></ul></div></div></div></div></div><div class="wpInsert wpInsertInPostAd wpInsertBelow" style="margin-left: auto; padding: 2px; margin-bottom: 10px; margin-top: 20px;"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ 
+<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-1081038784488579" data-ad-slot="5189993621"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div> </div> 
+<footer class="entry-footer">
+<div class="entry-meta">
+<span class="entry-terms category" itemprop="articleSection"><span class="term-name">Categories</span> <a href="http://tuxtweaks.com/category/bash/" rel="tag">bash</a>, <a href="http://tuxtweaks.com/category/command-line/" rel="tag">command line</a>, <a href="http://tuxtweaks.com/category/howto/" rel="tag">HowTo</a>, <a href="http://tuxtweaks.com/category/linux/" rel="tag">linux</a></span> <span class="entry-terms post_tag" itemprop="keywords"><span class="term-name">Tags</span> <a href="http://tuxtweaks.com/tag/bash/" rel="tag">bash</a>, <a href="http://tuxtweaks.com/tag/command-line/" rel="tag">command line</a>, <a href="http://tuxtweaks.com/tag/getopts/" rel="tag">getopts</a>, <a href="http://tuxtweaks.com/tag/howto/" rel="tag">HowTo</a>, <a href="http://tuxtweaks.com/tag/linux/" rel="tag">linux</a></span> </div>
+</footer> 
+</div> 
+</article> 
+<div class="loop-nav">
+<div class="prev"><span class="screen-reader-text">Previous:</span> <a href="http://tuxtweaks.com/2014/03/create-linux-mint-persistent-live-usb/" rel="prev">How To Create a Linux Mint Persistent Live USB</a></div> <div class="next"><span class="screen-reader-text">Next:</span> <a href="http://tuxtweaks.com/2014/08/netflix-linux-mint-17-ubuntu-14-04/" rel="next">Netflix on Linux Mint 17 and Ubuntu 14.04</a></div></div> 
+<section id="comments-template" class="comments-section">
+<div id="comments">
+<div class="comments-header">
+<h3 id="comments-number">4 Comments</h3>
+</div>
+<ol class="comment-list">
+<li id="comment-12937" class="comment even thread-even depth-1" itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/UserComments">
+<div class="comment-wrap">
+<div class="comment-meta">
+<cite class="comment-author" itemprop="creator" itemscope="itemscope" itemtype="http://schema.org/Person">thanks</cite><br/>
+<time class="comment-published" datetime="2015-05-14T18:59:21-05:00" title="Thursday, May 14, 2015, 6:59 pm" itemprop="commentTime">May 14, 2015 (6:59 PM)</time>
+<a class="comment-permalink" href="http://tuxtweaks.com/2014/05/bash-getopts/#comment-12937" itemprop="url">#</a>
+</div> 
+<div class="comment-content" itemprop="commentText">
+<p>i recently discovered bash had getopts -- I always used the tried and true method of SHIFT ;<br/>
+I will have to borrow you sample for my next bash tool.</p>
+</div> 
+<a itemprop="replyToUrl"rel='nofollow' class='comment-reply-link' href='http://tuxtweaks.com/2014/05/bash-getopts/?replytocom=12937#respond' onclick='return addComment.moveForm( "comment-12937", "12937", "respond", "2813" )' aria-label='Reply to thanks'>Reply</a>	</div><!-- .comment-wrap -->
+
+</li><!-- .comment --><li id="comment-12920" class="comment odd alt thread-odd thread-alt depth-1" itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/UserComments">
+
+	<div class="comment-wrap">
+		<div class="comment-meta">
+						<cite class="comment-author" itemprop="creator" itemscope="itemscope" itemtype="http://schema.org/Person"><a href='http://eyalgo.com/' rel='external nofollow' class='url fn n' itemprop="url"><span itemprop="name">Eyal Golan</span></a></cite><br />
+			<time class="comment-published" datetime="2015-04-01T09:27:23-05:00" title="Wednesday, April 1, 2015, 9:27 am" itemprop="commentTime">April 1, 2015 (9:27 AM)</time>
+			<a class="comment-permalink" href="http://tuxtweaks.com/2014/05/bash-getopts/#comment-12920" itemprop="url">#</a>
+					</div><!-- .comment-meta -->
+
+		<div class="comment-content" itemprop="commentText">
+			<p>Hi,<br />
+Thanks very much for this blog.<br />
+Really helpful.</p>
+		</div><!-- .comment-content -->
+
+		<a itemprop="replyToUrl"rel='nofollow' class='comment-reply-link' href='http://tuxtweaks.com/2014/05/bash-getopts/?replytocom=12920#respond' onclick='return addComment.moveForm( "comment-12920", "12920", "respond", "2813" )' aria-label='Reply to Eyal Golan'>Reply</a>	</div><!-- .comment-wrap -->
+
+</li><!-- .comment --><li id="comment-12470" class="comment even thread-even depth-1" itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/UserComments">
+
+	<div class="comment-wrap">
+		<div class="comment-meta">
+						<cite class="comment-author" itemprop="creator" itemscope="itemscope" itemtype="http://schema.org/Person">Ben Patridge</cite><br />
+			<time class="comment-published" datetime="2014-09-19T11:51:31-05:00" title="Friday, September 19, 2014, 11:51 am" itemprop="commentTime">September 19, 2014 (11:51 AM)</time>
+			<a class="comment-permalink" href="http://tuxtweaks.com/2014/05/bash-getopts/#comment-12470" itemprop="url">#</a>
+					</div><!-- .comment-meta -->
+
+		<div class="comment-content" itemprop="commentText">
+			<p>Thank you for this. It was extremely helpful!</p>
+		</div><!-- .comment-content -->
+
+		<a itemprop="replyToUrl"rel='nofollow' class='comment-reply-link' href='http://tuxtweaks.com/2014/05/bash-getopts/?replytocom=12470#respond' onclick='return addComment.moveForm( "comment-12470", "12470", "respond", "2813" )' aria-label='Reply to Ben Patridge'>Reply</a>	</div><!-- .comment-wrap -->
+
+</li><!-- .comment --><li id="comment-12379" class="comment odd alt thread-odd thread-alt depth-1" itemprop="comment" itemscope="itemscope" itemtype="http://schema.org/UserComments">
+
+	<div class="comment-wrap">
+		<div class="comment-meta">
+						<cite class="comment-author" itemprop="creator" itemscope="itemscope" itemtype="http://schema.org/Person">Dan Saint-Andre</cite><br />
+			<time class="comment-published" datetime="2014-05-23T17:46:51-05:00" title="Friday, May 23, 2014, 5:46 pm" itemprop="commentTime">May 23, 2014 (5:46 PM)</time>
+			<a class="comment-permalink" href="http://tuxtweaks.com/2014/05/bash-getopts/#comment-12379" itemprop="url">#</a>
+					</div><!-- .comment-meta -->
+
+		<div class="comment-content" itemprop="commentText">
+			<p>Another aspect of command-line option processing involves what I call "qualifiers."  When building an application, some options might be required. Other options might be completely, well, optional. Still other options might require one or more different options to clarify or modify the behavior of the primary option.  Some options might be mutually exclusive. I think that you get the idea.<br />
+While we can implement rules and program logic to enforce these "qualifiers," it might be nice to have something in a table or similar so that our application need not have pages of ad hoc code to do the work.</p>
+<p>Regards,<br />
+~~~ 0;-Dan</p>
+		</div><!-- .comment-content -->
+
+		<a itemprop="replyToUrl"rel='nofollow' class='comment-reply-link' href='http://tuxtweaks.com/2014/05/bash-getopts/?replytocom=12379#respond' onclick='return addComment.moveForm( "comment-12379", "12379", "respond", "2813" )' aria-label='Reply to Dan Saint-Andre'>Reply</a>	</div><!-- .comment-wrap -->
+
+</li><!-- .comment -->			</ol><!-- .comment-list -->
+
+		</div><!-- #comments-->
+
+	
+	
+							<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2014/05/bash-getopts/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="//tuxtweaks.com/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+																			<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p>							<p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" aria-required='true' required='required' /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" aria-describedby="email-notes" aria-required='true' required='required' /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" /></p>
+												<p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8"  aria-required="true" required="required"></textarea></p>						
+						<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='2813' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="55eac0a61f" /></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="200"/></p>					</form>
+							</div><!-- #respond -->
+			
+</section><!-- #comments-template -->								
+							
+						</div><!-- .content-entry-wrap-->
+
+						
+	
+
+					
+				</main><!-- #content -->
+
+				
+<div id="sidebar-primary-wrap">
+
+	<aside id="sidebar-primary" class="sidebar" role="complementary" aria-label="Sidebar 1 Sidebar" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
+
+		
+			<section id="wp_insert_ad_widget-6" class="widget widget-1 widget-first widget_wp_insert_ad_widget"><div class="wpInsert wpInsertAdWidget" style="margin: auto; padding: 0px;"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- SB Large Skyscraper 300 x 600 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:600px"
+     data-ad-client="ca-pub-1081038784488579"
+     data-ad-slot="6428465275"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div></section><section id="top-posts-2" class="widget widget-2 widget_top-posts"><h3 class="widget-title">Top Content</h3><ul>				<li>
+										<a href="http://tuxtweaks.com/2014/03/create-linux-mint-persistent-live-usb/" class="bump-view" data-bump-view="tp">
+						How To Create a Linux Mint Persistent Live USB					</a>
+									</li>
+							<li>
+										<a href="http://tuxtweaks.com/2014/05/bash-getopts/" class="bump-view" data-bump-view="tp">
+						Bash Getopts - Scripts with Command Line Options					</a>
+									</li>
+							<li>
+										<a href="http://tuxtweaks.com/2008/08/how-to-control-fan-speeds-in-ubuntu/" class="bump-view" data-bump-view="tp">
+						How To Control Fan Speeds in Ubuntu					</a>
+									</li>
+							<li>
+										<a href="http://tuxtweaks.com/2010/10/remove-old-kernels-in-ubuntu-with-one-command/" class="bump-view" data-bump-view="tp">
+						Remove Old Kernels In Ubuntu With One Command					</a>
+									</li>
+							<li>
+										<a href="http://tuxtweaks.com/2009/07/how-to-configure-apache-linux/" class="bump-view" data-bump-view="tp">
+						How to Configure Apache Web Server on Linux					</a>
+									</li>
+							<li>
+										<a href="http://tuxtweaks.com/2014/11/linux-network-speed-test/" class="bump-view" data-bump-view="tp">
+						Linux Network Speed Test					</a>
+									</li>
+							<li>
+										<a href="http://tuxtweaks.com/2009/08/fade-out-images-with-gimp/" class="bump-view" data-bump-view="tp">
+						Fade Out Images with GIMP					</a>
+									</li>
+							<li>
+										<a href="http://tuxtweaks.com/2013/12/install-screenfetch-linux/" class="bump-view" data-bump-view="tp">
+						How To Install screenFetch in Linux					</a>
+									</li>
+							<li>
+										<a href="http://tuxtweaks.com/2010/06/how-to-fade-the-edges-of-images-with-gimp/" class="bump-view" data-bump-view="tp">
+						How To Fade The Edges Of Images With GIMP					</a>
+									</li>
+							<li>
+										<a href="http://tuxtweaks.com/2012/10/send-gmail-from-the-linux-command-line/" class="bump-view" data-bump-view="tp">
+						Send Gmail from the Linux Command Line					</a>
+									</li>
+			</ul></section>		<section id="recent-posts-2" class="widget widget-3 widget_recent_entries">		<h3 class="widget-title">Recent Posts</h3>		<ul>
+					<li>
+				<a href="http://tuxtweaks.com/2014/11/linux-network-speed-test/">Linux Network Speed Test</a>
+						</li>
+					<li>
+				<a href="http://tuxtweaks.com/2014/10/netflix-on-linux-chrome/">Netflix on Linux &#8211; Now Works With Chrome Browser</a>
+						</li>
+					<li>
+				<a href="http://tuxtweaks.com/2014/09/restore-mark-all-upgrades-in-synaptic-linux-mint-17/">Mark All Upgrades in Synaptic on Linux Mint 17</a>
+						</li>
+					<li>
+				<a href="http://tuxtweaks.com/2014/08/netflix-linux-mint-17-ubuntu-14-04/">Netflix on Linux Mint 17 and Ubuntu 14.04</a>
+						</li>
+					<li>
+				<a href="http://tuxtweaks.com/2014/05/bash-getopts/">Bash Getopts &#8211; Scripts with Command Line Options</a>
+						</li>
+				</ul>
+		</section><section id="collapsible-archive" class="widget widget-4 widget_ara_collapsiblearchive">
+	<!-- Collapsible Archive Widget starts here -->
+	<script type="text/javascript">
+	//<!--
+	
+		collapsiblearchive_toggle = function(listelement, listsign)
+		{
+			var listobject = document.getElementById(listelement);
+			var sign = document.getElementById(listsign);
+			if(listobject.style.display == 'block')
+			{
+				listobject.style.display = 'none';
+				collapsiblearchive_togglesign(sign, true);
+			}
+			else
+			{
+				listobject.style.display = 'block';
+				collapsiblearchive_togglesign(sign, false);
+			}
+		}
+			collapsiblearchive_togglesign = function(element,visibility)
+		{
+			(visibility == false ? element.innerHTML = '&#9660;&nbsp;' : element.innerHTML = '&#9658;&nbsp;');
+		}
+
+	// -->
+	</script>
+	<h3 class="widget-title">Archives</h3>
+
+<ul>
+	<li>				<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_mo2014','ara_ca_mosign2014')"><span id="ara_ca_mosign2014">&#9658;&nbsp;</span></a><a href="http://tuxtweaks.com/2014/">2014</a>&nbsp;(7)
+		<ul id="ara_ca_mo2014" style="display:none">	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po201411','ara_ca_posign201411')"><span id="ara_ca_posign201411">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2014/11/'>Nov</a>&nbsp;(1)</li>
+
+			<li>
+		<ul id="ara_ca_po201411" style="display:none">
+			<li><a href="http://tuxtweaks.com/2014/11/linux-network-speed-test/">Linux Network Speed Test</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po201410','ara_ca_posign201410')"><span id="ara_ca_posign201410">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2014/10/'>Oct</a>&nbsp;(1)</li>
+
+			<li>
+		<ul id="ara_ca_po201410" style="display:none">
+			<li><a href="http://tuxtweaks.com/2014/10/netflix-on-linux-chrome/">Netflix on Linux - Now Works With Chrome Browser</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20149','ara_ca_posign20149')"><span id="ara_ca_posign20149">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2014/09/'>Sep</a>&nbsp;(1)</li>
+
+			<li>
+		<ul id="ara_ca_po20149" style="display:none">
+			<li><a href="http://tuxtweaks.com/2014/09/restore-mark-all-upgrades-in-synaptic-linux-mint-17/">Mark All Upgrades in Synaptic on Linux Mint 17</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20148','ara_ca_posign20148')"><span id="ara_ca_posign20148">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2014/08/'>Aug</a>&nbsp;(1)</li>
+
+			<li>
+		<ul id="ara_ca_po20148" style="display:none">
+			<li><a href="http://tuxtweaks.com/2014/08/netflix-linux-mint-17-ubuntu-14-04/">Netflix on Linux Mint 17 and Ubuntu 14.04</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20145','ara_ca_posign20145')"><span id="ara_ca_posign20145">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2014/05/'>May</a>&nbsp;(1)</li>
+
+			<li>
+		<ul id="ara_ca_po20145" style="display:none">
+			<li><a href="http://tuxtweaks.com/2014/05/bash-getopts/">Bash Getopts - Scripts with Command Line Options</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20143','ara_ca_posign20143')"><span id="ara_ca_posign20143">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2014/03/'>Mar</a>&nbsp;(1)</li>
+
+			<li>
+		<ul id="ara_ca_po20143" style="display:none">
+			<li><a href="http://tuxtweaks.com/2014/03/create-linux-mint-persistent-live-usb/">How To Create a Linux Mint Persistent Live USB</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20142','ara_ca_posign20142')"><span id="ara_ca_posign20142">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2014/02/'>Feb</a>&nbsp;(1)</li>
+
+			<li>
+		<ul id="ara_ca_po20142" style="display:none">
+			<li><a href="http://tuxtweaks.com/2014/02/rip-dvd-mplayer/">How To Rip a DVD with Mplayer</a></li>
+		</ul></li>
+		</ul>
+	</li>
+	<li>				<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_mo2013','ara_ca_mosign2013')"><span id="ara_ca_mosign2013">&#9658;&nbsp;</span></a><a href="http://tuxtweaks.com/2013/">2013</a>&nbsp;(16)
+		<ul id="ara_ca_mo2013" style="display:none">	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po201312','ara_ca_posign201312')"><span id="ara_ca_posign201312">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2013/12/'>Dec</a>&nbsp;(2)</li>
+
+			<li>
+		<ul id="ara_ca_po201312" style="display:none">
+			<li><a href="http://tuxtweaks.com/2013/12/install-screenfetch-linux/">How To Install screenFetch in Linux</a></li>
+			<li><a href="http://tuxtweaks.com/2013/12/linux-watch-command/">Command Line Basics - watch</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po201310','ara_ca_posign201310')"><span id="ara_ca_posign201310">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2013/10/'>Oct</a>&nbsp;(1)</li>
+
+			<li>
+		<ul id="ara_ca_po201310" style="display:none">
+			<li><a href="http://tuxtweaks.com/2013/10/encrypted-folders-linux-encfs/">Create And Manage Encrypted Folders in Linux With encfs</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20138','ara_ca_posign20138')"><span id="ara_ca_posign20138">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2013/08/'>Aug</a>&nbsp;(2)</li>
+
+			<li>
+		<ul id="ara_ca_po20138" style="display:none">
+			<li><a href="http://tuxtweaks.com/2013/08/edit-a-linux-file-system-label/">How To Add or Edit a Linux File System Label</a></li>
+			<li><a href="http://tuxtweaks.com/2013/08/conky-ubuntu-linux-mint/">How To Install Conky and Conky Manager in Ubuntu and Linux Mint</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20137','ara_ca_posign20137')"><span id="ara_ca_posign20137">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2013/07/'>Jul</a>&nbsp;(1)</li>
+
+			<li>
+		<ul id="ara_ca_po20137" style="display:none">
+			<li><a href="http://tuxtweaks.com/2013/07/restore-synaptic-mark-all-upgrades-linux-mint/">Restore Synaptic Mark All Upgrades Button in Linux Mint</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20136','ara_ca_posign20136')"><span id="ara_ca_posign20136">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2013/06/'>Jun</a>&nbsp;(2)</li>
+
+			<li>
+		<ul id="ara_ca_po20136" style="display:none">
+			<li><a href="http://tuxtweaks.com/2013/06/mount-your-pogoplug-on-linux/">How to Mount Your Pogoplug on Linux Automatically</a></li>
+			<li><a href="http://tuxtweaks.com/2013/06/linux-mint-15-cinnamon-ready-for-prime-time/">Linux Mint 15 Cinnamon: Ready For Prime Time</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20135','ara_ca_posign20135')"><span id="ara_ca_posign20135">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2013/05/'>May</a>&nbsp;(3)</li>
+
+			<li>
+		<ul id="ara_ca_po20135" style="display:none">
+			<li><a href="http://tuxtweaks.com/2013/05/linux-mint-15-olivia-released/">Linux Mint 15 "Olivia" Released!</a></li>
+			<li><a href="http://tuxtweaks.com/2013/05/distro-review-xubuntu-13-04-raring-ringtail/">Distro Review: Xubuntu 13.04 Raring Ringtail</a></li>
+			<li><a href="http://tuxtweaks.com/2013/05/wptouch-enable-shortcodes/">Enable Shortcodes in WPtouch on WordPress</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20134','ara_ca_posign20134')"><span id="ara_ca_posign20134">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2013/04/'>Apr</a>&nbsp;(2)</li>
+
+			<li>
+		<ul id="ara_ca_po20134" style="display:none">
+			<li><a href="http://tuxtweaks.com/2013/04/6-things-to-do-after-installing-ubuntu-13-04/">6 Things To Do After Installing Ubuntu 13.04</a></li>
+			<li><a href="http://tuxtweaks.com/2013/04/reset-grub-default-system-after-os-installation/">Reset GRUB Default System After OS Installation</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20131','ara_ca_posign20131')"><span id="ara_ca_posign20131">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2013/01/'>Jan</a>&nbsp;(3)</li>
+
+			<li>
+		<ul id="ara_ca_po20131" style="display:none">
+			<li><a href="http://tuxtweaks.com/2013/01/install-unity-tweak-tool-in-ubuntu/">Install Unity Tweak Tool in Ubuntu</a></li>
+			<li><a href="http://tuxtweaks.com/2013/01/unity-tweak-tool-version-0-0-2-screenshots/">Unity Tweak Tool Version 0.0.2 Screenshots</a></li>
+			<li><a href="http://tuxtweaks.com/2013/01/review-linux-mint-14-mate-edition/">Review: Linux Mint 14 MATE Edition</a></li>
+		</ul></li>
+		</ul>
+	</li>
+	<li>				<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_mo2012','ara_ca_mosign2012')"><span id="ara_ca_mosign2012">&#9658;&nbsp;</span></a><a href="http://tuxtweaks.com/2012/">2012</a>&nbsp;(19)
+		<ul id="ara_ca_mo2012" style="display:none">	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po201212','ara_ca_posign201212')"><span id="ara_ca_posign201212">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2012/12/'>Dec</a>&nbsp;(3)</li>
+
+			<li>
+		<ul id="ara_ca_po201212" style="display:none">
+			<li><a href="http://tuxtweaks.com/2012/12/keeping-track-of-my-ip-address/">Keeping Track of My IP Address</a></li>
+			<li><a href="http://tuxtweaks.com/2012/12/moving-to-a-new-host/">Moving to a new host</a></li>
+			<li><a href="http://tuxtweaks.com/2012/12/fixing-my-cddvd-drive-on-kubuntu-12-04/">Fixing My CD/DVD Drive on Kubuntu 12.04</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po201211','ara_ca_posign201211')"><span id="ara_ca_posign201211">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2012/11/'>Nov</a>&nbsp;(1)</li>
+
+			<li>
+		<ul id="ara_ca_po201211" style="display:none">
+			<li><a href="http://tuxtweaks.com/2012/11/black-fridaycyber-monday-hosting-deals/">Black Friday/Cyber Monday Hosting Deals!</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po201210','ara_ca_posign201210')"><span id="ara_ca_posign201210">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2012/10/'>Oct</a>&nbsp;(2)</li>
+
+			<li>
+		<ul id="ara_ca_po201210" style="display:none">
+			<li><a href="http://tuxtweaks.com/2012/10/ubuntu-12-10-released-list-of-download-mirrors-and-torrents/">Ubuntu 12.10 Released: List of Download Mirrors and Torrents</a></li>
+			<li><a href="http://tuxtweaks.com/2012/10/send-gmail-from-the-linux-command-line/">Send Gmail from the Linux Command Line</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20129','ara_ca_posign20129')"><span id="ara_ca_posign20129">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2012/09/'>Sep</a>&nbsp;(1)</li>
+
+			<li>
+		<ul id="ara_ca_po20129" style="display:none">
+			<li><a href="http://tuxtweaks.com/2012/09/block-inserting-and-deleting-text-in-vim/">Block Inserting and Deleting Text in VIM</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20127','ara_ca_posign20127')"><span id="ara_ca_posign20127">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2012/07/'>Jul</a>&nbsp;(2)</li>
+
+			<li>
+		<ul id="ara_ca_po20127" style="display:none">
+			<li><a href="http://tuxtweaks.com/2012/07/install-handbrake-on-linux-mint-13/">Install HandBrake on Linux Mint 13</a></li>
+			<li><a href="http://tuxtweaks.com/2012/07/install-ssh-sftp-server-ubuntu-linux-mint/">Install SSH and SFTP on Ubuntu or Linux Mint</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20125','ara_ca_posign20125')"><span id="ara_ca_posign20125">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2012/05/'>May</a>&nbsp;(2)</li>
+
+			<li>
+		<ul id="ara_ca_po20125" style="display:none">
+			<li><a href="http://tuxtweaks.com/2012/05/distro-review-linux-mint-13-maya-cinnamon-edition/">Distro Review: Linux Mint 13 "Maya" Cinnamon Edition</a></li>
+			<li><a href="http://tuxtweaks.com/2012/05/fixing-common-problems-with-lamp-on-ubuntu/">Fixing Common Problems with LAMP on Ubuntu</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20124','ara_ca_posign20124')"><span id="ara_ca_posign20124">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2012/04/'>Apr</a>&nbsp;(4)</li>
+
+			<li>
+		<ul id="ara_ca_po20124" style="display:none">
+			<li><a href="http://tuxtweaks.com/2012/04/installing-lamp-on-ubuntu-12-04-precise-pangolin/">Installing a LAMP Server on Ubuntu</a></li>
+			<li><a href="http://tuxtweaks.com/2012/04/ubuntu-12-04-is-here/">Ubuntu 12.04 is Here: List of download mirrors</a></li>
+			<li><a href="http://tuxtweaks.com/2012/04/view-images-with-the-proper-exif-orientation-in-chrome-or-chromium/">View Images With The Proper EXIF Orientation In Chrome or Chromium</a></li>
+			<li><a href="http://tuxtweaks.com/2012/04/canonical-and-microsoft-to-join-forces-on-new-ui/">Canonical and Microsoft To Join Forces on New UI</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20123','ara_ca_posign20123')"><span id="ara_ca_posign20123">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2012/03/'>Mar</a>&nbsp;(3)</li>
+
+			<li>
+		<ul id="ara_ca_po20123" style="display:none">
+			<li><a href="http://tuxtweaks.com/2012/03/fix-shutdown-reboot-issue-multi-user-ubuntu/">Fix The Shutdown/Reboot Issue With Multiple Users on Ubuntu</a></li>
+			<li><a href="http://tuxtweaks.com/2012/03/going-back-to-windows/">Going Back To Windows?</a></li>
+			<li><a href="http://tuxtweaks.com/2012/03/fixing-variable-bit-rate-mp3s-with-vbrfix/">Fixing Variable Bit Rate MP3's With vbrfix</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20121','ara_ca_posign20121')"><span id="ara_ca_posign20121">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2012/01/'>Jan</a>&nbsp;(1)</li>
+
+			<li>
+		<ul id="ara_ca_po20121" style="display:none">
+			<li><a href="http://tuxtweaks.com/2012/01/creating-a-terminal-window-clock/">Creating A Terminal Window Clock</a></li>
+		</ul></li>
+		</ul>
+	</li>
+	<li>				<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_mo2011','ara_ca_mosign2011')"><span id="ara_ca_mosign2011">&#9658;&nbsp;</span></a><a href="http://tuxtweaks.com/2011/">2011</a>&nbsp;(25)
+		<ul id="ara_ca_mo2011" style="display:none">	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po201112','ara_ca_posign201112')"><span id="ara_ca_posign201112">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2011/12/'>Dec</a>&nbsp;(1)</li>
+
+			<li>
+		<ul id="ara_ca_po201112" style="display:none">
+			<li><a href="http://tuxtweaks.com/2011/12/batch-converting-audio-with-gstreamer/">Batch Converting Audio With GStreamer</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po201111','ara_ca_posign201111')"><span id="ara_ca_posign201111">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2011/11/'>Nov</a>&nbsp;(2)</li>
+
+			<li>
+		<ul id="ara_ca_po201111" style="display:none">
+			<li><a href="http://tuxtweaks.com/2011/11/command-line-basics-create-and-extract-tarballs/">Command Line Basics: Create And Extract Tarballs</a></li>
+			<li><a href="http://tuxtweaks.com/2011/11/server-move-complete/">Server Move Complete</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po201110','ara_ca_posign201110')"><span id="ara_ca_posign201110">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2011/10/'>Oct</a>&nbsp;(2)</li>
+
+			<li>
+		<ul id="ara_ca_po201110" style="display:none">
+			<li><a href="http://tuxtweaks.com/2011/10/install-lamp-and-phpmyadmin-on-ubuntu-11-10/">Install LAMP and phpMyAdmin on Ubuntu 11.10</a></li>
+			<li><a href="http://tuxtweaks.com/2011/10/command-line-basics-finding-files/">Command Line Basics: Finding Files</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20119','ara_ca_posign20119')"><span id="ara_ca_posign20119">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2011/09/'>Sep</a>&nbsp;(2)</li>
+
+			<li>
+		<ul id="ara_ca_po20119" style="display:none">
+			<li><a href="http://tuxtweaks.com/2011/09/remove-old-package-configuration-files-in-ubuntu/">Remove Old Package Configuration Files in Ubuntu</a></li>
+			<li><a href="http://tuxtweaks.com/2011/09/view-your-linux-distro-version-from-the-command-line/">View Your Linux Distro Version From The Command Line</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20118','ara_ca_posign20118')"><span id="ara_ca_posign20118">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2011/08/'>Aug</a>&nbsp;(2)</li>
+
+			<li>
+		<ul id="ara_ca_po20118" style="display:none">
+			<li><a href="http://tuxtweaks.com/2011/08/get-a-free-digital-issue-of-linux-journal/">Get A Free Digital Issue Of Linux Journal</a></li>
+			<li><a href="http://tuxtweaks.com/2011/08/displaying-todays-date-with-php/">Displaying Today's Date With PHP</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20117','ara_ca_posign20117')"><span id="ara_ca_posign20117">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2011/07/'>Jul</a>&nbsp;(2)</li>
+
+			<li>
+		<ul id="ara_ca_po20117" style="display:none">
+			<li><a href="http://tuxtweaks.com/2011/07/switching-my-sister-in-law-to-linux/">Switching My Sister In-law To Linux</a></li>
+			<li><a href="http://tuxtweaks.com/2011/07/rename-and-rotate-digital-photos-with-jhead/">Rename and Rotate Digital Photos With jhead</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20116','ara_ca_posign20116')"><span id="ara_ca_posign20116">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2011/06/'>Jun</a>&nbsp;(3)</li>
+
+			<li>
+		<ul id="ara_ca_po20116" style="display:none">
+			<li><a href="http://tuxtweaks.com/2011/06/command-line-basics-view-image-exif-data/">Command Line Basics: View Image EXIF Data</a></li>
+			<li><a href="http://tuxtweaks.com/2011/06/command-line-basics-change-your-password/">Command Line Basics: Change Your Password</a></li>
+			<li><a href="http://tuxtweaks.com/2011/06/listing-and-killing-tasks-from-the-command-prompt-in-windows/">Listing And Killing Tasks From The Command Prompt In Windows</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20115','ara_ca_posign20115')"><span id="ara_ca_posign20115">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2011/05/'>May</a>&nbsp;(1)</li>
+
+			<li>
+		<ul id="ara_ca_po20115" style="display:none">
+			<li><a href="http://tuxtweaks.com/2011/05/wireless-internet-on-the-msi-wind-with-ubuntu-11-04/">Wireless Internet On The MSI Wind With Ubuntu 11.04</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20114','ara_ca_posign20114')"><span id="ara_ca_posign20114">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2011/04/'>Apr</a>&nbsp;(2)</li>
+
+			<li>
+		<ul id="ara_ca_po20114" style="display:none">
+			<li><a href="http://tuxtweaks.com/2011/04/command-line-basics-compare-files-with-diff/">Command Line Basics: Compare Files With diff</a></li>
+			<li><a href="http://tuxtweaks.com/2011/04/how-to-resample-audio-files-with-gstreamer/">How To Resample Audio Files With GStreamer</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20113','ara_ca_posign20113')"><span id="ara_ca_posign20113">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2011/03/'>Mar</a>&nbsp;(3)</li>
+
+			<li>
+		<ul id="ara_ca_po20113" style="display:none">
+			<li><a href="http://tuxtweaks.com/2011/03/how-to-show-line-numbers-in-vim/">How To Show Line Numbers In Vim</a></li>
+			<li><a href="http://tuxtweaks.com/2011/03/delete-lines-beginning-with-a-character-in-vim/">Delete Lines Beginning With A Character In Vim</a></li>
+			<li><a href="http://tuxtweaks.com/2011/03/how-to-hide-secret-messages-in-images-with-linux/">How To Hide Secret Messages In Images With Linux</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20112','ara_ca_posign20112')"><span id="ara_ca_posign20112">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2011/02/'>Feb</a>&nbsp;(2)</li>
+
+			<li>
+		<ul id="ara_ca_po20112" style="display:none">
+			<li><a href="http://tuxtweaks.com/2011/02/juice-your-music-with-clementine/">Juice Your Music With Clementine</a></li>
+			<li><a href="http://tuxtweaks.com/2011/02/command-line-basics-head-and-tail/">Command Line Basics: head And tail</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20111','ara_ca_posign20111')"><span id="ara_ca_posign20111">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2011/01/'>Jan</a>&nbsp;(3)</li>
+
+			<li>
+		<ul id="ara_ca_po20111" style="display:none">
+			<li><a href="http://tuxtweaks.com/2011/01/create-your-own-qr-codes-on-linux/">Create Your Own QR Codes on Linux</a></li>
+			<li><a href="http://tuxtweaks.com/2011/01/apple-screws-iphone-customers-again/">Apple Screws iPhone Customers... Again</a></li>
+			<li><a href="http://tuxtweaks.com/2011/01/adding-video-captions-with-avidemux/">Adding Video Captions With Avidemux</a></li>
+		</ul></li>
+		</ul>
+	</li>
+	<li>				<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_mo2010','ara_ca_mosign2010')"><span id="ara_ca_mosign2010">&#9658;&nbsp;</span></a><a href="http://tuxtweaks.com/2010/">2010</a>&nbsp;(56)
+		<ul id="ara_ca_mo2010" style="display:none">	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po201012','ara_ca_posign201012')"><span id="ara_ca_posign201012">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2010/12/'>Dec</a>&nbsp;(4)</li>
+
+			<li>
+		<ul id="ara_ca_po201012" style="display:none">
+			<li><a href="http://tuxtweaks.com/2010/12/check-the-status-of-ubuntu-one-synchronization/">Check The Status of Ubuntu One Synchronization</a></li>
+			<li><a href="http://tuxtweaks.com/2010/12/oracle-promoting-open-office-through-java-update/">Oracle Promoting Open Office Through Java Update</a></li>
+			<li><a href="http://tuxtweaks.com/2010/12/converting-audio-to-mp3-with-gstreamer/">Converting Audio to MP3 with GStreamer</a></li>
+			<li><a href="http://tuxtweaks.com/2010/12/converting-audio-files-with-gstreamer/">Converting Audio Files with GStreamer</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po201011','ara_ca_posign201011')"><span id="ara_ca_posign201011">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2010/11/'>Nov</a>&nbsp;(3)</li>
+
+			<li>
+		<ul id="ara_ca_po201011" style="display:none">
+			<li><a href="http://tuxtweaks.com/2010/11/install-the-ubuntu-font-in-ubuntu-lucid/">Install The Ubuntu Font in Ubuntu Lucid</a></li>
+			<li><a href="http://tuxtweaks.com/2010/11/tether-your-android-phone-with-ubuntu/">Tether Your Android Phone With Ubuntu</a></li>
+			<li><a href="http://tuxtweaks.com/2010/11/fix-the-gnome-screenshot-shortcut-in-ubuntu-10-10/">Fix The GNOME Screenshot Shortcut in Ubuntu 10.10</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po201010','ara_ca_posign201010')"><span id="ara_ca_posign201010">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2010/10/'>Oct</a>&nbsp;(4)</li>
+
+			<li>
+		<ul id="ara_ca_po201010" style="display:none">
+			<li><a href="http://tuxtweaks.com/2010/10/cross-platform-koobface-worm-can-infect-linux/">Cross-Platform Koobface Worm Can Infect Linux</a></li>
+			<li><a href="http://tuxtweaks.com/2010/10/dear-linux-users-kimberly-clark-doesnt-want-your-business/">Dear Linux Users, Kimberly-Clark Doesn't Want Your Business</a></li>
+			<li><a href="http://tuxtweaks.com/2010/10/remove-lamp-in-ubuntu/">Remove LAMP in Ubuntu</a></li>
+			<li><a href="http://tuxtweaks.com/2010/10/remove-old-kernels-in-ubuntu-with-one-command/">Remove Old Kernels In Ubuntu With One Command</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20109','ara_ca_posign20109')"><span id="ara_ca_posign20109">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2010/09/'>Sep</a>&nbsp;(4)</li>
+
+			<li>
+		<ul id="ara_ca_po20109" style="display:none">
+			<li><a href="http://tuxtweaks.com/2010/09/command-line-basics-ripping-audio-cd%e2%80%99s-part-4/">Command Line Basics: Ripping Audio CD’s, Part 4</a></li>
+			<li><a href="http://tuxtweaks.com/2010/09/command-line-basics-ripping-audio-cd%e2%80%99s-part-3/">Command Line Basics: Ripping Audio CD’s, Part 3</a></li>
+			<li><a href="http://tuxtweaks.com/2010/09/command-line-basics-ripping-audio-cds-part-2/">Command Line Basics: Ripping Audio CD's, Part 2</a></li>
+			<li><a href="http://tuxtweaks.com/2010/09/command-line-basics-ripping-audio-cds-part-1/">Command Line Basics: Ripping Audio CD's, Part 1</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20108','ara_ca_posign20108')"><span id="ara_ca_posign20108">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2010/08/'>Aug</a>&nbsp;(3)</li>
+
+			<li>
+		<ul id="ara_ca_po20108" style="display:none">
+			<li><a href="http://tuxtweaks.com/2010/08/transcode-video-for-the-htc-incredible-on-linux/">Transcode Video For The HTC Incredible on Linux</a></li>
+			<li><a href="http://tuxtweaks.com/2010/08/shorten-your-links-the-open-source-way/">Shorten Your Links The Open Source Way</a></li>
+			<li><a href="http://tuxtweaks.com/2010/08/gnumeric-a-light-weight-spreadsheet-program/">Gnumeric: A Light Weight Spreadsheet Program</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20107','ara_ca_posign20107')"><span id="ara_ca_posign20107">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2010/07/'>Jul</a>&nbsp;(5)</li>
+
+			<li>
+		<ul id="ara_ca_po20107" style="display:none">
+			<li><a href="http://tuxtweaks.com/2010/07/html5-free-vs-proprietary/">Free vs. Proprietary and HTML5</a></li>
+			<li><a href="http://tuxtweaks.com/2010/07/enable-the-flash-plugin-for-chromium-in-ubuntu/">Enable The Flash Plugin For Chromium In Ubuntu</a></li>
+			<li><a href="http://tuxtweaks.com/2010/07/install-the-chromium-browser-in-ubuntu/">Install The Chromium Browser in Ubuntu</a></li>
+			<li><a href="http://tuxtweaks.com/2010/07/how-to-reload-the-gnome-panel-menu/">How To Reload The Gnome Panel Menu</a></li>
+			<li><a href="http://tuxtweaks.com/2010/07/keep-your-screen-awake-with-caffeine/">Keep Your Screen Awake With Caffeine</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20106','ara_ca_posign20106')"><span id="ara_ca_posign20106">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2010/06/'>Jun</a>&nbsp;(4)</li>
+
+			<li>
+		<ul id="ara_ca_po20106" style="display:none">
+			<li><a href="http://tuxtweaks.com/2010/06/command-line-basics-create-text-files-with-tee/">Command Line Basics: Create Text Files With tee</a></li>
+			<li><a href="http://tuxtweaks.com/2010/06/how-to-fade-the-edges-of-images-with-gimp/">How To Fade The Edges Of Images With GIMP</a></li>
+			<li><a href="http://tuxtweaks.com/2010/06/tux-tweaks-performance-enhancements/">Tux Tweaks Performance Enhancements</a></li>
+			<li><a href="http://tuxtweaks.com/2010/06/avast-5-0-free-antivirus-for-windows/">avast! 5.0 Free Antivirus for Windows</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20105','ara_ca_posign20105')"><span id="ara_ca_posign20105">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2010/05/'>May</a>&nbsp;(8)</li>
+
+			<li>
+		<ul id="ara_ca_po20105" style="display:none">
+			<li><a href="http://tuxtweaks.com/2010/05/ubuntu-enable-rotation-nvidia/">How To Rotate The Screen in Ubuntu With The Nvidia Driver</a></li>
+			<li><a href="http://tuxtweaks.com/2010/05/lynx-a-text-only-web-browser/">Lynx: A Text Only Web Browser</a></li>
+			<li><a href="http://tuxtweaks.com/2010/05/midori-a-lightweight-web-browser/">Midori - A Lightweight Web Browser</a></li>
+			<li><a href="http://tuxtweaks.com/2010/05/from-the-wtf-apple-dept/">From The "WTF, Apple?" Dept.</a></li>
+			<li><a href="http://tuxtweaks.com/2010/05/theres-always-one-bad-apple/">There's Always One Bad Apple</a></li>
+			<li><a href="http://tuxtweaks.com/2010/05/ubuntu-on-the-big-bang-theory/">Ubuntu on "The Big Bang Theory"</a></li>
+			<li><a href="http://tuxtweaks.com/2010/05/gourmet-recipe-manager/">Organize Your Recipes with Gourmet Recipe Manager</a></li>
+			<li><a href="http://tuxtweaks.com/2010/05/add-an-open-terminal-button-to-nautilus/">Add an Open Terminal Button to Nautilus</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20104','ara_ca_posign20104')"><span id="ara_ca_posign20104">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2010/04/'>Apr</a>&nbsp;(6)</li>
+
+			<li>
+		<ul id="ara_ca_po20104" style="display:none">
+			<li><a href="http://tuxtweaks.com/2010/04/installing-lamp-on-ubuntu-10-04-lucid-lynx/">Installing LAMP on Ubuntu 10.04 and 10.10 (Lucid Lynx, Maverick Meerkat)</a></li>
+			<li><a href="http://tuxtweaks.com/2010/04/use-nautilus-location-entry-in-ubuntu-lucid/">Use Nautilus Location Entry in Ubuntu Lucid</a></li>
+			<li><a href="http://tuxtweaks.com/2010/04/command-line-basics-view-text-with-less/">Command Line Basics: View Text With less</a></li>
+			<li><a href="http://tuxtweaks.com/2010/04/how-to-select-your-log-in-manager-in-ubuntu/">How To Select Your Log-in Manager in Ubuntu</a></li>
+			<li><a href="http://tuxtweaks.com/2010/04/how-to-select-the-splash-screen-in-ubuntu-lucid/">How To Select The Splash Screen in Ubuntu Lucid</a></li>
+			<li><a href="http://tuxtweaks.com/2010/04/customizing-file-manager-menus-in-kde4/">Customizing File Manager Menus in KDE4</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20103','ara_ca_posign20103')"><span id="ara_ca_posign20103">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2010/03/'>Mar</a>&nbsp;(5)</li>
+
+			<li>
+		<ul id="ara_ca_po20103" style="display:none">
+			<li><a href="http://tuxtweaks.com/2010/03/command-line-basics-list-hard-drives-by-uuid/">Command Line Basics: List Hard Drives By UUID</a></li>
+			<li><a href="http://tuxtweaks.com/2010/03/access-your-web-server-from-virtualbox/">Access Your Web Server From a VirtualBox Guest OS</a></li>
+			<li><a href="http://tuxtweaks.com/2010/03/watermark-images-with-nautilus-actions/">Watermark Images With Nautilus Actions</a></li>
+			<li><a href="http://tuxtweaks.com/2010/03/expand-the-gnome-file-manager-with-nautilus-actions/">Expand The GNOME File Manager With Nautilus Actions</a></li>
+			<li><a href="http://tuxtweaks.com/2010/03/centos-5-4-on-the-dell-inspiron-2600/">CentOS 5.4 On The Dell Inspiron 2600</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20102','ara_ca_posign20102')"><span id="ara_ca_posign20102">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2010/02/'>Feb</a>&nbsp;(3)</li>
+
+			<li>
+		<ul id="ara_ca_po20102" style="display:none">
+			<li><a href="http://tuxtweaks.com/2010/02/command-line-basics-monitor-processes-with-top/">Command Line Basics: Monitor Processes With Top</a></li>
+			<li><a href="http://tuxtweaks.com/2010/02/the-perennial-year-of-the-linux-desktop/">The Perennial Year of the Linux Desktop</a></li>
+			<li><a href="http://tuxtweaks.com/2010/02/bash-to-basics-the-for-loop/">Bash to Basics: The For Loop</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20101','ara_ca_posign20101')"><span id="ara_ca_posign20101">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2010/01/'>Jan</a>&nbsp;(7)</li>
+
+			<li>
+		<ul id="ara_ca_po20101" style="display:none">
+			<li><a href="http://tuxtweaks.com/2010/01/fix-google-gears-for-firefox-on-linux/">Fix Google Gears for Firefox on Linux</a></li>
+			<li><a href="http://tuxtweaks.com/2010/01/how-to-uninstall-lamp-in-ubuntu-9-10-karmic-koala/">How To Uninstall LAMP in Ubuntu 9.10 Karmic Koala</a></li>
+			<li><a href="http://tuxtweaks.com/2010/01/tux-tweaks-now-with-threaded-comments/">Tux Tweaks - Now With Threaded Comments</a></li>
+			<li><a href="http://tuxtweaks.com/2010/01/command-line-basics-count-files/">Command Line Basics: Count Files</a></li>
+			<li><a href="http://tuxtweaks.com/2010/01/how-to-create-pdfs-of-gnulinux-manpages/">How To Create PDF's Of GNU/Linux Manpages</a></li>
+			<li><a href="http://tuxtweaks.com/2010/01/restart-usb-in-ubuntu-jauntykarmic/">Restart USB in Ubuntu Jaunty/Karmic</a></li>
+			<li><a href="http://tuxtweaks.com/2010/01/review-rockbox/">Review: RockBox</a></li>
+		</ul></li>
+		</ul>
+	</li>
+	<li>				<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_mo2009','ara_ca_mosign2009')"><span id="ara_ca_mosign2009">&#9658;&nbsp;</span></a><a href="http://tuxtweaks.com/2009/">2009</a>&nbsp;(88)
+		<ul id="ara_ca_mo2009" style="display:none">	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po200912','ara_ca_posign200912')"><span id="ara_ca_posign200912">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2009/12/'>Dec</a>&nbsp;(4)</li>
+
+			<li>
+		<ul id="ara_ca_po200912" style="display:none">
+			<li><a href="http://tuxtweaks.com/2009/12/how-to-list-the-installed-packages-on-a-debian-based-system/">How To List The Installed Packages on a Debian Based System</a></li>
+			<li><a href="http://tuxtweaks.com/2009/12/command-line-basics-bulk-rename-files-with-rename/">Command Line Basics: Bulk Rename Files With rename</a></li>
+			<li><a href="http://tuxtweaks.com/2009/12/command-line-basics-cut-fields-with-awk/">Command Line Basics: Cut Fields With awk</a></li>
+			<li><a href="http://tuxtweaks.com/2009/12/remove-old-kernels-in-ubuntu/">Remove Old Kernels in Ubuntu</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po200911','ara_ca_posign200911')"><span id="ara_ca_posign200911">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2009/11/'>Nov</a>&nbsp;(5)</li>
+
+			<li>
+		<ul id="ara_ca_po200911" style="display:none">
+			<li><a href="http://tuxtweaks.com/2009/11/use-the-chrome-os-start-page/">Use The Chrome OS Start Page</a></li>
+			<li><a href="http://tuxtweaks.com/2009/11/how-to-install-wordpress-on-ubuntu-part-2/">How To Install WordPress on Ubuntu: Part 2</a></li>
+			<li><a href="http://tuxtweaks.com/2009/11/how-to-install-wordpress-on-ubuntu-part-1/">How To Install WordPress on Ubuntu: Part 1</a></li>
+			<li><a href="http://tuxtweaks.com/2009/11/flash-drive-frustration/">Flash Drive Frustration</a></li>
+			<li><a href="http://tuxtweaks.com/2009/11/ubuntu-9-10-post-installation-to-do-list/">Ubuntu 9.10 Post Installation To-Do List</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po200910','ara_ca_posign200910')"><span id="ara_ca_posign200910">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2009/10/'>Oct</a>&nbsp;(7)</li>
+
+			<li>
+		<ul id="ara_ca_po200910" style="display:none">
+			<li><a href="http://tuxtweaks.com/2009/10/install-lamp-on-ubuntu-9-10-karmic-koala/">Install LAMP on Ubuntu 9.10 Karmic Koala</a></li>
+			<li><a href="http://tuxtweaks.com/2009/10/motorolaverizon-droid-specs-leaked/">Motorola/Verizon Droid Specs Leaked</a></li>
+			<li><a href="http://tuxtweaks.com/2009/10/command-line-basics-join-files-with-cat/">Command Line Basics: Join Files With cat</a></li>
+			<li><a href="http://tuxtweaks.com/2009/10/re-selling-vs-shaming/">Re: Selling vs. Shaming</a></li>
+			<li><a href="http://tuxtweaks.com/2009/10/tuxtweaks-got-hacked/">TuxTweaks Got Hacked</a></li>
+			<li><a href="http://tuxtweaks.com/2009/10/test-driving-google-chrome-on-linux/">Test Driving Google Chrome on Linux</a></li>
+			<li><a href="http://tuxtweaks.com/2009/10/command-line-basics-view-text-files-with-more/">Command Line Basics: View Text Files with more</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20099','ara_ca_posign20099')"><span id="ara_ca_posign20099">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2009/09/'>Sep</a>&nbsp;(6)</li>
+
+			<li>
+		<ul id="ara_ca_po20099" style="display:none">
+			<li><a href="http://tuxtweaks.com/2009/09/microsoft-releases-free-antivirus/">Microsoft Releases Free Antivirus</a></li>
+			<li><a href="http://tuxtweaks.com/2009/09/three-more-reasons-not-to-use-linux/">Three More Reasons Not To Use Linux</a></li>
+			<li><a href="http://tuxtweaks.com/2009/09/bash-to-basics-the-while-do-loop/">Bash to Basics: The While Do Loop</a></li>
+			<li><a href="http://tuxtweaks.com/2009/09/create-a-bootable-freedos-usb-drive-on-windows/">Create a Bootable FreeDOS USB Drive on Windows</a></li>
+			<li><a href="http://tuxtweaks.com/2009/09/command-line-basics-pipelining-output/">Command Line Basics: Pipelining Output</a></li>
+			<li><a href="http://tuxtweaks.com/2009/09/create-a-bootable-freedos-usb-drive-on-linux-with-unetbootin/">Create a Bootable FreeDOS USB Drive on Linux With UNetbootin</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20098','ara_ca_posign20098')"><span id="ara_ca_posign20098">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2009/08/'>Aug</a>&nbsp;(13)</li>
+
+			<li>
+		<ul id="ara_ca_po20098" style="display:none">
+			<li><a href="http://tuxtweaks.com/2009/08/enable-the-rt2860sta-linux-wireless-driver/">Enable The RT2860STA Linux Wireless Driver</a></li>
+			<li><a href="http://tuxtweaks.com/2009/08/fade-out-images-with-gimp/">Fade Out Images with GIMP</a></li>
+			<li><a href="http://tuxtweaks.com/2009/08/command-line-basics-redirecting-output/">Command Line Basics: Redirecting Output</a></li>
+			<li><a href="http://tuxtweaks.com/2009/08/command-line-basics-view-files-with-cat/">Command Line Basics: View Files With cat</a></li>
+			<li><a href="http://tuxtweaks.com/2009/08/command-line-basics-determine-file-mime-types/">Command Line Basics: Determine File MIME Types</a></li>
+			<li><a href="http://tuxtweaks.com/2009/08/batch-watermark-images-in-linux/">Batch Watermark Images in Linux</a></li>
+			<li><a href="http://tuxtweaks.com/2009/08/howto-watermark-images-imagemagick-linux/">How To Watermark Images With ImageMagick in Linux</a></li>
+			<li><a href="http://tuxtweaks.com/2009/08/nautilus-script-to-launch-a-terminal/">Nautilus Script to Launch a Terminal</a></li>
+			<li><a href="http://tuxtweaks.com/2009/08/suse-studio-screenshot-tour/">SUSE Studio Screenshot Tour</a></li>
+			<li><a href="http://tuxtweaks.com/2009/08/edit-gnome-configuration/">Edit Your GNOME Configuration</a></li>
+			<li><a href="http://tuxtweaks.com/2009/08/open-source-apps-for-windows-introduce-users-to-foss/">Open Source Apps for Windows to Introduce Users to FOSS</a></li>
+			<li><a href="http://tuxtweaks.com/2009/08/name-the-next-apple-product/">Name The Next Apple Product</a></li>
+			<li><a href="http://tuxtweaks.com/2009/08/fast-boot-your-pc-with-xandros-presto/">Fast Boot Your PC With Xandros Presto</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20097','ara_ca_posign20097')"><span id="ara_ca_posign20097">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2009/07/'>Jul</a>&nbsp;(5)</li>
+
+			<li>
+		<ul id="ara_ca_po20097" style="display:none">
+			<li><a href="http://tuxtweaks.com/2009/07/ubuntu-makes-it-to-primetime/">Ubuntu Makes It To Primetime</a></li>
+			<li><a href="http://tuxtweaks.com/2009/07/how-to-add-item-gnome-menu/">How To Add an Item To The GNOME Menu For All Users</a></li>
+			<li><a href="http://tuxtweaks.com/2009/07/how-to-configure-apache-linux/">How to Configure Apache Web Server on Linux</a></li>
+			<li><a href="http://tuxtweaks.com/2009/07/who-or-what-else-did-hans-reiser-kill/">Who or What Else Did Hans Reiser Kill?</a></li>
+			<li><a href="http://tuxtweaks.com/2009/07/what-os-do-you-run-on-your-netbook/">What OS Do You Run On Your Netbook?</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20096','ara_ca_posign20096')"><span id="ara_ca_posign20096">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2009/06/'>Jun</a>&nbsp;(7)</li>
+
+			<li>
+		<ul id="ara_ca_po20096" style="display:none">
+			<li><a href="http://tuxtweaks.com/2009/06/bash-to-basics-read-user-input/">Bash to Basics: Read User Input</a></li>
+			<li><a href="http://tuxtweaks.com/2009/06/create-text-images-with-imagemagick/">Create Text Images with ImageMagick</a></li>
+			<li><a href="http://tuxtweaks.com/2009/06/resize-images-in-linux-with-imagemagick/">Resize Images in Linux with ImageMagick</a></li>
+			<li><a href="http://tuxtweaks.com/2009/06/view-ogg-videos-in-firefox-35/">View Ogg Videos in Firefox 3.5</a></li>
+			<li><a href="http://tuxtweaks.com/2009/06/bash-to-basics-bash-rocket-science/">Bash to Basics: Bash Rocket Science</a></li>
+			<li><a href="http://tuxtweaks.com/2009/06/installing-lamp-on-ubuntu-jaunty-904/">Installing LAMP on Ubuntu Jaunty (9.04)</a></li>
+			<li><a href="http://tuxtweaks.com/2009/06/share-folders-linux-host-linux-virtual-machine-virtualbox/">Share Folders Between a Linux Host and Linux Virtual Machine on VirtualBox</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20095','ara_ca_posign20095')"><span id="ara_ca_posign20095">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2009/05/'>May</a>&nbsp;(11)</li>
+
+			<li>
+		<ul id="ara_ca_po20095" style="display:none">
+			<li><a href="http://tuxtweaks.com/2009/05/command-line-basics-create-custom-commands-with-alias/">Command Line Basics: Create Custom Commands with Alias</a></li>
+			<li><a href="http://tuxtweaks.com/2009/05/command-line-basics-list-files-with-ls/">Command Line Basics: List Files with ls</a></li>
+			<li><a href="http://tuxtweaks.com/2009/05/space-saving-tips-for-your-gnome-desktop/">Space Saving Tips for Your GNOME Desktop</a></li>
+			<li><a href="http://tuxtweaks.com/2009/05/windows-web-browser-shootout/">Windows Web Browser Shootout</a></li>
+			<li><a href="http://tuxtweaks.com/2009/05/command-line-basics-navigating-the-file-system/">Command Line Basics: Navigating the File System</a></li>
+			<li><a href="http://tuxtweaks.com/2009/05/bash-to-basics-print-text-with-echo/">Bash to Basics: Print Text with echo</a></li>
+			<li><a href="http://tuxtweaks.com/2009/05/command-line-basics-echo/">Command Line Basics: echo</a></li>
+			<li><a href="http://tuxtweaks.com/2009/05/install-the-firefox-35-beta-in-linux/">Install the Firefox 3.5 Beta in Linux</a></li>
+			<li><a href="http://tuxtweaks.com/2009/05/create-a-bootable-usb-drive-ubuntu-freedos/">Create a Bootable USB Drive with Ubuntu and FreeDOS</a></li>
+			<li><a href="http://tuxtweaks.com/2009/05/revert-the-update-behavior-in-jaunty-to-the-old-way/">Revert the Update Behavior in Jaunty to the Old Way</a></li>
+			<li><a href="http://tuxtweaks.com/2009/05/who-needs-windows/">Who Needs Windows?</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20094','ara_ca_posign20094')"><span id="ara_ca_posign20094">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2009/04/'>Apr</a>&nbsp;(11)</li>
+
+			<li>
+		<ul id="ara_ca_po20094" style="display:none">
+			<li><a href="http://tuxtweaks.com/2009/04/install-picasa-30-for-linux-beta/">Install Picasa 3.0 for Linux (beta)</a></li>
+			<li><a href="http://tuxtweaks.com/2009/04/eight-reasons-your-next-computer-should-run-linux/">Eight Reasons Your Next Computer Should Run Linux</a></li>
+			<li><a href="http://tuxtweaks.com/2009/04/jaunty-boots-faster-on-msi-wind/">Jaunty Boots 32% Faster on the MSI Wind</a></li>
+			<li><a href="http://tuxtweaks.com/2009/04/the-jackalope-is-jaunting/">The Jackalope is Jaunting!</a></li>
+			<li><a href="http://tuxtweaks.com/2009/04/windows-7-wont-close-the-doors/">Windows 7 Won't Close the Door For Linux</a></li>
+			<li><a href="http://tuxtweaks.com/2009/04/upgrade-ubuntu-with-a-cd-image/">Upgrade Ubuntu with a CD Image</a></li>
+			<li><a href="http://tuxtweaks.com/2009/04/get-a-jump-on-jaunty-jackalope/">Get a Jump on Jaunty Jackalope</a></li>
+			<li><a href="http://tuxtweaks.com/2009/04/transfer-files-in-nautilus-with-sftp/">Secure File Transfer in Nautilus with SFTP</a></li>
+			<li><a href="http://tuxtweaks.com/2009/04/add-the-nt-backup-tool-to-windows-xp/">Add the NT Backup Tool to Windows XP</a></li>
+			<li><a href="http://tuxtweaks.com/2009/04/why-i-hate-dell/">Why I hate Dell</a></li>
+			<li><a href="http://tuxtweaks.com/2009/04/how-to-install-avg-antivirus-in-ubuntu/">How To Install AVG Antivirus 7.5 in Ubuntu</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20093','ara_ca_posign20093')"><span id="ara_ca_posign20093">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2009/03/'>Mar</a>&nbsp;(13)</li>
+
+			<li>
+		<ul id="ara_ca_po20093" style="display:none">
+			<li><a href="http://tuxtweaks.com/2009/03/create-an-encrypted-folder-in-ubuntu-with-cryptkeeper/">Create an Encrypted Folder in Ubuntu with Cryptkeeper</a></li>
+			<li><a href="http://tuxtweaks.com/2009/03/how-to-create-multiple-firefox-profiles-in-windows/">How To Create Multiple Firefox Profiles in Windows</a></li>
+			<li><a href="http://tuxtweaks.com/2009/03/install-the-fedora-10-desktop-theme-in-ubuntu/">Install the Fedora 10 Desktop Theme in Ubuntu</a></li>
+			<li><a href="http://tuxtweaks.com/2009/03/download-the-fedora-10-wallpaper/">Download the Fedora 10 Wallpaper</a></li>
+			<li><a href="http://tuxtweaks.com/2009/03/how-to-install-the-echo-icon-theme-in-ubuntu/">How To Install the Echo Icon Theme in Ubuntu</a></li>
+			<li><a href="http://tuxtweaks.com/2009/03/how-to-install-the-nodoka-theme-engine-in-ubuntu/">How To Install the Nodoka Theme Engine in Ubuntu</a></li>
+			<li><a href="http://tuxtweaks.com/2009/03/create-your-own-deb-packages-with-checkinstall/">Create Your Own .deb Packages with Checkinstall</a></li>
+			<li><a href="http://tuxtweaks.com/2009/03/install-your-own-ringtones-with-ubuntu-and-bitpim/">Install Your Own Ringtones with Ubuntu and BitPim</a></li>
+			<li><a href="http://tuxtweaks.com/2009/03/install-multimedia-codecs-in-ubuntu-804/">Install Multimedia Codecs in Ubuntu 8.04</a></li>
+			<li><a href="http://tuxtweaks.com/2009/03/use-linux-to-solve-the-linux-journal-scramble/">Use Linux to Solve the Linux Journal Scramble</a></li>
+			<li><a href="http://tuxtweaks.com/2009/03/dvorak-rings-death-knell-for-microsofts-business-model/">Dvorak Rings Death Knell for Microsoft's Business Model</a></li>
+			<li><a href="http://tuxtweaks.com/2009/03/microsoft-to-release-windows-linux/">Microsoft to Release Windows Linux!</a></li>
+			<li><a href="http://tuxtweaks.com/2009/03/review-sabrent-68-in-1-internal-card-reader/">Review: Sabrent 68 in 1 Internal Card Reader</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20092','ara_ca_posign20092')"><span id="ara_ca_posign20092">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2009/02/'>Feb</a>&nbsp;(2)</li>
+
+			<li>
+		<ul id="ara_ca_po20092" style="display:none">
+			<li><a href="http://tuxtweaks.com/2009/02/back-up-your-mobile-phone-contacts-with-ubuntu-and-bluetooth/">Back Up Your Mobile Phone Contacts with Ubuntu and Bluetooth</a></li>
+			<li><a href="http://tuxtweaks.com/2009/02/microsoft-leaves-the-door-wide-open-for-linux-on-netbooks/">Microsoft Leaves the Door Wide Open for Linux on Netbooks</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20091','ara_ca_posign20091')"><span id="ara_ca_posign20091">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2009/01/'>Jan</a>&nbsp;(4)</li>
+
+			<li>
+		<ul id="ara_ca_po20091" style="display:none">
+			<li><a href="http://tuxtweaks.com/2009/01/windows-7-hosed-my-boot-record/">Windows 7 Hosed my Boot Record</a></li>
+			<li><a href="http://tuxtweaks.com/2009/01/force-usb-device-discovery-in-ubuntu/">Force USB Device Discovery in Ubuntu</a></li>
+			<li><a href="http://tuxtweaks.com/2009/01/ubuntu-on-the-msi-wind/">Ubuntu on the MSI Wind</a></li>
+			<li><a href="http://tuxtweaks.com/2009/01/review-msi-wind/">Review: MSI Wind</a></li>
+		</ul></li>
+		</ul>
+	</li>
+	<li>				<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_mo2008','ara_ca_mosign2008')"><span id="ara_ca_mosign2008">&#9658;&nbsp;</span></a><a href="http://tuxtweaks.com/2008/">2008</a>&nbsp;(37)
+		<ul id="ara_ca_mo2008" style="display:none">	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po200812','ara_ca_posign200812')"><span id="ara_ca_posign200812">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2008/12/'>Dec</a>&nbsp;(8)</li>
+
+			<li>
+		<ul id="ara_ca_po200812" style="display:none">
+			<li><a href="http://tuxtweaks.com/2008/12/update-logitech-lx8-in-ubuntu/">Update: Logitech LX8 in Ubuntu</a></li>
+			<li><a href="http://tuxtweaks.com/2008/12/create-a-button-to-restart-usb-in-ubuntu/">Create a Button to Restart USB in Ubuntu</a></li>
+			<li><a href="http://tuxtweaks.com/2008/12/create-an-ubuntu-live-usb-drive/">Create an Ubuntu Live USB Drive</a></li>
+			<li><a href="http://tuxtweaks.com/2008/12/install-fedora-cursor-theme-in-ubuntu/">Install Fedora Cursor Theme in Ubuntu</a></li>
+			<li><a href="http://tuxtweaks.com/2008/12/change-the-week-start-day-in-ubuntu/">Change the Week Start Day in Ubuntu</a></li>
+			<li><a href="http://tuxtweaks.com/2008/12/automatically-update-the-clamav-virus-database/">Automatically Update the ClamAV Virus Database</a></li>
+			<li><a href="http://tuxtweaks.com/2008/12/add-on-demand-virus-scanning-to-nautilus/">Add On-Demand Virus Scanning to Nautilus</a></li>
+			<li><a href="http://tuxtweaks.com/2008/12/put-your-own-face-on-tux-wii-fit-review/">Put Your Own Face on Tux - Wii Fit Review</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po200811','ara_ca_posign200811')"><span id="ara_ca_posign200811">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2008/11/'>Nov</a>&nbsp;(6)</li>
+
+			<li>
+		<ul id="ara_ca_po200811" style="display:none">
+			<li><a href="http://tuxtweaks.com/2008/11/change-the-week-start-day-in-hamster-applet/">Change the Week Start Day in Hamster Applet</a></li>
+			<li><a href="http://tuxtweaks.com/2008/11/how-to-add-a-new-hard-drive-in-ubuntu/">How To Add a New Hard Drive in Ubuntu</a></li>
+			<li><a href="http://tuxtweaks.com/2008/11/how-to-run-gnome-panel-applets-in-xfce/">How To Run Gnome Panel Applets in Xfce</a></li>
+			<li><a href="http://tuxtweaks.com/2008/11/how-to-install-adobe-air-on-linux/">How To Install Adobe AIR on Linux</a></li>
+			<li><a href="http://tuxtweaks.com/2008/11/tagging-mp3-files-in-linux-with-easytag/">Tagging mp3 Files in Linux with EasyTAG</a></li>
+			<li><a href="http://tuxtweaks.com/2008/11/keep-track-of-your-time-with-hamster-applet/">Keep Track of Your Time with Hamster Applet</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po200810','ara_ca_posign200810')"><span id="ara_ca_posign200810">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2008/10/'>Oct</a>&nbsp;(8)</li>
+
+			<li>
+		<ul id="ara_ca_po200810" style="display:none">
+			<li><a href="http://tuxtweaks.com/2008/10/ubuntu-810-is-out/">Ubuntu 8.10 is Out!</a></li>
+			<li><a href="http://tuxtweaks.com/2008/10/split-mp3-files-with-mp3splt/">Split mp3 Files With mp3splt</a></li>
+			<li><a href="http://tuxtweaks.com/2008/10/how-to-install-realplayer-11-in-ubuntu/">How To Install RealPlayer 11 in Ubuntu</a></li>
+			<li><a href="http://tuxtweaks.com/2008/10/how-to-install-free42-in-ubuntu/">How To Install Free42 in Ubuntu</a></li>
+			<li><a href="http://tuxtweaks.com/2008/10/review-sony-mdr-nc6-noise-canceling-headphones/">Review - Sony MDR-NC6 Noise Canceling Headphones</a></li>
+			<li><a href="http://tuxtweaks.com/2008/10/how-to-set-up-a-home-network-with-ubuntu-part-3/">How To Set Up a Home Network With Ubuntu, Part 3</a></li>
+			<li><a href="http://tuxtweaks.com/2008/10/how-to-set-up-a-home-network-with-ubuntu-part-2/">How To Set Up a Home Network With Ubuntu, Part 2</a></li>
+			<li><a href="http://tuxtweaks.com/2008/10/how-to-set-up-a-home-network-with-ubuntu-part-1/">How To Set Up a Home Network With Ubuntu, Part 1</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20089','ara_ca_posign20089')"><span id="ara_ca_posign20089">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2008/09/'>Sep</a>&nbsp;(6)</li>
+
+			<li>
+		<ul id="ara_ca_po20089" style="display:none">
+			<li><a href="http://tuxtweaks.com/2008/09/how-to-create-multiple-firefox-profiles/">How To Create Multiple Firefox Profiles</a></li>
+			<li><a href="http://tuxtweaks.com/2008/09/ubuntu-video-configuration-on-a-dell-inspiron-2600/">Ubuntu Video Configuration on a Dell Inspiron 2600</a></li>
+			<li><a href="http://tuxtweaks.com/2008/09/how-to-install-avast-in-ubuntu/">How To Install Avast! in Ubuntu</a></li>
+			<li><a href="http://tuxtweaks.com/2008/09/review-hp-2207-22-flat-panel-monitor/">Review: HP 2207 22" Flat Panel Monitor</a></li>
+			<li><a href="http://tuxtweaks.com/2008/09/how-to-south-paw-logitech-lx8-in-linux/">How To: South Paw Logitech LX8 in Linux</a></li>
+			<li><a href="http://tuxtweaks.com/2008/09/10-ways-googles-chrome-browser-changes-the-web/">10 Ways Google's Chrome Browser Changes the Web</a></li>
+		</ul></li>	
+			<li>					<a style="cursor:pointer;" onclick="collapsiblearchive_toggle('ara_ca_po20088','ara_ca_posign20088')"><span id="ara_ca_posign20088">&#9658;&nbsp;</span></a><a href='http://tuxtweaks.com/2008/08/'>Aug</a>&nbsp;(9)</li>
+
+			<li>
+		<ul id="ara_ca_po20088" style="display:none">
+			<li><a href="http://tuxtweaks.com/2008/08/how-to-control-fan-speeds-in-ubuntu/">How To Control Fan Speeds in Ubuntu</a></li>
+			<li><a href="http://tuxtweaks.com/2008/08/how-to-install-avast-antivirus-in-windows-xp/">How To Install avast! Antivirus in Windows XP</a></li>
+			<li><a href="http://tuxtweaks.com/2008/08/how-to-launch-a-program-in-ubuntu-without-using-the-menu/">How to Launch a Program in Ubuntu Without Using The Menu</a></li>
+			<li><a href="http://tuxtweaks.com/2008/08/review-logitech-lx8-in-windows-xp/">Review - Logitech LX8 in Windows XP</a></li>
+			<li><a href="http://tuxtweaks.com/2008/08/google-starts-free-the-airwaves-pr-campaign/">Google Starts "Free The Airwaves" PR Campaign</a></li>
+			<li><a href="http://tuxtweaks.com/2008/08/review-logitech-lx8-cordless-laser-mouse/">Review - Logitech LX8 Cordless Laser Mouse</a></li>
+			<li><a href="http://tuxtweaks.com/2008/08/subway-doesnt-like-linux/">Subway Doesn't Like Linux!</a></li>
+			<li><a href="http://tuxtweaks.com/2008/08/how-to-add-an-item-to-ubuntus-menu/">How To Add An Item To Ubuntu's Menu</a></li>
+			<li><a href="http://tuxtweaks.com/2008/08/how-to-resample-mp3-audio-files-on-linux-using-lame/">How to resample MP3 audio files on Linux using LAME</a></li>
+		</ul></li>
+		</ul>
+	</li>
+</ul></section>
+	<!-- Collapsible Archive Widget ends here -->
+	<!-- Time taken for the Collapsible Archive Widget plugin to complete loading is 0.405 seconds -->
+<section id="tag_cloud-3" class="widget widget-5 widget_tag_cloud"><h3 class="widget-title">Tags</h3><div class="tagcloud"><a href='http://tuxtweaks.com/tag/apache/' class='tag-link-78' title='8 topics' style='font-size: 10.8323699422pt;'>Apache</a>
+<a href='http://tuxtweaks.com/tag/apple/' class='tag-link-84' title='4 topics' style='font-size: 8.80924855491pt;'>Apple</a>
+<a href='http://tuxtweaks.com/tag/audio/' class='tag-link-149' title='9 topics' style='font-size: 11.2369942197pt;'>audio</a>
+<a href='http://tuxtweaks.com/tag/avast/' class='tag-link-20' title='3 topics' style='font-size: 8pt;'>avast</a>
+<a href='http://tuxtweaks.com/tag/bash/' class='tag-link-235' title='24 topics' style='font-size: 14.4739884393pt;'>bash</a>
+<a href='http://tuxtweaks.com/tag/chromium/' class='tag-link-252' title='4 topics' style='font-size: 8.80924855491pt;'>Chromium</a>
+<a href='http://tuxtweaks.com/tag/command-line/' class='tag-link-249' title='44 topics' style='font-size: 16.4971098266pt;'>command line</a>
+<a href='http://tuxtweaks.com/tag/dell/' class='tag-link-23' title='5 topics' style='font-size: 9.45664739884pt;'>dell</a>
+<a href='http://tuxtweaks.com/tag/distro-review/' class='tag-link-251' title='7 topics' style='font-size: 10.4277456647pt;'>Distro Review</a>
+<a href='http://tuxtweaks.com/tag/featured/' class='tag-link-223' title='5 topics' style='font-size: 9.45664739884pt;'>featured</a>
+<a href='http://tuxtweaks.com/tag/fedora/' class='tag-link-48' title='5 topics' style='font-size: 9.45664739884pt;'>fedora</a>
+<a href='http://tuxtweaks.com/tag/firefox/' class='tag-link-236' title='10 topics' style='font-size: 11.5606936416pt;'>firefox</a>
+<a href='http://tuxtweaks.com/tag/flac/' class='tag-link-108' title='6 topics' style='font-size: 10.0231213873pt;'>flac</a>
+<a href='http://tuxtweaks.com/tag/gadgets/' class='tag-link-18' title='3 topics' style='font-size: 8pt;'>gadgets</a>
+<a href='http://tuxtweaks.com/tag/gnome/' class='tag-link-237' title='31 topics' style='font-size: 15.3641618497pt;'>gnome</a>
+<a href='http://tuxtweaks.com/tag/google/' class='tag-link-19' title='4 topics' style='font-size: 8.80924855491pt;'>google</a>
+<a href='http://tuxtweaks.com/tag/google-chrome/' class='tag-link-36' title='7 topics' style='font-size: 10.4277456647pt;'>google chrome</a>
+<a href='http://tuxtweaks.com/tag/gstreamer/' class='tag-link-157' title='4 topics' style='font-size: 8.80924855491pt;'>GStreamer</a>
+<a href='http://tuxtweaks.com/tag/howto/' class='tag-link-238' title='172 topics' style='font-size: 21.2716763006pt;'>HowTo</a>
+<a href='http://tuxtweaks.com/tag/hp/' class='tag-link-22' title='6 topics' style='font-size: 10.0231213873pt;'>HP</a>
+<a href='http://tuxtweaks.com/tag/humor/' class='tag-link-248' title='4 topics' style='font-size: 8.80924855491pt;'>humor</a>
+<a href='http://tuxtweaks.com/tag/imagemagick/' class='tag-link-73' title='8 topics' style='font-size: 10.8323699422pt;'>ImageMagick</a>
+<a href='http://tuxtweaks.com/tag/jaunty/' class='tag-link-16' title='4 topics' style='font-size: 8.80924855491pt;'>jaunty</a>
+<a href='http://tuxtweaks.com/tag/karmic-koala/' class='tag-link-81' title='5 topics' style='font-size: 9.45664739884pt;'>karmic koala</a>
+<a href='http://tuxtweaks.com/tag/lamp/' class='tag-link-71' title='11 topics' style='font-size: 11.8843930636pt;'>LAMP</a>
+<a href='http://tuxtweaks.com/tag/linux/' class='tag-link-240' title='212 topics' style='font-size: 22pt;'>linux</a>
+<a href='http://tuxtweaks.com/tag/linux-mint/' class='tag-link-256' title='21 topics' style='font-size: 13.9884393064pt;'>Linux Mint</a>
+<a href='http://tuxtweaks.com/tag/lucid-lynx/' class='tag-link-119' title='4 topics' style='font-size: 8.80924855491pt;'>Lucid Lynx</a>
+<a href='http://tuxtweaks.com/tag/mp3/' class='tag-link-241' title='12 topics' style='font-size: 12.1271676301pt;'>mp3</a>
+<a href='http://tuxtweaks.com/tag/nautilus/' class='tag-link-120' title='5 topics' style='font-size: 9.45664739884pt;'>Nautilus</a>
+<a href='http://tuxtweaks.com/tag/netbook/' class='tag-link-51' title='5 topics' style='font-size: 9.45664739884pt;'>netbook</a>
+<a href='http://tuxtweaks.com/tag/network/' class='tag-link-24' title='5 topics' style='font-size: 9.45664739884pt;'>network</a>
+<a href='http://tuxtweaks.com/tag/news/' class='tag-link-242' title='20 topics' style='font-size: 13.8265895954pt;'>news</a>
+<a href='http://tuxtweaks.com/tag/ogg/' class='tag-link-107' title='8 topics' style='font-size: 10.8323699422pt;'>ogg</a>
+<a href='http://tuxtweaks.com/tag/open-source/' class='tag-link-72' title='5 topics' style='font-size: 9.45664739884pt;'>open source</a>
+<a href='http://tuxtweaks.com/tag/opinion/' class='tag-link-243' title='17 topics' style='font-size: 13.3410404624pt;'>opinion</a>
+<a href='http://tuxtweaks.com/tag/phpmyadmin/' class='tag-link-100' title='5 topics' style='font-size: 9.45664739884pt;'>phpMyAdmin</a>
+<a href='http://tuxtweaks.com/tag/review/' class='tag-link-247' title='7 topics' style='font-size: 10.4277456647pt;'>review</a>
+<a href='http://tuxtweaks.com/tag/security/' class='tag-link-244' title='12 topics' style='font-size: 12.1271676301pt;'>security</a>
+<a href='http://tuxtweaks.com/tag/text-edit/' class='tag-link-171' title='4 topics' style='font-size: 8.80924855491pt;'>text edit</a>
+<a href='http://tuxtweaks.com/tag/ubuntu/' class='tag-link-245' title='153 topics' style='font-size: 20.8670520231pt;'>Ubuntu</a>
+<a href='http://tuxtweaks.com/tag/usb/' class='tag-link-44' title='7 topics' style='font-size: 10.4277456647pt;'>usb</a>
+<a href='http://tuxtweaks.com/tag/web-development/' class='tag-link-250' title='21 topics' style='font-size: 13.9884393064pt;'>web development</a>
+<a href='http://tuxtweaks.com/tag/windows/' class='tag-link-246' title='28 topics' style='font-size: 14.9595375723pt;'>windows</a>
+<a href='http://tuxtweaks.com/tag/wordpress/' class='tag-link-79' title='9 topics' style='font-size: 11.2369942197pt;'>WordPress</a></div>
+</section><section id="text-413084923" class="widget widget-6 widget_text"><h3 class="widget-title">Subscribe By Email</h3>			<div class="textwidget"><form style="border:1px solid #ccc;padding:3px;text-align:center;" action="//feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('http://feedburner.google.com/fb/a/mailverify?uri=TuxTweaks', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true"><p>Enter your email address:</p><p><input type="text" style="width:320px" name="email"/></p><input type="hidden" value="TuxTweaks" name="uri"/><input type="hidden" name="loc" value="en_US"/><input type="submit" value="Subscribe" /><p>Delivered by <a href="http://feedburner.google.com" target="_blank">FeedBurner</a></p></form>
+</br>
+<p><a href="http://www.twitter.com/tuxtweaks"><img src="//tuxtweaks.com/wp-content/themes/tuxtweaks/images/follow_me-c.png" alt="Follow TuxTweaks on Twitter"/></a>
+
+<a href="https://www.facebook.com/TuxTweaks"><img src="//tuxtweaks.com/wp-content/themes/tuxtweaks/images/TT-Facebook.png" alt="Like TuxTweaks on Facebook"/></a></p></div>
+		</section><section id="rss_links-2" class="widget widget-7 widget_rss_links"><ul><li><a target="_self" href="http://tuxtweaks.com/feed/" title="Subscribe to Posts">RSS - Posts</a></li><li><a target="_self" href="http://tuxtweaks.com/comments/feed/" title="Subscribe to Comments">RSS - Comments</a></li></ul>
+</section><section id="categories-404091482" class="widget widget-8 widget-last widget_categories"><h3 class="widget-title">Categories</h3><label class="screen-reader-text" for="cat">Categories</label><select name='cat' id='cat' class='postform' >
+	<option value='-1'>Select Category</option>
+	<option class="level-0" value="3">bash&nbsp;&nbsp;(26)</option>
+	<option class="level-0" value="102">Chromium&nbsp;&nbsp;(1)</option>
+	<option class="level-0" value="65">command line&nbsp;&nbsp;(55)</option>
+	<option class="level-0" value="82">Distro Review&nbsp;&nbsp;(8)</option>
+	<option class="level-0" value="4">firefox&nbsp;&nbsp;(12)</option>
+	<option class="level-0" value="144">FOSS&nbsp;&nbsp;(9)</option>
+	<option class="level-0" value="5">gadget&nbsp;&nbsp;(13)</option>
+	<option class="level-0" value="90">General&nbsp;&nbsp;(10)</option>
+	<option class="level-0" value="6">gnome&nbsp;&nbsp;(38)</option>
+	<option class="level-0" value="7">HowTo&nbsp;&nbsp;(175)</option>
+	<option class="level-0" value="58">humor&nbsp;&nbsp;(2)</option>
+	<option class="level-0" value="87">image editing&nbsp;&nbsp;(7)</option>
+	<option class="level-0" value="121">KDE&nbsp;&nbsp;(2)</option>
+	<option class="level-0" value="8">lame&nbsp;&nbsp;(6)</option>
+	<option class="level-0" value="9">linux&nbsp;&nbsp;(216)</option>
+	<option class="level-0" value="189">Linux Mint&nbsp;&nbsp;(18)</option>
+	<option class="level-0" value="10">mp3&nbsp;&nbsp;(8)</option>
+	<option class="level-0" value="11">news&nbsp;&nbsp;(29)</option>
+	<option class="level-0" value="12">opinion&nbsp;&nbsp;(20)</option>
+	<option class="level-0" value="21">review&nbsp;&nbsp;(6)</option>
+	<option class="level-0" value="13">security&nbsp;&nbsp;(11)</option>
+	<option class="level-0" value="14">Ubuntu&nbsp;&nbsp;(151)</option>
+	<option class="level-0" value="161">video&nbsp;&nbsp;(5)</option>
+	<option class="level-0" value="70">web development&nbsp;&nbsp;(23)</option>
+	<option class="level-0" value="15">windows&nbsp;&nbsp;(34)</option>
+	<option class="level-0" value="212">Xubuntu&nbsp;&nbsp;(2)</option>
+</select>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+(function() {
+	var dropdown = document.getElementById( "cat" );
+	function onCatChange() {
+		if ( dropdown.options[ dropdown.selectedIndex ].value > 0 ) {
+			location.href = "http://tuxtweaks.com/?cat=" + dropdown.options[ dropdown.selectedIndex ].value;
+		}
+	}
+	dropdown.onchange = onCatChange;
+})();
+/* ]]> */
+</script>
+
+</section>
+		
+	</aside><!-- #sidebar-primary -->
+
+</div>
+			</div><!-- .main-wrap -->
+
+		</div><!-- .main-inner -->
+
+		
+	</div><!-- #main -->
+
+	<footer id="footer" role="contentinfo" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
+
+	<div class="wrap">
+
+		<p class="credit">
+			<a class="site-link" href="http://tuxtweaks.com" rel="home">Tux Tweaks</a> &#169; 2015			<span id="footer-links"><a href="http://tuxtweaks.com/">Home</a>
+<a href="http://tuxtweaks.com/about/">About This Site</a>
+<a href="http://tuxtweaks.com/privacy-policy/">Privacy Policy</a>
+<a href="http://tuxtweaks.com/support-tux-tweaks/">Support Tux Tweaks</a>
+<a href="http://tuxtweaks.com/hosting/">Hosting</a>
+</span>		</p><!-- .credit -->
+
+	</div><!-- .wrap -->
+
+</footer><!-- #footer -->
+
+</div><!-- #container -->
+
+
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"http:\/\/tuxtweaks.com\/2014\/05\/bash-getopts\/":2813};
+	</script>
+		<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-linkedin' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomlinkedin', 'menubar=1,resizable=1,width=580,height=450' );
+				return false;
+			});
+		});
+		</script>
+			<div id="sharing_email" style="display: none;">
+		<form action="/2014/05/bash-getopts/" method="post">
+			<label for="target_email">Send to Email Address</label>
+			<input type="email" name="target_email" id="target_email" value="" />
+
+			
+				<label for="source_name">Your Name</label>
+				<input type="text" name="source_name" id="source_name" value="" />
+
+				<label for="source_email">Your Email Address</label>
+				<input type="email" name="source_email" id="source_email" value="" />
+
+						<input type="text" id="jetpack-source_f_name" name="source_f_name" class="input" value="" size="25" autocomplete="off" />
+			<script> document.getElementById('jetpack-source_f_name').value = ''; </script>
+			
+			<img style="float: right; display: none" class="loading" src="//tuxtweaks.com/wp-content/plugins/jetpack/modules/sharedaddy/images/loading.gif" alt="loading" width="16" height="16" />
+			<input type="submit" value="Send Email" class="sharing_send" />
+			<a rel="nofollow" href="#cancel" class="sharing_cancel">Cancel</a>
+
+			<div class="errors errors-1" style="display: none;">
+				Post was not sent - check your email addresses!			</div>
+
+			<div class="errors errors-2" style="display: none;">
+				Email check failed, please try again			</div>
+
+			<div class="errors errors-3" style="display: none;">
+				Sorry, your blog cannot share posts by email.			</div>
+		</form>
+	</div>
+		<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-pocket' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcompocket', 'menubar=1,resizable=1,width=450,height=450' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-tumblr' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomtumblr', 'menubar=1,resizable=1,width=450,height=450' );
+				return false;
+			});
+		});
+		</script>
+				<script type='text/javascript' src='//tuxtweaks.com/wp-content/plugins/akismet/_inc/form.js?ver=3.1.5'></script>
+<script type='text/javascript' src='//tuxtweaks.com/wp-includes/js/comment-reply.min.js?ver=4.3.1'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var zerospam = {"key":"Xak#(KFL^GgzH6wqrZe@WH7zwe14bF7zJk9EZOG(AVXo#v3du6Yw4ZueHm^Qfc!o"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='//tuxtweaks.com/wp-content/plugins/zero-spam/js/zerospam.js?ver=2.0.0'></script>
+<script type='text/javascript' src='//s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201547'></script>
+<script type='text/javascript' src='//tuxtweaks.com/wp-content/themes/genbu/js/fitvids.min.js?ver=0.1.1'></script>
+<script type='text/javascript' src='//tuxtweaks.com/wp-content/themes/genbu/js/theme.min.js?ver=1.3.0'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='//tuxtweaks.com/wp-content/plugins/jetpack/modules/sharedaddy/sharing.js?ver=3.7.2'></script>
+<script type="text/javascript" id="slb_context">/* <![CDATA[ */if ( !!window.jQuery ) {(function($){$(document).ready(function(){if ( !!window.SLB ) { {$.extend(SLB, {"context":["public","user_guest"]});} }})})(jQuery);}/* ]]> */</script>
+<script type='text/javascript' src='//stats.wp.com/e-201547.js' async defer></script>
+<script type='text/javascript'>
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:3.7.2',blog:'8821983',post:'2813',tz:'-5',srv:'tuxtweaks.com'} ]);
+	_stq.push([ 'clickTrackerInit', '8821983', '2813' ]);
+</script>
+</body>
+</html>
+<!-- Dynamic page generated in 1.359 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2015-11-18 07:12:58 -->
+
+<!-- Compression = gzip -->

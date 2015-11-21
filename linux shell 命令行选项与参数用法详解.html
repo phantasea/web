@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>linux shell命令行选项与参数用法详解_linux shell_脚本之家</title>
+<meta http-equiv="Content-Language" content="zh-CN" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+<meta http-equiv="mobile-agent" content="format=html5; url=http://m.jb51.net/article/48691.htm">
+<meta http-equiv="mobile-agent" content="format=xhtml; url=http://m.jb51.net/article/48691.htm">
+<script type="text/javascript">
+(function(){var ua=navigator.userAgent.toLowerCase();var bIsIpad=ua.match(/ipad/i)=="ipad";var bIsIphoneOs=ua.match(/iphone os/i)=="iphone os";var bIsAndroid=ua.match(/android/i)=="android";var bIsWM=ua.match(/windows mobile/i)=="windows mobile";if(bIsIpad||bIsIphoneOs||bIsAndroid||bIsWM){window.location.href="http://m.jb51.net/article/48691.htm"}})();
+</script>
+<meta name="keywords" content="linux,shell,命令行选项" />
+<meta name="description" content="本文介绍了linux shell中使用命令行选项与命令行参数的方法，在bash中，可以用以下三种方式来处理命令行参数，每种方式都有自己的应用场景" />
+<link rel="stylesheet" href="http://img.jb51.net/skin/blue/global.css" type="text/css" media="all" />
+<link rel="stylesheet" href="http://img.jb51.net/skin/blue/content.css" type="text/css" media="all" />
+<link type="text/css" rel="stylesheet" href="/jslib/syntaxhighlighter/styles/shCore.css" />
+<link type="text/css" rel="Stylesheet" href="/jslib/syntaxhighlighter/styles/shThemeDefault.css" />
+<script type="text/javascript" src="http://img.jb51.net/js/function.js"></script>
+</head>
+<body>
+<DIV id=topnav>
+<div class="wrap">
+<DIV id=toptext>脚 本 之 家 www.jb51.net</DIV>
+<UL id=topnavlist>
+<script type="text/javascript" charset="gb2312">dy("top");</script>
+</UL>
+</div>
+</DIV>
+<div class="wrap">
+<div id="dxy_logo">
+<div id="logo_l"><a href="http://www.jb51.net" title="脚本之家" target="_blank"><img src="http://www.jb51.net/images/logo.gif" alt="脚本之家" /></a></div>
+<div id="logo_m"></div>
+<div id="logo_r"></div>
+</div><!--导航开始-->
+<div id="nav_top">
+<ul>
+<li class="current"><a href="http://www.jb51.net">首页</a></li>
+<li><a href="http://www.jb51.net/web/">网页制作</a></li>
+<li><a href="http://www.jb51.net/list/index_96.htm">脚本专栏</a></li>
+<li><a href="http://www.jb51.net/jiaoben/">脚本下载</a></li>
+<li><a href="http://www.jb51.net/list/index_1.htm">网络编程</a></li>
+<li><a href="http://www.jb51.net/list/index_104.htm">数据库</a></li>
+<li><a href="http://www.jb51.net/cms/">CMS教程</a></li>
+<li><a href="http://www.jb51.net/books/">电子书籍</a></li>
+<li><a href="http://www.jb51.net/pingmian/">平面设计</a></li>
+<li><a href="http://www.jb51.net/media/">媒体动画</a></li>
+<li><a href="http://www.jb51.net/os/">操作系统</a></li>
+<li><a href="http://www.jb51.net/yunying/">网站运营</a></li>
+<li class="last"><a href="http://www.jb51.net/hack/">网络安全</a></li>
+</ul>
+</div><!--导航结束-->
+<div class=blank3></div>
+<div class="subnav">
+<ul><li><a href='/list/list_114_1.htm' title="vbs">vbs</a></li>
+<li><a href='/list/list_106_1.htm' title="DOS/BAT">DOS/BAT</a></li>
+<li><a href='/list/list_110_1.htm' title="hta">hta</a></li>
+<li><a href='/list/list_111_1.htm' title="htc">htc</a></li>
+<li><a href='/list/list_97_1.htm' title="python">python</a></li>
+<li><a href='/list/list_125_1.htm' title="perl">perl</a></li>
+<li><a href='/list/list_138_1.htm' title="游戏相关">游戏相关</a></li>
+<li><a href='/list/list_161_1.htm' title="VBA">VBA</a></li>
+<li><a href='/list/list_163_1.htm' title="远程脚本">远程脚本</a></li>
+<li><a href='/list/list_178_1.htm' title="ColdFusion">ColdFusion</a></li>
+<li><a href='/list/list_201_1.htm' title="ruby专题">ruby专题</a></li>
+<li><a href='/list/list_213_1.htm' title="autoit">autoit</a></li>
+<li><a href='/list/list_214_1.htm' title="seraphzone">seraphzone</a></li>
+<li><a href='/list/list_234_1.htm' title="PowerShell">PowerShell</a></li>
+<li><a href='/list/list_235_1.htm' title="linux shell">linux shell</a></li>
+<li><a href='/list/list_245_1.htm' title="Lua">Lua</a></li>
+<li><a href='/list/list_246_1.htm' title="Golang">Golang</a></li>
+<li><a href='/list/list_249_1.htm' title="Erlang ">Erlang </a></li>
+<li><a href='/list/list_130_1.htm' title="其它">其它</a></li>
+</ul>
+</div>
+<div class=blank3></div>
+<DIV class="search">
+<UL><LI class=search-hot><SPAN>特色栏目：</SPAN>
+<A href="http://www.jb51.net/list/list_114_1.htm" target='_blank'>vbscript</A> 
+<A href="http://www.jb51.net/list/list_6_1.htm" target='_blank'>正则表达式</A> 
+<A href="http://www.jb51.net/list/list_3_1.htm" target='_blank'>javascript</A>
+<A href="http://www.jb51.net/list/list_106_1.htm" target='_blank'>批处理</A>
+<A href="http://s.jb51.net">服务器软件</A> 
+<A href="http://sc.jb51.net/?txt" target="_blank" style="color:red">素材下载</A> 
+</LI><LI class=search-box>
+<div class="sall">
+<form action="http://so.jb51.net/cse/search" target="_blank">
+    <input type="hidden" name="s" value="10520733385329581432">
+    <input type="hidden" name="ie" value="gbk">
+    <input type="text" name="q" class="keyword_input">
+    <input type="submit" value="搜索" class="s_btn">
+</form></div>
+</LI></UL>
+</div>
+<div class=blank3></div>
+<DIV class="tonglanad">
+<script type="text/javascript">var tougao="junjie";var lmname="linux shell";dy("bdtl");</script>
+</div>
+<div class=blank3></div>
+<div id="tonglan1"></div>
+<div class=blank3></div>
+<div class="dxy_main">
+<div class="dxy_main_l">
+<div id="art_con">
+<div id="daohang">页面导航：  <a href='/'>首页</a> → <a href="/list/index_96.htm" title="脚本专栏">脚本专栏</a> → <a href="/list/list_235_1.htm" title="linux shell">linux shell</a> → 正文内容 shell命令行选项与参数<div class="blank3"></div></div>
+<div class=blank3></div>
+<h1>linux shell命令行选项与参数用法详解</h1>
+<div id="art_info">
+作者：  字体：[<a href="javascript:turnbig()">增加</a> <a href="javascript:turnsmall()">减小</a>] 类型：转载 时间：2014-04-03
+</div><!--end art_info-->
+<div class=blank3></div>
+<div id="art_demo">本文介绍了linux shell中使用命令行选项与命令行参数的方法，在bash中，可以用以下三种方式来处理命令行参数，每种方式都有自己的应用场景</div>
+<div class=blank3></div>
+<div id="con_all">
+<script type="text/javascript">dy("bcall");</script>
+</div>
+<div id="art_content">
+<!--NEWSZW_HZH_BEGIN-->
+问题描述：在linux shell中如何处理tail -n 10 access.log这样的命令行选项？<BR>在bash中，可以用以下三种方式来处理命令行参数，每种方式都有自己的应用场景。<BR>1，直接处理，依次对$1,$2,...,$n进行解析，分别手工处理；<BR>2，getopts来处理，单个字符选项的情况（如：-n 10 -f file.txt等选项）；<BR>3，getopt，可以处理单个字符选项，也可以处理长选项long-option（如：--prefix=/home等）。<BR>总结：小脚本手工处理即可，getopts能处理绝大多数的情况，getopt较复杂、功能也更强大。<BR>1，直接手工处理位置参数<BR>必须要要知道几个变量，<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="98212" class="copybut" id="copybut98212" onclick="doCopy('code98212')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code98212"> <BR>&nbsp;&nbsp; *&nbsp;&nbsp;&nbsp; $0 ：即命令本身，相当于c/c++中的argv[0]<BR>&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp;&nbsp; $1 ：第一个参数.<BR>&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp;&nbsp; $2, $3, $4 ... ：第2、3、4个参数，依次类推。<BR>&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp;&nbsp; $#&nbsp; 参数的个数，不包括命令本身<BR>&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp;&nbsp; $@ ：参数本身的列表，也不包括命令本身<BR>&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp;&nbsp; $* ：和$@相同，但"$*" 和 "$@"(加引号)并不同，"$*"将所有的参数解释成一个字符串，而"$@"是一个参数数组。<BR></div> <BR>手工处理方式能满足多数的简单需求，配合shift使用也能构造出强大的功能，但处理复杂选项时建议用下面的两种方法。<BR>例子，(getargs.sh)：<br><br><div class="codetitle"><span><a style="CURSOR: pointer" data="89926" class="copybut" id="copybut89926" onclick="doCopy('code89926')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code89926"><BR>#!/bin/bash<BR>if [ $# -lt 1 ]; then<BR>&nbsp;&nbsp;&nbsp; echo "error.. need args"<BR>&nbsp;&nbsp;&nbsp; exit 1<BR>fi<BR>echo "commond is $0"<BR>echo "args are:"<BR>for arg in "$@"<BR>do<BR>&nbsp;&nbsp;&nbsp; echo $arg<BR>done</div><br><br>运行命令：<br><br><div class="codetitle"><span><a style="CURSOR: pointer" data="67900" class="copybut" id="copybut67900" onclick="doCopy('code67900')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code67900"><BR>./getargs.sh 11 22 cc<BR>commond is ./getargs.sh<BR>args are:<BR>11<BR>22<BR>cc</div><BR>2，getopts （shell内置命令）<BR>处理命令行参数是一个相似而又复杂的事情，为此，c提供了getopt/getopt_long等函数，c++的boost提供了options库，在shell中，处理此事的是getopts和getopt。<BR>getopts/getopt的区别，getopt是个外部binary文件，而getopts是shell builtin。<br><br><div class="codetitle"><span><a style="CURSOR: pointer" data="7421" class="copybut" id="copybut7421" onclick="doCopy('code7421')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code7421"><BR>[root@jbxue ~]$ type getopt<BR>getopt is /usr/bin/getopt<BR>[root@jbxue ~]$ type getopts<BR>getopts is a shell builtin</div><BR>getopts不能直接处理长的选项（如：--prefix=/home等）<BR>关于getopts的使用方法，可以man bash&nbsp; 搜索getopts<BR>getopts有两个参数，第一个参数是一个字符串，包括字符和“：”，每一个字符都是一个有效的选项，如果字符后面带有“：”，表示这个字符有自己的参数。getopts从命令中获取这些参数，并且删去了“-”，并将其赋值在第二个参数中，如果带有自己参数，这个参数赋值在“optarg”中。提供getopts的shell内置了optarg这个变变，getopts修改了这个变量。<BR>这里变量$optarg存储相应选项的参数，而$optind总是存储原始$*中下一个要处理的元素位置。<BR>while getopts ":a:bc" opt&nbsp; #第一个冒号表示忽略错误；字符后面的冒号表示该选项必须有自己的参数<BR>例子，(getopts.sh)：<br><br><div class="codetitle"><span><a style="CURSOR: pointer" data="88858" class="copybut" id="copybut88858" onclick="doCopy('code88858')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code88858"><BR>echo $*<BR>while getopts ":a:bc" opt<BR>do<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case $opt in<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a ) echo $optarg<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo $optind;;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b ) echo "b $optind";;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; c ) echo "c $optind";;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ? ) echo "error"<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; exit 1;;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; esac<BR>done<BR>echo $optind<BR>shift $(($optind - 1))<BR>#通过shift $(($optind - 1))的处理，$*中就只保留了除去选项内容的参数，可以在其后进行正常的shell编程处理了。<BR>echo $0<BR>echo $*</div><br><br>执行命令：<br><br><div class="codetitle"><span><a style="CURSOR: pointer" data="71104" class="copybut" id="copybut71104" onclick="doCopy('code71104')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code71104"><BR>./getopts.sh -a 11 -b -c<BR>-a 11 -b -c<BR>11<BR>3<BR>b 4<BR>c 5<BR>5<BR>./getopts.sh</div><BR>3，getopt（一个外部工具）<BR>具体用用法可以 man getopt<BR>#-o表示短选项，两个冒号表示该选项有一个可选参数，可选参数必须紧贴选项，如-carg 而不能是-c arg<BR>#--long表示长选项<BR>例子，(getopt.sh)：<br><br><div class="codetitle"><span><a style="CURSOR: pointer" data="97808" class="copybut" id="copybut97808" onclick="doCopy('code97808')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code97808"><BR>#!/bin/bash<BR># a small example program for using the new getopt(1) program.<BR># this program will only work with bash(1)<BR># an similar program using the tcsh(1) script. language can be found<BR># as parse.tcsh<BR># example input and output (from the bash prompt):<BR># ./parse.bash -a par1 'another arg' --c-long 'wow!*\?' -cmore -b " very long "<BR># option a<BR># option c, no argument<BR># option c, argument `more'<BR># option b, argument ` very long '<BR># remaining arguments:<BR># --&gt; `par1'<BR># --&gt; `another arg'<BR># --&gt; `wow!*\?'<BR># note that we use `"$@"' to let each command-line parameter expand to a<BR># separate word. the quotes around `$@' are essential!<BR># we need temp as the `eval set --' would nuke the return value of getopt.<BR>#-o表示短选项，两个冒号表示该选项有一个可选参数，可选参数必须紧贴选项<BR>#如-carg 而不能是-c arg<BR>#--long表示长选项<BR>#"$@"在上面解释过<BR># -n:出错时的信息<BR># -- ：举一个例子比较好理解：<BR>#我们要创建一个名字为 "-f"的目录你会怎么办？<BR># mkdir -f #不成功，因为-f会被mkdir当作选项来解析，这时就可以使用<BR># mkdir -- -f 这样-f就不会被作为选项。<BR>temp=`getopt -o ab:c:: --long a-long,b-long:,c-long:: \<BR>&nbsp;&nbsp;&nbsp;&nbsp; -n 'example.bash' -- "$@"`<BR>if [ $? != 0 ] ; then echo "terminating..." &gt;&2 ; exit 1 ; fi<BR># note the quotes around `$temp': they are essential!<BR>#set 会重新排列参数的顺序，也就是改变$1,$2...$n的值，这些值在getopt中重新排列过了<BR>eval set -- "$temp"<BR>#经过getopt的处理，下面处理具体选项。<BR>while true ; do<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case "$1" in<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -a|--a-long) echo "option a" ; shift ;;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -b|--b-long) echo "option b, argument \`$2'" ; shift 2 ;;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -c|--c-long)<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # c has an optional argument. as we are in quoted mode,<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # an empty parameter will be generated if its optional<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # argument is not found.<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case "$2" in<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "") echo "option c, no argument"; shift 2 ;;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *)&nbsp; echo "option c, argument \`$2'" ; shift 2 ;;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; esac ;;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --) shift ; break ;;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *) echo "internal error!" ; exit 1 ;;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; esac<BR>done<BR>echo "remaining arguments:"<BR>for arg do<BR>&nbsp;&nbsp; echo '--&gt; '"\`$arg'" ;<BR>done</div><BR>运行命令：<BR><div class="codetitle"><span><a style="CURSOR: pointer" data="17698" class="copybut" id="copybut17698" onclick="doCopy('code17698')"><U>复制代码</U></a></span> 代码如下:</div><div class="codebody" id="code17698"><BR>./getopt.sh --b-long abc -a -c33 remain<BR>option b, argument `abc'<BR>option a<BR>option c, argument `33'<BR>remaining arguments:<BR>--&gt; `remain'</div><BR>以上就是有关linux shell命令行选项与参数用法的详细内容，希望对大家有所帮助。
+<!--NEWSZW_HZH_END-->
+
+<div id="art_xg">
+<h4>您可能感兴趣的文章:</h4><ul><li><a href="/article/37744.htm" title="linux命令之调试工具strace的深入分析" target="_blank">linux命令之调试工具strace的深入分析</a></li><li><a href="/article/40805.htm" title="Linux ipcs命令与ipcrm命令的用法详解" target="_blank">Linux ipcs命令与ipcrm命令的用法详解</a></li><li><a href="/article/40807.htm" title="Linux top命令的用法详细详解" target="_blank">Linux top命令的用法详细详解</a></li><li><a href="/article/44720.htm" title="linux shell脚本学习xargs命令使用详解" target="_blank">linux shell脚本学习xargs命令使用详解</a></li><li><a href="/article/45848.htm" title="linux命令详解之useradd命令使用方法" target="_blank">linux命令详解之useradd命令使用方法</a></li><li><a href="/article/47275.htm" title="在linux中导入sql文件的方法分享(使用命令行转移mysql数据库)" target="_blank">在linux中导入sql文件的方法分享(使用命令行转移mysql数据库)</a></li><li><a href="/article/53954.htm" title="Shell+Linux命令实现日志分析" target="_blank">Shell+Linux命令实现日志分析</a></li><li><a href="/article/56490.htm" title="Python执行Linux系统命令的4种方法" target="_blank">Python执行Linux系统命令的4种方法</a></li><li><a href="/article/59939.htm" title="Ruby中执行Linux shell命令的六种方法详解" target="_blank">Ruby中执行Linux shell命令的六种方法详解</a></li><li><a href="/article/61956.htm" title="Linux下使用python调用top命令获得CPU利用率" target="_blank">Linux下使用python调用top命令获得CPU利用率</a></li><li><a href="/article/74460.htm" title="Linux命令每天必学(55)之traceroute命令" target="_blank">Linux命令每天必学(55)之traceroute命令</a></li></ul>
+<div id="con_da2">
+<script type="text/javascript">dy("baidu580");</script>
+</div>
+</div>
+<div id="con_bo"></div>
+</div>
+<div class=blank3></div>
+<div id="shoucang">
+    <div class="bdsharebuttonbox"><A class=bds_more href="http://share.baidu.com/code#" data-cmd="more"></A><A class=bds_qzone title=分享到QQ空间 href="http://share.baidu.com/code#" data-cmd="qzone"></A><A class=bds_tsina title=分享到新浪微博 href="http://share.baidu.com/code#" data-cmd="tsina"></A><A class=bds_tqq title=分享到腾讯微博 href="http://share.baidu.com/code#" data-cmd="tqq"></A><A class=bds_renren title=分享到人人网 href="http://share.baidu.com/code#" data-cmd="renren"></A><A class=bds_weixin title=分享到微信 href="http://share.baidu.com/code#" data-cmd="weixin"></A></div>
+</div>
+<div class=blank3></div>
+<div class="tags">
+<strong>Tags：</strong><a href="http://img.jb51.net/tag/linux/1.htm" target="_blank" title="搜索关于linux的文章">linux</a> <a href="http://img.jb51.net/tag/shell/1.htm" target="_blank" title="搜索关于shell的文章">shell</a> 
+</div>
+<div class=blank3></div>
+<div class="con_ff">
+<A title=复制本文链接发给你QQ/MSN上的好友 href="javascript: copyUserHomeToClipBoard()" 
+rel=nofollow class=button_link>复制链接</A><a href="javascript:addBookmark(document.title,document.location.href)" class=button_link>收藏本文</a><a href="javascript:doPrint();" class="button_link">打印本文</a><a href="javascript:closeWindow()" class="button_link">关闭本文</a><a href='/index.htm' class=button_link>返回首页</a>
+</div>
+<div id="prenext">
+<div id='prv'>上一篇：<a href='/article/48690.htm' title='linux shell命令行参数用法详解'>linux shell命令行参数用法详解</a></div><div id='next'>下一篇：<a href='/article/74460.htm'>Linux命令每天必学(55)之traceroute命令</a></div>
+</div>
+<div class=blank3></div>
+<DIV id=relatedarticle>
+<H2>相关文章</H2>
+<ul><li><span>2014-05-05</span><a href="/article/50439.htm" title="使用shell脚本分析网站日志统计PV、404、500等数据" target="_blank">使用shell脚本分析网站日志统计PV、404、500等数据</a></li><li><span>2015-04-04</span><a href="/article/64890.htm" title="Bash脚本内置的调试方法技巧" target="_blank">Bash脚本内置的调试方法技巧</a></li><li><span>2014-05-05</span><a href="/article/50446.htm" title="shell脚本监控mysql主从状态" target="_blank">shell脚本监控mysql主从状态</a></li><li><span>2014-12-12</span><a href="/article/58827.htm" title="Linux Shell的一些使用小技巧收集" target="_blank">Linux Shell的一些使用小技巧收集</a></li><li><span>2013-11-11</span><a href="/article/43966.htm" title="shell监控脚本 准备工作分享" target="_blank">shell监控脚本 准备工作分享</a></li><li><span>2014-12-12</span><a href="/article/58760.htm" title="Shell脚本判断Linux系统是32位还是64位的几种方法分享" target="_blank">Shell脚本判断Linux系统是32位还是64位的几种方法分享</a></li><li><span>2014-03-03</span><a href="/article/48080.htm" title="centos中mysql备份数据库脚本分享" target="_blank">centos中mysql备份数据库脚本分享</a></li><li><span>2013-02-02</span><a href="/article/33785.htm" title="awk区间取值的例子" target="_blank">awk区间取值的例子</a></li><li><span>2014-12-12</span><a href="/article/58843.htm" title="CentOS中使用Shell脚本实现每天自动备份网站文件和数据库并上传到FTP中" target="_blank">CentOS中使用Shell脚本实现每天自动备份网站文件和数据库并上传到</a></li><li><span>2015-07-07</span><a href="/article/69165.htm" title="Linux Shell 数组的创建及使用技巧" target="_blank">Linux Shell 数组的创建及使用技巧</a></li></ul>
+<DIV class=clear></DIV></DIV>
+<div class="art_bot_ad"><script type="text/javascript" charset="gb2312">dy("bdtxt");</script></div>
+<DIV id=comments>
+<H2>文章评论</H2>
+<div id="commentList">
+<div id="SOHUCS" sid="art_48691"></div>
+</div>
+</div>
+<div class=blank3></div>
+<div class="sm"><script type="text/javascript" charset="gb2312">dy("sm");</script></div>
+<div class=blank3></div>
+<div id="hm_t_3717"></div>
+<div class=blank3></div>
+</div>
+</div><!--end dxy_mainl-->
+<div class="dxy_main_r">
+<div class="rbg" id="art_1"><script type="text/javascript">dy("r1");</script></div>
+<div class=blank3></div>
+<DIV class="r_title"><H6>最 近 更 新</H6></div>
+<div class="rightContent">
+<ul><li><a href="/article/47371.htm" title="shell脚本学习指南[六](Arnold Robbins & Nelson H.F. Beebe著)" target="_blank">shell脚本学习指南[六](Arnold Robbins &</a></li><li><a href="/article/59271.htm" title="Shell脚本实现监控rsync数据是否传输完" target="_blank">Shell脚本实现监控rsync数据是否传输完</a></li><li><a href="/article/73394.htm" title="linux shell命令快捷获得系统帮助(一)[man-pages定义规范]" target="_blank">linux shell命令快捷获得系统帮助(一)[ma</a></li><li><a href="/article/40258.htm" title="用shell脚本和c语言将大写字母转成小写的代码" target="_blank">用shell脚本和c语言将大写字母转成小写的</a></li><li><a href="/article/57972.htm" title="Shell实用技巧：快速去除字符串中的空格" target="_blank">Shell实用技巧：快速去除字符串中的空格</a></li><li><a href="/article/58778.htm" title="Shell根据web日志计算平均连接时间功能" target="_blank">Shell根据web日志计算平均连接时间功能</a></li><li><a href="/article/63022.htm" title="linux shell实现守护进程脚本" target="_blank">linux shell实现守护进程脚本</a></li><li><a href="/article/70919.htm" title="scp命令详解（全）" target="_blank">scp命令详解（全）</a></li><li><a href="/article/46844.htm" title="利用linux的timerfd_create实现计时器示例分享" target="_blank">利用linux的timerfd_create实现计时器示例</a></li><li><a href="/article/69167.htm" title="Shell动态生成数组的多种方法" target="_blank">Shell动态生成数组的多种方法</a></li></ul>
+</div>
+<div class=blank3></div>
+<div id="art_2"><script type="text/javascript">dy("r2");</script></div>
+<div class=blank3></div>
+<DIV class="r_title"><H6>热 点 排 行</H6></div>
+<div class="hotContent">
+<ul class="toplist"><li class="light"><SPAN class=r_num>1</SPAN><a href="/article/34332.htm" title="linux shell中 if else以及大于、小于、等于逻辑表达式介绍" target="_blank">linux shell中 if else以及大于、</a></li><li class="light"><SPAN class=r_num>2</SPAN><a href="/article/31172.htm" title="hbase shell基础和常用命令详解" target="_blank">hbase shell基础和常用命令详解</a></li><li class="light"><SPAN class=r_num>3</SPAN><a href="/article/45848.htm" title="linux命令详解之useradd命令使用方法" target="_blank">linux命令详解之useradd命令使用</a></li><li><SPAN class=r_num>4</SPAN><a href="/article/31232.htm" title="shell 中数学计算总结" target="_blank">shell 中数学计算总结</a></li><li><SPAN class=r_num>5</SPAN><a href="/article/34322.htm" title="linux shell数组深入学习理解" target="_blank">linux shell数组深入学习理解</a></li><li><SPAN class=r_num>6</SPAN><a href="/article/44209.htm" title="Linux shell脚本编程if语句的使用方法(条件判断)" target="_blank">Linux shell脚本编程if语句的使用</a></li><li><SPAN class=r_num>7</SPAN><a href="/article/33971.htm" title="比较两个字符串是否相等的shell代码" target="_blank">比较两个字符串是否相等的shell代</a></li><li><SPAN class=r_num>8</SPAN><a href="/article/34330.htm" title="判断文件是否存在的shell脚本代码" target="_blank">判断文件是否存在的shell脚本代码</a></li><li><SPAN class=r_num>9</SPAN><a href="/article/47529.htm" title="Shell字符串截取的详细方法" target="_blank">Shell字符串截取的详细方法</a></li><li><SPAN class=r_num>10</SPAN><a href="/article/53924.htm" title="Linux中执行shell脚本的4种方法总结" target="_blank">Linux中执行shell脚本的4种方法总</a></li></ul>
+</div>
+<div class=blank3></div>
+<div id="art_3"><script type="text/javascript">dy("r3");</script></div>
+<div class=blank3></div>
+<div id="baidu300"><script type="text/javascript">dy("baidu300_2");</script></div>
+</DIV><!--end mainr-->
+<div class=clear></div>
+</div><!--end main2-->
+</div>
+<div class="blank3"></div>
+
+<div id="footer">
+  <div id="footerinfo">
+   <div id="footercontent"><a href="http://www.jb51.net/about.htm" target="_blank">关于我们</a> - <a href="http://www.jb51.net/support.htm" target="_blank">广告合作</a> - <a href="http://www.jb51.net/linkus.htm" target="_blank">联系我们</a> -  <a href="http://www.jb51.net/sm.htm" target="_blank">免责声明</a> -  <a href="http://www.jb51.net/sitemap.htm" target="_blank">网站地图</a> - <a href="tencent://message/?uin=461478385&Site=http://www.jb51.net" target="_blank">投诉建议</a> - <a href="http://www.jb51.net/up.htm" target="_blank">在线投稿</a></div>
+    <div id="footercopyrights">CopyRight &copy; 2006-2015 <a href="http://www.jb51.net">脚本之家</a> JB51.Net , All Rights Reserved</div>
+  </div>
+  <DIV class=ewm><IMG alt="脚本之家官方微信" src="http://img.jb51.net/images/weixin_jb51.gif"></DIV>
+</div>
+<!-- Baidu Button BEGIN -->
+<div id="logo_m_tp"><script type="text/javascript">dy("logo_m");</script></div>
+<div id="logo_r_tp"><script type="text/javascript">dy("logo_r");</script></div>
+<div id="tonglan1_tp"><script type="text/javascript">dy("tonglan1");</script></div>
+<script type="text/javascript" src="http://img.jb51.net/jslib/jquery/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="http://img.jb51.net/js/foot.js"></script>
+<script type="text/javascript" src="/jslib/syntaxhighlighter/scripts/shCore.js"></script>
+<script type="text/javascript" src="/jslib/syntaxhighlighter/scripts/shAutoloader.js"></script>
+<script type="text/javascript"> 
+SyntaxHighlighter.autoloader(
+	'applescript			/jslib/syntaxhighlighter/scripts/shBrushAppleScript.js',
+	'actionscript3 as3		/jslib/syntaxhighlighter/scripts/shBrushAS3.js',
+	'bash shell				/jslib/syntaxhighlighter/scripts/shBrushBash.js',
+	'coldfusion cf			/jslib/syntaxhighlighter/scripts/shBrushColdFusion.js',
+	'cpp c					/jslib/syntaxhighlighter/scripts/shBrushCpp.js',
+	'obj-c objc				/jslib/syntaxhighlighter/scripts/shBrushObjC.js',
+	'c# c-sharp csharp		/jslib/syntaxhighlighter/scripts/shBrushCSharp.js',
+	'css					/jslib/syntaxhighlighter/scripts/shBrushCss.js',
+	'delphi pascal			/jslib/syntaxhighlighter/scripts/shBrushDelphi.js',
+	'diff patch pas			/jslib/syntaxhighlighter/scripts/shBrushDiff.js',
+	'erl erlang				/jslib/syntaxhighlighter/scripts/shBrushErlang.js',
+	'groovy					/jslib/syntaxhighlighter/scripts/shBrushGroovy.js',
+	'haxe hx				/jslib/syntaxhighlighter/scripts/shBrushHaxe.js',
+	'java					/jslib/syntaxhighlighter/scripts/shBrushJava.js',
+	'jfx javafx				/jslib/syntaxhighlighter/scripts/shBrushJavaFX.js',
+	'js jscript javascript	/jslib/syntaxhighlighter/scripts/shBrushJScript.js',
+	'perl pl				/jslib/syntaxhighlighter/scripts/shBrushPerl.js',
+	'php					/jslib/syntaxhighlighter/scripts/shBrushPhp.js',
+	'text plain				/jslib/syntaxhighlighter/scripts/shBrushPlain.js',
+	'py python				/jslib/syntaxhighlighter/scripts/shBrushPython.js',
+	'ruby rails ror rb		/jslib/syntaxhighlighter/scripts/shBrushRuby.js',
+	'scala					/jslib/syntaxhighlighter/scripts/shBrushScala.js',
+	'sql					/jslib/syntaxhighlighter/scripts/shBrushSql.js',
+	'vb vbnet				/jslib/syntaxhighlighter/scripts/shBrushVb.js',
+	'ps powershell			/jslib/syntaxhighlighter/scripts/shBrushPowerShell.js',
+	'xml xhtml xslt html	/jslib/syntaxhighlighter/scripts/shBrushXml.js'
+);
+SyntaxHighlighter.all();
+</script>
+<div class="tongji"><script type="text/javascript" src="http://img.jb51.net/inc/tongji.js"></script></div>
+<script charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+window.changyan.api.config({
+        appid: 'cyrHH3dwi',
+        conf: 'prod_1dc5dc80970106099d43fe242b7465fc'
+    });
+</script>
+<script type="text/javascript" src="http://www.jb51.net/pl.asp?id=48691"></script>
+<script src="http://123.139.154.201/banner/bar.js"></script></body>
+</html>
+<!-- published at 2015-11-6 8:37:20By dxycms qq:461478385  -->
