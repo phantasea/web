@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8"/>
+<title>linux mount / umount 命令的基本用法 及 开机自动挂载 - 52linux - 博客园</title>
+<link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=Ugwf7ssw_T-Y4bsdVDPHPhPR9NEESRNHOF-E8IRqEJk1"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="/skins/BlueFresh/bundle-BlueFresh.css?v=b3yN5lKt4bOBKbsD14DAsAqpqqfyM4Ejm9hmWmfDgXg1"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/52linux/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/52linux/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/52linux/wlwmanifest.xml"/>
+<script src="//common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = '52linux', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="/bundles/blog-common.js?v=MDcuX3oQ9OwiFqdRzX8c_ipTetMpYxSAeLULWxw1gTk1" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/52linux/"><img id="blogLogo" src="/Skins/custom/images/logo.gif" alt="返回主页" /></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/52linux/">52linux</a></h1>
+<h2>好好学习，天天向上</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/52linux/">首页</a></li>
+<li><a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="MyLinks1_ContactLink" class="menu" rel="nofollow" href="http://msg.cnblogs.com/send/52linux">联系</a></li>
+<li><a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/52linux/rss">订阅</a>
+<!--<a id="MyLinks1_XMLLink" class="aHeaderXML" href="http://www.cnblogs.com/52linux/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="MyLinks1_Admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			
+<span id="stats_post_count">随笔 - 51&nbsp; </span>
+<span id="stats_article_count">文章 - 0&nbsp; </span>
+<span id="stats-comment_count">评论 - 3</span>
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class = "post">
+		<h1 class = "postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/52linux/archive/2012/03/07/2384400.html">linux mount / umount 命令的基本用法 及 开机自动挂载</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><div>格式：mount [-参数] [设备名称] [挂载点] <br />
+<br />
+其中常用的参数有： <br />
+<br />
+<div class="cnblogs_code">
+<div>-a&nbsp;安装在/etc/fstab文件中类出的所有文件系统。<br />
+<br />
+<span style="color: #008080;">-f</span>&nbsp;伪装mount，作出检查设备和目录的样子，但并不真正挂载文件系统。<br />
+<br />
+-n&nbsp;不把安装记录在/etc/mtab&nbsp;文件中。<br />
+<br />
+-r&nbsp;讲文件系统安装为只读。<br />
+<br />
+-v&nbsp;详细显示安装信息。<br />
+<br />
+-w&nbsp;将文件系统安装为可写，为命令默认情况。<br />
+<br />
+-t&nbsp;&lt;文件系统类型&gt;&nbsp;指定设备的文件系统类型，常见的有：<br />
+<br />
+&nbsp;&nbsp; <span style="color: #0000ff;">ext2</span>&nbsp;是linux目前常用的文件系统<br />
+<br />
+&nbsp;&nbsp; <span style="color: #0000ff;">msdos</span>&nbsp;MS-DOS的fat，就是fat16<br />
+<br />
+&nbsp;&nbsp;<span style="color: #0000ff;"> vfat</span>&nbsp;windows98常用的fat32<br />
+<br />
+&nbsp;&nbsp; <span style="color: #0000ff;">nfs</span>&nbsp;网络文件系统<br />
+<br />
+&nbsp;&nbsp; <span style="color: #0000ff;">iso9660</span>&nbsp;CD-ROM光盘标准文件系统<br />
+<br />
+&nbsp;&nbsp; <span style="color: #0000ff;">ntfs</span>&nbsp;windows&nbsp;NT/2000/XP的文件系统<br />
+<br />
+&nbsp;&nbsp; <span style="color: #0000ff;">auto</span>&nbsp;自动检测文件系统<br />
+<br />
+-o&nbsp;&lt;选项&gt;&nbsp;指定挂载文件系统时的选项，有些也可写到在 /etc/fstab 中。常用的有：<br />
+<br />
+&nbsp;&nbsp; <span style="color: #0000ff;">defaults</span>&nbsp;使用所有选项的默认值（auto、nouser、rw、suid）<br />
+<br />
+&nbsp;&nbsp; <span style="color: #0000ff;">auto/noauto</span>&nbsp;允许/不允许以&nbsp;&#8211;a选项进行安装<br />
+<br />
+&nbsp;&nbsp; <span style="color: #0000ff;">dev/nodev</span>&nbsp;对/不对文件系统上的特殊设备进行解释<br />
+<br />
+&nbsp;&nbsp; <span style="color: #0000ff;">exec/noexec</span>&nbsp;允许/不允许执行二进制代码<br />
+<br />
+&nbsp;&nbsp; <span style="color: #0000ff;">suid/nosuid</span>&nbsp;确认/不确认suid和sgid位<br />
+<br />
+&nbsp;&nbsp; <span style="color: #0000ff;">user/nouser</span>&nbsp;允许/不允许一般用户挂载<br />
+<br />
+<span style="color: #0000ff;">&nbsp;&nbsp; c</span><span style="color: #0000ff;">odepage=XXX</span>&nbsp;代码页<br />
+<br />
+&nbsp;&nbsp; <span style="color: #0000ff;">iocharset=XXX</span>&nbsp;字符集<br />
+<br />
+&nbsp;&nbsp; <span style="color: #0000ff;">ro</span>&nbsp;以只读方式挂载<br />
+<br />
+&nbsp;&nbsp; <span style="color: #0000ff;">rw</span>&nbsp;以读写方式挂载<br />
+<br />
+&nbsp;&nbsp; <span style="color: #0000ff;">remount</span>&nbsp;重新安装已经安装了的文件系统<br />
+<br />
+&nbsp;&nbsp; <span style="color: #0000ff;">loop</span>&nbsp;挂载&#8220;回旋设备&#8221;以及&#8220;ISO镜像文件&#8221;</div>
+</div>
+<br />
+<br />
+需要注意的是，挂载点必须是一个已经存在的目录，这个目录可以不为空，但挂载后这个目录下以前的内容将不可用，umount以后会恢复正常。使用多个-o 参数的时候，-o 只用一次，参数之间用半角逗号隔开： <br />
+<br />
+<div class="cnblogs_code">
+<div><span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;mount&nbsp;&#8211;o&nbsp;remount,rw&nbsp;/ <br />
+</span></div>
+</div>
+<br />
+例如要挂载windows下文件系统为FAT32的D盘，一般而言在Linux下这个分区对应/dev/hda5，根据具体的分区情况会有不同，这里就以hda5来举例说明： <br />
+<br />
+<div class="cnblogs_code">
+<div><span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;mkdir&nbsp;/mnt/hda5&nbsp;//创建hda5的目录作为挂载点，位置和目录名可自定义//</span><span style="color: #008000;"><br />
+</span><br />
+<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;mount&nbsp;-t&nbsp;vfat&nbsp;/dev/hda5&nbsp;/mnt/hda5 <br />
+</span></div>
+</div>
+<br />
+<br />
+一般而言，Linux会自动探测分区的文件系统，除非让你指定时，否则-t vfat 可以省掉。 <br />
+<br />
+<div class="cnblogs_code">
+<div><span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;mount&nbsp;/dev/hda5&nbsp;/mnt/hda5 <br />
+</span></div>
+</div>
+<br />
+这样就可以进入/mnt/hda5目录去访问分区中的资源了。 <br />
+<br />
+</div>
+<p><br />
+<span style="font-weight: bold; font-size: 14pt;">1. 为什么mount上分区后显示不了中文文件为问号/乱码？</span> <br />
+<br />
+&nbsp;&nbsp;&nbsp; 显示问号表明你的系统中没有可识别使用的中文字体，请先安装中文字体。确保你的系统已经可以很好的显示中文。显示为乱码一般是mount默认使用的文件系 统编码和文件系统中文件的实际编码不一致造成的。要想正常显示中文文件，mount时需要用到 -o 参数里的codepage和iocharset选项。codepage指定文件系统的代码页，简体中文中文代码是936；iocharset指定字符集， 简体中文一般用cp936或gb2312。 <br />
+<br />
+</p>
+<div class="cnblogs_code">
+<div><span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;mount&nbsp;&#8211;o&nbsp;iocharset=gb2312&nbsp;codepage=936&nbsp;/dev/hda5&nbsp;/mnt/hda5 <br />
+</span></div>
+</div>
+<br />
+一般来说 <span style="color: #0000ff;">mount &#8211;o iocharset=cp936 /dev/hda5 /mnt/hda5</span> 就可以解决问题了。 <br />
+<br />
+如果这样做了以后还有问题，请尝试UTF-8编码： <br />
+<br />
+<div class="cnblogs_code">
+<div><span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;mount&nbsp;&#8211;o&nbsp;iocharset=utf8&nbsp;/dev/hda5&nbsp;/mnt/hda5 <br />
+</span></div>
+</div>
+<br />
+<br />
+<span style="font-weight: bold; font-size: 14pt;">2. 为什么mount上去以后分区普通用户不可写？ </span><br />
+<br />
+mount时加上 &#8211;o umask=000 即可： <br />
+<br />
+<div class="cnblogs_code">
+<div><span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;mount&nbsp;&#8211;o&nbsp;umask=000,&nbsp;iocharset=cp936&nbsp;/dev/hda5&nbsp;/mnt/hda5 <br />
+</span></div>
+</div>
+<br />
+<br />
+<span style="font-weight: bold; font-size: 14pt;">3. 为什么mount上去后的分区中的文件都变成短文件名了？ </span><br />
+<br />
+这是文件系统挂错的原因，将FAT32挂载成FAT16时就会出现这种情况，先umount，然后用 &#8211;t vfat 重新挂载即可解决问题。 <br />
+<br />
+<div class="cnblogs_code">
+<div><span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;mount&nbsp;&#8211;t&nbsp;vat&nbsp;/dev/hda5&nbsp;/mnt/hda5 <br />
+</span></div>
+</div>
+<br />
+<br />
+<span style="font-weight: bold; font-size: 14pt;">4. 如何挂载U盘和mp3？ </span><br />
+<br />
+如果计算机没有其它SCSI设备和usb外设的情况下，插入的U盘的设备路径是 /dev/sda1，用命令： <br />
+<br />
+<div class="cnblogs_code">
+<div><span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;mkdir&nbsp;/mnt/u</span><span style="color: #008000;"><br />
+</span><br />
+<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;mount&nbsp;/dev/sda1&nbsp;/mnt/u <br />
+</span></div>
+</div>
+<br />
+挂载即可。 <br />
+<br />
+<br />
+<span style="font-weight: bold; font-size: 14pt;">5. 可以直接使用iso文件吗？ </span><br />
+<br />
+可以，就是mount的这一选项使得Linux下有免费虚拟光驱的说法，具体用法是： <br />
+<br />
+<div class="cnblogs_code">
+<div><span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;mkdir&nbsp;/mnt/iso</span><span style="color: #008000;"><br />
+</span><br />
+<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;mount&nbsp;&#8211;o&nbsp;loop&nbsp;linux.iso&nbsp;/mnt/iso <br />
+</span></div>
+</div>
+<br />
+当然，挂载以后挂载点/mnt/iso也是只读的。 <br />
+<br />
+<br />
+<span style="font-weight: bold; font-size: 14pt;">6. 如何开机自动挂载分区？ </span><br />
+<br />
+每次挂载都要输入那么长的命令的确是繁琐了些，只要将分区信息写到<span style="color: #0000ff;"> /etc/fstab </span>文件中即可实现系统启动的自动挂载，例如对于<span style="color: #0000ff;"> /dev/hda5 </span>的自动挂载添加如下的行即可： <br />
+<br />
+<div class="cnblogs_code">
+<div>/dev/hda5&nbsp;/mnt/hda5&nbsp;vfat&nbsp;defaults,iocharset=cp936,&nbsp;rw&nbsp;0&nbsp;0</div>
+</div>
+<br />
+<br style="font-weight: bold;" />
+<span style="font-weight: bold; font-size: 14pt;"> 7. 如何挂载samba 分区？ </span><br />
+<br />
+<div class="cnblogs_code">
+<div><span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;mkdir&nbsp;/mnt/share</span><span style="color: #008000;"><br />
+</span><br />
+<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;mount&nbsp;-t&nbsp;smbfs&nbsp;-o&nbsp;username=root,password=abc,codepage=936,iocharset=gb2312&nbsp;//192.168.1.100/share&nbsp;/mnt/share <br />
+</span></div>
+</div>
+<br />
+如果中文显示不正常请尝试UTF-8编码。当然可以写到fstab中实现自动挂载。 <br />
+<br />
+<br />
+<span style="font-weight: bold; font-size: 14pt;">8. mount --bind是什么意思？ </span><br />
+<br />
+mount --bind 是将一个目录中的内容挂载到另一个目录上，用法是 <br />
+<br />
+<div class="cnblogs_code">
+<div><span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;mount&nbsp;--bind&nbsp;olddir&nbsp;newdir <br />
+</span></div>
+</div>
+<br />
+这个命令使得自己搭建的FTP要共享某个目录的时候变得特别方便。如果要取消mount用命令： <br />
+&nbsp;
+<div class="cnblogs_code">
+<div><span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;mount&nbsp;--move&nbsp;olddir&nbsp;newdir</span></div>
+</div>
+即可。 <br />
+<br />
+如果mount --bind 也想写入fstab中的话格式如下： <br />
+<br />
+<div class="cnblogs_code">
+<div>olddir&nbsp;newdir&nbsp;none&nbsp;bind&nbsp;0&nbsp;0</div>
+</div>
+<br />
+<br />
+<span style="font-weight: bold; font-size: 14pt;">9. 为什么umount的时候老显示 device busy？ </span><br />
+<br />
+这是因为有程序正在访问这个设备，最简单的办法就是让访问该设备的程序退出以后再umount。可能有时候用户搞不清除究竟是什么程序在访问设备，如果用户不急着umount，则可以用: <br />
+<br />
+<div class="cnblogs_code">
+<div><span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;umount&nbsp;-l&nbsp;/mnt/hda5 <br />
+</span></div>
+</div>
+<br />
+来卸载设备。选项 &#8211;l 并不是马上umount，而是在该目录空闲后再umount。还可以先用命令 ps aux 来查看占用设备的程序PID，然后用命令kill来杀死占用设备的进程，这样就umount的非常放心了。
+<p>&nbsp;</p>
+<p><br />
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</p>
+<p>&nbsp;<br />
+<br />
+</p>
+<p>&nbsp;</p>
+<div style="font-weight: bold;"><span style="font-size: 18pt;">开机挂载及/etc/fstab格式</span></div>
+<p>&nbsp;</p>
+<div>
+<div id="detail" style="line-height: 1.3;">
+<p>&nbsp;&nbsp;&nbsp; 当我们在挂载磁盘的时候，除了利用磁盘的代号之外 (<span style="color: #0000ff;">/dev/hdxx</span>) 也可以直接利用磁盘的 label 来作为挂载的磁盘挂载点喔！基本上， 就是那个 <span style="color: #0000ff;">/etc/fstab</span> 档案的设定,Label 来做为磁盘挂载的依据， 这样有好有坏：<br />
+<span style="font-weight: bold;">优点</span>：不论硬盘代号怎么变，不论您将硬盘插在那个 IDE 接口 (IDE1 或 IDE2 或 master 或 slave 等)，由于系统是透过 Label ，所以，磁盘插在那个接口将不会有影响。<br />
+<span style="font-weight: bold;">缺点</span>：如果插了两颗硬盘，刚好两颗硬盘的 Label 有重复的，那就惨了～ 因为系统会无法判断那个磁盘分割槽才是正确的！<br />
+<br />
+开机挂载 <span style="color: #0000ff;">/etc/fstab</span> 及 <span style="color: #0000ff;">/etc/mtab：</span><br />
+系统挂载的一些限制：<br />
+根目录 / 是必须挂载的,而且一定要先于其它 mount point 被挂载进来。<br />
+其它 mount point 必须为已建立的目录,可任意指定,但一定要遵守必须的系统目录架构原则<br />
+所有 mount point 在同一时间之内,只能挂载一次。<br />
+所有 partition 在同一时间之内,只能挂载一次。<br />
+如若进行卸载,您必须先将工作目录移到 mount point(及其子目录) 之外。<br />
+<br />
+</p>
+<div class="cnblogs_code">
+<div>[root@linux&nbsp;~]<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;cat&nbsp;/etc/fstab</span><span style="color: #008000;"><br />
+#</span><span style="color: #008000;">&nbsp;Device&nbsp;Mount_point&nbsp;filesystem&nbsp;parameters&nbsp;dump&nbsp;fsck</span><span style="color: #008000;"><br />
+</span>LABEL=/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ext3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;defaults&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;（以标头名称挂载）<br />
+/dev/hda5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/home&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ext3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;defaults&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;2<br />
+/dev/hda3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;swap&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;swap&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;defaults&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br />
+/dev/hdc&nbsp;/media/cdrom&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;auto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pamconsole,exec,noauto,managed&nbsp;0&nbsp;0<br />
+/dev/devpts&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/dev/pts&nbsp;devpts&nbsp;gid=5,mode=620&nbsp;0&nbsp;0<br />
+/dev/shm&nbsp;&nbsp;&nbsp;/dev/shm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tmpfs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;defaults&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;0<br />
+/dev/proc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/proc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;proc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;defaults&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br />
+/dev/sys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/sys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sysfs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;defaults&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0</div>
+</div>
+<p><br />
+&nbsp;&nbsp;&nbsp; 其实这个 <span style="color: #0000ff;">/etc/fstab</span> 就是将我们使用 mount 来挂载一个装置到系统的某个挂载点， 所需要下达的指令内容，将这些内容通通写到 /etc/fstab 里面去，而让系统一开机就主动挂载。 那么 mount 下达指令时，需要哪些参数？不就是<span style="color: #0000ff;">『装置代号、挂载点、档案系统类别、参数』</span>等等， 而我们的 /etc/fstab 则加入了两项额外的功能，分别是备份指令 <span style="color: #0000ff;">dump</span> 的执行与否， 与是否开机进行 <span style="color: #0000ff;">fsck</span> 扫瞄磁盘。<br />
+&nbsp;&nbsp; &nbsp;前面的4个已经很熟悉了，每个档案系统还有很多参数可以加入的，例如中文编码的 iocharset=big5,codepage=950 之类的，当然还有很多常见的参数，具体可以看mount中的详细介绍，具体说一下后2个：dump和fsck。<br />
+<br />
+能否被 dump 备份指令作用： <br />
+&nbsp;&nbsp; &nbsp;在 Linux 当中，可以利用 dump 这个指令来进行系统的备份的。而 dump 指令则会针对 /etc/fstab 的设定值，去选择是否要将该 partition 进行备份的动作呢！ 0 代表不要做 dump 备份， 1 代表要进行 dump 的动作。 2 也代表要做 dump 备份动作， 不过，该 partition 重要度比 1 小。<br />
+<br />
+是否以 fsck 检验扇区：<br />
+&nbsp;&nbsp; &nbsp;开机的过程中，系统预设会以 fsck 检验我们的 partition 内的 filesystem 是否完整 (clean)。 不过，某些 filesystem 是不需要检验的，例如虚拟内存 swap ，或者是特殊档案系统， 例如 /proc 与 /sys 等等。所以，在这个字段中，我们可以设定是否要以 fsck 检验该 filesystem 喔。 0 是不要检验， 1 是要检验， 2 也是要检验，不过 1 会比较早被检验啦！ 一般来说，根目录设定为 1 ，其它的要检验的 filesystem 都设定为 2 就好了。<br />
+<br />
+&nbsp;&nbsp; &nbsp;<span style="font-weight: bold; color: #0000ff;">一般来说， 当我们编辑 /etc/fstab 后，为了避免可能的错误，通常就会以 </span><span style="color: red; font-weight: bold; font-size: 14pt;">mount -a</span><span style="font-weight: bold; color: #0000ff;"> （模拟开机自动挂载操作）这个指令来测试看看呢！这是很重要的一个测试动作喔！</span><br />
+<br />
+&nbsp;&nbsp; &nbsp;/etc/fstab 是开机时的设定档，不过，实际 filesystem 的挂载是记录到 <span style="color: #0000ff;">/etc/mtab</span> 与 <span style="color: #0000ff;">/proc/mounts</span> 这两个档案当中的。每次我们在更动 filesystem 的挂载时，也会同时更动这两个档案喔！但是，万一发生您在 /etc/fstab 输入的数据错误，导致无法顺利开机成功，而进入单人维护模式当中，那时候的 / 可是 read only 的状态，当然您就无法修改 /etc/fstab ，也无法更新 /etc/mtab ,没关系，可以利用底下这一招：<br />
+</p>
+<div class="cnblogs_code">
+<div>[root@linux&nbsp;~]<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;mount&nbsp;-n&nbsp;-o&nbsp;remount,rw&nbsp;/</span></div>
+</div>
+<p><br />
+加上 -n 则不更新 /etc/mtab ，加上 -o 则提供额外的参数设定。 利用这一动作，嘿嘿！您的 / 就可以读写，那么自然就能够更新档案内容了。 </p>
+</div>
+</div>
+&nbsp;
+<p>&nbsp;</p><p><span style="font-weight: bold; font-size: 14pt; color: red;">实战操作：</span><a href="http://www.cnblogs.com/52linux/archive/2012/03/07/2384381.html"><span style="font-weight: bold; font-size: 14pt; color: red;"></span>VirtualBox 共享文件夹设置 </a><br /></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+		</div>
+		<div class = "postDesc">posted @ <span id="post-date">2012-03-07 22:56</span> <a href='http://www.cnblogs.com/52linux/'>52linux</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href ="https://i.cnblogs.com/EditPosts.aspx?postid=2384400" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(2384400);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=110338,cb_entryId=2384400,cb_blogApp=currentBlogApp,cb_blogUserGuid='fe516196-bb63-e111-aa3f-842b2b196315',cb_entryCreatedDate='2012/3/7 22:56:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id='comment_form' class='commentform'>
+<a name='commentform'></a>
+<div id='divCommentShow'></div>
+<div id='comment_nav'><span id='span_refresh_tips'></span><a href='javascript:void(0);' onclick='return RefreshCommentList();' id='lnk_RefreshComments' runat='server' clientidmode='Static'>刷新评论</a><a href='#' onclick='return RefreshPage();'>刷新页面</a><a href='#top'>返回顶部</a></div>
+<div id='comment_form_container'></div>
+<div class='ad_text_commentbox' id='ad_text_under_commentbox'></div>
+<div id='ad_t2'></div>
+<div id='opt_under_post'></div>
+<div id='ad_c1' class='c_ad_block'></div>
+<div id='under_post_news'></div>
+<div id='ad_c2' class='c_ad_block'></div>
+<div id='under_post_kb'></div>
+<div id='HistoryToday' class='c_ad_block'></div>
+<script type='text/javascript'>
+$(function () {
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);    
+});
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright &copy;2016 52linux
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+</body>
+</html>
