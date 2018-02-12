@@ -1,0 +1,602 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Language" content="zh-CN" />
+<title>用fetchmail接收和发送gmail邮箱的邮件</title>
+<meta name="keywords" content="php,php爱好者,php教程,php入门,php源码,php动态,php基础,php进阶,php模板,php高级,smarty,数据库,mysql,linux,javascript,ajax,html,css,apache,c,c++,java,网站建设,网页特效,资源下载,视频教程,书籍文档,源码共享,网页特效,在线手册,php论坛,php博客" />
+<meta name="description" content="php php爱好者 phpfans php教程 php入门 php源码 php动态 php基础 php进阶 php模板 php高级 smarty 数据库 mysql linux javascript ajax html css apache c c++ java 网站建设 网页特效 资源下载 视频教程 书籍文档 源码共享 网页特效 在线手册 php论坛 php博客" />
+<script type="text/javascript" src="http://www.phpfans.net/common/script/global.js?ts=1377966762"></script>
+<script type="text/javascript" src="http://www.phpfans.net/common/script/common.js?ts=1377966762"></script>
+<script type="text/javascript">var UID=0;</script>
+<script type="text/javascript" src="http://www.phpfans.net/common/script/fansJ/fansJ.js?20100609"></script>
+<script type="text/javascript" src="http://www.phpfans.net/script/ask201066.js?20100613"></script>
+<script type="text/javascript">G.ready(function(){C.imgOverflow('cont', 700);});</script>
+<link href="http://www.phpfans.net/css/global_phpfans.css" type="text/css" rel="stylesheet" />
+<link type="text/css" rel="stylesheet" href="http://www.phpfans.net/css/ask.css" />
+</head>
+
+<body>
+<div class="maindiv">
+<div class="header">
+<div class="header_top">
+	<span>
+	<a href="javascript:void(null);" onclick="C.switchChinese(this);return false;" title="點擊以繁體中文方式浏覽">繁體中文</a>
+	<a href="http://en.phpfans.net/" target="_blank">English</a>
+	</span>
+	 <form name="loginform" method="post" action="http://www.phpfans.net/index.php">
+  用户名: <input type="text" name="username" size="9" /> 密码: <input type="password" name="password" size="8" /><input type="hidden" name="mod" value="user" /><input type="hidden" name="do" value="quickSignIn" /><input type="hidden" name="questionid" value="0" /><input type="hidden" name="answer" value="" /><input type="hidden" name="chartset" value="UTF-8" /> <input type="submit" value="登陆" /> <a href="http://www.phpfans.net/?mod=user&do=lostPw">忘记密码?</a> <a href="http://www.phpfans.net/?mod=user&do=login">登陆</a> <a href="http://www.phpfans.net/?mod=user&do=register">注册</a>
+</form>
+</div>
+
+<table width="100%" height="76" border="0" cellspacing="0" cellpadding="0" style="margin:5px 0 5px 0;">
+  <tr>
+    <td width="185"><a href="http://www.phpfans.net/"><img src="http://www.phpfans.net/image/phpfans.logo.gif" /></a></td>
+    <td width="345" align="left">
+	<p>
+	<a href="http://www.phpfans.net/">首页</a> |
+	<a href="http://www.phpfans.net/mod-news.html">新闻</a> |
+	<a href="http://www.phpfans.net/bbs/">交流</a> |
+	<a href="http://ask.phpfans.net/" class="index">问吧</a> |
+	<a href="http://article.phpfans.net/">文档</a> |
+	<a href="http://www.phpfans.net/mod-man.html">手册</a> |
+	<a href="http://www.phpfans.net/down/">下载</a> |
+	<a href="http://www.phpfans.net/blog/" target="_blank">博客</a>
+	</p>
+	<form class="search" name="search_form" method="get" action="http://www.phpfans.net/index.php" target="_blank">
+	  <input type="hidden" name="mod" value="search" />
+      <input type="text" name="kw" value="" class="kw" />
+	  <select name="type" onchange="C.changeSearchType(this.form);">
+	    <option value="1">文档</option>
+	    <option value="2" selected>问吧</option>
+	    <option value="3">交流</option>
+	    <option value="5">PHP函数</option>
+	    <option value="4">下载</option>
+	    <option value="0">全站</option>
+	  </select>
+      <button type="submit">搜索</button>
+      <p><input name="all" type="radio" value="0" checked />标题 <input type="radio" name="all" value="1" />全文 &nbsp;<a href="http://www.phpfans.net/?mod=search">热搜</a> </p>
+    </form>
+    </td>
+    <td width="468">
+    <a href="http://www.fengniaoidc.com/hosting" target="_blank"><img src="/image/sponsors/ad_468_60.gif" /></a>    </td>
+  </tr>
+</table>
+</div>
+
+
+<div class="navigate">你的位置:
+<a href="http://ask.phpfans.net">问答吧</a></div>
+<div class="top"><a href="http://ask.phpfans.net/?do=addFavorites&tid=786954" target="asyn">收藏此问题</a> <a href="#add_comment">发表新评论</a>
+</div>
+<div id="cont" class="left">
+  <h1 class="subject">用fetchmail接收和发送gmail邮箱的邮件</h1>
+  <div id="comment_0" class="comment">
+	<div class="jclear"></div>
+1：按照BLFS-6.1文档安装fetchmail/procmail/mutt<br />
+2：安装libesmtp/esmtp : 地址 <a href="http://www.stafford.uklinux.net/libesmtp/libesmtp-1.0.4.tar.bz2" target="_blank">http://www.stafford.uklinux.net/libe...-1.0.4.tar.bz2</a><br />
+http://prdownloads.sourceforge.net/esmtp<br />
+3: 按照BLFS-6.1文档安装openssl<br />
+4：取得gmail的cert文件:<br />
+ 运行:<br />
+ $ openssl s_client -connect smtp.gmail.com:995 -showcerts<br />
+ 输出:<br />
+ CONNECTED(00000003)<br />
+depth=0 /C=US/ST=California/L=Mountain View/O=Google Inc./CN=pop.gmail.com<br />
+verify error:num=20:unable to get local issuer certificate<br />
+verify return:1<br />
+depth=0 /C=US/ST=California/L=Mountain View/O=Google Inc./CN=pop.gmail.com<br />
+verify error:num=27:certificate not trusted<br />
+verify return:1<br />
+depth=0 /C=US/ST=California/L=Mountain View/O=Google Inc./CN=pop.gmail.com<br />
+verify error:num=21:unable to verify the first certificate<br />
+verify return:1<br />
+---<br />
+Certificate chain<br />
+ 0 s:/C=US/ST=California/L=Mountain View/O=Google Inc./CN=pop.gmail.com<br />
+ i:/C=US/O=Equifax/OU=Equifax Secure Certificate Authority<br />
+-----BEGIN CERTIFICATE-----<br />
+MIIC3TCCAkagAwIBAgIDBZIAMA0GCSqGSIb3DQEBBQUAME4xCzAJBgNVBAYTAlVT<br />
+MRAwDgYDVQQKEwdFcXVpZmF4MS0wKwYDVQQLEyRFcXVpZmF4IFNlY3VyZSBDZXJ0<br />
+aWZpY2F0ZSBBdXRob3JpdHkwHhcNMDUxMTE1MjEyMjQ0WhcNMDcxMTE2MjEyMjQ0<br />
+WjBoMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN<br />
+TW91bnRhaW4gVmlldzEUMBIGA1UEChMLR29vZ2xlIEluYy4xFjAUBgNVBAMTDXBv<br />
+cC5nbWFpbC5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMP8LCYiLGJ/<br />
+RihwcOi1V/zHVTw0Gfu+mI141Vjuuj2DtQoav8emwlXbu8gZoKP9GeMWpX1Vo9qN<br />
+4gkslIToHmDnIwGjcaEAfpdhSR9g54Kf5Y7BEXVyco6mTIlpe9vsbV0dmB1FvLP2<br />
+1N09dkUJfi7V0fjb8mcn3QYu6+6QNoxPAgMBAAGjga4wgaswDgYDVR0PAQH/BAQD<br />
+AgTwMB0GA1UdDgQWBBTdASsopgao1m8hcEg0cDZhucltljA6BgNVHR8EMzAxMC+g<br />
+LaArhilodHRwOi8vY3JsLmdlb3RydXN0LmNvbS9jcmxzL3NlY3VyZWNhLmNybDAf<br />
+BgNVHSMEGDAWgBRI5mj5K9KylddH2CMgEE8zmJCf1DAdBgNVHSUEFjAUBggrBgEF<br />
+BQcDAQYIKwYBBQUHAwIwDQYJKoZIhvcNAQEFBQADgYEAln3/pVqYnUXA1TVGzOqX<br />
+LFhohGxpuNkr1UJnQmYxmZeB07uPBYRX8c0JXEKs29TmAHRsLhmp8kF36F11Dxgi<br />
+Xm/Y8I9zgWHoMj7SL3Ve/u8K8K7XcUyUuaWmldLQAREafpFy+f+KYHGuAVh8hjy6<br />
+XyPlMCqj+PNp8QXjgOcgO68=<br />
+-----END CERTIFICATE-----<br />
+---<br />
+Server certificate<br />
+subject=/C=US/ST=California/L=Mountain View/O=Google Inc./CN=pop.gmail.com<br />
+issuer=/C=US/O=Equifax/OU=Equifax Secure Certificate Authority<br />
+---<br />
+No client certificate CA names sent<br />
+---<br />
+SSL handshake has read 891 bytes and written 338 bytes<br />
+---<br />
+New, TLSv1/SSLv3, Cipher is DES-CBC3-SHA<br />
+Server public key is 1024 bit<br />
+SSL-Session:<br />
+ Protocol : TLSv1<br />
+ Cipher : DES-CBC3-SHA<br />
+ Session-ID: CFCAB44667A90184C8ABCC6F4D2D1C8EC29A9DBDAD11D815E7E22DC5E34213F6<br />
+ Session-ID-ctx: <br />
+ Master-Key: 1AFCF4EC31DF0A5930B527BDC55B86D69285DD044E939BDDF18884F61F1E8340EFE7BF85CC50F98F657FB0579CF612F7<br />
+ Key-Arg : None<br />
+ Start Time: 1134601370<br />
+ Timeout : 300 (sec)<br />
+ Verify return code: 21 (unable to verify the first certificate)<br />
+---<br />
++OK Gpop m2pf1356431nzf ready.<br />
+ 将中间的:<br />
+-----BEGIN CERTIFICATE-----<br />
+......<br />
+-----END CERTIFICATE-----<br />
+ 拷贝到~/.cert/gmail.pem<br />
+5: 生成CA文件<br />
+ 将上面的gmail.pem前面加上Fingerprint, 生成~/.cert/cert.pem<br />
+MD5 Fingerprint: 67:CB:9D:C0:13:24:8A:82:9B:B2:17:1E<img src="images/smilies/biggrin.gif" border="0" alt="" title="狂笑" class="inlineimg" />1:1B:EC<img src="images/smilies/biggrin.gif" border="0" alt="" title="狂笑" class="inlineimg" />4<br />
+PEM Data:<br />
+-----BEGIN CERTIFICATE-----<br />
+......<br />
+-----END CERTIFICATE-----<br />
+6: rehash 4和5产生的文件:cert.pem和gmail.pem<br />
+ 运行:<br />
+$ c_rehash .certs<br />
+7: 检查CA文件:<br />
+ 运行:<br />
+openssl s_client -connect pop.gmail.com:995 -CApath .certs/<br />
+ 如果输出中有:<br />
+Verify return code: 0 (ok)<br />
+则CA文件是好的.<br />
+8: 编辑~/.fechmailrc<br />
+# begin of ~/.fetchmailrc<br />
+<br />
+defaults<br />
+mda &quot;/usr/bin/esmtp -f %F %T&quot;<br />
+<br />
+poll pop.gmail.com proto POP3 and options no dns<br />
+user &quot;XXX&quot; there with pass 'XXXXXX' is 'XXX' here options ssl sslcertck sslcertpath '/home/XXX/.certs'<br />
+<br />
+# end of ~/.fetchmailrc<br />
+运行<br />
+$ chmod 0600 .fetchmailrc<br />
+9: 编辑~/.esmtprc<br />
+# begin of ~./esmtprc<br />
+<br />
+hostname = smtp.gmail.com<br />
+username = &quot;XXX@gmail.com&quot;<br />
+password = &quot;XXXXXX&quot;<br />
+starttls = enabled<br />
+mda = &quot;/usr/bin/procmail -d %T&quot;<br />
+<br />
+# end of ~/.esmtprc<br />
+运行<br />
+$ chmod 0710 .esmtprc<br />
+10: 编辑~/.muttrc<br />
+# begin of ~/.muttrc<br />
+<br />
+set envelope_from<br />
+set sendmail=&quot;/usr/bin/esmtp -v -X ~/.esmtplog&quot;<br />
+my_hdr From: &quot;XXX@gmail.com&quot;<br />
+my_hdr Reply-To: &quot;XXX@gmail.com&quot;<br />
+set sendmail_wait=0<br />
+<br />
+# end of ~/.muttrc<br />
+11: 用fetchmail收信<br />
+运行:<br />
+$ fetchmail -avk<br />
+12: 用mutt测试发信.<br />
+运行:<br />
+$ mutt<br />
+按&quot;m&quot;写信, 按&quot;y&quot;寄信<br />
+<br />
+我在自己的机器上测试发送信件到yahoo的邮箱成功.<div style="margin-top:5px;">
+	</div>
+    <div class="bottom">昵称: JBug &nbsp;时间: 2006-01-24 02:10:00</div>
+        <div class="clear"></div>
+  </div>
+  <div id="comment_1" class="comment">
+开机启动fetchmail收信:<br />
+1: 将上面的.certs 拷贝至: /usr/share/ssl/gmailcerts<br />
+<br />
+2: 编写/etc/fetchmailrc<br />
+# begin of ~/.fetchmailrc<br />
+<br />
+set syslog<br />
+set postmaster &quot;forrest&quot;<br />
+set daemon 30<br />
+<br />
+defaults<br />
+mda &quot;/usr/bin/esmtp -f %F %T&quot;<br />
+poll pop.gmail.com proto POP3 and options no dns<br />
+user &quot;XXX&quot; there with pass 'XXX' is 'XXX' here options ssl sslcertck sslcertpath '/usr/share/ssl/gmailcerts'<br />
+<br />
+# end of ~/.fetchmailrc<br />
+运行:<br />
+# chmod 0600 /etc/fetchmailrc<br />
+<br />
+3: 编写 /etc/esmtprc<br />
+# begin of /etc/esmtprc<br />
+<br />
+hostname = smtp.gmail.com<br />
+username = &quot;XXX@gmail.com&quot;<br />
+password = &quot;XXX&quot;<br />
+starttls = enabled<br />
+mda = &quot;/usr/bin/procmail -d %T&quot;<br />
+<br />
+# end of /etc/esmtprc<br />
+<br />
+4: 编写 /#!/bin/sh<br />
+# Begin $rc_base/init.d/fetchmail<br />
+<br />
+<br />
+. /etc/sysconfig/rc<br />
+. $rc_functions<br />
+<br />
+case &quot;$1&quot; in<br />
+ start)<br />
+ boot_mesg &quot;Starting fetchmail...&quot;<br />
+ loadproc /usr/bin/fetchmail -f /etc/fetchmailrc<br />
+ ;;<br />
+<br />
+ stop)<br />
+ boot_mesg &quot;Stopping fetchmail...&quot;<br />
+ killproc /usr/bin/fetchmail<br />
+ ;;<br />
+<br />
+ restart)<br />
+ $0 stop<br />
+ sleep 1<br />
+ $0 start<br />
+ ;;<br />
+<br />
+ status)<br />
+ statusproc /usr/bin/fetchmail<br />
+ ;;<br />
+<br />
+ *)<br />
+ echo &quot;Usage: $0 {start|stop|restart|status}&quot;<br />
+ exit 1<br />
+ ;;<br />
+esac<br />
+<br />
+# End $rc_base/init.d/fetchmailetc/rc.d/init.d/fetchmail<br />
+运行:<br />
+# chmod a+x /etc/rc.d/init.d/fetchmail<br />
+<br />
+5: 将/etc/rc.d/init.d/fetchmail 链接到相应的运行级别:<br />
+ln -sf ../init.d/fetchmail /etc/rc.d/rc0.d/K62fetchmail<br />
+ln -sf ../init.d/fetchmail /etc/rc.d/rc1.d/K62fetchmail<br />
+ln -sf ../init.d/fetchmail /etc/rc.d/rc2.d/K62fetchmail<br />
+ln -sf ../init.d/fetchmail /etc/rc.d/rc3.d/S38fetchmail<br />
+ln -sf ../init.d/fetchmail /etc/rc.d/rc4.d/S38fetchmail<br />
+ln -sf ../init.d/fetchmail /etc/rc.d/rc5.d/S38fetchmail<br />
+ln -sf ../init.d/fetchmail /etc/rc.d/rc6.d/K62fetchmail<div style="margin-top:5px;">
+</div>
+    <div class="bottom">昵称: JBug &nbsp;时间: 2006-01-24 03:59:00</div>
+        <div class="clear"></div>
+  </div>
+  <div id="comment_2" class="comment">
+不错。有时间试试。。<br />
+<br />
+已加入置顶帖子。<div style="margin-top:5px;">
+</div>
+    <div class="bottom">昵称: 晨想 &nbsp;时间: 2006-01-25 00:41:00</div>
+        <div class="clear"></div>
+  </div>
+  <div id="comment_3" class="comment">
+Verify return code: 0 (ok)<br />
+CA文件是好的。<br />
+但是运行fetchmail -avk输出：<br />
+fetchmail: 6.2.5.5 querying pop.gmail.com (protocol POP3) at Sat 04 Mar 2006 06: 11:13 PM CST: poll started<br />
+fetchmail: Issuer Organization: Equifax<br />
+fetchmail: Unknown Issuer CommonName<br />
+fetchmail: Server CommonName: pop.gmail.com<br />
+fetchmail: pop.gmail.com key fingerprint: 59:51:61:89:CD<img src="images/smilies/biggrin.gif" border="0" alt="" title="狂笑" class="inlineimg" />D:B2:35:94:BB:44:97:A0 :39<img src="images/smilies/biggrin.gif" border="0" alt="" title="狂笑" class="inlineimg" />5:B4<br />
+fetchmail: Warning: server certificate verification: unable to get local issuer certificate<br />
+17968:error:14090086:SSL routines:SSL3_GET_SERVER_CERTIFICATE:certificate verify failed:s3_clnt.c:844:<br />
+fetchmail: SSL connection failed.<br />
+fetchmail: Issuer Organization: Equifax<br />
+fetchmail: Unknown Issuer CommonName<br />
+fetchmail: Server CommonName: pop.gmail.com<br />
+fetchmail: Warning: server certificate verification: unable to get local issuer certificate<br />
+fetchmail: POP3&gt; QUIT<br />
+fetchmail: Issuer Organization: Equifax<br />
+fetchmail: Unknown Issuer CommonName<br />
+fetchmail: Server CommonName: pop.gmail.com<br />
+fetchmail: Warning: server certificate verification: unable to get local issuer certificate<br />
+fetchmail: 6.2.5.5 querying pop.gmail.com (protocol POP3) at Sat 04 Mar 2006 06: 11:23 PM CST: poll completed<br />
+fetchmail: Query status=3 (AUTHFAIL)<br />
+fetchmail: normal termination, status 3<br />
+<br />
+这是什么错误？<br />
+<br />
+这是我的版本：<br />
+[gnap@osiris ~]$ rpm -q openssl<br />
+openssl-0.9.7f-7.10<br />
+[gnap@osiris ~]$ rpm -q fetchmail<br />
+fetchmail-6.2.5.5-1.fc4<br />
+[gnap@osiris ~]$<div style="margin-top:5px;">
+</div>
+    <div class="bottom">昵称: gnap &nbsp;时间: 2006-03-04 23:16:00</div>
+        <div class="clear"></div>
+  </div>
+  <div id="comment_4" class="comment">
+你的GMAIL邮箱设置了POP收信没有? 在GMAIL的设置里面设置.<div style="margin-top:5px;">
+</div>
+    <div class="bottom">昵称: JBug &nbsp;时间: 2006-03-05 14:42:00</div>
+        <div class="clear"></div>
+  </div>
+  <div id="comment_5" class="comment">
+郁闷！～偶就是因为gmail web打不开才计划用fetchmail。<br />
+<br />
+8g，我在gmail里面启用了pop收信，但是错误依旧。<div style="margin-top:5px;">
+</div>
+    <div class="bottom">昵称: gnap &nbsp;时间: 2006-03-05 15:31:00</div>
+        <div class="clear"></div>
+  </div>
+  <div id="comment_6" class="comment">
+<div style="margin:20px; margin-top:5px; ">
+	<div class="smallfont" style="margin-bottom:2px">引用:</div>
+	<table cellpadding="4" cellspacing="0" border="0" width="100%">
+	<tr>
+ <td class="alt2" style="border:1px inset">
+ 
+ <div>作者: JBug</div>
+ <div style="font-style:normal">你的GMAIL邮箱设置了POP收信没有? 在GMAIL的设置里面设置.</div>
+ 
+ </td>
+	</tr>
+	</table>
+</div>现在收发正常，原来我把用户名中的`.'记成了`_'了！～<br />
+这是我的启动脚本。希望RH/FC上的用户用得方便：<br />
+<div style="margin:20px; margin-top:5px; margin-left:0px">
+	<div class="smallfont" style="margin-bottom:2px">代码:</div>
+	<pre class="alt2" style="margin:0px; padding:4px; border:#c6c6c6 1px solid; width:640px; height:498px; overflow:auto"><div dir="ltr" style="text-align:left;">#!/bin/sh
+# Begin $rc_base/init.d/fetchmail
+
+
+. /etc/rc.d/init.d/functions
+
+lockfile=/var/lock/subsys/fetchmail
+
+RETVAL=0
+
+start() {
+	echo -n &quot;Starting fetchmail...&quot;
+	/usr/bin/fetchmail -f /etc/fetchmailrc &amp;&amp; touch &quot;$lockfile&quot; &amp;&amp; success || failure
+	RETVAL=$?
+	echo
+}
+stop() {
+	echo -n &quot;Stopping fetchmail...&quot;
+	killall /usr/bin/fetchmail &amp;&amp; rm -f &quot;$lockfile&quot; &amp;&amp; success || failure
+	RETVAL=$?
+	echo
+}
+restart(){
+	stop
+	sleep 1
+ start
+}
+
+case &quot;$1&quot; in
+ start)
+	start
+	;;
+ stop)
+ stop
+	;;
+ restart|force-reload)
+ restart
+	;;
+ reload)
+ ;;
+ condrestart)
+ [ -f &quot;$lockfile&quot; ] &amp;&amp; restart
+	;;
+ status)
+ if [ -f &quot;$lockfile&quot; ]; then
+ echo $&quot;Fetchmail is running.&quot;
+ RETVAL=0
+	else
+ echo $&quot;Fetchmail is not running.&quot;
+ RETVAL=3
+	fi
+	;;
+ *)
+ echo $&quot;Usage: $0 {start|stop|status|restart|reload|force-reload|condrestart}&quot;
+	exit 1
+esac
+
+exit $RETVAL</div></pre>
+</div><div style="margin-top:5px;">
+</div>
+    <div class="bottom">昵称: gnap &nbsp;时间: 2006-03-06 02:46:00</div>
+        <div class="clear"></div>
+  </div>
+  <div id="comment_7" class="comment">
+我想问一下，那个 MD5 Fingerprint: 是怎么出来的？<div style="margin-top:5px;">
+</div>
+    <div class="bottom">昵称: zlbruce &nbsp;时间: 2006-03-09 03:54:00</div>
+        <div class="clear"></div>
+  </div>
+  <div id="comment_8" class="comment">
+pop.gmail.com key fingerprint: 59:51:61:89:CDD:B2:35:94:BB:44:97:A0 :395:B4<br />
+<br />
+<br />
+你是说这个么？<br />
+<br />
+用 MD5算出来的。。。应该是用这堆东西作源算出来的。<br />
+<br />
+MIIC3TCCAkagAwIBAgIDBZIAMA0GCSqGSIb3DQEBBQUAME4xCzAJBgNVBAYTAlVT<br />
+MRAwDgYDVQQKEwdFcXVpZmF4MS0wKwYDVQQLEyRFcXVpZmF4IFNlY3VyZSBDZXJ0<br />
+aWZpY2F0ZSBBdXRob3JpdHkwHhcNMDUxMTE1MjEyMjQ0WhcNMDcxMTE2MjEyMjQ0<br />
+WjBoMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN<br />
+TW91bnRhaW4gVmlldzEUMBIGA1UEChMLR29vZ2xlIEluYy4xFjAUBgNVBAMTDXBv<br />
+cC5nbWFpbC5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMP8LCYiLGJ/<br />
+RihwcOi1V/zHVTw0Gfu+mI141Vjuuj2DtQoav8emwlXbu8gZoKP9GeMWpX1Vo9qN<br />
+4gkslIToHmDnIwGjcaEAfpdhSR9g54Kf5Y7BEXVyco6mTIlpe9vsbV0dmB1FvLP2<br />
+1N09dkUJfi7V0fjb8mcn3QYu6+6QNoxPAgMBAAGjga4wgaswDgYDVR0PAQH/BAQD<br />
+AgTwMB0GA1UdDgQWBBTdASsopgao1m8hcEg0cDZhucltljA6BgNVHR8EMzAxMC+g<br />
+LaArhilodHRwOi8vY3JsLmdlb3RydXN0LmNvbS9jcmxzL3NlY3VyZWNhLmNybDAf<br />
+BgNVHSMEGDAWgBRI5mj5K9KylddH2CMgEE8zmJCf1DAdBgNVHSUEFjAUBggrBgEF<br />
+BQcDAQYIKwYBBQUHAwIwDQYJKoZIhvcNAQEFBQADgYEAln3/pVqYnUXA1TVGzOqX<br />
+LFhohGxpuNkr1UJnQmYxmZeB07uPBYRX8c0JXEKs29TmAHRsLhmp8kF36F11Dxgi<br />
+Xm/Y8I9zgWHoMj7SL3Ve/u8K8K7XcUyUuaWmldLQAREafpFy+f+KYHGuAVh8hjy6<br />
+XyPlMCqj+PNp8QXjgOcgO68=<div style="margin-top:5px;">
+</div>
+    <div class="bottom">昵称: 晨想 &nbsp;时间: 2006-03-09 04:14:00</div>
+        <div class="clear"></div>
+  </div>
+  <div id="comment_9" class="comment">
+google 了一下，发现这样可以算<div style="margin:20px; margin-top:5px; margin-left:0px">
+	<div class="smallfont" style="margin-bottom:2px">PHP 代码:</div>
+	<div class="alt2" style="margin:0px; padding:4px; border:#c6c6c6 1px solid; width:640px; height:50px; overflow:auto">
+ <code style="white-space:nowrap">
+ <div dir="ltr" style="text-align:left;">
+ <!-- php buffer start --><code><span style="color: #000000">
+<span style="color: #0000BB"></span><span style="color: #007700">$&nbsp;</span><span style="color: #0000BB">openssl&nbsp;x509&nbsp;</span><span style="color: #007700">-</span><span style="color: #0000BB">fingerprint&nbsp;</span><span style="color: #007700">-</span><span style="color: #0000BB">md5&nbsp;</span><span style="color: #007700">-</span><span style="color: #0000BB">noout&nbsp;</span><span style="color: #007700">-</span><span style="color: #0000BB">in&nbsp;gmail</span><span style="color: #007700">.</span><span style="color: #0000BB">pem&nbsp;<br />MD5&nbsp;Fingerprint</span><span style="color: #007700">=</span><span style="color: #0000BB">59</span><span style="color: #007700">:</span><span style="color: #0000BB">51</span><span style="color: #007700">:</span><span style="color: #0000BB">61</span><span style="color: #007700">:</span><span style="color: #0000BB">89</span><span style="color: #007700">:</span><span style="color: #0000BB">CD</span><span style="color: #007700">:</span><span style="color: #0000BB">DD</span><span style="color: #007700">:</span><span style="color: #0000BB">B2</span><span style="color: #007700">:</span><span style="color: #0000BB">35</span><span style="color: #007700">:</span><span style="color: #0000BB">94</span><span style="color: #007700">:</span><span style="color: #0000BB">BB</span><span style="color: #007700">:</span><span style="color: #0000BB">44</span><span style="color: #007700">:</span><span style="color: #0000BB">97</span><span style="color: #007700">:</span><span style="color: #0000BB">A0</span><span style="color: #007700">:</span><span style="color: #0000BB">39</span><span style="color: #007700">:</span><span style="color: #0000BB">D5</span><span style="color: #007700">:</span><span style="color: #0000BB">B4&nbsp;<br /></span>
+</span>
+</code><!-- php buffer end -->
+ </div>
+ </code>
+	</div>
+</div>我在做 c_rehash 的时候出现了一个 WARNING<div style="margin:20px; margin-top:5px; margin-left:0px">
+	<div class="smallfont" style="margin-bottom:2px">PHP 代码:</div>
+	<div class="alt2" style="margin:0px; padding:4px; border:#c6c6c6 1px solid; width:640px; height:82px; overflow:auto">
+ <code style="white-space:nowrap">
+ <div dir="ltr" style="text-align:left;">
+ <!-- php buffer start --><code><span style="color: #000000">
+<span style="color: #0000BB"></span><span style="color: #007700">$&nbsp;</span><span style="color: #0000BB">c_rehash&nbsp;</span><span style="color: #007700">.</span><span style="color: #0000BB">certs<br />Doing&nbsp;</span><span style="color: #007700">.</span><span style="color: #0000BB">certs<br />cert</span><span style="color: #007700">.</span><span style="color: #0000BB">pem&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">7f549ca4.0<br />WARNING</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">Skipping&nbsp;duplicate&nbsp;certificate&nbsp;gmail</span><span style="color: #007700">.</span><span style="color: #0000BB">pem&nbsp;<br /></span>
+</span>
+</code><!-- php buffer end -->
+ </div>
+ </code>
+	</div>
+</div>而检查CA文件的时候也出现了<div style="margin:20px; margin-top:5px; margin-left:0px">
+	<div class="smallfont" style="margin-bottom:2px">PHP 代码:</div>
+	<div class="alt2" style="margin:0px; padding:4px; border:#c6c6c6 1px solid; width:640px; height:34px; overflow:auto">
+ <code style="white-space:nowrap">
+ <div dir="ltr" style="text-align:left;">
+ <!-- php buffer start --><code><span style="color: #000000">
+<span style="color: #0000BB">Verify&nbsp;</span><span style="color: #007700">return&nbsp;</span><span style="color: #0000BB">code</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">0&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">ok</span><span style="color: #007700">)&nbsp;<br /></span><span style="color: #0000BB"></span>
+</span>
+</code><!-- php buffer end -->
+ </div>
+ </code>
+	</div>
+</div>但是运行 fetchmail -avk 的时候出现错误<div style="margin:20px; margin-top:5px; margin-left:0px">
+	<div class="smallfont" style="margin-bottom:2px">PHP 代码:</div>
+	<div class="alt2" style="margin:0px; padding:4px; border:#c6c6c6 1px solid; width:640px; height:226px; overflow:auto">
+ <code style="white-space:nowrap">
+ <div dir="ltr" style="text-align:left;">
+ <!-- php buffer start --><code><span style="color: #000000">
+<span style="color: #0000BB"></span><span style="color: #007700">$&nbsp;</span><span style="color: #0000BB">fetchmail&nbsp;</span><span style="color: #007700">-</span><span style="color: #0000BB">avk<br />fetchmail</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">6.3.2&nbsp;querying&nbsp;pop</span><span style="color: #007700">.</span><span style="color: #0000BB">gmail</span><span style="color: #007700">.</span><span style="color: #0000BB">com&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">protocol&nbsp;POP3</span><span style="color: #007700">)&nbsp;</span><span style="color: #0000BB">at&nbsp;2006年03月08日&nbsp;星期三&nbsp;23时27分27秒</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">poll&nbsp;started<br />fetchmail</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">Issuer&nbsp;Organization</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">Equifax<br />fetchmail</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">Unknown&nbsp;Issuer&nbsp;CommonName<br />fetchmail</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">Server&nbsp;CommonName</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">pop</span><span style="color: #007700">.</span><span style="color: #0000BB">gmail</span><span style="color: #007700">.</span><span style="color: #0000BB">com<br />fetchmail</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">pop</span><span style="color: #007700">.</span><span style="color: #0000BB">gmail</span><span style="color: #007700">.</span><span style="color: #0000BB">com&nbsp;key&nbsp;fingerprint</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">59</span><span style="color: #007700">:</span><span style="color: #0000BB">51</span><span style="color: #007700">:</span><span style="color: #0000BB">61</span><span style="color: #007700">:</span><span style="color: #0000BB">89</span><span style="color: #007700">:</span><span style="color: #0000BB">CD</span><span style="color: #007700">:</span><span style="color: #0000BB">DD</span><span style="color: #007700">:</span><span style="color: #0000BB">B2</span><span style="color: #007700">:</span><span style="color: #0000BB">35</span><span style="color: #007700">:</span><span style="color: #0000BB">94</span><span style="color: #007700">:</span><span style="color: #0000BB">BB</span><span style="color: #007700">:</span><span style="color: #0000BB">44</span><span style="color: #007700">:</span><span style="color: #0000BB">97</span><span style="color: #007700">:</span><span style="color: #0000BB">A0</span><span style="color: #007700">:</span><span style="color: #0000BB">39</span><span style="color: #007700">:</span><span style="color: #0000BB">D5</span><span style="color: #007700">:</span><span style="color: #0000BB">B4<br />fetchmail</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">Server&nbsp;certificate&nbsp;verification&nbsp;error</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">unable&nbsp;to&nbsp;get&nbsp;local&nbsp;issuer&nbsp;certificate<br />4842</span><span style="color: #007700">:</span><span style="color: #0000BB">error</span><span style="color: #007700">:</span><span style="color: #0000BB">14090086</span><span style="color: #007700">:</span><span style="color: #0000BB">SSL&nbsp;routines</span><span style="color: #007700">:</span><span style="color: #0000BB">SSL3_GET_SERVER_CERTIFICATE</span><span style="color: #007700">:</span><span style="color: #0000BB">certificate&nbsp;verify&nbsp;failed</span><span style="color: #007700">:</span><span style="color: #0000BB">s3_clnt</span><span style="color: #007700">.</span><span style="color: #0000BB">c</span><span style="color: #007700">:</span><span style="color: #0000BB">894</span><span style="color: #007700">:<br /></span><span style="color: #0000BB">fetchmail</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">SSL&nbsp;connection&nbsp;failed</span><span style="color: #007700">.<br /></span><span style="color: #0000BB">fetchmail</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">socket&nbsp;error&nbsp;</span><span style="color: #007700">while&nbsp;</span><span style="color: #0000BB">fetching&nbsp;from&nbsp;zlbruce</span><span style="color: #007700">@</span><span style="color: #0000BB">pop</span><span style="color: #007700">.</span><span style="color: #0000BB">gmail</span><span style="color: #007700">.</span><span style="color: #0000BB">com<br />fetchmail</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">6.3.2&nbsp;querying&nbsp;pop</span><span style="color: #007700">.</span><span style="color: #0000BB">gmail</span><span style="color: #007700">.</span><span style="color: #0000BB">com&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">protocol&nbsp;POP3</span><span style="color: #007700">)&nbsp;</span><span style="color: #0000BB">at&nbsp;2006年03月08日&nbsp;星期三&nbsp;23时27分28秒</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">poll&nbsp;completed<br />fetchmail</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">Query&nbsp;status</span><span style="color: #007700">=</span><span style="color: #0000BB">2&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">SOCKET</span><span style="color: #007700">)<br /></span><span style="color: #0000BB">fetchmail</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">normal&nbsp;termination</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">status&nbsp;2&nbsp;<br /></span>
+</span>
+</code><!-- php buffer end -->
+ </div>
+ </code>
+	</div>
+</div><div style="margin-top:5px;">
+</div>
+    <div class="bottom">昵称: zlbruce &nbsp;时间: 2006-03-09 04:28:00</div>
+        <div class="clear"></div>
+  </div>
+  <div id="comment_10" class="comment">
+奉献上支持chkconfig的脚本：<br />
+<div style="margin:20px; margin-top:5px; margin-left:0px">
+	<div class="smallfont" style="margin-bottom:2px">代码:</div>
+	<pre class="alt2" style="margin:0px; padding:4px; border:#c6c6c6 1px solid; width:640px; height:498px; overflow:auto"><div dir="ltr" style="text-align:left;">#!/bin/bash
+#
+# fetchmail	This shell script enables the automatic use of fetchmail.
+# Author	An Jiangze &lt;gnap.an AT gmail.com&gt;
+#
+# chkconfig:	5 35 62
+#
+# description:	fetchmail daemon for automically retrive mails on remote server.
+# processname:	fetchmail
+# config: /etc/fetchmailrc 
+
+. /etc/rc.d/init.d/functions
+
+lockfile=/var/lock/subsys/fetchmail
+
+RETVAL=0
+
+start() {
+	echo -n &quot;Starting fetchmail...&quot;
+	/usr/bin/fetchmail -f /etc/fetchmailrc &amp;&amp; touch &quot;$lockfile&quot; &amp;&amp; success || failure
+	RETVAL=$?
+	echo
+}
+stop() {
+	echo -n &quot;Stopping fetchmail...&quot;
+	killall /usr/bin/fetchmail &amp;&amp; rm -f &quot;$lockfile&quot; &amp;&amp; success || failure
+	RETVAL=$?
+	echo
+}
+restart(){
+	stop
+	sleep 1
+ start
+}
+
+case &quot;$1&quot; in
+ start)
+	start
+	;;
+ stop)
+ stop
+	;;
+ restart|force-reload)
+ restart
+	;;
+ reload)
+ ;;
+ condrestart)
+ [ -f &quot;$lockfile&quot; ] &amp;&amp; restart
+	;;
+ status)
+ if [ -f &quot;$lockfile&quot; ]; then
+ echo $&quot;Fetchmail is running.&quot;
+ RETVAL=0
+	else
+ echo $&quot;Fetchmail is not running.&quot;
+ RETVAL=3
+	fi
+	;;
+ *)
+ echo $&quot;Usage: $0 {start|stop|status|restart|reload|force-reload|condrestart}&quot;
+	exit 1
+esac
+
+exit $RETVAL</div></pre>
+</div>这个脚本使你可以用chkconfig控制fetchmail的自动启动和运行级别。<div style="margin-top:5px;">
+</div>
+    <div class="bottom">昵称: gnap &nbsp;时间: 2006-03-09 12:32:00</div>
+        <div class="clear"></div>
+  </div>
+  <div id="related"></div>
+  <input type="hidden" id="classid" value="50" />
+</div>
+<div id="cright" class="right" style="text-align:right;padding-top:2px;">
+	</div>
+  <div class="separate"></div>
+  <div class="footer">
+  <p class="us"><a href="http://www.phpfans.net/mod-news_do-show_id-4086.html" target="_blank">关于我们</a> | <a href="http://www.phpfans.net/mod-news_do-show_id-831.html" target="_blank">联系我们</a> | <a href="http://www.phpfans.net/guestbook/" target="_blank">访客留言</a> | <a href="http://www.phpfans.net/mod-news_do-show_id-4088.html" target="_blank">免责声明</a> | <a href="http://www.phpfans.net/mod-news_do-show_id-831.html" target="_blank">项目承接</a> | <a href="http://www.phpfans.net/?mod=friendLink" target="_blank">友情链接</a></p>
+  <p>Copyright &copy; 2006-2018 <a href="http://www.phpfans.net">PHPfans</a> <a href="http://www.miibeian.gov.cn" target="_blank">沪ICP备14006347号-1</a></p>
+  </div>
+</div>
+<iframe name="asyn" id="asyn" marginWidth="0" marginHeight="0" frameBorder="0" width="0" scrolling="0" height="0"></iframe>
+</body>
+</html>

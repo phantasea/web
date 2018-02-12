@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>Ubuntu14.04指纹识别登录 指纹解锁_Linux系统教程_红联Linux门户</title>
+<meta name="keywords" content="Ubuntu14.04指纹识别登录 指纹解锁" />
+<meta name="description" content="指纹识别会让电脑避免输入密码的麻烦，下面我介绍一下Ubuntu系统实现指纹识别登录的几个步骤！电脑必须有自带指纹识别硬件。 1.首先更新一下系统更新包： 在终端中输入：sudo apt-get update 2.添加PPA源： 在终端中输入：sudo add-apt-repository ppa:finge" />
+<link rel="shortcut icon" href="http://www.linuxdiyf.com/favicon.ico" type="image/x-icon" />
+<link href="http://www.linuxdiyf.com/linux/templets/wenzhang.css" rel="stylesheet" media="screen" type="text/css" />
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?df25116b76fb7bf2cb3cd1bf68f5518a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+<body>
+<div class="header">
+<div class="top">
+<div class="title"><a href="http://www.linuxdiyf.com/"><img src="http://www.linuxdiyf.com/linux/images/logo.png" width="120" height="60" alt="红联Linux门户" /></a></div>
+<div class="bbs"><a href="http://www.linuxdiyf.com/bbs/" target="_blank"><img src="http://www.linuxdiyf.com/linux/images/bbs.png" width="600" height="60" alt="红联Linux论坛" /></a></div>
+<div class="help"><a href="http://www.linuxdiyf.com/help.html" target="_blank"><img src="http://www.linuxdiyf.com/linux/images/help.png" width="220" height="60" alt="Linux帮助" /></a></div>
+</div>
+<div class="daohang">
+<ul>
+<li><a href="http://www.linuxdiyf.com/">首页</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/">系统教程</a></li> 
+<li><a href="http://www.linuxdiyf.com/linux/rm/">Linux入门</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/gl/">Linux管理</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/jq/">Linux技巧</a></li>  
+<li><a href="http://www.linuxdiyf.com/linux/shell/">Linux命令</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/ubuntu/">Ubuntu</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/ffq/">Linux服务器</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/sjk/">Linux数据库</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/kf/">Linux开发</a></li>
+<li><a href="http://www.linuxdiyf.com/xzaz.html">下载安装</a></li>
+<li><a href="http://www.linuxdiyf.com/zjbb.html">装机必备</a></li>
+<li><a href="http://www.linuxdiyf.com/rjgx.html">软件更新</a></li>
+<li><a href="http://www.linuxdiyf.com/zmzt.html">桌面主题</a></li>
+</ul>
+</div>
+</div>
+<div class="kuan">
+<div class="hengdiama">
+<script>
+(function() {
+    var s = "_" + Math.random().toString(36).slice(2);
+    document.write('<div id="' + s + '"></div>');
+    (window.slotbydup=window.slotbydup || []).push({
+        id: '1041302',
+        container: s,
+        size: '960,90',
+        display: 'inlay-fix'
+    });
+})();
+</script>
+<script src="http://dup.baidustatic.com/js/os.js"></script>
+</div>
+<div class="pleft">
+<div class="place"><strong>当前位置:</strong><a href='http://www.linuxdiyf.com/'>红联Linux门户</a> > <a href='http://www.linuxdiyf.com/linux/'>Linux系统教程</a> > <a href='http://www.linuxdiyf.com/linux/ubuntu/'>Ubuntu系统</a></div>
+<div class="viewbox">
+<div class="title">
+<h1>Ubuntu14.04指纹识别登录 指纹解锁</h1>
+</div>
+<div class="info"><small>发布时间:</small>2016-05-27 15:29:27<small>来源:</small>linux网站<small>作者:</small>luckylin666</div>
+<div class="diama">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- linuxjiaocheng -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-8023555791144639"
+     data-ad-slot="1521948007"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+<div class="content">
+<table width='100%'>
+<tr>
+<td>
+<p>
+	指纹识别会让电脑避免输入密码的麻烦，下面我介绍一下Ubuntu系统实现指纹识别登录的几个步骤！电脑必须有自带指纹识别硬件。</p>
+<p>
+	<br />
+	1.首先更新一下系统更新包：</p>
+<p>
+	在终端中输入：sudo apt-get update</p>
+<p>
+	<br />
+	2.添加PPA源：</p>
+<p>
+	在终端中输入：sudo add-apt-repository ppa:fingerprint/fprint</p>
+<p>
+	<br />
+	3.安装指纹识别所需要的程序：</p>
+<p>
+	在终端中输入：sudo apt-get install libfprint0 fprint-demo libpam-fprintd gksu-polkit</p>
+<p>
+	<img alt="Ubuntu14.04指纹识别登录 指纹解锁" src="http://www.linuxdiyf.com/linux/uploads/allimg/160527/2-16052G53359543.jpg" style="width: 627px; height: 332px" /></p>
+<p>
+	<img alt="Ubuntu14.04指纹识别登录 指纹解锁" src="http://www.linuxdiyf.com/linux/uploads/allimg/160527/2-16052G53411230.jpg" style="width: 627px; height: 334px" /></p>
+<p>
+	<img alt="Ubuntu14.04指纹识别登录 指纹解锁" src="http://www.linuxdiyf.com/linux/uploads/allimg/160527/2-16052G53425952.jpg" style="width: 628px; height: 331px" /></p>
+<p>
+	<img alt="Ubuntu14.04指纹识别登录 指纹解锁" src="http://www.linuxdiyf.com/linux/uploads/allimg/160527/2-16052G53435546.jpg" style="width: 625px; height: 333px" /></p>
+<p>
+	<img alt="Ubuntu14.04指纹识别登录 指纹解锁" src="http://www.linuxdiyf.com/linux/uploads/allimg/160527/2-16052G53445956.jpg" style="width: 629px; height: 333px" /></p>
+<p>
+	上图所示已启用指纹登录。</p>
+<p>
+	<br />
+	本文永久更新地址：<a href="http://www.linuxdiyf.com/linux/21005.html">http://www.linuxdiyf.com/linux/21005.html</a></p>
+</td>
+</tr>
+</table>
+<div class="diama">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- linuxosjiaocheng -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-8023555791144639"
+     data-ad-slot="4196212803"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+</div>
+</div>
+<div class="jiaocheng">
+<div class="wenzhang"><strong>频道文章</strong></div>
+<ul class="linuxdiyfwenzhang">
+<li><a href="http://www.linuxdiyf.com/linux/33034.html" target="_blank">开源图形库Mesa 17.3.1 for Linux发布，在Ubuntu下安装方法</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/33032.html" target="_blank">通过PXE安装ubuntukylin后网络显示设备未托管的解决</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/33029.html" target="_blank">优麒麟Ubuntu Kylin17.10使用IPv6上网</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/33017.html" target="_blank">Ubuntu 16.04下无法将pip从8.1.2升级到9.0.1的解决办法</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/33007.html" target="_blank">ThinkPad X1 Carbon 5th在Ubuntu Linux 16.04下启用指点杆</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/33005.html" target="_blank">ubuntu17.10安装lnmp安装包的核心问题-gcc版本、g++版本</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/33004.html" target="_blank">在Ubuntu 16.04下随机化你的WiFi MAC地址</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/32992.html" target="_blank">如何在Ubuntu 16.04和14.04上安装Erlang</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/32991.html" target="_blank">如何在Ubuntu 16.04上安装Nim</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/32983.html" target="_blank">VMware12 Pro下对虚拟机Ubuntu16.04所在分区sda1进行磁盘扩容</a></li>
+</ul>
+</div>
+<div class="jiaocheng">
+<div class="wenzhang"><strong>网站推荐文章</strong></div>
+<ul class="linuxdiyfwenzhang">
+<li><a href="http://www.linuxdiyf.com/linux/32966.html" target="_blank">如何轻松记住Linux命令</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/32827.html" target="_blank">Ubuntu 17.10安装之后需要做的9件事</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/32783.html" target="_blank">如何在一个U盘上安装多个Linux发行版</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/32750.html" target="_blank">Linux命令入门–从普通桌面Linux学习用户的角度</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/32706.html" target="_blank">长假不能错过的几款开源Linux游戏</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/32473.html" target="_blank">系统管理员应该知道的20条Linux命令</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/31649.html" target="_blank">Ubuntu系统释放磁盘空间的7种简单方法</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/31555.html" target="_blank">Linux中高效编写Bash脚本的10个技巧</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/31463.html" target="_blank">如何为Linux配置双显卡</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/29987.html" target="_blank">如何从早期版本升级到Ubuntu 17.04</a></li>
+</ul>
+</div>
+</div>
+<div class="linuxtuijian">
+<dl class="tbox">
+<dt class='light'><strong>推荐教程</strong></dt>
+<dd class='light'>
+<ul class="tuijianjiaocheng">
+<li><a href="http://www.linuxdiyf.com/linux/32827.html" target="_blank">Ubuntu 17.10安装之后需要做的9</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/31649.html" target="_blank">Ubuntu系统释放磁盘空间的7种简</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/29987.html" target="_blank">如何从早期版本升级到Ubuntu 17.</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/29033.html" target="_blank">如何在Ubuntu中升级到最新内核</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/28745.html" target="_blank">加速老旧Ubuntu系统的技巧</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/26628.html" target="_blank">Ubuntu 16.04 Intel显卡驱动安装</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/26201.html" target="_blank">Ubuntu 16.04安装SQL Server v.N</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/25048.html" target="_blank">Ubuntu 16.10安装之后必须做的16</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/24590.html" target="_blank">阿里云Ubuntu快速建站</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/21444.html" target="_blank">十招让Ubuntu 16.04用起来更得心</a></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="linuxtuijian">
+<dl class="tbox">
+<dt class='light'><strong>热点推荐</strong></dt>
+<dd class='light'>
+<ul class="tuijianjiaocheng">
+<li><a href="http://www.linuxdiyf.com/linux/25403.html" target="_blank">Ubuntu 16.04 LTS安装配置笔记</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/26093.html" target="_blank">VirtualBox虚拟机运行Ubuntu如何</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/26238.html" target="_blank">在Virtualbox里安装Ubuntu Core 1</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/29266.html" target="_blank">Ubuntu 16.04与Win10双系统双硬盘</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/30857.html" target="_blank">SQL Server on Ubuntu——Ubuntu</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/24990.html" target="_blank">Ubuntu16.04系统下登陆锐捷</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/25028.html" target="_blank">提供Ubuntu 16.10正式版本下载（6</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/25047.html" target="_blank">Ubuntu 16.04升级到Ubuntu 16.10</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/25066.html" target="_blank">让你的系统更顺手—Ubuntu实用软</a></li>
+<li><a href="http://www.linuxdiyf.com/linux/25258.html" target="_blank">解析Ubuntu Kylin和Deepin Linux</a></li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+<div class="footer">
+<p><a href="http://www.linuxdiyf.com/about/" target="_blank">关于我们</a> | <a href="http://www.linuxdiyf.com/about/hezuo.htm" target="_blank">合作</a> | <a href="http://www.linuxdiyf.com/about/contact.htm" target="_blank">联系我们</a></p>
+<p>&copy; linuxdiyf.com 红联Linux门户 版权所有</p>
+</div>
+</body>
+</html>
