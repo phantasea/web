@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="gb2312" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<title>Linux系统中安装配置Mutt来作为Gmail客户端_LINUX_操作系统_脚本之家</title>
+<meta name="keywords" content="Linux,Mutt,Gmail,邮件" />
+<meta name="description" content="这篇文章主要介绍了Linux系统中安装配置Mutt来作为Gmail客户端的教程,在国内搭建使用Gmail时可能要注意网络代理的相关配置,需要的朋友可以参考下" />
+<link rel="alternate" media="only screen and(max-width: 640px)" href="https://m.jb51.net/LINUXjishu/457712.html" />
+<meta http-equiv="mobile-agent" content="format=html5; url=https://m.jb51.net/LINUXjishu/457712.html" />
+<meta http-equiv="mobile-agent" content="format=xhtml; url=https://m.jb51.net/LINUXjishu/457712.html" />
+<script type="text/javascript">
+var tougao="45";var downlm="art";var ourl="";
+(function(){var reWriteUrl=function(url){if(url){var Splits=url.split("/"),siteName=window.location.pathname;if(typeof siteName!=="undefined"){return"https://m.jb51.net"+siteName}}};if(/Android|webOS|iPhone|iPad|Windows Phone|iPod|BlackBerry|SymbianOS|Nokia|Mobile/i.test(navigator.userAgent)){var url=window.location.href;var pathname=window.location.pathname;if(url.indexOf("?pc")<0){try{window.location.href=reWriteUrl(url)}catch(e){}}}})();
+</script>
+<link type="text/css" href="/skin/2018/css/base.css" rel="stylesheet" />
+<link type="text/css" href="/skin/2018/css/common.css" rel="stylesheet" />
+<script type="text/javascript" src="//apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+if (!window.jQuery) {
+	var script = document.createElement('script');
+	script.src = "/skin/js/jquery.js";
+	document.body.appendChild(script);}
+</script>
+<script type=text/javascript src="/js/function.js"></script>
+</head>
+<body>
+<!--topTools Start -->
+<div class="topTools">
+    <div class="wrap clear_fix">
+		<div class="topToolsLeft">
+			<a href="/" target="_blank">脚本之家</a>
+			<a href="http://s.jb51.net" target="_blank" rel="nofollow">服务器常用软件</a>
+		</div>
+		<div class="right">
+			<ul>
+				<li><i class="sprite md left"></i><a target="_blank" href="https://m.jb51.net/" rel="nofollow">手机版</a></li>
+				<li><i class="sprite tg left"></i><a href="//tougao.jb51.net" rel="nofollow" target="_blank">投稿中心</a></li>
+				<li id="wxHide"><i class="sprite wx left"></i><a href="#" target="_blank">关注微信</a>
+					<div id="wxShow" class="wxHide_box"><img src="/skin/2018/images/erwm.jpg" alt="扫一扫" width="84" hight="84" data-baiduimageplus-ignore></div>
+				</li>
+			</ul>
+			<!--快捷导航 开始 -->
+			<div class="text_d right" id="navHide">
+				<a href="javascript:void(0);">快捷导航<i id="icon" class="sprite arrowRight"></i></a>
+				<div id="navBox" class="webNav">
+					<div class="dealList clear_fix">
+						<h4><a href="/softs/" target="_self" rel="nofollow">软件下载</a></h4>
+						<dl>
+							<dd>
+								<a href="/softs/android.html" target="_blank" rel="nofollow">android软件</a>
+								<a href="/softs/mac.html" target="_blank" rel="nofollow">MAC软件</a>
+								<a href="/fonts/" target="_blank" rel="nofollow">字体下载</a> 
+								<a href="/dll/" target="_blank" rel="nofollow">DLL下载</a>
+								<a href="/zt/php-dev.htm" target="_blank" rel="nofollow">php开发工具</a>
+							</dd>
+						</dl>
+					</div>
+					
+					<div class="dealList clear_fix">
+						<h4><a href="/codes/" target="_blank" rel="nofollow">源码下载</a></h4>
+						<dl>
+							<dd>
+								<a href="/codes/asp.html" target="_blank" rel="nofollow">asp源码</a>
+								<a href="/codes/php.html" target="_blank" rel="nofollow">php源码</a>
+								<a href="/codes/aspnet.html" target="_blank" rel="nofollow">asp.net源码</a>
+								<a href="/codes/jsp.html" target="_blank" rel="nofollow">jsp源码</a>
+								<a href="/codes/editor.html" target="_blank" rel="nofollow">网页编辑器</a>
+								<a href="/codes/list123_1.html" target="_blank" rel="nofollow">数据库管理</a>
+							</dd>
+						</dl>
+					</div>
+					
+					<div class="dealList clear_fix">
+						<h4><a href="http://tools.jb51.net" target="_blank">在线工具</a></h4>
+						<dl>
+							<dd>
+								<a href="/shouce/" target="_blank" rel="nofollow">在线手册</a>
+								<a href="/tools/cssyasuo.shtml" target="_blank" rel="nofollow">CSS格式化</a>
+								<a href="http://tools.jb51.net/tools/js_geshihua.asp" target="_blank" rel="nofollow">JS格式化</a>
+								<a href="/tools/html-js.htm" target="_blank" rel="nofollow">Html转化为Js</a>
+								<a href="http://tools.jb51.net/regex/javascript" target="_blank" rel="nofollow">js正则表达式</a>
+							</dd>
+						</dl>
+					</div>
+					
+				</div>
+			</div>
+			<!--快捷导航 结束 -->
+		</div>
+    </div>
+</div>
+<!--topTools end -->
+
+<div class="header mb10">
+	<!-- Logo start -->
+	<div class="wrap">
+		<div class="mtb10 clearfix">
+		  <div class="logo"><a href="//www.jb51.net/"><img src="//www.jb51.net/images/logo.gif" title="脚本之家" alt="脚本之家" /></a></div>
+		  <div class="logom fl"><span id="logo_m" class="jbTestPos"></span></div>
+		  <div class="logor fr"><span id="logo_r" class="jbTestPos"></span></div>
+		</div>
+	</div>
+	<!--Logo end -->
+	
+	<!-- 导航开始 -->
+	<div class="nav_top clearfix">
+		<ul>
+			<li><a href="//www.jb51.net/">网站首页</a></li>
+			<li><a href="/web/">网页制作</a></li>
+			<li><a href="/list/index_1.htm">网络编程</a></li>
+			<li><a href="/list/index_96.htm">脚本专栏</a></li>
+			<li><a href="/jiaoben/">脚本下载</a></li>
+			<li><a href="/list/index_104.htm">数据库</a></li>
+			<li><a href="/cms/">CMS教程</a></li>
+			<li><a href="/books/">电子书籍</a></li>
+			<li><a href="/pingmian/">平面设计</a></li>
+			<li><a href="/media/">媒体动画</a></li>
+			<li><p><i>其它</i><span>
+				<a href="/os/">操作系统</a>
+				<a href="/yunying/">网站运营</a>
+				<a href="/hack/">网络安全</a>
+				<a href="/shouce/">在线手册</a>
+			</span></p></li>
+		</ul>
+	</div>
+	<!--导航结束-->
+</div>
+
+<div class="main mb10 clearfix">
+<div class="clearfix"><span id="tonglan1" class="jbTestPos"></span></div>
+</div>
+
+<div class="main clearfix">
+	<div class="NavBar clearfix ptb10">
+		<div class="fl w690">
+			<div class="box mb15 mt10"><i class="icon"></i>您的位置：<a href='http://www.jb51.net/'>主页</a> > <a href='/os/'>操作系统</a> > <a href='/LINUXjishu/'>LINUX</a> > </div>
+		</div>
+		<div class="fr w300"><div class="search">
+		<form action="http://so.jb51.net/cse/search" target="_blank">
+			<input type="hidden" name="s" value="10520733385329581432">
+			<input type="hidden" name="ie" value="gbk">
+			<input type="text" name="q" class="key_input" placeholder="请输入关键词">
+			<input type="submit" value=" " class="c_btn">
+		</form></div>
+		</div>
+	</div>
+</div>
+
+<!--content Star -->
+<div id="contents">
+ <!--share start-->
+ <div id="right-share">
+	<div class="right-share jb-share" id="jb-share">
+		<a class="rshare-weixin" title="">微信</a>
+        <a rel="nofollow" class="rshare-qzone" target="_blank" href="//tougao.jb51.net/" title="投稿">投稿</a>
+		<a rel="nofollow" class="rshare-sqq" target="_blank" href="http://shequ.jb51.net/" title="交流社区">交流社区</a>
+		<a rel="nofollow" class="rshare-tsina" target="_blank" href="http://youhui.jb51.net/" title="领取优惠券">领取优惠券</a>
+	</div>
+	<a class="rshare-top" onClick="javascript:;"></a>
+			
+	<div id="weixin-code" class="hide">
+	<div class="popup_weixin_head"><p>关注微信公众号</p> 
+	<div id="code"><img src="/skin/2018/images/erwm.jpg" alt="扫一扫" width="100" hight="100"></div>
+	</div>
+	</div>	
+ </div>
+<!--share end-->
+
+ <div class="main clearfix bgf">
+      <div class="w750 fl">
+      <div class="article-content border">
+      <div class="title">
+            <h1 class="YaHei">Linux系统中安装配置Mutt来作为Gmail客户端</h1>
+            <p><i>简书</i> &nbsp; 05-06 11:04:36 &nbsp; 作者：大哥哥  &nbsp; <a href="#comments"> <img src="/skin/2018/images/text-message.png" width="15" height="15" /> 我要评论</a></p>
+        </div>
+        <div class="art_desc mt10">这篇文章主要介绍了Linux系统中安装配置Mutt来作为Gmail客户端的教程,在国内搭建使用Gmail时可能要注意网络代理的相关配置,需要的朋友可以参考下</div>
+        <div id="con_all">
+			<div id="con_da1"><span id="gg_l" class="jbTestPos"></span></div>
+			<div id="con_da2"><span id="gg_r" class="jbTestPos"></span></div>
+		</div>
+        <div id="content">
+<p>mutt是一个Linux终端下的著名的邮件客户端，如你所愿，mutt就是一个邮件客户端。没有其他浮华的功能，它可以帮助你提升效率，至于帮助你装X只能算是mutt的特殊加成。<br />由于mutt是一个有着unix哲学的程序，可定制性很强，其高级功能可以由不同的程序来完成，比如以下搭配：<br />1.mutt<br />使用mutt内建的imap，pop，smtp支持，最简单的方式，只需要安装mutt这一个软件包。<br />2.mutt + msmtp<br />最简单的组合，配合imap协议，可以满足大多数人的要求<br />其中smtp功能由msmtp实现，你甚至可以把imap功能也由其他软件来实现<br />3.mutt + msmtp + getmail + procmail<br />稍微复杂一点的组合，mutt是客户端，msmtp作为mta，getmail用来收取邮件，procmail过滤邮件。<br />mta还可以使用exim4或者postfix替代，一般使用msmtp就够了，因为postfix实在是太好了，邮件服务器通常会选择postfix。<br />msmtp可以使用esmtp替代。<br />邮件收取功能也可以使用fetchmail替代getmail，由于需要本地mta投递，所以同时需要procmail。<br />procmail是一个功能及其强大的邮件过滤系统。ps:看到这句话，你就应该明白，我显然没有使用它。。。</p>
+<p><strong>Mutt 跟其它 email 程序有什么重大区别吗？<br /></strong>Mutt 是一个发源于 Unix 的邮件程序，它跟一般的 Windows 邮件程序不同，它不是一个包罗万象的大杂烩。你甚至会发现它根本不直接发出邮件，它从来不自己编辑邮件，它从来不自己对邮件进行加密和数字签名&hellip;&hellip;<br />Mutt 更像一个文件管理器，只不过它管理的是email。它的功能是借助各个最强大的程序来实现的。这符合 UNIX 的设计思想。<br />当 Mutt 需要编辑邮件时，它有可能调用 vi, VIM, emacs, pico, &hellip;&hellip;等编辑器。<br />当 Mutt 需要发信时，它把需要发出的信件放到 sendmail 的队列里，就什么都不管了。<br />当需要数字签名时，Mutt 会把信件交给 GnuPG 之类的程序处理一下，然后再发出去。<br />怎么收邮件呢？Mutt 不会自己到 POP 服务器去取邮件，你需要一个 fetchmail 程序，帮你把 email 从 POP 服务器取回来，转发到自己的 sendmail 的邮箱里。这样看起来就是你的主机成为了一个完整的 UNIX 网络工作站。<br />是不是觉得挺麻烦？其实有些 patch 可以使 Mutt 不依赖于这些程序，而自己处理收发工作。但是，强烈建议你使用这些外部程序！到时候你就知道这些东西的好处了。首先，VIM, sendmail, fetchmail 这些程序都是经过千锤百炼的质量信得过的程序，用它们编辑，发送，收取邮件你绝对放心。其次，你得到了一个 UNIX 网络工作站的功能：<br />sendmail 不但可以帮 Mutt 发出邮件，也可以帮其它 Unix 程序比如 tin 发送邮件。如果你需要一个邮件服务器帮你中转，那么你只需要设置一次就可以使所有的用户的所有这样的程序都自动可以发送邮件，不用每个程序都去设置帐号了。<br />fetchmail 收到邮件之后会转发给本地的 sendmail. sendmail 如果允许 .forward, 你就可以在自己的目录里编辑一个.forward文件，信件可以自动被转发到其它地方或者经过一个过滤器过滤。你可以自己用perl等语言来写一个过滤器，它可以根据信件内容实现很多功能，比如自动回复等等。比如我就写了一个简单的过滤器，它可以记录所有发件人的地址，如果我把 helloooo 机器人连接到过滤器，恐怕你们就会收到可爱的 helloooo 的回信了 :)</p>
+<p><strong><font color="#ff0000">Mutt作为Gmail客户端<br /></font></strong>由于Gmail服务器端垃圾邮件过滤已经做得很好了，而且我使用的是imap协议，所以不需要getmail去收取邮件，目前也没有必要自己再去配置procmail的过滤系统。<br />本文将对mutt + msmtp的配置进行说明。</p>
+<p><strong>1.安装mutt和msmtp<br /></strong>一般发行版<br />mutt和msmtp已经包含在大多数发行版的软件源里，直接使用包管理器安装,其他发行版以此类推:<br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode43'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode43"><br />$ sudo apt-get insatll mutt msmtp    #适用于debian系<br />$ sudo yum insatll mutt msmtp    #适用于red hat系<br /></div><br />Gentoo Linux下安装<br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode44'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode44"><br />$ echo "mail-client/mutt -berkdb gpg imap mbox nntp sasl sidebar slang smime smtp" &gt;&gt; /etc/portage/package.use    # 设置mutt的use flag<br />$ echo "mail-mta/msmtp sasl" &gt;&gt; /etc/portage/package.use    # 设置msmtp的use flag<br />$ emerge -av mutt msmtp    # 安装mutt和msmtp<br /></div></p>
+<p><strong>2.配置mutt<br /></strong>创建并编辑~/.muttrc<br />把username替换为你的Gmail用户名，passwd替换为密码<br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode45'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode45"><br /># 设置发信地址和用户名<br />set from = "username@gmail.com"<br />set realname = "username"<br />set use_from = yes<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode46'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode46"><br /># 设置Gmail帐户和密码<br />set imap_user = "username@gmail.com"<br />set imap_pass = "your password"<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode47'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode47"><br /># 设置远程服务器文件夹<br />set folder = "imaps://imap.gmail.com:993"<br />set spoolfile = "+INBOX"<br />mailboxes = +INBOX<br />set postponed = "+[Gmail]/Drafts"<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode48'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode48"><br /># 允许mutt自动创建一个新的imap连接<br />unset imap_passive<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode49'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode49"><br /># imap连接保持时间<br />set imap_keepalive = 300<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode50'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode50"><br /># 检查新邮件间隔时间<br />set mail_check = 120<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode51'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode51"><br /># 本地缓存目录<br />set header_cache = ~/.mutt/cache/headers<br />set message_cachedir = ~/.mutt/cache/bodies<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode52'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode52"><br /># 设置TLS验证<br />set certificate_file = /etc/ssl/certs/ca-certificates.crt<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode53'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode53"><br /># 设置内建smtp,这里我们不使用<br />#set smtp_url = "smtps://username@gmail.com@smtp.gmail.com:465/"<br />#set smtp_pass = "your password"<br />#set ssl_starttls = yes<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode54'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode54"><br /># 使用msmtp<br />set sendmail = "/usr/bin/msmtp"<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode55'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode55"><br /># 不保存发送的邮件<br />unset record<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode56'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode56"><br /># 回信不包含邮件头<br />set header = no<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode57'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode57"><br /># 退出提醒<br />set quit = ask-yes<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode58'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode58"><br /># 回信包含原文<br />set include<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode59'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode59"><br /># 设置回信引文之前的插入符号<br />set indent_str = "&gt; "<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode60'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode60"><br /># 设置邮件头<br />my_hdr From: username@gmail.com<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode61'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode61"><br /># 邮件打分<br />score "~N" +4<br />score "~s 通知" +2<br />score "~D" -5<br />score "~O" +1<br />score "~s believe" -10<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode62'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode62"><br /># 排序方式<br />set sort = score<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode63'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode63"><br /># 二级排序<br />set sort_aux = date<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode64'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode64"><br /># 翻到最后一页不回到第一页<br />set pager_stop<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode65'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode65"><br /># 快速回信<br />set fast_reply<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode66'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode66"><br /># 删除邮件自动移动光标<br />set resolve = yes<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode67'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode67"><br /># 设置编码，保持和终端一致<br />set charset = "utf-8"<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode68'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode68"><br /># 发信使用的字符集<br />set send_charset = "us-ascii:iso-8859-1:gb18030:utf-8"<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode69'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode69"><br /># 是否编辑邮件头<br />set edit_headers = no<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode70'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode70"><br /># pager显示行数<br />set pager_index_lines = 4<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode71'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode71"><br /># 告知mutt哪些是邮件列表<br />subscribe ustc_lug@googlegroups.com<br />subscribe shlug@googlegroups.com<br />subscribe gentoo-user@lists.gentoo.org<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode72'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode72"><br /># 使用solarized配色方案<br />source ~/.mutt/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc<br /></div><br />编辑好后保存退出。<br />修改~/.muttrc的权限<br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode73'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode73"><br />$ chmod 700 ~/.muttrc<br /></div><br />创建本地文件夹<br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode74'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode74"><br />$ mkdir -p ~/.mutt/cache<br /></div></p>
+<p><strong>3.配置msmtp<br /></strong>创建或修改~/.msmtprc<br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode75'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode75"><br /># Accounts will inherit settings from this section<br />defaults<br />auth             on<br />tls              on<br />tls_trust_file   /usr/share/ca-certificates/mozilla/Thawte_Premium_Server_CA.crt<br />logfile ~/.mutt/msmtp.log<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode76'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode76"><br /># Gmail account<br />account gmail<br />host smtp.gmail.com<br />port 465<br />from username@gmail.com<br />user username@gmail.com<br />password password<br />tls_starttls off<br />tls_trust_file /etc/ssl/certs/ca-certificates.crt<br /></div><br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode77'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode77"><br /># set default account<br />account default : gmail<br /></div><br />保存退出，并设置权限<br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode78'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode78"><br />$ chmod 600 ~/.msmtprc<br /></div></p>
+<p><strong>4.配置mutt使用solarized配色方案<br /></strong><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode79'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode79"><br />$ git clone https://github.com/altercation/mutt-colors-solarized.git ~/.mutt/mutt-colors-solarized<br /></div><br />然后在~/.muttrc中修改相应配置。<br />大功告成，终端启动：<br /><br><div class="msgheader"><div class="right"><span style="CURSOR: pointer" onclick="copycode(getid('phpcode80'));"><u>复制代码</u></span></div>代码如下:</div><div class="msgborder" id="phpcode80"><br />$ mutt<br /></div><br />如无例外你将看到:<br /><img alt="201656110039208.jpg (731×812)" src="//files.jb51.net/file_images/article/201605/201656110039208.jpg?20164611053" /></p>
+<p><strong>注意事项<br /></strong>Gmail启用了两步验证需要为mutt设置应用专用密码</p>
+<p><br /></p>
+
+</div><!--endmain-->
+<div class="tags mb10 clearfix">
+	<i class="icon-tag"></i>
+	<ul class="meta-tags items">
+	  <li class="tag item">Tag：<a href='/do/tag/MUTT/' target='_blank'>MUTT</a> &nbsp; <a href='/do/tag/Gmail/' target='_blank'>Gmail</a> &nbsp; <a href='/do/tag/Linux/' target='_blank'>Linux</a> &nbsp; </li>
+	</ul>
+</div>
+<div class="lbd clearfix">
+<span id="art_down" class="jbTestPos"></span>
+</div>
+<div id="shoucang"></div>
+<div class="xgcomm clearfix">
+<H2>相关文章</H2>
+<ul>
+<li class="lbd clearfix"><span id="art_xg" class="jbTestPos"></span></li>
+<li><div class="item-inner"><div class="rbox"><div class="rbox-inner"><p><a class="link title" target="_blank" href="/LINUXjishu/458412.html" title="linux系统下添加计划任务执行php文件方法">linux系统下添加计划任务执行php文件方法</a></p><div class="item-info"><div class="js"> 
+在web开发过程中，经常需要设定一些定期执行的任务，比如商品定时上下架。我们以php文件为例，讲解linux下的计划任务，来看看吧</div><span class="lbtn" style="float:right"> 2016-05-09 </span></div></div></div></div></li><li><div class="item-inner"><div class="rbox"><div class="rbox-inner"><p><a class="link title" target="_blank" href="/LINUXjishu/457748.html" title="杀死Linux中的defunct进程(僵尸进程)的方法指南">杀死Linux中的defunct进程(僵尸进程)的方法指南</a></p><div class="item-info"><div class="js"> 
+这篇文章主要介绍了杀死Linux中的defunct进程(僵尸进程)的方法指南,文中首先对defunct进程的概念和运作方式作了补充说明,需要的朋友可以参考下</div><span class="lbtn" style="float:right"> 2016-05-06 </span></div></div></div></div></li><li><div class="item-inner"><div class="rbox"><div class="rbox-inner"><p><a class="link title" target="_blank" href="/LINUXjishu/457740.html" title="Linux下配置Docker容器间网络连接的教程">Linux下配置Docker容器间网络连接的教程</a></p><div class="item-info"><div class="js"> 
+这篇文章主要介绍了Linux下配置Docker容器间网络连接的教程,这里主要讲解功能相对较强的Bridge桥接方式,就与大家平时配置虚拟机时虚拟机的桥接类似,需要的朋友可以参考下</div><span class="lbtn" style="float:right"> 2016-05-06 </span></div></div></div></div></li><li><div class="item-inner"><div class="rbox"><div class="rbox-inner"><p><a class="link title" target="_blank" href="/LINUXjishu/457699.html" title="Linux下安装使用Mutt邮件客户端并配置邮件警报功能">Linux下安装使用Mutt邮件客户端并配置邮件警报功能</a></p><div class="item-info"><div class="js"> 
+这篇文章主要介绍了Linux下安装使用Mutt邮件客户端并配置邮件警报功能的教程,Mutt发源于Unix系,可定制性很强,需要的朋友可以参考下</div><span class="lbtn" style="float:right"> 2016-05-06 </span></div></div></div></div></li><li><div class="item-inner"><div class="rbox"><div class="rbox-inner"><p><a class="link title" target="_blank" href="/LINUXjishu/457490.html" title="7款应用最广泛的Linux桌面环境 哪款最适合你">7款应用最广泛的Linux桌面环境 哪款最适合你</a></p><div class="item-info"><div class="js"> 
+本文对目前应用最为广泛的7款Linux 桌面环境进行盘点，并对其优缺点进行比较，希望对各位选择或者进行各种折腾有所帮助</div><span class="lbtn" style="float:right"> 2016-05-05 </span></div></div></div></div></li><li><div class="item-inner"><div class="rbox"><div class="rbox-inner"><p><a class="link title" target="_blank" href="/LINUXjishu/457371.html" title="Linux操作Git远程仓库与本地仓库同步的教程">Linux操作Git远程仓库与本地仓库同步的教程</a></p><div class="item-info"><div class="js"> 
+这篇文章主要介绍了Linux操作Git远程仓库与本地仓库同步的教程,本文以当下最热门的GitHub上的项目同步为例进行讲解,需要的朋友可以参考下</div><span class="lbtn" style="float:right"> 2016-05-05 </span></div></div></div></div></li><li><div class="item-inner"><div class="rbox"><div class="rbox-inner"><p><a class="link title" target="_blank" href="/LINUXjishu/457356.html" title="实例讲解Linux中cd命令切换目录的使用技巧">实例讲解Linux中cd命令切换目录的使用技巧</a></p><div class="item-info"><div class="js"> 
+这篇文章主要介绍了Linux中cd命令切换目录的使用技巧,cd命令的用法是Linux入门学习中的基础知识,需要的朋友可以参考下</div><span class="lbtn" style="float:right"> 2016-05-05 </span></div></div></div></div></li><li><div class="item-inner"><div class="rbox"><div class="rbox-inner"><p><a class="link title" target="_blank" href="/LINUXjishu/457348.html" title="Linux系统中cat命令使用的实例教程">Linux系统中cat命令使用的实例教程</a></p><div class="item-info"><div class="js"> 
+这篇文章主要介绍了Linux系统中cat命令使用的实例教程,cat命令比较强大,除了显示文件内容,还可以新建需文件并向文件中追加内容,要的朋友可以参考下</div><span class="lbtn" style="float:right"> 2016-05-05 </span></div></div></div></div></li><li><div class="item-inner"><div class="rbox"><div class="rbox-inner"><p><a class="link title" target="_blank" href="/LINUXjishu/457334.html" title="在Linux和Unix中使用chmod命令改变文件权限的用法">在Linux和Unix中使用chmod命令改变文件权限的用法</a></p><div class="item-info"><div class="js"> 
+这篇文章主要介绍了在Linux和Unix中使用chmod命令改变文件权限的用法,chmod在Linux和Unix中的用法基本上相同,文中针对两个系统一起作出讲解,需要的朋友可以参考下</div><span class="lbtn" style="float:right"> 2016-05-05 </span></div></div></div></div></li><li><div class="item-inner"><div class="rbox"><div class="rbox-inner"><p><a class="link title" target="_blank" href="/LINUXjishu/457317.html" title="Linux中ls命令的参数与返回结果完全解析">Linux中ls命令的参数与返回结果完全解析</a></p><div class="item-info"><div class="js"> 
+这篇文章主要介绍了Linux中list命令的参数与返回结果完全解析,ls即为list的简写,用来查看目录下的所有文件,需要的朋友可以参考下</div><span class="lbtn" style="float:right"> 2016-05-05 </span></div></div></div></div></li>
+</ul>
+</DIV>
+<div class="lbd clearfix mt5">
+<span id="art_down2" class="jbTestPos"></span>
+</div>
+<a href="#comments"></a>
+<DIV id="comments">
+<H2>最新评论</H2>
+<div class="pd5"><div id="SOHUCS" sid="457712"></div></div>
+</div>
+      </div><!--endborder-->
+      </div><!--end fl-->
+      
+<div class="w350 fr">
+<div class="article-right">
+<div class="r300 clearfix"><span id="r1gg" class="jbTestPos"></span></div>
+<DIV class="tabTitleBar mt10 bgf borderTred clearfix">
+<DIV class="borderTnone YaHei">
+<H4 class="red">文章分类</H4>
+<UL class="catalog catalogA" >
+
+<li><a href="/os/list682_1.html" target="_blank">bios</a></li>
+
+<li><a href="/os/list490_1.html" target="_blank">系统安装</a></li>
+
+<li><a href="/os/list685_1.html" target="_blank">系统进程</a></li>
+
+<li><a href="/os/windows/" target="_blank">Windows系列</a></li>
+<li><a class='currents' href='/LINUXjishu/' >LINUX</a> </li>
+<li><a href="/os/RedHat/" target="_blank">RedHat/Centos</a></li>
+
+<li><a href="/os/Ubuntu/" target="_blank">Ubuntu/Debian</a></li>
+
+<li><a href="/os/Fedora/" target="_blank">Fedora</a></li>
+
+<li><a href="/os/Solaris/" target="_blank">Solaris</a></li>
+
+<li><a href="/os/qilin/" target="_blank">麒麟系统</a></li>
+
+<li><a href="/os/hongqi/" target="_blank">红旗Linux</a></li>
+
+<li><a href="/os/Unix/" target="_blank">Unix/BSD</a></li>
+
+<li><a href="/os/MAC/" target="_blank">苹果MAC</a></li>
+
+<li><a href="/os/list381_1.html" target="_blank">注册表</a></li>
+
+<li><a href="/os/other/" target="_blank">其它系统</a></li>
+
+</UL>
+</DIV>
+</DIV>
+<div class="r300 clearfix mt10"><span id="idctu" class="jbTestPos"></span></div>                        
+<DIV class="tabTitleBar mt10 bgf borderTblue">
+<DIV class="borderTnone pb10 YaHei">
+<H4 class="blue">大家感兴趣的内容</H4>
+<UL class="newsList newList-in">
+<li><em class="no1">1</em><a href="/LINUXjishu/43356.html" target="_blank">linux下tar.gz、tar、bz2、zip等解压缩、压缩命令小结</a></li><li><em class="no2">2</em><a href="/LINUXjishu/19905.html" target="_blank">Linux crontab定时执行任务 命令格式与详细例子</a></li><li><em class="no3">3</em><a href="/LINUXjishu/34604.html" target="_blank">Linux Top 命令解析 比较详细</a></li><li><em class="no4">4</em><a href="/LINUXjishu/105916.html" target="_blank">Linux中zip压缩和unzip解压缩命令详解</a></li><li><em class="no5">5</em><a href="/LINUXjishu/32192.html" target="_blank">linux下提示bash:command not found </a></li><li><em class="no6">6</em><a href="/LINUXjishu/64000.html" target="_blank">linux下配置ip地址四种方法(图文方法)</a></li><li><em class="no7">7</em><a href="/LINUXjishu/12713.html" target="_blank">linux su和sudo命令的区别</a></li><li><em class="no8">8</em><a href="/LINUXjishu/239493.html" target="_blank">史上最全的Linux系统 ISO下载</a></li><li><em class="no9">9</em><a href="/LINUXjishu/150570.html" target="_blank">linux ln 命令使用参数详解(ln -s 软链接)</a></li><li><em class="no10">10</em><a href="/LINUXjishu/57192.html" target="_blank">linux下磁盘分区详解 图文</a></li>
+</UL>
+</DIV>
+</DIV>
+<div class="r300 clearfix mt10"><span id="idctu1" class="jbTestPos"></span></div>
+<DIV class="tabTitleBar mt10 bgf borderTblue">
+<DIV class="borderTnone pb10 YaHei">
+<H4 class="blue">最近更新的内容</H4>
+<UL class="newsListA">
+<li><a href="/LINUXjishu/600382.html" target="_blank">Linux mpstat命令的方法(实时系统监控工具)</a></li><li><a href="/LINUXjishu/600381.html" target="_blank">linux iostat命令使用介绍</a></li><li><a href="/LINUXjishu/600380.html" target="_blank">Linux三剑客之awk命令使用详解</a></li><li><a href="/LINUXjishu/600345.html" target="_blank">linux tcpdump抓取HTTP包的详细解释</a></li><li><a href="/LINUXjishu/599238.html" target="_blank">浅谈新手选择使用Linux桌面的七个注意点</a></li><li><a href="/LINUXjishu/599070.html" target="_blank">浅谈2017年Linux 的五大痛点</a></li><li><a href="/LINUXjishu/598567.html" target="_blank">浅谈为什么磁盘慢会导致Linux负载飙升</a></li><li><a href="/LINUXjishu/598520.html" target="_blank">浅谈为你的 Linux 服务器加把锁</a></li><li><a href="/LINUXjishu/597423.html" target="_blank">Linux下的多线程编程和fork()函数详解</a></li><li><a href="/LINUXjishu/597383.html" target="_blank">谈谈Linux运维人员是否需要掌握一门编程语言</a></li>
+</UL>
+</DIV>
+</DIV>
+<DIV class="r300 clearfix mt10">
+<span id="bd200" class="jbTestPos"></span>
+</DIV>
+<div class="r300 clearfix mt10"><span id="idctu2" class="jbTestPos"></span></div>
+<div class="mt10 rFixedBox">
+<span id="r_2" class="jbTestPos"></span>
+</div>
+   </div>   
+      
+      </div><!--end fr-->
+      </div>
+</div><!--end content-->
+<div id="footer">
+<div class="main">
+<p>
+<a href="//www.jb51.net/about.htm" target="_blank">关于我们</a> - 
+<a href="//www.jb51.net/support.htm" target="_blank">广告合作</a> - 
+<a href="//www.jb51.net/linkus.htm" target="_blank">联系我们</a> -  
+<a href="//www.jb51.net/sm.htm" target="_blank">免责声明</a> -  
+<a href="//www.jb51.net/sitemap.htm" target="_blank">网站地图</a> - 
+<a href="tencent://message/?uin=461478385&Site=//www.jb51.net" target="_blank">投诉建议</a> - 
+<a href="//www.jb51.net/up.htm" target="_blank">在线投稿</a>
+</p>
+<p><a rel="nofollow" class="ba" target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=32031102000137"><img src="http://www.beian.gov.cn/file/ghs.png"/> 苏公网安备 32031102000137号</a>&nbsp;&nbsp;<a href="http://www.miibeian.gov.cn" class="ba" rel="nofollow" target="_blank">苏ICP备14036222号</a></p>
+<p>&copy;CopyRight 2006-2018 JB51.Net Inc All Rights Reserved. 脚本之家 版权所有</p>
+</div>
+</div><!--end footer-->
+<link type="text/css" rel="stylesheet" href="//www.jb51.net/jslib/syntaxhighlighter/styles/shCore.css" />
+<link type="text/css" rel="Stylesheet" href="//www.jb51.net/jslib/syntaxhighlighter/styles/shThemeDefault.css" />
+<script type="text/javascript" src="//www.jb51.net/jslib/syntaxhighlighter/scripts/shCore.js"></script>
+<script type="text/javascript" src="//www.jb51.net/jslib/syntaxhighlighter/scripts/shAutoloader.js"></script>
+<script type="text/javascript"> 
+/*更多导航*/
+$(".nav_top p").hover(function(){$(this).addClass("hover")},function(){$(this).removeClass("hover")});
+
+if (top.location != self.location)top.location=self.location;
+
+var varwindow=$(window);
+$('#content').find('img').each(function(){
+        var img = this;
+        if (img.width >= 650){
+            img.style.width = "650px";
+            img.style.height = "auto";
+            //$(img).removeAttr('height');
+            var aTag = document.createElement('a');
+            aTag.href = img.src;
+			aTag.target="_blank";
+            $(aTag).addClass('bPic')
+            .insertAfter(img).append(img)
+          }
+    });
+ varwindow.scroll(function()
+    {	
+    	//rFixedBox跟随滚动
+    	var h = varwindow.height();
+        var top = varwindow.scrollTop();
+    	var rFixedBox = $('.rFixedBox').prev().offset();
+        var fixedTop = rFixedBox.top;
+		
+        if(top>=fixedTop+344)
+        {
+			var h1 = parseInt($('#content').children('.main').height());
+			if(parseInt(top) + 340 < h1){
+				$('.rFixedBox').css({'position':'fixed','top': 0});
+			}else{
+				$('.rFixedBox').css({'position':'absolute','top': h1-510});
+			}
+        }
+        else
+        {
+            $('.rFixedBox').css({'position':'static', 'top':0});   
+        }	
+       /* return true;*/
+	   
+	   /*右侧快捷菜单*/
+	   sideFixed();
+    });
+	var ww = varwindow.width();
+	function sideFixed(){
+	var scrolltop = document.body.scrollTop || document.documentElement.scrollTop;
+	var a1 = 550;
+	if(ww>440){
+		if(a1<=scrolltop){
+			$('#right-share').slideDown();
+			}
+		else{
+			$('#right-share').slideUp();
+			}
+		}
+	}
+	$('.rshare-weixin').hover(function(){
+			$('#weixin-code').removeClass('hide');
+		},function(){
+			$('#weixin-code').addClass('hide');
+		});
+	/*二维码*/
+	$('#right-share .rshare-top').on('click',function(){
+        $('html,body').animate({'scrollTop':0},500);
+    });
+/*$(document).ready(function() {
+  $("#content img").unveil();
+});	*/
+SyntaxHighlighter.autoloader(
+	'applescript			//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushAppleScript.js',
+	'actionscript3 as3		//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushAS3.js',
+	'bash shell				//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushBash.js',
+	'coldfusion cf			//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushColdFusion.js',
+	'cpp c					//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushCpp.js',
+	'obj-c objc				//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushObjC.js',
+	'c# c-sharp csharp		//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushCSharp.js',
+	'css					//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushCss.js',
+	'delphi pascal			//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushDelphi.js',
+	'diff patch pas			//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushDiff.js',
+	'erl erlang				//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushErlang.js',
+	'groovy					//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushGroovy.js',
+	'haxe hx				//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushHaxe.js',
+	'java					//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushJava.js',
+	'jfx javafx				//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushJavaFX.js',
+	'js jscript javascript	//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushJScript.js',
+	'perl pl				//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushPerl.js',
+	'php					//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushPhp.js',
+	'text plain				//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushPlain.js',
+	'py python				//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushPython.js',
+	'ruby rails ror rb		//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushRuby.js',
+	'scala					//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushScala.js',
+	'sql					//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushSql.js',
+	'vb vbnet				//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushVb.js',
+	'ps powershell			//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushPowerShell.js',
+	'xml xhtml xslt html	//www.jb51.net/jslib/syntaxhighlighter/scripts/shBrushXml.js'
+);
+SyntaxHighlighter.all();	
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script type="text/javascript" src='//icws.jb51.net/good/arcts.js'></script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<script>jbLoader();</script><script class="closetag">jbLoader(true);</script>
+<div id="tongji">
+<script type="text/javascript" src="http://tongji.jbzj.com/tongji/tongji2.js"></script>
+<script type="text/javascript">
+//tu+
+var cpro_id = "u1893014";
+document.write('<scri'+'pt src="//cpro.baidustatic.com/cpro/ui/i.js" type="text/javascript"></s'+'cript>');
+</script>
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+(function(){
+var src = (document.location.protocol == "http:") ? "http://js.passport.qihucdn.com/11.0.1.js?2f793ca9dd6f4c32488903eed5c7fbcb":"https://jspassport.ssl.qhimg.com/11.0.1.js?2f793ca9dd6f4c32488903eed5c7fbcb";
+document.write('<script src="' + src + '" id="sozz"><\/script>');
+})();
+window.changyan.api.config({
+appid: 'cyrHH3dwi',
+conf: 'prod_1dc5dc80970106099d43fe242b7465fc'
+});
+</script>
+</div> 
+<script src="/do/plus/count.php?aid=457712&mid=" language="javascript" type="text/javascript"></script>
+</body>
+</html>
