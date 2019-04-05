@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+ <title>Shell programming with bash: by example, by counter-example
+</title>
+
+ <link rel="alternate" type="application/rss+xml" title="RSS" href="http://matt.might.net/articles/feed.rss" />
+
+ <link rel="stylesheet" href="../../css/raised-paper-2.css" /> 
+
+
+ <meta name="viewport" content="width=480, initial-scale=1" />
+ <link rel="stylesheet" media="screen and (max-device-width: 480px)" href="../../css/raised-paper-2-handheld.css" />
+
+ <script type="text/javascript" src="../../matt.might.js"></script>
+ <script type="text/javascript">
+  var ArticleVersion = 2 ;
+ </script>
+ <script>
+ <!--
+  include("article-style.js");
+ //-->
+ </script>
+ <script type="text/javascript" src="../manifest.js"></script>
+ <script type="text/javascript" src="../index-manifest.js"></script>
+
+ <script type="text/javascript">
+ <!--
+//  var Key = "[an error occurred while processing the directive]";
+ var Pathname = location.pathname ;
+ var PathParts = Pathname.split(/\//) ;
+ var Key = PathParts[PathParts.length-1] ;
+ if (Key == "")
+  Key = PathParts[PathParts.length-2] ;
+ //-->
+ </script>
+
+</head>
+
+
+
+<body>
+
+<div id="body">
+
+
+
+
+
+
+
+<div id="abstract-container" class="module">
+<div id="abstract-content" class="fat-content">
+
+ <h1>Shell programming with bash: by example, by counter-example
+</h1>
+
+ <div>
+ [<a href="../">article index</a>]
+ [<script>
+       var emailMatt = '<a href="mai'+'lto:matt-blog'+'@'+'migh'+'t.net">email me</a>'
+document.write(emailMatt);
+ //-->
+</script>] 
+ [<a href="http://twitter.com/mattmight">@mattmight</a>]
+ [<a href="../feed.rss">rss</a>]
+ </div>
+
+ <p>
+As an interactive shell, bash is a terse language 
+for initiating and directing computations.
+</p>
+
+<p>
+As a scripting language, bash is a domain-specific language
+for manipulating and composing processes and files.
+</p>
+
+
+<center>
+<img src="http://matt.might.net/articles/bash-by-example/images/bash-script.png" />
+</center>
+
+<p>
+Bash is baroque.  Bash is brittle.  Bash is indispensable.
+</p>
+
+<p>
+Bash was not designed.
+</p>
+
+<p>
+It's not fair to say that bash has evolved either:
+it retains and utilizes all of its vestigial appendages.
+</p>
+
+<p>
+Read on for my brief example-driven guide to bash, including coverage of:
+</p>
+
+<ul>
+ <li>variables and arrays;</li>
+ <li>operations on variables;</li>
+ <li>subtle quirks like <code>*</code> versus </code>@</code>;</li>
+ <li>arithmetic;</li>
+ <li>strings;</li>
+ <li>scope;</li>
+ <li>files and redirection;</li>
+ <li>pipes;</li>
+ <li>processes;</li>
+ <li>patterns;</li>
+ <li>control structures;</li>
+ <li>pitfalls.</li>
+</ul>
+
+<p> I've tried to make this a one-shot introduction, covering all of the
+common, and a good fragment of the advanced.  </p>
+
+<p>
+If you're new to Unix and/or shell programming,
+I advise starting with:
+</p>
+
+<ul>
+<li>
+<a href="http://matt.might.net/articles/basic-unix/">A survival guide for Unix</a>; and/or
+</li>
+<li>
+<a href="http://matt.might.net/articles/settling-into-unix/">Settling into Unix</a>.</li>
+</ul>
+
+
+  
+</div> <!-- /#content -->
+</div> <!-- /#content-container -->
+
+
+
+
+  
+<div id="content-container" class="module">
+<div id="article-content">
+
+  <script type="text/javascript">
+<!--
+// Might.enableSyntaxHighlighting("Scala") ;
+//-->
+</script>
+
+
+<h2>What is bash?</h2>
+
+<p>
+Bash is an interactive shell:
+</p>
+
+<div class="graphic">
+ <img src="./images/bash-shell.png" />
+</div>
+
+<p>
+You type in commands.
+</p>
+
+<p>
+Bash executes them.
+</p>
+
+<p>
+Unix users spend a lot of time manipulating files at the shell.
+</p>
+
+<p>
+As a shell, it is directly available via the terminal in both 
+Mac OS X (Applications &gt; Utilities) and Linux/Unix.
+</p>
+
+
+
+<p>
+At the same time, bash is also a scripting language:
+</p>
+
+<div class="graphic">
+ <img src="./images/bash-script.png" />
+</div>
+
+<p>
+Bash scripts can automate routine or otherwise arduous tasks
+involved in systems administration.
+</p>
+
+
+
+
+<h2>Why use bash?</h2>
+
+<p>
+Here are example tasks for which you might use bash:
+</p>
+
+<ul>
+ <li>Orchestrating system start-up/shutdown tasks.</li>
+
+ <li>Automatically renaming a collection of files.</li>
+
+ <li>Finding all duplicate mp3s on a hard drive.</li>
+
+ <li>Orchestrating a suite of tools for cracking a password database.</li>
+
+ <li><a href="http://matt.might.net/articles/shell-scripts-for-passive-voice-weasel-words-duplicates/">Finding weasel words</a> in your writing.</li>
+
+ <li><a href="http://matt.might.net/articles/sql-in-the-shell/">Implementing a relational database</a> out of text files.</li>
+
+ <li>Simplifying configuration and reconfiguration of software.</li>
+
+
+</ul>
+
+
+
+<h2>Bash as a scripting language</h2>
+
+
+<p>
+To create a bash script, you place <code>#!/bin/bash</code>
+at the top of the file.
+</p>
+
+<p>
+Then, change the permissions on the file to make it executable:
+</p>
+
+<pre>
+ $ chmod u+x <i>scriptname</i>
+</pre>
+
+
+<p>
+To execute the script from the current directory, you can run
+<code>./<i>scriptname</i></code> and pass any parameters you wish.
+</p>
+
+<p>
+When the shell executes a script, it finds the
+<code>#!<i>/path/to/interpreter</i></code>.
+</p>
+
+<p> It then runs the interpreter (in this case,
+<code>/bin/bash</code>) on the file itself.  </p>
+
+<p>
+The <code>#!</code> convention is why so many scripting languages
+use <code>#</code> for comments.
+</p>
+
+<p>
+Here's an example bash script that prints out the first argument:
+</p>
+
+<pre>
+#!/bin/bash
+
+
+# Use $1 to get the first argument:
+echo $1
+</pre>
+
+
+
+<h3>Comments</h3>
+
+<p>
+Comments in bash begin with <code>#</code> and run to the end of the line:
+</p>
+
+<pre>
+ echo Hello, World. # prints out "Hello, World."
+</pre>
+
+
+
+<h3>Variables/Arrays</h3>
+
+<p>
+Variables in bash have a dual nature as
+both arrays and variables.
+</p>
+
+<p>
+To set a variable, use <code>=</code>:
+</p>
+
+<pre>
+ foo=3  # sets foo to 3
+</pre>
+
+<p>
+But, be sure to avoid using spaces:
+</p>
+
+<pre>
+ foo = 3 # error: invokes command `foo' with arguments `=' and `3'
+</pre>
+
+<p>
+If you want to use a space, you can dip into the 
+expression sub-language that exists inside <code>((</code>
+and <code>))</code>:
+</p>
+
+
+<pre>
+ (( foo = 3 )) # Sets foo to 3.
+</pre>
+
+<p>
+To reference the value of a variable, use a dollar sign, <code>$</code>:
+</p>
+
+
+<pre>
+ echo $foo ; # prints the value of foo to stdout
+</pre>
+
+
+<p>
+You can delete a variable with <code>unset</code>:
+</p>
+
+<pre>
+ foo=42
+ echo $foo    # prints 42
+ unset foo
+ echo $foo    # prints nothing
+</pre>
+
+
+
+<p>
+ Of course, you can assign one variable to another:
+</p>
+
+<pre>
+ foo=$bar # assigns the value of $bar to foo.
+</pre>
+
+
+<p>
+If you want to assign a value which contains spaces,
+be sure to quote it:
+</p>
+
+<pre>
+ # wrong:
+ foo=x y z # sets foo to x; will try to execute y on z
+
+ # right:
+ foo="x y z" # sets foo to "x y z"
+</pre>
+
+
+<p>
+It is sometimes necessary to wrap a reference to a variable is braces:
+</p>
+
+<pre>
+ echo ${foo} # prints $foo
+</pre>
+
+<p>
+This notation is necessary for variable operations and arrays.
+</p>
+
+<p> There is no need to declare a variable as an array: every variable is an
+array.</p>
+
+
+<p>
+You can start using any variable as an array:
+</p>
+
+<pre>
+ foo[0]="first"  # sets the first element to "first"
+ foo[1]="second" # sets the second element to "second"
+</pre>
+
+<p>
+To reference an index, use the braces notation:
+</p>
+
+<pre>
+ foo[0]="one"
+ foo[1]="two"
+ echo ${foo[1]}  # prints "two"
+</pre>
+
+<p>
+When you reference a variable, it is an implicit reference
+to the first index:
+</p>
+
+<pre>
+ foo[0]="one"
+ foo[1]="two"
+ echo $foo       # prints "one"
+</pre>
+
+
+<p>
+You can also use parentheses to create an array:
+</p>
+
+<pre>
+ foo=("a a a" "b b b" "c c c")
+ echo ${foo[2]}  # prints "c c c"
+ echo $foo       # prints "a a a"
+</pre>
+
+
+<p>
+To access all of the values in an array, use the special subscript 
+<code>@</code> or <code>*</code>:
+</p>
+
+<pre>
+ array=(a b c)
+ echo $array       # prints a
+ echo ${array[@]}  # prints a b c
+ echo ${array[*]}  # prints a b c
+</pre>
+
+
+<p>
+To copy an array, use subscript <code>@</code>, surround it with quotes,
+and surround that with parentheses:
+</p>
+
+<pre>
+ foo=(a b c)
+ bar=("${foo[@]}")
+ echo ${bar[1]}    # prints b
+</pre>
+
+<p>
+Do not try to copy with just the variable:
+</p>
+
+<pre>
+ foo=(a b c)
+ bar=$foo
+ echo ${bar[1]}    # prints nothing
+</pre>
+
+<p> And, do not forget the quotes, or else arrays with space-containing
+elements will be screwed up:</p>
+
+<pre>
+ foo=("a 1" "b 2" "c 3")
+ bar=(${foo[@]})
+ baz=("${foo[@]}")
+ echo ${bar[1]}            # oops, print "1"
+ echo ${baz[1]}            # prints "b 2"
+</pre>
+
+
+<h4>Special variables</h4>
+
+
+<p>
+There are special bash variables for grabbing 
+arguments to scripts and functions:
+</p>
+
+<pre>
+ echo $0      # prints the script name
+
+ echo $1      # prints the first argument
+ echo $2      # prints the second argument
+ echo $9      # prints the ninth argument
+ echo $10     # prints the first argument, followed by 0 
+ echo ${10}   # prints the tenth argument
+
+ echo $#      # prints the number of arguments
+</pre>
+
+<p>
+The variable <code>$?</code> holds the "exit status"
+of the previously executed process.
+</p>
+
+<p>
+An exit status of 0 indicates the process "succeeded"
+without error.
+</p>
+
+<p>
+An exit status other than 0 indicates an error.
+</p>
+
+<p>
+In shell programming, <code>true</code> is a program that 
+always "succeeds," and <code>false</code> is a program that always "fails":
+</p>
+
+<pre>
+ true
+ echo $?   # prints 0
+
+ false
+ echo $?   # will never print 0; usually prints 1
+</pre>
+
+<p>
+The process id of the current shell is available as <code>$$</code>
+</p>
+
+
+<p>
+The process id of the most recently backgrounded process is
+available as <code>$!</code>:
+</p>
+
+<pre>
+ # sort two files in parallel:
+ sort words &gt; sorted-words &amp;        # launch background process
+ p1=$!
+ sort -n numbers &gt; sorted-numbers &amp; # launch background process
+ p2=$!
+ wait $p1
+ wait $p2
+ echo Both files have been sorted.
+</pre>
+
+<!--
+
+ $*    # params concatenated with $IFS, if in ""
+ $@    # params separated, if in ""
+ $#    # number of params
+ $?    # exit status of most recent process
+ $-    # current options
+ $$    # pid of shell
+ $!    # pid of most recent background process
+ $0    # name of script
+ ${n}  # nth arg
+ $_    # on start, absolute filename of script
+       # then last argument of last command
+ 
+  -->
+
+
+
+<h4>Operations on variables</h4>
+
+<p> In a feature unique among many languages, bash can operate on the value of
+a variable <em>while</em> dereferencing that variable.</p>
+
+
+
+
+<h5>String replacement</h5>
+
+<p>
+Bash can replace a string with another string:
+</p>
+
+<pre>
+ foo="I'm a cat."
+ echo ${foo/cat/dog}  # prints "I'm a dog."
+</pre>
+
+<p>
+To replace <em>all</em> instances of a string, use double slashes:
+</p>
+
+<pre>
+ foo="I'm a cat, and she's cat."
+ echo ${foo/cat/dog}   # prints "I'm a dog, and she's a cat."
+ echo ${foo//cat/dog}  # prints "I'm a dog, and she's a dog."
+</pre>
+
+<p>
+These operations generally do not modify the variable:
+</p>
+
+<pre>
+ foo="hello" 
+ echo ${foo/hello/goodbye}  # prints "goodbye"
+ echo $foo                  # still prints "hello"
+</pre>
+
+
+<p>
+Without a replacement, it deletes:
+</p>
+
+<pre>
+ foo="I like meatballs."
+ echo ${foo/balls}       # prints I like meat.
+</pre>
+
+
+<p>
+The <code>${<i>name</i>#<i>pattern</i>}</code> operation
+removes the shortest prefix of <code>${<i>name</i>}</code>
+matching <code><i>pattern</i></code>,
+while <code>##</code> removes the longest:
+</p>
+
+<pre>
+ minipath="/usr/bin:/bin:/sbin"
+ echo ${minipath#/usr}           # prints /bin:/bin:/sbin
+ echo ${minipath#*/bin}          # prints :/bin:/sbin
+ echo ${minipath##*/bin}         # prints :/sbin
+</pre>
+
+<p> The operator <code>%</code> is the same, except for suffixes instead of
+prefixes: </p>
+
+<pre>
+ minipath="/usr/bin:/bin:/sbin"
+ echo ${minipath%/usr*}           # prints nothing
+ echo ${minipath%/bin*}           # prints /usr/bin:
+ echo ${minipath%%/bin*}          # prints /usr
+</pre>
+
+
+<h5>String/array manipulation</h5>
+
+<p>
+Bash has operators that operate on both arrays and strings.
+</p>
+
+<p> For instance, the prefix operator <code>#</code> counts the number of
+characters in a string or the number of elements in an array.  </p>
+
+<p> <em>It is a common mistake to accidentally operate on the first element of
+an array as a string, when the intent was to operate on the array.</em> </p>
+
+<p>
+Even the <a href="http://www.tldp.org/LDP/Bash-Beginners-Guide/html/sect_10_03.html">Bash Guide for Beginners</a> contains a misleading example:
+</p>
+
+<pre>
+ ARRAY=(one two three)
+ echo ${#ARRAY}          # prints 3 -- the length of the array?
+</pre>
+
+<p>
+However, if we modify the example slightly, it seems to break:
+</p>
+
+<pre>
+ ARRAY=(a b c)
+ echo ${#ARRAY}          # prints 1
+</pre>
+
+<p>
+This is because <code>${#ARRAY}</code> is the same as <code>${#ARRAY[0]}</code>,
+which counts the number of characters in the first element, <code>a</code>.
+</p>
+
+
+<p>
+It is possible to count the number of elements in the array,
+but the array must be specified explicitly with <code>@</code>:
+</p>
+
+<pre>
+ ARRAY=(a b c)
+ echo ${#ARRAY[@]}      # prints 3
+</pre>
+
+<p>
+It is also possible to slice strings and arrays:
+</p>
+
+<pre>
+ string="I'm a fan of dogs."
+ echo ${string:6:3}           # prints fan
+
+ array=(a b c d e f g h i j)
+ echo ${array[@]:3:2}         # prints d e
+</pre>
+
+
+
+<h5>Existence testing</h5>
+
+<p>
+Some operations test whether the variable is set:
+</p>
+
+
+<pre>
+ unset username
+ echo ${username-default}        # prints default
+
+ username=admin
+ echo ${username-default}        # prints admin
+</pre>
+
+
+<p>
+For operations that test whether a variable is set, 
+they can be forced to check whether the variable is set <em>and</em>
+not empty by adding a colon ("<code>:</code>"):
+</p>
+
+<pre>
+ unset foo
+ unset bar
+
+ echo ${foo-abc}   # prints abc
+ echo ${bar:-xyz}  # prints xyz
+
+ foo=""
+ bar=""
+
+ echo ${foo-123}   # prints nothing
+ echo ${bar:-456}  # prints 456
+</pre>
+
+<p> The operator <code>=</code> (or <code>:=</code>) is like the operator <code>-</code>, except
+that it also sets the variable if it had no value: </p>
+
+<pre>
+ unset cache
+ echo ${cache:=1024}   # prints 1024
+ echo $cache           # prints 1024
+
+ echo ${cache:=2048}   # prints 1024
+ echo $cache           # prints 1024
+</pre>
+
+
+<p>
+The <code>+</code> operator yields its value if the
+variable is set, and nothing otherwise:
+</p>
+
+<pre>
+ unset foo
+ unset bar
+
+ foo=30
+
+ echo ${foo+42}    # prints 42
+ echo ${bar+1701}  # prints nothing
+</pre>
+
+
+<p> The operator <code>?</code> crashes the program with the specified message
+if the variable is not set: </p>
+
+<pre>
+  : ${1?failure: no arguments} # crashes the program if no first argument
+</pre>
+
+
+<p>
+(The <code>:</code> command ignores all of its arguments, and is equivalent to <code>true</code>.)
+</p>
+
+
+
+<h5>Indirect look-up</h5>
+
+
+<p>
+Bash allows indirect variable/array look-up 
+with the <code>!</code> prefix operator.
+</p>
+
+<p>
+That is, <code>${!<i>expr</i>}</code> behaves like 
+<code>${${<i>expr</i>}}</code>, if only that worked:
+</p>
+
+<pre>
+ foo=bar
+ bar=42
+ 
+ echo ${!foo}  # prints $bar, which is 42
+
+ alpha=(a b c d e f g h i j k l m n o p q r s t u v w x y z)
+ char=alpha[12]
+
+ echo ${!char} # prints ${alpha[12]}, which is m
+</pre>
+
+
+
+
+<h4>Array quirks: * versus @</h4>
+
+<p>
+There are two additional special variables: <code>$*</code> and <code>$@</code>.
+</p>
+
+<p>
+[All of the behaviors described in this section apply to arrays when accesed via 
+<code>${<i>array</i>[*]}</code> or <code>${<i>array</i>[@]}</code> as well.]
+</p>
+
+<p>
+The both seem to contain the arguments passed to the current script/procedure,
+but they have subtly different behavior when quoted:
+</p>
+
+<p>
+To illustrate the difference, we need to create a couple 
+helper scripts.
+</p>
+
+<p>
+First, create <code>print12</code>:
+</p>
+
+<pre>
+#!/bin/bash                                                                     
+# prints the first parameter, then the second:
+echo "first:  $1"
+echo "second: $2"
+</pre>
+
+<p>
+Then, create <code>showargs</code>:
+</p>
+
+<pre>
+#!/bin/bash
+ 
+echo $*
+echo $@
+
+echo "$*"
+echo "$@"
+
+bash print12 "$*"
+bash print12 "$@"
+</pre>
+
+<p>
+Now, run <code>showargs</code>:
+</p>
+
+
+<pre>
+ $ bash showargs 0  " 1    2  3"
+</pre>
+
+<p>
+to print:
+</p>
+
+<pre>
+0 1 2 3
+0 1 2 3
+0  1    2  3
+0  1    2  3
+first:  0  1    2  3
+second: 
+first:  0
+second:  1    2  3
+</pre>
+
+<p> This happens because <code>"$*"</code> combines all arguments into a single
+string, while <code>"$@"</code> requotes the individual arguments.  </p>
+
+<p>
+There is another subtle difference between the two:
+if the variable <code>IFS</code> (internal field separator) is set,
+then the contents of this variable are spliced between
+elements in <code>"$*"</code>.
+</p>
+
+<p>
+Create a script called <code>atvstar</code>:
+</p>
+
+<pre>
+#!/bin/bash
+
+IFS=","
+
+echo $*
+echo $@
+
+echo "$*"
+echo "$@"
+</pre>
+
+<p>
+And run it:
+</p>
+
+<pre>
+ $ bash atvstar 1 2 3 
+</pre>
+
+<p>
+to print:
+</p>
+
+<pre>
+1 2 3
+1 2 3
+1,2,3
+1 2 3
+</pre>
+
+<p>
+<code>IFS</code> must contain a single character.
+</p>
+
+<p>
+Again, these same quoting behaviors transfer to
+arrays when subscripted with <code>*</code> or <code>@</code>:
+</p>
+
+<pre>
+ arr=("a b"  " c d    e")
+
+ echo ${arr[*]}            # prints a b c d e
+ echo ${arr[@]}            # prints a b c d e
+
+ echo "${arr[*]}"          # prints a b  c d    e
+ echo "${arr[@]}"          # prints a b  c d    e
+
+ bash print12 "${arr[*]}"  
+ # prints:
+ # first:  a b  c d    e
+ # second:
+
+ bash print12 "${arr[@]}"
+ # prints:
+ # first:  a b
+ # second:  c d    e
+</pre>
+
+
+<h3>Strings and quoting</h3>
+
+<p>
+Strings in bash are sequences of characters.
+</p>
+
+<p>
+To create a literal string, use single quotes;
+to create an interpolated string, use double quotes:
+</p>
+
+<pre>
+ world=Earth
+ foo='Hello, $world!'
+ bar="Hello, $world!"
+ echo $foo            # prints Hello, $world!
+ echo $bar            # prints Hello, Earth!
+</pre>
+
+<p> In intepolated strings, variables are converted to their
+values.</p>
+
+
+<h3>Scope</h3>
+
+<p>
+In bash, variable scope is at the level of processes:
+each process has its own copy of all variables.
+</p>
+
+<p>
+In addition, variables must be marked for export
+to child processes:
+</p>
+
+<pre>
+ foo=42
+
+ bash somescript          # somescript cannot see foo
+
+ export foo
+
+ bash somescript          # somescript can see foo
+
+ echo "foo = " $foo       # always prints foo = 42
+</pre>
+
+<p>
+Let's suppose that this is <code>somescript</code>:
+</p>
+
+<pre>
+#!/bin/bash
+echo "old foo = $foo"
+foo=300
+echo "new foo = $foo"
+</pre>
+
+
+<p>
+The output from the code would be:
+</p>
+
+<pre>
+old foo = 
+new foo = 300
+old foo = 42
+new foo = 300
+foo = 42
+</pre>
+
+
+<h3>Expressions and arithmetic</h3>
+
+<p>
+It is possible to write arithmetic expressions in bash,
+but with some caution.
+</p>
+
+<p>
+The command <code>expr</code> prints the result of arithmetic expressions,
+but one must take caution:
+</p>
+
+
+<pre>
+ expr 3 + 12      # prints 15
+ expr 3 * 12      # (probably) crashes: * expands to all files 
+ expr 3 \* 12     # prints 36
+</pre
+
+
+<p>
+The <code>(( <i>assignable</i> = <i>expression</i> ))</code> assignment notation
+is more forgiving:
+</p>
+
+<pre>
+ (( x = 3 + 12 )); echo $x    # prints 15
+ (( x = 3 * 12 )); echo $x    # prints 36
+</pre>
+
+<p>
+If you want the result of an arithmetic expression without assigning it, 
+you can use <code>$((<i>expression</i>))</code>:
+</p>
+
+<pre>
+ echo $(( 3 + 12 ))   # prints 15
+ echo $(( 3 * 12 ))   # prints 36
+</pre>
+
+
+<p>
+While declaring variables implicitly is the norm in bash,
+it is possible to declare variables explicitly and attach a type to them.
+</p>
+
+<p>
+The form <code>declare -i <i>variable</i></code> creates an explicit integer variable:
+</p>
+
+<pre>
+ declare -i number
+ number=2+4*10
+ echo $number        # prints 42
+
+ another=2+4*10
+ echo $another       # prints 2+4*10
+
+ number="foobar"
+ echo $number        # prints 0
+</pre>
+
+<p>
+Assignments to integer variables will force evaluation of expressions.
+</p>
+
+
+<h3>Files and redirection</h3>
+
+<p>
+Every process in Unix has access to three input/output channels by default:
+STDIN (standard input), STDOUT (standard output) and STDERR (standard error).
+</p>
+
+<p>
+When writing to STDOUT, the output appears (by default) at the console.
+</p>
+
+<p>
+When reading from STDIN, it reads (by default) directly from what the user types into the console.
+</p>
+
+<p>
+When writing to STDERR, the output appears (by default) at the console.
+</p>
+
+<p>
+All of these channels can be redirected.
+</p>
+
+<p>
+For instance, to dump the contents of a file into STDIN (instead of accepting user input), use the <code>&lt;</code> operator:
+</p>
+
+<pre>
+ # prints out lines in myfile containing the word foo:
+ grep foo &lt; myfile 
+</pre>
+
+<p>
+To dump the output of a command into a file, use the <code>&gt;</code> operator:
+</p>
+
+<pre>
+ # concatenates file1 with file2 in new file combined:
+ cat file1 file2 &gt; combined 
+</pre>
+
+
+<p>
+To append to the end of a file, use the <code>&gt;&gt;</code> operator:
+</p>
+
+<pre>
+ # writes the current date and time to the end of a file named log:
+ date &gt;&gt; log
+</pre>
+
+<p>
+To specify the contents of STDIN literally, in a script, use the <code>&lt;&lt;<i>endmarker</i></code> notation:
+</p>
+
+<pre>
+cat &lt;&lt;UNTILHERE
+All of this will be printed out.
+
+Since all of this is going into cat on STDIN.
+
+UNTILHERE
+</pre>
+
+<p>
+Everything until the next instance of <code><i>endmarker</i></code> by itself on a line is redirected to STDIN.
+</p>
+
+<p>
+To redirect error output (STDERR), use the operator <code>2&gt;</code>:
+</p>
+
+<pre>
+ # writes errors from web daemon start-up to an error log:
+ httpd 2&gt; error.log
+</pre>
+
+<p>
+In fact, all I/O channels are numbered, and <code>&gt;</code> is the same as <code>1&gt;</code>.
+</p>
+
+<p>
+STDIN is channel 0, STDOUT is channel 1, while STDERR is channel 2.
+</p>
+
+
+<p> The notation <code><i>M</i>&gt;&amp;<i>N</i></code> redirects the output of
+channel <i>M</i> to channel <i>N</i>.  </p>
+
+<p>
+So, it's straightforward to have errors display on STDOUT:
+</p>
+
+<pre>
+ grep foo nofile 2&gt;&amp;1 # errors will appear on STDOUT
+</pre>
+
+
+<h4>Capturing STDOUT with backquotes</h4>
+
+<p>
+There is another quoting form in bash that looks like a string--backtick: <code>``</code>.
+</p>
+
+<p>
+These quotes execute the commands inside of them and drop the output of the process in place:
+</p>
+
+
+<pre>
+ # writes the date and the user to the log:
+ echo `date` `whoami` &gt;&gt; log  
+</pre>
+
+<p>
+Given that is sometimes useful to nest these expansions, newer shells have added
+a nestable notation: <code>$(<i>command</i>)</code>:
+</p>
+
+<pre>
+ # writes the date and the user to the log:
+ echo $(date) $(whoami) &gt;&gt; log  
+</pre>
+
+<p> It is tempting to import the contents of a file with <code>`cat
+<i>path-to-file</i>`</code>, but there is a simpler built-in shorthand:
+<code>`&lt;<i>path-to-file</i>`</code>:</p>
+
+<pre>
+ echo user: `&lt;config/USER` # prints the contents of config/USER
+</pre>
+
+
+
+<h4>Redirecting with <code>exec</code></h4>
+
+<p>
+The special bash command <code>exec</code> can manipulate
+channels over ranges of commands:
+</p>
+
+<pre>
+ exec &lt; file # STDIN has become file
+ exec &gt; file # STDOUT has become file
+</pre>
+
+<p>
+You may wish to save STDIN and STDOUT to restore them later:
+</p>
+
+<pre>
+ exec 7&lt;&amp;0 # saved STDIN as channel 7
+ exec 6&gt;&amp;1 # saved STDOUT as channel 6
+</pre>
+
+<p>
+ If you want to log all output from a segment of a script, you can combine these together:
+</p>
+
+<pre>
+ exec 6&gt;&amp;1       # saved STDOUT as channel 6
+ exec &gt; LOGFILE  # all further output goes to LOGFILE
+
+ # put commands here
+
+ exec 1&gt;&amp;6       # restores STDOUT; output to console again
+</pre>
+
+
+
+<h3>Pipes</h3>
+
+<p>
+It is also possible to route the STDOUT of one process into the STDIN of another
+using the <code>|</code> (pipe) operator:
+</p>
+
+<pre>
+ # prints out root's entry in the user password database:
+ cat /etc/passwd | grep root 
+</pre>
+
+<p>
+ The general form of the pipe operator is:
+</p>
+
+<pre>
+ <i>outputing-command</i> | <i>inputing-command</i>
+</pre>
+
+<p>
+And, it is possible to chain together commands in "pipelines":
+</p>
+
+<pre>
+ # A one-liner to find space hogs in the current directory:
+
+ # du -cks *  # prints out the space usage
+              # of files in the current directory
+
+ # sort -rn   # sorts STDIN, numerically,
+              # by the first column in reverse order
+
+ # head       # prints the first 10 entries from STDIN
+
+ du -cks * | sort -rn | head
+</pre>
+
+<p>
+Some program accept a filename from which to read instead
+of reading from STDIN.
+</p>
+
+<p> For these programs, or programs which accept multiple filenames, there is a
+way to create a temporary file that contains the output of a command,
+the <code>&lt;(<i>command</i>)</code> form.
+</p>
+
+<p>
+The expression <code>&lt;(<i>command</i>)</code> expands into the name of a temporary file
+that contains the output of running <code><i>command</i></code>.
+</p>
+
+<p>
+This is called process substitution.
+</p>
+
+<pre>
+ # appends uptime, date and last line of event.log onto main.log:
+ cat &lt;(uptime) &lt;(date) &lt;(tail -1 event.log) &gt;&gt; main.log
+</pre>
+
+
+<h3>Processes</h3>
+
+<p>
+Bash excels at coordinating processes.
+</p>
+
+<p>
+Pipelines act to coordinate several processes together.
+</p>
+
+<p>
+It is also possible to run processes in parallel.
+</p>
+
+<p>
+To execute a command in the background, use the <code>&amp;</code>
+postfix operator:
+</p>
+
+<pre>
+ <i>time-consuming-command</i> &amp;
+</pre>
+
+<p>
+And, to fetch the process id, use the <code>$!</code> special variable 
+directly after spawning the process:
+</p>
+
+<pre>
+ <i>time-consuming-command</i> &amp;
+ pid=$!
+</pre>
+
+<p> The <code>wait</code> command waits for a process id's associated process
+to finish: </p>
+
+<pre>
+ <i>time-consuming-command</i> &amp;
+ pid=$!
+ wait $pid
+ echo Process $pid finished.
+</pre>
+
+
+<p> Without a process id, <code>wait</code> waits for all child
+processes to finish.  </p>
+
+<p>
+To convert a folder of images from JPG to PNG in parallel:
+</p>
+
+<pre>
+for f in *.jpg
+do 
+  convert $f ${f%.jpg}.png &amp;
+done 
+wait
+echo All images have been converted.
+</pre>
+
+
+
+<h3>Globs and patterns</h3>
+
+<p>
+Bash provides uses the glob notation
+to match on strings and filenames.
+</p>
+
+<p> In most contexts in bash, a glob pattern automatically expands to an array
+of all matching filenames: </p>
+
+<pre>
+ echo *.txt        # prints names of all text files
+ echo *.{jpg,jpeg} # prints names of all JPEG files
+</pre>
+
+
+<p>
+Glob patterns have several special forms:
+</p>
+
+<ul>
+ <li><code>*</code> matches any string.</li>
+ <li><code>?</code> matches a single character.</li>
+ <li><code>[<i>chars</i>]</code> matches any character in <code><i>chars</i></code>.</li>
+ <li><code>[<i>a</i>-<i>b</i>]</code> matches any character between <code><i>a</i></code> and <code><i>b</i></code>.</li>
+</ul>
+
+<p>
+Using these patterns, 
+it's easy to remove all files of the form <code>file<i>NNN</i></code>, where <code><i>NNN</i></code> is some 3-digit number:
+</p>
+
+<pre>
+ rm file[0-9][0-9][0-9]
+</pre>
+
+
+<p>
+The curly brace "set" form <em>seems</em> to act like a pattern, but it will expand even if the files do not exist:
+
+ <code>{<i>string1</i>,<i>string2</i>,...,<i>stringN</i>}</code>  expands to 
+ <code><i>string1</i></code> or <code><i>string2</i></code> or ...
+</p>
+
+<p>
+ It is possible to create a "bash bomb": a pattern that grows exponentially in size under expansion:
+</p>
+
+<pre>
+ echo {0,1}              # prints 0 1
+
+ echo {0,1}{0,1}         # prints 00 01 10 11
+
+ echo {0,1}{0,1}{0,1}    # prints 000 001 010 011 100 101 110 111
+</pre>
+
+
+
+
+<h3>Control structures</h3>
+
+<p>
+Like most languages, bash supports control structures for 
+conditionals, iteration and subroutines.
+</p>
+
+
+<h4>Conditionals</h4>
+
+<p>
+If-then-else-style conditionals exist in bash, as in other languages.
+</p>
+
+<p>
+However, in bash the condition is a command, and an exit status of success (0) is "true,"
+while an exit status of fail (non-zero) is "false.":
+</p>
+
+<pre>
+# this will print:
+if true
+then  
+  echo printed
+fi 
+
+# this will not print:
+if false
+then  
+  echo not printed
+fi 
+</pre>
+
+<p>
+Bash can take different actions  on whether a program succeeded or failed:
+</p>
+
+<pre>
+if httpd -k start
+then
+  echo "httpd started OK"
+else
+  echo "httpd failed to start"
+fi
+</pre>
+
+
+<p>
+In bash, many conditions are built from the special command <code>test</code>.
+</p>
+
+<p>
+The command test takes many flags to perform conditional tests.
+</p>
+
+<p>
+Run <code>help test</code> to list them all.
+</p>
+
+<p>
+Some popular flags include:
+</p>
+
+<ul>
+ <li><code>-e <i>file</i></code> is true iff a specific file/directory exists.</li>
+ <li><code>-z <i>string</i></code> is true iff the given string is empty.</li>
+ <li><code><i>string1</i> = <i>string2</i></code> is true iff the two strings are equal.</li>
+</ul>
+
+<p>
+There is an alternate notation for <code>test <i>args</i></code> using square brackets: 
+<code>[ <i>args</i> ]</code>.
+</p>
+
+<p>
+Conditionals can check if arguments are meaningful:
+</p>
+
+<pre>
+ if [ "$1" = "-v" ]
+ then
+   echo "switching to verbose output"
+   VERBOSE=1
+ fi
+</pre>
+
+
+<h4>Iteration</h4>
+<p>
+The <code>while <i>command</i>; do <i>commands</i>; done</code> form 
+executes <code><i>commands</i></code> until the test <i>command</i> completes with 
+non-zero exit status:
+</p>
+
+<pre>
+ # automatically restart the httpd in case it crashes:
+ while true
+ do
+    httpd
+ done
+</pre>
+
+
+<p>
+It's possible to iterate over the elements in an array
+with a <code>for <i>var</i> in <i>array</i>; do <i>commands</i>; done</code> loop:
+</p>
+
+<pre>
+ # compile all the c files in a directory into binaries:
+ for f in *.c
+ do
+   gcc -o ${f%.c} $f
+ done
+</pre>
+
+
+<h4>Subroutines</h4>
+
+<p>
+Bash subroutines are somewhat like separate scripts.
+</p>
+
+<p>
+There are two syntaxes for defining a subroutine:
+</p>
+
+<pre>
+function <i>name</i> {
+  <i>commands</i>
+}
+</pre>
+
+<p>
+and:
+</p>
+
+<pre>
+<i>name</i> () {
+  <i>commands</i>
+}
+</pre>
+
+<p>
+Once declared, a function acts <i>almost</i> like a separate script:
+arguments to the function come as <code>$<i>n</i></code> for the <i>n</i>th
+argument.
+</p>
+
+<p>
+One major different is that functions can see and modify 
+variables defined in the outer script:
+</p>
+
+<pre>
+count=20
+
+function showcount {
+  echo $count
+  count=30
+}
+
+showcount    # prints 20
+
+echo $count  # prints 30
+</pre>
+
+
+
+
+
+
+<h2>Examples</h2>
+
+<p>
+Putting this all together allows us to write 
+programs in bash.
+</p>
+
+<p>
+Here is a subroutine for computing factorial:
+</p>
+
+<pre>
+function fact {
+  result=1
+  n=$1
+  while [ "$n" -ge 1 ]
+  do
+    result=$(expr $n \* $result)
+    n=$(expr $n - 1)
+  done
+  echo $result
+}
+</pre>
+
+<p>
+Or, with the expression notation:
+</p>
+
+<pre>
+function facter {
+  result=1
+  n=$1
+  while (( n &gt;= 1 ))
+  do
+    (( result = n * result ))
+    (( n = n - 1 ))
+  done
+  echo $result
+}
+</pre>
+
+<p>
+Or, with declared integer variables:
+</p>
+
+<pre>
+factered () {
+  declare -i result
+  declare -i n
+
+  n=$1
+  result=1
+
+  while (( n &gt;= 1 ))
+  do
+    result=n*result
+    n=n-1
+  done
+
+  echo $result
+}
+</pre>
+
+
+
+<h2>More resources</h2>
+<ul>
+<script>
+RenderTagLinks("unix") ;
+</script>
+
+ <li>
+ <a href="http://mywiki.wooledge.org/BashGuide" rel="nofollow">Wooledge Bash Guide</a>
+ </li>
+
+
+ <li>
+ <a href="http://www.tldp.org/LDP/abs/html/" rel="nofollow">Advanced Bash Scripting Guide</a>
+ </li>
+
+ <li>
+
+<a href="http://www.amazon.com/gp/product/0596003307/ref=as_li_ss_tl?ie=UTF8&tag=ucmbread-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=0596003307">Unix Power Tools</a><img src="http://www.assoc-amazon.com/e/ir?t=ucmbread-20&l=as2&o=1&a=0596003307&camp=217145&creative=399369" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />:
+ 
+
+
+<div class="graphic">
+<a href="http://www.amazon.com/gp/product/0596003307/ref=as_li_ss_il?ie=UTF8&tag=ucmbread-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=0596003307"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&Format=_SL160_&ASIN=0596003307&MarketPlace=US&ID=AsinImage&WS=1&tag=ucmbread-20&ServiceVersion=20070822" ></a><img src="http://www.assoc-amazon.com/e/ir?t=ucmbread-20&l=as2&o=1&a=0596003307&camp=217145&creative=399369" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+ </div>
+
+ </li>
+
+
+ <li>
+
+
+The <a href="http://www.amazon.com/gp/product/0131480057/ref=as_li_ss_tl?ie=UTF8&tag=ucmbread-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=0131480057">UNIX and Linux System Administration Handbook</a><img src="http://www.assoc-amazon.com/e/ir?t=ucmbread-20&l=as2&o=1&a=0131480057&camp=217145&creative=399369" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />:
+
+
+
+  <div class="graphic">
+
+<a href="http://www.amazon.com/gp/product/0131480057/ref=as_li_ss_il?ie=UTF8&tag=ucmbread-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=0131480057"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&Format=_SL160_&ASIN=0131480057&MarketPlace=US&ID=AsinImage&WS=1&tag=ucmbread-20&ServiceVersion=20070822" ></a><img src="http://www.assoc-amazon.com/e/ir?t=ucmbread-20&l=as2&o=1&a=0131480057&camp=217145&creative=399369" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+
+ </div>
+
+ </li>
+
+
+ <li>
+
+
+<a href="http://www.amazon.com/gp/product/0596005954/ref=as_li_ss_tl?ie=UTF8&tag=ucmbread-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=0596005954">Classic Shell Scripting</a><img src="http://www.assoc-amazon.com/e/ir?t=ucmbread-20&l=as2&o=1&a=0596005954&camp=217145&creative=399369" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />:
+ 
+
+  <div class="graphic">
+
+<a href="http://www.amazon.com/gp/product/0596005954/ref=as_li_ss_il?ie=UTF8&tag=ucmbread-20&linkCode=as2&camp=217145&creative=399369&creativeASIN=0596005954"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&Format=_SL160_&ASIN=0596005954&MarketPlace=US&ID=AsinImage&WS=1&tag=ucmbread-20&ServiceVersion=20070822" ></a><img src="http://www.assoc-amazon.com/e/ir?t=ucmbread-20&l=as2&o=1&a=0596005954&camp=217145&creative=399369" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+
+ </div>
+
+ </li>
+
+
+
+
+
+</ul>
+
+
+
+<script type="text/javascript">
+<!--
+// SyntaxHighlighter.all() ;
+//-->
+</script>
+  
+
+ <hr />
+
+ <div id="footer-links">
+ [<a href="../">article index</a>]
+ [<script>
+       var emailMatt = '<a href="mai'+'lto:matt-blog'+'@'+'migh'+'t.net">email me</a>'
+document.write(emailMatt);
+ //-->
+</script>] 
+ [<a href="http://twitter.com/mattmight">@mattmight</a>]
+ [<a href="../feed.rss">rss</a>]
+ </div>
+
+
+  
+</div> <!-- /#content -->
+</div> <!-- /#content-container -->
+
+
+
+
+
+
+<div id="footer-linode" class="module fat-container">
+ <div class="fat-content"> 
+ <center>
+ matt.might.net is powered by <b><a href="http://www.linode.com/?r=bf5d4e7c8a1af61855b5227279a6744c3bde8a8a">linode</a></b> | 
+   <a href="../legal/">legal information</a>
+ </center>
+ </div>
+</div>
+
+
+
+
+
+
+</div> <!-- /#body -->
+
+
+
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-3661244-1");
+pageTracker._trackPageview();
+</script>
+
+
+
+
+</body>
+
+</html>
