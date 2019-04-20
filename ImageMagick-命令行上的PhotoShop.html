@@ -1,0 +1,1125 @@
+<!DOCTYPE html><html><head>    <meta charset="utf-8"/>    <meta http-equiv="Content-Language" content="zh-CN">    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>    <meta name="referrer" content="always"/>    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>    <title> 强大的图像处理库ImageMagick：命令行上的PhotoShop  - jmppok的个人空间 - 开源中国</title>            <meta name="keywords" content="图像处理,imagemagick,命令行上的PhotoShop,jmppok,, 强大的图像处理库ImageMagick：命令行上的PhotoShop  - jmppok的个人空间,开源中国博客"/>                <meta name="description" content="前面讲到了最简单的图像处理库CxImage，本文则推荐一个最强大的图像处理库ImageMagick，它被誉为命令行上的PhotoShop，而且被各大公司所采用。 1.ImageMagick简介 ImageMagick是一套功能强大、稳定而且开源的工具集和开发包，可以用来读、写和处理超过89种基本格式的图片文件。 ImageMagick是免费软件：全部源码开放，可..."/>        <link rel="stylesheet" type="text/css" href="https://static.oschina.net/new-osc/js/utils/semantic-ui/semantic.min.css?t=1542621653000"/>                <link type="text/css" rel="stylesheet" href="https://static.oschina.net/new-osc/dist/css/space.349d3c5d.css">        <script type="text/javascript">window.__STATIC_DOMAIN = "https://static.oschina.net";</script>    <script src="https://static.oschina.net/new-osc/js/utils/jquery.min.js"></script>    <link rel="shortcut icon" type="image/x-icon" href="https://static.oschina.net/new-osc/img/favicon.ico"/>    <link rel="alternate" type="application/rss+xml" title="最新开源项目" href="https://www.oschina.net/project/rss"/>    <link rel="alternate" type="application/rss+xml" title="最新开源资讯" href="https://www.oschina.net/news/rss"/>    <link rel="alternate" type="application/rss+xml" title="最新问题列表" href="https://www.oschina.net/question/rss"/>    <link rel="alternate" type="application/rss+xml" title="最新翻译列表" href="https://www.oschina.net/translate/rss"/>    <link rel="alternate" type="application/rss+xml" title="最新博客列表" href="https://www.oschina.net/blog/rss"/>    <link rel="alternate" type="application/rss+xml" title="推荐博客列表" href="https://www.oschina.net/blog/rss?show=more"/>    <link rel="alternate" type="application/rss+xml" title="推荐软件列表" href="https://www.oschina.net/project/rss?show=recomms"/>    <link rel="alternate" type="application/rss+xml" title="最新代码分享列表" href="https://www.oschina.net/code/rss"/>    <link rel="alternate" type="application/rss+xml" title="开源中国 - 源码列表" href="https://www.oschina.net/code/source_rss"/></head><body>        <val data-name="space_user_url" data-value="https://my.oschina.net/u/2326085"></val>      <val data-name="g_user_url" data-value=""></val>      <val data-name="api_prefix" data-value="/action"></val>      <val data-name="g_user_code" data-value=""></val>     <val data-name="g_user_id" data-value=""></val>     <val data-name="g_user" data-value=""></val>     <val data-name="login_page" data-value="https://www.oschina.net/home/login?goto_page=https%3A%2F%2Fmy.oschina.net%2Fu%2F2326085%2Fblog%2F391300"></val>                         <val data-name="weixinAppId" data-value="wx880def15e694b905"></val>        <val data-name="weixinTimestamp" data-value="1555443635688"></val>        <val data-name="weixinNonceStr" data-value="4e564685-2af7-4083-af8a-89b9053f078c"></val>        <val data-name="weixinSignature" data-value="656d7297e7c82aacdceb7eac9e323a9b6f22a65c"></val>        <val data-name="weixinShareUrl" data-value="https://my.oschina.net/u/2326085/blog/391300"></val>                                             <val data-name="is_detail_page" data-value="true"></val>                <div class="ui left inverted sidebar vertical menu" id="mobileNavSidebar">        <a href="https://www.oschina.net/project" class="item project">开源软件</a>        <a href="https://www.oschina.net/question" class="item question">问答</a>        <a href="https://www.oschina.net/tweets" class="item tweet">动弹</a>        <a href="https://www.oschina.net/blog" class="item blog">博客</a>        <a href="https://www.oschina.net/translate" class="item translate">翻译</a>        <a href="https://www.oschina.net/news" class="item news">资讯</a>        <a href="https://gitee.com/?from=osc-index" class="item gitee" target="_blank">码云</a>        <a href="https://zb.oschina.net/" class="item" target="_blank">众包</a>        <a href="https://www.oschina.net/event/ych" class="item meetup">源创会</a>        <a href="https://www.oschina.net/event" class="item">活动</a>        <a href="https://job.oschina.net/" class="item" target="_blank">求职/招聘</a>        <a href="https://www.oschina.net/question/topic/masteronline" class="item">高手问答</a>        <a href="https://www.oschina.net/question/topic/osc-interview" class="item">开源访谈</a>        <a href="https://my.oschina.net/editorial-story" class="item">周刊</a>        <a href="https://www.oschina.net/company" class="item">公司开源导航页</a>    </div>        <div class="ui right inverted sidebar vertical menu" id="mobileUserSidebar">                    <a class="item" href="https://www.oschina.net/home/login?goto_page=https%3A%2F%2Fmy.oschina.net%2Fu%2F2326085%2Fblog%2F391300">登录</a>            <a class="item" href="https://www.oschina.net/home/reg?goto_page=https%3A%2F%2Fmy.oschina.net%2Fu%2F2326085%2Fblog%2F391300">注册</a>            </div>        <div class="ui vertical inverted right sidebar menu" id="sideMenu">
+    <div class="header">
+        <b>文档章节</b>
+    </div>
+    <div class="ui basic segment" id="sideMenuBody"></div>
+</div>
+<div class="ui black big launch right attached fixed button" id="sideMenuLauncher">
+    <i class="list icon"></i>
+    <span class="text">文档章节</span>
+</div>
+        <div class="pusher  mobile-disabled-fixed-menu  ">                <div class="ui secondary inverted fixed menu" id="headerNavMenu">            <a class="item logo" href="https://www.oschina.net" title="开源中国"><img src="https://static.oschina.net/new-osc/img/logo.svg" alt="开源中国"></a>                                                <form action="https://www.oschina.net/search" class="item search-item">                <div class="ui icon input">                    <input type="hidden" name="scope" value="blog">                    <input placeholder="大家都在搜...." id="keyword" name="q" size="24" value="" type="text"/>                    <i class="search link icon"></i>                </div>                <div class="results"></div>            </form>            <div class="item download-item">                <a class="ui primary button" id="btnDownloadApp" href="https://www.oschina.net/app" target="_blank">下载APP</a>            </div>            <div class="ui popup top left transition hidden" id="btnDownloadAppContent">                <h3 class="header">开源中国 App —— <br/>关注技术领域的头条文章</h3>                <p>聚合全网技术文章，根据你的阅读喜好进行个性推荐</p>                <img width="200" src='https://static.oschina.net/new-osc/img/osc_app_download_qrcode.png?t=1451964198000' alt="下载APP"/>            </div>            <div class="ui secondary text menu" id="menuList">                <a href="https://www.oschina.net/project" class="item project">开源软件</a>                <a href="https://www.oschina.net/question" class="item question">问答</a>                <a href="https://www.oschina.net/tweets" class="item tweet">动弹</a>                <a href="https://www.oschina.net/blog" class="item blog">博客</a>                <a href="https://www.oschina.net/translate" class="item translate">翻译</a>                <a href="https://www.oschina.net/news" class="item news">资讯</a>                <a href="https://gitee.com/?from=osc-index" class="item gitee" target="_blank">码云<span class="floating ui red label giteetip">代码托管</span></a>                <a href="https://zb.oschina.net/" class="item" target="_blank">众包</a>                <a href="https://www.oschina.net/event" class="item event">活动</a>            </div>            <div class="ui dropdown item" id="moreMenu">                更多 <i class="dropdown icon"></i>                <div class="menu">                    <a href="https://www.oschina.net/event/ych" class="item meetup"><i class="world icon"></i>源创会</a>                    <a href="https://job.oschina.net/" class="item" target="_blank"><i class="address card outline icon"></i>求职/招聘</a>                    <a href="https://www.oschina.net/question/topic/masteronline" class="item"><i class="spy icon"></i>高手问答</a>                    <a href="https://www.oschina.net/question/topic/osc-interview" class="item"><i class="coffee icon"></i>开源访谈</a>                    <a href="https://my.oschina.net/editorial-story" class="item"><i class="calendar outline icon"></i>周刊</a>                    <a href="https://www.oschina.net/company" class="item"><i class="building outline icon"></i>公司开源导航页</a>                </div>            </div>            <div class="right menu">                                    <a class="item" href="https://www.oschina.net/home/login?goto_page=https%3A%2F%2Fmy.oschina.net%2Fu%2F2326085%2Fblog%2F391300">登录</a>                    <a class="item" href="https://www.oschina.net/home/reg?goto_page=https%3A%2F%2Fmy.oschina.net%2Fu%2F2326085%2Fblog%2F391300">注册</a>                            </div>        </div>                <div class="ui secondary inverted fixed menu" id="mobileHeaderNavMenu">            <a class="icon item toggle-mobile-nav-sidebar">                <i class="large content icon"></i>            </a>            <div class="logo back-to-top-toggle"><img src="https://static.oschina.net/new-osc/img/logo.svg" alt="开源中国"></div>            <a class="icon item toggle-mobile-user-sidebar">                                    <i class="large user outline icon"></i>                            </a>        </div>                <div id="mainScreen">            <div class="ui container">                
+
+
+
+
+
+
+
+
+
+
+
+<x-foo-define data-define="space-blog-detail"></x-foo-define> 
+<val data-name="objId" data-value="391300"></val> <val data-name="author_id" data-value="2326085"></val> <val data-name="space_user_id" data-value="2326085"></val> 
+<val data-name="fetchCommentsUrl" data-value="?type=comments"></val>              <val data-name="publishCommentUrl" data-value="/space/blog/add_comment"></val>    <val data-name="replyCommentUrl" data-value="/space/blog/add_comment"></val>      <val data-name="deleteCommentUrl" data-value="/space/blog/delete_blog_comments"></val>  
+<val data-name="weixinShareTitle" data-value=" 强大的图像处理库ImageMagick：命令行上的PhotoShop "></val> <val data-name="weixinShareImgUrl" data-value="http://static.oschina.net/uploads/img/201503/25101312_Sf2y.jpg"></val> 
+<div class="ui internally grid blog-detail bg-wrap">
+    <div class="row">
+        <div class="two wide computer only column">
+            <div class="ui sticky float-menu" id="floatMenu">
+                <div class="ui vertical large compact menu">
+                                            <a class="item donate" donate
+                           data-id="391300"                            data-obj-type="16344358"                            data-subject=" 强大的图像处理库ImageMagick：命令行上的PhotoShop "                            data-donater=""                            data-author="2326085"                            data-return-url="https://my.oschina.net/u/2326085/blog/391300"                            data-notify-url="https://my.oschina.net/action/donate/paySuccess">                             <i class="yen icon"></i>打赏</a>
+                                        <a class="item comment-btn" href="#comments" title="共有 0 条评论"><i class="comment outline icon"></i>评论</a>
+                    <a class="item collect-btn "
+                       data-id="391300" data-user-id="2326085" data-obj-type="3" data-max="99" data-tag-required
+                       data-current-user-id=""
+                       data-recommend-tags="图像处理,imagemagick,命令行上的PhotoShop"><i class="star outline icon"></i>收藏</a>
+                    <a class="item like article-like " data-id="391300"><i class="thumbs up outline icon"></i>点赞</a>
+                    <h5 class="ui item inverted brown header">分享文章</h5>
+                    <div class="bdsharebuttonbox reset left-menu" data-tag="share-news">
+                        <a class="item" data-cmd="tsina"><i class="weibo icon"></i>微博</a>
+                        <a class="item" data-cmd="sqq"><i class="qq icon"></i>QQ</a>
+                        <a class="item" data-cmd="weixin"><i class="weixin icon"></i>微信</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="twelve wide computer sixteen wide tablet sixteen wide mobile column body-container">
+            <div class="float-menu-content">
+                <div class="ui large breadcrumb">
+                    <a class="section" href="https://my.oschina.net/u/2326085">jmppok的个人空间</a>
+                                                                <i class="right chevron icon divider"></i>
+                        <a class="section" href="https://my.oschina.net/u/2326085?tab=newest&catalogId=3280593">转贴的文章</a>
+                                        <i class="right chevron icon divider"></i>
+                    <div class="active section">正文</div>
+                </div>
+                <div class="article-detail">
+                                            <div class="ad-wrap">
+                                                    <div id="blog-title-ad" data-traceid="blog_ali" data-tracepid="blogup" style="">
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- oschina-blog-728x90 -->
+<ins class="adsbygoogle" style="display:block;width:100%;height:90px" data-ad-client="ca-pub-7090564139599510" data-ad-slot="5590362768"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+                                    </div>
+                                        <h2 class="header">
+                         强大的图像处理库ImageMagick：命令行上的PhotoShop 
+                                                                            <div class="ui brown label horizontal" data-tooltip="转载">转</div>
+                                                                                            </h2>
+                    <div class="extra ui horizontal list meta-wrap">
+                        <div class="item">
+                            <a href="https://my.oschina.net/u/2326085" class="__user">                        <div class="osc-avatar small-portrait _35x35 avatar" title="jmppok" data-user-id="2326085">
+                <span class="text-portrait" style="background: #3498db">j</span>
+            </div>
+            &nbsp;<span>jmppok</span></a>
+                            发布于 2015/03/25 10:13</div>
+                        <div class="item">字数 6504</div>
+                        <div class="item">阅读 530</div>
+                        <div class="item collect-btn "
+                             data-id="391300" data-user-id="2326085" data-obj-type="3" data-max="99" data-tag-required
+                             data-current-user-id=""
+                             data-recommend-tags="图像处理,imagemagick,命令行上的PhotoShop">收藏 <span data-collect-count data-id="391300" data-obj-type="3">0</span></div>
+                        <div class="item"><a class="normal like article-like " data-id="391300">点赞 <span data-article-like-count>1</span></a></div>
+                        <div class="item comment-count"><a href="#comments" class="normal"><i class="comment outline icon"></i> 评论 <span data-article-reply-count>0</span></a></div>
+                                            </div>
+                                                                        <div class="tags">
+                                <a class="ui horizontal label" href="https://my.oschina.net/u/2326085?q=图像处理">图像处理</a><a class="ui horizontal label" href="https://my.oschina.net/u/2326085?q=imagemagick">imagemagick</a><a class="ui horizontal label" href="https://my.oschina.net/u/2326085?q=命令行上的PhotoShop">命令行上的PhotoShop</a>                            </div>
+                                                                <div class="content" id="articleContent">
+                                                    <div class="ad-wrap">
+                                                        <p style="margin:0 0 10px 0;"><a data-traceid="blog_detail_above_text_link_1" data-tracepid="blog_detail_above_text_link" style="color:#A00;font-weight:bold;" href="https://my.oschina.net/u/2663968/blog/3035820" target="_blank">八年Java开发的感悟：什么才是程序员的立身之本
+>>> </a>  <img src="https://www.oschina.net/img/hot3.png" align="absmiddle" style="max-height: 32px; max-width: 32px;"></p>
+                                        </div>
+                                                <p>前面讲到了<a target="_blank" href="http://blog.csdn.net/jmppok/article/details/18794623" rel="nofollow">最简单的图像处理库CxImage</a>，本文则推荐一个最强大的图像处理库ImageMagick，它被誉为命令行上的PhotoShop，而且被各大公司所采用。</p> 
+<h1>1.ImageMagick简介<br> </h1> 
+<p></p> 
+<div class="para"> 
+ <span style="font-size:14px">ImageMagick是一套功能强大、稳定而且开源的工具集和开发包，可以用来读、写和处理超过89种基本格式的图片文件。<br> ImageMagick是免费软件：全部源码开放，可以自由使用，复制，修改，发布。支持大多数的操作系统。</span> 
+ <br> 
+ <br> 
+ <span style="font-size:14px"><strong>支持的程序语言：</strong></span> Perl, C, C++, Python, PHP, Ruby, Java； 
+ <br> ImageMagick接口(PerlMagick, Magick++, PythonMagick, MagickWand for PHP, RubyMagick, and JMagick)。 
+ <br> 
+ <br> 
+ <span style="font-size:14px"><strong>支持的图片格式</strong></span>，ImageMagick支持至少90种图片格式 
+ <br> &nbsp;A, ART, AVI, AVS, B, BIE, BMP, BMP2, BMP3, C, CACHE, CAPTION, CIN, CIP, CLIP, CLIPBOARD, CMYK, CMYKA, CUR, CUT, DCM, DCX, DNG, DOT, DPS, DPX, EMF, EPDF, EPI, EPS, EPS2, EPS3, EPSF, EPSI, EPT, EPT2, EPT3, FAX, FITS, FPX, FRACTAL, G, G3, GIF, GIF87, GRADIENT, GRAY, HDF, HISTOGRAM, HTM, HTML, ICB, ICO, ICON, JBG, JBIG, JNG, JP2, JPC, JPEG, JPG, JPX, K, LABEL, M, M2V, MAP, MAT, MATTE, MIFF, MNG, MONO, MPC, MPEG, MPG, MSL, MTV, MVG, NULL, O, 
+ <a target="_blank" href="http://baike.baidu.com/view/1607155.htm" rel="nofollow">OTB</a>, P7, PAL, PALM, PATTERN, PBM, PCD, PCDS, PCL, PCT, PCX, PDB, PDF, PFA, PFB, PGM, PGX, PICON, PICT, PIX, PJPEG, PLASMA, PNG, PNG24, PNG32, PNG8, PNM, PPM, PREVIEW, PS, PS2, PS3, PSD, PTIF, PWP, R, RAS, RGB, RGBA, RGBO, RLA, RLE, SCR, SCT, SFW, SGI, SHTML, STEGANO, SUN, SVG, SVGZ, TEXT, TGA, TIF, TIFF, TILE, TIM, TTC, TTF, TXT, UIL, UYVY, VDA, VICAR, VID, VIFF, VST, WBMP, WMF, WMFWIN32, WMZ, WPG, X, XBM, XC, XCF, XPM, XV, XWD, Y, YCbCr, YCbCrA, YUV 
+ <br> 
+ <br> 
+ <strong><span style="font-size:14px">功能与特性：</span></strong> 
+ <br> 格式转换：从一种格式转换成图像到另一个（例如 PNG 转 JPEG） 
+ <br> 变换：缩放，旋转，裁剪，翻转或修剪图像 
+ <br> 透明度：使图像的部分变为透明 
+ <br> 附加：添加形状或一帧到图像 
+ <br> 装饰：添加边框或帧图像 
+ <br> 特效：模糊，锐化，阈值，或色彩图像动画：创建一个从GIF动画图像组序列 
+ <br> 文本及评论：插入描述或艺术图像中的文字 
+ <br> 图像识别：描述的格式和图像性能 
+ <br> 综合：重叠了一个又一个的图像 
+ <br> 蒙太奇：并列图像画布上的图像缩略图 
+ <br> 电影支持：读写图像的共同使用的数字电影工作方式 
+ <br> 图像计算器：应用数学表达式的图像或图像通道 
+ <br> 离散傅立叶变换：实现正向和反向的DFT。 
+ <br> 高动态范围图像：准确地表现了从最明亮的阳光直射到最深最黑暗的阴影找到真正的幕后广泛的强度水平 
+ <br> 加密或解密图片：转换成不懂乱码，然后再返回普通图像 
+ <br> 虚拟像素支持：方便以外区域的图像像素 
+ <br> 大图像支持：读，过程，或写mebi和吉比像素的图像尺寸 
+ <br> 执行：ImageMagick的是线程安全的，利用内部算法OpenMP的功能及快速的双核和四核处理器技术提供窗口优势 
+ <br> 异构分布式处理：某些算法可以在跨越的CPU，GPU，以及其他处理器组成的异构平台音乐会执行速度提高。 
+ <br> 
+ <br> 
+ <h1>2.下载 与 安装</h1> 
+ <p>1）下载</p> 
+ <p>可从ImageMagick官方网站下载最新的ImageMagick源码进行编译 ，也可直接下载相应的编译好的二进制包直接安装。</p> 
+ <p>官方网址：<a target="_blank" href="http://www.imagemagick.org/script/index.php" rel="nofollow">http://www.imagemagick.org/script/index.php</a></p> 
+ <p><br> </p> 
+ <p>2）编译</p> 
+ <p>windows下可直接用VC编译，linux下直接configure make install即可。</p> 
+ <p>windows下编译分为两步：</p> 
+ <p>a. 首先windows下需要编译ImageMagick自带的configure文件， configure是一个ImageMagick提供的配置工具，位于源代码中的\VisualMagick\configure目录。configure编译后会生成configure.exe可执行文件。然后运行configure.exe会出现配置对话框，如下所示：</p> 
+ <p><img src="http://static.oschina.net/uploads/img/201503/25101312_Sf2y.jpg" alt=""></p> 
+ <p>下一步</p> 
+ <p><img src="http://static.oschina.net/uploads/img/201503/25101312_dzsQ.jpg" alt=""></p> 
+ <p>根据需要选择工程的类型，多线程动态库，多线程静态库等。</p> 
+ <p>选择图像每个通道的深度。一般情况下ARGB，每个通道8用位表示。而ImageMagick默认使用16位表示一个通道。</p> 
+ <p>由于我们通常处理的都是8位的图像，这里需要调整为Q8。否则在处理图像时可能会有问题。<br> </p> 
+ <p>b. configure之后，会在源代码的根目录生成vc的工程文件，直接打开build就可以了。build的结果在源代码根目录下的bin目录。包括两部分：lib库和exe程序。即可以通过lib方式在程序中调用，也可以在命令行中调用。<br> </p> 
+ <p><br> </p> 
+ <p>3）注意</p> 
+ <p>再特别说明一下，一定要注意位深度更改为8，否则编译出来的程序默认为每个颜色16位，在处理图片时会出错。</p> 
+ <p><br> </p> 
+ <h1>3.使用</h1> 
+ <p>ImageMagick功能十分强大，不过也有些复杂。具体可以参考他的文档。位于源码根目录下的www目录。也可以直接点这里：<a target="_blank" href="http://www.imagemagick.org/script/index.php" rel="nofollow">http://www.imagemagick.org/script/index.php</a></p> 
+ <p><br> </p> 
+ <p>由于本人未能详细研究，下面引用<a target="_blank" href="http://www.netingcn.com/category/imagemagick" rel="nofollow">http://www.netingcn.com/category/imagemagick</a>中的内容进行简要说明：</p> 
+ <p><br> </p> 
+ <p></p> 
+ <div class="post"> 
+  <h2><a target="_blank" href="http://www.netingcn.com/pic-rounded-border.html" rel="nofollow">将图片生成圆角图片</a></h2> 
+  <div class="info"> 
+   <span>2012年7月10日</span> 
+   <span><a target="_blank" href="http://www.netingcn.com/author/admin" rel="nofollow">admin</a></span> 
+   <span><a target="_blank" href="http://www.netingcn.com/pic-rounded-border.html#respond" rel="nofollow">没有评论</a></span> 
+  </div> 
+  <div class="content"> 
+   <p>说明：此文章有网友提供</p> 
+   <p>见官方demo：http://www.imagemagick.org/Usage/thumbnails/#rounded%5Fborder</p> 
+   <p>运行此demo必须条件：</p> 
+   <p>1、ImageMagick 安装路径 D:/Program Files/ImageMagick/convert.exe</p> 
+   <p>2、将 ex 文件夹放在 C盘根目录下。</p> 
+   <p>最终转换命令</p> 
+   <pre><code>"convert c:/card1.jpg -alpha set -gravity center -extent 1200x750 " +
+" c:/a_big.png -compose DstIn -composite " +
+" c:/b_big.png -compose Over -composite " +
+" c:/111.png "</code></pre> 
+   <p>其中 a_big.png b_big.png 均是背景图 顺序不能互换 111.png 是生成的圆角图片</p> 
+   <p>思路：</p> 
+   <p>这里假设用户上传的最大长宽比例不超过1200*750，</p> 
+   <p>我们可以先做 1200*750 2张背景图，frist_1200_750.png 和 sec_1200_750.png。</p> 
+   <p>由于用户上传图片大小不同，也就是 width，height不同</p> 
+   <p>1、得到用户上传图片的width、height</p> 
+   <p>2、判断目录下是否存在此长宽比的背景图，如果不存在，再创建此长宽比的背景图，Radius.java createThumbnail 方法。</p> 
+   <p>3、根据转换命令，进行转换。记住，2张背景图的顺序不能反, 读者可试试互换结果。 Radius.java createRadiusImg 方法。</p> 
+   <p>4、测试，如果 width &gt; height 生成的圆角图长宽比正常。测试图片 card1.jpg</p> 
+   <p>如果 width &lt; height，就不正常了。 测试图片 4d58cae79da70.jpg 如果 width &gt; height, 长宽比均比较大，生成图片 和 原图片对比，发现生成图片模糊，测试图片 200711108226923_2.jpg</p> 
+   <p>Demo代码下载地址：<a target="_blank" href="http://pan.baidu.com/netdisk/singlepublic?fid=588935_3480700337" rel="nofollow">http://pan.baidu.com/netdisk/singlepublic?fid=588935_3480700337</a></p> 
+  </div> 
+  <div class="under"> 
+   <span>分类: </span> 
+   <span><a target="_blank" href="http://www.netingcn.com/category/imagemagick" rel="nofollow">ImageMagicK</a></span> 
+   <span>标签: </span> 
+   <span><a target="_blank" href="http://www.netingcn.com/tag/%e5%9c%86%e8%a7%92%e5%9b%be%e7%89%87" rel="nofollow">圆角图片</a>, <a target="_blank" href="http://www.netingcn.com/tag/%e5%9c%86%e8%a7%92%e5%9b%be%e7%89%87%e7%94%9f%e6%88%90" rel="nofollow"> 圆角图片生成</a>, <a target="_blank" href="http://www.netingcn.com/tag/%e7%94%9f%e6%88%90%e5%9c%86%e8%a7%92%e5%9b%be%e7%89%87" rel="nofollow"> 生成圆角图片</a></span> 
+  </div> 
+ </div> 
+ <div class="post"> 
+  <h2><a target="_blank" href="http://www.netingcn.com/imagemagick-negate.html" rel="nofollow">imagemagick图片反色处理</a></h2> 
+  <div class="info"> 
+   <span>2011年9月27日</span> 
+   <span><a target="_blank" href="http://www.netingcn.com/author/admin" rel="nofollow">admin</a></span> 
+   <span><a target="_blank" href="http://www.netingcn.com/imagemagick-negate.html#comments" rel="nofollow">2 条评论</a></span> 
+  </div> 
+  <div class="content"> 
+   <p>图片反色处理通过convert的<strong>negate</strong>参数来实现，同时可以针对制定的区域进行反色。</p> 
+   <ul> 
+    <li><strong>整个图片进行反色出来</strong></li> 
+   </ul> 
+   <pre><code>convert -negate src.jpg negate.jpg</code></pre> 
+   <p>效果图如下:</p> 
+   <p style="text-align:center"><a target="_blank" href="http://netingcn-files.b0.upaiyun.com/wp-content/uploads/2011/09/src.jpg" rel="nofollow"><img title="原始图片" src="http://static.oschina.net/uploads/img/201503/25101312_aMt0.jpg" alt="原始图片" height="203" width="270"></a> <a target="_blank" href="http://netingcn-files.b0.upaiyun.com/wp-content/uploads/2011/09/negate.jpg" rel="nofollow"> <img title="反色处理后图片" src="http://static.oschina.net/uploads/img/201503/25101312_wdUf.jpg" alt="反色处理后图片" height="203" width="270"></a></p> 
+   <ul> 
+    <li><strong>部分区域反色</strong></li> 
+   </ul> 
+   <pre><code>convert -region 100x100+0+0 -negate src.jpg negate-part-1.jpg
+
+convert -gravity center -region 100x100+0+0 -negate src.jpg negate-part-2.jpg</code></pre> 
+   <p>注意：<strong>regoin</strong>参数需要在<strong>negate</strong>前，否则无法对指定的区域进行反色处理。另外关于<strong>gravity</strong>参数详细信息请参考：<a target="_blank" href="http://www.netingcn.com/imagemagick-gravity.html" rel="nofollow">ImageMagicK之gravity参数详解</a></p> 
+  </div> 
+  <div class="under"> 
+   <span>分类: </span> 
+   <span><a target="_blank" href="http://www.netingcn.com/category/imagemagick" rel="nofollow">ImageMagicK</a></span> 
+   <span>标签: </span> 
+   <span><a target="_blank" href="http://www.netingcn.com/tag/convert" rel="nofollow">convert</a>, <a target="_blank" href="http://www.netingcn.com/tag/imagemagicktag" rel="nofollow">ImageMagicK</a>, <a target="_blank" href="http://www.netingcn.com/tag/negate" rel="nofollow">negate</a>, <a target="_blank" href="http://www.netingcn.com/tag/%e5%9b%be%e7%89%87%e5%8f%8d%e8%89%b2" rel="nofollow"> 图片反色</a></span> 
+  </div> 
+ </div> 
+ <div class="post"> 
+  <h2><a target="_blank" href="http://www.netingcn.com/imagemagick-crop.html" rel="nofollow">ImageMagick之图片裁剪</a></h2> 
+  <div class="info"> 
+   <span>2011年8月31日</span> 
+   <span><a target="_blank" href="http://www.netingcn.com/author/admin" rel="nofollow">admin</a></span> 
+   <span><a target="_blank" href="http://www.netingcn.com/imagemagick-crop.html#respond" rel="nofollow">没有评论</a></span> 
+  </div> 
+  <div class="content"> 
+   <p>imagemagick的convert命令通过crop参数，可以把一幅大图片分成若干块大小一样的图片，同时也可以在大图上截取一块图片来。命令格式为</p> 
+   <pre><code>convert 原始图片 -crop widthxheight+x+y 目标图片</code></pre> 
+   <p>其中widthxheight是目标图片的尺寸，+x+y是原始图片的坐标点，这两组值至少要出现一组，也可以同时存在。另外该命令也可使用gravity来重新定义坐标系统。关于更多gravity的信息，请参考：<a target="_blank" href="http://www.netingcn.com/imagemagick-gravity.html" rel="nofollow">ImageMagicK之gravity参数详解</a>。下面介绍几种常用的命令。</p> 
+   <ul> 
+    <li><strong>把原始图片分割成多张小图</strong></li> 
+   </ul> 
+   <pre><code>convert src.jpg -crop 100x100 dest.jpg
+
+假设src.jpg的大小是300x200,执行命令后将得到名为dest-0.jpg、dest-1.jpg...dest-5.jpg
+的6张大小为100x100的小图片。注意如果尺寸不是目标图片的整数倍，那么右边缘和下边缘的一部分图片就用实际尺寸</code></pre> 
+   <ul> 
+    <li><strong>在原始图片上剪裁一张指定尺寸的小图</strong></li> 
+   </ul> 
+   <pre><code>convert src.jpg -crop 100x80+50+30 dest.jpg
+在原始图片的上距离上部30像素左部50为起点的位置,分别向左向下截取一块大小为100x80的图片。如果x相对于坐标，宽度不够100，那就取实际值。
+
+convert src.jpg -gravity center -crop 100x80+0+0 dest.jpg
+在原始图上截取中心部分一块100x80的图片
+
+convert src.jpg -gravity southeast -crop 100x80+10+5 dest.jpg
+在原始图上截取右下角距离下边缘10个像素，右边缘5个像素一块100x80的图片</code></pre> 
+  </div> 
+  <div class="under"> 
+   <span>分类: </span> 
+   <span><a target="_blank" href="http://www.netingcn.com/category/imagemagick" rel="nofollow">ImageMagicK</a></span> 
+   <span>标签: </span> 
+   <span><a target="_blank" href="http://www.netingcn.com/tag/imagemagicktag" rel="nofollow">ImageMagicK</a>, <a target="_blank" href="http://www.netingcn.com/tag/%e5%89%aa%e8%a3%81%e5%9b%be%e7%89%87" rel="nofollow"> 剪裁图片</a>, <a target="_blank" href="http://www.netingcn.com/tag/%e5%9b%be%e7%89%87%e5%89%aa%e8%a3%81" rel="nofollow"> 图片剪裁</a>, <a target="_blank" href="http://www.netingcn.com/tag/%e5%9b%be%e7%89%87%e5%a4%84%e7%90%86" rel="nofollow"> 图片处理</a>, <a target="_blank" href="http://www.netingcn.com/tag/%e5%9b%be%e7%89%87%e8%a3%81%e5%89%aa" rel="nofollow"> 图片裁剪</a>, <a target="_blank" href="http://www.netingcn.com/tag/%e8%a3%81%e5%89%aa%e5%9b%be%e7%89%87" rel="nofollow"> 裁剪图片</a></span> 
+  </div> 
+ </div> 
+ <div class="post"> 
+  <h2><a target="_blank" href="http://www.netingcn.com/imagemagick-resize.html" rel="nofollow">ImageMagick之图片缩放</a></h2> 
+  <div class="info"> 
+   <span>2011年8月30日</span> 
+   <span><a target="_blank" href="http://www.netingcn.com/author/admin" rel="nofollow">admin</a></span> 
+   <span><a target="_blank" href="http://www.netingcn.com/imagemagick-resize.html#respond" rel="nofollow">没有评论</a></span> 
+  </div> 
+  <div class="content"> 
+   <p>利用ImageMagicK的convert命令，能很方便的实现图片的放大缩小，可以进行等比例缩放，也能缩放到指定的固定大小。缩放的参数resize，由它来指定缩放后图片的宽高，比如“200×100”。</p> 
+   <ul> 
+    <li><strong>等比缩放 </strong>例如把图片a.jpg缩放到200×100的尺寸,可以用命令:</li> 
+   </ul> 
+   <div class="code">
+     convert -resize 200×100 src.jpg dest.jpg 
+   </div> 
+   <p><strong>注意：</strong>虽然明确指定了图片大小为200×100，但dest.jpg的不一定就是200×100，因为是等比缩放的，dest.jpg大小取决原始图片比例。假设src.jpg的大小是500×200,那么缩放后dest.jpg的真实大小为200×80,再比如src.jpg的大小是300×200,缩放后的尺寸为150×100。<strong>原则是缩放后的尺寸最少有一个是符合宽或高，且另外一个不能大于指定的参数中对应的宽或高。</strong>另外可以通过只指定宽或高的方式来进行缩放。例如：</p> 
+   <pre><code>convert -resize 200 src.jpg dest.jpg
+得到图片宽为200，高根据原始图片比例计算而来
+
+convert -resize x100 src.jpg dest.jpg
+得到的图片高位100，宽根据原始图片比例计算而来</code></pre> 
+   <ul> 
+    <li><strong>固定宽高缩放。</strong>即不考虑原是图宽高的比例，把图片缩放到指定大小。例如命令：</li> 
+   </ul> 
+   <pre><code>convert -resize 200x100! src.jpg dest.jpg</code></pre> 
+   <p><strong>说明：</strong>区别是宽高后面多了一个叹号，此时不管原图片比例如何，缩放后的图片大小都是200×100，这样就可能导致图片变形。注意：在linux环境对参数需要用单引号引起来，而windows下又不能使用单引号。</p> 
+   <ul> 
+    <li><strong>有条件缩放。</strong>可以通过&gt;或&lt;符号来控制原始图片是否进行缩放，例如在处理一批尺寸大小各异的图片，只想把尺寸大于给定的值图片才进行缩小，如果没有指定条件，可能会把那些小的图片进行了放大处理。</li> 
+   </ul> 
+   <pre><code>convert -resize "200x100&gt;" src.jpg dest.jpg
+注解：只有当src.jpg的宽大于200或高大于100时候，才进行缩小处理，
+否则生成的dest.jpg和src.jpg具有一样的尺寸。
+注意在linux下要用单引号替换成双引号，即'200x100&gt;'。
+
+convert -resize "200x100&lt;"&nbsp;src.jpg dest.jpg
+注解：只有当src.jpg的宽小于200或高小于100时候，才进行放大处理，
+否则生成的dest.jpg和src.jpg具有一样的尺寸。
+注意在linux下要用单引号替换成双引号，即'200x100&lt;'</code></pre> 
+   <p>上述两种有条件缩放是按原始图等比例缩放的，也就是对符合条件的图片进行等比缩放。同时有条件缩放也可以与固定大小缩放联合起来用。例如如下命令。</p> 
+   <pre><code>convert -resize "800x100&gt;!" src.jpg dest.jpg
+注解：假设src.jpg尺寸是300x200。很显然src.jpg的高(200)是大于指定值高(100)，
+符合缩小的条件，由于执行的不是等比缩放，
+所以dest.jpg的尺寸理论上是800x100，由于执行是缩小操作
+显然800是超过原始图片宽的，故dest.jpg的宽只能是300
+
+convert -resize "10x1000&lt;!" src.jpg dest.jpg
+注解：假设src.jpg尺寸是300x200，src.jpg的高(200)小于指定值高(1000)，
+因此该命令将执行放大图片操作，dest.jpg的高将放到到1000,
+由于目标图片宽比原始图片还小，但是执行的是放大操作，因此只能用原始图片的宽，
+所以得到的dest.jpg的尺寸是300x1000。</code></pre> 
+  </div> 
+  <div class="under"> 
+   <span>分类: </span> 
+   <span><a target="_blank" href="http://www.netingcn.com/category/imagemagick" rel="nofollow">ImageMagicK</a></span> 
+   <span>标签: </span> 
+   <span><a target="_blank" href="http://www.netingcn.com/tag/imagemagicktag" rel="nofollow">ImageMagicK</a>, <a target="_blank" href="http://www.netingcn.com/tag/resize" rel="nofollow">resize</a>, <a target="_blank" href="http://www.netingcn.com/tag/%e5%9b%be%e7%89%87%e5%a4%84%e7%90%86" rel="nofollow"> 图片处理</a>, <a target="_blank" href="http://www.netingcn.com/tag/%e5%9b%be%e7%89%87%e7%bc%a9%e6%94%be" rel="nofollow"> 图片缩放</a>, <a target="_blank" href="http://www.netingcn.com/tag/%e7%bc%a9%e6%94%be%e5%9b%be%e7%89%87" rel="nofollow"> 缩放图片</a>, <a target="_blank" href="http://www.netingcn.com/tag/%e7%bc%a9%e7%95%a5%e5%9b%be" rel="nofollow"> 缩略图</a></span> 
+  </div> 
+ </div> 
+ <div class="post"> 
+  <h2><a target="_blank" href="http://www.netingcn.com/imagemagick-mark.html" rel="nofollow">利用ImageMagicK给图片加水印</a></h2> 
+  <div class="info"> 
+   <span>2011年8月27日</span> 
+   <span><a target="_blank" href="http://www.netingcn.com/author/admin" rel="nofollow">admin</a></span> 
+   <span><a target="_blank" href="http://www.netingcn.com/imagemagick-mark.html#comments" rel="nofollow">2 条评论</a></span> 
+  </div> 
+  <div class="content"> 
+   <p>现在很流行给自己网站的图片加上水印，水印可能是文字，也可能是网站的logo等。图片水印比较简单，就是把自己水印图标合成到原始图片上；文字水印中如果字符包含中文，处理就稍微麻烦一些。</p> 
+   <h4><strong>图片水印处理</strong></h4> 
+   <p>假设把名为logo.gif的水印图标添加在原始图片（src.jpg）右下角，且水印的下边缘距原始图片10像素、右边缘距原始图片5像素。使用如下命令即可：</p> 
+   <pre><code>convert src.jpg logo.gif -gravity southeast -geometry +5+10 -composite dest.jpg</code></pre> 
+   <h4>文字水印处理</h4> 
+   <p>如果不含中文字符，可以直接通过convert draw text的方式将文字添加到图片，否则就需要使用其它的办法。命令行中不能包括中文字符，但是能通过读取文件的方式来操作，即先把中文信息保存文本文件中。<strong>注意：文本文件的编码最好用UTF-8，同时也需要选取一个支持中文的字体。</strong>直接把文本文本中的信息输出到图片上使用命令<strong>mogrify，</strong>不过也可以使用convert命令把文本文件中的信息生成一个图片，然后再把图片合成到原始图片中。下面分别介绍这几种方法。</p> 
+   <ul> 
+    <li><strong>不含中文字符：</strong>例如把www.netingcn.com作为水印加上图片上，命令如下</li> 
+   </ul> 
+   <pre><code>convert src.jpg -gravity southeast -fill black -pointsize 16 -draw "text 5,5 'http://www.netingcn.com'" dest-c.jpg
+
+mogrify -pointsize 16 -fill black -weight bolder -gravity southeast -annotate +5+5 "http://www.netingcn.com" src.jpg</code></pre> 
+   <p>说明：上述两条命令达到同样的结果，但是第一次命令可以保留原始图片，第二条是直接在原始图片上打上水印。</p> 
+   <ul> 
+    <li><strong>存在中文的情况：</strong>假设存有信息的文件叫t.txt，字体文件是msyh.ttf。</li> 
+   </ul> 
+   <pre><code>方法1：
+//把文件t.txt中的信息生成图片txt.png, -transparent white让图片的背景透明，-size x30设置图片的高度
+convert -transparent white -font msyh.ttf -fill black -pointsize 24 label:@t.txt txt.png
+//把txt.png合成到src.jpg上
+convert src.jpg txt.png -gravity southeast -geometry +10+5 -composite dest.jpg
+
+方法2：
+convert src.jpg -transparent white -font msyh.ttf -fill black -pointsize 24 -size x30 label:@t.txt -gravity southeast -geometry +10+5 -composite dest.jpg
+
+方法3：
+mogrify -font msyh.ttf -pointsize 24 -fill black -weight bolder -gravity southeast -annotate +20+20 @"t.txt" src.jpg</code></pre> 
+   <p>说明：上述第一、二种方法都有瑕疵，第二种背景不能变成透明，第一种虽然生成的图片可以透明，但是合成到原始图上效果不是很理想，第三种是完全透明的，所以推进用第三种方式来操作。</p> 
+  </div> 
+  <div class="under"> 
+   <span>分类: </span> 
+   <span><a target="_blank" href="http://www.netingcn.com/category/imagemagick" rel="nofollow">ImageMagicK</a></span> 
+   <span>标签: </span> 
+   <span><a target="_blank" href="http://www.netingcn.com/tag/imagemagicktag" rel="nofollow">ImageMagicK</a>, <a target="_blank" href="http://www.netingcn.com/tag/%e5%8a%a0%e6%b0%b4%e5%8d%b0" rel="nofollow"> 加水印</a>, <a target="_blank" href="http://www.netingcn.com/tag/%e5%9b%be%e7%89%87%e5%a4%84%e7%90%86" rel="nofollow"> 图片处理</a>, <a target="_blank" href="http://www.netingcn.com/tag/%e5%9b%be%e7%89%87%e6%b0%b4%e5%8d%b0" rel="nofollow"> 图片水印</a>, <a target="_blank" href="http://www.netingcn.com/tag/%e5%a4%84%e7%90%86%e6%b0%b4%e5%8d%b0" rel="nofollow"> 处理水印</a>, <a target="_blank" href="http://www.netingcn.com/tag/%e6%b0%b4%e5%8d%b0%e5%a4%84%e7%90%86" rel="nofollow"> 水印处理</a></span> 
+  </div> 
+ </div> 
+ <div class="post"> 
+  <h2><a target="_blank" href="http://www.netingcn.com/imagemagick-gravity.html" rel="nofollow">ImageMagicK之gravity参数详解</a></h2> 
+  <div class="info"> 
+   <span>2011年8月27日</span> 
+   <span><a target="_blank" href="http://www.netingcn.com/author/admin" rel="nofollow">admin</a></span> 
+   <span><a target="_blank" href="http://www.netingcn.com/imagemagick-gravity.html#respond" rel="nofollow">没有评论</a></span> 
+  </div> 
+  <div class="content"> 
+   <p>使用gravity重新定义坐标后，可以很容易让子元素与父元素的对齐方式达到想要的效果，让一切变得非常简单。比如把一张小图片叠加到背景图片的正中位置，按照默认的坐标系统，那必须要先知道背景图片和小图片的宽度以及高度，然后才能计算出起始点的坐标，再通过-geometry来设置坐标点。如果使用gravity，把其设置center，即把中心作为坐标的原点，那么根本不需要计算起始坐标点，ImageMagicK会自动把小图片放置在背景的正中央位置，-geometry默认是+0+0。gravity不仅影响父元素的坐标系统<strong>，而且子元素的重心点（或者叫参照点）也随之改变</strong>。举例来说，当gravity值为southeast，父元素的坐标原点变为右下角了，x轴方向是从右到左，y轴方向从下到上；子元素重心点也是右下角，所以geometry设置的坐标点就是子元素的右下角相对父元素右下角的位置。<strong>gravity会影响通过geometry、annotate、region等来定义坐标点。</strong></p> 
+   <p>gravity可用值有九个,分别是:</p> 
+   <ul> 
+    <li><strong>NorthWest：</strong>左上角为坐标原点，x轴从左到右，y轴从上到下，也是默认值。</li> 
+   </ul> 
+   <div class="code">
+     convert -size 400×120 xc:gray -size 100×50 xc:blue -gravity northwest -geometry +10+10 -composite -size 100×50 xc:yellow -gravity northwest -geometry +110+60 -composite -gravity northwest -fill red -pointsize 24 -draw “text 110,60 ‘hello netingcn.com!’” nw.png 
+   </div> 
+   <p><strong>说明：</strong>创建一个灰色的400×120的背景,分别把两个100×50的小图片放置在背景上的(10,10)和(110,60)的位置,同时通过draw在图片输入一段文本，小图片和文本的参照点是左上角，效果如下图。<br> <a target="_blank" href="http://netingcn-files.b0.upaiyun.com/wp-content/uploads/2011/08/nw.png" rel="nofollow"><img title="nw" src="http://static.oschina.net/uploads/img/201503/25101313_FZ2f.png" alt="" height="120" width="400"></a></p> 
+   <ul> 
+    <li><strong>North：</strong>上部中间位置为坐标原点，x轴从左到右，y轴从上到下。</li> 
+   </ul> 
+   <div class="code">
+     convert -size 400×120 xc:gray -size 100×50 xc:blue -gravity north -geometry +10+10 -composite -size 100×50 xc:yellow -gravity north -geometry +110+60 -composite -fill red -pointsize 24 -gravity north -draw “text 0,60 ‘hello netingcn.com!’” n.png 
+   </div> 
+   <p><strong>说明：</strong>小图片和文字的参照点是上部中间位置，效果如下图。<br> <a target="_blank" href="http://netingcn-files.b0.upaiyun.com/wp-content/uploads/2011/08/n.png" rel="nofollow"><img title="n" src="http://static.oschina.net/uploads/img/201503/25101313_FPVR.png" alt="" height="120" width="400"></a></p> 
+   <ul> 
+    <li><strong>NorthEast：</strong>右上角位置为坐标原点，x轴从右到左，y轴从上到下。 <a target="_blank" href="http://www.netingcn.com/imagemagick-gravity.html#more-214" rel="nofollow"> 阅读全文…</a></li> 
+   </ul> 
+  </div> 
+  <div class="under"> 
+   <span>分类: </span> 
+   <span><a target="_blank" href="http://www.netingcn.com/category/imagemagick" rel="nofollow">ImageMagicK</a></span> 
+   <span>标签: </span> 
+   <span><a target="_blank" href="http://www.netingcn.com/tag/gravity" rel="nofollow">gravity</a>, <a target="_blank" href="http://www.netingcn.com/tag/imagemagicktag" rel="nofollow">ImageMagicK</a></span> 
+  </div> 
+ </div> 
+ <div class="post"> 
+  <h2><a target="_blank" href="http://www.netingcn.com/imagemagick-convert-draw.html" rel="nofollow">ImageMagicK的convert参数draw笔记</a></h2> 
+  <div class="info"> 
+   <span>2011年8月26日</span> 
+   <span><a target="_blank" href="http://www.netingcn.com/author/admin" rel="nofollow">admin</a></span> 
+   <span><a target="_blank" href="http://www.netingcn.com/imagemagick-convert-draw.html#respond" rel="nofollow">没有评论</a></span> 
+  </div> 
+  <div class="content"> 
+   <p>convert通过draw可以在已有的图片上绘制一些文字、线条、形状等。可能会用text、line、rectangle、roundRectangle、circle、ellipse等，下面逐一来说明。</p> 
+   <ul> 
+    <li><strong>text</strong>，把一段文本绘制到已有图片上。基本命令格式：convert 图片 -draw “text x坐标,y坐标 ‘文本信息’” ?结果图片，另外还可有一些参数是可以设置的，比如字体，字体大小，字体颜色已经重新定义坐标原点。</li> 
+   </ul> 
+   <pre><code>convert -size 512x50 xc:gray -gravity southeast -fill red -pointsize 24  -draw "text 20,5 'hello netingcn.com!'"  txt.png</code></pre> 
+   <p>上述命令中使用gravity来重新定义坐标，关于gravity的更多信息，请参考<strong><a target="_blank" href="http://www.netingcn.com/?p=214" rel="nofollow">ImageMagicK之gravity参数详解</a></strong>，-fill 设置文字的颜色，颜色能够使用类似#ff00ff的方式，但是需要用双引号引起来，-pointsize 24设置文字的大小， -draw 后面引号中第一个单词是text，表明是在图片上绘制一个设置的文本，20是x坐标，5则是y坐标，hello netingcn.com!是绘制到图片上的文本信息，如果文本信息中含有空格，需要用单引号引起来，没有空格也可以用单引号，所以建议总是使用单引号。<strong>不过遗憾的是不能把中文通过这种方式绘制到图片</strong>，要把中文加在图片是，需要另外的方法。结果如下图：</p> 
+   <p style="text-align:center"><a target="_blank" href="http://netingcn-files.b0.upaiyun.com/wp-content/uploads/2011/08/txt.png" rel="nofollow"><img title="txt" src="http://static.oschina.net/uploads/img/201503/25101313_s7Vs.png" alt="" height="50" width="512"></a></p> 
+   <ul> 
+    <li><strong>line</strong>，在图片上绘制一条直线，基本命令格式：convert 图片 -draw “line 起点x坐标,起点y坐标 ?终点x坐标,终点y坐标” ?结果图片，可以使用的参数有-stroke 来指定线条的颜色，-strokewidth 指定线的宽度。</li> 
+   </ul> 
+   <pre><code>convert -size 512x50 xc:gray -stroke white -strokewidth 4 -draw "line 10,25 500,25" line.png</code></pre> 
+   <p><a target="_blank" href="http://netingcn-files.b0.upaiyun.com/wp-content/uploads/2011/08/line.png" rel="nofollow"><img title="line" src="http://static.oschina.net/uploads/img/201503/25101313_Caym.png" alt="" height="50" width="512"></a></p> 
+   <ul> 
+    <li><strong>rectangle、roundRectangle</strong>，两者功能都是在图片上绘制一个矩形，前者是直角，后者可以绘制圆角。</li> 
+   </ul> 
+   <pre><code>convert -size 150x150 xc:gray -stroke red -strokewidth 2 -fill white -draw "Rectangle 10,10 140,140" rect-1.png
+
+convert -size 150x150 xc:gray -stroke red -strokewidth 2 -fill white -draw "roundRectangle 10,10 140,140 8,8" rect-2.png</code></pre> 
+   <p><strong>说明：</strong>参数-stroke 来指定边框的颜色，-strokewidth 指边框的宽度，-fill　矩形的填充颜色，可以用none设置为不填充任何颜色，如果没有-fill参数，默认填充为黑色，Rectangle 与roundRectangle 后第一组参数是确定矩形左上角的坐标，第二组是确定右下角的坐标，roundRectangle的第三组参数是确定圆角的幅度，如果是0,0话，就是直角，所以可以直接用roundRectangle 来代替Rectangle 。示例图片如下：</p> 
+   <p style="text-align:center"><a target="_blank" href="http://netingcn-files.b0.upaiyun.com/wp-content/uploads/2011/08/rect-1.png" rel="nofollow"><img title="rect-1" src="http://static.oschina.net/uploads/img/201503/25101313_GN0t.png" alt="" height="150" width="150"></a> <a target="_blank" href="http://netingcn-files.b0.upaiyun.com/wp-content/uploads/2011/08/rect-2.png" rel="nofollow"> <img title="rect-2" src="http://static.oschina.net/uploads/img/201503/25101313_lKCG.png" alt="" height="150" width="150"></a></p> 
+   <ul> 
+    <li><strong>circle、ellipse，</strong>分别绘制圆和椭圆。其实也可以用椭圆来完成圆的绘制。下面用例子说明：</li> 
+   </ul> 
+   <pre><code>convert -size 140x140 xc:gray -stroke red -strokewidth 2 -fill white -draw "circle 70,70 5,70" circle.png
+
+convert -size 140x140 xc:gray -stroke red -strokewidth 2 -fill white -draw "ellipse 70,70 65,65 0,360" ellipse-1.png
+
+convert -size 140x140 xc:gray -stroke red -strokewidth 2 -fill white -draw "ellipse 70,70 60,30 0,360" ellipse-2.png
+
+convert -size 140x140 xc:gray -stroke red -strokewidth 2 -fill white -draw "ellipse 70,70 60,30 90,270" ellipse-3.png</code></pre> 
+   <p><strong>说明：</strong>同矩形一样，参数-stroke 来指定边框的颜色，-strokewidth 指边框的宽度，-fill　矩形的填充颜色，可以用none设置为不填充任何颜色。circle和ellipse中的第一组参数都是代表圆心的坐标，但是他们第二组参数含义不同，circle的第二组参数是圆的任何一边缘坐标，所以圆的半径就是两组坐标的距离，ellipse的第二组参数中的第一个是横向的最大长度、第二个是纵向最大高度，第三组参数是绘制的区间，区间是0~360度，0度是原点开始到从左到右，度数是顺时针方向。有了这个参数就可以很容易绘制半圆，1/4圆，乃至圆的任何一部分，所以ellipse比circle的功能更加强大。上述的第二条命令完成和第一条命令同样的事。示例图片如下：</p> 
+   <p style="text-align:center"><a target="_blank" href="http://netingcn-files.b0.upaiyun.com/wp-content/uploads/2011/08/circle.png" rel="nofollow"><img title="circle" src="http://static.oschina.net/uploads/img/201503/25101313_aMJQ.png" alt="" height="140" width="140"></a> <a target="_blank" href="http://netingcn-files.b0.upaiyun.com/wp-content/uploads/2011/08/ellipse-1.png" rel="nofollow"> <img title="ellipse-1" src="http://static.oschina.net/uploads/img/201503/25101313_ipZW.png" alt="" height="140" width="140"> </a><a target="_blank" href="http://netingcn-files.b0.upaiyun.com/wp-content/uploads/2011/08/ellipse-2.png" rel="nofollow"><img title="ellipse-2" src="http://static.oschina.net/uploads/img/201503/25101313_dfLj.png" alt="" height="140" width="140"> </a><a target="_blank" href="http://netingcn-files.b0.upaiyun.com/wp-content/uploads/2011/08/ellipse-3.png" rel="nofollow"><img title="ellipse-3" src="http://static.oschina.net/uploads/img/201503/25101313_dc7Q.png" alt="" height="140" width="140"></a></p> 
+  </div> 
+  <div class="under"> 
+   <span>分类: </span> 
+   <span><a target="_blank" href="http://www.netingcn.com/category/imagemagick" rel="nofollow">ImageMagicK</a></span> 
+   <span>标签: </span> 
+   <span><a target="_blank" href="http://www.netingcn.com/tag/convert" rel="nofollow">convert</a>, <a target="_blank" href="http://www.netingcn.com/tag/draw" rel="nofollow">draw</a>, <a target="_blank" href="http://www.netingcn.com/tag/imagemagicktag" rel="nofollow"> ImageMagicK</a>, <a target="_blank" href="http://www.netingcn.com/tag/%e7%bb%98%e5%88%b6%e5%9b%be%e5%bd%a2" rel="nofollow"> 绘制图形</a></span> 
+  </div> 
+ </div> 
+ <div class="post"> 
+  <h2><a target="_blank" href="http://www.netingcn.com/imagemagick-gif.html" rel="nofollow">ImageMagicK制作gif图片</a></h2> 
+  <div class="info"> 
+   <span>2011年8月26日</span> 
+   <span><a target="_blank" href="http://www.netingcn.com/author/admin" rel="nofollow">admin</a></span> 
+   <span><a target="_blank" href="http://www.netingcn.com/imagemagick-gif.html#respond" rel="nofollow">没有评论</a></span> 
+  </div> 
+  <div class="content"> 
+   <p>gif动画由一系列图片按照一定的时间间隔来播放的，每张单独的图片作为gif动画的一帧。使用ImageMagicK的convert命令很容易获取gif动画中的每桢图片，例如命令<strong>?convert exam.gif p.png ,?</strong>就会把生产 p-0.png,p-1.png 等一系列图片。gif动画的原理就是把一些列动画合成在一起。所以通过convert很容易做到。例如命令　<strong>convert *.jpg ?dest.gif ,</strong>?是把当前目录下的所有 jpg格式的图片生成一个名为dest.gif的文件，有两个参数比较重要，分别是-delay和-loop，其中-delay是控制每桢的切换时间，-loop是控制gif动画的播放次数,默认是0，0表示无尽的循环播放。</p> 
+   <p>如果想控制每桢的间隔时间不一致，可以使用类似?<strong>convert -delay 50 0.jpg 1.jpg -delay 100 2.jpg 3.jpg 4.jpg dest.gif</strong> 这样的操作来完成,甚至可以先制作两个临时的gif,然后把临时的gif合成自己想要的,例如</p> 
+   <pre><code>convert -delay 50 0.jpg 1.jpg t1.gif
+convert -delay 100 2.jpg 3.jpg 4.jpg t2.gif
+convert t1.gif t2.gif dest.gif</code></pre> 
+   <div class="gallery galleryid-184 gallery-columns-6 gallery-size-thumbnail"> 
+    <dl> 
+     <dt> 
+      <a target="_blank" href="http://netingcn-files.b0.upaiyun.com/wp-content/uploads/2011/08/0.jpg" rel="nofollow"><img src="http://static.oschina.net/uploads/img/201503/25101313_cwJN.jpg" alt="0" height="108" width="80"></a> 
+     </dt> 
+    </dl> 
+    <dl> 
+     <dt> 
+      <a target="_blank" href="http://netingcn-files.b0.upaiyun.com/wp-content/uploads/2011/08/1.jpg" rel="nofollow"><img src="http://static.oschina.net/uploads/img/201503/25101313_1LpT.jpg" alt="1" height="108" width="80"></a> 
+     </dt> 
+    </dl> 
+    <dl> 
+     <dt> 
+      <a target="_blank" href="http://netingcn-files.b0.upaiyun.com/wp-content/uploads/2011/08/2.jpg" rel="nofollow"><img src="http://static.oschina.net/uploads/img/201503/25101313_K8qc.jpg" alt="2" height="108" width="80"></a> 
+     </dt> 
+    </dl> 
+    <dl> 
+     <dt> 
+      <a target="_blank" href="http://netingcn-files.b0.upaiyun.com/wp-content/uploads/2011/08/3.jpg" rel="nofollow"><img src="http://static.oschina.net/uploads/img/201503/25101313_iVhq.jpg" alt="3" height="108" width="80"></a> 
+     </dt> 
+    </dl> 
+    <dl> 
+     <dt> 
+      <a target="_blank" href="http://netingcn-files.b0.upaiyun.com/wp-content/uploads/2011/08/4.jpg" rel="nofollow"><img src="http://static.oschina.net/uploads/img/201503/25101313_oDuv.jpg" alt="4" height="108" width="80"></a> 
+     </dt> 
+    </dl> 
+    <dl> 
+     <dt> 
+      <a target="_blank" href="http://netingcn-files.b0.upaiyun.com/wp-content/uploads/2011/08/dest.gif" rel="nofollow"><img src="http://static.oschina.net/uploads/img/201503/25101313_bC5v.gif" alt="dest" height="108" width="80"></a> 
+     </dt> 
+    </dl> 
+    <br> 
+    <br> 
+   </div> 
+   <p>通过上述的素材加一个logo图片<img title="logo.gif" src="http://static.oschina.net/uploads/img/201503/25101313_IPHq.gif" alt="" height="40" width="80">制作一个如下的gif动画</p> 
+   <p style="text-align:center">?<img title="logo.gif" src="http://static.oschina.net/uploads/img/201503/25101313_5UMx.gif" alt="" width="80"></p> 
+   <pre><code>convert -size 84x200 xc:"#f396eb" bg.gifconvert bg.gif logo.gif -geometry +2+2 -composite bg.gif
+
+convert bg.gif 0.jpg -geometry +2+55 -composite 0.png
+convert bg.gif 1.jpg -geometry +2+55 -composite 1.png
+convert bg.gif 2.jpg -geometry +2+55 -composite 2.png
+convert bg.gif 3.jpg -geometry +2+55 -composite 3.png
+convert bg.gif 4.jpg -geometry +2+55 -composite 4.png
+
+convert -delay 50 *.png dest1.gif</code></pre> 
+   <p><strong>说明：</strong>思路是先创建一张空白背景图片，然后把logo合成在背景上，再依次把素材的每张图片和背景生成一张新图片作为gif动画的一帧，最后使用convert把每桢图片合成一张gif 。这样的缺点是生成的gif图片尺寸会比较大，下面的方法能改进在尺寸上的缺点，但是在gif的循环上又有点不足。</p> 
+   <pre><code>convert -delay 50 *.jpg t.gif
+convert -size 84x200 xc:"#f396eb" bg.gif
+convert bg.gif logo.gif -geometry +2+2 -composite bg.gif
+convert -loop 0 bg.gif -page +2+55 t.gif dest2.gif</code></pre> 
+   <p>&nbsp;</p> 
+  </div> 
+  <div class="under"> 
+   <span>分类: </span> 
+   <span><a target="_blank" href="http://www.netingcn.com/category/imagemagick" rel="nofollow">ImageMagicK</a></span> 
+   <span>标签: </span> 
+   <span><a target="_blank" href="http://www.netingcn.com/tag/gif" rel="nofollow">gif</a>, <a target="_blank" href="http://www.netingcn.com/tag/imagemagicktag" rel="nofollow">ImageMagicK</a>, <a target="_blank" href="http://www.netingcn.com/tag/%e5%88%b6%e4%bd%9cgif%e5%8a%a8%e7%94%bb" rel="nofollow"> 制作gif动画</a></span> 
+  </div> 
+ </div> 
+ <div class="post"> 
+  <h2><a target="_blank" href="http://www.netingcn.com/imagemagick-composite.html" rel="nofollow">ImageMagicK之合成图片</a></h2> 
+  <div class="info"> 
+   <span>2011年8月26日</span> 
+   <span><a target="_blank" href="http://www.netingcn.com/author/admin" rel="nofollow">admin</a></span> 
+   <span><a target="_blank" href="http://www.netingcn.com/imagemagick-composite.html#respond" rel="nofollow">没有评论</a></span> 
+  </div> 
+  <div class="content"> 
+   <p>ImageMagicK能方便的把多张小图片合成一张大图片。合成的方式大致有三种,</p> 
+   <ol> 
+    <li>使用convert命令加 +append或-append参数</li> 
+    <li>使用convert命令加 -composite参数</li> 
+    <li>直接使用composite命令来完成</li> 
+   </ol> 
+   <p>其中方式１处理图片只能左右或上下来拼接图片，方式２最为灵活，可以一次性把多张图片合成在一起，方式３处理多张图片时需要一张一张来处理。下面的例子是把google地图中的4个256×256块合成一张512×512的大图，原始图片如下：</p> 
+   <div class="gallery galleryid-162 gallery-columns-2 gallery-size-thumbnail"> 
+    <dl> 
+     <dt> 
+      <a target="_blank" href="http://netingcn-files.b0.upaiyun.com/wp-content/uploads/2011/08/u0.png" rel="nofollow"><img src="http://static.oschina.net/uploads/img/201503/25101313_RIXs.png" alt="u0" height="150" width="150"></a> 
+     </dt> 
+    </dl> 
+    <dl> 
+     <dt> 
+      <a target="_blank" href="http://netingcn-files.b0.upaiyun.com/wp-content/uploads/2011/08/u1.png" rel="nofollow"><img src="http://static.oschina.net/uploads/img/201503/25101313_AtpK.png" alt="u1" height="150" width="150"></a> 
+     </dt> 
+    </dl> 
+    <br> 
+    <dl> 
+     <dt> 
+      <a target="_blank" href="http://netingcn-files.b0.upaiyun.com/wp-content/uploads/2011/08/d0.png" rel="nofollow"><img src="http://static.oschina.net/uploads/img/201503/25101313_dD60.png" alt="d0" height="150" width="150"></a> 
+     </dt> 
+    </dl> 
+    <dl> 
+     <dt> 
+      <a target="_blank" href="http://netingcn-files.b0.upaiyun.com/wp-content/uploads/2011/08/d1.png" rel="nofollow"><img src="http://static.oschina.net/uploads/img/201503/25101313_Z7vO.png" alt="d1" height="150" width="150"></a> 
+     </dt> 
+    </dl> 
+    <br> 
+    <br> 
+   </div> 
+   <h5>使用方式1</h5> 
+   <pre><code>convert +append u0.png u1.png u.png
+convert +append d0.png d1.png d.png
+convert -append u.png d.png dest.png</code></pre> 
+   <p><strong>说明：</strong>其中 +append 横向把多张图片拼接在一起，可以多于2张，图片按上边缘对齐,最后一个参数是目标图片,而-append是纵向拼接图片,图片按左边缘对齐。</p> 
+   <h5>使用方式2</h5> 
+   <pre><code>convert -size 512x512 -strip -colors 8 -depth 8 xc:none u0.png -geometry +0+0 -composite u1.png -geometry +256+0 -composite d0.png -geometry +0+256 -composite d1.png -geometry +256+256 -composite dest4.png</code></pre> 
+   <p><strong>说明：</strong>convert -size 512×512 xc:none 创建一张空白图片,然后把小图片合成到其上面。合成的命令大致为：convert 背景图片 图片 定义坐标原点 图片的位置 -composite 目标图片，其中“图片 定义坐标原点 图片的位置 -composite”　可以重复，从而把多张图片一次性合成到背景图片上。使用　-gravity　定义坐标原点，默认是左上角，可以用east,north,northwest等来重新定义原点，-geometry相对于原点的位置</p> 
+   <h5>使用方式3</h5> 
+   <pre><code>convert -size 512x512 -strip -colors 8 -depth 8 xc:none dest1.png
+composite -geometry +0+0 u0.png dest1.png dest1.png
+composite -geometry +256+0 u1.png dest1.png dest1.png
+composite -geometry +0+256 d0.png dest1.png dest1.png
+composite -geometry +256+256 d1.png dest1.png dest1.png</code></pre> 
+   <p><strong>说明：</strong> composite 定义坐标原点 图片的位置 图片 背景图片 目标图片</p> 
+  </div> 
+  <div class="under"> 
+   <span>分类: </span> 
+   <span><a target="_blank" href="http://www.netingcn.com/category/imagemagick" rel="nofollow">ImageMagicK</a></span> 
+   <span>标签: </span> 
+   <span><a target="_blank" href="http://www.netingcn.com/tag/imagemagicktag" rel="nofollow">ImageMagicK</a>, <a target="_blank" href="http://www.netingcn.com/tag/%e5%90%88%e6%88%90%e5%9b%be%e7%89%87" rel="nofollow"> 合成图片</a>, <a target="_blank" href="http://www.netingcn.com/tag/%e5%9b%be%e7%89%87%e5%90%88%e6%88%90" rel="nofollow"> 图片合成</a>, <a target="_blank" href="http://www.netingcn.com/tag/%e5%9b%be%e7%89%87%e5%a4%84%e7%90%86" rel="nofollow"> 图片处理</a></span> 
+  </div> 
+ </div> 
+ <br> 
+ <p></p> 
+</div> 
+<p></p>
+                                                    <div class="ad-wrap" style="margin-top: 12px;">
+                                                        <div id="blog-title-ad" data-traceid="blog_ali" data-tracepid="blogdown" style="">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 博客详情页下方 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-7090564139599510"
+     data-ad-slot="2321828009"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<!--
+<script>
+    function success_jsonpCallback(data) {
+        var obj = eval(data);
+        if( obj.success ){
+            var contents = eval(obj.data[0].content);
+            if(contents.length > 0){
+                var content = contents[0];
+                $('#blog-title-ad').prepend("<a  href='"+ content.url +"' target='_blank' style='max-width:780px;'><img src='"+content.img+"'/></a>");
+                $('#blog-title-ad').show();
+            }
+            
+        }else {
+            $('#blog-title-ad').hide();
+        }
+    }
+    window.addEventListener("load", function() {
+         var url="  http://clickc.admaster.com.cn/c/a116493,b2949390,c3159,i0,m101,8a1,8b2,h";
+        $.ajax({
+            type: 'POST',
+            url: url,
+            jsonp: "callback",
+            dataType: 'jsonp',
+            jsonpCallback: 'success_jsonpCallback',
+            contentType: "application/json; charset=utf-8",
+            success: function( response ) {
+                // do in callback
+            },
+            error:function(){
+                $('#blog-title-ad').hide();
+            }
+        });
+    }, false);
+</script>
+-->
+                                        </div>
+                                            </div>
+                    <div class="ui hidden divider"></div>
+                    <p style="text-align:center;">
+                                                    本文转载自：http://blog.csdn.net/jmppok/article/details/18815147
+                                            </p>
+                </div>
+
+                                <div class="ui basic center aligned segment action">
+                    <div class="ui huge buttons">
+                                                    <a class="ui green button donate" donate
+                               data-id="391300"                                data-obj-type="16344358"                                data-subject=" 强大的图像处理库ImageMagick：命令行上的PhotoShop "                                data-donater=""                                data-author="2326085"                                data-return-url="https://my.oschina.net/u/2326085/blog/391300"                                data-notify-url="https://my.oschina.net/action/donate/paySuccess">                                 <i class="yen icon"></i>打赏</a>
+                                                <a class="ui basic button like article-like " data-id="391300">
+                            <i class="thumbs up outline icon"></i>点赞 (<span data-article-like-count>1</span>)
+                        </a>
+                        <a class="ui basic button collect-btn hover"
+                           data-id="391300" data-user-id="2326085" data-obj-type="3" data-max="99" data-tag-required
+                           data-current-user-id=""
+                           data-recommend-tags="图像处理,imagemagick,命令行上的PhotoShop"><i class="star outline icon"></i>收藏 (<span data-collect-count data-id="391300" data-obj-type="3">0</span>)</a>
+                        <div class="ui basic dropdown share button bdsharebuttonbox reset dropdown-share"
+                             data-tag="share-blog">
+                            <i class="share icon"></i> <span>分享</span>
+                            <div class="menu">
+                                <a class="item" data-cmd="tsina"><i class="weibo icon"></i>微博</a>
+                                <a class="item" data-cmd="sqq"><i class="qq icon"></i>QQ</a>
+                                <a class="item" data-cmd="weixin"><i class="weixin icon"></i>微信</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui basic segment">
+                        <a class="ban" style="cursor: pointer"
+                           ban-report data-id="391300" data-obj-type="3"
+                           data-url="https://my.oschina.net/u/2326085/blog/391300">
+                            <i class="flag red icon"></i>举报</a>
+                    </div>
+                </div>
+
+                                                    <div class="reward-list hide">
+                        <div class="reward-list-title">
+                            共有 <span id="reward-num"></span> 人打赏支持<span id="donate_money"></span>
+                        </div>
+                                                <div class="donate-user-list" id="donate_user_list"></div>
+                    </div>
+                
+                                <div class="around-articles-wrap">
+                                                            <div class="around-item around-left">
+                        <i class="angle left icon"></i>
+                        <span class="text">上一篇：</span>
+                        <a class="link" href="https://my.oschina.net/u/2326085/blog/391301"> mysql 触发器 </a>
+                    </div>
+                    
+                                                            <div class="around-item around-right">
+                        <span class="text">下一篇：</span>
+                        <a class="link" href="https://my.oschina.net/u/2326085/blog/391299"> 提交本地目录到SVN、移动SVN中项目、删除本地目录中的svn信息 </a>
+                        <i class="angle right icon"></i>
+                    </div>
+                                    </div>
+
+                                <div class="ui info message author-card">
+                    <div class="ui items">
+                        <div class="item author-card-item">
+                            <a class="ui avatar tiny image" href="https://my.oschina.net/u/2326085">
+                                                        <div class="osc-avatar large-portrait _80x80" title="jmppok" data-user-id="2326085">
+                <span class="text-portrait" style="background: #3498db">j</span>
+            </div>
+                                        </a>
+                            <div class="content author-card-info">
+                                <div class="author-header clearfix">
+                                                                        <h3 class="author-name"><a class="__user" href="https://my.oschina.net/u/2326085">jmppok</a></h3>
+                                                                                                        </div>
+                                <div class="ui horizontal list">
+                                    <div class="item">粉丝 <span class="followers-count" data-user-id="2326085" data-followers-count="10">10</span></div>
+                                    <div class="item">博文 138</div>
+                                    <div class="item">码字总数 0</div>
+                                    <div class="item">作品 2</div>
+                                </div>
+                                <div class="ui hidden fitted clearing divider"></div>
+                                                                                                    <div class="ui horizontal list">
+                                                                                    <div class="item"><i class="map marker alternate icon"></i> 海淀</div>
+                                                                                                                            <div class="item"><i class="address card outline icon"></i> 高级程序员 </div>
+                                                                            </div>
+                                                                                                    <div class="ui hidden fitted clearing divider"></div>
+                                                                                                                    <a class="ui green compact button follow-btn" data-user-id="2326085" data-follow-status="1"><i class="heart outline icon"></i><span class="text">关注</span></a>
+                                                                                                            <a class="ui green basic compact button send-message-btn" data-user-id="2326085"
+                                       data-user-name="jmppok"><i class="envelope outline icon"></i>私信</a>
+                                                                        <a class="ui green basic compact button" href="https://www.oschina.net/question/ask?user=2326085" target="_blank"><i class="comment outline icon"></i>提问</a>
+                                                            </div>
+                            <div class="content panel-skills-radar" style="display: none">
+                                <div class="skills-radar">
+                                    <div class="radar-wrap" radar data-user-id="2326085"
+                                         data-skills-num="5"
+                                         data-detail-url="https://my.oschina.net/u/2326085/radar"
+                                         data-container=".panel-skills-radar">
+                                        <div class="radar-map"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                                                            </div>
+                        <div class="ui basic segment article-list">
+                <div class="scroll-tab hidden-scroll">
+                    <div class="ui green pointing secondary massive menu spaceBlog-tab">
+                        <a class="active item" data-tab="relArticleList">相关文章</a>
+                        <a class="item" data-tab="newArticleList">最新文章</a>
+                    </div>
+                </div>
+                <div class="ui basic segment active tab article-list" data-tab="relArticleList" id="relArticleList">
+                                          
+
+    <div class="ui very relaxed items list-container blog-detail-list-container">
+                                    <div class="item blog-item">
+                    <div class="content">
+                        <a class="header" href="https://www.oschina.net/question/129540_41118" target="_blank" title="ImageMagick 魔咒">ImageMagick 魔咒</a>
+                        <div class="description">
+                            <p class="line-clamp">ImageMagick 是一种开放源码工具套件，用于创建、编辑和转换位图图像。高级开发人员可以利用其丰富的功能来制作优质、专业的位图图像和其他艺术作品，以便在网站、市场 营销宣传册和其他任何...</p>
+                        </div>
+                        <div class="extra">
+                            <div class="ui horizontal list">
+                                <div class="item">IBMdW</div>
+                                <div class="item">2012/03/07</div>
+
+                                <div class="item"><i class="eye icon"></i> 1K</div>
+                                <div class="item"><i class="comment outline icon"></i> 1</div>
+                            </div>
+                        </div>
+                    </div>
+                                                        </div>
+                                                <div class="item blog-item">
+                    <div class="content">
+                        <a class="header" href="https://www.oschina.net/news/73126" target="_blank" title="安全预警：ImageMagick 图象处理软件存在远程代码执行(CVE-2016-3714)">安全预警：ImageMagick 图象处理软件存在远程代码执行(CVE-2016-3714)</a>
+                        <div class="description">
+                            <p class="line-clamp">题图来自pixabay ImageMagick是一款广泛流行的图像处理软件，有无数的网站使用它来进行图像处理，但在本周二，ImageMagick披露出了一个严重的 0day漏洞，此漏洞允许攻击者通过上传恶意构造的...</p>
+                        </div>
+                        <div class="extra">
+                            <div class="ui horizontal list">
+                                <div class="item">oschina</div>
+                                <div class="item">2016/05/05</div>
+
+                                <div class="item"><i class="eye icon"></i> 3K</div>
+                                <div class="item"><i class="comment outline icon"></i> 16</div>
+                            </div>
+                        </div>
+                    </div>
+                                                                <div class="images">
+                            <a class="ui small image" href="https://www.oschina.net/news/73126" target="_blank" title="安全预警：ImageMagick 图象处理软件存在远程代码执行(CVE-2016-3714)">
+                                <img src="http://img.oschina.net/itags/ec59ea43cdad8984c75682a902eaafedad8d7783.jpg" alt="" data-img-render>
+                            </a>
+                        </div>
+                                    </div>
+                                                <div class="item blog-item">
+                    <div class="content">
+                        <a class="header" href="https://www.oschina.net/question/12_5662" target="_blank" title="ImageMagick图片处理工具">ImageMagick图片处理工具</a>
+                        <div class="description">
+                            <p class="line-clamp">ImageMagick是一套Linux下的开源图形处理 工具，针对几乎所有的图片格式提供比较全面的图片处理功能。不像windows下的photoshop，先要双击运行，然后打开图片，然后才能对图片进行 处理，Ima...</p>
+                        </div>
+                        <div class="extra">
+                            <div class="ui horizontal list">
+                                <div class="item">红薯</div>
+                                <div class="item">2009/01/25</div>
+
+                                <div class="item"><i class="eye icon"></i> 1K</div>
+                                <div class="item"><i class="comment outline icon"></i> 0</div>
+                            </div>
+                        </div>
+                    </div>
+                                                        </div>
+                                                <div class="item blog-item">
+                    <div class="content">
+                        <a class="header" href="https://my.oschina.net/u/179588/blog/90188" target="_blank" title="高清缩略图之GraphicsMagick">高清缩略图之GraphicsMagick</a>
+                        <div class="description">
+                            <p class="line-clamp">GraphicsMagick号称图像处理领域的瑞士军刀，也称命令行版的Photoshop， 短小精悍的代码却提供了一个超棒、高效的工具和库集合，来处理图像的读取、写入和操作，支持超过88中图像格式，包括重...</p>
+                        </div>
+                        <div class="extra">
+                            <div class="ui horizontal list">
+                                <div class="item">一剑风徽</div>
+                                <div class="item">2012/11/18</div>
+
+                                <div class="item"><i class="eye icon"></i> 0</div>
+                                <div class="item"><i class="comment outline icon"></i> 2</div>
+                            </div>
+                        </div>
+                    </div>
+                                                        </div>
+                                                <div class="item blog-item">
+                    <div class="content">
+                        <a class="header" href="https://my.oschina.net/u/778827/blog/159682" target="_blank" title="PHP扩展MagickWand">PHP扩展MagickWand</a>
+                        <div class="description">
+                            <p class="line-clamp">简介 MagickWand 是PHP的一个扩展程序，通过它建立起与ImageMagick的交互，进行图片的处理。它是默认的GD图象函数库的绝佳替代方案。从安全性和易用性来说，在PHP中使用MagickWand比使用命令...</p>
+                        </div>
+                        <div class="extra">
+                            <div class="ui horizontal list">
+                                <div class="item">Junn</div>
+                                <div class="item">2013/09/06</div>
+
+                                <div class="item"><i class="eye icon"></i> 0</div>
+                                <div class="item"><i class="comment outline icon"></i> 0</div>
+                            </div>
+                        </div>
+                    </div>
+                                                        </div>
+                        </div>
+    <div class="page-load-status">
+        <p class="infinite-scroll-request">
+            <i class="ui active small inline loader" style="display: none;"></i>
+        </p>
+        <p class="infinite-scroll-last">没有更多内容</p>
+        <p class="infinite-scroll-error">加载失败，请刷新页面</p>
+    </div>
+    <a class="ui fluid button load-more-button">加载更多</a>
+                <p class="pagination">
+            <a class="rel-pagination pagination__next" style="display: none" href="https://my.oschina.net/u/2326085/blog/widgets/_blog_detail_list_rel?obj=391300&p=2&type=ajax">下一页</a>
+        </p>
+                    </div>
+                <div class="ui basic segment tab article-list" data-tab="newArticleList" id="newArticleList">
+                                          
+
+    <div class="ui very relaxed items list-container blog-detail-list-container">
+                                                        <div class="item blog-item">
+                        <div class="content">
+                            <a class="header" href="https://my.oschina.net/vright/blog/3037875" target="_blank" title="Maven冷门插件-不定时更新">Maven冷门插件-不定时更新</a>
+                            <div class="description">
+                                <p class="line-clamp">常用插件就不列出来了，主要是一些冷门，但确实能够解决问题的插件： 依赖移除（功能不仅仅这一个）： maven-enforcer-plugin 多模块resource共享（微服务搭建过程中，可以省下很多配置文件，...</p>
+                            </div>
+                            <div class="extra">
+                                <div class="ui horizontal list">
+                                    <div class="item">RippleChan</div>
+                                    <div class="item">今天</div>
+
+                                    <div class="item"><i class="eye icon"></i> 2</div>
+                                    <div class="item"><i class="comment outline icon"></i> 0</div>
+                                                                    </div>
+                            </div>
+                        </div>
+                                                                    </div>
+                                                                                    <div class="item blog-item">
+                        <div class="content">
+                            <a class="header" href="https://my.oschina.net/u/1446823/blog/3037874" target="_blank" title="Android Studio3.3.2 将模块打包成jar包">Android Studio3.3.2 将模块打包成jar包</a>
+                            <div class="description">
+                                <p class="line-clamp">前提： Android studio3.3.2的时候bundles目录不存在了，改为packaged-classes。 task makeJar(type: Copy) {//删除存在的   delete&apos;build/libs/test.jar&apos;//设置拷贝的文件   from(&apos;......</p>
+                            </div>
+                            <div class="extra">
+                                <div class="ui horizontal list">
+                                    <div class="item">Gemini-Lin</div>
+                                    <div class="item">今天</div>
+
+                                    <div class="item"><i class="eye icon"></i> 2</div>
+                                    <div class="item"><i class="comment outline icon"></i> 0</div>
+                                                                    </div>
+                            </div>
+                        </div>
+                                                                            <div class="images">
+                                <a class="ui small image" href="https://my.oschina.net/u/1446823/blog/3037874" target="_blank" title="Android Studio3.3.2 将模块打包成jar包">
+                                    <img src="https://oscimg.oschina.net/oscnet/d7b0baf703837b1fec389e8009e4779047f.jpg" alt="" data-img-render>
+                                </a>
+                            </div>
+                                            </div>
+                                                                                    <div class="item blog-item">
+                        <div class="content">
+                            <a class="header" href="https://my.oschina.net/yangjianzhou/blog/3037873" target="_blank" title="Spring MVC请求处理流程分析">Spring MVC请求处理流程分析</a>
+                            <div class="description">
+                                <p class="line-clamp">一、简介 Spring MVC框架在工作中经常用到，配置简单，使用起来也很方便，很多书籍和博客都有介绍其处理流程，但是，对于其原理，总是似懂非懂的样子。我们做技术，需要做到知其然，还要知其...</p>
+                            </div>
+                            <div class="extra">
+                                <div class="ui horizontal list">
+                                    <div class="item">yangjianzhou</div>
+                                    <div class="item">今天</div>
+
+                                    <div class="item"><i class="eye icon"></i> 8</div>
+                                    <div class="item"><i class="comment outline icon"></i> 0</div>
+                                                                    </div>
+                            </div>
+                        </div>
+                                                                            <div class="images">
+                                <a class="ui small image" href="https://my.oschina.net/yangjianzhou/blog/3037873" target="_blank" title="Spring MVC请求处理流程分析">
+                                    <img src="https://www.codenuclear.com/wp-content/uploads/2017/08/Spring_Flow.jpg" alt="" data-img-render>
+                                </a>
+                            </div>
+                                            </div>
+                                                                                    <div class="item blog-item">
+                        <div class="content">
+                            <a class="header" href="https://my.oschina.net/mengzhang6/blog/3037864" target="_blank" title="学习视频梳理">学习视频梳理</a>
+                            <div class="description">
+                                <p class="line-clamp">学习视频梳理 小马哥技术周报 https://space.bilibili.com/327910845/video 慕课直播 https://pan.baidu.com/disk/home#/all?vmode=list&path=%2F%E4%BC%98%E7%A7%80%E6%95%99%E7%A8%8B%2F%......</p>
+                            </div>
+                            <div class="extra">
+                                <div class="ui horizontal list">
+                                    <div class="item">晨猫</div>
+                                    <div class="item">今天</div>
+
+                                    <div class="item"><i class="eye icon"></i> 3</div>
+                                    <div class="item"><i class="comment outline icon"></i> 0</div>
+                                                                    </div>
+                            </div>
+                        </div>
+                                                                    </div>
+                                                                                    <div class="item blog-item">
+                        <div class="content">
+                            <a class="header" href="https://my.oschina.net/u/3656540/blog/3037853" target="_blank" title="开发流程">开发流程</a>
+                            <div class="description">
+                                <p class="line-clamp">1. 分支说明 master : 对应线上生产环境 dev : 开发联调环境，后端开发完可将代码合并到此分支供前端联调 test : 测试环境，前后端联调完后代码合到此分支送测 2. 开发流程 多人开发时代码容...</p>
+                            </div>
+                            <div class="extra">
+                                <div class="ui horizontal list">
+                                    <div class="item">李玉长</div>
+                                    <div class="item">今天</div>
+
+                                    <div class="item"><i class="eye icon"></i> 3</div>
+                                    <div class="item"><i class="comment outline icon"></i> 0</div>
+                                                                    </div>
+                            </div>
+                        </div>
+                                                                            <div class="images">
+                                <a class="ui small image" href="https://my.oschina.net/u/3656540/blog/3037853" target="_blank" title="开发流程">
+                                    <img src="https://oscimg.oschina.net/oscnet/9d114ddd50c5f9a283ab9b6435129b935ea.jpg" alt="" data-img-render>
+                                </a>
+                            </div>
+                                            </div>
+                                        </div>
+    <div class="page-load-status">
+        <p class="infinite-scroll-request">
+            <i class="ui active small inline loader" style="display: none"></i>
+        </p>
+        <p class="infinite-scroll-last">没有更多内容</p>
+        <p class="infinite-scroll-error">加载失败，请刷新页面</p>
+    </div>
+    <a class="ui fluid button load-more-button">加载更多</a>
+                <p class="pagination">
+            <a class="news-pagination pagination__next" style="display: none" href="https://my.oschina.net/u/2326085/blog/widgets/_blog_detail_list_news?p=2&type=ajax">下一页</a>
+        </p>
+                    </div>
+            </div>
+        </div>
+        <div class="two wide computer only column">
+                        <div class="ad-wrap">
+                                        <div data-traceid="blog_left_1" data-tracepid="blog_left">
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- ios-zone-home-120x600 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-7090564139599510"
+     data-ad-slot="7907495427"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+                        </div>
+                    </div>
+    </div>
+</div>
+
+
+<div class="ui mini delete-blog modal">
+    <div class="header">删除文章</div>
+    <div class="content">
+        <p>文章删除后无法恢复，确定取消删除此文章吗？</p>
+    </div>
+    <div class="actions">
+        <div class="ui cancel button">取消</div>
+        <div class="ui red ok button">确定</div>
+    </div>
+</div>
+<div class="ui mini recommend-self modal">
+    <div class="header">自荐文章</div>
+    <div class="content">
+        <p>亲，自荐的博客将通过私信方式通知管理员，优秀的博客文章审核通过后将在博客推荐列表中显示</p>
+    </div>
+    <div class="actions">
+        <div class="ui cancel button">取消</div>
+        <div class="ui red ok button">确定</div>
+    </div>
+</div>
+<div class="ui mini recommend-blog modal">
+    <div class="header">推荐文章</div>
+    <div class="content">
+        <p>确定推荐此文章吗？</p>
+    </div>
+    <div class="actions">
+        <div class="ui cancel button">取消</div>
+        <div class="ui green ok button">确定</div>
+    </div>
+</div>
+<div class="ui mini recommend-author modal">
+    <div class="header">推荐博主</div>
+    <div class="content">
+        <p>确定推荐此博主吗？</p>
+    </div>
+    <div class="actions">
+        <div class="ui cancel button">取消</div>
+        <div class="ui green ok button">确定</div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/action/visit/blog?id=391300" defer="defer"></script>
+<script type="text/javascript" src="/action/visit/space?id=2326085"></script>
+
+<script>
+    // 百度分享
+    window._bd_share_config = {
+        common : {
+            bdText : ' 强大的图像处理库ImageMagick：命令行上的PhotoShop  - jmppok的个人空间 - 开源中国',
+            bdDesc : '前面讲到了最简单的图像处理库CxImage，本文则推荐一个最强大的图像处理库ImageMagick，它被誉为命令行上的PhotoShop，而且被各大公司所采用。 1.ImageMagick简介 ImageMagick是一套功能强大、稳定而且开源的工具集和开发包，可以用来读、写和处理超过89种基本格式的图片文件。 ImageMagick是免费软件：全部源码开放，可...',
+            bdUrl  : 'https://my.oschina.net/u/2326085/blog/391300',
+            bdPic  : 'http://static.oschina.net/uploads/img/201503/25101312_Sf2y.jpg'
+        },
+        share : [{
+            bdSize : 16
+        }]
+    };
+    with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='https://static.oschina.net/new-osc/js/utils/plugins/bdshare_api/share.js?v='+~(-new Date()/36e5)];
+</script>
+    
+            </div>        </div>                <div id="footer" class="ui vertical footer segment mb-hide">
+    <div class="ui container">
+        <div class="ui grid">
+            <div class="eight wide mobile four wide tablet four wide computer column">
+                <h4 class="ui header">开源中国社区</h4>
+                <div class="ui link list">
+                    <a class="item" href="https://www.oschina.net/home/aboutosc" target="_blank">关于我们</a>
+                    <a class="item" href="https://www.oschina.net/home/aboutosc" target="_blank">联系我们</a>
+                    <a class="item" href="https://www.oschina.net/home/aboutosc#partners#" target="_blank">合作伙伴</a>
+                    <a class="item" href="https://www.oschina.net/openapi" target="_blank">Open API</a>
+                </div>
+            </div>
+            <div class="eight wide mobile four wide tablet four wide computer column">
+                <h4 class="ui header">在线工具</h4>
+                <div class="ui link list">
+                    <a class="item" href="https://gitee.com/?from=osc-bottom" target="_blank">码云 Gitee.com</a>
+                    <a class="item" href="https://gitee.com/enterprises?from=osc-bottom" target="_blank">企业研发管理</a>
+                    <a class="item" href="https://copycat.gitee.com/?from=osc-bottom" target="_blank">CopyCat-代码克隆检测</a>
+                    <a class="item" href="https://tool.oschina.net" target="_blank">实用在线工具</a>
+                </div>
+            </div>
+            <div class="center aligned eight wide mobile two wide tablet two wide computer column">
+                <h4 class="ui header">微信公众号</h4>
+                <img src="https://static.oschina.net/new-osc/img/wechat_qrcode.jpg?t=1484694603000" alt="微信公众号"/>
+            </div>
+            <div class="center aligned eight wide mobile six wide tablet six wide computer column">
+                <h3 class="ui header">开源中国 APP</h3>
+                <p>聚合全网技术文章，根据你的阅读喜好进行个性推荐</p>
+                <a href="https://www.oschina.net/app" target="_blank" class="ui large primary button">下载 APP</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="copyright">
+    <div class="ui container">
+        <div class="ui clearing basic segment">
+            <div class="ui left floated horizontal link list">
+                <div class="item">©开源中国(OSChina.NET)</div>
+                <div class="item mb-hide">工信部</div>
+                <a class="item mb-hide" href="http://www.copu.org.cn/" target="_blank" title="开源软件推进联盟">开源软件推进联盟</a>
+                <div class="item mb-hide">指定官方社区</div>
+            </div>
+            <div class="ui right floated horizontal link list">
+                <div class="item mb-hide">深圳市奥思网络科技有限公司版权所有</div>
+                <a href="http://www.miitbeian.gov.cn/" target="_blank" class="item">粤ICP备12009483号-3</a>
+            </div>
+        </div>
+    </div>
+</div>    </div>                                                        <div class="back-to-top back-to-top-toggle">        <div class="icon"><img src="https://static.oschina.net/new-osc/img/icon/back-to-top.svg" alt="返回顶部"></div>        <div class="text">顶部</div>    </div>        <script src="https://static.oschina.net/new-osc/js/utils/semantic-ui/semantic.min.js?t=1535098170000"></script>    <script src="https://static.oschina.net/new-osc/js/utils/jweixin-1.2.0.js"></script>                <script type="text/javascript" src="https://static.oschina.net/new-osc/dist/js/space.0fadb96c.js"></script>                
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https'){
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a411c4d1664dd70048ee98afe7b28f0b";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    </body></html>
+<!-- Generated by oschina (init:1[ms],page:569[ms],ip:82.76.84.168) //-->

@@ -1,0 +1,494 @@
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="renderer" content="webkit">
+<meta name="applicable-device" content="pc,mobile">
+<meta name="HandheldFriendly" content="true"/>
+<title>Linux系统中安装ImageMagick（图片处理神器）_楚盟网</title><meta name="description" content="手上有一张PDF的文件需要把它转换成JPG格式，用ffmpeg操作失败了，然后在谷歌中找到了ImageMagick这个开源程序，看描述这个工具很强大，用途广泛，是专门用来处理图片的；具体怎么用我也一知半解不太熟悉，先随意记录一下下，慢慢完善大致使用方法吧；" />
+<meta name="keywords" content="ImageMagick,软件·服务器" />
+<link rel="shortcut icon" href="https://www.5yun.org/wp-content/themes/Nana/images/favicon.ico">
+<link rel="apple-touch-icon" sizes="114x114" href="https://www.5yun.org/wp-content/themes/Nana/images/favicon.png">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<!--[if lt IE 9]><script src="https://www.5yun.org/wp-content/themes/Nana/js/html5-css3.js"></script><![endif]-->
+<link rel="stylesheet" id="nfgc-main-style-css" href="https://www.5yun.org/wp-content/themes/Nana/style.css" type="text/css" media="all">
+<script type="text/javascript" src="https://www.5yun.org/wp-content/themes/Nana/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://www.5yun.org/wp-content/themes/Nana/js/scrollmonitor.js"></script>
+<script type="text/javascript" src="https://www.5yun.org/wp-content/themes/Nana/js/flexisel.js"></script>
+<script type="text/javascript" src="https://www.5yun.org/wp-content/themes/Nana/js/stickySidebar.js"></script>
+<!--[if IE]>
+<div class="tixing"><strong>温馨提示：感谢您访问本站，经检测您使用的浏览器为IE浏览器，为了获得更好的浏览体验，请使用Chrome、Firefox或其他浏览器。</strong>
+</div>
+<![endif]-->
+
+<!-- google -->
+
+<!-- baidu -->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9f98e46a90df010f3246408516440a6d";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<!-- baidu -->
+
+<!--<link rel="stylesheet" id="font-awesome-four-css" href="https://www.5yun.org/wp-content/themes/Nana/fonts/fontawesome-all.css" type='text/css' media='all'/>-->
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+<link rel='stylesheet' id='wp-block-library-css'  href='https://www.5yun.org/wp-includes/css/dist/block-library/style.min.css?ver=5.1.1' type='text/css' media='all' />
+<link rel='stylesheet' id='mkaz-code-syntax-css-css'  href='https://www.5yun.org/wp-content/plugins/code-syntax-block-0.8.0/assets/blocks.style.css?ver=1545202635' type='text/css' media='all' />
+<link rel='stylesheet' id='mkaz-code-syntax-prism-css-css'  href='https://www.5yun.org/wp-content/plugins/code-syntax-block-0.8.0/assets/prism.css?ver=1545201231' type='text/css' media='all' />
+<link rel='stylesheet' id='highlight-css'  href='https://www.5yun.org/wp-content/themes/Nana/images/highlight.css?ver=1.0' type='text/css' media='all' />
+<link rel='stylesheet' id='fancybox-css'  href='https://www.5yun.org/wp-content/themes/Nana/fancybox.min.css?ver=1.0' type='text/css' media='all' />
+<link rel='stylesheet' id='wavesurfer_font-css'  href='https://www.5yun.org/wp-content/plugins/wavesurfer-wp/css/wavesurfer-wp_font.css?ver=5.1.1' type='text/css' media='all' />
+<link rel='stylesheet' id='wavesurfer_default-css'  href='https://www.5yun.org/wp-content/plugins/wavesurfer-wp/css/wavesurfer-wp_default.css?ver=5.1.1' type='text/css' media='all' />
+<script type='text/javascript'>
+/* <![CDATA[ */
+var wpl_ajax_url = "https:\/\/www.5yun.org\/wp-admin\/admin-ajax.php";
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.5yun.org/wp-content/themes/Nana/js/script.js?ver=1.0'></script>
+<script type='text/javascript' src='https://www.5yun.org/wp-content/themes/Nana/js/fancybox.min.js?ver=2.0'></script>
+<script type='text/javascript' src='https://www.5yun.org/wp-content/themes/Nana/js/comments-ajax.js?ver=1.5'></script>
+<link rel="canonical" href="https://www.5yun.org/15398.html" />
+<style>@media screen and (min-width: 550px){.pagination span.current {border: 1px solid #FF5E52;background: #FF5E52;}}#searchform button,.entry-content .cat a,.post-format a,.aside-cat,.page-links span,.page-links a:hover span,.tglx,.widget_categories a:hover,.widget_links a:hover,#sidebar .widget_nav_menu a:hover,#respond #submit,.comment-tool a:hover,.pagination a:hover,.pagination .prev,.pagination .next,#down a,.buttons a,.expand_collapse,#tag_letter li:hover,.foot .p2 li .isquare,.link-all a:hover,.meta-nav:hover,.new_cat li.hov .time,.rslides_tabs .rslides_here a,.fancybox-close,.wplist-btn{background: #FF5E52;}.widget_categories li:hover,.widget_links li:hover,#sidebar .widget_nav_menu li:hover{background-color:#FF5E52;}a:hover,.top-menu a:hover,.default-menu li a,#user-profile a:hover,#site-nav .down-menu > li > a:hover,#site-nav .down-menu > li.sfHover > a,#site-nav .down-menu > .current-menu-item > a,#site-nav .down-menu > .current-menu-item > a:hover,.scrolltext-title a,.cat-list,.archive-tag a:hover,.entry-meta a,.single-content a,.single-content a:visited,.single-content a:hover,.showmore span,.post_cat a,.single_info .comment a,.single_banquan a,.single_info_w a,.floor,.at,.at a,#dzq .readers-list a:hover em,#dzq .readers-list a:hover strong,#all_tags li a:hover,.showmore span,.new_cat li.hov .title,a.top_post_item:hover p,#related-medias .media-list .media-inner .media-name,#site-nav ul li.current-menu-parent>a,#primarys .cat-lists .item-st:hover h3 a,#post_list_box .archive-list:hover h2 a,.line-one .cat-dt:hover h2 a,.line-one .cat-lists .item-st:hover h3 a{color: #FF5E52;}.page-links span,.page-links a:hover span,#respond #submit,.comment-tool a:hover,.pagination a:hover,#down a,.buttons a,.expand_collapse,.link-all a:hover,.meta-nav:hover,.rslides_tabs .rslides_here a,.wplist-btn{border: 1px solid #FF5E52;}#dzq .readers-list a:hover{border-color: #FF5E52;}.sf-arrows>li>.sf-with-ul:focus:after,.sf-arrows>li:hover>.sf-with-ul:after,.sf-arrows>.sfHover>.sf-with-ul:after,.sf-arrows>li>.sf-with-ul:focus:after,.sf-arrows>li:hover>.sf-with-ul:after,.sf-arrows>.sfHover>.sf-with-ul:after{border-top-color: #FF5E52;}.sf-arrows ul li>.sf-with-ul:focus:after,.sf-arrows ul li:hover>.sf-with-ul:after,.sf-arrows ul .sfHover>.sf-with-ul:after{border-left-color: #FF5E52;}.cat-box .cat-title a,.cat-box .cat-title .syfl,.widget-title .cat,#top_post_filter li:hover,#top_post_filter .top_post_filter_active{border-bottom: 3px solid #FF5E52;}.entry-content .cat a{border-left: 3px solid #FF5E52;}.single-content h2,.archives-yearmonth{border-left: 5px solid #FF5E52;}.aside-cat{background: none repeat scroll 0 0 #FF5E52;}.new_cat li.hov{border-bottom: dotted 1px #FF5E52;}</style></head>
+<body class="post-template-default single single-post postid-15398 single-format-standard">
+<div id="page" class="hfeed site">
+	<header id="masthead" class="site-header">
+	<nav id="top-header">
+		<div class="top-nav">
+			<div id="user-profile">
+				您好，欢迎访问楚盟网&nbsp;&nbsp;|&nbsp;<a href="https://www.5yun.org/wp-admin" target="_blank">登录</a>
+			</div>	
+		<div class="menu-%e9%a1%b6%e9%83%a8%e8%8f%9c%e5%8d%95-container"><ul id="menu-%e9%a1%b6%e9%83%a8%e8%8f%9c%e5%8d%95" class="top-menu"><li id="menu-item-17276" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17276"><a href="https://www.5yun.org/17265.html">Linux视频教程</a></li>
+<li id="menu-item-14580" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-14580"><a href="https://www.5yun.org/category/biji">生活笔记</a></li>
+<li id="menu-item-16488" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-16488"><a href="https://www.5yun.org/category/book">印象笔记</a></li>
+<li id="menu-item-16549" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-16549"><a href="https://www.5yun.org/category/mathematics">基础数学</a></li>
+<li id="menu-item-16732" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-16732"><a href="https://www.5yun.org/wp-content/code/Timer/index.html">秒表</a></li>
+</ul></div>		</div>
+	</nav><!-- #top-header -->
+	<div id="menu-box">
+		<div id="top-menu">
+			<hgroup class="logo-site">
+	<div class="site-title">
+		<a href="https://www.5yun.org/" title="楚盟网_记录学习分享的个人网站">
+			<img src="https://www.5yun.org/wp-content/themes/Nana/images/logo.png" width="220" height="50" alt="楚盟网_记录学习分享的个人网站" title="楚盟网_记录学习分享的个人网站">
+			<span>楚盟网</span>
+		</a>
+	</div>
+</hgroup><!-- .logo-site -->			<span class="nav-search"><i class="fas fa-search"></i></span>
+			<div id="site-nav-wrap">
+				<div id="sidr-close"><a href="https://www.5yun.org/#sidr-close" class="toggle-sidr-close">X</a>
+			</div>
+			
+			<nav id="site-nav" class="main-nav">
+				<a href="#sidr-main" id="navigation-toggle" class="bars"><i class="fa fa-bars"></i></a>	
+								
+				<div class="menu-123-container"><ul id="menu-123" class="down-menu nav-menu"><li id="menu-item-13942" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-13942"><a href="https://www.5yun.org/"><i class="fa fa-home"></i>首页</a></li>
+<li id="menu-item-11524" class="be be-xitongyunzhuanqingkuang menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-11524"><a href="https://www.5yun.org/category/software">软件·服务器</a></li>
+<li id="menu-item-11522" class="be be-app1 menu-item menu-item-type-taxonomy menu-item-object-category menu-item-11522"><a href="https://www.5yun.org/category/photoshop">Photoshop</a></li>
+<li id="menu-item-11523" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-11523"><a href="https://www.5yun.org/category/wordpress">WordPress</a></li>
+<li id="menu-item-14796" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-14796"><a href="https://www.5yun.org/category/adobe-after-effects">AE</a></li>
+<li id="menu-item-16390" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-16390"><a href="https://www.5yun.org/category/python"><i class="fas fa-terminal"></i>  python</a></li>
+<li id="menu-item-13137" class="be be-playon_fill menu-item menu-item-type-taxonomy menu-item-object-category menu-item-13137"><a href="https://www.5yun.org/category/video-transcoding">视频转码</a></li>
+<li id="menu-item-17178" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-17178"><a href="https://www.5yun.org/category/design">设计</a></li>
+</ul></div>	
+								
+			</nav>	
+			</div><!-- #site-nav-wrap -->
+		</div><!-- #top-menu -->
+	</div><!-- #menu-box -->
+</header><!-- #masthead -->
+
+<div id="main-search">
+	<div id="searchbar">
+	<form method="get" id="searchform" action="https://www.5yun.org/">
+		<input type="text" value="" name="s" id="s" placeholder="输入搜索内容" required="">
+		<button type="submit" id="searchsubmit">搜索</button>
+	</form>
+</div>
+		
+	<div id="searchbartag" class="plxiaoshi">
+	<ul id="alert_box_tags">
+	<li class="alert_box_tags_item"><a href="https://www.5yun.org/tag/linux" title="linux有96篇文章" rel="tag" target="_blank">linux</a> </li><li class="alert_box_tags_item"><a href="https://www.5yun.org/tag/centos" title="centos有66篇文章" rel="tag" target="_blank">centos</a> </li><li class="alert_box_tags_item"><a href="https://www.5yun.org/tag/vps" title="vps有53篇文章" rel="tag" target="_blank">vps</a> </li><li class="alert_box_tags_item"><a href="https://www.5yun.org/tag/wordpress" title="wordpress有39篇文章" rel="tag" target="_blank">wordpress</a> </li><li class="alert_box_tags_item"><a href="https://www.5yun.org/tag/ffmpeg" title="FFmpeg有39篇文章" rel="tag" target="_blank">FFmpeg</a> </li><li class="alert_box_tags_item"><a href="https://www.5yun.org/tag/docker" title="Docker有39篇文章" rel="tag" target="_blank">Docker</a> </li><li class="alert_box_tags_item"><a href="https://www.5yun.org/tag/python" title="python有25篇文章" rel="tag" target="_blank">python</a> </li><li class="alert_box_tags_item"><a href="https://www.5yun.org/tag/centos7" title="centos7有22篇文章" rel="tag" target="_blank">centos7</a> </li><li class="alert_box_tags_item"><a href="https://www.5yun.org/tag/debian" title="debian有22篇文章" rel="tag" target="_blank">debian</a> </li><li class="alert_box_tags_item"><a href="https://www.5yun.org/tag/nginx" title="nginx有22篇文章" rel="tag" target="_blank">nginx</a> </li><li class="alert_box_tags_item"><a href="https://www.5yun.org/tag/aria2" title="Aria2有21篇文章" rel="tag" target="_blank">Aria2</a> </li><li class="alert_box_tags_item"><a href="https://www.5yun.org/tag/ps{81884d97e9b29c62b51e96f64ab73971eea5e110197642196c83fe2aecc74b14}e5{81884d97e9b29c62b51e96f64ab73971eea5e110197642196c83fe2aecc74b14}90{81884d97e9b29c62b51e96f64ab73971eea5e110197642196c83fe2aecc74" title="ps合成有19篇文章" rel="tag" target="_blank">ps合成</a> </li><li class="alert_box_tags_item"><a href="https://www.5yun.org/tag/seo-2" title="SEO有18篇文章" rel="tag" target="_blank">SEO</a> </li><li class="alert_box_tags_item"><a href="https://www.5yun.org/tag/youtube" title="youtube有18篇文章" rel="tag" target="_blank">youtube</a> </li><li class="alert_box_tags_item"><a href="https://www.5yun.org/tag/functions" title="functions有18篇文章" rel="tag" target="_blank">functions</a> </li>				<div class="clear"></div>
+            </ul>
+			<ul id="alert_box_more">
+                <li class="alert_box_more_left"></li>
+                <p class="alert_box_more_main"><a href=""  target="_blank">查看更多热门标签</a></p>
+                <li class="alert_box_more_right"></li>
+                <div class="clear"></div>
+            </ul>
+</div>		
+	<div class="clear"></div>
+</div>
+<nav class="breadcrumb"><a title="返回首页" href="https://www.5yun.org">首页</a> &gt; <a href="https://www.5yun.org/category/software" rel="category tag">软件·服务器</a> &gt;  正文 </nav><div id="content" class="site-content">	
+	<div class="clear"></div>
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+							<article id="post-15398" class="post-15398 post type-post status-publish format-standard hentry category-software tag-imagemagick">
+					<header class="entry-header">
+						<h1 class="entry-title">Linux系统中安装ImageMagick（图片处理神器）</h1>
+						<div class="single_info">
+							<span class="xiaoshi">
+																																	<span class="leixing">
+																					<span class="yclx">原创</span>
+																			</span>
+																									<a href="https://www.5yun.org/15398.html" rel="nofollow" target="_blank">楚盟</a>&nbsp;
+															</span>
+							<span class="date">2018-02-03 21:40&nbsp;</span>
+							<span class="views">  阅读 1,181 views 次  </span>
+							
+								
+					
+										
+							<span class="edit"></span>
+						</div>		
+					</header><!-- .entry-header -->
+
+																<div class="entry-content">
+						<div class="single-content">			
+							<p>手上有一张PDF的文件需要把它转换成JPG格式，用ffmpeg操作失败了，然后在谷歌中找到了<a href="https://www.5yun.org/tag/imagemagick" title="【查看含有[ImageMagick]标签的文章】" target="_blank">ImageMagick</a>这个开源程序，看描述这个工具很强大，用途广泛，是专门用来处理图片的；具体怎么用我也一知半解不太熟悉，先随意记录一下下，慢慢完善大致使用方法吧；</p>
+<h2>ImageMagick简介：</h2>
+<p>ImageMagick是一个软件套件，用于创建，编辑，合成或转换位图图像。它可以读取和写入各种格式的图像，如GIF，JPEG，PNG，Postscript和TIFF。我们也可以使用ImageMagick来调整，翻转，镜像，旋转，扭曲，剪切和变换图像，调整图像颜色，应用各种特殊效果，或绘制文本，线条，多边形，椭圆和贝塞尔曲线。</p>
+<p>ImageMagick是一个功能强大的开源图形处理软件,可以用来读、写和处理超过90种的图片文件,包括流行的JPEG、GIF、 PNG、PDF以及PhotoCD等格式。使用它可以对图片进行切割、旋转、组合等多种特效的处理。</p>
+<p>由于其功能强大、性能较好,并且对很多语言都有拓展支持,所以在程序开发中被广泛使用。许多网站开发者喜爱使用ImageMagick拓展来做web上的图片处理工作,比如用户头像生成、图片编辑等。</p>
+<p>&nbsp;</p>
+<h2>Centos or Rhel系统安装命令：</h2>
+<pre class="language-c"><code class="language-c">
+yum install ImageMagick ImageMagick-devel
+</code></pre>
+<p>&nbsp;</p>
+<h2>Ubuntu or Debian系统安装命令</h2>
+<pre class="language-c"><code class="language-c">
+apt-get install imagemagick
+</code></pre>
+<p>&nbsp;</p>
+<h2>ImageMagick使用命令：</h2>
+<p>&nbsp;</p>
+<h3>1、默认参数：PDF转JPG格式</h3>
+<pre class="language-c"><code class="language-vim">
+ convert input.pdf output.jpg
+
+</code></pre>
+<h3>2、自定义参数：PDF转JPG格式</h3>
+<pre class="language-c"><code class="language-c">
+convert -verbose -colorspace RGB -resize 1800 -interlace none -density 300 -quality 100 XXX.pdf XXX.jpg
+</code></pre>
+<p>如上，通过“resize 1800”参数即可设置输出图片的宽度为1800像素，清晰度高了很多。</p>
+<h3>3、批量图片格式转换：将当前目录下所有jpg图片转换成gif格式图片</h3>
+<pre class="language-c"><code class="language-vim">
+find ./ -name "*.jpg" -exec convert {} {}.gif \;
+</code></pre>
+<p>转换完成后名称会有点点不对，以.jpg.gif形式命名，可以通过下面的方法处理一下后缀名变成.gif</p>
+<p>shell脚本处理后缀名：</p>
+<pre class="language-c"><code class="language-vim">
+for i in *.jpg
+do
+convert $i `basename $i .jpg`.gif
+done
+</code></pre>
+<h3>4、缩放图片大小：</h3>
+<pre class="language-c"><code class="language-vim">
+convert -resize 100x100 foo.jpg thumbnail.jpg
+or
+convert -resize 50{60e5202ef3d145cad655457ce69fa38c83f6dac63e5fe5117f791167a47d3066}x50{60e5202ef3d145cad655457ce69fa38c83f6dac63e5fe5117f791167a47d3066} foo.jpg thumbnail.jpg
+</code></pre>
+<h3>5、批量生成缩略图：</h3>
+<pre class="language-c"><code class="language-vim">
+mogrify -sample 80x60 *.jpg
+</code></pre>
+<h3>6、图片加文字（水印效果）：</h3>
+<pre class="language-c"><code class="language-vim">
+convert -fill green -pointsize 40 -draw 'text 10,50 "charry.org"' foo.png bar.png
+</code></pre>
+<p>上面的命令在距离图片的左上角10x50的位置，用绿色的字写下charry.org，如果你要指定别的字体，可以用-font参数。</p>
+<h3>7、图片高斯模糊：</h3>
+<pre class="language-c"><code class="language-vim">
+convert -blur 80 foo.jpg foo.png
+</code></pre>
+<p>-blur参数还可以这样-blur 80x5。后面的那个5表示的是Sigma的值，这个是图像术语，我也不太清楚，总之，它的值对模糊的效果起关键的作用。</p>
+<h3>8、底片效果：</h3>
+<pre class="language-c"><code class="language-vim">
+convert -negate foo.png bar.png
+</code></pre>
+<h3>9、黑白效果：</h3>
+<pre class="language-c"><code class="language-vim">
+convert -monochrome foo.png bar.png
+</code></pre>
+<h3>10、颗粒效果：</h3>
+<pre class="language-c"><code class="language-vim">
+convert -noise 3 foo.png bar.png
+</code></pre>
+<h3>11、油画效果：</h3>
+<pre class="language-c"><code class="language-vim">
+convert -paint 4 foo.png bar.png
+</code></pre>
+<h3>12、炭笔效果：</h3>
+<pre class="language-c"><code class="language-vim">
+convert -charcoal 2 foo.png bar.png
+</code></pre>
+<h3>13、毛玻璃效果：</h3>
+<pre class="language-c"><code class="language-vim">
+convert -spread 30 foo.png bar.png
+</code></pre>
+<h3>14、凸起效果：</h3>
+<pre class="language-c"><code class="language-vim">
+convert -raise 5x5 foo.png bar.png
+</code></pre>
+<p>执行后，你会看到，照片的四周会一个5x5的边，如果你要一个凹下去的边，把-raise改为+raise就可以了。其实凸边和凹边看起来区别并不是很大。</p>
+																								
+						</div>
+						<div class="clear"></div>
+						<div class="xiaoshi">
+							<div class="single_banquan">	
+								<strong>本文地址：</strong><a href="https://www.5yun.org/15398.html" title="Linux系统中安装ImageMagick（图片处理神器）"  target="_blank">https://www.5yun.org/15398.html</a><br/>
+								<strong>关注我们：</strong>请关注一下我们的微信公众号：<a class="iboke112" href="JavaScript:void(0)">扫描二维码<span><img src="https://www.5yun.org/wp-content/themes/Nana/images/gongzhonghao.jpg" alt="楚盟网的公众号"></span></a>，公众号：chubin5yun<br/>
+																	<strong>版权声明：</strong>本文为原创文章，版权归&nbsp;<a href="https://www.5yun.org/15398.html" target="_blank">楚盟</a>&nbsp;所有，欢迎分享本文，转载请保留出处！
+															</div>
+						</div>
+						<div class="social-main">
+			<div class="like clr">
+			<a href="javascript:;" data-action="ding" data-id="15398" title="好文！一定要点赞！" class="favorite"><i class="fas fa-thumbs-up"></i><i class="count">
+	            0</i>人喜欢
+	        </a>
+		</div>
+						<span class="liubaixx">
+		<!--<div class="shang clr">	
+			<a  title="好文！一定要打赏！" class="dashang" href="JavaScript:void(0)"><i class="fas fa-gift" aria-hidden="true"></i>赞赏<span><img src="https://www.5yun.org/wp-content/themes/Nana/images/dashang.jpg" alt="打赏二维码"></span></a>
+		</div>  
+		</span>
+						<div class="bdsharebuttonbox">
+		<span class="s-txt">分享：</span>
+		<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+		<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+		<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+		<a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+		<a href="#" class="bds_ty" data-cmd="ty" title="分享到天涯社区"></a>
+		<a href="#" class="bds_more" data-cmd="more"></a>
+		</div>
+
+		-->
+				<div class="clear"></div>
+</div>												<div class="clear"></div>
+						<div class="post-navigation">
+	  
+<div class="post-previous">
+<a href="https://www.5yun.org/15363.html" rel="prev"><span>PREVIOUS:</span>Aria2无限制版，突破16线程束缚</a> 
+</div>
+<div class="post-next">
+<a href="https://www.5yun.org/15345.html" rel="next"><span>NEXT:</span>Linux那么多版本，万变不离其宗，其实就几个而已，其它都是衍生版</a> 
+</div>
+</div>
+<nav class="nav-single-c"> 	
+	<nav class="navigation post-navigation" role="navigation">		
+		<h2 class="screen-reader-text">文章导航</h2>		
+		<div class="nav-links">			
+			<div class="nav-previous">				
+				<a href="https://www.5yun.org/15363.html" rel="prev"><span class="meta-nav-r" aria-hidden="true"><i class="fas fa-angle-left"></i></span></a>	
+			</div>			
+			<div class="nav-next">
+				<a href="https://www.5yun.org/15345.html" rel="next"><span class="meta-nav-l" aria-hidden="true"><i class="fas fa-angle-right"></i></span> </a>			</div>
+		</div>	
+	</nav>
+</nav>					</div><!-- .entry-content -->
+				</article><!-- #post -->
+								
+									<div class="tab-site">
+	<div id="layout-tab">
+		<div class="tit">
+        <span class="name"><i class="fas fa-bookmark"></i>&nbsp;相关文章</span>
+            <span class="plxiaoshi"><span class="keyword">
+            	<i class="fas fa-tags"></i>&nbsp;关键词：<a href="https://www.5yun.org/tag/imagemagick" rel="tag">ImageMagick</a>            </span></span>
+        </div>
+		<ul class="tab-bd">
+		    <li><span class="post_spliter">•</span><a href="https://www.5yun.org/17777.html" target="_blank">Ubuntu/Dbian安装Deluge命令</a></li>
+    <li><span class="post_spliter">•</span><a href="https://www.5yun.org/17768.html" target="_blank">控制远程Linux系统执行脚本命令</a></li>
+    <li><span class="post_spliter">•</span><a href="https://www.5yun.org/17764.html" target="_blank">Linux添加本地秘钥到远程主机</a></li>
+    <li><span class="post_spliter">•</span><a href="https://www.5yun.org/17758.html" target="_blank">Aria2下载完成后转移文件到指定目录</a></li>
+    <li><span class="post_spliter">•</span><a href="https://www.5yun.org/17746.html" target="_blank">Centos7安装Syncthing</a></li>
+    <li><span class="post_spliter">•</span><a href="https://www.5yun.org/17732.html" target="_blank">Ubuntu 18.10安装Syncthing</a></li>
+    <li><span class="post_spliter">•</span><a href="https://www.5yun.org/17722.html" target="_blank">Ubuntu 18.10安装Privoxy（socks转http）</a></li>
+    <li><span class="post_spliter">•</span><a href="https://www.5yun.org/17716.html" target="_blank">Curl获取公网ip命令</a></li>
+		</ul>
+	</div>
+</div>
+					
+
+		<div id="comments" class="comments-area">
+	
+		<div id="respond" class="comment-respond">
+			<h3 id="reply-title" class="comment-reply-title">发表评论
+			<small><a rel="nofollow" id="cancel-comment-reply-link" href="/15398.html#respond" style="display:none;">取消回复</a></small></h3>
+			
+			
+			<form action="https://www.5yun.org/wp-comments-post.php" method="post" id="commentform">
+				
+								<div id="comment-author-info">
+					<p class="comment-form-author">
+						<input type="text" name="author" id="author" class="commenttext" value="" tabindex="1" />
+						<label for="author">昵称（必填）</label>
+					</p>
+					<p class="comment-form-email">
+						<input type="text" name="email" id="email" class="commenttext" value="" tabindex="2" />
+						<label for="email">邮箱（必填）</label>
+					</p>
+					<p class="comment-form-url">
+						<input type="text" name="url" id="url" class="commenttext" value="" tabindex="3" />
+						<label for="url">网址</label>
+					</p>
+				</div>
+				
+
+				<p class="smiley-box">
+		        	<script type="text/javascript">
+/* <![CDATA[ */
+    function grin(tag) {
+    	var myField;
+    	tag = ' ' + tag + ' ';
+        if (document.getElementById('comment') && document.getElementById('comment').type == 'textarea') {
+    		myField = document.getElementById('comment');
+    	} else {
+    		return false;
+    	}
+    	if (document.selection) {
+    		myField.focus();
+    		sel = document.selection.createRange();
+    		sel.text = tag;
+    		myField.focus();
+    	}
+    	else if (myField.selectionStart || myField.selectionStart == '0') {
+    		var startPos = myField.selectionStart;
+    		var endPos = myField.selectionEnd;
+    		var cursorPos = endPos;
+    		myField.value = myField.value.substring(0, startPos)
+    					  + tag
+    					  + myField.value.substring(endPos, myField.value.length);
+    		cursorPos += tag.length;
+    		myField.focus();
+    		myField.selectionStart = cursorPos;
+    		myField.selectionEnd = cursorPos;
+    	}
+    	else {
+    		myField.value += tag;
+    		myField.focus();
+    	}
+    }
+/* ]]> */
+</script>
+<a href="javascript:grin('[呵呵]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/1.gif" alt="" title="呵呵" /></a><a href="javascript:grin('[嘻嘻]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/2.gif" alt="" title="嘻嘻" /></a><a href="javascript:grin('[哈哈]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/3.gif" alt="" title="哈哈" /></a><a href="javascript:grin('[偷笑]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/4.gif" alt="" title="偷笑" /></a><a href="javascript:grin('[挖鼻屎]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/5.gif" alt="" title="挖鼻屎" /></a><a href="javascript:grin('[互粉]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/6.gif" alt="" title="互粉" /></a><a href="javascript:grin('[吃惊]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/7.gif" alt="" title="吃惊" /></a><a href="javascript:grin('[疑问]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/8.gif" alt="" title="疑问" /></a><a href="javascript:grin('[怒火]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/9.gif" alt="" title="怒火" /></a><a href="javascript:grin('[睡觉]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/10.gif" alt="" title="睡觉" /></a><a href="javascript:grin('[鼓掌]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/11.gif" alt="" title="鼓掌" /></a><a href="javascript:grin('[抓狂]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/12.gif" alt="" title="抓狂" /></a><a href="javascript:grin('[黑线]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/13.gif" alt="" title="黑线" /></a><a href="javascript:grin('[阴险]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/14.gif" alt="" title="阴险" /></a><a href="javascript:grin('[懒得理你]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/15.gif" alt="" title="懒得理你" /></a><a href="javascript:grin('[嘘]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/16.gif" alt="" title="嘘" /></a><a href="javascript:grin('[亲亲]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/17.gif" alt="" title="亲亲" /></a><a href="javascript:grin('[可怜]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/18.gif" alt="" title="可怜" /></a><a href="javascript:grin('[害羞]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/19.gif" alt="" title="害羞" /></a><a href="javascript:grin('[思考]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/20.gif" alt="" title="思考" /></a><a href="javascript:grin('[失望]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/21.gif" alt="" title="失望" /></a><a href="javascript:grin('[挤眼]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/22.gif" alt="" title="挤眼" /></a><a href="javascript:grin('[委屈]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/23.gif" alt="" title="委屈" /></a><a href="javascript:grin('[太开心]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/24.gif" alt="" title="太开心" /></a><a href="javascript:grin('[哈欠]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/25.gif" alt="" title="哈欠" /></a><a href="javascript:grin('[晕]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/26.gif" alt="" title="晕" /></a><a href="javascript:grin('[泪]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/27.gif" alt="" title="泪" /></a><a href="javascript:grin('[困]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/28.gif" alt="" title="困" /></a><a href="javascript:grin('[悲伤]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/29.gif" alt="" title="悲伤" /></a><a href="javascript:grin('[衰]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/30.gif" alt="" title="衰" /></a><a href="javascript:grin('[围观]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/31.gif" alt="" title="围观" /></a><a href="javascript:grin('[给力]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/32.gif" alt="" title="给力" /></a><a href="javascript:grin('[囧]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/33.gif" alt="" title="囧" /></a><a href="javascript:grin('[威武]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/34.gif" alt="" title="威武" /></a><a href="javascript:grin('[OK]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/35.gif" alt="" title="OK" /></a><a href="javascript:grin('[赞]')"><img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/36.gif" alt="" title="赞" /></a><br />		        </p>
+
+		        <p class="comment-form-comment"><textarea id="comment" name="comment" rows="4" tabindex="4"></textarea></p>
+
+				<p class="comment-tool">
+		        	<span class="single-tag"><a class="smiley" href="" title="插入表情">表情</a></span>
+		        </p>
+
+				<p class="form-submit">
+					<input id="submit" name="submit" type="submit" tabindex="5" value="提交评论">
+					<input type='hidden' name='comment_post_ID' value='15398' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+<span class="footer-tag"><input type="checkbox" name="comment_mail_notify" id="comment_mail_notify" value="comment_mail_notify" checked="checked" style="margin-left:0px;" /><label for="comment_mail_notify">有人回复时邮件通知我</label></span>				</p>
+			</form>
+			<script type="text/javascript">
+				document.getElementById("comment").onkeydown = function (moz_ev){
+				var ev = null;
+				if (window.event){
+				ev = window.event;
+				}else{
+				ev = moz_ev;
+				}
+				if (ev != null && ev.ctrlKey && ev.keyCode == 13){
+				document.getElementById("submit").click();}
+				}
+			</script>
+	 				</div>
+		
+		
+</div>
+<!-- #comments -->	
+
+
+
+
+					</main><!-- .site-main -->
+	</div><!-- .content-area -->
+	<div id="sidebar" class="widget-area">		
+
+		
+				<aside id="text-5" class="widget widget_text">			<div class="textwidget"><p>谷歌是最好的老师，YouTube是最好的学校，Github是最好的图书馆</p>
+</div>
+		<div class="clear"></div></aside><aside id="recent_comments-3" class="widget widget_recent_comments"><h3 class="widget-title"><span class="cat">近期评论</span></h3><div id="related-medias"><ul class="media-list"> <li class="item"><a class="y-left img-wrap" rel="nofollow" target="_blank" href="https://www.5yun.org/1410.html#comment-2547"><img alt='llvm中文网' src='https://www.5yun.org/wp-content/themes/Nana/images/48/latin_l.png' class='avatar avatar-56 photo' height='56' width='56' /></a> <div class="media-info"> <div class="media-inner"> <a rel="nofollow" target="_blank" class="media-name" href="https://www.5yun.org/1410.html#comment-2547">llvm中文网</a><p class="media-des"><a rel="nofollow" target="_blank" href="https://www.5yun.org/1410.html#comment-2547">在网上找了找，爬虫记录插件，但是找到的都是有年头没有更新了的，不知道博主知晓新的插件不，求推荐</a></p> </div> </div> </li><li class="item"><a class="y-left img-wrap" rel="nofollow" target="_blank" href="https://www.5yun.org/9434.html#comment-2546"><img alt='111' src='https://www.5yun.org/wp-content/themes/Nana/images/48/number_1.png' class='avatar avatar-56 photo' height='56' width='56' /></a> <div class="media-info"> <div class="media-inner"> <a rel="nofollow" target="_blank" class="media-name" href="https://www.5yun.org/9434.html#comment-2546">111</a><p class="media-des"><a rel="nofollow" target="_blank" href="https://www.5yun.org/9434.html#comment-2546">这个还是打开不了 客户端</a></p> </div> </div> </li><li class="item"><a class="y-left img-wrap" rel="nofollow" target="_blank" href="https://www.5yun.org/17703.html#comment-2541"><img alt='Mike_Ye' src='https://www.5yun.org/wp-content/themes/Nana/images/48/latin_m.png' class='avatar avatar-56 photo' height='56' width='56' /></a> <div class="media-info"> <div class="media-inner"> <a rel="nofollow" target="_blank" class="media-name" href="https://www.5yun.org/17703.html#comment-2541">Mike_Ye</a><p class="media-des"><a rel="nofollow" target="_blank" href="https://www.5yun.org/17703.html#comment-2541">牛气冲天啊，最近一直在C#
+写一套ERP，很多东西都没研究了，
+大神，你好厉害，膜拜你啊！
+ <img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/2.gif" alt="[嘻嘻]" class="wp-smiley" style="height: 1em; max-height: 1em;" />  <img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/2.gif" alt="[嘻嘻]" class="wp-smiley" style="height: 1em; max-height: 1em;" />  <img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/2.gif" alt="[嘻嘻]" class="wp-smiley" style="height: 1em; max-height: 1em;" />  <img src="https://www.5yun.org/wp-content/themes/Nana/images/smilies/2.gif" alt="[嘻嘻]" class="wp-smiley" style="height: 1em; max-height: 1em;" /></a></p> </div> </div> </li><li class="item"><a class="y-left img-wrap" rel="nofollow" target="_blank" href="https://www.5yun.org/17697.html#comment-2539"><img alt='棋游之家' src='https://www.5yun.org/wp-content/themes/Nana/images/48/latin_q.png' class='avatar avatar-56 photo' height='56' width='56' /></a> <div class="media-info"> <div class="media-inner"> <a rel="nofollow" target="_blank" class="media-name" href="https://www.5yun.org/17697.html#comment-2539">棋游之家</a><p class="media-des"><a rel="nofollow" target="_blank" href="https://www.5yun.org/17697.html#comment-2539">代码很简洁</a></p> </div> </div> </li><li class="item"><a class="y-left img-wrap" rel="nofollow" target="_blank" href="https://www.5yun.org/17591.html#comment-2538"><img alt='kadxsz' src='https://www.5yun.org/wp-content/themes/Nana/images/48/latin_k.png' class='avatar avatar-56 photo' height='56' width='56' /></a> <div class="media-info"> <div class="media-inner"> <a rel="nofollow" target="_blank" class="media-name" href="https://www.5yun.org/17591.html#comment-2538">kadxsz</a><p class="media-des"><a rel="nofollow" target="_blank" href="https://www.5yun.org/17591.html#comment-2538">这段话出自哪里啊？哪本书，或者？跪求，找到有偿！</a></p> </div> </div> </li></ul></div><div class="clear"></div></aside>
+			
+</div>
+
+</div>	<div class="clear"></div>
+</div><!-- .site-content -->
+<div id="footer" alog-group="log-footer">
+<div class="foot">
+
+	
+	<div class="ps">
+<div class="p p2">
+<div class="p-content">
+<p class="t2">站点相关</p>
+<ul>
+</ul>
+</div>
+<div class="clear"></div>
+<div class="site-info">			
+			Copyright ©&nbsp; 楚盟网<span class="plxiaoshi"> &nbsp; | &nbsp; 没有版权，随意转载  &nbsp; | &nbsp;  <a href="http://www.miitbeian.gov.cn/" target="_blank" rel="nofollow">湘ICP备14003571号-1</a></span>
+		</div>
+</div>
+<!-- 若要删除版权请自觉赞助懿古今(支付宝：yigujin@qq.com)20元，谢谢支持 -->
+<div class="p p3">
+<div class="p-content">
+<p class="t2">欢迎您关注我们</p>
+<div class="qcode clearfix">
+<div class="img-container">
+<img src="https://www.5yun.org/wp-content/themes/Nana/images/gongzhonghao.jpg" alt="楚盟网的公众号">
+</div>
+<div class="link-container">
+<a href="/" target="_blank">
+待定</a>
+<a href="/" target="_blank">
+待定</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tools">
+    <a class="tools_top" title="返回顶部"></a>
+            <a class="tools_comments" title="发表评论"></a>
+    </div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText": "【" + $("title").text() + "】" + "手上有一张PDF的文件需要把它转换成JPG格式，用ffmpeg操作失败了，然后在谷歌中找到了ImageMagick这个开源程序，看描述这个工具很强大，用途广泛，是专门用来处理图片的；具体怎么用我也一知半解不太熟悉，先...","bdMini":"2","bdMiniList":false,"bdPic": $(".single-content img:first") ? $(".single-content img:first").attr("src") : "","bdStyle":"1","bdSize":"32"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+<script type="text/javascript" src="https://www.5yun.org/wp-content/themes/Nana/js/superfish.js"></script>
+<script type='text/javascript' src='https://www.5yun.org/wp-content/plugins/code-syntax-block-0.8.0/assets/prism.js?ver=1545202963'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var settings = {"pluginUrl":"https:\/\/www.5yun.org\/wp-content\/plugins\/code-syntax-block-0.8.0\/"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.5yun.org/wp-content/plugins/code-syntax-block-0.8.0/assets/prism-settings.js?ver=1545200145'></script>
+</body></html>
