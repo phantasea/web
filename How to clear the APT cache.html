@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>How to clear the APT cache</title>
+
+  
+  <meta name="description" content="Clear the APT cache to reclaim disk space used by the downloaded packages." />
+  
+  
+  
+
+  <link rel="stylesheet" href="/assets/css/poole.css">
+  <link rel="stylesheet" href="/assets/css/syntax.css">
+  <link rel="stylesheet" href="/assets/css/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <link rel="canonical" href="https://blog.sleeplessbeastie.eu/2017/10/09/how-to-clean-the-apt-cache/">
+  <link rel="alternate" type="application/rss+xml" title="sleeplessbeastie's notes Feed" href="https://blog.sleeplessbeastie.eu/feed.xml">
+  <meta name="theme-color" content="#ac4142">
+</head>
+
+
+
+
+
+
+
+
+  <body class="theme-base-08">
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          sleeplessbeastie's notes
+        </a>
+      </h1>
+      <p class="lead">Personal notes about Linux, applications and programming.</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">Home</a>
+      <a class="sidebar-nav-item" href="/archives/">Archives</a>
+      <a class="sidebar-nav-item" href="/search/">Search</a>
+      <a class="sidebar-nav-item" href="/tags/">Tags</a>
+      <a class="sidebar-nav-item" href="/about/">About</a>
+    </nav>
+
+    <p>
+      <small>Milosz Galazka</small><br/>
+      <small>milosz <!-- at --> (at) <!-- at --> sleeplessbeastie <!-- dot --> (dot) <!-- dot --> eu</small>
+    </p>
+    <p>
+      <small>Updated on 2019-08-04</small><br/>
+      <small>&copy; 2019. All rights reserved.</small>
+    </p>
+
+  </div>
+</div>
+
+    <div class="content container">
+      <article class="post format-standard hentry">
+    <header class="entry-header">
+        <div class="entry-header-wrap">
+            <h2 class="entry-title">How to clear the APT cache</h2>
+        </div><!-- .entry-header-wrap -->
+        <div class="entry-meta">
+            by <span class="post-author author vcard"><span class="fn">Milosz Galazka</span></span> on <time class="published" datetime="2017-10-09">October 9, 2017</time>
+            <span class='updated'><span class='value-title' title='2017-10-09'> </span></span>
+            
+                and tagged with <a href="/tags/index.html#Package+management" title="Pages tagged Package management" rel="tag">Package management</a>, <a href="/tags/index.html#Command-line" title="Pages tagged Command-line" rel="tag">Command-line</a>, <a href="/tags/index.html#Debian" title="Pages tagged Debian" rel="tag">Debian</a>, <a href="/tags/index.html#Stretch" title="Pages tagged Stretch" rel="tag">Stretch</a>
+            
+        </div><!-- .entry-meta -->
+    </header><!-- .entry-header -->
+    <div class="entry-content">
+        <p>Clear the APT cache to reclaim disk space used by the downloaded packages.</p><!--more-->
+
+<h3>Inspect APT cache configuration</h3>
+
+<p>Check out the current APT cache configuration using the following command.</p>
+
+<pre>$ apt-config dump | grep "^Dir\( \|::Ca\)"
+</pre>
+
+<pre>Dir "/";
+Dir::Cache "var/cache/apt";
+Dir::Cache::archives "archives/";
+Dir::Cache::srcpkgcache "srcpkgcache.bin";
+Dir::Cache::pkgcache "pkgcache.bin";
+Dir::Cache::Backup "backup/";
+</pre>
+
+
+<h3>Remove every package from the cache</h3>
+
+<p>Perform a simulation of the whole process.</p>
+
+<pre>$ sudo apt-get clean --dry-run
+</pre>
+<pre>Del /var/cache/apt/archives/* /var/cache/apt/archives/partial/*
+Del /var/lib/apt/lists/partial/*
+Del /var/cache/apt/pkgcache.bin /var/cache/apt/srcpkgcache.bin
+</pre>
+
+
+<p>Remove retrieved package files.</p>
+
+<pre>$ sudo apt-get clean
+</pre>
+
+
+<h3>Remove outdated packages from the cache</h3>
+
+<p>Perform a simulation of the whole process.</p>
+
+<pre>$ sudo apt-get autoclean --dry-run
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+Del mc-data 3:4.8.18-1 [1,267 kB]
+Del mc 3:4.8.18-1 [513 kB]
+</pre>
+
+<p>Remove retrieved package files that can no longer be downloaded.<p>
+
+<pre>$ sudo apt-get autoclean
+</pre>
+
+<p>You can use <code>APT::Clean-Installed</code> configuration option to keep or remove outdated and installed packages from cache.</p> 
+
+<p>In the following example the <code>mc</code> package is installed, but cannot be downloaded any longer.</p>
+
+<pre>$ apt-cache policy mc
+mc:
+  Installed: 3:4.8.18-1
+  Candidate: 3:4.8.18-1
+  Version table:
+ *** 3:4.8.18-1 100
+        100 /var/lib/dpkg/status
+</pre>
+<pre>$ apt-cache policy mc-data
+mc-data:
+  Installed: 3:4.8.18-1
+  Candidate: 3:4.8.18-1
+  Version table:
+ *** 3:4.8.18-1 100
+        100 /var/lib/dpkg/status
+</pre>
+
+
+<p>When <code>APT::Clean-Installed</code> is set to <code>false</code> then outdated <code>mc</code> package that is no longer available in remote repository will not be removed from cache as it is installed on the system.</p>
+
+<pre>$ sudo apt-get -o APT::Clean-Installed=false autoclean --dry-run
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+</pre>
+
+<p>When <code>APT::Clean-Installed</code> is set to <code>true</code> then outdated <code>mc</code> package that is no longer available in remote repository will be removed from cache as there are no restrictions imposed on these packages.</p>
+
+<pre>$ sudo apt-get -o APT::Clean-Installed=true autoclean --dry-run
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+Del mc-data 3:4.8.18-1 [1,267 kB]
+Del mc 3:4.8.18-1 [513 kB]
+</pre>
+
+<p>Permanently define <code>true</code> or <code>false</code> value.</p>
+
+<prE>$ echo -e 'APT::Clean-Installed true;' | sudo tee /etc/apt/apt.conf.d/80_autoclean_installed
+</pre>
+
+
+    </div><!-- .entry-content -->
+</article><!-- .post -->
+
+<nav class="post-navigation">
+   <div class="align-right">
+    <h2 class="screen-reader-text">Post navigation</h2>
+    
+    <div class="nav-previous">
+         &larr;
+            <a href="/2017/10/02/how-to-disable-the-apt-cache/">How to disable the APT cache</a>
+            <small class="nav-date">October 2, 2017</small>
+    </div><!-- .nav-previous -->
+    
+    
+    <div class="nav-next">
+
+            <a href="/2017/10/12/how-to-reverse-text-file/">How to reverse text file</a>
+            <small class="nav-date">October 12, 2017</small>
+            &rarr;
+    </div><!-- .nav-next -->
+    
+   </div>
+    <h2>Related Posts</h2>
+    <ul class="related-posts">
+        
+        
+        
+
+        
+            
+
+            
+
+            
+                <li><a href="/2019/07/29/how-to-determine-how-long-specified-remote-server-or-device-was-offline/">How to determine how long specified remote server or device was offline <small>29 Jul 2019</small></a></li>
+                
+                
+            
+        
+            
+
+            
+
+            
+        
+            
+
+            
+
+            
+                <li><a href="/2019/07/22/how-to-configure-sysfs-during-system-boot/">How to configure sysfs during system boot <small>22 Jul 2019</small></a></li>
+                
+                
+            
+        
+            
+
+            
+
+            
+        
+            
+
+            
+
+            
+                <li><a href="/2019/07/15/how-to-disable-intel-turbo-boost/">How to disable Intel Turbo Boost <small>15 Jul 2019</small></a></li>
+                
+                
+            
+        
+            
+
+            
+
+            
+        
+            
+
+            
+
+            
+        
+            
+
+            
+
+            
+        
+            
+
+            
+
+            
+        
+            
+
+            
+
+            
+                <li><a href="/2019/07/01/how-to-check-website-for-broken-links/">How to check website for broken links <small>01 Jul 2019</small></a></li>
+                
+                
+            
+        
+            
+
+            
+
+            
+        
+            
+
+            
+
+            
+                <li><a href="/2019/06/24/how-to-copy-website-using-httrack/">How to copy website using HTTrack <small>24 Jun 2019</small></a></li>
+                
+                
+                    
+        
+    </ul>
+</nav><!-- .post-navigation -->
+
+    </div>
+
+    
+  </body>
+</html>
