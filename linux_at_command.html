@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<head>
+<title>Linux at, batch, atq, atrm command help and examples</title>
+<base href="https://www.computerhope.com/unix/uat.htm" />
+<link rel="canonical" href="https://www.computerhope.com/unix/uat.htm" />
+<link href="https://www.computerhope.com/cdn/site.css" rel="stylesheet" type="text/css" />
+<script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<meta content="Linux at, batch, atq, atrm command help and information with at, batch, atq, and atrm examples, syntax, related commands and how to use each command." name="description" />
+<meta content="Linux at, batch, atq, atrm command help and examples" itemprop="name" />
+<meta content="Linux at, batch, atq, atrm command help and information with at, batch, atq, and atrm examples, syntax, related commands and how to use each command." itemprop="description" />
+<meta property="og:url" content="https://www.computerhope.com/unix/uat.htm" />
+<meta property="og:description" content="Linux at, batch, atq, atrm command help and information with at, batch, atq, and atrm examples, syntax, related commands and how to use each command." />
+<meta property="og:title" content="Linux at, batch, atq, atrm command help and examples" />
+<meta property="og:type" content="article" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Linux at, batch, atq, atrm command help and examples" />
+<meta name="twitter:description" content="Linux at, batch, atq, atrm command help and information with at, batch, atq, and atrm examples, syntax, related commands and how to use each command." />
+<meta name="twitter:creator" content="@computerhope" />
+<!--[if lt IE 9]>
+<script src="https://www.computerhope.com/cdn/html5shiv.js"></script>
+<![endif]-->
+<meta content="https://www.computerhope.com/cdn/linux/at.gif" property="og:image" />
+<meta content="https://www.computerhope.com/cdn/linux/at.gif" itemprop="image" />
+<link href="https://www.computerhope.com/cdn/linux/at.gif" rel="image_src" />
+<link href="https://feeds.feedburner.com/LatestNewPagesOnComputerHope" rel="alternate" title="RSS-Feed" type="application/rss+xml" />
+<link href="https://www.computerhope.com/cdn/apple-touch-icon.png" rel="apple-touch-icon" />
+<link href="https://www.computerhope.com/cdn/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-126444-1', 'auto');
+  ga('send', 'pageview');
+</script>
+</head>
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"> <a href="/"><img alt="Computer Hope" class="logo" height="82" src="/cdn/computer-hope.jpg" width="412" /></a>
+<div itemscope="" itemtype="https://schema.org/SiteNavigationElement">
+<form action="https://www.computerhope.com/cgi-bin/search.cgi" method="post">
+<input accesskey="s" class="sbar" name="q" title="Search" type="text" />
+<button type="Submit">Search</button>
+</form>
+<ul id="nav">
+<li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li>
+<li><a href="/tips/" title="Computer tips and tricks">Tips</a></li>
+<li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li>
+<li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li>
+<li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li>
+<li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li>
+</ul>
+</div>
+</header>
+<div class="container ad"> <ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<div class="container">
+<ol class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta content="1" itemprop="position" /></li>
+<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta content="2" itemprop="position" /></li>
+<li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta content="3" itemprop="position" /></li>
+</ol>
+</div>
+<div class="container content" id="main-content">
+<article>
+<h1 itemprop="headline">Linux at, batch, atq, and atrm commands</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2019-05-04">05/04/2019</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div><img alt="at command" class="floatRight" height="300" src="/cdn/linux/at.gif" width="300" /><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>at</b>, <b>batch</b>, <b>atq</b>, and <b>atrm</b> commands can schedule a command or commands to be executed at a specified time in the future.</p><p>This document covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> versions of <b>at</b>, <b>batch</b>, <b>atq</b>, and <b>atrm</b>.</p>
+<div class="pagenav contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div><h2 id="desc">Description</h2>
+<p class="tab">The <b>at</b> command schedules a command to be run once at a particular time that you normally have permission to run. The at command can be anything from a simple reminder message, to a complex script. You start by running the <b>at</b> command at the command line, passing it the scheduled time as the option. It then places you at a special prompt, where you can type in the command (or series of commands) to be run at the scheduled time. When you're done, press <b>Control-D</b> on a new line, and your command will be placed in the queue.</p>
+<p class="tab">A typical <b>at</b> command sequence looks like this (commands you type are shown here in the blue box, or in bold face below):</p>
+<pre class="tcy tab">at 9:30 PM Tue</pre>
+<pre class="tab">warning: commands will be executed using /bin/sh
+at&gt; <b>echo "It's 9:30 PM on Sunday."</b>
+at&gt; <b>^D</b>
+job 1 at Sun Nov 16 09:30:00 2014</pre>
+<p class="tab">When we ran the command, the first thing <b>at</b> did was give us a "warning" telling us what <a href="/jargon/s/shell.htm">command shell</a> our commands will be run with: in this case, <b>/bin/sh</b>, the <a href="/jargon/b/bourne.htm">Bourne Shell</a>. This shell is the traditional standard Unix shell.</p>
+<p class="tab">It then places us at the <b>at&gt;</b> prompt. Here we type in a simple <b>echo</b> command, which echoes a string of text. We press enter, and we're placed at a new <b>at&gt;</b> prompt. We then press <b>Control-D</b>, telling <b>at</b> we're all done with our commands. It then tells us that our job is job number <b>1</b> and that it will run next Tuesday.</p>
+<div class="tip tab"><span class="title">Note</span>
+<p>The output of your specified command will be mailed to you. You can read this mail with the <a href="/unix/umail.htm"><b>mail</b></a> program, or a program like <a href="/unix/upine.htm"><b>pine</b></a> (or the modern version of pine, called <b>alpine</b>). You can download these programs if you don't have them, or install them with your package manager; for example, on <a href="/jargon/u/ubuntu.htm">Ubuntu</a>, which uses the APT package management system, you can install them using the <a href="/unix/apt-get.htm"><b>apt-get</b></a> command, specifically: <b>sudo apt-get install mail</b> or <b>sudo apt-get install alpine</b>.</p>
+</div>
+<h2>Specifying Time</h2>
+<p class="tab"><b>at</b> uses a very casual representation of time and date. It even knows some "commonly used" times you might not expect &mdash; it knows that "teatime" is traditionally at 4 PM, for instance.</p>
+<p class="tab">Here are some examples of times you can pass to <b>at</b> to schedule a command. For instance, let's assume the current time is 10:00 AM, Tuesday, October 18, 2014. The following expressions would translate to the following times:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<th>the expression:</th>
+<th>would translate to:</th>
+</tr>
+<tr class="tcw">
+<td>noon</td>
+<td><p>12:00 PM October 18 2014</p></td>
+</tr>
+<tr class="tcw">
+<td>midnight</td>
+<td><p>12:00 AM October 19 2014</p></td>
+</tr>
+<tr class="tcw">
+<td>teatime</td>
+<td><p>4:00 PM October 18 2014</p></td>
+</tr>
+<tr class="tcw">
+<td>tomorrow</td>
+<td><p>10:00 AM October 19 2014</p></td>
+</tr>
+<tr class="tcw">
+<td>noon tomorrow</td>
+<td><p>12:00 PM October 19 2014</p></td>
+</tr>
+<tr class="tcw">
+<td>next week</td>
+<td><p>10:00 AM October 25 2014</p></td>
+</tr>
+<tr class="tcw">
+<td>next monday</td>
+<td><p>10:00 AM October 24 2014</p></td>
+</tr>
+<tr class="tcw">
+<td>fri</td>
+<td><p>10:00 AM October 21 2014</p></td>
+</tr>
+<tr class="tcw">
+<td>NOV</td>
+<td><p>10:00 AM November 18 2014</p></td>
+</tr>
+<tr class="tcw">
+<td>9:00 AM</td>
+<td><p>9:00 AM October 19 2014</p></td>
+</tr>
+<tr class="tcw">
+<td>2:30 PM</td>
+<td><p>2:30 PM October 18 2014</p></td>
+</tr>
+<tr class="tcw">
+<td>1430</td>
+<td><p>2:30 PM October 18 2014</p></td>
+</tr>
+<tr class="tcw">
+<td>2:30 PM tomorrow</td>
+<td><p>2:30 PM October 19 2014</p></td>
+</tr>
+<tr class="tcw">
+<td>2:30 PM next month</td>
+<td><p>2:30 PM November 18 2014</p></td>
+</tr>
+<tr class="tcw">
+<td>2:30 PM Fri</td>
+<td><p>2:30 PM October 21 2014</p></td>
+</tr>
+<tr class="tcw">
+<td>2:30 PM 10/21</td>
+<td><p>2:30 PM October 21 2014</p></td>
+</tr>
+<tr class="tcw">
+<td>2:30 PM Oct 21</td>
+<td><p>2:30 PM October 21 2014</p></td>
+</tr>
+<tr class="tcw">
+<td>2:30 PM 10/21/2014</td>
+<td><p>2:30 PM October 21 2014</p></td>
+</tr>
+<tr class="tcw">
+<td>2:30 PM 21.10.14</td>
+<td><p>2:30 PM October 21 2014</p></td>
+</tr>
+<tr class="tcw">
+<td>now + 30 minutes</td>
+<td><p>10:30 AM October 18 2014</p></td>
+</tr>
+<tr class="tcw">
+<td>now + 1 hour</td>
+<td><p>11:00 AM October 18 2014</p></td>
+</tr>
+<tr class="tcw">
+<td>now + 2 days</td>
+<td><p>10:00 AM October 20 2014</p></td>
+</tr>
+<tr class="tcw">
+<td>4 PM + 2 days</td>
+<td><p>4:00 PM October 20 2014</p></td>
+</tr>
+<tr class="tcw">
+<td>now + 3 weeks</td>
+<td><p>10:00 AM November 8 2014</p></td>
+</tr>
+<tr class="tcw">
+<td>now + 4 months</td>
+<td><p>10:00 AM February 18 2015</p></td>
+</tr>
+<tr class="tcw">
+<td>now + 5 years</td>
+<td><p>10:00 AM October 18 2019</p></td>
+</tr>
+</table>
+<p class="tab">...so if you run the command:</p>
+<pre class="tcy tab">at now + 10 years</pre>
+<p class="tab">...and then enter a command at the <b>at&gt;</b> prompt, press enter, and type <b>Control-D</b>, you will be mailed the results of your command ten years from now.</p>
+<div class="tip tab"><span class="title">Note</span>
+<p>If you don't specify a time at the command line, <b>at</b> will return the following error message:</p>
+</div>
+<pre class="tab">Garbled time</pre>
+<p class="tab">...and no job will be added to the queue. So, always specify your time at the command line.</p>
+<h2>Using atq To View Your at Queue</h2>
+<p class="tab">You can use the program <b>atq</b> to view your currently-queued <b>at</b> jobs. Type <b>atq</b> to display the queue.</p>
+<pre class="tcy tab">atq</pre>
+<pre class="tab">1      Fri Oct 22 09:48:00 2014 a hope</pre>
+<p class="tab">This information is, from left to right: <b>job number</b>, <b>date</b>, <b>hour</b>, <b>year</b>, <b>queue</b>, and <b>username</b>.</p>
+<p class="tab"><b>atq</b> will only list jobs that belong to you &mdash; unless you are the super user, in which case it will list the jobs of all users. So to list all <b>at</b> jobs currently queued on the system, type this command (if you have superuser privileges):</p>
+<pre class="tcy tab">sudo atq</pre>
+<p class="tab">...and type your password, when prompted.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">at [-V] [-q <i>queue</i>] [-f <i>file</i>] [-mMlv] <i>timespec</i>...</pre>
+<pre class="tcy tab">at [-V] [-q <i>queue</i>] [-f <i>file</i>] [-mMkv] [-t <i>time</i>]</pre>
+<pre class="tcy tab">at -c <i>job</i> [<i>job</i>...]</pre>
+<pre class="tcy tab">atq [-V] [-q <i>queue</i>]</pre>
+<pre class="tcy tab">at [-rd] <i>job</i> [<i>job</i>...]</pre>
+<pre class="tcy tab">atrm [-V] <i>job</i> [<i>job</i>...]</pre>
+<pre class="tcy tab">batch</pre>
+<pre class="tcy tab">at -b</pre>
+<h2>Technical Description</h2>
+<p class="tab"><b>at</b> and <b>batch</b> read commands from <a href="/jargon/s/stdin.htm">standard input</a> or a specified file that are to be executed at a later time, using <a href="/jargon/s/sh.htm">sh</a>.</p>
+<p class="tab"><b>at</b> executes commands at a specified time.</p>
+<p class="tab"><b>atq</b> lists the user's pending jobs, unless the user is the <a href="/jargon/r/root.htm">superuser</a>; in that case, everybody's jobs are listed. The format of the output lines (one for each job) is: <b>job number</b>, <b>date</b>, <b>hour</b>, <b>year</b>, <b>queue</b>, and <b>username</b>.</p>
+<p class="tab"><b>atrm</b> deletes jobs, identified by their job number.</p>
+<p class="tab"><b>batch</b> executes commands when system <a href="/jargon/l/load.htm">load</a> levels permit; in other words, when the load average drops below 1.5, or the value specified in the invocation of <b>atd</b>.</p>
+<p class="tab"><b>At</b> allows fairly complex time specifications, extending the <a href="/jargon/p/posix.htm">POSIX.2</a> standard. It accepts times of the form <b>HH:MM</b> to run a job at a specific time of day. (If that time is already past, the next day is assumed.) You may also specify <b>midnight</b>, <b>noon</b>, or <b>teatime</b> (4pm) and you can have a time-of-day suffixed with AM or PM for running in the morning or the evening. You can also say what day the job will be run, by giving a date in the form month-name day with an optional year, or giving a date of the form <b>MMDD[CC]YY</b>, <b>MM/DD/[CC]YY</b>, <b>DD.MM.[CC]YY</b> or <b>[CC]YY-MM-DD</b>. The specification of a date must follow the specification of the time of day. You can also give times like <b>now + count</b> <i>time-units</i>, where the <i>time-units</i> can be minutes, hours, days, or weeks and you can tell at to run the job today by suffixing the time with today and to run the job tomorrow by suffixing the time with tomorrow.</p>
+<p class="tab">For example, to run a job at 4pm three days from now, you would do at <b>4pm + 3 days</b>, to run a job at 10:00am on July 31, you would do at <b>10am Jul 31</b> and to run a job at 1am tomorrow, you would do at <b>1am tomorrow</b>.</p>
+<p class="tab">The definition of the time specification can be found in <b>/usr/share/doc/at/timespec</b>.</p>
+<p class="tab">For both <b>at</b> and <b>batch</b>, commands are read from standard input or the file specified with the <b>-f</b> option and executed. The <a href="/jargon/c/currentd.htm">working directory</a>, the <a href="/jargon/e/environm.htm">environment</a> (except for the variables <b>BASH_VERSINFO</b>, <b>DISPLAY</b>, <b>EUID</b>, <b>GROUPS</b>, <b>SHELLOPTS</b>, <b>TERM</b>, <b>UID</b>, and <b>_</b>) and the <a href="/unix/uumask.htm">umask</a> are retained from the time of invocation.</p>
+<p class="tab">As at is currently implemented as a <a href="/jargon/s/suid.htm">setuid</a> program, other <a href="/jargon/e/envivari.htm">environment</a> variables (e.g., <b>LD_LIBRARY_PATH</b> or <b>LD_PRELOAD</b>) are also not exported. This may change in the future. As a workaround, set these variables explicitly in your job.</p>
+<p class="tab">An <b>at</b> or <b>batch</b> command run from a <a href="/unix/usu.htm"><b>su</b></a> <a href="/jargon/s/shell.htm">shell</a> will retain the current userid. The user will be mailed standard error and standard output from his commands, if any. Mail will be sent using the command <b>/usr/sbin/sendmail</b>. If at is executed from a <b>su</b> shell, the <a href="/jargon/o/owner.htm">owner</a> of the login shell will receive the mail.</p>
+<p class="tab">The superuser may always use these commands. For other users, permission to use <b>at</b> is determined by the files <b>/etc/at.allow</b> and <b>/etc/at.deny</b>. See <b>at.allow</b> for details.</p>
+<h2>Options</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>-V</b></td>
+<td><p>Prints the <a href="/jargon/v/version.htm">version</a> number to standard error and exits successfully.</p></td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b> <i>queue</i></td>
+<td><p>Uses the specified <a href="/jargon/q/queue.htm">queue</a>. A queue designation consists of a single letter; valid queue designations range from <b>a</b> to <b>z</b> and <b>A</b> to <b>Z</b>. The <b>a</b> queue is the default for <b>at</b> and the <b>b</b> queue for batch. Queues with higher letters run with increased niceness. The special queue "<b>=</b>" is reserved for jobs that are currently running.</p>
+<p>If a job is submitted to a queue designated with an uppercase letter, the job is treated as if it were submitted to batch at the time of the job. Once the time is reached, the batch processing rules with respect to load average apply. If <b>atq</b> is given a specific queue, it will only show jobs pending in that queue.</p></td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b></td>
+<td><p>Send mail to the user when the job has completed even if there was no output.</p></td>
+</tr>
+<tr class="tcw">
+<td><b>-M</b></td>
+<td><p>Never send mail to the user. In other words, execute the command, but do not notify the user of its output.</p></td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b> <i>file</i></td>
+<td><p>Reads the job from <i>file</i> rather than standard input.</p></td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b> <i>time</i></td>
+<td><p>Run the job at <i>time</i>, given in the format [[<i>CC</i>]<i>YY</i>]<i>MMDDhhmm</i>[<b>.</b><i>ss</i>].</p></td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b></td>
+<td><p>Running <b>at -l</b> is the same as running <b>atq</b>; it displays all queued <b>at</b> jobs.</p></td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b></td>
+<td><p>Is the same as running <b>atrm</b>. It removes a job from the <b>at</b> queue.</p></td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b></td>
+<td><p>Is also an alias for <b>atrm</b>.</p></td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b></td>
+<td><p>Is an alias for <b>batch</b>.</p></td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td><p>Shows the time the job will be executed before reading the job. Times displayed will be in the format "Thu Feb 20 14:50:00 1997".</p></td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b></td>
+<td><p>The <a href="/unix/ucat.htm"><b>cats</b></a> the jobs listed on the command line to standard output.</p></td>
+</tr>
+</table>
+<h2>Files</h2>
+<p class="tabb">/var/spool/cron/atjobs<br />
+/var/spool/cron/atspool<br />
+/proc/loadavg<br />
+/var/run/utmp<br />
+/etc/at.allow<br />
+/etc/at.deny</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">at -m 01:35 &lt; my-at-jobs.txt</pre>
+<p class="tab">Run the commands listed in the '<b>my-at-jobs.txt</b>' file at <b>1:35</b> AM. All output from the job will be mailed to the user running the task. When this command has been successfully entered you should receive a prompt similar to the example below:</p>
+<pre class="tab">commands will be executed using /bin/sh
+job 1 at Wed Dec 24 00:22:00 2014
+</pre>
+<pre class="tcy tab">at -l</pre>
+<p class="tab">This command will list each of the scheduled jobs in a format like the following:</p>
+<pre class="tab">1          Wed Dec 24 00:22:00 2003</pre>
+<p class="tab">...this is the same as running the command <b>atq</b>.</p>
+<pre class="tcy tab">at -r 1</pre>
+<p class="tab">Deletes job <b>1</b>. This command is the same as running the command <b>atrm 1</b>.</p>
+<pre class="tcy tab">atrm 23</pre>
+<p class="tab">Deletes job 23. This command is the same as running the command <b>at -r 23</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ucrontab.htm"><b>crontab</b></a> &mdash; View and edit a list of jobs for the system to run at regular intervals.</p>
+</article>
+<div class="bottomad"><ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+<div class="related"><ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="autorelaxed" data-ad-slot="9849691723" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div>
+</div>
+<div class="cf" id="meta_wrap">
+<ul class="options cf">
+<li class="useful-page"> <span class="nolink">Was this page useful?</span> <a class="first-child" href="/cgi-bin/feedback.cgi?yes" rel="nofollow">Yes</a> <a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li>
+<li>
+<ul>
+<li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li>
+<li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li>
+<li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li>
+<li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<footer>
+<form action="https://www.computerhope.com/cgi-bin/search.cgi" class="cf" method="post">
+<input class="sbar" name="q" title="Search" type="text" />
+<button type="Submit">Search</button>
+</form>
+<ul class="cf">
+<li class="recent-pages">
+<ol>
+<li class="widget-title"><h5>Recently added pages</h5></li>
+<li id="ra1"></li>
+<li id="ra2"></li>
+<li id="ra3"></li>
+<li id="ra4"></li>
+<li id="ra5"></li>
+<li><a href="/whatnew.htm">View all recent updates</a></li>
+</ol>
+</li>
+<li class="useful-links">
+<ol>
+<li class="widget-title"><h5>Useful links</h5></li>
+<li><a href="/more.htm">About Computer Hope</a></li>
+<li><a href="/sindex.htm">Site Map</a></li>
+<li><a href="/forum/">Forum</a></li>
+<li><a href="/contact/">Contact Us</a></li>
+<li><a href="/issues/ch000586.htm">How to Help</a></li>
+<li><a href="/chtop10.htm">Top 10 pages</a></li>
+</ol>
+</li>
+<li class="social-networks">
+<ol>
+<li class="widget-title first-child"><h5>Follow us</h5></li>
+<li><a class="facebook" href="https://www.facebook.com/computerhope/">Facebook</a></li>
+<li><a class="twitter" href="https://twitter.com/computerhope/">Twitter</a></li>
+<li><a class="pinterest" href="https://www.pinterest.com/computerhope/">Pinterest</a></li>
+<li><a class="youtube" href="https://www.youtube.com/user/Computerhope/">YouTube</a></li>
+<li><a class="rss" href="/rss.htm">RSS</a></li>
+</ol>
+</li>
+</ul>
+<div class="copyright">&copy; 2019 Computer Hope<br /><a class="legal" href="/legal.htm">Legal Disclaimer - Privacy Statement</a></div>
+</footer>
+</div>
+<script async="" src="https://www.computerhope.com/recent.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://www.computerhope.com/cdn/site.js"></script>
+<script async="" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=computerhope"></script>
+</body>
+</html>

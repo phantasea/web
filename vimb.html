@@ -1,0 +1,296 @@
+<!DOCTYPE html><html><head><link href="/css/default.css" rel="stylesheet" type="text/css" /><!--[if IE]><link href="/css/ie.css" rel="stylesheet" type="text/css" /><![endif]--><title>vimb</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type" /><meta content="Vimb. Awakening to Self. Body Shamanics. Healing. Thoughts and images. Technology and interfaces." name="description" /><meta content="alternative healing, awakening, body shamanics, body worker, breath work, crystal light bed, deep tissue work, energy work, healer, healing, heilkunst, heilkunster, higher light, higher light integration, homeopathic practitioner, john of god, karmic matrix removal, light bed, light body, myofacial release, rebirthing, reiki, shaman, shamanic healer, shamanic healing, shamanic journeying, shamanic practitioner, shamanism, steven hum, suffering, the story, truth" name="keywords" /><link href="/atom.xml" rel="alternate" title="atom feed" type="application/atom+xml" /><!--link rel="alternate" type="application/rss+xml" title="rss feed" href="/rss.xml"--><!--Magnific Popup core CSS file--><link href="/dist/magnific-popup.css" rel="stylesheet" /><!--jQuery 1.7.2+ or Zepto.js 1.0+--><script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script><!--Magnific Popup core JS file--><script src="/dist/jquery.magnific-popup.js"></script></head><body id="thedarnedestthing"><div id="emwidth" style="width:1em; height:1em; overflow:hidden; visibility:hidden;"></div><div id="wrapper"><div id="ie"><div id="header"><form action="/search" method="get"><span><a class="search" href="/the darnedest thing">the darnedest thing</a><span class="input"><input id="search" name="query" placeholder="" size="22" type="text" /></span></span></form></div><p class="separator"></p><div id="menu"><span class="left" style="display:inline-block;"><a href="/the story">the story</a><a href="/truth or die">truth or die</a><a href="/shadows and light">shadows and light</a><a href="/healing">healing</a><a class="thread" href="/colophon">colophon</a><a href="/contact">contact</a></span><span class="right" style="display:inline-block;"><a href="/index">index</a><a href="/date">date</a><a href="/recent">recent</a></span></div><h1 class="title"><a href="/vimb">vimb</a></h1><p class="publishing"><a href="/date?period=2015#february 2015">monday, 9 february 2015</a></p><div class="wiki">
+<p>minimalist browsers seem to go hand-in-hand with tiling window managers. 
+They are typically lightweight (memory wise), allow keyboard control, 
+maximize viewing real estate by hiding the ubiquitous URL bar and other 
+menu/bookmark bars, and are highly configurable.</p>
+
+<p><a href="https://fanglingsu.github.io/vimb/">vimb</a> came under my radar by 
+happenstance. Up until now, 
+<a href="https://github.com/mason-larobina/luakit">luakit</a> had been my go-to 
+browser since circa 2010. Visually and even operationally, many browsers 
+mimicked luakit, written in various dialects, of which, I have used 
+<a href="http://portix.bitbucket.org/dwb/">dwb</a>, 
+<a href="http://surf.suckless.org/">surf</a>, 
+<a href="https://github.com/k0ral/hbro">hbro</a>, 
+<a href="https://pwmt.org/projects/jumanji/">jumanji</a>, <a href="http://uzbl.org/">uzbl</a>, 
+and most recently, 
+<a href="https://github.com/The-Compiler/qutebrowser">qutebrowser</a>. Some 
+required customization via source language coding in C, Lua, Python, 
+Haskell or shell programming. Others utilized extensive configuration 
+files.</p>
+
+<p>The recent announcement of qutebrowser stirred interest in checking out 
+the web browser landscape. Luakit development has been dormant for 
+a number of years and qutebrowser looked fresh. For a version 0.x 
+release, qutebrowser is remarkably stable. But it still lacks, at this 
+juncture, a lot of features important to me 
+– bookmarks and history recording/searching for one – and the QT5 
+ Webkit which it is based on is still somewhat buggy.</p>
+
+<p>That’s when vimb caught my eye. Inspired by 
+<a href="http://sourceforge.net/p/vimprobable/wiki/Home/">Vimprobable</a>, 
+a browser that takes a modal approach similar to the <a href="http://thedarnedestthing.com/grokking vim">vim</a> 
+editor, vimb
+seemed like it could be the upgrade ticket and fit more seamlessly into 
+the vim universe I do so much writing in.</p>
+
+<h2 id="keyboard-mappings">keyboard mappings</h2>
+
+<p>first off, my vimb <em>config</em> file maps command mode “<strong>:</strong>” with the 
+semi-colon (switching the colon and semi-colon) – a convention that is 
+carried over from my vim setup – and a few mappings for opening 
+bookmarks (and bookmarks with a <strong>slash</strong> tag prefix for quick 
+launches)! Keymaps for tab control (<a href="http://thedarnedestthing.com/vimb#vimb-wrapper">below</a>) and 
+<a href="http://thedarnedestthing.com/readability">readability</a> Javascripts complete the keybinds..</p>
+
+<p><code>nnoremap ; :</code>
+<code>nnoremap : ;</code>
+<code>nnoremap b :open !</code>
+<code>nnoremap B :tabopen !</code>
+<code>nnoremap d :quit&lt;CR&gt;</code>
+<code>nnoremap D :quit!&lt;CR&gt;</code>
+<code>nnoremap O :tabopen </code>
+<code>nnoremap t :open !/</code>
+<code>nnoremap T :tabopen !/</code>
+<code>nnoremap gt :sh! xdotool key --window $VIMB_XID ctrl+shift+l&lt;CR&gt;&lt;Esc&gt;</code>
+<code>nnoremap gT :sh! xdotool key --window $VIMB_XID ctrl+shift+h&lt;CR&gt;&lt;Esc&gt;</code>
+<code>nnoremap 1gt :sh! xdotool key --window $VIMB_XID ctrl+1&lt;CR&gt;&lt;Esc&gt;</code>
+<code>nnoremap 2gt :sh! xdotool key --window $VIMB_XID ctrl+2&lt;CR&gt;&lt;Esc&gt;</code>
+<code>...</code>
+<code>nnoremap 9gt :sh! xdotool key --window $VIMB_XID ctrl+9&lt;CR&gt;&lt;Esc&gt;</code>
+<code>nnoremap 0gt :sh! xdotool key --window $VIMB_XID ctrl+0&lt;CR&gt;&lt;Esc&gt;</code>
+<code>nnoremap q :eval! simplyread()&lt;CR&gt;</code>
+<code>nnoremap Q :eval! readable()&lt;CR&gt;</code></p>
+
+<p>Bookmark searching is similar to history searching. Type the search 
+terms and press <em>tab</em> to reveal the results of the search. By creating 
+specifically formatted bookmark tags that can guarantee a single search 
+result, oft used web pages can be fetched with just a few keystrokes to 
+pull from the <em>bookmark</em> file..</p>
+
+<p><code>http://8tracks.com/   8tracks internet radio | Free music playlists | Best app for music   music 8tracks /8t</code>
+<code>http://localhost:32400/web/index.html#!/dashboard   Plex Media Manager   manager media plex server /pl</code>
+<code>http://localhost:631/   Home - CUPS 2.0.1   cups printing /cu</code>
+<code>http://localhost:8000/tt-rss/#f=-3&amp;c=0   (30068) Tiny Tiny RSS   tt-rss ttrss /tt</code>
+<code>http://localhost:8080/   Syncthing | luna   syncthing /sy</code>
+<code>...</code>
+<code>https://aur.archlinux.org/   AUR (en) - Home   archlinux aur database /au</code>
+<code>https://mail.google.com/mail/u/0/#inbox   Inbox (419) - sdothum@gmail.com - Gmail   gmail /gm</code>
+<code>http://songza.com/   Songza - Listen to Music Curated by Music Experts   songza music /za</code>
+<code>https://www.archlinux.org/news/   Arch Linux - News   arch linux news /ar</code>
+<code>http://thedarnedestthing.com/the%20darnedest%20thing   the darnedest thing   the darnedest thing tdt vps /TD</code></p>
+
+<p><span class="flush"></span>The use of the forward slash “<strong>/</strong>” for the two letter tag may 
+not be the best tag character to use, but it can be changed at a later 
+date easily enough.</p>
+
+<h2 id="settings">settings</h2>
+
+<p>some vimb behaviors and settings are enabled to customize the look and 
+feel of the browser – the way I like it – whose descriptions and many 
+other settings
+can be found <a href="https://fanglingsu.github.io/vimb/man.html">here</a>..</p>
+
+<p><code>set download-path=/net/downloads/http</code>
+<code>set editor-command="gvim -f"</code>
+<code>set fontsize=12px</code>
+<code>set history-max-items=99999</code>
+<code>set input-autohide=true</code>
+<code>set input-bg-normal=#464f52</code>
+<code>set input-fg-normal=#fdf6e3</code>
+<code>set home-page=https://www.archlinux.org/</code>
+<code>set smooth-scrolling=true</code>
+<code>set spacial-navigation=true</code>
+<code>set spell-checking=true</code>
+<code>set statusbar=false</code>
+<code>set webinspector=true</code></p>
+
+<h2 id="shortcuts">shortcuts</h2>
+
+<p>vimb allows defining search engine associations with simple acronyms 
+after the “:open” and “:tabopen” commands, of which, a few(!) are listed 
+to give an idea of how nimble the browser can become as a tool..</p>
+
+<p><code>shortcut-default du</code>
+<code>shortcut-add ab=https://bbs.archlinux.org/search.php?action=search&amp;author=&amp;forums=&amp;search_in=0&amp;sort_by=0&amp;sort_dir=DESC&amp;show_as=topics&amp;keywords=$0</code>
+<code>shortcut-add al=http://www.allmusic.com/search/all/$0</code>
+<code>shortcut-add ar=https://duckduckgo.com/?q=arch%20linux%20$0</code>
+<code>shortcut-add au=https://aur.archlinux.org/packages/?O=0&amp;C=0&amp;SeB=nd&amp;outdated=&amp;SB=n&amp;SO=a&amp;PP=50&amp;do_Search=Go&amp;K=$0</code>
+<code>shortcut-add aw=https://wiki.archlinux.org/index.php?title=Special:Search&amp;search=$0</code>
+<code>shortcut-add di=http://dictionary.reference.com/browse/$0</code>
+<code>shortcut-add du=https://duckduckgo.com/?q=$0&amp;ia=images</code>
+<code>shortcut-add gi=https://github.com/search?q=$0</code>
+<code>shortcut-add go=https://encrypted.google.com/search?q=$0</code>
+<code>...</code>
+<code>shortcut-add ha=http://www.haskell.org/hoogle/?hoogle=$0</code>
+<code>shortcut-add im=http://www.imdb.com/find?s=all&amp;q=$0</code>
+<code>shortcut-add ja=http://www.jango.com/music/$0</code>
+<code>shortcut-add mr=http://www.mrqe.com/search?q=$0</code>
+<code>shortcut-add re=https://duckduckgo.com/?q=review%20$0</code>
+<code>shortcut-add ro=http://www.rottentomatoes.com/search/?search=$0</code>
+<code>shortcut-add wi=http://en.wikipedia.org/w/index.php?title=Special:Search&amp;search=$0</code>
+<code>shortcut-add wo=http://www.wolframalpha.com/input/?i=$0</code>
+<code>shortcut-add yo=http://www.youtube.com/results?search_query=$0</code>
+<code>shortcut-add za=http://songza.com/search/?q=$0</code></p>
+
+<p><span class="flush"></span>The acronyms – I happen to like two letter assignments – 
+followed by any number of search terms couldn’t be any easier!</p>
+
+<h2 id="vimb-wrapper">vimb wrapper</h2>
+
+<p>tabs are not natively built into vimb which may seem like a huge 
+drawback – though, there are instances in which such behaviour may be 
+preferable for security. A URL <em>:tabopen</em> or passed to vimb or link 
+<em>Control-clicked</em> will, by default, open a new instance (window) of 
+vimb.</p>
+
+<p>But there are means to emulate the browser tabs common to other browsers 
+and to open URLs in a common vimb window. This requires 
+<a href="http://tools.suckless.org/tabbed/">tabbed</a> and sockets..</p>
+
+<p><code>#!/bin/sh</code>
+<code>histfile=~/.config/vimb/history</code>
+<code>histsize=1000</code>
+<code> </code>
+<code>function prune_history() {</code>
+<code>  work=$(mktemp)</code>
+<code>  [[ -f $histfile.vimb ]] || touch $histfile.vimb</code>
+<code>  cat $histfile.vimb $histfile &gt; $work</code>
+<code>  head -$(( $(cat $work | wc -l) - $histsize )) $work &gt; $histfile.vimb</code>
+<code>  tail -$histsize $work &gt; $histfile</code>
+<code>}</code>
+<code> </code>
+<code>if xdotool search -classname 'VimbT'; then</code>
+<code>  echo “;tabopen $@&lt;CR&gt;” | socat - unix-connect:$(grep ‘socket’ /tmp/vimb.socket)</code>
+<code>else</code>
+<code>  [[ $(hostname) = luna ]] &amp;&amp; prune_history</code>
+<code>  tabbed -f -n ‘VimbT’ -ps+1 -t ‘#B3431E’ -T ‘#FFFFFF’ -u ‘#464F52’ -U ‘#AAAAAA’ /usr/bin/vimb –socket –dump –embed &gt; /tmp/vimb.socket</code>
+<code>fi</code></p>
+
+<p>There is a lot going on here. First, <em>prune_history</em> was written to keep 
+the history available to the browser to a reasonable size. This is done 
+purely for performance reasons – an excessively large history file 
+slows down vimb history searches <em>and</em> quiting, something I discovered 
+after porting over my 30K luakit history to vimb! My vimb configuration 
+is shared across computers via <a href="http://syncthing.net/">syncthing</a> so 
+only the primary workstation triggers pruning the history. <a href="http://thedarnedestthing.com/dmenu">dmenu</a> is 
+used to access the older (pruned) history records (see 
+<a href="http://thedarnedestthing.com/vimb#history">below</a>).</p>
+
+<p>On first launch, the history is pruned and <em>tabbed</em> invokes vimb which 
+dumps the socket information for persistent access. Subsequent calls to 
+vimb connect to vimb via its socket.</p>
+
+<p>Note: that the URL command passed to vimb is with a (semi-colon) 
+<em>;tabopen</em> (not a colon)! This is because of the colon and semi-colon 
+keybinds <a href="http://thedarnedestthing.com/vimb#keyboard-mappings">above</a> which swap the colon and 
+semi-colon keys!</p>
+
+<p>Now, all external calls to vimb from any source, via the <em>vimb</em> wrapper, 
+will open the URL in a new tab! Unlike most browsers which typically 
+divide the tab space available by the number of opened tabs until the 
+tabs themselves become unusably truncated, <em>tabbed</em> maintains a minimum 
+tab width with automatic scroll indicators, maximizing the active tab 
+width where possible – quite novel and effective!</p>
+
+<h2 id="javascripts">javascripts</h2>
+
+<p>vimb loads the <em>scripts.js</em> file on every page load. This allows 
+inserting <a href="http://userscripts-mirror.org/index.html">userscripts</a> to be 
+triggered on page events – I haven’t tried this myself but it should be 
+possible for the available events that vimb is able to trap – and 
+mapping user defined actions to keys.</p>
+
+<p>Any number of functions can be placed in the <em>scripts.js</em> file for 
+reference in the vimb <em>config</em> file. <a href="http://thedarnedestthing.com/readability">Distraction free 
+scripts</a> are defined in the <em>config</em> keymaps 
+<a href="http://thedarnedestthing.com/vimb#keyboard-mappings">above</a>.</p>
+
+<h2 id="history">history</h2>
+
+<p>dmenu is used to allow searching the entire browser history (current 
+plus pruned) which, combined with the <a href="http://thedarnedestthing.com/vimb#vimb-wrapper">socket</a> 
+connection, provides seamless history reference..</p>
+
+<p><code>#!/bin/sh</code>
+<code>filter='ERROR:|localhost|luakit:|Page not found|[Ss]earch'</code>
+<code>case $BROWSER in</code>
+<code>  luakit)   sqldb=~/.local/share/luakit/history.db</code>
+<code>            query=”select datetime(last_visit,’unixepoch’), title, uri from history order by last_visit DESC;”</code>
+<code>            uri=$(echo “$query” </code>
+<code>                | sqlite3 $sqldb </code>
+<code>                | egrep -v “$filter” </code>
+<code>                | sed ‘s/[|]/  ::  /g’ </code>
+<code>                | $(dlist) -p ‘Web History:’ </code>
+<code>                | sed -r ‘s/.* :: .* :: (.<em>)/\1/’)</code>
+<code>            ;;</code>
+<code>  vimb|</em>)   histfile=~/.config/vimb/history</code>
+<code>            uri=$(tac $histfile $histfile.vimb </code>
+<code>                | egrep -v “$filter” </code>
+<code>                | sed “s/\t/  ::  /g” </code>
+<code>                | $(dlist) -p ‘Web History:’ </code>
+<code>                | sed -r ‘s/(.<em>) :: .</em>/\1/’)</code>
+<code>            ;;</code>
+<code>esac</code>
+<code>[[ $uri ]] &amp;&amp; dbrowser "$uri"</code></p>
+
+<p><span class="flush"></span>The <a href="http://thedarnedestthing.com/dmenu#open-bookmark-url">dbrowser</a> script allows opening 
+the selected URL with any browser which is useful for the rare web site 
+not rendered properly by WebKitGTK.</p>
+
+<h2 id="defaults">defaults</h2>
+
+<p>last, but not least, the shell environment should set the default 
+browser and path (if not already set) it can be found in..</p>
+
+<p><code>export BROWSER=vimb</code>
+<code>export PATH=$HOME/bin:/usr/bin:$PATH</code></p>
+
+<p><span class="flush"></span>and for <a href="http://thedarnedestthing.com/urxvt">URxvt</a> terminal users, URLs on the console 
+screen can be opened with..</p>
+
+<p><code>URxvt*perl-ext-common: default,matcher</code>
+<code>URxvt*url-launcher:    vimb</code></p>
+
+<p><span class="flush"></span>vimb: similar in many ways to luakit and other minimalistic 
+browsers I use and difficult to differentiate by look between them. One 
+of the great features I find with vimb (and surf), is that refreshing 
+a page does not “home” the web page which is extremely useful for 
+tweaking style sheets or previewing web content changes – which I do 
+a lot.</p>
+
+<p>For all its nimbleness, it is not without its “quirks”, if they can be 
+called that. For instance, because “tabs” are essentially overlapped 
+instances of vimb occupying a single window, history undo can seem 
+limited – only the last page closed is “remembered”, not all closed 
+“tabs”, nor is the go back/forward history for that restored page 
+available. It can be a bit disorienting if comprehensive history undo is 
+something relied upon extensively in your browser workflow – though, 
+every web page visited can be found in vimb’s history search. It may 
+become more intuitive and less unsettling in time – and less 
+problematic when I am just surfing and not tinkering with vimb itself.</p>
+
+<p>Qutebrowser (and <a href="https://github.com/AeroNotix/lispkit">lispkit</a>) 
+remains on the horizon. But vimb with its “vim-ness” in configuration 
+and use make it very powerful and familiar
+– and the browser I currently find myself exploring and using.</p>
+</div><p class="nextwiki"><a href="/bspwm framed">»» &nbsp;bspwm framed</a></p><p class="showcomments"><a href="mailto:comments@thedarnedestthing.com?subject=/// vimb ///">comment</a><a href="/comments"> ?</a></p><p></p></div></div><script type="text/javascript">$(document).ready(function() {
+  $('.image').magnificPopup({ 
+    type: 'image',
+    closeOnContentClick: true,
+    // mainclass: 'mfp-with-zoom', // this class is for css animation below
+    // zoom: {
+    //   enabled: true, // by default it's false, so don't forget to enable it
+    //   duration: 300, // duration of the effect, in milliseconds
+    //   easing: 'ease-in-out', // css transition easing function 
+    //   // the "opener" function should return the element from which popup will be zoomed in
+    //   // and to which popup will be scaled down
+    //   // by defailt it looks for an image tag:
+    //   opener: function(openerelement) {
+    //     // openerelement is the element on which popup was initialized, in this case its <a> tag
+    //     // you don't need to add "opener" option if this code matches your needs, it's defailt one.
+    //     return openerelement.is('img') ? openerelement : openerelement.find('img');
+    //   },
+    // },
+  });
+});</script></body></html>
