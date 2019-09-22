@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Understanding Shell Script's idiom&#58; 2&#62;&amp;1</title>
+    
+    <meta name="description" content="Understanding Shell Script's idiom&#58; 2&#62;&amp;1" />
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@brianstorti" />
+    <meta name="twitter:creator" content="@brianstorti" />
+    <meta name="og:title" content="Understanding Shell Script's idiom&#58; 2&#62;&amp;1" />
+    <meta name="og:image" content="http://www.brianstorti.com/assets/images/profile-small.png" />
+
+    <meta name="og:description" content="Understanding Shell Script's idiom&#58; 2&#62;&amp;1" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/master.min.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+    <link rel="stylesheet" href="/assets/fontello/css/fontello.css">
+</head>
+
+<body class="home-template">
+    <header class="site-header">
+  <a href="/">« Go back to posts list</a>
+
+  <section class="social-section">
+    <a href="http://github.com/brianstorti"><i class="icon-github-circled"></i></a>
+    <a href="http://twitter.com/brianstorti"><i class=" icon-twitter"></i></a>
+    <a href="mailto:btstorti@gmail.com"><i class=" icon-email"></i></a>
+    <a href="http://linkedin.com/in/brianstorti"><i class=" icon-linkedin"></i></a>
+    <a href="/feed/atom.xml"><i class=" icon-rss"></i></a>
+  </section>
+</header>
+
+
+
+<main class="content" role="main">
+    <article class="post">
+        <h1 class="post-title">Understanding Shell Script's idiom&#58; 2&#62;&amp;1</h1>
+
+        <span class="post-meta">
+          <time datetime="2015-11-10">10 Nov 2015</time>
+        </span>
+
+        <br />
+
+        <section class="post-content">
+            <p>When we are working with a programming or scripting language we are constantly using some idioms, some things 
+that are done in <em>this certain way</em>, the common solution to a problem. With Shell Script this is not different,
+and a quite common idiom, but not so well understood, is the <code class="highlighter-rouge">2&gt;&amp;1</code>, like in<br />
+<code class="highlighter-rouge">ls foo &gt; /dev/null 2&gt;&amp;1</code>.<br />
+Let me explain what is going on here and why this works the way it does.</p>
+
+<h4 id="a-quick-introduction-to-io-redirection">A quick introduction to I/O redirection</h4>
+
+<p>Simply put, redirection is the mechanism used to send the output of a command to another place. For instance, if we just <code class="highlighter-rouge">cat</code> a file,
+its output will be printed in the screen, by default:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cat </span>foo.txt
+foo
+bar
+baz
+</code></pre></div></div>
+
+<p>But we can redirect this output to another place. Here, for example, we are redirecting it to a file called <code class="highlighter-rouge">output.txt</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cat </span>foo.txt <span class="o">&gt;</span> output.txt
+
+<span class="nv">$ </span><span class="nb">cat </span>output.txt
+foo
+bar
+baz
+</code></pre></div></div>
+
+<p>Note that in the first <code class="highlighter-rouge">cat</code> we don’t see any output in the screen. We changed the <strong>standard output</strong> (<code class="highlighter-rouge">stdout</code>) location to a file, so it doesn’t use
+the screen anymore.</p>
+
+<p>It’s also important to know that there are this other place, called <strong>standard error</strong> (<code class="highlighter-rouge">stderr</code>), to where programs can send their error messages. So if we
+try to <code class="highlighter-rouge">cat</code> a file that doesn’t exist, like this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cat </span>nop.txt <span class="o">&gt;</span> output.txt
+<span class="nb">cat</span>: nop.txt: No such file or directory
+</code></pre></div></div>
+
+<p>Even if we redirect the <code class="highlighter-rouge">stdout</code> to a file, we still see the error output in the screen, because we are redirecting just the standard output, not the standard error.</p>
+
+<h4 id="and-a-quick-introduction-to-file-descriptors">And a quick introduction to file descriptors</h4>
+
+<p>A file descriptor is nothing more that a positive integer that represents an open file. If you have 100 open files, you will have 100 file descriptors for them.</p>
+
+<p>The only caveat is that, in Unix systems, <a href="https://en.wikipedia.org/wiki/Everything_is_a_file"><em>everything is a file</em></a>. But that’s not really important now, we just need to know
+that there are file descriptors for the Standard Output (<code class="highlighter-rouge">stdout</code>) and Standard Error (<code class="highlighter-rouge">stderr</code>).</p>
+
+<p>In plain English, it means that there are “ids” that identify these two locations, and it will always be <code class="highlighter-rouge">1</code> for <code class="highlighter-rouge">stdout</code> and <code class="highlighter-rouge">2</code> for <code class="highlighter-rouge">stderr</code>.</p>
+
+<h4 id="putting-the-pieces-together">Putting the pieces together</h4>
+
+<p>Going back to our first example, when we redirected the output of <code class="highlighter-rouge">cat foo.txt</code> to <code class="highlighter-rouge">output.txt</code>, we could rewrite the command like this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cat </span>foo.txt 1&gt; output.txt
+</code></pre></div></div>
+
+<p>This <code class="highlighter-rouge">1</code> is just the file descriptor for <code class="highlighter-rouge">stdout</code>. The syntax for redirecting is <code class="highlighter-rouge">[FILE_DESCRIPTOR]&gt;</code>, leaving the file descriptor out is just a shortcut to <code class="highlighter-rouge">1&gt;</code>.</p>
+
+<p>So, to redirect <code class="highlighter-rouge">stderr</code>, it should be just a matter of adding the right file descriptor in place:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Using stderr file descriptor (2) to redirect the errors to a file</span>
+<span class="nv">$ </span><span class="nb">cat </span>nop.txt 2&gt; error.txt
+
+<span class="nv">$ </span><span class="nb">cat </span>error.txt
+<span class="nb">cat</span>: nop.txt: No such file or directory
+</code></pre></div></div>
+
+<p>At this point you probably already know what the <code class="highlighter-rouge">2&gt;&amp;1</code> idiom is doing, but let’s make it official.</p>
+
+<p>You use <code class="highlighter-rouge">&amp;1</code> to reference the value of the file descriptor 1 (<code class="highlighter-rouge">stdout</code>). So when you use <code class="highlighter-rouge">2&gt;&amp;1</code> you are basically saying “Redirect the <code class="highlighter-rouge">stderr</code> to the same place we are redirecting the <code class="highlighter-rouge">stdout</code>”.
+And that’s why we can do something like this to redirect both <code class="highlighter-rouge">stdout</code> and <code class="highlighter-rouge">stderr</code> to the same place:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cat </span>foo.txt <span class="o">&gt;</span> output.txt 2&gt;&amp;1
+
+<span class="nv">$ </span><span class="nb">cat </span>output.txt
+foo
+bar
+baz
+
+<span class="nv">$ </span><span class="nb">cat </span>nop.txt <span class="o">&gt;</span> output.txt 2&gt;&amp;1
+
+<span class="nv">$ </span><span class="nb">cat </span>output.txt
+<span class="nb">cat</span>: nop.txt: No such file or directory
+</code></pre></div></div>
+
+<h4 id="recap">Recap</h4>
+
+<ul>
+  <li>There are two places programs send output to: Standard output (<code class="highlighter-rouge">stdout</code>) and Standard Error (<code class="highlighter-rouge">stderr</code>);</li>
+  <li>You can redirect these outputs to a different place (like a file);</li>
+  <li>File descriptors are used to identify <code class="highlighter-rouge">stdout</code> (1) and <code class="highlighter-rouge">stderr</code> (2);</li>
+  <li><code class="highlighter-rouge">command &gt; output</code> is just a shortcut for <code class="highlighter-rouge">command 1&gt; output</code>;</li>
+  <li>You can use <code class="highlighter-rouge">&amp;[FILE_DESCRIPTOR]</code> to reference a file descriptor value;</li>
+  <li>Using <code class="highlighter-rouge">2&gt;&amp;1</code> will redirect <code class="highlighter-rouge">stderr</code> to whatever value is set to <code class="highlighter-rouge">stdout</code> (and <code class="highlighter-rouge">1&gt;&amp;2</code> will do the opposite).</li>
+</ul>
+
+        </section>
+
+        <div class='post-newsletter'>
+          <link href="//cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css">
+          <style type="text/css">
+            #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+            #mc_embed_signup .button { background-color: #4d8ecb; }
+          </style>
+
+          <div id="mc_embed_signup">
+            <form action="//brianstorti.us2.list-manage.com/subscribe/post?u=528fddd62b76b7271f97a79bc&id=092030f659&SIGNUP=/understanding-shell-script-idiom-redirect/" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                <div id="mc_embed_signup_scroll">
+              <h2>Get fresh articles in your inbox</h2>
+              <p>If you liked this article, you might want to subscribe. If you don't like what you get, unsubscribe with one click.</p>
+            <div class="mc-field-group">
+              <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Your email address">
+            </div>
+              <div id="mce-responses" class="clear">
+                <div class="response" id="mce-error-response" style="display:none"></div>
+                <div class="response" id="mce-success-response" style="display:none"></div>
+              </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;"><input type="text" name="b_528fddd62b76b7271f97a79bc_092030f659" tabindex="-1" value=""></div>
+                <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+                </div>
+            </form>
+          </div>
+        </div>
+
+        <footer class="post-footer">
+            
+                <section class="author">
+                  <header> <a href="/about"> <img class="profile" src="/assets/images/profile-small.png" alt="Author's profile picture"></a></header>
+                  <article>
+                    Written by <h4 class="author-name"><a href="/about">Brian Storti</a></h4>
+                    <a href="https://twitter.com/brianstorti" class="twitter-follow-button" data-show-count="false">Follow @brianstorti</a>
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                  </article>
+                </section>
+            
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter"
+                   href="http://twitter.com/share?text=Understanding Shell Script's idiom&#58; 2&#62;&amp;1: www.brianstorti.com/understanding-shell-script-idiom-redirect/"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook-rect" href="https://www.facebook.com/sharer/sharer.php?u=www.brianstorti.com/understanding-shell-script-idiom-redirect/"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-googleplus-rect" href="https://plus.google.com/share?url=www.brianstorti.com/understanding-shell-script-idiom-redirect/"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+            <section class="disqus">
+              <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                var disqus_shortname = 'brianstorti';
+
+                  (function() {
+                      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                      dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+                      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+              <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </section>
+        </footer>
+    </article>
+</main>
+
+
+    <footer class="site-footer">
+      <a href="http://github.com/brianstorti"><i class="social-icon icon-github-circled"></i></a>
+      <a href="http://twitter.com/brianstorti"><i class="social-icon icon-twitter"></i></a>
+      <a href="mailto:btstorti@gmail.com"><i class="social-icon icon-email"></i></a>
+      <a href="http://linkedin.com/in/brianstorti"><i class="social-icon icon-linkedin"></i></a>
+      <a href=""><i class="social-icon icon-rss"></i></a>
+    </footer>
+</body>
+</html>
+
+<script>
+if (window.location.host.indexOf("localhost") === -1) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-55015531-1', 'auto');
+  ga('send', 'pageview');
+}
+</script>
