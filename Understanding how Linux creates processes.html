@@ -1,0 +1,437 @@
+<!doctype html>
+	<!--[if !IE]>
+	<html class="no-js non-ie" lang="en-US"> <![endif]-->
+	<!--[if IE 7 ]>
+	<html class="no-js ie7" lang="en-US"> <![endif]-->
+	<!--[if IE 8 ]>
+	<html class="no-js ie8" lang="en-US"> <![endif]-->
+	<!--[if IE 9 ]>
+	<html class="no-js ie9" lang="en-US"> <![endif]-->
+	<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en-US"> <!--<![endif]-->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="https://gmpg.org/xfn/11">
+<link rel="pingback" href="https://brandonwamboldt.ca/xmlrpc.php">
+
+<title>Understanding how Linux creates processes &#8211; Brandon Wamboldt</title>
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Brandon Wamboldt &raquo; Feed" href="https://brandonwamboldt.ca/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Brandon Wamboldt &raquo; Comments Feed" href="https://brandonwamboldt.ca/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Brandon Wamboldt &raquo; Understanding how Linux creates processes Comments Feed" href="https://brandonwamboldt.ca/how-linux-creates-processes-1528/feed/" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-10190031-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "UA-10190031-3", {"allow_display_features":false});
+  </script>
+
+			<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/12.0.0-1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/12.0.0-1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/brandonwamboldt.ca\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.2.4"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55357,56424,55356,57342,8205,55358,56605,8205,55357,56424,55356,57340],[55357,56424,55356,57342,8203,55358,56605,8203,55357,56424,55356,57340]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='wp-block-library-css'  href='https://brandonwamboldt.ca/wp-includes/css/dist/block-library/style.min.css?ver=5.2.4' type='text/css' media='all' />
+<link rel='stylesheet' id='activello-bootstrap-css'  href='https://brandonwamboldt.ca/wp-content/themes/activello/assets/css/bootstrap.min.css?ver=5.2.4' type='text/css' media='all' />
+<link rel='stylesheet' id='activello-icons-css'  href='https://brandonwamboldt.ca/wp-content/themes/activello/assets/css/font-awesome.min.css?ver=5.2.4' type='text/css' media='all' />
+<link rel='stylesheet' id='activello-fonts-css'  href='//fonts.googleapis.com/css?family=Lora%3A400%2C400italic%2C700%2C700italic%7CMontserrat%3A400%2C700%7CMaven+Pro%3A400%2C700&#038;ver=5.2.4' type='text/css' media='all' />
+<link rel='stylesheet' id='activello-style-css'  href='https://brandonwamboldt.ca/wp-content/themes/activello/style.css?ver=5.2.4' type='text/css' media='all' />
+<script type='text/javascript' src='https://brandonwamboldt.ca/wp-includes/js/jquery/jquery.js?ver=1.12.4-wp'></script>
+<script type='text/javascript' src='https://brandonwamboldt.ca/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<script type='text/javascript' src='https://brandonwamboldt.ca/wp-content/themes/activello/assets/js/vendor/modernizr.min.js?ver=5.2.4'></script>
+<script type='text/javascript' src='https://brandonwamboldt.ca/wp-content/themes/activello/assets/js/vendor/bootstrap.min.js?ver=5.2.4'></script>
+<script type='text/javascript' src='https://brandonwamboldt.ca/wp-content/themes/activello/assets/js/functions.min.js?ver=5.2.4'></script>
+<link rel='https://api.w.org/' href='https://brandonwamboldt.ca/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://brandonwamboldt.ca/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://brandonwamboldt.ca/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='So what is /proc anyways?' href='https://brandonwamboldt.ca/so-what-is-proc-anyways-1510/' />
+<link rel='next' title='Analysis of a WordPress plugin exploit' href='https://brandonwamboldt.ca/analysis-of-a-wordpress-plugin-exploit-1538/' />
+<meta name="generator" content="WordPress 5.2.4" />
+<link rel="canonical" href="https://brandonwamboldt.ca/how-linux-creates-processes-1528/" />
+<link rel='shortlink' href='https://brandonwamboldt.ca/?p=1528' />
+<link rel="alternate" type="application/json+oembed" href="https://brandonwamboldt.ca/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fbrandonwamboldt.ca%2Fhow-linux-creates-processes-1528%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://brandonwamboldt.ca/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fbrandonwamboldt.ca%2Fhow-linux-creates-processes-1528%2F&#038;format=xml" />
+<style type="text/css">a:hover, a:focus, article.post .post-categories a:hover, article.post .post-categories a:focus, .entry-title a:hover, .entry-title a:focus, .entry-meta a:hover, .entry-meta a:focus, .entry-footer a:hover, .entry-footer a:focus, .read-more a:hover, .read-more a:focus, .social-icons a:hover, .social-icons a:focus, .flex-caption .post-categories a:hover, .flex-caption .post-categories a:focus, .flex-caption .read-more a:hover, .flex-caption .read-more a:focus, .flex-caption h2:hover, .flex-caption h2:focus-within, .comment-meta.commentmetadata a:hover, .comment-meta.commentmetadata a:focus, .post-inner-content .cat-item a:hover, .post-inner-content .cat-item a:focus, .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, blockquote:before, .navbar-default .navbar-nav > .open > a:focus, .cat-title a, .single .entry-content a, .site-info a:hover, .site-info a:focus {color:#ff3233}article.post .post-categories:after, .post-inner-content .cat-item:after, #secondary .widget-title:after, .dropdown-menu>.active>a, .dropdown-menu>.active>a:hover, .dropdown-menu>.active>a:focus {background:#ff3233}.label-default[href]:hover, .label-default[href]:focus, .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, #image-navigation .nav-previous a:hover, #image-navigation .nav-previous a:focus, #image-navigation .nav-next a:hover, #image-navigation .nav-next a:focus, .woocommerce #respond input#submit:hover, .woocommerce #respond input#submit:focus, .woocommerce a.button:hover, .woocommerce a.button:focus, .woocommerce button.button:hover, .woocommerce button.button:focus, .woocommerce input.button:hover, .woocommerce input.button:focus, .woocommerce #respond input#submit.alt:hover, .woocommerce #respond input#submit.alt:focus, .woocommerce a.button.alt:hover, .woocommerce a.button.alt:focus, .woocommerce button.button.alt:hover, .woocommerce button.button.alt:focus, .woocommerce input.button.alt:hover, .woocommerce input.button.alt:focus, .input-group-btn:last-child>.btn:hover, .input-group-btn:last-child>.btn:focus, .scroll-to-top:hover, .scroll-to-top:focus, button, html input[type=button]:hover, html input[type=button]:focus, input[type=reset]:hover, input[type=reset]:focus, .comment-list li .comment-body:after, .page-links a:hover span, .page-links a:focus span, .page-links span, input[type=submit]:hover, input[type=submit]:focus, .comment-form #submit:hover, .comment-form #submit:focus, .tagcloud a:hover, .tagcloud a:focus, .single .entry-content a:hover, .single .entry-content a:focus, .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .dropdown-menu> li> a:hover, .dropdown-menu> li> a:focus, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {background-color:#ff3233; }input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus, input[type="url"]:focus, input[type="password"]:focus, input[type="search"]:focus, textarea:focus { outline-color: #ff3233; }</style>	<style type="text/css">
+		#social li{
+			display: inline-block;
+		}
+		#social li,
+		#social ul {
+			border: 0!important;
+			list-style: none;
+			padding-left: 0;
+			text-align: center;
+		}
+		#social li a[href*="twitter.com"] .fa:before,
+		.fa-twitter:before {
+			content: "\f099"
+		}
+		#social li a[href*="facebook.com"] .fa:before,
+		.fa-facebook-f:before,
+		.fa-facebook:before {
+			content: "\f09a"
+		}
+		#social li a[href*="github.com"] .fa:before,
+		.fa-github:before {
+			content: "\f09b"
+		}
+		#social li a[href*="/feed"] .fa:before,
+		.fa-rss:before {
+			content: "\f09e"
+		}
+		#social li a[href*="pinterest.com"] .fa:before,
+		.fa-pinterest:before {
+			content: "\f0d2"
+		}
+		#social li a[href*="plus.google.com"] .fa:before,
+		.fa-google-plus:before {
+			content: "\f0d5"
+		}
+		#social li a[href*="linkedin.com"] .fa:before,
+		.fa-linkedin:before {
+			content: "\f0e1"
+		}
+		#social li a[href*="youtube.com"] .fa:before,
+		.fa-youtube:before {
+			content: "\f167"
+		}
+		#social li a[href*="instagram.com"] .fa:before,
+		.fa-instagram:before {
+			content: "\f16d"
+		}
+		#social li a[href*="flickr.com"] .fa:before,
+		.fa-flickr:before {
+			content: "\f16e"
+		}
+		#social li a[href*="tumblr.com"] .fa:before,
+		.fa-tumblr:before {
+			content: "\f173"
+		}
+		#social li a[href*="dribbble.com"] .fa:before,
+		.fa-dribbble:before {
+			content: "\f17d"
+		}
+		#social li a[href*="skype.com"] .fa:before,
+		.fa-skype:before {
+			content: "\f17e"
+		}
+		#social li a[href*="foursquare.com"] .fa:before,
+		.fa-foursquare:before {
+			content: "\f180"
+		}
+		#social li a[href*="vimeo.com"] .fa:before,
+		.fa-vimeo-square:before {
+			content: "\f194"
+		}
+		#social li a[href*="weheartit.com"] .fa:before,
+		.fa-heart:before {
+			content: "\f004"
+		}
+		#social li a[href*="spotify.com"] .fa:before,
+		.fa-spotify:before {
+			content: "\f1bc"
+		}
+		#social li a[href*="soundcloud.com"] .fa:before,
+		.fa-soundcloud:before {
+			content: "\f1be"
+		}
+	</style>		<style type="text/css" id="wp-custom-css">
+			#logo {
+padding: 13px 0 10px 0;	
+}		</style>
+		
+</head>
+
+<body class="post-template-default single single-post postid-1528 single-format-standard has-sidebar-right">
+<div id="page" class="hfeed site">
+
+	<header id="masthead" class="site-header" role="banner">
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container">
+				<div class="row">
+					<div class="site-navigation-inner col-sm-12">
+						<div class="navbar-header">
+							<button type="button" class="btn navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+						<div class="collapse navbar-collapse navbar-ex1-collapse"><ul id="menu-main-menu" class="nav navbar-nav"><li id="menu-item-432" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-432"><a title="About Me" href="https://brandonwamboldt.ca/about/">About Me</a></li>
+<li id="menu-item-1935" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1935"><a title="Resources" href="https://brandonwamboldt.ca/links/">Resources</a></li>
+<li id="menu-item-456" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-456"><a title="Projects" href="https://brandonwamboldt.ca/projects/">Projects </a><span class="activello-dropdown"></span>
+<ul role="menu" class=" dropdown-menu">
+	<li id="menu-item-1412" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1412"><a title="GitHub" href="https://github.com/brandonwamboldt?tab=repositories">GitHub</a></li>
+	<li id="menu-item-1654" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1654"><a title="Varnish Dashboard" href="https://github.com/brandonwamboldt/varnish-dashboard">Varnish Dashboard</a></li>
+	<li id="menu-item-1314" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1314"><a title="NodeFTPD" href="https://brandonwamboldt.ca/projects/nodeftpd/">NodeFTPD</a></li>
+	<li id="menu-item-993" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-993"><a title="Util.php" href="https://brandonwamboldt.ca/projects/util-php/">Util.php</a></li>
+	<li id="menu-item-457" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-457"><a title="WordPress Access Control" href="https://brandonwamboldt.ca/projects/wordpress-access-control/">WordPress Access Control</a></li>
+</ul>
+</li>
+<li id="menu-item-430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-430"><a title="Contact Info" href="https://brandonwamboldt.ca/contact-me/">Contact Info</a></li>
+<li id="menu-item-1161" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1161"><a title="Resume/CV" href="https://brandonwamboldt.ca/cv">Resume/CV</a></li>
+</ul></div>
+						<div class="nav-search"><form action="https://brandonwamboldt.ca/" method="get"><input type="text" name="s" value="" placeholder="Search"><button type="submit" class="header-search-icon" name="submit" id="searchsubmit" value="Search"><i class="fa fa-search"></i></button></form>							
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav><!-- .site-navigation -->
+
+		
+		<div class="container">
+			<div id="logo">
+				<span class="site-name">
+																			<a class="navbar-brand" href="https://brandonwamboldt.ca/" title="Brandon Wamboldt" rel="home">Brandon Wamboldt</a>
+									
+									</span><!-- end of .site-name -->
+
+									<div class="tagline">Software Development &amp; DevOps</div>
+							</div><!-- end of #logo -->
+
+						<div id="line"></div>
+					</div>
+
+	</header><!-- #masthead -->
+
+
+	<div id="content" class="site-content">
+
+		<div class="top-section">
+					</div>
+
+		<div class="container main-content-area">
+
+						<div class="cat-title">
+				<ul class="post-categories">
+	<li><a href="https://brandonwamboldt.ca/category/understanding-technology/" rel="category tag">Understanding Technology</a></li></ul>			</div>
+									
+			<div class="row">
+				<div class="main-content-inner col-sm-12 col-md-8 side-right">
+
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-1528" class="post-1528 post type-post status-publish format-standard hentry category-understanding-technology tag-linux tag-linux-internals">
+	<div class="blog-item-wrap">
+		<div class="post-inner-content">
+			<header class="entry-header page-header">
+				<h1 class="entry-title">Understanding how Linux creates processes</h1>
+
+								<div class="entry-meta">
+					<span class="posted-on">Posted on <a href="https://brandonwamboldt.ca/how-linux-creates-processes-1528/" rel="bookmark"><time class="entry-date published" datetime="2014-08-07T11:16:57-03:00">August 7, 2014</time><time class="updated" datetime="2015-08-18T15:09:01-03:00">August 18, 2015</time></a></span>by <span class="author vcard"><a class="url fn n" href="https://brandonwamboldt.ca/author/admin/">Brandon Wamboldt</a></span>
+					
+				</div><!-- .entry-meta -->
+							</header><!-- .entry-header -->
+			
+			<a href="https://brandonwamboldt.ca/how-linux-creates-processes-1528/" title="Understanding how Linux creates processes" >
+							</a>
+			
+			<div class="entry-content">
+
+				<p>A friend recently read my post on <a href="https://brandonwamboldt.ca/how-bash-redirection-works-under-the-hood-1512/">how bash redirection works</a>, but didn&#8217;t quite understand my explanation of how bash launches another process and sets stdin/stdout/stderr, so this is a follow up post.</p>
+<p>Linux creates every process using the <code>fork(2)</code> or <code>clone(2)</code> syscalls. The only way to create a process is to fork your current process, and replace the executable image using the <code>exec(2)</code> syscall with the executable image of the process you want to run. Here&#8217;s how it works:</p>
+<p><span id="more-1528"></span></p>
+<ol>
+<li>A process (e.g. bash) wants to run another process, such as &#8220;ls&#8221; (to list files and directories)</li>
+<li>The process (bash) forks itself using the <code>fork(2)</code> or <code>clone(2)</code> syscall</li>
+<li>Forked processes are basically exact copies of their parent process, and resume execution at the exact same spot. Therefore you normally check if you&#8217;re the forked process by checking the return code of the <code>fork(2)</code> or <code>clone(2)</code> syscall. It&#8217;ll return different values for the parent and the child process. The parent will then go on to do something like call <code>wait(2)</code> to wait for the child process to complete execution</li>
+<li>The child process inherits pipes, file descriptors, state, etc from the parent process, but a lot of that isn&#8217;t needed now so the child process may clean up by closing open file descriptors and sockets, etc</li>
+<li>The child process calls <code>execve(2)</code> or another <code>exec(2)</code> syscall to replace itself with the target process. A few things about the <code>exec(2)</code> syscalls. They replace the current process with another process. The text, data and stack of the calling process are overwritten by the new process. However, most process attributes are preserved, such as the stdin/stdout/stderr file descriptors (so a child process could set these before running <code>exec(2)</code>. File descriptors are kept open in general, unless they are set to close-on-exec.</li>
+</ol>
+<p>Here&#8217;s a code example that does the same thing:</p>
+<pre>#include &lt;unistd.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;fcntl.h&gt;
+
+int main(void)
+{
+  int pid = fork();
+
+  if (pid == -1) {
+    fprintf(stderr, "Could not fork process\n");
+    return -1;
+  } else if (pid == 0) {
+    fprintf(stdout, "Child will now replace itself with ls\n");
+
+    // Setup the arguments/environment to call
+    char *argv[] = { "/bin/ls", "-la", 0 };
+    char *envp[] = { "HOME=/", "PATH=/bin:/usr/bin", "USER=brandon", 0 };
+
+    // Call execve(2) which will replace the executable image of this
+    // process
+    execve(argv[0], &amp;argv[0], envp);
+
+    // Execution will never continue in this process unless execve returns
+    // because of an error
+    fprintf(stderr, "Oops!\n");
+    return -1;
+  } else if (pid &gt; 0) {
+    int status;
+
+    fprintf(stdout, "Parent will now wait for child to finish execution\n");
+    wait(&amp;status);
+    fprintf(stdout, "Child has finished execution (returned %i), parent is done\n", status);
+  }
+
+  return 0;
+}
+</pre>
+<p>The above code will fork the process, and run ls, with some helpful output to see whats going on. Output should look like this:</p>
+<pre>Parent will now wait for child to finish execution
+Child will now replace itself with ls
+total 24
+drwxrwxr-x 2 brandon brandon 4096 Aug 7 11:09 .
+drwxr-xr-x 53 brandon brandon 4096 Aug 7 11:09 ..
+-rwxrwxr-x 1 brandon brandon 8805 Aug 7 11:08 test
+-rw-rw-rw- 1 brandon brandon 1038 Aug 7 11:08 test.c
+Child has finished execution (returned 0), parent is done</pre>
+				
+								
+			</div><!-- .entry-content -->
+			<div class="entry-footer">
+								<span class="comments-link"><a href="https://brandonwamboldt.ca/how-linux-creates-processes-1528/#respond">No comments yet</a></span>
+					
+								<!-- tags -->
+				<div class="tagcloud">
+
+					<a href="https://brandonwamboldt.ca/tag/linux/">Linux</a> <a href="https://brandonwamboldt.ca/tag/linux-internals/">Linux Internals</a> 
+				</div>
+				<!-- end tags -->
+							</div><!-- .entry-footer -->
+		</div>
+	</div>
+</article><!-- #post-## -->
+
+			
+<div id="comments" class="comments-area">
+
+	
+	
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/how-linux-creates-processes-1528/#respond" style="display:none;">Cancel reply</a></small></h3>			<form action="https://brandonwamboldt.ca/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+				<textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" placeholder="Comment"></textarea><div class="row"><div class="col-sm-4"><input id="author" name="author" type="text" value="" size="30" placeholder="Name" /></div>
+<div class="col-sm-4"><input id="email" name="email" type="text" value="" size="30" placeholder="Email" /></div>
+<div class="col-sm-4"><input id="url" name="url" type="text" value="" size="30" placeholder="Website" /></div></div>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes" /><label for="wp-comment-cookies-consent">Save my name, email, and website in this browser for the next time I comment.</label></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Reply" /> <input type='hidden' name='comment_post_ID' value='1528' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="9a4ececfaf" /></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="194"/></p>			</form>
+			</div><!-- #respond -->
+	
+</div><!-- #comments -->
+
+					<nav class="navigation post-navigation" role="navigation">
+		<h1 class="screen-reader-text">Post navigation</h1>
+		<div class="nav-links">
+			<div class="nav-previous"><a href="https://brandonwamboldt.ca/so-what-is-proc-anyways-1510/" rel="prev"><i class="fa fa-chevron-left"></i> So what is /proc anyways?</a></div><div class="nav-next"><a href="https://brandonwamboldt.ca/analysis-of-a-wordpress-plugin-exploit-1538/" rel="next">Analysis of a WordPress plugin exploit <i class="fa fa-chevron-right"></i></a></div>			</div><!-- .nav-links -->
+			</nav><!-- .navigation -->
+			
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+</div>
+
+		            
+		<div id="secondary" class="widget-area col-sm-12 col-md-4" role="complementary">
+			<div class="inner">
+								<aside id="search-5" class="widget widget_search">
+<form role="search" method="get" class="form-search" action="https://brandonwamboldt.ca/">
+  <div class="input-group">
+	  <label class="screen-reader-text" for="s">Search for:</label>
+	<input type="text" class="form-control search-query" placeholder="Search&hellip;" value="" name="s" title="Search for:" />
+	<span class="input-group-btn">
+	  <button type="submit" class="btn btn-default" name="submit" id="searchsubmit" value="Search">Search</button>
+	</span>
+  </div>
+</form>
+</aside><aside id="text-13" class="widget widget_text">			<div class="textwidget">I'm a team lead, software developer, and devops engineer (depending on the day). I love programming, and having a blog allows me to share things I've learned with others, and hopefully save somebody a bit of time!<br><br>
+
+Disclaimer: Any opinions expressed are solely my own and do not express the views or opinions of my employer.</div>
+		</aside>		<aside id="recent-posts-2" class="widget widget_recent_entries">		<h3 class="widget-title">Recent Posts</h3>		<ul>
+											<li>
+					<a href="https://brandonwamboldt.ca/everything-i-googled-in-a-week-as-a-senior-developer-1943/">Everything I googled in a week as a senior developer</a>
+									</li>
+											<li>
+					<a href="https://brandonwamboldt.ca/creating-an-effective-resume-1885/">Creating an Effective Resume</a>
+									</li>
+											<li>
+					<a href="https://brandonwamboldt.ca/interview-tips-for-software-developers-1867/">Interview Tips for Software Developers</a>
+									</li>
+											<li>
+					<a href="https://brandonwamboldt.ca/tmux-cygwin-1807/">Tmux &#038; Cygwin</a>
+									</li>
+											<li>
+					<a href="https://brandonwamboldt.ca/asynchronous-javascript-with-callbacks-1769/">Asynchronous JavaScript with Callbacks</a>
+									</li>
+					</ul>
+		</aside><aside id="text-14" class="widget widget_text">			<div class="textwidget"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4500746760183560",
+    enable_page_level_ads: true
+  });
+</script></div>
+		</aside>			</div>
+		</div><!-- #secondary -->
+					</div><!-- close .*-inner (main-content or sidebar, depending if sidebar is used) -->
+			</div><!-- close .row -->
+		</div><!-- close .container -->
+	</div><!-- close .site-content -->
+
+	<div id="footer-area">
+		<footer id="colophon" class="site-footer" role="contentinfo">
+			<div class="site-info container">
+				<div class="row">
+										<div class="copyright col-md-12">
+						Activello						Theme by <a href="https://colorlib.com/" target="_blank">Colorlib</a> Powered by <a href="https://wordpress.org/" target="_blank">WordPress</a>					</div>
+				</div>
+			</div><!-- .site-info -->
+			<button class="scroll-to-top"><i class="fa fa-angle-up"></i></button><!-- .scroll-to-top -->
+		</footer><!-- #colophon -->
+	</div>
+</div><!-- #page -->
+
+		<script type="text/javascript">
+			jQuery( document ).ready( function( $ ){
+				if ( $( window ).width() >= 767 ){
+					$( '.navbar-nav > li.menu-item > a' ).click( function(){
+						if( $( this ).attr('target') !== '_blank' ){
+							window.location = $( this ).attr( 'href' );
+						}else{
+							var win = window.open($( this ).attr( 'href' ), '_blank');
+							win.focus();
+						}
+					});
+				}
+			});
+		</script>
+	<script type='text/javascript' src='https://brandonwamboldt.ca/wp-content/themes/activello/assets/js/skip-link-focus-fix.js?ver=20140222'></script>
+<script type='text/javascript' src='https://brandonwamboldt.ca/wp-includes/js/comment-reply.min.js?ver=5.2.4'></script>
+<script type='text/javascript' src='https://brandonwamboldt.ca/wp-includes/js/wp-embed.min.js?ver=5.2.4'></script>
+<script async="async" type='text/javascript' src='https://brandonwamboldt.ca/wp-content/plugins/akismet/_inc/form.js?ver=4.1.2'></script>
+
+</body>
+</html>

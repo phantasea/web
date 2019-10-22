@@ -1,0 +1,253 @@
+<HTML>
+<HEAD>
+<TITLE>Using dup2 for Redirection and Pipes - CS 702 - Operating Systems - Spring 2005</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER><B>CS 702 - Operating Systems - Spring 2005</B></CENTER>
+<CENTER>Using <TT>dup2</TT> for I/O Redirection and Pipes</CENTER><BR>
+
+<HR>
+<A HREF="http://www.loyola.edu">Loyola College</A> &gt
+
+<A HREF="http://www.cs.loyola.edu">Department of Computer Science</A> &gt
+<A HREF="http://www.cs.loyola.edu/~jglenn/">Dr. James Glenn</A> &gt
+<A HREF="../index.html">CS 702</A> &gt
+<A HREF="index.html">Examples and Lecture Notes</A>  &gt
+Using <TT>dup2</TT> for I/O Redirection and Pipes<BR>
+
+<HR>
+
+
+<H3>redirect.c</H3>
+<PRE>
+#include &lt;stdio.h>
+#include &lt;unistd.h>
+#include &lt;fcntl.h>
+#include &lt;sys/types.h>
+#include &lt;sys/stat.h>
+
+/**
+ * Executes the command "grep Villanova &lt; scores > out".
+ *
+ * @author Jim Glenn
+ * @version 0.1 9/23/2004
+ */
+
+int main(int argc, char **argv)
+{
+  int in, out;
+  char *grep_args[] = {"grep", "Villanova", NULL};
+
+  // open input and output files
+
+  in = open("scores", O_RDONLY);
+  out = open("out", O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+
+  // replace standard input with input file
+
+  dup2(in, 0);
+
+  // replace standard output with output file
+
+  dup2(out, 1);
+
+  // close unused file descriptors
+
+  close(in);
+  close(out);
+
+  // execute grep
+
+  execvp("grep", grep_args);
+}
+</PRE>
+
+<H3>pipe.c</H3>
+<PRE>
+#include &lt;stdio.h>
+#include &lt;unistd.h>
+#include &lt;fcntl.h>
+#include &lt;sys/types.h>
+#include &lt;sys/stat.h>
+
+/**
+ * Executes the command "cat scores | grep Villanova".  In this quick-and-dirty
+ * implementation the parent doesn't wait for the child to finish and
+ * so the command prompt may reappear before the child terminates.
+ *
+ * @author Jim Glenn
+ * @version 0.1 9/23/2004
+ */
+
+int main(int argc, char **argv)
+{
+  int pipefd[2];
+  int pid;
+
+  char *cat_args[] = {"cat", "scores", NULL};
+  char *grep_args[] = {"grep", "Villanova", NULL};
+
+  // make a pipe (fds go in pipefd[0] and pipefd[1])
+
+  pipe(pipefd);
+
+  pid = fork();
+
+  if (pid == 0)
+    {
+      // child gets here and handles "grep Villanova"
+
+      // replace standard input with input part of pipe
+
+      dup2(pipefd[0], 0);
+
+      // close unused hald of pipe
+
+      close(pipefd[1]);
+
+      // execute grep
+
+      execvp("grep", grep_args);
+    }
+  else
+    {
+      // parent gets here and handles "cat scores"
+
+      // replace standard output with output part of pipe
+
+      dup2(pipefd[1], 1);
+
+      // close unused unput half of pipe
+
+      close(pipefd[0]);
+
+      // execute cat
+
+      execvp("cat", cat_args);
+    }
+}
+</PRE>
+
+<H3>twopipes.c</H3>
+<PRE>
+#include &lt;stdio.h>
+#include &lt;unistd.h>
+#include &lt;fcntl.h>
+#include &lt;sys/types.h>
+#include &lt;sys/stat.h>
+
+/**
+ * Executes the command "cat scores | grep Villanova | cut -b 1-10".
+ * This quick-and-dirty version does no error checking.
+ *
+ * @author Jim Glenn
+ * @version 0.1 10/4/2004
+ */
+
+int main(int argc, char **argv)
+{
+  int status;
+  int i;
+
+  // arguments for commands; your parser would be responsible for
+  // setting up arrays like these
+
+  char *cat_args[] = {"cat", "scores", NULL};
+  char *grep_args[] = {"grep", "Villanova", NULL};
+  char *cut_args[] = {"cut", "-b", "1-10", NULL};
+
+  // make 2 pipes (cat to grep and grep to cut); each has 2 fds
+
+  int pipes[4];
+  pipe(pipes); // sets up 1st pipe
+  pipe(pipes + 2); // sets up 2nd pipe
+
+  // we now have 4 fds:
+  // pipes[0] = read end of cat->grep pipe (read by grep)
+  // pipes[1] = write end of cat->grep pipe (written by cat)
+  // pipes[2] = read end of grep->cut pipe (read by cut)
+  // pipes[3] = write end of grep->cut pipe (written by grep)
+
+  // Note that the code in each if is basically identical, so you
+  // could set up a loop to handle it.  The differences are in the
+  // indicies into pipes used for the dup2 system call
+  // and that the 1st and last only deal with the end of one pipe.
+
+  // fork the first child (to execute cat)
+  
+  if (fork() == 0)
+    {
+      // replace cat's stdout with write part of 1st pipe
+
+      dup2(pipes[1], 1);
+
+      // close all pipes (very important!); end we're using was safely copied
+
+      close(pipes[0]);
+      close(pipes[1]);
+      close(pipes[2]);
+      close(pipes[3]);
+
+      execvp(*cat_args, cat_args);
+    }
+  else
+    {
+      // fork second child (to execute grep)
+
+      if (fork() == 0)
+	{
+	  // replace grep's stdin with read end of 1st pipe
+	  
+	  dup2(pipes[0], 0);
+
+	  // replace grep's stdout with write end of 2nd pipe
+
+	  dup2(pipes[3], 1);
+
+	  // close all ends of pipes
+
+	  close(pipes[0]);
+	  close(pipes[1]);
+	  close(pipes[2]);
+	  close(pipes[3]);
+
+	  execvp(*grep_args, grep_args);
+	}
+      else
+	{
+	  // fork third child (to execute cut)
+
+	  if (fork() == 0)
+	    {
+	      // replace cut's stdin with input read of 2nd pipe
+
+	      dup2(pipes[2], 0);
+
+	      // close all ends of pipes
+
+	      close(pipes[0]);
+	      close(pipes[1]);
+	      close(pipes[2]);
+	      close(pipes[3]);
+
+	      execvp(*cut_args, cut_args);
+	    }
+	}
+    }
+      
+  // only the parent gets here and waits for 3 children to finish
+  
+  close(pipes[0]);
+  close(pipes[1]);
+  close(pipes[2]);
+  close(pipes[3]);
+
+  for (i = 0; i &lt; 3; i++)
+    wait(&status);
+}
+</PRE>
+This code can also be downloaded from the files 
+<A HREF="redirect.c">redirect.c</A>,
+<A HREF="pipe.c">pipe.c</A>,
+ and <A HREF="twopipes.c">twopipes.c</A>.

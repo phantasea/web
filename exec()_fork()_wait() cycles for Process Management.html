@@ -1,0 +1,942 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<!-- 2016-01-28 Thu 14:17 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta  name="viewport" content="width=device-width, initial-scale=1">
+<title>Lec. 14: exec()/fork()/wait() cycles for Process Management</title>
+<meta  name="generator" content="Org-mode">
+<meta  name="author" content="Adam Aviv">
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../class.css" />
+<h1>IC221: Systems Programming (SP16)</h1>
+<hr> <a href="../../index.html">Home</a> <a href="../../policy.html">Policy</a> <a href="../../cal.html">Calendar</a> <a href="../../resources.html">Resources</a><hr>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Lec. 14: exec()/fork()/wait() cycles for Process Management</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline3">1. Executing a Programing</a>
+<ul>
+<li><a href="#orgheadline1">1.1. Using <code>execv</code> and <code>execvp</code></a></li>
+<li><a href="#orgheadline2">1.2. The <code>argv[]</code> argument to <code>execv</code> and <code>execvp</code></a></li>
+</ul>
+</li>
+<li><a href="#orgheadline7">2. Creating a new Process</a>
+<ul>
+<li><a href="#orgheadline4">2.1. <code>fork()</code></a></li>
+<li><a href="#orgheadline5">2.2. Process identifiers or <code>pid</code></a></li>
+<li><a href="#orgheadline6">2.3. Retrieving Process Identifiers: <code>getpid()</code> and <code>getppid()</code></a></li>
+</ul>
+</li>
+<li><a href="#orgheadline9">3. Waiting on a child with <code>wait()</code></a>
+<ul>
+<li><a href="#orgheadline8">3.1. Checking the Status of children</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline10">4. Fork/Exec/Wait Cycle</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3"><span class="section-number-2">1</span> Executing a Programing</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+In the last lesson, we briefly discussed how a program loads into a
+process. We continue that discussion now by overviewing the <code>exec</code>
+family of system calls. 
+</p>
+
+<p>
+Recall that an <code>exec</code> call will load a <i>new</i> program into the process
+and replace the current running program with the one specified. For
+example, consider this program, which will execute the <code>ls -l</code> command
+in the current directory:
+</p>
+
+
+<p>
+There are three main versions of <code>exec</code> which we will focus on:
+</p>
+
+<ul class="org-ul">
+<li><code>execv(char * path, char * argv[])</code> : given the path to the program
+and an argument array, load and execute the program</li>
+
+<li><code>execvp(char * file, char * argv[])</code> : given a file(name) of the
+program and an argument array, find the file in the environment
+<code>PATH</code> and execute the program</li>
+
+<li><code>execvpe(char * file, char * argv[], char * envp[])</code> given a
+file(name), an argument array, and the enviroment settings, within
+the enviroment, search the <code>PATH</code> for the program named file and
+execute with the arguments.</li>
+</ul>
+
+<p>
+Each version of execute provides slightly different functionality. For
+this discussion, we will focus on <code>execv</code> and <code>execvp</code>; we will
+discuss <code>execvpe</code> latter in the semester.
+</p>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Using <code>execv</code> and <code>execvp</code></h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+The primary difference between <code>execv</code> and <code>execvp</code> is that with
+<code>execv</code> you have to provide the full path to the binary file (i.e.,
+the program). The <code>argv[]</code> array is the same otherwise. For example:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-c"><span style="color: #ff7f24;">/*</span><span style="color: #ff7f24;">execv_ls-l.c</span><span style="color: #ff7f24;">*/</span>
+<span style="color: #b0c4de;">#include</span> <span style="color: #ffa07a;">&lt;unistd.h&gt;</span>
+<span style="color: #b0c4de;">#include</span> <span style="color: #ffa07a;">&lt;stdlib.h&gt;</span>
+<span style="color: #b0c4de;">#include</span> <span style="color: #ffa07a;">&lt;stdio.h&gt;</span>
+
+<span style="color: #98fb98;">int</span> <span style="color: #87cefa;">main</span>(<span style="color: #98fb98;">int</span> <span style="color: #eedd82;">argc</span>, <span style="color: #98fb98;">char</span> * <span style="color: #eedd82;">argv</span>[]){
+
+  <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">argv array for: /bin/ls -l</span>
+  <span style="color: #98fb98;">char</span> * <span style="color: #eedd82;">ls_args</span>[] = { <span style="color: #ffa07a;">"/bin/ls"</span> , <span style="color: #ffa07a;">"-l"</span>, <span style="color: #7fffd4;">NULL</span>};
+  <span style="color: #ff7f24;">//                                  </span><span style="color: #ff7f24;">^</span>
+  <span style="color: #ff7f24;">//       </span><span style="color: #ff7f24;">all argv arrays must be ___| </span>
+  <span style="color: #ff7f24;">//       </span><span style="color: #ff7f24;">NULL terminated       </span>
+
+  <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">execute the program</span>
+  execv(   ls_args[0],     ls_args);
+  <span style="color: #ff7f24;">//           </span><span style="color: #ff7f24;">^              ^</span>
+  <span style="color: #ff7f24;">//           </span><span style="color: #ff7f24;">|              |</span>
+  <span style="color: #ff7f24;">// </span><span style="color: #ff7f24;">Name of program        argv array</span>
+  <span style="color: #ff7f24;">// </span><span style="color: #ff7f24;">is ls_args[0]          for ls_args</span>
+
+
+  <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">only get here on error</span>
+  perror(<span style="color: #ffa07a;">"execv"</span>);
+  <span style="color: #00ffff;">return</span> 2;
+}
+</pre>
+</div>
+<pre class="example">
+aviv@saddleback: demo $ ./execv_ls-l 
+total 120
+-rwxr-x--- 1 aviv scs  9890 Feb 24 14:13 exec_other
+-rw-r----- 1 aviv scs   151 Feb 24 11:43 exec_other.c
+-rwxr-x--- 1 aviv scs  9977 Feb 24 14:13 execv_ls-l
+-rw-r----- 1 aviv scs   559 Feb 24 11:42 execv_ls-l.c
+-rwxr-x--- 1 aviv scs  9979 Feb 24 14:13 execvp_ls-l
+-rw-r----- 1 aviv scs   360 Feb 24 11:59 execvp_ls-l.c
+-rw-r----- 1 aviv scs   559 Feb 24 11:58 execvp_ls-l.c~
+-rwxr-x--- 1 aviv scs 10023 Feb 24 14:13 first_fork
+-rw-r----- 1 aviv scs   532 Feb 23 08:06 first_fork.c
+-rwxr-x--- 1 aviv scs 10345 Feb 24 14:13 fork_exec_wait
+-rw-r----- 1 aviv scs  1158 Feb 23 08:06 fork_exec_wait.c
+-rwxr-x--- 1 aviv scs 10278 Feb 24 14:13 get_exitstatus
+-rw-r----- 1 aviv scs  1379 Feb 23 08:06 get_exitstatus.c
+-rwxr-x--- 1 aviv scs  9985 Feb 24 14:13 get_pid_ppid
+-rw-r----- 1 aviv scs   294 Feb 23 08:06 get_pid_ppid.c
+-rw-r----- 1 aviv scs    99 Feb 23 08:06 Makefile
+</pre>
+
+<p>
+With <code>execvp</code>, you do not need to specify the full path because
+<code>execvp</code> will search the local environment variable <code>PATH</code> for the
+executable. Recall, that this is how the shell command <code>which</code> works:
+</p>
+<pre class="example">
+aviv@saddleback: demo $ which ls
+/bin/ls
+</pre>
+<p>
+<code>which</code> will find the name of the command along the path:
+</p>
+<pre class="example">
+aviv@saddleback: demo $ echo $PATH
+/home/scs/aviv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+</pre>
+<p>
+In the case for <code>ls</code> this occurs in <code>/bin</code>. Using <code>execvp</code> will
+perform this look up for you, and so can simplify the code some:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-c">aviv@saddleback: demo $ cat execvp_ls-l.c
+<span style="color: #b0c4de;">#include</span> <span style="color: #ffa07a;">&lt;unistd.h&gt;</span>
+<span style="color: #b0c4de;">#include</span> <span style="color: #ffa07a;">&lt;stdlib.h&gt;</span>
+<span style="color: #b0c4de;">#include</span> <span style="color: #ffa07a;">&lt;stdio.h&gt;</span>
+
+<span style="color: #98fb98;">int</span> main(<span style="color: #98fb98;">int</span> <span style="color: #eedd82;">argc</span>, <span style="color: #98fb98;">char</span> * <span style="color: #eedd82;">argv</span>[]){
+
+  <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">argv array for: ls -l</span>
+  <span style="color: #98fb98;">char</span> * <span style="color: #eedd82;">ls_args</span>[] = { <span style="color: #ffa07a;">"ls"</span> , <span style="color: #ffa07a;">"-l"</span>, <span style="color: #7fffd4;">NULL</span>};
+  <span style="color: #ff7f24;">//                    </span><span style="color: #ff7f24;">^ </span>
+  <span style="color: #ff7f24;">//  </span><span style="color: #ff7f24;">use the name ls</span>
+  <span style="color: #ff7f24;">//  </span><span style="color: #ff7f24;">rather than the</span>
+  <span style="color: #ff7f24;">//  </span><span style="color: #ff7f24;">path to /bin/ls</span>
+  execvp(   ls_args[0],     ls_args);
+
+
+  <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">only get here on error</span>
+  perror(<span style="color: #ffa07a;">"execv"</span>);
+  <span style="color: #00ffff;">return</span> 2;
+}
+</pre>
+</div>
+<pre class="example">
+aviv@saddleback: demo $ ./execvp_ls-l 
+total 120
+-rwxr-x--- 1 aviv scs  9890 Feb 24 14:13 exec_other
+-rw-r----- 1 aviv scs   151 Feb 24 11:43 exec_other.c
+-rwxr-x--- 1 aviv scs  9977 Feb 24 14:13 execv_ls-l
+-rw-r----- 1 aviv scs   559 Feb 24 11:42 execv_ls-l.c
+-rwxr-x--- 1 aviv scs  9979 Feb 24 14:13 execvp_ls-l
+-rw-r----- 1 aviv scs   360 Feb 24 11:59 execvp_ls-l.c
+-rw-r----- 1 aviv scs   559 Feb 24 11:58 execvp_ls-l.c~
+-rwxr-x--- 1 aviv scs 10023 Feb 24 14:13 first_fork
+-rw-r----- 1 aviv scs   532 Feb 23 08:06 first_fork.c
+-rwxr-x--- 1 aviv scs 10345 Feb 24 14:13 fork_exec_wait
+-rw-r----- 1 aviv scs  1158 Feb 23 08:06 fork_exec_wait.c
+-rwxr-x--- 1 aviv scs 10278 Feb 24 14:13 get_exitstatus
+-rw-r----- 1 aviv scs  1379 Feb 23 08:06 get_exitstatus.c
+-rwxr-x--- 1 aviv scs  9985 Feb 24 14:13 get_pid_ppid
+-rw-r----- 1 aviv scs   294 Feb 23 08:06 get_pid_ppid.c
+-rw-r----- 1 aviv scs    99 Feb 23 08:06 Makefile
+</pre>
+
+<p>
+You might be wondering: why use <code>execv</code> at all when you have <code>execvp</code>?
+There are a few good reasons, but the most relevant is for
+security. The <code>PATH</code> can be changed by the user to circumvent which
+programs are found during lookup. For example, what happens if there
+was another program called <code>ls</code> along the path, but this time that
+program removed the whole file system. <code>execvp</code> would call the wrong
+ls &#x2026; and boom. <code>execv</code> forces issues and ensures that the whole path
+to the executable is provided.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">1.2</span> The <code>argv[]</code> argument to <code>execv</code> and <code>execvp</code></h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+The last item to consider in the <code>exec</code> calls is the <code>argv</code>
+array. This is the same as the <code>argv</code> array argument to main;
+essentially, when you call <code>exec</code> you are calling that programs main
+function. 
+</p>
+
+<p>
+Just like in main, the argv array must be NULL terminated. So when we
+do this:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-c"><span style="color: #98fb98;">char</span> * <span style="color: #eedd82;">ls_args</span>[] = { <span style="color: #ffa07a;">"ls"</span> , <span style="color: #ffa07a;">"-l"</span>, <span style="color: #7fffd4;">NULL</span>};
+</pre>
+</div>
+<p>
+We are setting up the argv array like so:
+</p>
+<pre class="example">
+            .-----.
+ls_args -&gt;  |  .--+--&gt; "/bin/ls"
+            |-----|
+            |  .--+--&gt; "-l"
+            |-----|
+            |  .--+--&gt; NULL
+            '-----'
+</pre>
+
+<p>
+Because the argv array for exec is the same as main, it becomes quite
+trivially to write a program that just executes another program as
+specified on the command line. For example:
+</p>
+<pre class="example">
+aviv@saddleback: demo $ ./exec_other ls -l
+total 120
+-rwxr-x--- 1 aviv scs  9890 Feb 24 14:13 exec_other
+-rw-r----- 1 aviv scs   151 Feb 24 11:43 exec_other.c
+-rwxr-x--- 1 aviv scs  9977 Feb 24 14:13 execv_ls-l
+-rw-r----- 1 aviv scs   559 Feb 24 11:42 execv_ls-l.c
+-rwxr-x--- 1 aviv scs  9979 Feb 24 14:13 execvp_ls-l
+-rw-r----- 1 aviv scs   360 Feb 24 11:59 execvp_ls-l.c
+-rw-r----- 1 aviv scs   559 Feb 24 11:58 execvp_ls-l.c~
+-rwxr-x--- 1 aviv scs 10023 Feb 24 14:13 first_fork
+-rw-r----- 1 aviv scs   532 Feb 23 08:06 first_fork.c
+-rwxr-x--- 1 aviv scs 10345 Feb 24 14:13 fork_exec_wait
+-rw-r----- 1 aviv scs  1158 Feb 23 08:06 fork_exec_wait.c
+-rwxr-x--- 1 aviv scs 10278 Feb 24 14:13 get_exitstatus
+-rw-r----- 1 aviv scs  1379 Feb 23 08:06 get_exitstatus.c
+-rwxr-x--- 1 aviv scs  9985 Feb 24 14:13 get_pid_ppid
+-rw-r----- 1 aviv scs   294 Feb 23 08:06 get_pid_ppid.c
+-rw-r----- 1 aviv scs    99 Feb 23 08:06 Makefile
+aviv@saddleback: demo $ ./exec_other cat exec_oth
+exec_other    exec_other.c  
+aviv@saddleback: demo $ ./exec_other cat exec_other.c 
+#include &lt;unistd.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+
+int main(int argce, char * argv[]){
+
+  execvp( (argv+1)[0], argv+1);
+  perror("execvp");
+}
+</pre>
+<p>
+As you can see in the program (which used cat to output itself!) we
+are using pointer manipulation to set up the <code>argv</code> array. At the
+start, the argv is like:
+</p>
+<pre class="example">
+         .-----.
+argv -&gt;  |  .--+--&gt; "./exec_other"
+         |-----|
+         |  .--+--&gt; "ls"
+         |-----|
+         |  .--+--&gt; "-l"
+         |-----|
+         |  .--+--&gt; NULL
+         '-----'
+</pre>
+<p>
+After point manipulation:
+</p>
+<pre class="example">
+           .-----.
+           |  .--+--&gt; "./exec_other"
+           |-----|
+argv+1 -&gt;  |  .--+--&gt; "ls"
+           |-----|
+           |  .--+--&gt; "-l"
+           |-----|
+           |  .--+--&gt; NULL
+           '-----'
+</pre>
+<p>
+Which is a valid <code>argv</code> array for executing <code>ls</code>. 
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-2">
+<h2 id="orgheadline7"><span class="section-number-2">2</span> Creating a new Process</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+So far, we've only loaded programs and executed them as an already
+running process. This is not creating a new process, and for that we
+need a new system call. The <code>fork()</code> system call will duplicate the
+calling process and create a new process with a new process
+identifier.
+</p>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">2.1</span> <code>fork()</code></h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+With the exception of two O.S. processes, the kernel and init process,
+all process are spawned from another process. The procedure of
+creating a new process is called <i>forking</i>: An exact copy of the
+process, memory values and open resources, is produced. The original
+process that forked, is called the <b>parent</b>, while the newly created,
+duplicate process is called the <b>child</b>. Let's look at an example of a
+process <i>forking</i> using the <code>fork()</code> system call:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-c"><span style="color: #b0c4de;">#include</span> <span style="color: #ffa07a;">&lt;unistd.h&gt;</span>
+<span style="color: #b0c4de;">#include</span> <span style="color: #ffa07a;">&lt;stdio.h&gt;</span>
+<span style="color: #b0c4de;">#include</span> <span style="color: #ffa07a;">&lt;stdlib.h&gt;</span>
+
+<span style="color: #98fb98;">int</span> <span style="color: #87cefa;">main</span>(){
+
+  <span style="color: #98fb98;">pid_t</span> <span style="color: #eedd82;">c_pid</span>;
+
+
+  c_pid = fork(); <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">duplicate                                                                                                                                                </span>
+  <span style="color: #00ffff;">if</span>( c_pid == 0 ){
+    <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">child: The return of fork() is zero                                                                                                                                    </span>
+    printf(<span style="color: #ffa07a;">"Child: I'm the child: %d\n"</span>, c_pid);
+
+  }<span style="color: #00ffff;">else</span> <span style="color: #00ffff;">if</span> (c_pid &gt; 0){
+    <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">parent: The return of fork() is the process of id of the child                                                                                                         </span>
+
+    printf(<span style="color: #ffa07a;">"Parent: I'm the parent: %d\n"</span>, c_pid);
+
+  }<span style="color: #00ffff;">else</span>{
+    <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">error: The return of fork() is negative                                                                                                                                </span>
+
+    perror(<span style="color: #ffa07a;">"fork failed"</span>);
+    _exit(2); <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">exit failure, hard                                                                                                                                           </span>
+
+  }
+
+  <span style="color: #00ffff;">return</span> 0; <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">success                                                                                                                                                        </span>
+}
+</pre>
+</div>
+
+
+<p>
+The <code>fork()</code> system call is unlike any other function call you've seen
+so far. It returns twice, once in the parent and once in child, and it
+returns different values in the parent and the child. 
+</p>
+
+<p>
+To follow the logic, you first need to realize that once <code>fork()</code> is
+called, the Operating System is creating a whole new process which is
+an exact copy of the original process. At this point, <code>fork()</code> still
+hasen't returned because the O.S. is context switched in, and now it
+must return from <code>fork()</code> twice, once in the child process and once in
+the parent, where execution in both process can continue. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">2.2</span> Process identifiers or <code>pid</code></h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Every process has a unique identifier, the process identifier or
+<code>pid</code>. This value is assigned by the operating system when the process
+is created and is a 2-byte number (or a short). There is a special
+<code>typedef</code> for the process identifier, <code>pid_t</code>, which we will use.
+</p>
+
+<p>
+In the above sample code, after the call to <code>fork()</code>, the parent's return value
+from <code>fork()</code> is the process id of the newly created child
+process. The child, however, has a return value of 0. On error,
+<code>fork()</code>, returns -1. Then you should bail with <code>_exit()</code> because
+something terrible happened.
+</p>
+
+<p>
+One nice way to see a visual of the parent process relationship is
+using the bash command <code>pstree</code>:
+</p>
+<pre class="example">
+#&gt; pstree -ah
+init
+  ├─NetworkManager
+  │   ├─dhclient -d -4 -sf /usr/lib/NetworkManager/nm-dhcp-client.action -pf /var/run/sendsigs.omit.d/network-manager.dhclient-eth0.pid -lf...
+  │   └─2*[{NetworkManager}]
+  ├─accounts-daemon
+  │   └─{accounts-daemon}
+(...)
+</pre>
+<p>
+At the top is the <code>init</code> process, which is the parent of all
+proces. Somewhere down tree is my login shell 
+</p>
+<pre class="example">
+(...)
+├─sshd -D
+  │   └─sshd   
+  │       └─sshd    
+  │           └─bash
+  │               ├─emacs get_exitstatus.c
+  │               ├─emacs foursons.c
+  │               ├─emacs Makefile
+  │               ├─emacs get_exitstatus.c
+  │               ├─emacs fork_exec_wait.c
+  │               ├─emacs mail_reports.py
+  │               └─pstree -ah
+(...)
+</pre>
+<p>
+And you can see that the process of getting to a <code>bash</code> shell via ssh
+requires a number of forks and child process.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">2.3</span> Retrieving Process Identifiers: <code>getpid()</code> and <code>getppid()</code></h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+With <code>fork()</code>, the parent can learn the process id of the child, but
+the child doesn't know its own process id (or <b>pid</b>) after the fork
+nor does it know its parents process id. For that matter, the parent
+doesn't know its own process id either. There are two system calls to
+retrieve this information:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-c"><span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">retrieve the current process id</span>
+<span style="color: #98fb98;">pid_t</span> <span style="color: #87cefa;">getpid</span>(<span style="color: #98fb98;">void</span>);
+
+<span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">retrieve the parent's process id</span>
+<span style="color: #98fb98;">pid_t</span> <span style="color: #87cefa;">getppid</span>(<span style="color: #98fb98;">void</span>);
+</pre>
+</div>
+
+<p>
+There is no way for a process to directly retrieve its child pid
+because any process may have multiple children. Instead, a process must
+maintain that information directly through the values returned
+from a <code>fork()</code>. Here is a sample program that prints the current
+process id and the parent's process id. 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-c"><span style="color: #b0c4de;">#include</span> <span style="color: #ffa07a;">&lt;unistd.h&gt;</span>
+<span style="color: #b0c4de;">#include</span> <span style="color: #ffa07a;">&lt;stdio.h&gt;</span>
+<span style="color: #b0c4de;">#include</span> <span style="color: #ffa07a;">&lt;stdlib.h&gt;</span>
+
+<span style="color: #98fb98;">int</span> <span style="color: #87cefa;">main</span>(){
+  <span style="color: #98fb98;">pid_t</span> <span style="color: #eedd82;">pid</span>, <span style="color: #eedd82;">ppid</span>;
+
+  <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">get the process'es pid</span>
+  pid = getpid();
+
+  <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">get the parrent of this process'es pid</span>
+  ppid = getppid();
+
+
+  printf(<span style="color: #ffa07a;">"My pid is: %d\n"</span>,pid);
+  printf(<span style="color: #ffa07a;">"My parent's pid is %d\n"</span>, ppid);
+
+  <span style="color: #00ffff;">return</span> 0;
+}
+</pre>
+</div>
+
+<p>
+If we run this program a bunch of times, we will see output like this:
+</p>
+<pre class="example">
+#&gt; ./get_pid_ppid 
+My pid is: 14307
+My parent's pid is 13790
+
+#&gt; ./get_pid_ppid 
+My pid is: 14308
+My parent's pid is 13790
+
+#&gt; ./get_pid_ppid 
+My pid is: 14309
+My parent's pid is 13790
+</pre>
+
+<p>
+Every time the program runs, it has a different process id (or
+pid). Every process must have a unique pid, and the O.S. applies a
+policy for reusing process id's as processes terminate. But, the
+parent's pid is the same. If you think for a second, this makes sense:
+What's the parent of the program? The shell! We can see this by
+<code>echo</code>'ing <code>$$</code>, which is special bash variable that stores the pid of
+the shell:
+</p>
+
+<pre class="example">
+#&gt; echo $$
+13790
+</pre>
+
+<p>
+Whenever you execute a program on the shell, what's really going on is
+the shell is forking, and the new child is <code>exec</code>'ing the new
+program. One thing to consider, though, is that when a process forks,
+the parent and the child continue executing in parallel: Why doesn't
+the shell come back immediately and ask the user to enter a new
+command? The shell instead <i>waits</i> for the child to finish process
+before prompting again, and there is a system call called <code>wait()</code> to
+just do that.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-2">
+<h2 id="orgheadline9"><span class="section-number-2">3</span> Waiting on a child with <code>wait()</code></h2>
+<div class="outline-text-2" id="text-3">
+<p>
+The <code>wait()</code> system call is used by a parent process to <i>wait</i> for the
+status of the child to change. A status change can occur for a number
+of reasons, the program stopped or continued, but we'll only concern
+ourselves with the most common status change: the program terminated
+or exited. (We will discuss stopped and continued in later lessons.)
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-c"><span style="color: #b0c4de;">#include</span> <span style="color: #ffa07a;">&lt;sys/types.h&gt;</span>
+<span style="color: #b0c4de;">#include</span> <span style="color: #ffa07a;">&lt;sys/wait.h&gt;</span>
+
+<span style="color: #98fb98;">pid_t</span> <span style="color: #87cefa;">wait</span>(<span style="color: #98fb98;">int</span> *<span style="color: #eedd82;">status</span>);
+</pre>
+</div>
+
+<p>
+Once the parent calls <code>wait()</code>, it will block until a child changes
+state. In essence, it is waiting on its children to terminate. This is
+described as a blocking function because it <i>blocks</i> and does not
+continue until an event is complete.
+</p>
+
+<p>
+Once it returns, <code>wait()</code> will returns the pid of the child process
+that terminated (or -1 if the process has no children), and <code>wait()</code>
+takes an integer pointer as an argument. At that memory address, it
+will set the <b>termination status</b> of the child process. As mentioned
+in the previous lesson, part of the termination status is the exit
+status, but it also contains other information for how a program
+terminated, like if it had a <code>SEGFAULT</code>.
+</p>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">3.1</span> Checking the Status of children</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+To learn about the exit status of a program we can use the macros from
+<code>sys/wait.h</code> which check the termination status and return the exit
+status. From the main page:
+</p>
+
+<pre class="example">
+WIFEXITED(status)
+       returns true if the child terminated normally, that is, 
+       by calling exit(3) or _exit(2), or by returning from main().
+
+WEXITSTATUS(status)
+       returns  the  exit  status of the child.  This consists of the least significant 
+       8 bits of the status argument that the child specified in a call to exit(3) or _exit(2) or as the
+       argument for a return statement in main().  
+       This macro should only be employed if WIFEXITED returned true.
+</pre>
+
+<p>
+There are other checks of the termination status, and refer to the
+manual page for more detail. Below is some example code for checking
+the exit status of forked child. You can see that the child delays its
+exit by 2 seconds with a call to sleep.
+</p>
+
+
+<div class="org-src-container">
+
+<pre class="src src-c"><span style="color: #ff7f24;">/*</span><span style="color: #ff7f24;">get_exitstatus.c</span><span style="color: #ff7f24;">*/</span>
+<span style="color: #b0c4de;">#include</span> <span style="color: #ffa07a;">&lt;unistd.h&gt;</span>
+<span style="color: #b0c4de;">#include</span> <span style="color: #ffa07a;">&lt;stdio.h&gt;</span>
+<span style="color: #b0c4de;">#include</span> <span style="color: #ffa07a;">&lt;stdlib.h&gt;</span>
+
+<span style="color: #b0c4de;">#include</span> <span style="color: #ffa07a;">&lt;sys/types.h&gt;</span>
+<span style="color: #b0c4de;">#include</span> <span style="color: #ffa07a;">&lt;sys/wait.h&gt;</span>
+
+<span style="color: #98fb98;">int</span> <span style="color: #87cefa;">main</span>(){
+
+  <span style="color: #98fb98;">pid_t</span> <span style="color: #eedd82;">c_pid</span>, <span style="color: #eedd82;">pid</span>;
+  <span style="color: #98fb98;">int</span> <span style="color: #eedd82;">status</span>;
+
+  c_pid = fork(); <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">duplicate</span>
+
+  <span style="color: #00ffff;">if</span>( c_pid == 0 ){
+    <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">child</span>
+    pid = getpid();
+
+    printf(<span style="color: #ffa07a;">"Child: %d: I'm the child\n"</span>, pid, c_pid);
+    printf(<span style="color: #ffa07a;">"Child: sleeping for 2-seconds, then exiting with status 12\n"</span>);
+
+    <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">sleep for 2 seconds</span>
+    sleep(2);
+
+    <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">exit with statys 12</span>
+    exit(12);
+
+  }<span style="color: #00ffff;">else</span> <span style="color: #00ffff;">if</span> (c_pid &gt; 0){
+    <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">parent</span>
+
+    <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">waiting for child to terminate</span>
+    pid = wait(&amp;status);
+
+    <span style="color: #00ffff;">if</span> ( WIFEXITED(status) ){
+      printf(<span style="color: #ffa07a;">"Parent: Child exited with status: %d\n"</span>, WEXITSTATUS(status));
+    }
+
+  }<span style="color: #00ffff;">else</span>{
+    <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">error: The return of fork() is negative</span>
+    perror(<span style="color: #ffa07a;">"fork failed"</span>);
+    _exit(2); <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">exit failure, hard</span>
+  }
+
+  <span style="color: #00ffff;">return</span> 0; <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">success                                                                                                                                                        </span>
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-2">
+<h2 id="orgheadline10"><span class="section-number-2">4</span> Fork/Exec/Wait Cycle</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+We now have all the parts to write a program that will execute another
+program and wait for that program to finish. This reminds me of
+another program we've already used in this class&#x2026; the shell, but
+you'll get to that later in the lab.  
+</p>
+
+<p>
+For now, consider the example code below which executes <code>ls</code> on the
+<code>/bin</code> directory:
+</p>
+
+
+<div class="org-src-container">
+
+<pre class="src src-c"><span style="color: #ff7f24;">/*</span><span style="color: #ff7f24;">fork_exec_wait.c</span><span style="color: #ff7f24;">*/</span>
+<span style="color: #b0c4de;">#include</span> <span style="color: #ffa07a;">&lt;unistd.h&gt;</span>
+<span style="color: #b0c4de;">#include</span> <span style="color: #ffa07a;">&lt;stdlib.h&gt;</span>
+<span style="color: #b0c4de;">#include</span> <span style="color: #ffa07a;">&lt;stdio.h&gt;</span>
+
+<span style="color: #b0c4de;">#include</span> <span style="color: #ffa07a;">&lt;sys/types.h&gt;</span>
+<span style="color: #b0c4de;">#include</span> <span style="color: #ffa07a;">&lt;sys/wait.h&gt;</span>
+
+<span style="color: #98fb98;">int</span> <span style="color: #87cefa;">main</span>(<span style="color: #98fb98;">int</span> <span style="color: #eedd82;">argc</span>, <span style="color: #98fb98;">char</span> * <span style="color: #eedd82;">argv</span>[]){
+  <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">arguments for ls, will run: ls  -l /bin                                                                                                                                  </span>
+  <span style="color: #98fb98;">char</span> * <span style="color: #eedd82;">ls_args</span>[3] = { <span style="color: #ffa07a;">"ls"</span>, <span style="color: #ffa07a;">"-l"</span>, <span style="color: #7fffd4;">NULL</span>} ;
+  <span style="color: #98fb98;">pid_t</span> <span style="color: #eedd82;">c_pid</span>, <span style="color: #eedd82;">pid</span>;
+  <span style="color: #98fb98;">int</span> <span style="color: #eedd82;">status</span>;
+
+  c_pid = fork();
+
+  <span style="color: #00ffff;">if</span> (c_pid == 0){
+    <span style="color: #ff7f24;">/* </span><span style="color: #ff7f24;">CHILD </span><span style="color: #ff7f24;">*/</span>
+
+    printf(<span style="color: #ffa07a;">"Child: executing ls\n"</span>);
+
+    <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">execute ls                                                                                                                                                               </span>
+    execvp( ls_args[0], ls_args);
+    <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">only get here if exec failed                                                                                                                                             </span>
+    perror(<span style="color: #ffa07a;">"execve failed"</span>);
+  }<span style="color: #00ffff;">else</span> <span style="color: #00ffff;">if</span> (c_pid &gt; 0){
+    <span style="color: #ff7f24;">/* </span><span style="color: #ff7f24;">PARENT </span><span style="color: #ff7f24;">*/</span>
+
+    <span style="color: #00ffff;">if</span>( (pid = wait(&amp;status)) &lt; 0){
+      perror(<span style="color: #ffa07a;">"wait"</span>);
+      _exit(1);
+    }
+
+    printf(<span style="color: #ffa07a;">"Parent: finished\n"</span>);
+
+  }<span style="color: #00ffff;">else</span>{
+    perror(<span style="color: #ffa07a;">"fork failed"</span>);
+    _exit(1);
+  }
+
+  <span style="color: #00ffff;">return</span> 0; <span style="color: #ff7f24;">//</span><span style="color: #ff7f24;">return success</span>
+}
+</pre>
+</div>
+
+<p>
+And the execution:
+</p>
+
+<pre class="example">
+aviv@saddleback: demo $ ./fork_exec_wait
+Child: executing ls
+total 5120
+-rwxr-xr-x  2 root  wheel    18480 Sep  9 18:44 [
+-r-xr-xr-x  1 root  wheel   628736 Sep 26 22:03 bash
+-rwxr-xr-x  1 root  wheel    19552 Sep  9 18:57 cat
+-rwxr-xr-x  1 root  wheel    30112 Sep  9 18:50 chmod
+-rwxr-xr-x  1 root  wheel    24768 Sep  9 18:49 cp
+-rwxr-xr-x  2 root  wheel   370096 Sep  9 18:40 csh
+-rwxr-xr-x  1 root  wheel    24400 Sep  9 18:44 date
+-rwxr-xr-x  1 root  wheel    27888 Sep  9 18:50 dd
+-rwxr-xr-x  1 root  wheel    23472 Sep  9 18:49 df
+-r-xr-xr-x  1 root  wheel    14176 Sep  9 19:27 domainname
+-rwxr-xr-x  1 root  wheel    14048 Sep  9 18:44 echo
+-rwxr-xr-x  1 root  wheel    49904 Sep  9 18:57 ed
+-rwxr-xr-x  1 root  wheel    19008 Sep  9 18:44 expr
+-rwxr-xr-x  1 root  wheel    14208 Sep  9 18:44 hostname
+-rwxr-xr-x  1 root  wheel    14560 Sep  9 18:44 kill
+-r-xr-xr-x  1 root  wheel  1394560 Sep  9 19:59 ksh
+-rwxr-xr-x  1 root  wheel    77728 Sep  9 19:32 launchctl
+-rwxr-xr-x  2 root  wheel    14944 Sep  9 18:49 link
+-rwxr-xr-x  2 root  wheel    14944 Sep  9 18:49 ln
+-rwxr-xr-x  1 root  wheel    34640 Sep  9 18:49 ls
+-rwxr-xr-x  1 root  wheel    14512 Sep  9 18:50 mkdir
+-rwxr-xr-x  1 root  wheel    20160 Sep  9 18:49 mv
+-rwxr-xr-x  1 root  wheel   106816 Sep  9 18:49 pax
+-rwsr-xr-x  1 root  wheel    46688 Sep  9 18:59 ps
+-rwxr-xr-x  1 root  wheel    14208 Sep  9 18:44 pwd
+-r-sr-xr-x  1 root  wheel    25216 Sep  9 19:27 rcp
+-rwxr-xr-x  2 root  wheel    19760 Sep  9 18:49 rm
+-rwxr-xr-x  1 root  wheel    14080 Sep  9 18:49 rmdir
+-r-xr-xr-x  1 root  wheel   628800 Sep 26 22:03 sh
+-rwxr-xr-x  1 root  wheel    14016 Sep  9 18:44 sleep
+-rwxr-xr-x  1 root  wheel    28064 Sep  9 18:59 stty
+-rwxr-xr-x  1 root  wheel    34224 Sep  9 21:59 sync
+-rwxr-xr-x  2 root  wheel   370096 Sep  9 18:40 tcsh
+-rwxr-xr-x  2 root  wheel    18480 Sep  9 18:44 test
+-rwxr-xr-x  2 root  wheel    19760 Sep  9 18:49 unlink
+-rwxr-xr-x  1 root  wheel    14112 Sep  9 19:32 wait4path
+-rwxr-xr-x  1 root  wheel   551232 Sep  9 19:19 zsh
+Parent: finished
+</pre>
+
+<p>
+The parent first forks a child process. In the child process, the
+execution is replaced by <code>ls</code> which prints the output. Meanwhile, the
+parent wait's for the execution to complete before continuing.
+</p>
+
+<p>
+Imagine now this process occurring in a loop, and instead of running
+<code>ls</code>, the user provides the program that should run. That's a shell,
+and that's what you will be doing in the next lab.
+</p>
+</div>
+</div>
+</div>
+</body>
+</html>
