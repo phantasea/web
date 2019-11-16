@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<head>
+<title>Linux fc and history command information and examples</title>
+<base href="https://www.computerhope.com/unix/uhistory.htm" />
+<link rel="canonical" href="https://www.computerhope.com/unix/uhistory.htm" />
+<link href="https://www.computerhope.com/cdn/site.css" rel="stylesheet" type="text/css" />
+<script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<meta content="Linux fc command help and information with fc and history examples, syntax, related commands, and how to use the fc and history commands from the command line." name="description" />
+<meta content="Linux fc and history command information and examples" itemprop="name" />
+<meta content="Linux fc command help and information with fc and history examples, syntax, related commands, and how to use the fc and history commands from the command line." itemprop="description" />
+<meta property="og:url" content="https://www.computerhope.com/unix/uhistory.htm" />
+<meta property="og:description" content="Linux fc command help and information with fc and history examples, syntax, related commands, and how to use the fc and history commands from the command line." />
+<meta property="og:title" content="Linux fc and history command information and examples" />
+<meta property="og:type" content="article" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Linux fc and history command information and examples" />
+<meta name="twitter:description" content="Linux fc command help and information with fc and history examples, syntax, related commands, and how to use the fc and history commands from the command line." />
+<meta name="twitter:creator" content="@computerhope" />
+<!--[if lt IE 9]>
+<script src="https://www.computerhope.com/cdn/html5shiv.js"></script>
+<![endif]-->
+<meta content="https://www.computerhope.com/cdn/linux/fc.gif" property="og:image" />
+<meta content="https://www.computerhope.com/cdn/linux/fc.gif" itemprop="image" />
+<link href="https://www.computerhope.com/cdn/linux/fc.gif" rel="image_src" />
+<link href="https://feeds.feedburner.com/LatestNewPagesOnComputerHope" rel="alternate" title="RSS-Feed" type="application/rss+xml" />
+<link href="https://www.computerhope.com/cdn/apple-touch-icon.png" rel="apple-touch-icon" />
+<link href="https://www.computerhope.com/cdn/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-126444-1', 'auto');
+  ga('send', 'pageview');
+</script>
+</head>
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"> <a href="/"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" class="logo" /></a>
+<div itemscope itemtype="https://schema.org/SiteNavigationElement">
+<form action="https://www.computerhope.com/cgi-bin/search.cgi" method="post">
+<input class="sbar" name="q" title="Search" type="text" accesskey="s" />
+<button type="Submit">Search</button>
+</form>
+<ul id="nav">
+<li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li>
+<li><a href="/tips/" title="Computer tips and tricks">Tips</a></li>
+<li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li>
+<li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li>
+<li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li>
+<li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li>
+</ul>
+</div>
+</header>
+<div class="container ad"> <ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<div class="container">
+<ol class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta content="1" itemprop="position" /></li>
+<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta content="2" itemprop="position" /></li>
+<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta content="3" itemprop="position" /></li>
+</ol>
+</div>
+<div class="container content" id="main-content">
+<article>
+<h1 itemprop="headline">Linux fc and history commands</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2019-05-04">05/04/2019</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div><img alt="fc command" class="floatRight" height="300" src="/cdn/linux/fc.gif" width="300" /><p class="intro">In the <a href="/unix/ubash.htm">bash</a> <a href="/jargon/s/shell.htm">shell</a>, the <b>fc</b> <a href="/jargon/b/builtin.htm">built-in</a> command lists, edits, or re-executes commands previously entered to a <a href="/jargon/s/shell.htm">shell</a>. The <b>history</b> built-in command allows you to use words from previous <a href="/jargon/c/commandi.htm">command lines</a> in the command line you are typing. This simplifies spelling corrections and the repetition of complicated commands or <a href="/jargon/a/argument.htm">arguments</a>.</p><p><span class="warn">Note:</span> If you're looking for the history of the Linux operating system, see the <a href="/history/unix.htm">history of Unix-like operating systems</a>.</p>
+<div class="pagenav contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div><h2 id="desc">Description</h2>
+<p class="tab">Each shell (the <a href="/unix/ush.htm">Bourne shell</a>, the <a href="/unix/ubash.htm">Bourne Again Shell</a>, the <a href="/unix/ucsh.htm">C Shell</a>, the <a href="/unix/uksh.htm">Korn Shell</a>, etc.) has its own slight differences in how it handles, and allows access to, the command history. In general, the following commands will help you navigate and use your command history within your <a href="/jargon/l/linux.htm">Linux</a>/<a href="/jargon/u/unix.htm">Unix</a> shell.</p>
+<p class="tab"><b>history</b> displays or manipulate the history list with line numbers, prefixing each modified entry with a '<b>*</b>'. An argument of <i>n</i> lists only the last <i>b</i> entries.</p>
+<h2>Syntax: history</h2>
+<pre class="tcy tab">history [-c] [-d <i>offset</i> ] [ <i>n</i> ]</pre>
+<pre class="tcy tab">history -anrw [ <i>file name</i> ]</pre>
+<pre class="tcy tab">history -ps <i>arg</i> [ <i>arg</i>... ]</pre>
+<h2>Options: history</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>-c</b></td>
+<td>Clear the history list by deleting all of the entries.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b> <i>offset</i></td>
+<td>Delete the history entry at offset OFFSET.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b></td>
+<td>Append history lines from this session to the history file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Read all history lines not already read from the history file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b></td>
+<td>Read the history file and append the contents to the history list.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b></td>
+<td>Write the current history to the history file and append them to the history list</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b></td>
+<td>Perform history expansion on each ARG and display the result without storing it in the history list.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b></td>
+<td>Append the ARGs to the history list as a single entry.</td>
+</tr>
+</table>
+<p class="tab">If FILE NAME is given, it is used as the history file. Otherwise, if <b>$HISTFILE</b> has a value, that is used, else <b>~/.bash_history</b>.</p>
+<p class="tab">If the <b>$HISTTIMEFORMAT</b> variable is set and not <a href="/jargon/n/null.htm">null</a>, its value is used as a format <a href="/jargon/s/string.htm">string</a> for <a href="/unix/strftime.htm">strftime</a> to print the <a href="/jargon/t/timestam.htm">time stamp</a> associated with each displayed history entry. No time stamps are printed otherwise.</p>
+<h2>Syntax: fc</h2>
+<pre class="tcy tab">fc [-e <i>ename</i>] [-lnr] [<i>first</i>] [<i>last</i>]</pre>
+<pre class="tcy tab">fc -s [<i>pat</i>=<i>rep</i>] [<i>command</i>]</pre>
+<p class="tab"><b>fc</b> is used to list or edit and re-execute commands from the history list. FIRST and LAST can be numbers specifying the range, or FIRST can be a string, which means the most recent command beginning with that string.</p>
+<h2>Options: fc</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>-e</b> <i>ENAME</i></td>
+<td>Select which editor to use. Default is <b>FCEDIT</b>, then <b>EDITOR</b>, then <a href="/unix/uvi.htm"><b>vi</b></a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b></td>
+<td>List lines instead of editing.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Omit line numbers when listing.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b></td>
+<td>Reverse the order of the lines (newest listed first).</td>
+</tr>
+</table>
+<p class="tab">With the '<b>fc -s [pat=rep ...] [command]</b>' format, COMMAND is re-executed after the substitution OLD=NEW is performed.</p>
+<p class="tab">A useful alias to use with this is <b>r='fc -s'</b>, so that typing '<b>r cc</b>' runs the last command beginning with '<b>cc</b>' and typing '<b>r</b>' re-executes the last command.</p>
+<h2>Other History Commands and Shortcuts</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>!</b><i>string</i></td>
+<td>Execute the most recent command that begins with <i>string</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>!</b><i>num</i></td>
+<td>Execute command that is number <i>num</i> in the command history.</td>
+</tr>
+<tr class="tcw">
+<td><b>!</b>-<i>num</i></td>
+<td>Execute the command was run <i>num</i> commands previous in the history.</td>
+</tr>
+<tr class="tcw">
+<td><b>!!</b></td>
+<td>Execute the previous (most recently-executed) command.</td>
+</tr>
+<tr class="tcw">
+<td><b>!?</b><i>string</i>[<b>?</b>]</td>
+<td>Execute the most recent command containing the string <i>string</i>. The trailing <b>?</b> may be omitted if <i>string</i> represents the end of the command in question.</td>
+</tr>
+<tr class="tcw">
+<td><b>^</b><i>string1</i><b>^</b><i>string2</i><b>^</b></td>
+<td>Repeat the previous command executed, replacing <i>string1</i> with <i>string2</i>. The previous command must contain <i>string1</i>.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">fc -l</pre>
+<p class="tab">Lists the history of commands on the computer similar to the following:</p>
+<pre class="tab">2 grep --help
+3 bg
+4 fg
+5 pine
+6 cd public_html
+7 rm index.html
+8 sz index.html
+9 ls -laxo
+10 chmod 755 index.htm</pre>
+<pre class="tcy tab">fc -e - ls</pre>
+<p class="tab">Executes the most recently executed command that begins with the letters <b>ls</b>.</p>
+<pre class="tcy tab">history</pre>
+<p class="tab">Typing <b>history</b> alone would give results similar to the following:</p>
+<pre class="tab">2 grep --help
+3 bg
+4 fg
+5 pine
+6 cd public_html
+7 rm index.html
+8 sz index.html
+9 ls -laxo
+10 chmod 755 index.htm</pre>
+<p class="tcy tab">!ls</p>
+<p class="tab">Executes the most recently executed command that begins with the letters <b>ls</b>.</p>
+<p class="tcy tab">!!</p>
+<p class="tab">Would re-execute the most recently executed command.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ucsh.htm"><b>csh</b></a> &mdash; The C shell command interpreter.<br />
+<a href="/unix/ued.htm"><b>ed</b></a> &mdash; A simple text editor.<br />
+<a href="/unix/uksh.htm"><b>ksh</b></a> &mdash; The Korn shell command interpreter.<br />
+<a href="/unix/ush.htm"><b>sh</b></a> &mdash; The Bourne shell command interpreter.</p>
+</article>
+<div class="bottomad"><ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+<div class="related"><ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="autorelaxed" data-ad-slot="9849691723" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div>
+</div>
+<div class="cf" id="meta_wrap">
+<ul class="options cf">
+<li class="useful-page"> <span class="nolink">Was this page useful?</span> <a class="first-child" href="/cgi-bin/feedback.cgi?yes" rel="nofollow">Yes</a> <a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li>
+<li>
+<ul>
+<li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li>
+<li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li>
+<li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li>
+<li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<footer>
+<form action="https://www.computerhope.com/cgi-bin/search.cgi" method="post" class="cf">
+<input class="sbar" name="q" title="Search" type="text" />
+<button type="Submit">Search</button>
+</form>
+<ul class="cf">
+<li class="recent-pages">
+<ol>
+<li class="widget-title"><h5>Recently added pages</h5></li>
+<li id="ra1"></li>
+<li id="ra2"></li>
+<li id="ra3"></li>
+<li id="ra4"></li>
+<li id="ra5"></li>
+<li><a href="/whatnew.htm">View all recent updates</a></li>
+</ol>
+</li>
+<li class="useful-links">
+<ol>
+<li class="widget-title"><h5>Useful links</h5></li>
+<li><a href="/more.htm">About Computer Hope</a></li>
+<li><a href="/sindex.htm">Site Map</a></li>
+<li><a href="/forum/">Forum</a></li>
+<li><a href="/contact/">Contact Us</a></li>
+<li><a href="/issues/ch000586.htm">How to Help</a></li>
+<li><a href="/chtop10.htm">Top 10 pages</a></li>
+</ol>
+</li>
+<li class="social-networks">
+<ol>
+<li class="widget-title first-child"><h5>Follow us</h5></li>
+<li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li>
+<li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li>
+<li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li>
+<li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li>
+<li><a href="/rss.htm" class="rss">RSS</a></li>
+</ol>
+</li>
+</ul>
+<div class="copyright">&copy; 2019 Computer Hope<br /><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div>
+</footer>
+</div>
+<script async="" src="https://www.computerhope.com/recent.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://www.computerhope.com/cdn/site.js"></script>
+<script async="" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=computerhope"></script>
+</body>
+</html>
