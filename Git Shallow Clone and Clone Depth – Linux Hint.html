@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en-US" class="no-js no-svg">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1">
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<title>Git Shallow Clone and Clone Depth &#8211; Linux Hint</title>
+<script>
+window.adthrive = window.adthrive || {};
+window.adthrive.cmd = window.adthrive.cmd || [];
+window.adthrive.host = 'ads.adthrive.com';
+window.adthrive.plugin = 'adthrive-ads-1.0.35';
+window.adthrive.threshold = Math.floor(Math.random() * 100 + 1);
+
+(function() {
+	var script = document.createElement('script');
+	script.async = true;
+	script.type = 'text/javascript';
+	script.src = 'https://ads.adthrive.com/sites/5c9b6001b80bec0dfaf0b493/ads.min.js?threshold=' + window.adthrive.threshold;
+	var node = document.getElementsByTagName('script')[0];
+	node.parentNode.insertBefore(script, node);
+})();
+</script>
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Linux Hint &raquo; Feed" href="https://linuxhint.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Linux Hint &raquo; Comments Feed" href="https://linuxhint.com/comments/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/12.0.0-1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/12.0.0-1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/linuxhint.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.2.4"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55357,56424,55356,57342,8205,55358,56605,8205,55357,56424,55356,57340],[55357,56424,55356,57342,8203,55358,56605,8203,55357,56424,55356,57340]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='wp-block-library-css'  href='https://linuxhint.com/wp-includes/css/dist/block-library/style.min.css?ver=5.2.4' type='text/css' media='all' />
+<link rel='stylesheet' id='spacexchimp_p005-bootstrap-tooltip-css-css'  href='https://linuxhint.com/wp-content/plugins/social-media-buttons-toolbar/inc/lib/bootstrap-tooltip/bootstrap-tooltip.css?ver=4.56' type='text/css' media='all' />
+<link rel='stylesheet' id='spacexchimp_p005-frontend-css-css'  href='https://linuxhint.com/wp-content/plugins/social-media-buttons-toolbar/inc/css/frontend.css?ver=4.56' type='text/css' media='all' />
+<style id='spacexchimp_p005-frontend-css-inline-css' type='text/css'>
+
+                    .sxc-follow-buttons {
+                        text-align: center !important;
+                    }
+                    .sxc-follow-buttons .sxc-follow-button,
+                    .sxc-follow-buttons .sxc-follow-button a,
+                    .sxc-follow-buttons .sxc-follow-button a img {
+                        width: 64px !important;
+                        height: 64px !important;
+                    }
+                    .sxc-follow-buttons .sxc-follow-button {
+                        margin: 5px !important;
+                    }
+                  
+</style>
+<link rel='stylesheet' id='vce-fonts-css'  href='https://fonts.googleapis.com/css?family=Poppins%3A400&#038;subset=latin%2Clatin-ext&#038;ver=2.9.2' type='text/css' media='all' />
+<link rel='stylesheet' id='vce-style-css'  href='https://linuxhint.com/wp-content/themes/voice/assets/css/min.css?ver=2.9.2' type='text/css' media='all' />
+<style id='vce-style-inline-css' type='text/css'>
+body, button, input, select, textarea {font-size: 1.6rem;}.vce-single .entry-headline p{font-size: 2.2rem;}.main-navigation a{font-size: 1.6rem;}.sidebar .widget-title{font-size: 1.8rem;}.sidebar .widget, .vce-lay-c .entry-content, .vce-lay-h .entry-content {font-size: 1.4rem;}.vce-featured-link-article{font-size: 5.2rem;}.vce-featured-grid-big.vce-featured-grid .vce-featured-link-article{font-size: 3.4rem;}.vce-featured-grid .vce-featured-link-article{font-size: 2.2rem;}h1 { font-size: 4.5rem; }h2 { font-size: 4.0rem; }h3 { font-size: 3.5rem; }h4 { font-size: 2.5rem; }h5 { font-size: 2.0rem; }h6 { font-size: 1.8rem; }.comment-reply-title, .main-box-title{font-size: 2.2rem;}h1.entry-title{font-size: 4.5rem;}.vce-lay-a .entry-title a{font-size: 3.4rem;}.vce-lay-b .entry-title{font-size: 2.4rem;}.vce-lay-c .entry-title, .vce-sid-none .vce-lay-c .entry-title{font-size: 2.2rem;}.vce-lay-d .entry-title{font-size: 1.5rem;}.vce-lay-e .entry-title{font-size: 1.4rem;}.vce-lay-f .entry-title{font-size: 1.4rem;}.vce-lay-g .entry-title a, .vce-lay-g .entry-title a:hover{font-size: 3.0rem;}.vce-lay-h .entry-title{font-size: 2.4rem;}.entry-meta div,.entry-meta div a,.vce-lay-g .meta-item,.vce-lay-c .meta-item{font-size: 1.4rem;}.vce-lay-d .meta-category a,.vce-lay-d .entry-meta div,.vce-lay-d .entry-meta div a,.vce-lay-e .entry-meta div,.vce-lay-e .entry-meta div a,.vce-lay-e .fn,.vce-lay-e .meta-item{font-size: 1.3rem;}body {background-color:#f0f0f0;}body,.mks_author_widget h3,.site-description,.meta-category a,textarea {font-family: 'Poppins';font-weight: 400;}h1,h2,h3,h4,h5,h6,blockquote,.vce-post-link,.site-title,.site-title a,.main-box-title,.comment-reply-title,.entry-title a,.vce-single .entry-headline p,.vce-prev-next-link,.author-title,.mks_pullquote,.widget_rss ul li .rsswidget,#bbpress-forums .bbp-forum-title,#bbpress-forums .bbp-topic-permalink {font-family: 'Poppins';font-weight: 400;}.main-navigation a,.sidr a{font-family: 'Poppins';font-weight: 400;}.vce-single .entry-content,.vce-single .entry-headline,.vce-single .entry-footer,.vce-share-bar {width: 750px;}.vce-lay-a .lay-a-content{width: 750px;max-width: 750px;}.vce-page .entry-content,.vce-page .entry-title-page {width: 600px;}.vce-sid-none .vce-single .entry-content,.vce-sid-none .vce-single .entry-headline,.vce-sid-none .vce-single .entry-footer {width: 800px;}.vce-sid-none .vce-page .entry-content,.vce-sid-none .vce-page .entry-title-page,.error404 .entry-content {width: 750px;max-width: 750px;}body, button, input, select, textarea{color: #444444;}h1,h2,h3,h4,h5,h6,.entry-title a,.prev-next-nav a,#bbpress-forums .bbp-forum-title, #bbpress-forums .bbp-topic-permalink,.woocommerce ul.products li.product .price .amount{color: #444444;}a,.entry-title a:hover,.vce-prev-next-link:hover,.vce-author-links a:hover,.required,.error404 h4,.prev-next-nav a:hover,#bbpress-forums .bbp-forum-title:hover, #bbpress-forums .bbp-topic-permalink:hover,.woocommerce ul.products li.product h3:hover,.woocommerce ul.products li.product h3:hover mark,.main-box-title a:hover{color: #cf4d35;}.vce-square,.vce-main-content .mejs-controls .mejs-time-rail .mejs-time-current,button,input[type="button"],input[type="reset"],input[type="submit"],.vce-button,.pagination-wapper a,#vce-pagination .next.page-numbers,#vce-pagination .prev.page-numbers,#vce-pagination .page-numbers,#vce-pagination .page-numbers.current,.vce-link-pages a,#vce-pagination a,.vce-load-more a,.vce-slider-pagination .owl-nav > div,.vce-mega-menu-posts-wrap .owl-nav > div,.comment-reply-link:hover,.vce-featured-section a,.vce-lay-g .vce-featured-info .meta-category a,.vce-404-menu a,.vce-post.sticky .meta-image:before,#vce-pagination .page-numbers:hover,#bbpress-forums .bbp-pagination .current,#bbpress-forums .bbp-pagination a:hover,.woocommerce #respond input#submit,.woocommerce a.button,.woocommerce button.button,.woocommerce input.button,.woocommerce ul.products li.product .added_to_cart,.woocommerce #respond input#submit:hover,.woocommerce a.button:hover,.woocommerce button.button:hover,.woocommerce input.button:hover,.woocommerce ul.products li.product .added_to_cart:hover,.woocommerce #respond input#submit.alt,.woocommerce a.button.alt,.woocommerce button.button.alt,.woocommerce input.button.alt,.woocommerce #respond input#submit.alt:hover, .woocommerce a.button.alt:hover, .woocommerce button.button.alt:hover, .woocommerce input.button.alt:hover,.woocommerce span.onsale,.woocommerce .widget_price_filter .ui-slider .ui-slider-range,.woocommerce .widget_price_filter .ui-slider .ui-slider-handle,.comments-holder .navigation .page-numbers.current,.vce-lay-a .vce-read-more:hover,.vce-lay-c .vce-read-more:hover{background-color: #cf4d35;}#vce-pagination .page-numbers,.comments-holder .navigation .page-numbers{background: transparent;color: #cf4d35;border: 1px solid #cf4d35;}.comments-holder .navigation .page-numbers:hover{background: #cf4d35;border: 1px solid #cf4d35;}.bbp-pagination-links a{background: transparent;color: #cf4d35;border: 1px solid #cf4d35 !important;}#vce-pagination .page-numbers.current,.bbp-pagination-links span.current,.comments-holder .navigation .page-numbers.current{border: 1px solid #cf4d35;}.widget_categories .cat-item:before,.widget_categories .cat-item .count{background: #cf4d35;}.comment-reply-link,.vce-lay-a .vce-read-more,.vce-lay-c .vce-read-more{border: 1px solid #cf4d35;}.entry-meta div,.entry-meta-count,.entry-meta div a,.comment-metadata a,.meta-category span,.meta-author-wrapped,.wp-caption .wp-caption-text,.widget_rss .rss-date,.sidebar cite,.site-footer cite,.sidebar .vce-post-list .entry-meta div,.sidebar .vce-post-list .entry-meta div a,.sidebar .vce-post-list .fn,.sidebar .vce-post-list .fn a,.site-footer .vce-post-list .entry-meta div,.site-footer .vce-post-list .entry-meta div a,.site-footer .vce-post-list .fn,.site-footer .vce-post-list .fn a,#bbpress-forums .bbp-topic-started-by,#bbpress-forums .bbp-topic-started-in,#bbpress-forums .bbp-forum-info .bbp-forum-content,#bbpress-forums p.bbp-topic-meta,span.bbp-admin-links a,.bbp-reply-post-date,#bbpress-forums li.bbp-header,#bbpress-forums li.bbp-footer,.woocommerce .woocommerce-result-count,.woocommerce .product_meta{color: #9b9b9b;}.main-box-title, .comment-reply-title, .main-box-head{background: #cf4d35;color: #ffffff;}.main-box-title a{color: #ffffff;}.sidebar .widget .widget-title a{color: #ffffff;}.main-box,.comment-respond,.prev-next-nav{background: #f9f9f9;}.vce-post,ul.comment-list > li.comment,.main-box-single,.ie8 .vce-single,#disqus_thread,.vce-author-card,.vce-author-card .vce-content-outside,.mks-bredcrumbs-container,ul.comment-list > li.pingback{background: #ffffff;}.mks_tabs.horizontal .mks_tab_nav_item.active{border-bottom: 1px solid #ffffff;}.mks_tabs.horizontal .mks_tab_item,.mks_tabs.vertical .mks_tab_nav_item.active,.mks_tabs.horizontal .mks_tab_nav_item.active{background: #ffffff;}.mks_tabs.vertical .mks_tab_nav_item.active{border-right: 1px solid #ffffff;}#vce-pagination,.vce-slider-pagination .owl-controls,.vce-content-outside,.comments-holder .navigation{background: #f3f3f3;}.sidebar .widget-title{background: #ffffff;color: #dd3333;}.sidebar .widget{background: #f9f9f9;}.sidebar .widget,.sidebar .widget li a,.sidebar .mks_author_widget h3 a,.sidebar .mks_author_widget h3,.sidebar .vce-search-form .vce-search-input,.sidebar .vce-search-form .vce-search-input:focus{color: #444444;}.sidebar .widget li a:hover,.sidebar .widget a,.widget_nav_menu li.menu-item-has-children:hover:after,.widget_pages li.page_item_has_children:hover:after{color: #cf4d35;}.sidebar .tagcloud a {border: 1px solid #cf4d35;}.sidebar .mks_author_link,.sidebar .tagcloud a:hover,.sidebar .mks_themeforest_widget .more,.sidebar button,.sidebar input[type="button"],.sidebar input[type="reset"],.sidebar input[type="submit"],.sidebar .vce-button,.sidebar .bbp_widget_login .button{background-color: #cf4d35;}.sidebar .mks_author_widget .mks_autor_link_wrap,.sidebar .mks_themeforest_widget .mks_read_more,.widget .meks-instagram-follow-link {background: #f3f3f3;}.sidebar #wp-calendar caption,.sidebar .recentcomments,.sidebar .post-date,.sidebar #wp-calendar tbody{color: rgba(68,68,68,0.7);}.site-footer{background: #373941;}.site-footer .widget-title{color: #ffffff;}.site-footer,.site-footer .widget,.site-footer .widget li a,.site-footer .mks_author_widget h3 a,.site-footer .mks_author_widget h3,.site-footer .vce-search-form .vce-search-input,.site-footer .vce-search-form .vce-search-input:focus{color: #ccd2d8;}.site-footer .widget li a:hover,.site-footer .widget a,.site-info a{color: #cf4d35;}.site-footer .tagcloud a {border: 1px solid #cf4d35;}.site-footer .mks_author_link,.site-footer .mks_themeforest_widget .more,.site-footer button,.site-footer input[type="button"],.site-footer input[type="reset"],.site-footer input[type="submit"],.site-footer .vce-button,.site-footer .tagcloud a:hover{background-color: #cf4d35;}.site-footer #wp-calendar caption,.site-footer .recentcomments,.site-footer .post-date,.site-footer #wp-calendar tbody,.site-footer .site-info{color: rgba(204,210,216,0.7);}.top-header,.top-nav-menu li .sub-menu{background: #2c2d34;}.top-header,.top-header a{color: #ffffff;}.top-header .vce-search-form .vce-search-input,.top-header .vce-search-input:focus,.top-header .vce-search-submit{color: #ffffff;}.top-header .vce-search-form .vce-search-input::-webkit-input-placeholder { color: #ffffff;}.top-header .vce-search-form .vce-search-input:-moz-placeholder { color: #ffffff;}.top-header .vce-search-form .vce-search-input::-moz-placeholder { color: #ffffff;}.top-header .vce-search-form .vce-search-input:-ms-input-placeholder { color: #ffffff;}.header-1-wrapper{height: 150px;padding-top: 15px;}.header-2-wrapper,.header-3-wrapper{height: 150px;}.header-2-wrapper .site-branding,.header-3-wrapper .site-branding{top: 15px;left: 0px;}.site-title a, .site-title a:hover{color: #23282d;}.site-description{color: #aaaaaa;}.main-header{background-color: #23282d;}.header-bottom-wrapper{background: #e64338;}.vce-header-ads{margin: 30px 0;}.header-3-wrapper .nav-menu > li > a{padding: 65px 15px;}.header-sticky,.sidr{background: rgba(35,40,45,0.95);}.ie8 .header-sticky{background: #23282d;}.main-navigation a,.nav-menu .vce-mega-menu > .sub-menu > li > a,.sidr li a,.vce-menu-parent{color: #ffffff;}.nav-menu > li:hover > a,.nav-menu > .current_page_item > a,.nav-menu > .current-menu-item > a,.nav-menu > .current-menu-ancestor > a,.main-navigation a.vce-item-selected,.main-navigation ul ul li:hover > a,.nav-menu ul .current-menu-item a,.nav-menu ul .current_page_item a,.vce-menu-parent:hover,.sidr li a:hover,.sidr li.sidr-class-current_page_item > a,.main-navigation li.current-menu-item.fa:before,.vce-responsive-nav{color: #ff0505;}#sidr-id-vce_main_navigation_menu .soc-nav-menu li a:hover {color: #ffffff;}.nav-menu > li:hover > a,.nav-menu > .current_page_item > a,.nav-menu > .current-menu-item > a,.nav-menu > .current-menu-ancestor > a,.main-navigation a.vce-item-selected,.main-navigation ul ul,.header-sticky .nav-menu > .current_page_item:hover > a,.header-sticky .nav-menu > .current-menu-item:hover > a,.header-sticky .nav-menu > .current-menu-ancestor:hover > a,.header-sticky .main-navigation a.vce-item-selected:hover{background-color: #23282d;}.search-header-wrap ul {border-top: 2px solid #ff0505;}.vce-cart-icon a.vce-custom-cart span,.sidr-class-vce-custom-cart .sidr-class-vce-cart-count {background: #ff0505;font-family: 'Poppins';}.vce-border-top .main-box-title{border-top: 2px solid #cf4d35;}.tagcloud a:hover,.sidebar .widget .mks_author_link,.sidebar .widget.mks_themeforest_widget .more,.site-footer .widget .mks_author_link,.site-footer .widget.mks_themeforest_widget .more,.vce-lay-g .entry-meta div,.vce-lay-g .fn,.vce-lay-g .fn a{color: #FFF;}.vce-featured-header .vce-featured-header-background{opacity: 0.5}.vce-featured-grid .vce-featured-header-background,.vce-post-big .vce-post-img:after,.vce-post-slider .vce-post-img:after{opacity: 0.5}.vce-featured-grid .owl-item:hover .vce-grid-text .vce-featured-header-background,.vce-post-big li:hover .vce-post-img:after,.vce-post-slider li:hover .vce-post-img:after {opacity: 0.8}.vce-featured-grid.vce-featured-grid-big .vce-featured-header-background,.vce-post-big .vce-post-img:after,.vce-post-slider .vce-post-img:after{opacity: 0.5}.vce-featured-grid.vce-featured-grid-big .owl-item:hover .vce-grid-text .vce-featured-header-background,.vce-post-big li:hover .vce-post-img:after,.vce-post-slider li:hover .vce-post-img:after {opacity: 0.8}#back-top {background: #323232}.sidr input[type=text]{background: rgba(255,255,255,0.1);color: rgba(255,255,255,0.5);}.is-style-solid-color{background-color: #cf4d35;color: #ffffff;}.wp-block-image figcaption{color: #9b9b9b;}.wp-block-cover .wp-block-cover-image-text, .wp-block-cover .wp-block-cover-text, .wp-block-cover h2, .wp-block-cover-image .wp-block-cover-image-text, .wp-block-cover-image .wp-block-cover-text, .wp-block-cover-image h2,p.has-drop-cap:not(:focus)::first-letter,p.wp-block-subhead{font-family: 'Poppins';font-weight: 400;}.wp-block-cover .wp-block-cover-image-text, .wp-block-cover .wp-block-cover-text, .wp-block-cover h2, .wp-block-cover-image .wp-block-cover-image-text, .wp-block-cover-image .wp-block-cover-text, .wp-block-cover-image h2{font-size: 2.5rem;}p.wp-block-subhead{font-size: 2.2rem;}.wp-block-button__link{background: #cf4d35}.wp-block-search .wp-block-search__button{color: #ffffff}.meta-image:hover a img,.vce-lay-h .img-wrap:hover .meta-image > img,.img-wrp:hover img,.vce-gallery-big:hover img,.vce-gallery .gallery-item:hover img,.wp-block-gallery .blocks-gallery-item:hover img,.vce_posts_widget .vce-post-big li:hover img,.vce-featured-grid .owl-item:hover img,.vce-post-img:hover img,.mega-menu-img:hover img{-webkit-transform: scale(1.1);-moz-transform: scale(1.1);-o-transform: scale(1.1);-ms-transform: scale(1.1);transform: scale(1.1);}.has-small-font-size{ font-size: 1.2rem;}.has-large-font-size{ font-size: 1.9rem;}.has-huge-font-size{ font-size: 2.3rem;}@media(min-width: 671px){.has-small-font-size{ font-size: 1.3rem;}.has-normal-font-size{ font-size: 1.6rem;}.has-large-font-size{ font-size: 2.1rem;}.has-huge-font-size{ font-size: 2.8rem;}}.has-vce-acc-background-color{ background-color: #cf4d35;}.has-vce-acc-color{ color: #cf4d35;}.has-vce-meta-background-color{ background-color: #9b9b9b;}.has-vce-meta-color{ color: #9b9b9b;}.has-vce-txt-background-color{ background-color: #444444;}.has-vce-txt-color{ color: #444444;}.has-vce-bg-background-color{ background-color: #ffffff;}.has-vce-bg-color{ color: #ffffff;}.has-vce-cat-0-background-color{ background-color: ;}.has-vce-cat-0-color{ color: ;}.site-title a{text-transform: uppercase;}.site-description{text-transform: uppercase;}.nav-menu li a{text-transform: uppercase;}.main-box-title{text-transform: uppercase;}.sidebar .widget-title{text-transform: uppercase;}.site-footer .widget-title{text-transform: uppercase;}.vce-featured-link-article{text-transform: uppercase;}
+</style>
+<link rel='stylesheet' id='vce_child_load_scripts-css'  href='https://linuxhint.com/wp-content/themes/voice-child/style.css?ver=2.9.2' type='text/css' media='screen' />
+<link rel='stylesheet' id='meks-author-widget-css'  href='https://linuxhint.com/wp-content/plugins/meks-smart-author-widget/css/style.css?ver=1.1.1' type='text/css' media='all' />
+<link rel='stylesheet' id='__EPYT__style-css'  href='https://linuxhint.com/wp-content/plugins/youtube-embed-plus/styles/ytprefs.min.css?ver=13.1.2.3' type='text/css' media='all' />
+<style id='__EPYT__style-inline-css' type='text/css'>
+
+                .epyt-gallery-thumb {
+                        width: 33.333%;
+                }
+                
+</style>
+<link rel='stylesheet' id='codecolorer-css'  href='https://linuxhint.com/wp-content/plugins/codecolorer/codecolorer.css?ver=0.9.16' type='text/css' media='screen' />
+<script type='text/javascript' src='https://linuxhint.com/wp-includes/js/jquery/jquery.js?ver=1.12.4-wp'></script>
+<script type='text/javascript' src='https://linuxhint.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<script type='text/javascript' src='https://linuxhint.com/wp-content/plugins/social-media-buttons-toolbar/inc/lib/bootstrap-tooltip/bootstrap-tooltip.js?ver=4.56'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var _EPYT_ = {"ajaxurl":"https:\/\/linuxhint.com\/wp-admin\/admin-ajax.php","security":"0a39ced4a1","gallery_scrolloffset":"20","eppathtoscripts":"https:\/\/linuxhint.com\/wp-content\/plugins\/youtube-embed-plus\/scripts\/","eppath":"https:\/\/linuxhint.com\/wp-content\/plugins\/youtube-embed-plus\/","epresponsiveselector":"[\"iframe.__youtube_prefs_widget__\"]","epdovol":"1","version":"13.1.2.3","evselector":"iframe.__youtube_prefs__[src], iframe[src*=\"youtube.com\/embed\/\"], iframe[src*=\"youtube-nocookie.com\/embed\/\"]","ajax_compat":"","ytapi_load":"light","stopMobileBuffer":"1","vi_active":"","vi_js_posttypes":[]};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://linuxhint.com/wp-content/plugins/youtube-embed-plus/scripts/ytprefs.min.js?ver=13.1.2.3'></script>
+<link rel='https://api.w.org/' href='https://linuxhint.com/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://linuxhint.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://linuxhint.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='PostgreSQL NodeJS Tutorial' href='https://linuxhint.com/postgresql-nodejs-tutorial/' />
+<link rel='next' title='How to Change IP Address on Ubuntu' href='https://linuxhint.com/change-ip-address-ubuntu/' />
+<meta name="generator" content="WordPress 5.2.4" />
+<link rel="canonical" href="https://linuxhint.com/git-shallow-clone-and-clone-depth/" />
+<link rel='shortlink' href='https://linuxhint.com/?p=21667' />
+<link rel="alternate" type="application/json+oembed" href="https://linuxhint.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Flinuxhint.com%2Fgit-shallow-clone-and-clone-depth%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://linuxhint.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Flinuxhint.com%2Fgit-shallow-clone-and-clone-depth%2F&#038;format=xml" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-2559550-13"></script>
+<script>
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
+
+ gtag('config', 'UA-2559550-13',{'dimension1': 'Zak H', 'dimension2': '2018-01'}); 
+</script>		<style type="text/css" id="wp-custom-css">
+			div#wpbody a {
+color: #0000FF;
+}
+
+div#wpbody a:visited {
+color: #0000FF;
+}
+
+h1.entry-title {
+font-size: 38px;
+font-weight: bold;
+}
+
+h1 {
+font-size: 34px;
+font-weight: bold;
+}
+
+h2 {
+font-size: 28px;
+font-weight: bold;
+}
+
+h3 {
+font-size: 26px;
+font-weight: bold;
+}
+
+h4{
+font-weight: bold;
+}
+
+.codecolorer, .codecolorer *, .codecolorer-container, .codecolorer-container * {
+font: 1.4rem/1.4rem Monaco, Lucida Console, monospace ! important;
+}
+
+.comment-form {
+    margin-bottom: inherit;
+}
+
+.gglcptch_v1, .gglcptch_v2 {
+    text-align: -webkit-right;
+}
+
+pre {
+    background: #36363e;
+    font-family: 'Poppins';
+    font-size: 14px;
+    color: floralwhite;
+}
+
+.apsc-theme-1 .apsc-each-profile {
+    margin: 3px;
+}
+
+input[type=text] {
+    background: #fff;
+}
+div#wpbody {
+ font-family: 'Arimo', sans-serif;
+ font-weight: 400;
+ font-size: 1.14286em;
+}
+
+div#wpbody blockquote {
+ font-family: 'Arimo', sans-serif;
+ font-weight: 400;
+ font-size: 0.8em;
+ font-style: italic;
+ font-weight: bold;
+}
+
+div#newshl a {
+color: #000000;
+font-family: 'Arimo', sans-serif;
+font-weight: 400;
+font-size: 1.14286em;
+text-decoration: underline;
+}
+
+div#newshl a:visited {
+color: #000000;
+font-family: 'Arimo', sans-serif;
+font-weight: 400;
+font-size: 1.14286em;
+text-decoration: underline;
+}/*
+You can add your own CSS here.
+
+Click the help icon above to learn more.
+*/
+h1 {
+font-size:25px;
+color: #ba3925;}
+h2 {
+font-size:22px;
+color: #ba3925;
+opacity:0.9;}
+h3 {
+font-size:20px;
+color: #ba3925;
+}
+h4 {
+font-size:18px;
+color: #ba3925;
+opacity:0.9;}
+h5 {
+font-size:15px;
+color: #ba3925;}
+h6 {
+font-size:12px;
+color: #ba3925;}
+@media only screen and (max-width: 1200px){
+.codecolorer-container, .codecolorer {
+max-width: 100%;
+	}
+}
+@media only screen and (max-width: 1000px){
+.main-header {
+margin-bottom: 100px;
+	}
+}
+@media only screen and (max-width: 1000px){
+ .vce-header-ads {
+   display: block !important;
+   max-width: 100%;
+	 text-align:center;
+	}
+}
+		</style>
+		</head>
+
+<body class="post-template-default single single-post postid-21667 single-format-standard wp-embed-responsive vce-sid-none voice-v_2_9_2 voice-child">
+
+
+<div id="vce-main">
+
+<header id="header" class="main-header">
+<div class="container header-main-area header-3-wrapper">	
+		<div class="vce-res-nav">
+	<a class="vce-responsive-nav" href="#sidr-main"><i class="fa fa-bars"></i></a>
+</div>
+<div class="site-branding">
+	<span class="site-title"><a href="https://linuxhint.com/" rel="home" class="has-logo"><picture class="vce-logo"><source media="(min-width: 1024px)" srcset="https://linuxhint.com/wp-content/uploads/2017/07/website_logo_1.png"><source srcset="https://linuxhint.com/wp-content/uploads/2017/07/website_logo_1.png"><img src="https://linuxhint.com/wp-content/uploads/2017/07/website_logo_1.png" alt="Linux Hint"></picture></a></span></div>
+		<nav id="site-navigation" class="main-navigation" role="navigation">
+	<ul id="vce_main_navigation_menu" class="nav-menu"><li id="menu-item-18534" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-18534"><a href="https://linuxhint.com">Home</a><li id="menu-item-28744" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-28744"><a href="https://support.linuxhint.com/">Support</a><li id="menu-item-19816" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19816"><a href="https://linuxhint.com/subscribe-to-linuxhint-com/">Subscribe!</a><li id="menu-item-30754" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-30754"><a href="https://www.youtube.com/c/linuxhint">Videos</a><li id="menu-item-33966" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-33966"><a href="https://linuxhint.com/write-for-linuxhint-com/">Write For Us</a><li id="menu-item-23466" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-23466"><a href="https://linuxhint.com/policies-and-privacy/">Privacy Policy</a><li id="menu-item-37290" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-37290"><a href="https://linuxhint.com/terms-of-use/">Terms of Use</a><li class="search-header-wrap"><a class="search_header" href="javascript:void(0)"><i class="fa fa-search"></i></a><ul class="search-header-form-ul"><li><form class="vce-search-form" action="https://linuxhint.com/" method="get">
+	<input name="s" class="vce-search-input" size="20" type="text" value="Type here to search..." onfocus="(this.value == 'Type here to search...') && (this.value = '')" onblur="(this.value == '') && (this.value = 'Type here to search...')" placeholder="Type here to search..." />
+		<button type="submit" class="vce-search-submit"><i class="fa fa-search"></i></button> 
+</form></li></ul></li></ul></nav></div></header>
+
+
+<div id="main-wrapper">
+
+
+
+
+
+<div id="content" class="container site-content vce-sid-none">
+	
+			
+	<div id="primary" class="vce-main-content">
+
+		<main id="main" class="main-box main-box-single">
+
+		
+			<article id="post-21667" class="vce-single post-21667 post type-post status-publish format-standard has-post-thumbnail hentry category-git">
+
+			<header class="entry-header">
+							<span class="meta-category"><a href="https://linuxhint.com/category/git/" class="category-1514">Git</a></span>
+			
+			<h1 class="entry-title">Git Shallow Clone and Clone Depth</h1>
+			<div class="entry-meta"><div class="meta-item date"><span class="updated">2 years ago</span></div><div class="meta-item author"><span class="vcard author"><span class="fn">by <a href="https://linuxhint.com/author/zakh/">Zak H</a></span></span></div></div>
+		</header>
+	
+	
+	
+		
+	    
+		
+	<div class="entry-content">
+		<div id="wpbody">
+<h2><strong>Understanding Git Shallow Clone and Clone Depth</strong></h2>
+<p>Git is a distributed version control system. That is one of the advantages of using Git. You don’t have to depend on a central server or repository to work locally. Everything you need regarding your modules history is right at your fingertip. However, It can become a problem when you are dealing with repositories with large binary files or repositories that have a long history. Especially if you have a situation where you need to download it fresh every time, like a build server, then the size and download times can become an issue.</p>
+<p>Git’s solution to the problem is shallow clone where you can use clone depth to define how deep your clone should go. For example, if you use &#8211;depth 1, then during cloning, Git will only get the latest copy of the relevant files. It can save you a lot of space and time.</p>
+<h3><strong>Git Shallow Clone and Size</strong></h3>
+<p>Let’s take a look at the popular Git repository for Django. If you full clone the repo, you get the following:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;width:650px;"><div class="bash codecolorer">$ <span class="kw2">git clone</span> https:<span class="sy0">//</span>github.com<span class="sy0">/</span>django<span class="sy0">/</span>django.git<br />
+<br />
+Cloning into <span class="st_h">'django'</span>...<br />
+remote: Counting objects: <span class="nu0">409053</span>, done.<br />
+remote: Compressing objects: <span class="nu0">100</span><span class="sy0">%</span> <span class="br0">&#40;</span><span class="nu0">26</span><span class="sy0">/</span><span class="nu0">26</span><span class="br0">&#41;</span>, done.<br />
+remote: Total <span class="nu0">409053</span> <span class="br0">&#40;</span>delta <span class="nu0">6</span><span class="br0">&#41;</span>, reused <span class="nu0">8</span> <span class="br0">&#40;</span>delta <span class="nu0">1</span><span class="br0">&#41;</span>, pack-reused <span class="nu0">409026</span><br />
+Receiving objects: <span class="nu0">100</span><span class="sy0">%</span> <span class="br0">&#40;</span><span class="nu0">409053</span><span class="sy0">/</span><span class="nu0">409053</span><span class="br0">&#41;</span>, <span class="nu0">167.77</span> MiB <span class="sy0">|</span> <span class="nu0">5.95</span> MiB<span class="sy0">/</span>s, done.<br />
+Resolving deltas: <span class="nu0">100</span><span class="sy0">%</span> <span class="br0">&#40;</span><span class="nu0">297045</span><span class="sy0">/</span><span class="nu0">297045</span><span class="br0">&#41;</span>, done.<br />
+Checking connectivity... done.<br />
+Checking out files: <span class="nu0">100</span><span class="sy0">%</span> <span class="br0">&#40;</span><span class="nu0">5860</span><span class="sy0">/</span><span class="nu0">5860</span><span class="br0">&#41;</span>, done.</div></div>
+<p>Now if you check the size of your local copy, it is:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;width:435px;"><div class="bash codecolorer">$ <span class="kw2">du</span> <span class="re5">-sh</span> django<span class="sy0">/</span><br />
+<br />
+225M    django<span class="sy0">/</span></div></div>
+<p>Let’s get the same Django repository with a shallow clone:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;width:650px;"><div class="bash codecolorer">$ <span class="kw2">git clone</span> <span class="re5">--depth</span> <span class="nu0">1</span> https:<span class="sy0">//</span>github.com<span class="sy0">/</span>django<span class="sy0">/</span>django.git<br />
+<br />
+Cloning into <span class="st_h">'django'</span>...<br />
+remote: Counting objects: <span class="nu0">8091</span>, done.<br />
+remote: Compressing objects: <span class="nu0">100</span><span class="sy0">%</span> <span class="br0">&#40;</span><span class="nu0">4995</span><span class="sy0">/</span><span class="nu0">4995</span><span class="br0">&#41;</span>, done.<br />
+remote: Total <span class="nu0">8091</span> <span class="br0">&#40;</span>delta <span class="nu0">2036</span><span class="br0">&#41;</span>, reused <span class="nu0">5507</span> <span class="br0">&#40;</span>delta <span class="nu0">1833</span><span class="br0">&#41;</span>, pack-reused <span class="nu0">0</span><br />
+Receiving objects: <span class="nu0">100</span><span class="sy0">%</span> <span class="br0">&#40;</span><span class="nu0">8091</span><span class="sy0">/</span><span class="nu0">8091</span><span class="br0">&#41;</span>, <span class="nu0">8.82</span> MiB <span class="sy0">|</span> <span class="nu0">3.29</span> MiB<span class="sy0">/</span>s, done.<br />
+Resolving deltas: <span class="nu0">100</span><span class="sy0">%</span> <span class="br0">&#40;</span><span class="nu0">2036</span><span class="sy0">/</span><span class="nu0">2036</span><span class="br0">&#41;</span>, done.<br />
+Checking connectivity... done.<br />
+Checking out files: <span class="nu0">100</span><span class="sy0">%</span> <span class="br0">&#40;</span><span class="nu0">5860</span><span class="sy0">/</span><span class="nu0">5860</span><span class="br0">&#41;</span>, done.</div></div>
+<p>Now if you check the size of your local copy, it should be significantly less:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;width:650px;"><div class="bash codecolorer">$ <span class="kw2">du</span> <span class="re5">-sh</span> django<span class="sy0">/</span><br />
+<br />
+55M       django<span class="sy0">/</span></div></div>
+<p>When your server is dealing with hundreds of product lines, this kind of hard disk space saving can be helpful. In cases of game projects where there are heavy binaries, this can have a dramatic effect. It also helps with longtime projects. For example, the full Linux repository cloning from the GitHub is more than 7GB, but you can shallow clone it for less than 1GB.</p>
+<h3><strong>Git Shallow Clone and History</strong></h3>
+<p>You can locally check out shallow cloning with your own repository. Let’s create a file in our local repository, make changes and commit it 10 times. And then we can clone the repository:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;width:650px;height:600px;"><div class="bash codecolorer">$ <span class="kw2">mkdir</span> _example<br />
+$ <span class="kw3">cd</span> _example<br />
+$ <span class="kw2">ls</span><br />
+$ <span class="kw2">git init</span><br />
+Initialized empty Git repository <span class="kw1">in</span> <span class="sy0">/</span>Users<span class="sy0">/</span>zakh<span class="sy0">/</span>git_repo<span class="sy0">/</span>_example<span class="sy0">/</span>.git<span class="sy0">/</span><br />
+$ <span class="kw3">echo</span> x <span class="sy0">&gt;</span> large_file<br />
+$ <span class="kw2">git add</span> <span class="re5">-A</span><br />
+$ <span class="kw2">git commit</span> <span class="re5">-m</span> <span class="st0">&quot;Initial commit&quot;</span><br />
+<span class="br0">&#91;</span>master <span class="br0">&#40;</span>root-commit<span class="br0">&#41;</span> dd11686<span class="br0">&#93;</span> Initial commit<br />
+<span class="nu0">1</span> <span class="kw2">file</span> changed, <span class="nu0">1</span> insertion<span class="br0">&#40;</span>+<span class="br0">&#41;</span><br />
+create mode <span class="nu0">100644</span> large_file<br />
+<br />
+$ <span class="kw3">echo</span> xx <span class="sy0">&gt;</span> large_file<br />
+$ <span class="kw2">git add</span> <span class="re5">-A</span><br />
+$ <span class="kw2">git commit</span> <span class="re5">-m</span> <span class="st0">&quot;Modification to large_file 1&quot;</span><br />
+<span class="br0">&#91;</span>master 9efa367<span class="br0">&#93;</span> Modification to large_file <span class="nu0">1</span><br />
+<span class="nu0">1</span> <span class="kw2">file</span> changed, <span class="nu0">1</span> insertion<span class="br0">&#40;</span>+<span class="br0">&#41;</span>, <span class="nu0">1</span> deletion<span class="br0">&#40;</span>-<span class="br0">&#41;</span><br />
+<br />
+..........<br />
+..........<br />
+<br />
+$ <span class="kw2">mkdir</span> <span class="kw3">test</span><br />
+$ <span class="kw3">cd</span> <span class="kw3">test</span><br />
+$ <span class="kw2">git clone</span> file:<span class="sy0">////</span>Users<span class="sy0">/</span>zakh<span class="sy0">/</span>git_repo<span class="sy0">/</span>_example<br />
+<br />
+Cloning into <span class="st_h">'_example'</span>...<br />
+remote: Counting objects: <span class="nu0">33</span>, done.<br />
+remote: Compressing objects: <span class="nu0">100</span><span class="sy0">%</span> <span class="br0">&#40;</span><span class="nu0">22</span><span class="sy0">/</span><span class="nu0">22</span><span class="br0">&#41;</span>, done.<br />
+remote: Total <span class="nu0">33</span> <span class="br0">&#40;</span>delta <span class="nu0">10</span><span class="br0">&#41;</span>, reused <span class="nu0">0</span> <span class="br0">&#40;</span>delta <span class="nu0">0</span><span class="br0">&#41;</span><br />
+Receiving objects: <span class="nu0">100</span><span class="sy0">%</span> <span class="br0">&#40;</span><span class="nu0">33</span><span class="sy0">/</span><span class="nu0">33</span><span class="br0">&#41;</span>, <span class="nu0">50.03</span> MiB <span class="sy0">|</span> <span class="nu0">42.10</span> MiB<span class="sy0">/</span>s, done.<br />
+Resolving deltas: <span class="nu0">100</span><span class="sy0">%</span> <span class="br0">&#40;</span><span class="nu0">10</span><span class="sy0">/</span><span class="nu0">10</span><span class="br0">&#41;</span>, done.<br />
+Checking connectivity... done.</div></div>
+<p>In this example, we have created the _example git repository in the /Users/zakh/git_repo/ folder with a single large_file. Only the first two commits are shown. Then we are creating a full clone of that repository in a different location.</p>
+<p>Then let&#8217;s check the history of our commits:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;width:650px;"><div class="bash codecolorer">$ <span class="kw2">git log</span> <span class="re5">--oneline</span><br />
+<br />
+7fa451f Modification to large_file <span class="nu0">10</span><br />
+648d8c9 Modification to large_file <span class="nu0">9</span><br />
+772547a Modification to large_file <span class="nu0">8</span><br />
+13dd9ab Modification to large_file <span class="nu0">7</span><br />
+5e73b67 Modification to large_file <span class="nu0">6</span><br />
+030a6e7 Modification to large_file <span class="nu0">5</span><br />
+1d14922 Modification to large_file <span class="nu0">4</span><br />
+bc0f2c2 Modification to large_file <span class="nu0">3</span><br />
+2794f11 Modification to large_file <span class="nu0">2</span><br />
+d4374fb Modification to large_file <span class="nu0">1</span><br />
+924829d Initial commit</div></div>
+<p>We see all the commits in the full clone.<br />
+Now let’s delete the current copy and then shallow clone with a depth of 1:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;width:650px;"><div class="bash codecolorer">$ <span class="kw2">git clone</span> <span class="re5">--depth</span> <span class="nu0">1</span> file:<span class="sy0">////</span>Users<span class="sy0">/</span>zakh<span class="sy0">/</span>git_repo<span class="sy0">/</span>_example<br />
+<br />
+Cloning into <span class="st_h">'_example'</span>...<br />
+remote: Counting objects: <span class="nu0">3</span>, done.<br />
+remote: Compressing objects: <span class="nu0">100</span><span class="sy0">%</span> <span class="br0">&#40;</span><span class="nu0">2</span><span class="sy0">/</span><span class="nu0">2</span><span class="br0">&#41;</span>, done.<br />
+remote: Total <span class="nu0">3</span> <span class="br0">&#40;</span>delta <span class="nu0">0</span><span class="br0">&#41;</span>, reused <span class="nu0">0</span> <span class="br0">&#40;</span>delta <span class="nu0">0</span><span class="br0">&#41;</span><br />
+Receiving objects: <span class="nu0">100</span><span class="sy0">%</span> <span class="br0">&#40;</span><span class="nu0">3</span><span class="sy0">/</span><span class="nu0">3</span><span class="br0">&#41;</span>, <span class="nu0">50.02</span> MiB <span class="sy0">|</span> <span class="nu0">65.12</span> MiB<span class="sy0">/</span>s, done.<br />
+Checking connectivity... done.</div></div>
+<p>If we look at the history now, we see only the last commit history:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;width:600px;"><div class="bash codecolorer">$ <span class="kw2">git log</span> <span class="re5">--oneline</span><br />
+<br />
+7fa451f Modification to large_file <span class="nu0">10</span></div></div>
+<p>Let’s shallow clone with a depth of 3:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;width:650px;"><div class="bash codecolorer">$ <span class="kw2">git clone</span> <span class="re5">--depth</span> <span class="nu0">3</span> file:<span class="sy0">////</span>Users<span class="sy0">/</span>zakh<span class="sy0">/</span>git_repo<span class="sy0">/</span>_example<br />
+<br />
+Cloning into <span class="st_h">'_example'</span>...<br />
+remote: Counting objects: <span class="nu0">9</span>, done.<br />
+remote: Compressing objects: <span class="nu0">100</span><span class="sy0">%</span> <span class="br0">&#40;</span><span class="nu0">6</span><span class="sy0">/</span><span class="nu0">6</span><span class="br0">&#41;</span>, done.<br />
+remote: Total <span class="nu0">9</span> <span class="br0">&#40;</span>delta <span class="nu0">2</span><span class="br0">&#41;</span>, reused <span class="nu0">0</span> <span class="br0">&#40;</span>delta <span class="nu0">0</span><span class="br0">&#41;</span><br />
+Receiving objects: <span class="nu0">100</span><span class="sy0">%</span> <span class="br0">&#40;</span><span class="nu0">9</span><span class="sy0">/</span><span class="nu0">9</span><span class="br0">&#41;</span>, <span class="nu0">50.02</span> MiB <span class="sy0">|</span> <span class="nu0">65.15</span> MiB<span class="sy0">/</span>s, done.<br />
+Resolving deltas: <span class="nu0">100</span><span class="sy0">%</span> <span class="br0">&#40;</span><span class="nu0">2</span><span class="sy0">/</span><span class="nu0">2</span><span class="br0">&#41;</span>, done.<br />
+Checking connectivity... done.</div></div>
+<p>Now we see more commits:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;width:600px;"><div class="bash codecolorer">$ <span class="kw2">git log</span> <span class="re5">--oneline</span><br />
+<br />
+7fa451f Modification to large_file <span class="nu0">10</span><br />
+648d8c9 Modification to large_file <span class="nu0">9</span><br />
+772547a Modification to large_file <span class="nu0">8</span></div></div>
+<h3><strong>Problems with Git Shallow Clone</strong></h3>
+<p>Users should understand that the size and download time savings depend on the organization of the commits. They can significantly differ from one repository to another. It’s a good idea to test the repository with a shallow clone to check how much hard disk space and download time it will save you.</p>
+<p>Another consideration is that even though you can push code from a shallow clone, it might take longer because of the calculations between the remote and the local server. So if you are committing code regularly from the local copy, it probably makes sense to use a full clone.</p>
+<h3><strong>Multiple Branch Option</strong></h3>
+<p>When you use the &#8211;depth flag with clone command, Git assumes the &#8211;single-branch flag by default. But you can use &#8211;no-single-branch flag to tell Git to get histories from the specified depth of each branch.</p>
+<p>Here are the Django branches without &#8211;no-single-branch option (depth 1):</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;width:600px;"><div class="bash codecolorer">$ <span class="kw2">git branch</span> <span class="re5">-a</span><br />
+<span class="sy0">*</span> master<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>HEAD -<span class="sy0">&gt;</span> origin<span class="sy0">/</span>master<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>master</div></div>
+<p>Only the master branch is present.</p>
+<p>Here are the Django branches after using the &#8211;no-single-branch option:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;width:650px;"><div class="bash codecolorer">$ <span class="kw2">git clone</span> <span class="re5">--depth</span> <span class="nu0">1</span> <span class="re5">--no-single-branch</span> https:<span class="sy0">//</span>github.com<span class="sy0">/</span>django<span class="sy0">/</span>django.git<br />
+<br />
+Cloning into <span class="st_h">'django'</span>...<br />
+remote: Counting objects: <span class="nu0">95072</span>, done.<br />
+remote: Compressing objects: <span class="nu0">100</span><span class="sy0">%</span> <span class="br0">&#40;</span><span class="nu0">42524</span><span class="sy0">/</span><span class="nu0">42524</span><span class="br0">&#41;</span>, done.<br />
+remote: Total <span class="nu0">95072</span> <span class="br0">&#40;</span>delta <span class="nu0">52343</span><span class="br0">&#41;</span>, reused <span class="nu0">82284</span> <span class="br0">&#40;</span>delta <span class="nu0">42389</span><span class="br0">&#41;</span>, pack-reused <span class="nu0">0</span><br />
+Receiving objects: <span class="nu0">100</span><span class="sy0">%</span> <span class="br0">&#40;</span><span class="nu0">95072</span><span class="sy0">/</span><span class="nu0">95072</span><span class="br0">&#41;</span>, <span class="nu0">74.69</span> MiB <span class="sy0">|</span> <span class="nu0">3.95</span> MiB<span class="sy0">/</span>s, done.<br />
+Resolving deltas: <span class="nu0">100</span><span class="sy0">%</span> <span class="br0">&#40;</span><span class="nu0">52343</span><span class="sy0">/</span><span class="nu0">52343</span><span class="br0">&#41;</span>, done.<br />
+Checking connectivity... done.<br />
+Checking out files: <span class="nu0">100</span><span class="sy0">%</span> <span class="br0">&#40;</span><span class="nu0">5860</span><span class="sy0">/</span><span class="nu0">5860</span><span class="br0">&#41;</span>, done.<br />
+<br />
+$ <span class="kw2">du</span> <span class="re5">-sh</span> django<br />
+<br />
+124M        django</div></div>
+<p>Notice even though the depth is still 1, the size of the clone is 124M instead of the 55M for the previous case.<br />
+If we check the branches, we should see a lot more branches on this clone:</p>
+<div class="codecolorer-container bash default" style="overflow:auto;white-space:nowrap;width:600px;height:900px;"><div class="bash codecolorer">$ <span class="kw3">cd</span> django<br />
+$ <span class="kw2">git branch</span> <span class="re5">-a</span><br />
+<span class="sy0">*</span> master<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>HEAD -<span class="sy0">&gt;</span> origin<span class="sy0">/</span>master<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>attic<span class="sy0">/</span>boulder-oracle-sprint<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>attic<span class="sy0">/</span>full-history<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>attic<span class="sy0">/</span>generic-auth<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>attic<span class="sy0">/</span>gis<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>attic<span class="sy0">/</span>i18n<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>attic<span class="sy0">/</span>magic-removal<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>attic<span class="sy0">/</span>multi-auth<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>attic<span class="sy0">/</span>multiple-db-support<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>attic<span class="sy0">/</span>new-admin<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>attic<span class="sy0">/</span>newforms-admin<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>attic<span class="sy0">/</span>per-object-permissions<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>attic<span class="sy0">/</span>queryset-refactor<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>attic<span class="sy0">/</span>schema-evolution<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>attic<span class="sy0">/</span>schema-evolution-ng<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>attic<span class="sy0">/</span>search-api<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>attic<span class="sy0">/</span>sqlalchemy<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>attic<span class="sy0">/</span>unicode<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>master<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>soc2009<span class="sy0">/</span>admin-ui<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>soc2009<span class="sy0">/</span>http-wsgi-improvements<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>soc2009<span class="sy0">/</span>i18n-improvements<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>soc2009<span class="sy0">/</span>model-validation<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>soc2009<span class="sy0">/</span>multidb<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>soc2009<span class="sy0">/</span>test-improvements<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>soc2010<span class="sy0">/</span>app-loading<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>soc2010<span class="sy0">/</span>query-refactor<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>soc2010<span class="sy0">/</span>test-refactor<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>stable<span class="sy0">/</span><span class="nu0">0.90</span>.x<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>stable<span class="sy0">/</span><span class="nu0">0.91</span>.x<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>stable<span class="sy0">/</span><span class="nu0">0.95</span>.x<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>stable<span class="sy0">/</span><span class="nu0">0.96</span>.x<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>stable<span class="sy0">/</span><span class="nu0">1.0</span>.x<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>stable<span class="sy0">/</span><span class="nu0">1.1</span>.x<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>stable<span class="sy0">/</span><span class="nu0">1.10</span>.x<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>stable<span class="sy0">/</span><span class="nu0">1.11</span>.x<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>stable<span class="sy0">/</span><span class="nu0">1.2</span>.x<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>stable<span class="sy0">/</span><span class="nu0">1.3</span>.x<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>stable<span class="sy0">/</span><span class="nu0">1.4</span>.x<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>stable<span class="sy0">/</span><span class="nu0">1.5</span>.x<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>stable<span class="sy0">/</span><span class="nu0">1.6</span>.x<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>stable<span class="sy0">/</span><span class="nu0">1.7</span>.x<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>stable<span class="sy0">/</span><span class="nu0">1.8</span>.x<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>stable<span class="sy0">/</span><span class="nu0">1.9</span>.x<br />
+remotes<span class="sy0">/</span>origin<span class="sy0">/</span>stable<span class="sy0">/</span><span class="nu0">2.0</span>.x</div></div>
+<h4><strong>Summary</strong></h4>
+<p>Git shallow clone can help you save time and hard disk space. But it comes at a price. If you are regularly pushing code to remote repositories, it will increase commit times. So, for regular workflows, it&#8217;s a good idea to avoid shallow clones.</p>
+<h4><strong>References:</strong></h4>
+<ul>
+<li><a href="https://blogs.gnome.org/simos/2009/04/18/git-clones-vs-shallow-git-clones/"blogs.gnome.org/simos => git-clones-vs-shallow-git-clones/</a></li>
+<li><a href="https://community.atlassian.com/t5/Answers-Developer-Questions/clone-depth-does-what-Why-do-I-care-about-this-setting/qaq-p/496247">community.atlassian.com => clone-depth-does-what-Why-do-I-care-about-this-setting/</a></li>
+<li><a href="https://git-scm.com/docs/git-clone">git-scm.com/docs/git-clone</a></li>
+<li><a href="https://jenkins.io/files/2016/jenkins-world/large-git-repos.pdf">jenkins.io => large-git-repos.pdf</a></li>
+<li><a href="https://medium.com/@wdyluis/git-gc-and-git-shallow-clone-360aade9403e">medium.com/@wdyluis => git-gc-and-git-shallow-clone</a></li>
+<li><a href="https://stackoverflow.com/questions/42906152/git-clone-by-default-shallow-or-not">stackoverflow.com => git-clone-by-default-shallow-or-not</a></li>
+<li><a href="https://unix.stackexchange.com/questions/338578/linux-kernel-source-code-size-difference">unix.stackexchange.com => linux-kernel-source-code-size-difference</a></li>
+<li><a href="https://www.atlassian.com/blog/git/handle-big-repositories-git">atlassian.com => handle-big-repositories-git</a></li>
+<li><a href="https://www.perforce.com/blog/git-beyond-basics-using-shallow-clones">perforce.com => git-beyond-basics-using-shallow-clones</a></li>
+</ul>
+</div>
+	</div>
+
+	
+			<footer class="entry-footer">
+			<div class="meta-tags">
+							</div>
+		</footer>
+	
+	
+	 
+</article>
+		
+		
+		</main>
+
+		
+		
+					
+	<section class="main-box mbt-border-top author-box">
+
+		<h3 class="main-box-title">About the author</h3>
+
+		<div class="main-box-inside">
+
+		<div class="data-image">
+			<img src="https://linuxhint.com/wp-content/uploads/2018/01/bigstock-Los-Angeles-Skyline-And-Freewa-4583042-150x150.jpg" width="112" height="112" alt="Zak H" class="avatar avatar-112 wp-user-avatar wp-user-avatar-112 alignnone photo" />		</div>
+		
+		<div class="data-content">
+			<h4 class="author-title">Zak H</h4>
+			<div class="data-entry-content">
+				<p>Zak H. lives in Los Angeles. He enjoys the California sunshine and loves working in emerging technologies and writing about Linux and DevOps topics.</p>
+			</div>
+		</div>
+
+		</div>
+
+		<div class="vce-content-outside">
+			<div class="data-links">
+					<a href="https://linuxhint.com/author/zakh/" class="vce-author-link vce-button">View all posts</a>
+			</div>
+			<div class="vce-author-links">
+											
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+									
+			</div>
+		</div>
+
+	</section>
+
+		
+		
+
+	</div>
+
+	
+</div>
+
+
+
+
+	<footer id="footer" class="site-footer">
+
+				<div class="container">
+			<div class="container-fix">
+										<div class="bit-1">
+									</div>
+						</div>
+		</div>
+		
+					<div class="container-full site-info">
+				<div class="container">
+					
+						
+
+											<div class="vce-wrap-center">
+							<p><strong>Linux Hint LLC<br/>
+1669 Holenbeck Ave, #2-244, Sunnyvale, CA 94087<br/>
+editor@linuxhint.com</strong></p>						</div>
+					
+			
+				</div>
+			</div>
+		
+
+	</footer>
+
+
+</div>
+</div>
+
+<a href="javascript:void(0)" id="back-top"><i class="fa fa-angle-up"></i></a>
+
+<div id="amzn-assoc-ad-1438d7d4-c08f-4515-a13e-60829ea462e5"></div><script async src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=1438d7d4-c08f-4515-a13e-60829ea462e5"></script><script type='text/javascript' src='https://linuxhint.com/wp-includes/js/imagesloaded.min.js?ver=3.2.0'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var vce_js_settings = {"sticky_header":"","sticky_header_offset":"700","sticky_header_logo":"","logo":"https:\/\/linuxhint.com\/wp-content\/uploads\/2017\/07\/website_logo_1.png","logo_retina":"","logo_mobile":"","logo_mobile_retina":"","rtl_mode":"0","ajax_url":"https:\/\/linuxhint.com\/wp-admin\/admin-ajax.php","ajax_wpml_current_lang":null,"ajax_mega_menu":"1","mega_menu_slider":"","mega_menu_subcats":"","lay_fa_grid_center":"","full_slider_autoplay":"","grid_slider_autoplay":"","grid_big_slider_autoplay":"","fa_big_opacity":{"1":"0.5","2":"0.7"},"top_bar_mobile":"1","top_bar_mobile_group":"","top_bar_more_link":"More"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://linuxhint.com/wp-content/themes/voice/assets/js/min.js?ver=2.9.2'></script>
+<script type='text/javascript' src='https://linuxhint.com/wp-content/plugins/youtube-embed-plus/scripts/fitvids.min.js?ver=13.1.2.3'></script>
+<script type='text/javascript' src='https://linuxhint.com/wp-includes/js/wp-embed.min.js?ver=5.2.4'></script>
+
+</body>
+</html>
