@@ -1,0 +1,1096 @@
+<!DOCTYPE html> 
+<html class="no-js" lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="alexaVerifyID" content="qqxQUyWSeUfqZOencfEoRM9vrVk" />
+<meta name="msvalidate.01" content="E8C9208AD2F47ED874ED18E35FC370CE" />
+<meta name="google-translate-customization" content="c567e5d7624a883b-609bf053fa02c58b-g01de0b1961de0feb-f"></meta>
+<meta property="article:publisher" content="https://facebook.com/tecmint" />
+<link rel="profile" href="https://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.tecmint.com/xmlrpc.php">
+<title>Rsync (Remote Sync): 10 Practical Examples of Rsync Command in Linux</title>
+<script>document.documentElement.className = document.documentElement.className.replace("no-js","js");</script>
+<!-- All in One SEO Pack 3.3.4 by Michael Torbert of Semper Fi Web Designob_start_detected [-1,-1] -->
+<meta name="description"  content="Rsync is a most commonly used command for copying and synchronizing files and directories remotely as well as locally in Linux/Unix systems." />
+<meta name="keywords"  content="rsync command,file synchronize in linux,remote file synchronize" />
+<link rel="canonical" href="https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/" />
+<!-- All in One SEO Pack -->
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Tecmint: Linux Howtos, Tutorials &amp; Guides &raquo; Feed" href="https://feeds.feedburner.com/tecmint" />
+<link rel="alternate" type="application/rss+xml" title="Tecmint: Linux Howtos, Tutorials &amp; Guides &raquo; Comments Feed" href="https://www.tecmint.com/comments/feed/" />
+<link href="//fonts.googleapis.com/css?family=Roboto+Condensed:400,300italic,300,400italic,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="Tecmint: Linux Howtos, Tutorials &amp; Guides &raquo; Rsync (Remote Sync): 10 Practical Examples of Rsync Command in Linux Comments Feed" href="https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/feed/" />
+<!-- <link rel='stylesheet' id='wp-block-library-css'  href='https://www.tecmint.com/wp-includes/css/dist/block-library/style.min.css' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='fancybox-style-css'  href='https://www.tecmint.com/wp-content/plugins/light/css/jquery.fancybox.css' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='stcr-font-awesome-css'  href='https://www.tecmint.com/wp-content/plugins/subscribe-to-comments-reloaded/includes/css/font-awesome.min.css' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='style-css'  href='https://www.tecmint.com/wp-content/themes/tecmint/style.css' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='responsive-css'  href='https://www.tecmint.com/wp-content/themes/tecmint/responsive.css' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='custom-css'  href='https://www.tecmint.com/wp-content/themes/tecmint/custom.css' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='font-awesome-css'  href='https://www.tecmint.com/wp-content/themes/tecmint/fonts/font-awesome.min.css' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='wp-social-sharing-css'  href='https://www.tecmint.com/wp-content/plugins/wp-social-sharing/static/socialshare.css' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='qbp-css'  href='https://www.tecmint.com/wp-content/plugins/quickiebar-pro/public/style/qbp.css' type='text/css' media='all' /> -->
+<link rel="stylesheet" type="text/css" href="//www.tecmint.com/wp-content/cache/wpfc-minified/mciatjgt/hklid.css" media="all"/>
+<script src='//www.tecmint.com/wp-content/cache/wpfc-minified/2dg3vtye/hklid.js' type="text/javascript"></script>
+<!-- <script type='text/javascript' src='https://www.tecmint.com/wp-includes/js/jquery/jquery.js'></script> -->
+<!-- <script type='text/javascript' src='https://www.tecmint.com/wp-includes/js/jquery/jquery-migrate.min.js'></script> -->
+<script type='text/javascript'>
+/* <![CDATA[ */
+var ajaxurl = "https:\/\/www.tecmint.com\/wp-admin\/admin-ajax.php";
+var QBP_PUBLIC_GLOBALS = {"QBP_PUBLIC_NONCE":"bc141b0ff7","USER_TYPE":"public","VISIBILITY_DATA":{"is_page":false,"is_post":true,"is_homepage":false,"is_archive":false,"is_custom_post_type":false,"id":4167}};
+/* ]]> */
+</script>
+<script src='//www.tecmint.com/wp-content/cache/wpfc-minified/m93vw4rz/hklid.js' type="text/javascript"></script>
+<!-- <script type='text/javascript' src='https://www.tecmint.com/wp-content/plugins/quickiebar-pro/public/js/qbp.js'></script> -->
+<link rel='https://api.w.org/' href='https://www.tecmint.com/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.tecmint.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.tecmint.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Linux Directory Structure and Important Files Paths Explained' href='https://www.tecmint.com/linux-directory-structure-and-important-files-paths-explained/' />
+<link rel='next' title='A Guide to Kill, Pkill and Killall Commands to Terminate a Process in Linux' href='https://www.tecmint.com/how-to-kill-a-process-in-linux/' />
+<meta name="generator" content="WordPress 5.3.2" />
+<link rel='shortlink' href='https://www.tecmint.com/?p=4167' />
+<link rel="alternate" type="application/json+oembed" href="https://www.tecmint.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.tecmint.com%2Frsync-local-remote-file-synchronization-commands%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.tecmint.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.tecmint.com%2Frsync-local-remote-file-synchronization-commands%2F&#038;format=xml" />
+<!-- Facebook Like Thumbnail (v0.4) -->
+<meta property="og:image" content="https://www.tecmint.com/wp-content/uploads/2013/09/Linux-rsync-Commands.jpg" />
+<!-- using featured thumbnail -->
+<!-- Facebook Like Thumbnail (By Ashfame - https://github.com/ashfame/facebook-like-thumbnail) -->
+<link rel="shortcut icon" href="/wp-content/themes/tecmint/images/favicon.ico" />
+<!--[if lt IE 9]>
+<script src="https://www.tecmint.com/wp-content/themes/tecmint/js/ie/html5.js"></script>
+<script src="https://www.tecmint.com/wp-content/themes/tecmint/js/ie/selectivizr.js"></script>
+<![endif]-->
+<link rel="amphtml" href="https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/amp/"><link rel="icon" href="https://www.tecmint.com/wp-content/uploads/2015/01/cropped-tecmint-logo.png" sizes="32x32" />
+<link rel="icon" href="https://www.tecmint.com/wp-content/uploads/2015/01/cropped-tecmint-logo.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.tecmint.com/wp-content/uploads/2015/01/cropped-tecmint-logo.png" />
+<meta name="msapplication-TileImage" content="https://www.tecmint.com/wp-content/uploads/2015/01/cropped-tecmint-logo.png" />
+<style type="text/css">
+/* Dynamic CSS: For no styles in head, copy and put the css below in your custom.css or child theme's style.css, disable dynamic styles */
+body { font-family: "Roboto Condensed", Arial, sans-serif; }
+.boxed #wrapper, .container-inner { max-width: 1280px; }
+.sidebar .widget { padding-left: 20px; padding-right: 20px; padding-top: 20px; }
+.search-expand,
+#nav-topbar.nav-container { background-color: #23588c; }
+@media only screen and (min-width: 720px) {
+#nav-topbar .nav ul { background-color: #23588c; }
+}			
+#header { background-color: #075b88; }
+@media only screen and (min-width: 720px) {
+#nav-header .nav ul { background-color: #075b88; }
+}			
+#nav-header.nav-container { background-color: #2f6dab; }
+@media only screen and (min-width: 720px) {
+#nav-header .nav ul { background-color: #2f6dab; }
+}			
+#footer-bottom { background-color: #2f6dab; }
+.site-title a img { max-height: 90px; }
+img { -webkit-border-radius: 2px; border-radius: 2px; }
+</style>
+<link rel="author" href="https://plus.google.com/107665449243972690526/posts" />
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Google Sitelinks Search Box -->	
+<script type="application/ld+json">
+{
+"@context": "http://schema.org",
+"@type": "WebSite",
+"url": "https://www.tecmint.com/",
+"potentialAction": {
+"@type": "SearchAction",
+"target": "https://www.tecmint.com/?q={search_term}",
+"query-input": "required name=search_term"
+}
+}
+</script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-33207530-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-33207530-1');
+</script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({
+google_ad_client: "ca-pub-2601749019656699",
+enable_page_level_ads: true
+});
+</script>
+</head>
+<body data-rsssl=1 class="post-template-default single single-post postid-4167 single-format-standard col-2cl full-width topbar-enabled chrome">
+<div id="wrapper">
+<header id="header">
+<nav class="nav-container group" id="nav-topbar">
+<div class="nav-toggle"><i class="fa fa-bars"></i></div>
+<div class="nav-text"><!-- put your mobile menu text here --></div>
+<div class="nav-wrap container"><ul id="menu-home" class="nav container-inner group"><li id="menu-item-334" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-334"><a href="https://www.tecmint.com">Home</a></li>
+<li id="menu-item-10774" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10774"><a target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/who-we-are/">About</a></li>
+<li id="menu-item-3912" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3912"><a title="Free Linux eBooks" target="_blank" rel="noopener noreferrer" href="http://tecmint.tradepub.com/category/information-technology-servers-and-linux-server-os/806/">Free eBooks</a></li>
+<li id="menu-item-17151" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17151"><a title="Discover and save on the best gear, gadgets, and software" target="_blank" rel="noopener noreferrer" href="https://deals.tecmint.com">Deals</a></li>
+<li id="menu-item-18575" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18575"><a title="Support Us" href="https://www.tecmint.com/donate-to-tecmint/">Donate</a></li>
+<li id="menu-item-10775" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10775"><a target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/submit-articles/">Join TecMint</a></li>
+<li id="menu-item-11736" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11736"><a target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/linux-online-training-courses/">Linux Online Courses</a></li>
+<li id="menu-item-11907" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11907"><a title="Subscribe to Daily Updates" target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/subscribe-to-blog/">Subscribe</a></li>
+<li id="menu-item-13338" class="hosting menu-item menu-item-type-custom menu-item-object-custom menu-item-13338"><a title="Best Web Hosting Companies" target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/best-web-hosting-for-linux/">Linux Hosting</a></li>
+<li id="menu-item-24734" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-24734"><a title="Linux Commands &#8211; A Beginners Cheat Sheet" target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/linux-commands-cheat-sheet/">A-Z Linux Commands</a></li>
+</ul></div>
+<div class="container">
+<div class="container-inner">		
+<div class="toggle-search"><i class="fa fa-search"></i></div>
+<div class="search-expand">
+<div class="search-expand-inner">
+<form action="https://www.tecmint.com/search/" id="cse-search-box">
+<div>
+<input type="hidden" name="cx" value="partner-pub-2601749019656699:2173448976" />
+<input type="hidden" name="cof" value="FORID:10" />
+<input type="hidden" name="ie" value="UTF-8" />
+<input type="text" class="search" name="q" size="20" />
+<input type="submit" name="sa" value="Search" />
+</div>
+</form>
+<script type="text/javascript" src="https://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>
+</div>
+</div>
+</div><!--/.container-inner-->
+</div><!--/.container-->
+</nav><!--/#nav-topbar-->
+<div class="container group">
+<div class="container-inner">
+<div class="group pad">
+<p class="site-title"><a href="https://www.tecmint.com/" rel="home"><img src="/wp-content/themes/tecmint/images/logo.png" alt="Tecmint: Linux Howtos, Tutorials &amp; Guides"></a></p>
+<div id="header-ads">
+<div id="text-17" class="widget widget_text">			<div class="textwidget"><!-- Top Banner Ads 728x90 -->
+<ins class="adsbygoogle"
+style="display:inline-block;width:728px;height:90px"
+data-ad-client="ca-pub-2601749019656699"
+data-ad-slot="8210224606"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+</div>					</div><!--/#header-ads-->
+</div>
+<nav class="nav-container group" id="nav-header">
+<div class="nav-toggle"><i class="fa fa-bars"></i></div>
+<div class="nav-text"><!-- put your mobile menu text here --></div>
+<div class="nav-wrap container"><ul id="menu-header" class="nav container-inner group"><li id="menu-item-10770" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10770"><a href="https://www.tecmint.com/best-linux-distributions/">Linux Distro&#8217;s</a></li>
+<li id="menu-item-10771" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10771"><a href="https://www.tecmint.com/category/interview-questions/">Interview Questions</a></li>
+<li id="menu-item-20869" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-has-children menu-item-20869"><a href="https://www.tecmint.com/#">Programming</a>
+<ul class="sub-menu">
+<li id="menu-item-10772" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10772"><a title="Learn Linux Shell Scripting" href="https://www.tecmint.com/category/bash-shell/">Shell Scripting</a></li>
+<li id="menu-item-20870" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-20870"><a href="https://www.tecmint.com/category/python/">Learn Python</a></li>
+<li id="menu-item-20871" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-20871"><a href="https://www.tecmint.com/category/awk-command/">Learn Awk</a></li>
+</ul>
+</li>
+<li id="menu-item-10773" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-10773"><a href="https://www.tecmint.com/category/linux-commands/">Linux Commands</a></li>
+<li id="menu-item-14795" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14795"><a href="https://www.tecmint.com/tag/linux-tricks/">Linux Tricks</a></li>
+<li id="menu-item-19684" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19684"><a href="https://www.tecmint.com/category/top-tools/">Best Linux Tools</a></li>
+<li id="menu-item-10443" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-has-children menu-item-10443"><a target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/#">Certifications</a>
+<ul class="sub-menu">
+<li id="menu-item-14880" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14880"><a href="https://www.tecmint.com/how-to-setup-and-configure-static-network-routing-in-rhel/">RHCE Exam</a></li>
+<li id="menu-item-11906" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11906"><a target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/rhcsa-exam-reviewing-essential-commands-system-documentation/">RHCSA Exam</a></li>
+<li id="menu-item-10444" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10444"><a target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/installing-network-services-and-configuring-services-at-system-boot/">LFCE Exam</a></li>
+<li id="menu-item-14793" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14793"><a href="https://www.tecmint.com/sed-command-to-create-edit-and-manipulate-files-in-linux/">LFCS Exam</a></li>
+<li id="menu-item-34401" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-34401"><a title="Red Hat Ansible Exam Preparation Guide" target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/understand-core-components-of-ansible/">Ansible Exam</a></li>
+</ul>
+</li>
+<li id="menu-item-12399" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-has-children menu-item-12399"><a href="https://www.tecmint.com/#">Guides</a>
+<ul class="sub-menu">
+<li id="menu-item-18564" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-18564"><a target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/install-docker-and-learn-containers-in-centos-rhel-7-6/">Docker Series</a></li>
+<li id="menu-item-17150" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17150"><a href="https://www.tecmint.com/setup-postfix-mail-server-and-dovecot-with-mariadb-in-centos/">Postfix Mail</a></li>
+<li id="menu-item-15041" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15041"><a href="https://www.tecmint.com/citrix-xenserver-installation-and-network-configuration-in-linux/">XenServer Series</a></li>
+<li id="menu-item-14794" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14794"><a href="https://www.tecmint.com/install-redhat-virtualization-rhev/">RHEV Series</a></li>
+<li id="menu-item-14805" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14805"><a href="https://www.tecmint.com/what-is-clustering-and-advantages-disadvantages-of-clustering-in-linux/">Clustering Series</a></li>
+<li id="menu-item-12400" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12400"><a href="https://www.tecmint.com/create-lvm-storage-in-linux/">LVM Series</a></li>
+<li id="menu-item-12402" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12402"><a href="https://www.tecmint.com/understanding-raid-setup-in-linux/">RAID Series</a></li>
+<li id="menu-item-12403" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12403"><a href="https://www.tecmint.com/install-and-configure-kvm-in-linux/">KVM Series</a></li>
+<li id="menu-item-12401" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12401"><a href="https://www.tecmint.com/create-centralized-secure-storage-using-iscsi-targetin-linux/">iSCSI Series</a></li>
+<li id="menu-item-12406" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12406"><a href="https://www.tecmint.com/install-zentyal-as-primary-domain-controller-and-integrate-windows-system/">Zentyal Series</a></li>
+<li id="menu-item-16084" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-16084"><a href="https://www.tecmint.com/install-and-configure-ansible-automation-tool-in-linux/">Ansible Series</a></li>
+<li id="menu-item-16395" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-16395"><a href="https://www.tecmint.com/install-and-configure-django-web-framework-in-centos-debian-ubuntu/">Django Series</a></li>
+<li id="menu-item-14603" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14603"><a href="https://www.tecmint.com/create-gui-applications-in-linux/">Create GUI Apps</a></li>
+</ul>
+</li>
+<li id="menu-item-14796" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-14796"><a href="https://www.tecmint.com/command-line-tools-to-monitor-linux-performance/">Monitoring Tools</a>
+<ul class="sub-menu">
+<li id="menu-item-14797" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14797"><a href="https://www.tecmint.com/install-nagios-in-linux/">Nagios</a></li>
+<li id="menu-item-14798" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14798"><a href="https://www.tecmint.com/install-and-configure-zabbix-monitoring-on-debian-centos-rhel/">Zabbix</a></li>
+<li id="menu-item-14799" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14799"><a href="https://www.tecmint.com/install-cacti-network-monitoring-on-rhel-centos-6-3-5-8-and-fedora-17-12/">Cacti</a></li>
+<li id="menu-item-14800" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14800"><a href="https://www.tecmint.com/install-observium-in-centos/">Observium</a></li>
+<li id="menu-item-14801" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14801"><a href="https://www.tecmint.com/monitorix-a-lightweight-system-and-network-monitoring-tool-for-linux/">Monitorix</a></li>
+<li id="menu-item-14802" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14802"><a href="https://www.tecmint.com/install-collectd-and-collectd-web-to-monitor-server-resources-in-linux/">Collectd</a></li>
+<li id="menu-item-14803" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14803"><a href="https://www.tecmint.com/linux-performance-monitoring-with-collectl-tool/">Collectl</a></li>
+<li id="menu-item-14804" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14804"><a href="https://www.tecmint.com/mysql-performance-monitoring/">MySQL Monitoring</a></li>
+</ul>
+</li>
+<li id="menu-item-34838" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-34838"><a title="Linux and WordPress Support Services" target="_blank" rel="noopener noreferrer" href="https://www.fosswork.com/">Hire Me</a></li>
+</ul></div>
+</nav><!--/#nav-header-->
+</div><!--/.container-inner-->
+</div><!--/.container-->
+</header><!--/#header-->
+<div class="container" id="page">
+<div class="container-inner">			
+<div class="main">
+<div class="main-inner group">
+<section class="content">
+<div class="page-title pad group">
+<ul class="meta-single group">
+<li class="category"><a href="https://www.tecmint.com/category/linux-commands/" rel="category tag">Linux Commands</a></li>
+<li class="comments"><a href="https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/#comments"><i class="fa fa-comments-o"></i>150</a></li>
+</ul>
+</div><!--/.page-title-->	
+<div class="pad group">
+<article class="post-4167 post type-post status-publish format-standard has-post-thumbnail hentry category-linux-commands">	
+<div class="post-inner group">
+<h1 class="post-title">Rsync (Remote Sync): 10 Practical Examples of Rsync Command in Linux</h1>
+<p class="post-byline">by <a href="https://www.tecmint.com/author/tarunikas/" title="Posts by Tarunika Shrivastava" rel="author">Tarunika Shrivastava</a> | Published: September 17, 2013 | <!-- if the post updated datetime is not equal to the post datetime, show the updated datetime -->
+Last Updated: August 19, 2016    </p>
+<div class="add-box">
+<!-- Responsive Above Post Ads -->
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-2601749019656699"
+data-ad-slot="2902592253"
+data-ad-format="link"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+<div class="clear"></div>
+<div id="exam_announcement">
+<i style="color:#28557a; font-size:20px;" class="fa fa-book"></i>
+<b>Download Your Free eBooks NOW</b> - <a target="_blank" style="text-decoration:underline;" href="https://www.tecmint.com/10-useful-free-linux-ebooks-for-newbies-and-administrators/" style="color:#dd3333;font-weight:400; font-size:16px;">10 Free Linux eBooks for Administrators</a> | <a style="text-decoration:underline;"target="_blank" href="https://www.tecmint.com/free-linux-shell-scripting-books/" style="color:#e54e7e;font-weight:400; font-size:16px;">4 Free Shell Scripting eBooks</a>
+</div>
+<div class="clear"></div>
+<div class="ads-inner-mobile">
+<center>
+<!-- Post Inner Mobile Ads -->
+<ins class="adsbygoogle"
+style="display:inline-block;width:300px;height:250px"
+data-ad-client="ca-pub-2601749019656699"
+data-ad-slot="9946480174"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</center>
+</div>
+<div class="clear"></div>
+<div class="entry ">	
+<div class="entry-inner">
+<p><strong>Rsync</strong> (<strong>Remote Sync</strong>) is a most commonly used command for <strong>copying</strong> and <strong>synchronizing</strong> files and directories <strong>remotely</strong> as well as <strong>locally</strong> in <strong>Linux</strong>/<strong>Unix</strong> systems. With the help of <strong>rsync</strong> command you can copy and synchronize your data remotely and locally across directories, across disks and networks, perform data backups and mirroring between two Linux machines.</p>
+<div id="attachment_4169" style="width: 445px" class="wp-caption aligncenter"><a href="https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/rsync-commands/" rel="attachment wp-att-4169"><img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://www.tecmint.com/wp-content/uploads/2013/09/Rsync-Commands.png" aria-describedby="caption-attachment-4169" class="size-full wp-image-4169" alt="Rsync Commands" width="435" height="321"><noscript><img aria-describedby="caption-attachment-4169" class="size-full wp-image-4169" src="https://www.tecmint.com/wp-content/uploads/2013/09/Rsync-Commands.png" alt="Rsync Commands" width="435" height="321" /></noscript></a><p id="caption-attachment-4169" class="wp-caption-text">Rsync Local and Remote File Synchronization</p></div>
+<p>This article explains <strong>10</strong> basic and advanced usage of the <strong>rsync</strong> command to transfer your files remotely and locally in <strong>Linux</strong> based machines. You don&#8217;t need to be <strong>root</strong> user to run <strong>rsync</strong> command.</p>
+<h5>Some advantages and features of Rsync command</h5>
+<ol>
+<li>It efficiently copies and sync files to or from a remote system.</li>
+<li>Supports copying links, devices, owners, groups and permissions.</li>
+<li>It&#8217;s faster than <strong>scp</strong> (<strong>Secure Copy</strong>) because <strong>rsync</strong> uses remote-update protocol which allows to transfer just the differences between two sets of files. First time, it copies the whole content of a file or a directory from source to destination but from next time, it copies only the changed blocks and bytes to the destination.</li>
+<li>Rsync consumes less <strong>bandwidth</strong> as it uses compression and decompression method while sending and receiving data both ends.</li>
+</ol>
+<h5>Basic syntax of rsync command</h5>
+<pre># rsync options source destination</pre>
+<h5>Some common options used with rsync commands</h5>
+<ol>
+<li><strong>-v</strong> : verbose</li>
+<li><strong>-r</strong> : copies data recursively (but don’t preserve timestamps and permission while transferring data</li>
+<li><strong>-a</strong> : archive mode, archive mode allows copying files recursively and it also preserves symbolic links, file permissions, user &amp; group ownerships and timestamps</li>
+<li><strong>-z</strong> : compress file data</li>
+<li><strong>-h</strong> : human-readable, output numbers in a human-readable format</li>
+</ol>
+<p style="padding: 15px; background-color: #2c3e50; border-left: 5px solid #6cb1f8;"><b style="color: #d9ecff;font-weight:bold;">Suggested Read:</b> <a style="color:#fff;font-weight:bold;text-decoration:none;" target="_blank" href="https://www.tecmint.com/sync-files-using-rsync-with-non-standard-ssh-port/">How to Sync Files/Directories Using Rsync with Non-standard SSH Port</a></p>
+<h5>Install rsync in your Linux machine</h5>
+<p>We can install <strong>rsync</strong> package with the help of following command.</p>
+<pre># yum install rsync (On <strong>Red Hat</strong> based systems)
+# apt-get install rsync (On <strong>Debian</strong> based systems)</pre>
+<h3>1. Copy/Sync Files and Directory Locally</h3>
+<h5>Copy/Sync a File on a Local Computer</h5>
+<p>This following command will sync a single file on a local machine from one location to another location. Here in this example, a file name <strong>backup.tar</strong> needs to be copied or synced to <strong>/tmp/backups/</strong> folder.</p>
+<pre>[<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c0b2afafb480b4a5a3ada9aeb4">[email&#160;protected]</a>]# rsync -zvh backup.tar /tmp/backups/
+
+created directory /tmp/backups
+
+backup.tar
+
+sent 14.71M bytes  received 31 bytes  3.27M bytes/sec
+
+total size is 16.18M  speedup is 1.10</pre>
+<center style="padding-bottom: 20px;padding-top: 10px;"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2601749019656699" data-ad-slot="5590002574" data-ad-format="auto" data-full-width-responsive="true"></ins><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></center><p>In above example, you can see that if the destination is not already exists rsync will create a directory automatically for destination.</p>
+<h5>Copy/Sync a Directory on Local Computer</h5>
+<p>The following command will transfer or sync all the files of from one directory to a different directory in the same machine. Here in this example, <strong>/root/rpmpkgs</strong> contains some rpm package files and you want that directory to be copied inside <strong>/tmp/backups/</strong> folder.</p>
+<pre>[<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2c5e4343586c58494f41454258">[email&#160;protected]</a>]# rsync -avzh /root/rpmpkgs /tmp/backups/
+
+sending incremental file list
+
+rpmpkgs/
+
+rpmpkgs/httpd-2.2.3-82.el5.centos.i386.rpm
+
+rpmpkgs/mod_ssl-2.2.3-82.el5.centos.i386.rpm
+
+rpmpkgs/nagios-3.5.0.tar.gz
+
+rpmpkgs/nagios-plugins-1.4.16.tar.gz
+
+sent 4.99M bytes  received 92 bytes  3.33M bytes/sec
+
+total size is 4.99M  speedup is 1.00</pre>
+<h3>2. Copy/Sync Files and Directory to or From a Server</h3>
+<h5>Copy a Directory from Local Server to a Remote Server</h5>
+<p>This command will sync a directory from a local machine to a remote machine. <strong>For example</strong>: There is a folder in your local computer “<strong>rpmpkgs</strong>” which contains some <strong>RPM</strong> packages and you want that local directory’s content send to a remote server, you can use following command.</p>
+<pre>[<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a0d2cfcfd4e0d4c5c3cdc9ced4">[email&#160;protected]</a>]$ rsync -avz rpmpkgs/ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="63110c0c1723525a514d52555b4d534d525352">[email&#160;protected]</a>:/home/
+
+<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c9bba6a6bd89f8f0fbe7f8fff1e7f9e7f8f9f8">[email&#160;protected]</a>'s password:
+
+sending incremental file list
+
+./
+
+httpd-2.2.3-82.el5.centos.i386.rpm
+
+mod_ssl-2.2.3-82.el5.centos.i386.rpm
+
+nagios-3.5.0.tar.gz
+
+nagios-plugins-1.4.16.tar.gz
+
+sent 4993369 bytes  received 91 bytes  399476.80 bytes/sec
+
+total size is 4991313  speedup is 1.00</pre>
+<h5>Copy/Sync a Remote Directory to a Local Machine</h5>
+<p>This command will help you sync a remote directory to a local directory. Here in this example, a directory <strong>/home/tarunika/rpmpkgs</strong> which is on a remote server is being copied in your local computer in <strong>/tmp/myrpms</strong>.</p>
+<pre>[<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3745585843774352545a5e5943">[email&#160;protected]</a>]# rsync -avzh <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a7d5c8c8d3e7969e958996919f899789969797">[email&#160;protected]</a>:/home/tarunika/rpmpkgs /tmp/myrpms
+
+<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e694898992a6d7dfd4c8d7d0dec8d6c8d7d6d6">[email&#160;protected]</a>'s password:
+
+receiving incremental file list
+
+created directory /tmp/myrpms
+
+rpmpkgs/
+
+rpmpkgs/httpd-2.2.3-82.el5.centos.i386.rpm
+
+rpmpkgs/mod_ssl-2.2.3-82.el5.centos.i386.rpm
+
+rpmpkgs/nagios-3.5.0.tar.gz
+
+rpmpkgs/nagios-plugins-1.4.16.tar.gz
+
+sent 91 bytes  received 4.99M bytes  322.16K bytes/sec
+
+total size is 4.99M  speedup is 1.00</pre>
+<h3>3. Rsync Over SSH</h3>
+<p>With rsync, we can use <strong>SSH</strong> (<strong>Secure Shell</strong>) for data transfer, using <strong>SSH</strong> protocol while transferring our data you can be ensured that your data is being transferred in a secured connection with encryption so that nobody can read your data while it is being transferred over the wire on the internet.</p>
+<p>Also when we use rsync we need to provide the <strong>user</strong>/<strong>root</strong> password to accomplish that particular task, so using <strong>SSH</strong> option will send your logins in an encrypted manner so that your <strong>password</strong> will be safe.</p>
+<h5>Copy a File from a Remote Server to a Local Server with SSH</h5>
+<p>To specify a protocol with <strong>rsync</strong> you need to give “<strong>-e</strong>” option with protocol name you want to use. Here in this example, We will be using “<strong>ssh</strong>” with “<strong>-e</strong>” option and perform data transfer.</p>
+<pre>[<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a3d1ccccd7e3d7c6c0cecacdd7">[email&#160;protected]</a>]# rsync -avzhe ssh <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="394b56564d7908000b17080f01170917080909">[email&#160;protected]</a>:/root/install.log /tmp/
+
+<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="83f1ececf7c3b2bab1adb2b5bbadb3adb2b3b3">[email&#160;protected]</a>'s password:
+
+receiving incremental file list
+
+install.log
+
+sent 30 bytes  received 8.12K bytes  1.48K bytes/sec
+
+total size is 30.74K  speedup is 3.77</pre>
+<h5>Copy a File from a Local Server to a Remote Server with SSH</h5>
+<pre>[<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2a5845455e6a5e4f494743445e">[email&#160;protected]</a>]# rsync -avzhe ssh backup.tar <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="077568687347363e352936313f293729363737">[email&#160;protected]</a>:/backups/
+
+<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="61130e0e15215058534f5057594f514f505151">[email&#160;protected]</a>'s password:
+
+sending incremental file list
+
+backup.tar
+
+sent 14.71M bytes  received 31 bytes  1.28M bytes/sec
+
+total size is 16.18M  speedup is 1.10
+</pre>
+<p style="padding: 15px; background-color: #2a6b48; border-left: 5px solid #68f4aa;"><b style="color: #d9ffeb;font-weight:bold;">Suggested Read:</b> <a style="color:#fff;font-weight:bold;text-decoration:none;" target="_blank" href="https://www.tecmint.com/sync-new-changed-modified-files-rsync-linux/">Use Rsync to Sync New or Changed/Modified Files in Linux</a></p>
+<h3>4. Show Progress While Transferring Data with rsync</h3>
+<p>To show the progress while transferring the data from one machine to a different machine, we can use &#8216;<strong>&#8211;progress&#8217;</strong> option for it. It displays the files and the time remaining to complete the transfer.</p>
+<pre>[<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="72001d1d06320617111f1b1c06">[email&#160;protected]</a>]# rsync -avzhe ssh --progress /home/rpmpkgs <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f4869b9b80b4c5cdc6dac5c2ccdac4dac5c4c4">[email&#160;protected]</a>:/root/rpmpkgs
+
+<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e89a87879ca8d9d1dac6d9ded0c6d8c6d9d8d8">[email&#160;protected]</a>'s password:
+
+sending incremental file list
+
+created directory /root/rpmpkgs
+
+rpmpkgs/
+
+rpmpkgs/httpd-2.2.3-82.el5.centos.i386.rpm
+
+           1.02M 100%        2.72MB/s        0:00:00 (xfer#1, to-check=3/5)
+
+rpmpkgs/mod_ssl-2.2.3-82.el5.centos.i386.rpm
+
+          99.04K 100%  241.19kB/s        0:00:00 (xfer#2, to-check=2/5)
+
+rpmpkgs/nagios-3.5.0.tar.gz
+
+           1.79M 100%        1.56MB/s        0:00:01 (xfer#3, to-check=1/5)
+
+rpmpkgs/nagios-plugins-1.4.16.tar.gz
+
+           2.09M 100%        1.47MB/s        0:00:01 (xfer#4, to-check=0/5)
+
+sent 4.99M bytes  received 92 bytes  475.56K bytes/sec
+
+total size is 4.99M  speedup is 1.00</pre>
+<h3>5. Use of &#8211;include and &#8211;exclude Options</h3>
+<p>These two options allows us to <strong>include</strong> and <strong>exclude</strong> files by specifying parameters with these option helps us to specify those files or directories which you want to include in your sync and exclude files and folders with you don&#8217;t want to be transferred.</p>
+<p>Here in this example, rsync command will include those files and directory only which starts with ‘<strong>R</strong>’ and exclude all other files and directory.</p>
+<pre>[<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="25574a4a5165514046484c4b51">[email&#160;protected]</a>]# rsync -avze ssh --include 'R*' --exclude '*' <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d5a7babaa195e4ece7fbe4e3edfbe5fbe4e5e4">[email&#160;protected]</a>:/var/lib/rpm/ /root/rpm
+
+<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="23514c4c5763121a110d12151b0d130d121312">[email&#160;protected]</a>'s password:
+
+receiving incremental file list
+
+created directory /root/rpm
+
+./
+
+Requirename
+
+Requireversion
+
+sent 67 bytes  received 167289 bytes  7438.04 bytes/sec
+
+total size is 434176  speedup is 2.59</pre>
+<h3>6. Use of &#8211;delete Option</h3>
+<p>If a file or directory not exist at the source, but already exists at the destination, you might want to delete that existing file/directory at the target while syncing .</p>
+<p>We can use &#8216;<strong>&#8211;delete</strong>&#8216; option to delete files that are not there in source directory.</p>
+<p>Source and target are in sync. Now creating new file <strong>test.txt</strong> at the target.</p>
+<pre>[<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bdcfd2d2c9fdc9d8ded0d4d3c9">[email&#160;protected]</a>]# touch test.txt
+[<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8cfee3e3f8ccf8e9efe1e5e2f8">[email&#160;protected]</a>]# rsync -avz --delete <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="86f4e9e9f2c6b7bfb4a8b7b0bea8b6a8b7b6b6">[email&#160;protected]</a>:/var/lib/rpm/ .
+Password:
+receiving file list ... done
+deleting test.txt
+./
+sent 26 bytes  received 390 bytes  48.94 bytes/sec
+total size is 45305958  speedup is 108908.55</pre>
+<p>Target has the new file called <strong>test.txt</strong>, when synchronize with the source with &#8216;<strong>–delete</strong>&#8216; option, it removed the file <strong>test.txt</strong>.</p>
+<h3>7. Set the Max Size of Files to be Transferred</h3>
+<p>You can specify the <strong>Max</strong> file size to be transferred or sync. You can do it with “<strong>&#8211;max-size</strong>” option. Here in this example, Max file size is <strong>200k</strong>, so this command will transfer only those files which are equal or smaller than <strong>200k</strong>.</p>
+<pre>[<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="097b66667d497d6c6a6460677d">[email&#160;protected]</a>]# rsync -avzhe ssh --max-size='200k' /var/lib/rpm/ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0b7964647f4b3a3239253a3d33253b253a3b3b">[email&#160;protected]</a>:/root/tmprpm
+
+<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="45372a2a3105747c776b74737d6b756b747575">[email&#160;protected]</a>'s password:
+
+sending incremental file list
+
+created directory /root/tmprpm
+
+./
+
+Conflictname
+
+Group
+
+Installtid
+
+Name
+
+Provideversion
+
+Pubkeys
+
+Requireversion
+
+Sha1header
+
+Sigmd5
+
+Triggername
+
+__db.001
+
+sent 189.79K bytes  received 224 bytes  13.10K bytes/sec
+
+total size is 38.08M  speedup is 200.43</pre>
+<h3>8. Automatically Delete source Files after successful Transfer</h3>
+<p>Now, suppose you have a main web server and a data backup server, you created a daily backup and synced it with your backup server, now you don’t want to keep that local copy of backup in your web server.</p>
+<p>So, will you wait for transfer to complete and then delete those local backup file manually? Of Course NO. This automatic deletion can be done using &#8216;<strong>&#8211;remove-source-files</strong>&#8216; option.</p>
+<pre>[<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cbb9a4a4bf8bbfaea8a6a2a5bf">[email&#160;protected]</a>]# rsync --remove-source-files -zvh backup.tar /tmp/backups/
+
+backup.tar
+
+sent 14.71M bytes  received 31 bytes  4.20M bytes/sec
+
+total size is 16.18M  speedup is 1.10
+
+[<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="63110c0c17231706000e0a0d17">[email&#160;protected]</a>]# ll backup.tar
+
+ls: backup.tar: No such file or directory</pre>
+<h3>9. Do a Dry Run with rsync</h3>
+<p>If you are a newbie and using rsync and don’t know what exactly your command going do. Rsync could really mess up the things in your destination folder and then doing an undo can be a tedious job.</p>
+<p style="padding: 15px; background-color: #2a6b48; border-left: 5px solid #68f4aa;"><b style="color: #d9ffeb; font-weight: bold;">Suggested Read:</b> <a target="_blank" href="https://www.tecmint.com/sync-two-apache-websites-using-rsync/" style="color: #fff; font-weight: bold; text-decoration: none;">How to Sync Two Apache Web Servers/Websites Using Rsync</a></p>
+<p>Use of this option will not make any changes only do a dry run of the command and shows the output of the command, if the output shows exactly same you want to do then you can remove &#8216;<strong>&#8211;dry-run</strong>&#8216; option from your command and run on the terminal.</p>
+<pre><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a7d5c8c8d3e7d3c2c4cacec9d3">[email&#160;protected]</a>]# rsync --dry-run --remove-source-files -zvh backup.tar /tmp/backups/
+
+backup.tar
+
+sent 35 bytes  received 15 bytes  100.00 bytes/sec
+
+total size is 16.18M  speedup is 323584.00 (DRY RUN)</pre>
+<h3>10. Set Bandwidth Limit and Transfer File</h3>
+<p>You can set the bandwidth limit while transferring data from one machine to another machine with the the help of &#8216;<strong>&#8211;bwlimit</strong>&#8216; option. This options helps us to limit <strong>I/O</strong> bandwidth.</p>
+<pre>[<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="72001d1d06320617111f1b1c06">[email&#160;protected]</a>]# rsync --bwlimit=100 -avzhe ssh  /var/lib/rpm/  <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cebca1a1ba8efff7fce0fff8f6e0fee0fffefe">[email&#160;protected]</a>:/root/tmprpm/
+<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="671508081327565e554956515f495749565757">[email&#160;protected]</a>'s password:
+sending incremental file list
+sent 324 bytes  received 12 bytes  61.09 bytes/sec
+total size is 38.08M  speedup is 113347.05</pre>
+<p>Also, by default rsync syncs changed blocks and bytes only, if you want explicitly want to sync whole file then you use &#8216;<strong>-W</strong>&#8216; option with it.</p>
+<pre>[<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9fedf0f0ebdfebfafcf2f6f1eb">[email&#160;protected]</a>]# rsync -zvhW backup.tar /tmp/backups/backup.tar
+backup.tar
+sent 14.71M bytes  received 31 bytes  3.27M bytes/sec
+total size is 16.18M  speedup is 1.10</pre>
+<p>That’s all with rsync now, you can see <strong>man pages</strong> for more options. Stay connected with <strong>Tecmint</strong> for more exciting and interesting tutorials in future. Do leave your <strong>comments</strong> and <strong>suggestions</strong>.</p>
+<div class="social-sharing ">
+<span class="top before-sharebutton-text">Sharing is Caring...</span>
+<a onclick="return ss_plugin_loadpopup_js(this);" rel="external nofollow" class="button-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.tecmint.com%2Frsync-local-remote-file-synchronization-commands%2F" target="_blank">Share on Facebook</a><a onclick="return ss_plugin_loadpopup_js(this);" rel="external nofollow" class="button-twitter" href="https://twitter.com/intent/tweet/?text=Rsync+%28Remote+Sync%29%3A+10+Practical+Examples+of+Rsync+Command+in+Linux&url=https%3A%2F%2Fwww.tecmint.com%2Frsync-local-remote-file-synchronization-commands%2F&via=tecmint" target="_blank">Share on Twitter</a><a onclick="return ss_plugin_loadpopup_js(this);" rel="external nofollow" class="button-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fwww.tecmint.com%2Frsync-local-remote-file-synchronization-commands%2F&title=Rsync+%28Remote+Sync%29%3A+10+Practical+Examples+of+Rsync+Command+in+Linux" target="_blank">Share on Linkedin</a><a onclick="return ss_plugin_loadpopup_js(this);" rel="external nofollow" class="button-reddit" href="https://reddit.com/submit?url=https%3A%2F%2Fwww.tecmint.com%2Frsync-local-remote-file-synchronization-commands%2F&amp;title=Rsync+%28Remote+Sync%29%3A+10+Practical+Examples+of+Rsync+Command+in+Linux" target="_blank">Share on Reddit</a>	        	    </div>
+</div>
+<div class="clear"></div>				
+</div><!--/.entry-->
+</div><!--/.post-inner-->
+</article><!--/.post-->				
+<div class="clear"></div>
+<div class="clear"></div>
+<div class="ads-inner-mobile">
+<center style="padding-top:30px;">
+<!-- Post-Bottom-Inner-300x250 -->
+<ins class="adsbygoogle"
+style="display:inline-block;width:300px;height:250px"
+data-ad-client="ca-pub-2601749019656699"
+data-ad-slot="7807254572"></ins>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</center>
+</div>
+<div class="clear"></div>
+<div class="after-post-box">
+<h2>If You Appreciate What We Do Here On TecMint, You Should Consider:</h2>
+<p>TecMint is the fastest growing and most trusted community site for any kind of Linux Articles, Guides and Books on the web. Millions of people visit TecMint! to search or browse the thousands of published articles available FREELY to all.</p>
+<p>If you like what you are reading, please consider buying us a coffee ( or 2 ) as a token of appreciation.</p>
+<p align="center"><a href="https://www.buymeacoffee.com/tecmint" rel="nofollow" target="_blank"><img alt="Support Us" src="https://www.tecmint.com/wp-content/uploads/2015/01/coffee.png" alt="Coffee"></a></p>
+<p style="text-align: center;"><strong style=" color:#fe3300;font-size:20px;">We are thankful for your never ending support.</strong></p>
+</div>
+<div class="clear"></div>
+<div class="author-bio">
+<div class="bio-avatar"><img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/9dc2e51814f11919877f39f9c00c3e9b?s=128&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/9dc2e51814f11919877f39f9c00c3e9b?s=256&#038;d=blank&#038;r=g 2x" class="avatar avatar-128 photo" height="128" width="128"><noscript><img alt='' src='https://secure.gravatar.com/avatar/9dc2e51814f11919877f39f9c00c3e9b?s=128&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/9dc2e51814f11919877f39f9c00c3e9b?s=256&#038;d=blank&#038;r=g 2x' class='avatar avatar-128 photo' height='128' width='128' /></noscript></div>
+<p style="float:right; font-weight:600;"><a target="_blank" class="author-link" href="https://www.tecmint.com/author/tarunikas/" rel="author">View all Posts</a></p>
+<p class="bio-name">Tarunika Shrivastava</p>
+<p class="bio-desc">I am a linux server admin and love to play with Linux and all other distributions of it. I am working as System Engineer with a Web Hosting Company.</p>
+<p><span style="font-size:20px;font-weight:400;color:#a2042e">Your name can also be listed here. Got a tip? <a style="text-decoration:underline;" target="_blank" href="https://www.tecmint.com/submit-articles/">Submit it here</a> to become an <b>TecMint</b> author.</span></p>
+<div class="clear"></div>
+</div>
+<div class="hr"></div>
+<div class="grid one-fourth">
+<a href="https://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/" target="_blank"><img alt="RedHat RHCE and RHCSA Certification Book" width="200" src="https://www.tecmint.com/wp-content/themes/tecmint/images/RedHat-RHCSA-RHCE-Exam-Study-Ebook.png" style="margin-right:10px;"></a>
+</div>
+<div class="grid one-fourth">
+<a href="https://www.tecmint.com/linux-foundation-lfcs-lfce-certification-exam-book/" target="_blank"><img alt="Linux Foundation LFCS and LFCE Certification Preparation Guide" width="200" src="https://www.tecmint.com/wp-content/themes/tecmint/images/Linux-Foundation-LFCS-LFCE-Certification-Ebook.png"></a>
+</div>
+<div class="grid one-fourth">
+<a href="https://deals.tecmint.com/sales/complete-linux-crash-course-includes-topics-on-red-hat-unix-kali-python-and-opensuse?utm_source=tecmint.com&utm_medium=referral&utm_campaign=complete-linux-crash-course-includes-topics-on-red-hat-unix-kali-python-and-opensu" rel="nofollow" target="_blank"><img width="200" src="https://www.tecmint.com/wp-content/themes/tecmint/images/Linux-System-Administrator-Course.png" style="margin-right:10px;"></a>
+</div>
+<div class="grid one-fourth last">
+<a href="https://deals.tecmint.com/sales/become-an-ethical-hacker-bonus-bundle?utm_source=tecmint.com&utm_medium=referral&utm_campaign=become-an-ethical-hacker-bonus-bundle_090216" rel="nofollow" target="_blank"><img width="200" src="https://www.tecmint.com/wp-content/themes/tecmint/images/Become-an-Ethical-Hacker.png"></a>
+</div>
+<div class="clear"></div>
+<div class="hr"></div>
+<ul class="post-nav group">
+<li class="next"><a href="https://www.tecmint.com/how-to-kill-a-process-in-linux/" rel="next"><i class="fa fa-chevron-right"></i><strong>Next story</strong> <span>A Guide to Kill, Pkill and Killall Commands to Terminate a Process in Linux</span></a></li>
+<li class="previous"><a href="https://www.tecmint.com/linux-directory-structure-and-important-files-paths-explained/" rel="prev"><i class="fa fa-chevron-left"></i><strong>Previous story</strong> <span>Linux Directory Structure and Important Files Paths Explained</span></a></li>
+</ul>
+<h4 class="heading">
+<i class="fa fa-hand-o-right"></i>You may also like...</h4>
+<ul class="related-posts group">
+<li class="related post-hover">
+<article class="post-25641 post type-post status-publish format-standard has-post-thumbnail hentry category-linux-commands tag-linux-tricks">
+<div class="post-thumbnail">
+<a href="https://www.tecmint.com/show-linux-server-shutdown-message/" title="Show a Custom Message to Users Before Linux Server Shutdown">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://www.tecmint.com/wp-content/uploads/2017/05/Send-Linux-Shutdown-Message.png" width="720" height="340" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="Send Message to Users Before Linux Server Shutdown"><noscript><img width="720" height="340" src="https://www.tecmint.com/wp-content/uploads/2017/05/Send-Linux-Shutdown-Message.png" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="Send Message to Users Before Linux Server Shutdown" /></noscript>																								</a>
+<a class="post-comments" href="https://www.tecmint.com/show-linux-server-shutdown-message/#comments"><span><i class="fa fa-comments-o"></i>2</span></a>
+</div><!--/.post-thumbnail-->
+<div class="related-inner">
+<h4 class="post-title">
+<a href="https://www.tecmint.com/show-linux-server-shutdown-message/" rel="bookmark" title="Show a Custom Message to Users Before Linux Server Shutdown">Show a Custom Message to Users Before Linux Server Shutdown</a>
+</h4><!--/.post-title-->
+<div class="post-meta group">
+<p class="post-date">15 May, 2017</p>
+</div><!--/.post-meta-->
+</div><!--/.related-inner-->
+</article>
+</li><!--/.related-->
+<li class="related post-hover">
+<article class="post-33889 post type-post status-publish format-standard has-post-thumbnail hentry category-linux-commands tag-commandline-tools">
+<div class="post-thumbnail">
+<a href="https://www.tecmint.com/manage-etc-with-version-control-using-etckeeper/" title="How to Manage /etc with Version Control Using Etckeeper on Linux">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://www.tecmint.com/wp-content/uploads/2019/08/Etckeeper-Manage-Etc-with-Version-Control.png" width="720" height="340" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="Manage /etc with Version Control Using Etckeeper"><noscript><img width="720" height="340" src="https://www.tecmint.com/wp-content/uploads/2019/08/Etckeeper-Manage-Etc-with-Version-Control.png" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="Manage /etc with Version Control Using Etckeeper" /></noscript>																								</a>
+<a class="post-comments" href="https://www.tecmint.com/manage-etc-with-version-control-using-etckeeper/#respond"><span><i class="fa fa-comments-o"></i>0</span></a>
+</div><!--/.post-thumbnail-->
+<div class="related-inner">
+<h4 class="post-title">
+<a href="https://www.tecmint.com/manage-etc-with-version-control-using-etckeeper/" rel="bookmark" title="How to Manage /etc with Version Control Using Etckeeper on Linux">How to Manage /etc with Version Control Using Etckeeper on Linux</a>
+</h4><!--/.post-title-->
+<div class="post-meta group">
+<p class="post-date">31 Aug, 2019</p>
+</div><!--/.post-meta-->
+</div><!--/.related-inner-->
+</article>
+</li><!--/.related-->
+<li class="related post-hover">
+<article class="post-31828 post type-post status-publish format-standard has-post-thumbnail hentry category-linux-commands tag-boot-linux tag-commandline-tools">
+<div class="post-thumbnail">
+<a href="https://www.tecmint.com/multicd-create-multiboot-linux-usb/" title="MultiCD &#8211; Create a MultiBoot Linux Live USB">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://www.tecmint.com/wp-content/uploads/2019/02/MultiCD-Create-Multiboot-Linux-USB.png" width="720" height="340" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="MultiCD - Create Multi-boot Linux USB"><noscript><img width="720" height="340" src="https://www.tecmint.com/wp-content/uploads/2019/02/MultiCD-Create-Multiboot-Linux-USB.png" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="MultiCD - Create Multi-boot Linux USB" /></noscript>																								</a>
+<a class="post-comments" href="https://www.tecmint.com/multicd-create-multiboot-linux-usb/#comments"><span><i class="fa fa-comments-o"></i>2</span></a>
+</div><!--/.post-thumbnail-->
+<div class="related-inner">
+<h4 class="post-title">
+<a href="https://www.tecmint.com/multicd-create-multiboot-linux-usb/" rel="bookmark" title="MultiCD &#8211; Create a MultiBoot Linux Live USB">MultiCD &#8211; Create a MultiBoot Linux Live USB</a>
+</h4><!--/.post-title-->
+<div class="post-meta group">
+<p class="post-date">11 Feb, 2019</p>
+</div><!--/.post-meta-->
+</div><!--/.related-inner-->
+</article>
+</li><!--/.related-->
+</ul><!--/.post-related-->
+<section id="comments" class="themeform">
+<h3 class="heading">150 Responses</h3>
+<ul class="comment-tabs group">
+<li class="active"><a href="#commentlist-container"><i class="fa fa-comments-o"></i>Comments<span>5</span></a></li>
+<li><a href="#pinglist-container"><i class="fa fa-share"></i>Pingbacks<span>0</span></a></li>
+</ul>
+<div id="commentlist-container" class="comment-tab">
+<ol class="commentlist">
+<li class="comment even thread-even depth-1" id="comment-1260772">
+<div id="div-comment-1260772" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/232b5c7060fdb9ae04d95e5a66573bab?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/232b5c7060fdb9ae04d95e5a66573bab?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/232b5c7060fdb9ae04d95e5a66573bab?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/232b5c7060fdb9ae04d95e5a66573bab?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn">Thaddeus Weakley</cite> <span class="says">says:</span>		</div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/comment-page-10/#comment-1260772">
+October 4, 2019 at 4:32 am				</a>
+</div>
+<p>Trying to back up a VPS on a home computer running Windows.  As I understand this will be done via SSH.  Using <strong>Backup Agent 6.65</strong> when putting in VPS address it requests I insert the proper volume.  I either have to do more to sync it or there is an error in the path to the VPS.  </p>
+<p>How do I prove the path to get the volume to be recognized or otherwise synchronize with everything?  Or if I need to start from scratch with another service, what should I use?  Thank you.</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/?replytocom=1260772#respond' data-commentid="1260772" data-postid="4167" data-belowelement="div-comment-1260772" data-respondelement="respond" aria-label='Reply to Thaddeus Weakley'>Reply</a></div>
+</div>
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-1211209">
+<div id="div-comment-1211209" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/a32809d78f70bed87ec1b5fa42d14d2c?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/a32809d78f70bed87ec1b5fa42d14d2c?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/a32809d78f70bed87ec1b5fa42d14d2c?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/a32809d78f70bed87ec1b5fa42d14d2c?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn">m z</cite> <span class="says">says:</span>		</div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/comment-page-10/#comment-1211209">
+July 26, 2019 at 8:41 pm				</a>
+</div>
+<p>Thanks a lot</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/?replytocom=1211209#respond' data-commentid="1211209" data-postid="4167" data-belowelement="div-comment-1211209" data-respondelement="respond" aria-label='Reply to m z'>Reply</a></div>
+</div>
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1 parent" id="comment-1152542">
+<div id="div-comment-1152542" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/bff8deac159ef8dd68947719741d439c?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/bff8deac159ef8dd68947719741d439c?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/bff8deac159ef8dd68947719741d439c?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/bff8deac159ef8dd68947719741d439c?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn">Srinivas</cite> <span class="says">says:</span>		</div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/comment-page-10/#comment-1152542">
+May 15, 2019 at 12:09 pm				</a>
+</div>
+<p>Hi,</p>
+<p>Is there any option to use <strong>rsync command</strong> with http URL? I want to sync my local repo with remote maven repo.</p>
+<p>I have tried <code>rsync -ahzv http://10.20.25.23:8081/mr/ds/  /home/.m2/repository</code> but it didn’t work for me.</p>
+<p>Could you please help me on this?</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/?replytocom=1152542#respond' data-commentid="1152542" data-postid="4167" data-belowelement="div-comment-1152542" data-respondelement="respond" aria-label='Reply to Srinivas'>Reply</a></div>
+</div>
+<ul class="children">
+<li class="comment byuser comment-author-admin odd alt depth-2 parent" id="comment-1152917">
+<div id="div-comment-1152917" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn">Ravi Saive</cite> <span class="says">says:</span>		</div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/comment-page-10/#comment-1152917">
+May 16, 2019 at 10:25 am				</a>
+</div>
+<p>@Srinivas,</p>
+<p>Rsync won&#8217;t work with HTTP URL..</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/?replytocom=1152917#respond' data-commentid="1152917" data-postid="4167" data-belowelement="div-comment-1152917" data-respondelement="respond" aria-label='Reply to Ravi Saive'>Reply</a></div>
+</div>
+<ul class="children">
+<li class="comment even depth-3" id="comment-1152920">
+<div id="div-comment-1152920" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/bff8deac159ef8dd68947719741d439c?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/bff8deac159ef8dd68947719741d439c?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/bff8deac159ef8dd68947719741d439c?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/bff8deac159ef8dd68947719741d439c?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn">Srinivas</cite> <span class="says">says:</span>		</div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/comment-page-10/#comment-1152920">
+May 16, 2019 at 10:38 am				</a>
+</div>
+<p>Thank you Ravi..</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/?replytocom=1152920#respond' data-commentid="1152920" data-postid="4167" data-belowelement="div-comment-1152920" data-respondelement="respond" aria-label='Reply to Srinivas'>Reply</a></div>
+</div>
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!--/.commentlist-->
+<nav class="comments-nav group">
+<div class="nav-previous"><a href="https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/comment-page-9/#comments" >&laquo; Older Comments</a></div>
+<div class="nav-next"></div>
+</nav><!--/.comments-nav-->
+</div>	
+<div id="respond" class="comment-respond">
+<h3 id="reply-title" class="comment-reply-title">Got something to say? Join the discussion. <small><a rel="nofollow" id="cancel-comment-reply-link" href="/rsync-local-remote-file-synchronization-commands/#respond" style="display:none;">Cancel reply</a></small></h3><form action="https://www.tecmint.com/wp-comments-post.php" method="post" id="commentform" class="comment-form"><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p><p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required"></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" required='required' /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="text" value="" size="30" maxlength="100" aria-describedby="email-notes" required='required' /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="text" value="" size="30" maxlength="200" /></p>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes" /> <label for="wp-comment-cookies-consent">Save my name, email, and website in this browser for the next time I comment.</label></p>
+<!-- Subscribe to Comments Reloaded version 191217 --><!-- Subscribe to comments Reloaded MP: '/comment-subscriptions/' --><!-- BEGIN: subscribe to comments reloaded --><p class='comment-form-subscriptions'><label for='subscribe-reloaded'><input style='width:30px' type='checkbox' name='subscribe-reloaded' id='subscribe-reloaded' value='yes' /> Notify me of followup comments via e-mail. You can also <a href='https://www.tecmint.com/comment-subscriptions/?srp=4167&amp;srk=0b81c0e99cc43eb9ade2ba1b6ab240b4&amp;sra=s&amp;srsrc=f'>subscribe</a> without commenting.</label></p><!-- END: subscribe to comments reloaded --><p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='4167' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="cb93f247c9" /></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="131"/></p></form>	</div><!-- #respond -->
+<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</section><!--/#comments-->		
+</div><!--/.pad-->
+</section><!--/.content-->
+<div class="sidebar s1">
+<a class="sidebar-toggle" title="Expand Sidebar"><i class="fa icon-sidebar-toggle"></i></a>
+<div class="sidebar-content">
+<div class="sidebar-top group">
+<span style="color:#002873; font-weight:600; font-size:20px;">I <i class="fa fa-heart col-love-l"></i> TecMint :</span>
+<ul class="social-links"><li><a rel="nofollow" class="social-tooltip" title="twitter" href="https://twitter.com/tecmint" target="Array"><i class="fa fa-twitter" style="color: #33ccff;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="facebook" href="https://www.facebook.com/TecMint" target="Array"><i class="fa fa-facebook" style="color: #3b5998;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Linkedin" href="https://www.linkedin.com/company/tecmint" target="Array"><i class="fa fa-linkedin" style="color: #1e73be;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Feedly" href="https://feedly.com/i/subscription/feed/https://www.tecmint.com/feed/" target="Array"><i class="fa fa-rss" style="color: #87c040;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Youtube" href="https://www.youtube.com/channel/UCkiRkzdLvoGBtW_YArytJlQ" target="Array"><i class="fa fa fa-youtube-square" style="color: #c4302b;"></i></a></li></ul>			</div>
+<div id="text-23" class="widget widget_text">			<div class="textwidget">  <div  style="background:#db4455;" class="message">
+<center><a href="https://www.tecmint.com/free-online-linux-learning-guide-for-beginners/" target="_blank" rel="noopener noreferrer"><span style="font-weight:bold;font-size:18px;"><i class="fa fa-linux"></i> BEGINNER'S GUIDE FOR LINUX <i class="fa fa-linux"></i></span> <span style="font-weight:bold;font-size:16px;">Start learning Linux in minutes</span> <i class="fa fa-arrow-right"></i></a>
+</center>
+</div></div>
+</div><div id="text-21" class="widget widget_text">			<div class="textwidget"><center>
+<!-- Sidebar Top Ad 300x250 -->
+<ins class="adsbygoogle"
+style="display:inline-block;width:300px;height:250px"
+data-ad-client="ca-pub-2601749019656699"
+data-ad-slot="7270921771"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</center></div>
+</div><div id="text-25" class="widget widget_text">			<div class="textwidget"><div class="message"><center><a href="https://www.tecmint.com/vi-editor-usage/" target="_blank" rel="noopener noreferrer"><span style="font-weight:bold;font-size:17px;"><i class="fa fa-linux"></i> Vi/Vim Editor BEGINNER'S GUIDE <i class="fa fa-linux"></i></span> <span style="font-weight:bold;font-size:16px;">Learn vi/vim as a Full Text Editor</span> <i class="fa fa-file-text"></i>
+</a></center></div></div>
+</div><div id="text-24" class="widget widget_text">			<div class="textwidget"><!-- TecMint Sidebar Second Ad 300x250 -->
+<ins class="adsbygoogle"
+style="display:inline-block;width:300px;height:250px"
+data-ad-client="ca-pub-2601749019656699"
+data-ad-slot="8362602806"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+</div><div id="text-26" class="widget widget_text">			<div class="textwidget"><div class="message" style="background-color: #ab0619;"><center><span style="font-weight:bold;font-size:17px;"><i class="fa fa-linux"></i> Linux Foundation Certification <i class="fa fa-linux"></i></span> <span style="font-weight:bold;font-size:16px;">Exam Study Guide to <a style="text-decoration:underline;" target="_blank" href="https://www.tecmint.com/linux-foundation-lfcs-lfce-certification-exam-book/" rel="noopener noreferrer">LFCS and LFCE</a></span></center></div></div>
+</div><div id="alxtabs-3" class="widget widget_alx_tabs">
+<ul class="alx-tabs-nav group tab-count-2"><li class="alx-tab tab-popular"><a href="#tab-popular" title="Popular Posts"><i class="fa fa-star"></i><span>Popular Posts</span></a></li><li class="alx-tab tab-comments"><a href="#tab-comments" title="Recent Comments"><i class="fa fa-comments-o"></i><span>Recent Comments</span></a></li></ul>
+<div class="alx-tabs-container">
+<ul id="tab-popular" class="alx-tab group ">
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="https://www.tecmint.com/how-to-add-linux-host-to-nagios-monitoring-server/" rel="bookmark" title="How to Add Linux Host to Nagios Monitoring Server Using NRPE Plugin">How to Add Linux Host to Nagios Monitoring Server Using NRPE Plugin</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="https://www.tecmint.com/install-nagios-in-linux/" rel="bookmark" title="How to Install Nagios 4.4.5 on RHEL/CentOS 8/7 and Fedora 30">How to Install Nagios 4.4.5 on RHEL/CentOS 8/7 and Fedora 30</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="https://www.tecmint.com/install-cacti-network-monitoring-on-rhel-centos-fedora/" rel="bookmark" title="Install Cacti (Network Monitoring) on RHEL/CentOS 8/7 and Fedora 30">Install Cacti (Network Monitoring) on RHEL/CentOS 8/7 and Fedora 30</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="https://www.tecmint.com/install-google-chrome-on-redhat-centos-fedora-linux/" rel="bookmark" title="How to Install Google Chrome 75 On RHEL/CentOS 7 and Fedora 30">How to Install Google Chrome 75 On RHEL/CentOS 7 and Fedora 30</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="https://www.tecmint.com/install-ubuntu-alongside-with-windows-dual-boot/" rel="bookmark" title="How to Install Ubuntu Alongside With Windows 10 or 8 in Dual-Boot">How to Install Ubuntu Alongside With Windows 10 or 8 in Dual-Boot</a></p>
+</div>
+</li>
+</ul><!--/.alx-tab-->
+<ul id="tab-comments" class="alx-tab group avatars-enabled">
+<li>
+<div class="tab-item-avatar">
+<a href="https://www.tecmint.com/add-users-in-linux/comment-page-7/#comment-1314214">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/430da58a62f39e5d14fc9f2190e75251?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/430da58a62f39e5d14fc9f2190e75251?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/430da58a62f39e5d14fc9f2190e75251?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/430da58a62f39e5d14fc9f2190e75251?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">Harry says:</div>
+<div class="tab-item-comment"><a href="https://www.tecmint.com/add-users-in-linux/comment-page-7/#comment-1314214">Thanks again for your response. Quick question- If the user joins...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="https://www.tecmint.com/install-wordpress-on-ubuntu-16-04-with-lamp/comment-page-9/#comment-1314178">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/6903c7cd95bd684b6e49332476ff151c?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/6903c7cd95bd684b6e49332476ff151c?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/6903c7cd95bd684b6e49332476ff151c?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/6903c7cd95bd684b6e49332476ff151c?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">Multiselect says:</div>
+<div class="tab-item-comment"><a href="https://www.tecmint.com/install-wordpress-on-ubuntu-16-04-with-lamp/comment-page-9/#comment-1314178">Thank you! Thanks to you I was able to create my...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="https://www.tecmint.com/pentoo-a-security-focused-linux-distro/comment-page-1/#comment-1314155">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/f50f43e0fc20f5e4a5a14921f6839a1a?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/f50f43e0fc20f5e4a5a14921f6839a1a?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/f50f43e0fc20f5e4a5a14921f6839a1a?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/f50f43e0fc20f5e4a5a14921f6839a1a?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">cmurphy says:</div>
+<div class="tab-item-comment"><a href="https://www.tecmint.com/pentoo-a-security-focused-linux-distro/comment-page-1/#comment-1314155">Does anybody proofread the articles before publishing them? "How to Install...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="https://www.tecmint.com/colourised-disk-space-usage-in-linux/comment-page-1/#comment-1314153">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/87f8dd0984b69c62700aab50d0fad2f9?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/87f8dd0984b69c62700aab50d0fad2f9?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/87f8dd0984b69c62700aab50d0fad2f9?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/87f8dd0984b69c62700aab50d0fad2f9?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">nobleaxis says:</div>
+<div class="tab-item-comment"><a href="https://www.tecmint.com/colourised-disk-space-usage-in-linux/comment-page-1/#comment-1314153">discus is not in any of the default system repositories. both...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="https://www.tecmint.com/install-pxe-network-boot-server-in-centos-7/comment-page-5/#comment-1314147">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/864fe0fc4b9462741d82afb58a209d53?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/864fe0fc4b9462741d82afb58a209d53?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/864fe0fc4b9462741d82afb58a209d53?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/864fe0fc4b9462741d82afb58a209d53?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">Tim says:</div>
+<div class="tab-item-comment"><a href="https://www.tecmint.com/install-pxe-network-boot-server-in-centos-7/comment-page-5/#comment-1314147">I have my instance working using CENTOS 8 using: kernel centos8/vmlinuz...</a></div>
+</div>
+</li>
+</ul><!--/.alx-tab-->
+</div>
+</div>
+<div id="text-27" class="widget widget_text">			<div class="textwidget"><center>
+<a target="_blank" href="https://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/" rel="noopener noreferrer"><img alt="RedHat RHCSA and RHCE Certification Exam Study Ebook" src="https://www.tecmint.com/wp-content/uploads/2015/01/RedHat-RHCSA-RHCE-Exam.png"/></a>
+</center></div>
+</div><div id="text-28" class="widget widget_text">			<div class="textwidget"><div class="message" style="background-color: #0d7c39;"><center><p style="font-weight:bold;font-size:18px;">Linux System Administrator Bundle with 7-Courses (96% off)</p> 
+<p style="background-color: #03441d;margin:6px 35px;padding:10px;"><a rel="nofollow noopener noreferrer" target="_blank" href="https://deals.tecmint.com/sales/complete-linux-crash-course-includes-topics-on-red-hat-unix-kali-python-and-opensuse?utm_source=tecmint.com&amp;utm_medium=referral&amp;utm_campaign=complete-linux-crash-course-includes-topics-on-red-hat-unix-kali-python-and-opensu&amp;_ga=1.95416024.550662903.1451974395" style="font-size:25px;font-weight:bold;">Add to Cart - $69</a></p>
+<p style="font-size:14px;font-weight:bold;"><i aria-hidden="true" class="fa fa-clock-o"></i> Ending In: 3 days
+</p></center></div>
+<div style="background-color: #f4403b;" class="message"><center><p style="font-weight:bold;font-size:18px;">Computer Hacker Professional Certification Course (96% Off)</p> 
+<p style="background-color: #9d1815;margin:6px 35px;padding:10px;"><a style="font-size:25px;font-weight:bold;" href="https://deals.tecmint.com/sales/computer-hacker-professional-certification-package-2" target="_blank" rel="nofollow noopener noreferrer">Add to Cart - $59</a></p>
+<p style="font-size:14px;font-weight:bold;"><i class="fa fa-clock-o" aria-hidden="true"></i> Ending In: 4 days
+</p></center></div></div>
+</div><div id="text-4" class="widget widget_text"><h3>Linux eBooks</h3>			<div class="textwidget"><ol class="custom-counter">
+<li><a onclick="ga('send','event','Learn Linux in One Week','TecMint')" href="https://www.tecmint.com/learn-linux-in-one-week/" target="_blank" rel="noopener noreferrer">Introducing Learn Linux In One Week and Go from Zero to Hero</a></li>
+<li><a onclick="ga('send','event','RedHat RHCE/RHCSA Guide','TecMint')" href="https://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/" target="_blank" rel="noopener noreferrer">RedHat RHCE/RHCSA Certification Preparation Guide</a></li>
+<li><a onclick="ga('send','event','Linux Foundation LFCS/LFCE Guide','TecMint')" href="https://www.tecmint.com/linux-foundation-lfcs-lfce-certification-exam-book/" target="_blank" rel="noopener noreferrer">Linux Foundations LFCS/LFCE Certification Guide</a></li>
+<li><a onclick="ga('send','event','Postfix Mail Server Setup','TecMint')" href="https://www.tecmint.com/postfix-mail-server-setup-linux-book/" target="_blank" rel="noopener noreferrer">Postfix Mail Server Setup Guide for Linux</a></li>
+<li><a onclick="ga('send','event','Ansible Setup Guide','TecMint')" href="https://www.tecmint.com/ansible-book-guide-for-linux/" target="_blank" rel="noopener noreferrer">Ansible Setup Guide for Linux</a></li>
+<li><a onclick="ga('send','event','Django Setup Guide','TecMint')" href="https://www.tecmint.com/django-web-framework-book/" target="_blank" rel="noopener noreferrer">Django Setup Guide for Linux</a></li>
+<li><a onclick="ga('send','event','Awk Guide for Beginners','TecMint')" href="https://www.tecmint.com/linux-awk-command-book-for-beginners/" target="_blank" rel="noopener noreferrer">Awk Getting Started Guide for Beginners</a></li>
+<li><a onclick="ga('send','event','Citrix XenServer Setup Guide','TecMint')" href="https://www.tecmint.com/citrix-xenserver-book-for-linux/" target="_blank" rel="noopener noreferrer">Citrix XenServer Setup Guide for Linux</a></li>
+</ol></div>
+</div><div id="text-29" class="widget widget_text">			<div class="textwidget"><div style="background-color: rgb(25, 67, 87); color: rgb(255, 255, 255); border-radius: 5px; text-align: center; padding: 10px;">
+<div class="follow-subscribe-social">
+<ul>
+<li><a href="https://twitter.com/tecmint" target="_blank" rel="noopener noreferrer"><i class="fa fa-twitter"></i></a></li>
+<li><a href="https://www.facebook.com/TecMint" target="_blank" rel="noopener noreferrer"><i class="fa fa-facebook"></i></a></li>
+<li><a href="https://plus.google.com/101049688653487009744" target="_blank" rel="noopener noreferrer"><i class="fa fa-google"></i></a></li>
+<li><a href="https://www.youtube.com/channel/UCkiRkzdLvoGBtW_YArytJlQ" target="_blank" rel="noopener noreferrer"><i class="fa fa-youtube"></i></a></li>
+<li><a href="https://www.linkedin.com/company/tecmint" target="_blank" rel="noopener noreferrer"><i class="fa fa-linkedin"></i></a></li>
+</ul>
+</div>
+<p style="font-weight: bold; font-size: 20px; margin-bottom: 10px; margin-top: 10px;">Never Miss Any Linux Tutorials, Guides, Tips and Free eBooks</p> 
+<p>Join Our Community Of <strong style="color:#fff;font-weight:bold;">150,000+ Linux Lovers</strong> and get a weekly newsletter in your inbox</p>
+<p style="background-color: rgb(0, 0, 0); border-radius: 5px; padding: 6px;"><a style="font-size:20px;font-weight:bold;color:#fff;" href="http://subscribe.tecmint.com/newsletter" target="_blank" rel="nofollow noopener noreferrer">YES! SIGN ME UP</a></p></div></div>
+</div><div id="text-32" class="widget widget_text">			<div class="textwidget"><p><!-- TecMint Sidebar3 Ad --><br />
+<ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-2601749019656699" data-ad-slot="9838765188"></ins><br />
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+</div>
+</div>			
+</div><!--/.sidebar-content-->
+</div><!--/.sidebar-->
+				</div><!--/.main-inner-->
+</div><!--/.main-->			
+</div><!--/.container-inner-->
+</div><!--/.container-->
+<footer id="footer">
+<section class="container" id="footer-ads">
+<div class="container-inner">
+<div id="text-30" class="widget widget_text">			<div class="textwidget"><p><center><script type="text/javascript">
+var total_images = 2;
+var random_number = Math.floor((Math.random()*total_images));
+var random_img = new Array();
+random_img[0] = '<a target="_blank" rel="nofollow" href="https://shareasale.com/r.cfm?b=1226423&#038;u=1260899&#038;m=59485&#038;urllink=&#038;afftrack="><img src="https://www.fossmint.com/wp-content/themes/fossmint/backupads/Linux-Foundation-LFCS-Certification.png"/></a>';
+random_img[1] = '<a target="_blank" rel="nofollow" href="https://shareasale.com/r.cfm?b=1226424&#038;u=1260899&#038;m=59485&#038;urllink=&#038;afftrack="><img src="https://www.fossmint.com/wp-content/themes/fossmint/backupads/Linux-Foundation-LFCE-Certification.png"/></a>';
+document.write(random_img[random_number]);
+</script></center></p>
+</div>
+</div>			</div><!--/.container-inner-->
+</section><!--/.container-->
+<section class="container" id="footer-widgets">
+<div class="container-inner">
+<div class="pad group">
+<div class="footer-widget-1 grid one-third ">
+<div id="alxposts-3" class="widget widget_alx_posts">
+<h3>Linux Monitoring Tools</h3>
+<ul class="alx-posts group ">
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/rtop-monitor-remote-linux-server-over-ssh/" rel="bookmark" title="rtop &#8211; An Interactive Tool to Monitor Remote Linux Server Over SSH">rtop &#8211; An Interactive Tool to Monitor Remote Linux Server Over SSH</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/how-to-add-windows-host-to-nagios-monitoring-server/" rel="bookmark" title="How to Add Windows Host to Nagios Monitoring Server">How to Add Windows Host to Nagios Monitoring Server</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/monitor-linux-server-resources-with-collectd-web-and-apache-cgi/" rel="bookmark" title="Monitor Server Resources with Collectd-web and Apache CGI in Linux">Monitor Server Resources with Collectd-web and Apache CGI in Linux</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/monitor-apache-performance-using-netdata-on-centos/" rel="bookmark" title="How to Monitor Apache Performance using Netdata on CentOS 7">How to Monitor Apache Performance using Netdata on CentOS 7</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/cpustat-monitors-cpu-utilization-by-processes-in-linux/" rel="bookmark" title="Cpustat &#8211; Monitors CPU Utilization by Running Processes in Linux">Cpustat &#8211; Monitors CPU Utilization by Running Processes in Linux</a></p>
+</div>
+</li>
+</ul><!--/.alx-posts-->
+</div>
+</div>
+<div class="footer-widget-2 grid one-third ">
+<div id="alxposts-4" class="widget widget_alx_posts">
+<h3>Linux Interview Questions</h3>
+<ul class="alx-posts group ">
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/basic-mysql-interview-questions-for-database-administrators/" rel="bookmark" title="15 Basic MySQL Interview Questions for Database Administrators">15 Basic MySQL Interview Questions for Database Administrators</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/practical-interview-questions-on-linux-shell-scripting/" rel="bookmark" title="Practical Interview Questions and Answers on Linux Shell Scripting">Practical Interview Questions and Answers on Linux Shell Scripting</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/linux-rpm-package-management-interview-questions/" rel="bookmark" title="Shilpa Nair Shares Her Interview Experience on RedHat Linux Package Management">Shilpa Nair Shares Her Interview Experience on RedHat Linux Package Management</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/ssh-interview-questions/" rel="bookmark" title="10 Useful SSH (Secure Shell) Interview Questions and Answers">10 Useful SSH (Secure Shell) Interview Questions and Answers</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/10-advance-vsftp-interview-questions-and-answers-part-ii/" rel="bookmark" title="10 Advance VsFTP Interview Questions and Answers &#8211; Part II">10 Advance VsFTP Interview Questions and Answers &#8211; Part II</a></p>
+</div>
+</li>
+</ul><!--/.alx-posts-->
+</div>
+</div>
+<div class="footer-widget-3 grid one-third last">
+<div id="alxposts-5" class="widget widget_alx_posts">
+<h3>Open Source Tools</h3>
+<ul class="alx-posts group ">
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/best-open-source-forum-software-for-linux/" rel="bookmark" title="10 Best Open Source Forum Software for Linux">10 Best Open Source Forum Software for Linux</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/microsoft-office-alternatives-for-linux/" rel="bookmark" title="16 Most Used Microsoft Office Alternatives for Linux">16 Most Used Microsoft Office Alternatives for Linux</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/linux-disk-scanning-tools/" rel="bookmark" title="3 Useful GUI and Terminal Based Linux Disk Scanning Tools">3 Useful GUI and Terminal Based Linux Disk Scanning Tools</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/best-linux-screen-recorders-for-desktop-screen-recording/" rel="bookmark" title="8 Best Screen Recorders for Desktop Screen Recording in Linux">8 Best Screen Recorders for Desktop Screen Recording in Linux</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/best-linux-log-monitoring-and-management-tools/" rel="bookmark" title="4 Good Open Source Log Monitoring and Management Tools for Linux">4 Good Open Source Log Monitoring and Management Tools for Linux</a></p>
+</div>
+</li>
+</ul><!--/.alx-posts-->
+</div>
+</div>
+</div><!--/.pad-->
+</div><!--/.container-inner-->
+</section><!--/.container-->	
+<nav class="nav-container group" id="nav-footer">
+<div class="nav-toggle"><i class="fa fa-bars"></i></div>
+<div class="nav-text"><!-- put your mobile menu text here --></div>
+<div class="nav-wrap"><ul id="menu-footer" class="nav container group"><li id="menu-item-18572" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18572"><a href="https://www.tecmint.com/donate-to-tecmint/">Donate to TecMint</a></li>
+<li id="menu-item-10437" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10437"><a href="https://www.tecmint.com/contact-us/">Contact Us</a></li>
+<li id="menu-item-10442" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10442"><a href="https://www.tecmint.com/advertise/">Advertise on TecMint</a></li>
+<li id="menu-item-10441" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10441"><a href="https://www.tecmint.com/services/">Linux Services</a></li>
+<li id="menu-item-10435" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10435"><a href="https://www.tecmint.com/copyright-policy/">Copyright Policy</a></li>
+<li id="menu-item-10436" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10436"><a href="https://www.tecmint.com/privacy-policy/">Privacy Policy</a></li>
+<li id="menu-item-13339" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13339"><a href="https://www.tecmint.com/career/">Career</a></li>
+<li id="menu-item-24288" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-24288"><a href="https://www.tecmint.com/sponsored-post-guidelines-tecmint/">Sponsored Post</a></li>
+</ul></div>
+</nav><!--/#nav-footer-->
+<section class="container" id="footer-bottom">
+<div class="container-inner">
+<a id="back-to-top" href="#"><i class="fa fa-angle-up"></i></a>
+<div class="pad group">
+<div class="grid one-half">
+<div id="copyright">
+<p>Tecmint: Linux Howtos, Tutorials &amp; Guides &copy; 2020. All Rights Reserved.</p>
+<p>The material in this site cannot be republished either online or offline, without our permission.</p>
+<p>Hosting Sponsored by : <a style="font-weight:bold;color:yellow;" href="https://www.linode.com/?r=64ebb9f723fed8b32fda84b6594006df08ad24b6" target="_blank" rel="nofollow">Linode Cloud Hosting</a></p>
+</div><!--/#copyright-->
+</div>
+<div class="grid one-half last">	
+<ul class="social-links"><li><a rel="nofollow" class="social-tooltip" title="twitter" href="https://twitter.com/tecmint" target="Array"><i class="fa fa-twitter" style="color: #33ccff;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="facebook" href="https://www.facebook.com/TecMint" target="Array"><i class="fa fa-facebook" style="color: #3b5998;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Linkedin" href="https://www.linkedin.com/company/tecmint" target="Array"><i class="fa fa-linkedin" style="color: #1e73be;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Feedly" href="https://feedly.com/i/subscription/feed/https://www.tecmint.com/feed/" target="Array"><i class="fa fa-rss" style="color: #87c040;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Youtube" href="https://www.youtube.com/channel/UCkiRkzdLvoGBtW_YArytJlQ" target="Array"><i class="fa fa fa-youtube-square" style="color: #c4302b;"></i></a></li></ul>					</div>
+</div><!--/.pad-->
+</div><!--/.container-inner-->
+</section><!--/.container-->
+</footer><!--/#footer-->
+</div><!--/#wrapper-->
+<script type='text/javascript' src='https://www.tecmint.com/wp-content/plugins/light/js/jquery.fancybox.pack.js'></script>
+<script type='text/javascript' src='https://www.tecmint.com/wp-content/plugins/light/js/light.js'></script>
+<script type='text/javascript' src='https://www.tecmint.com/wp-content/themes/tecmint/js/scripts.js'></script>
+<script type='text/javascript' src='https://www.tecmint.com/wp-content/themes/tecmint/js/jquery.sharrre.min.js'></script>
+<script type='text/javascript' src='https://www.tecmint.com/wp-includes/js/comment-reply.min.js'></script>
+<script type='text/javascript' src='https://www.tecmint.com/wp-content/plugins/lazy-load/js/jquery.sonar.min.js'></script>
+<script type='text/javascript' src='https://www.tecmint.com/wp-content/plugins/lazy-load/js/lazy-load.js'></script>
+<script type='text/javascript' src='https://www.tecmint.com/wp-content/plugins/wp-social-sharing/static/socialshare.js'></script>
+<script async="async" type='text/javascript' src='https://www.tecmint.com/wp-content/plugins/akismet/_inc/form.js'></script>
+<!--[if lt IE 9]>
+<script src="https://www.tecmint.com/wp-content/themes/tecmint/js/ie/respond.js"></script>
+<![endif]-->
+<div class="fixedBar">
+<div class="boxfloat">
+<ul id="tips">
+<li><a href="https://www.tecmint.com/51-useful-lesser-known-commands-for-linux-users/">51 Useful Lesser Known Commands for Linux Users</a></li>
+<li><a href="https://www.tecmint.com/linux-server-hardening-security-tips/">25 Hardening Security Tips for Linux Servers</a></li>
+<li><a href="https://www.tecmint.com/60-commands-of-linux-a-guide-from-newbies-to-system-administrator/">60 Commands of Linux : A Guide from Newbies to System Administrator</a></li>
+<li><a href="https://www.tecmint.com/command-line-tools-to-monitor-linux-performance/">20 Command Line Tools to Monitor Linux Performance</a></li>
+<li><a href="https://www.tecmint.com/18-tar-command-examples-in-linux/">18 Tar Command Examples in Linux</a></li>
+<li><a href="https://www.tecmint.com/20-linux-yum-yellowdog-updater-modified-commands-for-package-mangement/">20 Linux YUM (Yellowdog Updater, Modified) Commands</a></li>
+<li><a href="https://www.tecmint.com/useful-basic-commands-of-apt-get-and-apt-cache-for-package-management/">25 Useful Basic Commands of APT-GET and APT-CACHE</a></li>
+<li><a href="https://www.tecmint.com/20-funny-commands-of-linux-or-linux-is-fun-in-terminal/">20 Funny Commands of Linux or Linux is Fun in Terminal</a></li>
+<li><a href="https://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/">Ebook: Introducing the RHCSA and RHCE Exam Preparation Guide</a></li>
+<li><a href="https://www.tecmint.com/sed-command-to-create-edit-and-manipulate-files-in-linux/">Preparation for the LFCS (Linux Foundation Certified SysAdmin) Exam</a></li>
+<li><a href="https://www.tecmint.com/installing-network-services-and-configuring-services-at-system-boot/">Preparation for the LFCE (Linux Foundation Certified Engineer) Exam</a></li>
+<li><a href="https://www.tecmint.com/10-useful-free-linux-ebooks-for-newbies-and-administrators/">10 Useful Free Linux eBooks for Newbies and Administrators</a></li>
+<li><a href="https://www.tecmint.com/free-linux-shell-scripting-books/">4 Free Shell Scripting eBooks for Newbies and Administrators</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html><!-- WP Fastest Cache file was created in 0.34398603439331 seconds, on 31-01-20 12:37:45 -->
