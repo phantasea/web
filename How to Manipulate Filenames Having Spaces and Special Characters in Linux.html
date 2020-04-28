@@ -1,0 +1,1155 @@
+<!DOCTYPE html> 
+<html class="no-js" lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="alexaVerifyID" content="qqxQUyWSeUfqZOencfEoRM9vrVk" />
+<meta name="msvalidate.01" content="E8C9208AD2F47ED874ED18E35FC370CE" />
+<meta name="google-translate-customization" content="c567e5d7624a883b-609bf053fa02c58b-g01de0b1961de0feb-f"></meta>
+<meta property="article:publisher" content="https://facebook.com/tecmint" />
+<link rel="profile" href="https://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.tecmint.com/xmlrpc.php">
+<title>How to Manipulate Filenames Having Spaces and Special Characters in Linux</title>
+<script>document.documentElement.className = document.documentElement.className.replace("no-js","js");</script>
+<!-- All In One SEO Pack 3.4.2ob_start_detected [-1,-1] -->
+<meta name="description"  content="In this article, we will see how to create, copy, move and delete filesnames that starts with spaces and special characters (say #, *, &amp;, =, etc.) in Linux." />
+<meta name="keywords"  content="linux filename special characters,manage linux filenames,manage filenames with special characters,manage linux filenames with spaces,remove filenames with special characters linux,linux tricks" />
+<link rel="canonical" href="https://www.tecmint.com/manage-linux-filenames-with-special-characters/" />
+<!-- All In One SEO Pack -->
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Tecmint: Linux Howtos, Tutorials &amp; Guides &raquo; Feed" href="https://feeds.feedburner.com/tecmint" />
+<link rel="alternate" type="application/rss+xml" title="Tecmint: Linux Howtos, Tutorials &amp; Guides &raquo; Comments Feed" href="https://www.tecmint.com/comments/feed/" />
+<link href="//fonts.googleapis.com/css?family=Roboto+Condensed:400,300italic,300,400italic,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="Tecmint: Linux Howtos, Tutorials &amp; Guides &raquo; How to Manipulate Filenames Having Spaces and Special Characters in Linux Comments Feed" href="https://www.tecmint.com/manage-linux-filenames-with-special-characters/feed/" />
+<!-- <link rel='stylesheet' id='wp-block-library-css'  href='https://www.tecmint.com/wp-includes/css/dist/block-library/style.min.css' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='fancybox-style-css'  href='https://www.tecmint.com/wp-content/plugins/light/css/jquery.fancybox.css' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='stcr-font-awesome-css'  href='https://www.tecmint.com/wp-content/plugins/subscribe-to-comments-reloaded/includes/css/font-awesome.min.css' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='aioseop-toolbar-menu-css'  href='https://www.tecmint.com/wp-content/plugins/all-in-one-seo-pack/css/admin-toolbar-menu.css' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='style-css'  href='https://www.tecmint.com/wp-content/themes/tecmint/style.css' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='responsive-css'  href='https://www.tecmint.com/wp-content/themes/tecmint/responsive.css' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='custom-css'  href='https://www.tecmint.com/wp-content/themes/tecmint/custom.css' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='font-awesome-css'  href='https://www.tecmint.com/wp-content/themes/tecmint/fonts/font-awesome.min.css' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='wp-social-sharing-css'  href='https://www.tecmint.com/wp-content/plugins/wp-social-sharing/static/socialshare.css' type='text/css' media='all' /> -->
+<!-- <link rel='stylesheet' id='qbp-css'  href='https://www.tecmint.com/wp-content/plugins/quickiebar-pro/public/style/qbp.css' type='text/css' media='all' /> -->
+<link rel="stylesheet" type="text/css" href="//www.tecmint.com/wp-content/cache/wpfc-minified/12xjqxh4/fd69l.css" media="all"/>
+<script src='//www.tecmint.com/wp-content/cache/wpfc-minified/2dg3vtye/djkav.js' type="text/javascript"></script>
+<!-- <script type='text/javascript' src='https://www.tecmint.com/wp-includes/js/jquery/jquery.js'></script> -->
+<!-- <script type='text/javascript' src='https://www.tecmint.com/wp-includes/js/jquery/jquery-migrate.min.js'></script> -->
+<script type='text/javascript'>
+/* <![CDATA[ */
+var ajaxurl = "https:\/\/www.tecmint.com\/wp-admin\/admin-ajax.php";
+var QBP_PUBLIC_GLOBALS = {"QBP_PUBLIC_NONCE":"80b5eff111","USER_TYPE":"public","VISIBILITY_DATA":{"is_page":false,"is_post":true,"is_homepage":false,"is_archive":false,"is_custom_post_type":false,"id":13997}};
+/* ]]> */
+</script>
+<script src='//www.tecmint.com/wp-content/cache/wpfc-minified/m93vw4rz/djkav.js' type="text/javascript"></script>
+<!-- <script type='text/javascript' src='https://www.tecmint.com/wp-content/plugins/quickiebar-pro/public/js/qbp.js'></script> -->
+<link rel='https://api.w.org/' href='https://www.tecmint.com/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.tecmint.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.tecmint.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='How to Clear RAM Memory Cache, Buffer and Swap Space on Linux' href='https://www.tecmint.com/clear-ram-memory-cache-buffer-and-swap-space-on-linux/' />
+<link rel='next' title='RHCSA Series: Setting Up LDAP-based Authentication in RHEL 7 &#8211; Part 14' href='https://www.tecmint.com/setup-ldap-server-and-configure-client-authentication/' />
+<meta name="generator" content="WordPress 5.4" />
+<link rel='shortlink' href='https://www.tecmint.com/?p=13997' />
+<link rel="alternate" type="application/json+oembed" href="https://www.tecmint.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.tecmint.com%2Fmanage-linux-filenames-with-special-characters%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.tecmint.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.tecmint.com%2Fmanage-linux-filenames-with-special-characters%2F&#038;format=xml" />
+<!-- Facebook Like Thumbnail (v0.4) -->
+<meta property="og:image" content="https://www.tecmint.com/wp-content/uploads/2015/06/Manage-Linux-Filenames-with-Special-Characters.jpg" />
+<!-- using featured thumbnail -->
+<!-- Facebook Like Thumbnail (By Ashfame - https://github.com/ashfame/facebook-like-thumbnail) -->
+<link rel="shortcut icon" href="/wp-content/themes/tecmint/images/favicon.ico" />
+<!--[if lt IE 9]>
+<script src="https://www.tecmint.com/wp-content/themes/tecmint/js/ie/html5.js"></script>
+<script src="https://www.tecmint.com/wp-content/themes/tecmint/js/ie/selectivizr.js"></script>
+<![endif]-->
+<link rel="amphtml" href="https://www.tecmint.com/manage-linux-filenames-with-special-characters/amp/"><link rel="icon" href="https://www.tecmint.com/wp-content/uploads/2015/01/cropped-tecmint-logo.png" sizes="32x32" />
+<link rel="icon" href="https://www.tecmint.com/wp-content/uploads/2015/01/cropped-tecmint-logo.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://www.tecmint.com/wp-content/uploads/2015/01/cropped-tecmint-logo.png" />
+<meta name="msapplication-TileImage" content="https://www.tecmint.com/wp-content/uploads/2015/01/cropped-tecmint-logo.png" />
+<style type="text/css">
+/* Dynamic CSS: For no styles in head, copy and put the css below in your custom.css or child theme's style.css, disable dynamic styles */
+body { font-family: "Roboto Condensed", Arial, sans-serif; }
+.boxed #wrapper, .container-inner { max-width: 1280px; }
+.sidebar .widget { padding-left: 20px; padding-right: 20px; padding-top: 20px; }
+.search-expand,
+#nav-topbar.nav-container { background-color: #23588c; }
+@media only screen and (min-width: 720px) {
+#nav-topbar .nav ul { background-color: #23588c; }
+}			
+#header { background-color: #075b88; }
+@media only screen and (min-width: 720px) {
+#nav-header .nav ul { background-color: #075b88; }
+}			
+#nav-header.nav-container { background-color: #2f6dab; }
+@media only screen and (min-width: 720px) {
+#nav-header .nav ul { background-color: #2f6dab; }
+}			
+#footer-bottom { background-color: #2f6dab; }
+.site-title a img { max-height: 90px; }
+img { -webkit-border-radius: 2px; border-radius: 2px; }
+</style>
+<link rel="author" href="https://plus.google.com/107665449243972690526/posts" />
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Google Sitelinks Search Box -->	
+<script type="application/ld+json">
+{
+"@context": "http://schema.org",
+"@type": "WebSite",
+"url": "https://www.tecmint.com/",
+"potentialAction": {
+"@type": "SearchAction",
+"target": "https://www.tecmint.com/?q={search_term}",
+"query-input": "required name=search_term"
+}
+}
+</script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-33207530-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-33207530-1');
+</script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({
+google_ad_client: "ca-pub-2601749019656699",
+enable_page_level_ads: true
+});
+</script>
+</head>
+<body data-rsssl=1 class="post-template-default single single-post postid-13997 single-format-standard col-2cl full-width topbar-enabled chrome">
+<div id="wrapper">
+<header id="header">
+<nav class="nav-container group" id="nav-topbar">
+<div class="nav-toggle"><i class="fa fa-bars"></i></div>
+<div class="nav-text"><!-- put your mobile menu text here --></div>
+<div class="nav-wrap container"><ul id="menu-home" class="nav container-inner group"><li id="menu-item-334" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-334"><a href="https://www.tecmint.com">Home</a></li>
+<li id="menu-item-10774" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10774"><a target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/who-we-are/">About</a></li>
+<li id="menu-item-3912" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3912"><a title="Free Linux eBooks" target="_blank" rel="noopener noreferrer" href="http://tecmint.tradepub.com/category/information-technology-servers-and-linux-server-os/806/">Free eBooks</a></li>
+<li id="menu-item-17151" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17151"><a title="Discover and save on the best gear, gadgets, and software" target="_blank" rel="noopener noreferrer" href="https://deals.tecmint.com">Deals</a></li>
+<li id="menu-item-18575" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18575"><a title="Support Us" href="https://www.tecmint.com/donate-to-tecmint/">Donate</a></li>
+<li id="menu-item-10775" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10775"><a target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/submit-articles/">Join TecMint</a></li>
+<li id="menu-item-11736" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11736"><a target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/linux-online-training-courses/">Linux Online Courses</a></li>
+<li id="menu-item-11907" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11907"><a title="Subscribe to Daily Updates" target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/subscribe-to-blog/">Subscribe</a></li>
+<li id="menu-item-13338" class="hosting menu-item menu-item-type-custom menu-item-object-custom menu-item-13338"><a title="Best Web Hosting Companies" target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/best-web-hosting-for-linux/">Linux Hosting</a></li>
+<li id="menu-item-24734" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-24734"><a title="Linux Commands &#8211; A Beginners Cheat Sheet" target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/linux-commands-cheat-sheet/">A-Z Linux Commands</a></li>
+</ul></div>
+<div class="container">
+<div class="container-inner">		
+<div class="toggle-search"><i class="fa fa-search"></i></div>
+<div class="search-expand">
+<div class="search-expand-inner">
+<form action="https://www.tecmint.com/search/" id="cse-search-box">
+<div>
+<input type="hidden" name="cx" value="partner-pub-2601749019656699:2173448976" />
+<input type="hidden" name="cof" value="FORID:10" />
+<input type="hidden" name="ie" value="UTF-8" />
+<input type="text" class="search" name="q" size="20" />
+<input type="submit" name="sa" value="Search" />
+</div>
+</form>
+<script type="text/javascript" src="https://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>
+</div>
+</div>
+</div><!--/.container-inner-->
+</div><!--/.container-->
+</nav><!--/#nav-topbar-->
+<div class="container group">
+<div class="container-inner">
+<div class="group pad">
+<p class="site-title"><a href="https://www.tecmint.com/" rel="home"><img src="/wp-content/themes/tecmint/images/logo.png" alt="Tecmint: Linux Howtos, Tutorials &amp; Guides"></a></p>
+<div id="header-ads">
+<div id="text-17" class="widget widget_text">			<div class="textwidget"><!-- Top Banner Ads 728x90 -->
+<ins class="adsbygoogle"
+style="display:inline-block;width:728px;height:90px"
+data-ad-client="ca-pub-2601749019656699"
+data-ad-slot="8210224606"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+</div>					</div><!--/#header-ads-->
+</div>
+<nav class="nav-container group" id="nav-header">
+<div class="nav-toggle"><i class="fa fa-bars"></i></div>
+<div class="nav-text"><!-- put your mobile menu text here --></div>
+<div class="nav-wrap container"><ul id="menu-header" class="nav container-inner group"><li id="menu-item-10770" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10770"><a href="https://www.tecmint.com/best-linux-distributions/">Linux Distro&#8217;s</a></li>
+<li id="menu-item-10771" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10771"><a href="https://www.tecmint.com/category/interview-questions/">Interview Questions</a></li>
+<li id="menu-item-20869" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-has-children menu-item-20869"><a href="https://www.tecmint.com/#">Programming</a>
+<ul class="sub-menu">
+<li id="menu-item-10772" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10772"><a title="Learn Linux Shell Scripting" href="https://www.tecmint.com/category/bash-shell/">Shell Scripting</a></li>
+<li id="menu-item-20870" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-20870"><a href="https://www.tecmint.com/category/python/">Learn Python</a></li>
+<li id="menu-item-20871" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-20871"><a href="https://www.tecmint.com/category/awk-command/">Learn Awk</a></li>
+</ul>
+</li>
+<li id="menu-item-10773" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-10773"><a href="https://www.tecmint.com/category/linux-commands/">Linux Commands</a></li>
+<li id="menu-item-14795" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14795"><a href="https://www.tecmint.com/tag/linux-tricks/">Linux Tricks</a></li>
+<li id="menu-item-19684" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19684"><a href="https://www.tecmint.com/category/top-tools/">Best Linux Tools</a></li>
+<li id="menu-item-10443" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-has-children menu-item-10443"><a target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/#">Certifications</a>
+<ul class="sub-menu">
+<li id="menu-item-14880" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14880"><a href="https://www.tecmint.com/how-to-setup-and-configure-static-network-routing-in-rhel/">RHCE Exam</a></li>
+<li id="menu-item-11906" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11906"><a target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/rhcsa-exam-reviewing-essential-commands-system-documentation/">RHCSA Exam</a></li>
+<li id="menu-item-10444" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10444"><a target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/installing-network-services-and-configuring-services-at-system-boot/">LFCE Exam</a></li>
+<li id="menu-item-14793" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14793"><a href="https://www.tecmint.com/sed-command-to-create-edit-and-manipulate-files-in-linux/">LFCS Exam</a></li>
+<li id="menu-item-34401" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-34401"><a title="Red Hat Ansible Exam Preparation Guide" target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/understand-core-components-of-ansible/">Ansible Exam</a></li>
+</ul>
+</li>
+<li id="menu-item-12399" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-has-children menu-item-12399"><a href="https://www.tecmint.com/#">Guides</a>
+<ul class="sub-menu">
+<li id="menu-item-18564" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-18564"><a target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/install-docker-and-learn-containers-in-centos-rhel-7-6/">Docker Series</a></li>
+<li id="menu-item-17150" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17150"><a href="https://www.tecmint.com/setup-postfix-mail-server-and-dovecot-with-mariadb-in-centos/">Postfix Mail</a></li>
+<li id="menu-item-15041" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15041"><a href="https://www.tecmint.com/citrix-xenserver-installation-and-network-configuration-in-linux/">XenServer Series</a></li>
+<li id="menu-item-14794" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14794"><a href="https://www.tecmint.com/install-redhat-virtualization-rhev/">RHEV Series</a></li>
+<li id="menu-item-14805" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14805"><a href="https://www.tecmint.com/what-is-clustering-and-advantages-disadvantages-of-clustering-in-linux/">Clustering Series</a></li>
+<li id="menu-item-12400" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12400"><a href="https://www.tecmint.com/create-lvm-storage-in-linux/">LVM Series</a></li>
+<li id="menu-item-12402" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12402"><a href="https://www.tecmint.com/understanding-raid-setup-in-linux/">RAID Series</a></li>
+<li id="menu-item-12403" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12403"><a href="https://www.tecmint.com/install-and-configure-kvm-in-linux/">KVM Series</a></li>
+<li id="menu-item-12401" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12401"><a href="https://www.tecmint.com/create-centralized-secure-storage-using-iscsi-targetin-linux/">iSCSI Series</a></li>
+<li id="menu-item-12406" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12406"><a href="https://www.tecmint.com/install-zentyal-as-primary-domain-controller-and-integrate-windows-system/">Zentyal Series</a></li>
+<li id="menu-item-16084" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-16084"><a href="https://www.tecmint.com/install-and-configure-ansible-automation-tool-in-linux/">Ansible Series</a></li>
+<li id="menu-item-16395" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-16395"><a href="https://www.tecmint.com/install-and-configure-django-web-framework-in-centos-debian-ubuntu/">Django Series</a></li>
+<li id="menu-item-14603" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14603"><a href="https://www.tecmint.com/create-gui-applications-in-linux/">Create GUI Apps</a></li>
+</ul>
+</li>
+<li id="menu-item-14796" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-14796"><a href="https://www.tecmint.com/command-line-tools-to-monitor-linux-performance/">Monitoring Tools</a>
+<ul class="sub-menu">
+<li id="menu-item-14797" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14797"><a href="https://www.tecmint.com/install-nagios-in-linux/">Nagios</a></li>
+<li id="menu-item-14798" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14798"><a href="https://www.tecmint.com/install-and-configure-zabbix-monitoring-on-debian-centos-rhel/">Zabbix</a></li>
+<li id="menu-item-14799" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14799"><a href="https://www.tecmint.com/install-cacti-network-monitoring-on-rhel-centos-6-3-5-8-and-fedora-17-12/">Cacti</a></li>
+<li id="menu-item-14800" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14800"><a href="https://www.tecmint.com/install-observium-in-centos/">Observium</a></li>
+<li id="menu-item-14801" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14801"><a href="https://www.tecmint.com/monitorix-a-lightweight-system-and-network-monitoring-tool-for-linux/">Monitorix</a></li>
+<li id="menu-item-14802" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14802"><a href="https://www.tecmint.com/install-collectd-and-collectd-web-to-monitor-server-resources-in-linux/">Collectd</a></li>
+<li id="menu-item-14803" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14803"><a href="https://www.tecmint.com/linux-performance-monitoring-with-collectl-tool/">Collectl</a></li>
+<li id="menu-item-14804" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14804"><a href="https://www.tecmint.com/mysql-performance-monitoring/">MySQL Monitoring</a></li>
+</ul>
+</li>
+<li id="menu-item-34838" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-34838"><a title="Linux and WordPress Support Services" target="_blank" rel="noopener noreferrer" href="https://www.fosswork.com/">Hire Me</a></li>
+</ul></div>
+</nav><!--/#nav-header-->
+</div><!--/.container-inner-->
+</div><!--/.container-->
+</header><!--/#header-->
+<div class="container" id="page">
+<div class="container-inner">			
+<div class="main">
+<div class="main-inner group">
+<section class="content">
+<div class="page-title pad group">
+<ul class="meta-single group">
+<li class="category"><a href="https://www.tecmint.com/category/linux-commands/" rel="category tag">Linux Commands</a></li>
+<li class="comments"><a href="https://www.tecmint.com/manage-linux-filenames-with-special-characters/#comments"><i class="fa fa-comments-o"></i>7</a></li>
+</ul>
+</div><!--/.page-title-->	
+<div class="pad group">
+<article class="post-13997 post type-post status-publish format-standard has-post-thumbnail hentry category-linux-commands tag-linux-tricks">	
+<div class="post-inner group">
+<h1 class="post-title">How to Manipulate Filenames Having Spaces and Special Characters in Linux</h1>
+<p class="post-byline">by <a href="https://www.tecmint.com/author/avishek/" title="Posts by Editor" rel="author">Editor</a> | Published: June 9, 2015 | <!-- if the post updated datetime is not equal to the post datetime, show the updated datetime -->
+Last Updated: January 27, 2017    </p>
+<div class="add-box">
+<!-- Responsive Above Post Ads -->
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-2601749019656699"
+data-ad-slot="2902592253"
+data-ad-format="link"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+<div class="clear"></div>
+<div id="exam_announcement">
+<b>Linux Certifications</b> - <a target="_blank" style="text-decoration:underline;" href="https://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/">RHCSA / RHCE Certification</a> | <a style="text-decoration:underline;" target="_blank" href="https://www.tecmint.com/redhat-ansible-automation-exam-certification-book/">Ansible Automation Certification</a> | <a style="text-decoration:underline;" target="_blank" href="https://www.tecmint.com/linux-foundation-lfcs-lfce-certification-exam-book/">LFCS / LFCE Certification</a>
+</div>
+<div class="clear"></div>
+<div class="ads-inner-mobile">
+<center>
+<!-- Post Inner Mobile Ads -->
+<ins class="adsbygoogle"
+style="display:inline-block;width:300px;height:250px"
+data-ad-client="ca-pub-2601749019656699"
+data-ad-slot="9946480174"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</center>
+</div>
+<div class="clear"></div>
+<div class="entry ">	
+<div class="entry-inner">
+<p>We come across files and folders name very regularly. In most of the cases file/folder name are related to the content of the file/folder and starts with number and characters. Alpha-Numeric file name are pretty common and very widely used, but this is not the case when we have to deal with file/folder name that has special characters in them. </p>
+<p><strong style="color:red">Note</strong>: We can have files of any type but for simplicity and easy implementation we will be dealing with Text file (<strong>.txt</strong>), throughout the article.</p>
+<p>Example of most common file names are:</p>
+<pre>abc.txt
+avi.txt
+debian.txt
+...
+</pre>
+<p>Example of numeric file names are:</p>
+<pre>121.txt
+3221.txt
+674659.txt
+...
+</pre>
+<center style="padding-bottom: 20px;padding-top: 10px;"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2601749019656699" data-ad-slot="5590002574" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></center><p>Example of Alpha-Numeric file names are:</p>
+<pre>eg84235.txt
+3kf43nl2.txt
+2323ddw.txt
+...
+</pre>
+<p>Examples of file names that has special character and is not very common:</p>
+<pre>#232.txt
+#bkf.txt
+#bjsd3469.txt
+#121nkfd.txt
+-2232.txt
+-fbjdew.txt
+-gi32kj.txt
+--321.txt
+--bk34.txt
+...
+</pre>
+<p>One of the most obvious question here is – who on earth create/deal with files/folders name having a Hash <code>(#)</code>, a semi-colon <code>(;)</code>, a dash <code>(-)</code> or any other special character.</p>
+<p>I Agree to you, that such file names are not common still your shell should not break/give up when you have to deal with any such file names. Also speaking technically every thing be it folder, driver or anything else is treated as file in Linux.</p>
+<h3>Dealing with file that has dash (-) in it&#8217;s name</h3>
+<p>Create a file that starts with a dash <code>(-)</code>, say <strong>-abx.txt</strong>.</p>
+<pre>$ touch -abc.txt
+</pre>
+<h5>Sample Output</h5>
+<pre>touch: invalid option -- 'b'
+Try 'touch --help' for more information.
+</pre>
+<p>The reason for above error, that shell interprets anything after a dash <code>(-)</code>, as option, and obviously there is no such option, hence is the error.</p>
+<p>To resolve such error, we have to tell the Bash shell (yup this and most of the other examples in the article is for <strong>BASH</strong>) not to interpret anything after special character (here dash), as option.</p>
+<p>There are two ways to resolve this error as:</p>
+<pre>$ touch -- -abc.txt		[Option <strong>#1</strong>]
+$ touch ./-abc.txt		[Option <strong>#2</strong>]
+</pre>
+<p>You may verify the file thus created by both the above ways by running commands <a href="https://www.tecmint.com/15-basic-ls-command-examples-in-linux/" target="_blank">ls or ls -l</a> for long listing.</p>
+<pre>$ ls -l
+
+total 0
+-rw-r--r-- 1 avi avi 0 Jun  8 11:05 <strong style="color:yellow">-abc.txt</strong>
+</pre>
+<p>To edit the above file you may do:</p>
+<pre>$ nano -- -abc.txt 
+or 
+$ nano ./-abc.txt 
+</pre>
+<p><strong style="color:red">Note</strong>: You may replace <strong>nano</strong> with any other editor of your choice say <strong>vim</strong> as:</p>
+<pre>$ vim -- -abc.txt 
+or 
+$ vim ./-abc.txt 
+</pre>
+<p>Similarly to move such file you have to do:</p>
+<pre>$ mv -- -abc.txt -a.txt
+or
+$ mv -- -a.txt -abc.txt
+</pre>
+<p>and to Delete this file, you have to do:</p>
+<pre>$ rm -- -abc.txt
+or
+$ rm ./-abc.txt 
+</pre>
+<p>If you have lots of files in a folder the name of which contains dash, and you want to delete all of them at once, do as:</p>
+<pre>$ rm ./-*
+</pre>
+<h6>Important to Note:</h6>
+<p><strong>1.</strong> The same rule as discussed above follows for any number of hypen in the name of the file and their occurrence. Viz., <strong>-a-b-c.txt</strong>, <strong>ab-c.txt</strong>, <strong>abc-.txt</strong>, etc.</p>
+<p><strong>2.</strong> The same rule as discussed above follows for the name of the folder having any number of hypen and their occurrence, except the fact that for deleting the folder you have to use &#8216;<strong>rm -rf</strong>&#8216; as:</p>
+<pre>$ rm -rf -- -abc
+or
+$ rm -rf ./-abc
+</pre>
+<h3>Dealing with files having HASH (#) in the name</h3>
+<p>The symbol <code>#</code> has a very different meaning in BASH. Anything after a <code>#</code> is interpreted as comment and hence neglected by BASH.</p>
+<h6>Understand it using examples:</h6>
+<p>create a file <strong>#abc.txt</strong>.</p>
+<pre>$ touch #abc.txt
+</pre>
+<h5>Sample Output</h5>
+<pre>touch: missing file operand
+Try 'touch --help' for more information.
+</pre>
+<p>The reason for above error, that Bash is interpreting <strong>#abc.txt</strong> a comment and hence ignoring. So the <a href="https://www.tecmint.com/8-pratical-examples-of-linux-touch-command/" target="_blank">command touch</a> has been passed without any file Operand, and hence is the error.</p>
+<p>To resolve such error, you may ask BASH not to interpret <strong>#</strong> as comment. </p>
+<pre>$ touch ./#abc.txt
+or
+$ touch '#abc.txt'
+</pre>
+<p>and verify the file just created as:</p>
+<pre>$ ls -l
+
+total 0
+-rw-r--r-- 1 avi avi 0 Jun  8 12:14 <strong style="color:yellow">#abc.txt</strong>
+</pre>
+<p>Now create a file the name of which contains <code>#</code> anywhere except at the begging.</p>
+<pre>$ touch ./a#bc.txt
+$ touch ./abc#.txt
+
+or
+$ touch 'a#bc.txt'
+$ touch 'abc#.txt'
+</pre>
+<p>Run &#8216;<strong>ls -l</strong>&#8216; to verify it:</p>
+<pre>$ ls -l
+
+total 0
+-rw-r--r-- 1 avi avi 0 Jun  8 12:16 <strong style="color:yellow">a#bc.txt</strong>
+-rw-r--r-- 1 avi avi 0 Jun  8 12:16 <strong style="color:yellow">abc#.txt</strong>
+</pre>
+<p>What happens when you create two files (say <strong>a</strong> and <strong>#bc</strong>) at once:</p>
+<pre>$ touch a.txt #bc.txt
+</pre>
+<p>Verify the file just created:</p>
+<pre>$ ls -l
+
+total 0
+-rw-r--r-- 1 avi avi 0 Jun  8 12:18 <strong style="color:yellow">a.txt</strong>
+</pre>
+<p>Obvious from the above example it only created file &#8216;<strong>a</strong>&#8216; and file &#8216;<strong>#bc</strong>&#8216; has been ignored. To execute the above situation successfully we can do,</p>
+<pre>$ touch a.txt ./#bc.txt
+or
+$ touch a.txt '#bc.txt'
+</pre>
+<p>and verify it as:</p>
+<pre>$ ls -l
+
+total 0
+-rw-r--r-- 1 avi avi 0 Jun  8 12:20 <strong style="color:yellow">a.txt</strong>
+-rw-r--r-- 1 avi avi 0 Jun  8 12:20 <strong style="color:yellow">#bc.txt</strong>
+</pre>
+<p>You can move the file as:</p>
+<pre>$ mv ./#bc.txt ./#cd.txt
+or
+$ mv '#bc.txt' '#cd.txt'
+</pre>
+<p>Copy it as:</p>
+<pre>$ cp ./#cd.txt ./#de.txt
+or
+$ cp '#cd.txt' '#de.txt'
+</pre>
+<p>You may edit it as using your choice of editor as:</p>
+<pre>$ vi ./#cd.txt
+or
+$ vi '#cd.txt'
+</pre>
+<pre>$ nano ./#cd.txt
+or
+$ nano '#cd.txt'
+</pre>
+<p>And Delete it as:</p>
+<pre>$ rm ./#bc.txt 
+or
+$ rm '#bc.txt'
+</pre>
+<p>To delete all the files that has hash (<strong>#</strong>) in the file name, you may use:</p>
+<pre> # rm ./#*
+</pre>
+<h3>Dealing with files having semicolon (;) in its name</h3>
+<p>In case you are not aware, semicolon acts as a command separator in BASH and perhaps other shell as well. Semicolon lets you execute several command in one go and acts as separator. Have you ever deal with any file name having semicolon in it? If not here you will.</p>
+<p>Create a file having semi-colon in it.</p>
+<pre>$ touch ;abc.txt
+</pre>
+<h5>Sample Output</h5>
+<pre>touch: missing file operand
+Try 'touch --help' for more information.
+bash: abc.txt: command not found
+</pre>
+<p>The reason for above error, that when you run the above command BASH interpret <strong>touch</strong> as a command but could not find any file operand before semicolon and hence it reports error. It also reports another error that &#8216;<strong>abc.txt</strong>&#8216; command not found, only because after semicolon BASH was expecting another command and &#8216;<strong>abc.txt</strong>&#8216;, is not a command.</p>
+<p>To resolve such error, tell BASH not to interpret semicolon as command separator, as:</p>
+<pre>$ touch ./';abc.txt'
+or
+$ touch ';abc.txt'
+</pre>
+<p><strong style="color:red">Note</strong>: We have enclosed the file name with single quote <code>''</code>. It tells BASH that <code>;</code> is a part of file name and not command separator.</p>
+<p>Rest of the action (viz., copy, move, delete) on the file and folder having semicolon in its name can be carried out straight forward by enclosing the name in single quote.</p>
+<h3>Dealing with other special characters in file/folder name</h3>
+<h4>Plus Sign (+) in file name</h4>
+<p>Don&#8217;t requires anything extra, just do it normal way, as simple file name as shown below.</p>
+<pre>$ touch +12.txt 
+</pre>
+<h4>Dollar sign ($) in file name</h4>
+<p>You have to enclose file name in single quote, as we did in the case of semicolon. Rest of the things are straight forward..</p>
+<pre>$ touch '$12.txt'
+</pre>
+<h4>Percent (%) in file name</h4>
+<p>You don&#8217;t need to do anything differently, treat it as normal file.</p>
+<pre>$ touch %12.txt
+</pre>
+<h4>Asterisk (*) in file name</h4>
+<p>Having Asterisk in file name don&#8217;t change anything and you can continue using it as normal file.</p>
+<pre>$ touch *12.txt
+</pre>
+<p><strong style="color:red">Note</strong>: When you have to delete a file that starts with <code>*</code>, Never use following commands to delete such files.</p>
+<pre>$ rm *
+or
+$ rm -rf *
+</pre>
+<p>Instead use,</p>
+<pre>$ rm ./*.txt
+</pre>
+<h4>Exclamation mark (!) in file name</h4>
+<p>Just Enclose the file name in single quote and rest of the things are same.</p>
+<pre>$ touch '!12.txt'
+</pre>
+<h4>At Sign (@) in file name</h4>
+<p>Nothing extra, treat a filename having At Sign as nonrmal file.</p>
+<pre>$ touch '@12.txt'
+</pre>
+<h4>^ in file name</h4>
+<p>No extra attention required. Use a file having <code>^</code> in filename as normal file.</p>
+<pre>$ touch ^12.txt
+</pre>
+<h4>Ampersand (&#038;) in file name</h4>
+<p>Filename should be enclosed in single quotes and you are ready to go.</p>
+<pre>$ touch '&12.txt'
+</pre>
+<h4>Parentheses () in file name</h4>
+<p>If the file name has Parenthesis, you need to enclose filename with single quotes.</p>
+<pre>$ touch '(12.txt)'
+</pre>
+<h4>Braces {} in file name</h4>
+<p>No Extra Care needed. Just treat it as just another file.</p>
+<pre>$ touch {12.txt}
+</pre>
+<h4>Chevrons <> in file name</h4>
+<p>A file name having Chevrons must be enclosed in single quotes.</p>
+<pre>$ touch '<12.txt>'
+</pre>
+<h4>Square Brackets [ ] in file name</h4>
+<p>Treat file name having Square Brackets as normal files and you need not take extra care of it.</p>
+<pre>$ touch [12.txt]
+</pre>
+<h4>Under score (_) in file name</h4>
+<p>They are very common and don&#8217;t require anything extra. Just do what you would have done with a normal file.</p>
+<pre>$ touch _12.txt
+</pre>
+<h4>Equal-to (=) in File name</h4>
+<p>Having an Equal-to sign do not change anything, you can use it as normal file. </p>
+<pre>$ touch =12.txt
+</pre>
+<h4>Dealing with back slash (\)</h4>
+<p>Backslash tells shell to ignore the next character. You have to enclose file name in single quote, as we did in the case of semicolon. Rest of the things are straight forward. </p>
+<pre>$ touch '.txt'
+</pre>
+<h4>The Special Case of Forward Slash</h4>
+<p>You cannot create a file the name of which includes a forward slash <code>(/)</code>, until your file system has bug. There is no way to escape a forward slash. </p>
+<p>So if you can create a file such as <strong>&#8216;/12.txt&#8217;</strong> or <strong>&#8216;b/c.txt&#8217;</strong> then either your File System has bug or you have Unicode support, which lets you create a file with forward slash. In this case the forward slash is not a real forward slash but a Unicode character that looks alike a forward slash.</p>
+<h4>Question Mark (?) in file name</h4>
+<p>Again, an example where you don&#8217;t need to put any special attempt. A file name having Question mark can be treated in the most general way. </p>
+<pre>$ touch ?12.txt
+</pre>
+<h4>Dot Mark (.) in file name</h4>
+<p>The files starting with dot <code>(.)</code> are very special in Linux and are called dot files. They are hidden files generally a configuration or system files. You have to use switch &#8216;<strong>-a</strong>&#8216; or &#8216;<strong>-A</strong>&#8216; with <strong>ls command</strong> to view such files. </p>
+<p>Creating, editing, renaming and deleting of such files are straight forward. </p>
+<pre>$ touch .12.txt
+</pre>
+<p><strong style="color:red">Note</strong>: In Linux you may have as many dots <code>(.)</code> as you need in a file name. Unlike other system dots in file name don&#8217;t means to separate name and extension. You can create a file having multiple dots as:</p>
+<pre>$ touch 1.2.3.4.5.6.7.8.9.10.txt
+</pre>
+<p>and check it as:</p>
+<pre>$ ls -l
+
+total 0
+-rw-r--r-- 1 avi avi 0 Jun  8 14:32 <strong style="color:yellow">1.2.3.4.5.6.7.8.9.10.txt</strong>
+</pre>
+<h4>Comma (,) in file name</h4>
+<p>You can have comma in a file name, as many as you want and you Don&#8217;t requires anything extra. Just do it normal way, as simple file name. </p>
+<pre>$ touch ,12.txt
+or
+$ touch ,12,.txt
+</pre>
+<h4>Colon (:) in File name</h4>
+<p>You can have colon in a file name, as many as you want and you Don&#8217;t requires anything extra. Just do it normal way, as simple file name. </p>
+<pre>$ touch :12.txt
+or
+$ touch :12:.txt
+</pre>
+<h4>Having Quotes (single and Double) in file name</h4>
+<p>To have quotes in file name, we have to use the rule of exchange. I.e, if you need to have single quote in file name, enclose the file name with double quotes and if you need to have double quote in file name, enclose it with single quote. </p>
+<pre>$ touch "15'.txt"
+
+and
+
+$ touch '15”.txt'
+</pre>
+<h4>Tilde (~) in file name</h4>
+<p>Some Editors in Linux like <strong>emacs</strong> create a backup file of the file being edited. The backup file has the name of the original file plus a tilde at the end of the file name. You can have a file that name of which includes tilde, at any location simply as:</p>
+<pre>$ touch ~1a.txt
+or
+$touch 2b~.txt
+</pre>
+<h4>White Space in file name</h4>
+<p>Create a file the name of which has space between character/word, say “<strong>hi my name is avishek.txt</strong>”.</p>
+<p>It is not a good idea to have file name with spaces and if you have to distinct readable name, you should use, underscore or dash. However if you have to create such a file, you have to use backward slash which ignores the next character to it. To create above file we have to do it this way..</p>
+<pre>$ touch hi\ my\ name\ is\ avishek.txt
+
+<strong style="color:yellow">hi my name is avishek.txt</strong>
+</pre>
+<p>I have tried covering all the scenario you may come across. Most of the above implementation are explicitly for BASH Shell and may not work in other shell. </p>
+<p>If you feel that I missed something (that is very common and human nature), you may include your suggestion in the comments below. Keep Connected, Keep Commenting. Stay Tuned and connected! Like and share us and help us get spread!</p>
+<div class="social-sharing ">
+<span class="top before-sharebutton-text">Sharing is Caring...</span>
+<a onclick="return ss_plugin_loadpopup_js(this);" rel="external nofollow" class="button-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.tecmint.com%2Fmanage-linux-filenames-with-special-characters%2F" target="_blank">Share on Facebook</a><a onclick="return ss_plugin_loadpopup_js(this);" rel="external nofollow" class="button-twitter" href="https://twitter.com/intent/tweet/?text=How+to+Manipulate+Filenames+Having+Spaces+and+Special+Characters+in+Linux&url=https%3A%2F%2Fwww.tecmint.com%2Fmanage-linux-filenames-with-special-characters%2F&via=tecmint" target="_blank">Share on Twitter</a><a onclick="return ss_plugin_loadpopup_js(this);" rel="external nofollow" class="button-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fwww.tecmint.com%2Fmanage-linux-filenames-with-special-characters%2F&title=How+to+Manipulate+Filenames+Having+Spaces+and+Special+Characters+in+Linux" target="_blank">Share on Linkedin</a><a onclick="return ss_plugin_loadpopup_js(this);" rel="external nofollow" class="button-reddit" href="https://reddit.com/submit?url=https%3A%2F%2Fwww.tecmint.com%2Fmanage-linux-filenames-with-special-characters%2F&amp;title=How+to+Manipulate+Filenames+Having+Spaces+and+Special+Characters+in+Linux" target="_blank">Share on Reddit</a>	        	    </div>
+</div>
+<div class="clear"></div>				
+</div><!--/.entry-->
+</div><!--/.post-inner-->
+</article><!--/.post-->				
+<div class="clear"></div>
+<div class="clear"></div>
+<div class="ads-inner-mobile">
+<center style="padding-top:30px;">
+<!-- Post-Bottom-Inner-300x250 -->
+<ins class="adsbygoogle"
+style="display:inline-block;width:300px;height:250px"
+data-ad-client="ca-pub-2601749019656699"
+data-ad-slot="7807254572"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</center>
+</div>
+<div class="clear"></div>
+<div class="after-post-box">
+<h2>If You Appreciate What We Do Here On TecMint, You Should Consider:</h2>
+<p>TecMint is the fastest growing and most trusted community site for any kind of Linux Articles, Guides and Books on the web. Millions of people visit TecMint! to search or browse the thousands of published articles available FREELY to all.</p>
+<p>If you like what you are reading, please consider buying us a coffee ( or 2 ) as a token of appreciation.</p>
+<p align="center"><a href="https://www.buymeacoffee.com/tecmint" rel="nofollow" target="_blank"><img alt="Support Us" src="https://www.tecmint.com/wp-content/uploads/2015/01/coffee.png" alt="Coffee"></a></p>
+<p style="text-align: center;"><strong style=" color:#fe3300;font-size:20px;">We are thankful for your never ending support.</strong></p>
+</div>
+<div class="clear"></div>
+<p class="post-tags"><span>Tags:</span> <a href="https://www.tecmint.com/tag/linux-tricks/" rel="tag">Linux Tricks</a></p>		<div class="hr"></div>
+<div class="grid one-fourth">
+<a href="https://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/" target="_blank"><img alt="RedHat RHCE and RHCSA Certification Book" width="200" src="https://www.tecmint.com/wp-content/uploads/2015/01/RedHat-RHCSA-RHCE-Exam-Study-ebook.png" style="margin-right:10px;"></a>
+</div>
+<div class="grid one-fourth">
+<a href="https://www.tecmint.com/linux-foundation-lfcs-lfce-certification-exam-book/" target="_blank"><img alt="Linux Foundation LFCS and LFCE Certification Preparation Guide" width="200" src="https://www.tecmint.com/wp-content/themes/tecmint/images/Linux-Foundation-LFCS-LFCE-Certification-Ebook.png"></a>
+</div>
+<div class="grid one-fourth">
+<a href="https://deals.tecmint.com/sales/complete-linux-crash-course-includes-topics-on-red-hat-unix-kali-python-and-opensuse?utm_source=tecmint.com&utm_medium=referral&utm_campaign=complete-linux-crash-course-includes-topics-on-red-hat-unix-kali-python-and-opensu" rel="nofollow" target="_blank"><img width="200" alt="The Complete Linux System Administrator Bundle" src="https://www.tecmint.com/wp-content/themes/tecmint/images/Linux-System-Administrator-Course.png" style="margin-right:10px;"></a>
+</div>
+<div class="grid one-fourth last">
+<a href="https://deals.tecmint.com/sales/become-an-ethical-hacker-bonus-bundle?utm_source=tecmint.com&utm_medium=referral&utm_campaign=become-an-ethical-hacker-bonus-bundle_090216" rel="nofollow" target="_blank"><img width="200" alt="Become an Ethical Hacker Bonus Bundle" src="https://www.tecmint.com/wp-content/themes/tecmint/images/Become-an-Ethical-Hacker.png"></a>
+</div>
+<div class="clear"></div>
+<div class="hr"></div>
+<ul class="post-nav group">
+<li class="next"><a href="https://www.tecmint.com/setup-ldap-server-and-configure-client-authentication/" rel="next"><i class="fa fa-chevron-right"></i><strong>Next story</strong> <span>RHCSA Series: Setting Up LDAP-based Authentication in RHEL 7 &#8211; Part 14</span></a></li>
+<li class="previous"><a href="https://www.tecmint.com/clear-ram-memory-cache-buffer-and-swap-space-on-linux/" rel="prev"><i class="fa fa-chevron-left"></i><strong>Previous story</strong> <span>How to Clear RAM Memory Cache, Buffer and Swap Space on Linux</span></a></li>
+</ul>
+<h4 class="heading">
+<i class="fa fa-hand-o-right"></i>You may also like...</h4>
+<ul class="related-posts group">
+<li class="related post-hover">
+<article class="post-21832 post type-post status-publish format-standard has-post-thumbnail hentry category-linux-commands tag-linux-tricks">
+<div class="post-thumbnail">
+<a href="https://www.tecmint.com/find-linux-processes-memory-ram-cpu-usage/" title="Find Top Running Processes by Highest Memory and CPU Usage in Linux">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://www.tecmint.com/wp-content/uploads/2016/07/Find-Linux-Processes-By-RAM-and-CPU-Usage.png" width="720" height="345" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt><noscript><img width="720" height="345" src="https://www.tecmint.com/wp-content/uploads/2016/07/Find-Linux-Processes-By-RAM-and-CPU-Usage.png" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="" /></noscript>																								</a>
+<a class="post-comments" href="https://www.tecmint.com/find-linux-processes-memory-ram-cpu-usage/#comments"><span><i class="fa fa-comments-o"></i>12</span></a>
+</div><!--/.post-thumbnail-->
+<div class="related-inner">
+<h4 class="post-title">
+<a href="https://www.tecmint.com/find-linux-processes-memory-ram-cpu-usage/" rel="bookmark" title="Find Top Running Processes by Highest Memory and CPU Usage in Linux">Find Top Running Processes by Highest Memory and CPU Usage in Linux</a>
+</h4><!--/.post-title-->
+<div class="post-meta group">
+<p class="post-date">27 Jul, 2016</p>
+</div><!--/.post-meta-->
+</div><!--/.related-inner-->
+</article>
+</li><!--/.related-->
+<li class="related post-hover">
+<article class="post-9903 post type-post status-publish format-standard has-post-thumbnail hentry category-linux-commands tag-pwd">
+<div class="post-thumbnail">
+<a href="https://www.tecmint.com/pwd-command-examples/" title="15 &#8216;pwd&#8217; (Print Working Directory) Command Examples in Linux">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://www.tecmint.com/wp-content/uploads/2014/11/pwd-command-examples-520x245.jpg" width="520" height="245" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="pwd command examples" srcset="https://www.tecmint.com/wp-content/uploads/2014/11/pwd-command-examples-520x245.jpg 520w, https://www.tecmint.com/wp-content/uploads/2014/11/pwd-command-examples-720x340.jpg 720w" sizes="(max-width: 520px) 100vw, 520px"><noscript><img width="520" height="245" src="https://www.tecmint.com/wp-content/uploads/2014/11/pwd-command-examples-520x245.jpg" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="pwd command examples" srcset="https://www.tecmint.com/wp-content/uploads/2014/11/pwd-command-examples-520x245.jpg 520w, https://www.tecmint.com/wp-content/uploads/2014/11/pwd-command-examples-720x340.jpg 720w" sizes="(max-width: 520px) 100vw, 520px" /></noscript>																								</a>
+<a class="post-comments" href="https://www.tecmint.com/pwd-command-examples/#comments"><span><i class="fa fa-comments-o"></i>13</span></a>
+</div><!--/.post-thumbnail-->
+<div class="related-inner">
+<h4 class="post-title">
+<a href="https://www.tecmint.com/pwd-command-examples/" rel="bookmark" title="15 &#8216;pwd&#8217; (Print Working Directory) Command Examples in Linux">15 &#8216;pwd&#8217; (Print Working Directory) Command Examples in Linux</a>
+</h4><!--/.post-title-->
+<div class="post-meta group">
+<p class="post-date">22 Nov, 2014</p>
+</div><!--/.post-meta-->
+</div><!--/.related-inner-->
+</article>
+</li><!--/.related-->
+<li class="related post-hover">
+<article class="post-25131 post type-post status-publish format-standard has-post-thumbnail hentry category-linux-commands tag-commandline-tools tag-linux-tricks">
+<div class="post-thumbnail">
+<a href="https://www.tecmint.com/bd-quickly-go-back-to-a-linux-parent-directory/" title="bd &#8211; Quickly Go Back to a Parent Directory Instead of Typing &#8220;cd ../../..&#8221; Redundantly">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://www.tecmint.com/wp-content/uploads/2017/03/Quickly-Switch-Linux-Directories.png" width="720" height="340" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="Quickly Switch Between Directories in Linux"><noscript><img width="720" height="340" src="https://www.tecmint.com/wp-content/uploads/2017/03/Quickly-Switch-Linux-Directories.png" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="Quickly Switch Between Directories in Linux" /></noscript>																								</a>
+<a class="post-comments" href="https://www.tecmint.com/bd-quickly-go-back-to-a-linux-parent-directory/#comments"><span><i class="fa fa-comments-o"></i>26</span></a>
+</div><!--/.post-thumbnail-->
+<div class="related-inner">
+<h4 class="post-title">
+<a href="https://www.tecmint.com/bd-quickly-go-back-to-a-linux-parent-directory/" rel="bookmark" title="bd &#8211; Quickly Go Back to a Parent Directory Instead of Typing &#8220;cd ../../..&#8221; Redundantly">bd &#8211; Quickly Go Back to a Parent Directory Instead of Typing &#8220;cd ../../..&#8221; Redundantly</a>
+</h4><!--/.post-title-->
+<div class="post-meta group">
+<p class="post-date">15 Apr, 2017</p>
+</div><!--/.post-meta-->
+</div><!--/.related-inner-->
+</article>
+</li><!--/.related-->
+</ul><!--/.post-related-->
+<section id="comments" class="themeform">
+<h3 class="heading">7 Responses</h3>
+<ul class="comment-tabs group">
+<li class="active"><a href="#commentlist-container"><i class="fa fa-comments-o"></i>Comments<span>7</span></a></li>
+<li><a href="#pinglist-container"><i class="fa fa-share"></i>Pingbacks<span>0</span></a></li>
+</ul>
+<div id="commentlist-container" class="comment-tab">
+<ol class="commentlist">
+<li class="comment even thread-even depth-1" id="comment-1291781">
+<div id="div-comment-1291781" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/496bdd109ce82d63a596d63327b4e64c?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/496bdd109ce82d63a596d63327b4e64c?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/496bdd109ce82d63a596d63327b4e64c?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/496bdd109ce82d63a596d63327b4e64c?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn">okiwaso</cite> <span class="says">says:</span>		</div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/manage-linux-filenames-with-special-characters/#comment-1291781">
+November 18, 2019 at 9:42 am				</a>
+</div>
+<p>what about a filename that has dashes and spaces like this:</p>
+<p><code>- - filename.txt</code></p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='https://www.tecmint.com/manage-linux-filenames-with-special-characters/?replytocom=1291781#respond' data-commentid="1291781" data-postid="13997" data-belowelement="div-comment-1291781" data-respondelement="respond" aria-label='Reply to okiwaso'>Reply</a></div>
+</div>
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-986216">
+<div id="div-comment-986216" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/e046910ae6a9fee79dc9aeddf684c8d0?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/e046910ae6a9fee79dc9aeddf684c8d0?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/e046910ae6a9fee79dc9aeddf684c8d0?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/e046910ae6a9fee79dc9aeddf684c8d0?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn">Carlos Martins</cite> <span class="says">says:</span>		</div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/manage-linux-filenames-with-special-characters/#comment-986216">
+April 24, 2018 at 7:34 pm				</a>
+</div>
+<p>Hi Dear,</p>
+<p>I&#8217;m creating the shell script needs to copy files. This script has three parameters, the first parameter is the <strong>file.txt</strong> that contains list of files, 2nd parameter is location of the files and last parameter is destination path.</p>
+<p>I&#8217;m facing problem when I have to copy files whose filename has white space.</p>
+<p>Can you help me with that?</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='https://www.tecmint.com/manage-linux-filenames-with-special-characters/?replytocom=986216#respond' data-commentid="986216" data-postid="13997" data-belowelement="div-comment-986216" data-respondelement="respond" aria-label='Reply to Carlos Martins'>Reply</a></div>
+</div>
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-833697">
+<div id="div-comment-833697" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/8d39f21480375b97407ae311e78b750b?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/8d39f21480375b97407ae311e78b750b?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/8d39f21480375b97407ae311e78b750b?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/8d39f21480375b97407ae311e78b750b?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn">alimp5</cite> <span class="says">says:</span>		</div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/manage-linux-filenames-with-special-characters/#comment-833697">
+November 1, 2016 at 11:22 am				</a>
+</div>
+<p>Thanks a lot, really great article with good practical examples..</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='https://www.tecmint.com/manage-linux-filenames-with-special-characters/?replytocom=833697#respond' data-commentid="833697" data-postid="13997" data-belowelement="div-comment-833697" data-respondelement="respond" aria-label='Reply to alimp5'>Reply</a></div>
+</div>
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-762309">
+<div id="div-comment-762309" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/3050fa42e94e5e4b510d7173b202141c?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/3050fa42e94e5e4b510d7173b202141c?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/3050fa42e94e5e4b510d7173b202141c?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/3050fa42e94e5e4b510d7173b202141c?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn">Kishore</cite> <span class="says">says:</span>		</div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/manage-linux-filenames-with-special-characters/#comment-762309">
+March 20, 2016 at 4:05 pm				</a>
+</div>
+<p>Regarding the terminal argument &#8221; touch *12.txt &#8221; may open up more than one  file if you have a file named a12.txt , b12.txt etc  in a text editor like Geany or the first file in alphabetical order in Nano .</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='https://www.tecmint.com/manage-linux-filenames-with-special-characters/?replytocom=762309#respond' data-commentid="762309" data-postid="13997" data-belowelement="div-comment-762309" data-respondelement="respond" aria-label='Reply to Kishore'>Reply</a></div>
+</div>
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-762280">
+<div id="div-comment-762280" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/58d53039caea0d5a9d636d313c859a79?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/58d53039caea0d5a9d636d313c859a79?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/58d53039caea0d5a9d636d313c859a79?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/58d53039caea0d5a9d636d313c859a79?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn">Naveen</cite> <span class="says">says:</span>		</div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/manage-linux-filenames-with-special-characters/#comment-762280">
+March 20, 2016 at 1:26 pm				</a>
+</div>
+<p>We can eliminate this issue by passing the file name is single quote to solve the special characters present in the file.</p>
+<p>Eg: touch &#8216;₹@@%%@&#8217;</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='https://www.tecmint.com/manage-linux-filenames-with-special-characters/?replytocom=762280#respond' data-commentid="762280" data-postid="13997" data-belowelement="div-comment-762280" data-respondelement="respond" aria-label='Reply to Naveen'>Reply</a></div>
+</div>
+</li><!-- #comment-## -->
+<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-750705">
+<div id="div-comment-750705" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/41ba68f5d80593551ec05e8018c68613?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/41ba68f5d80593551ec05e8018c68613?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/41ba68f5d80593551ec05e8018c68613?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/41ba68f5d80593551ec05e8018c68613?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn">inukaze</cite> <span class="says">says:</span>		</div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/manage-linux-filenames-with-special-characters/#comment-750705">
+February 14, 2016 at 11:18 am				</a>
+</div>
+<p>Hi there i have a lot of files with [!] in their namefiles , i need move just that files inside another sub-folder , i try with</p>
+<p>for file in $(ls | grep -e &#8220;.[!]]&#8221; | awk &#8216;NF { print &#8220;\&#8221;&#8221;$0&#8243;\&#8221;&#8221;}&#8217;); do mv -f &#8220;$PWD/$file&#8221; &#8220;$PWD/Folder001/&#8221; ; done</p>
+<p>but is imposible , because bash in &#8220;do mv -f &#8220;$PWD/$file&#8221;<br />
+reads the &#8220;This is an example of large filename.ext&#8221; like</p>
+<p>This -&gt; File1<br />
+is -&gt; File2<br />
+an -&gt; File 3<br />
+example -&gt; File 4<br />
+of -&gt; File 5<br />
+large -&gt; File 6<br />
+filename.ext -&gt; File 7</p>
+<p>How i can use &#8220;mv&#8221; for large filename with special characters like [!](EJU) to another folder ???</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='https://www.tecmint.com/manage-linux-filenames-with-special-characters/?replytocom=750705#respond' data-commentid="750705" data-postid="13997" data-belowelement="div-comment-750705" data-respondelement="respond" aria-label='Reply to inukaze'>Reply</a></div>
+</div>
+</li><!-- #comment-## -->
+<li class="comment even thread-even depth-1" id="comment-618100">
+<div id="div-comment-618100" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/6cb4d4c8ead56a854b95978a6a940f7d?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/6cb4d4c8ead56a854b95978a6a940f7d?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/6cb4d4c8ead56a854b95978a6a940f7d?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/6cb4d4c8ead56a854b95978a6a940f7d?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn">MaxIo_Yu</cite> <span class="says">says:</span>		</div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/manage-linux-filenames-with-special-characters/#comment-618100">
+July 8, 2015 at 8:51 am				</a>
+</div>
+<p>it&#8217;s easy to create such files, &#8220;&#8221; will resolve all the situation, but it&#8217;s hard to process them in your script or command.<br />
+the most ugly file name I have seen it&#8217;s &#8220;xxx              &#8220;, since when i list it in terminal, I cannot know how many spaces the name inlcuded. but if it&#8217;s in script, it will have no problem to get the name through API</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='https://www.tecmint.com/manage-linux-filenames-with-special-characters/?replytocom=618100#respond' data-commentid="618100" data-postid="13997" data-belowelement="div-comment-618100" data-respondelement="respond" aria-label='Reply to MaxIo_Yu'>Reply</a></div>
+</div>
+</li><!-- #comment-## -->
+</ol><!--/.commentlist-->
+</div>	
+<div id="respond" class="comment-respond">
+<h3 id="reply-title" class="comment-reply-title">Got something to say? Join the discussion. <small><a rel="nofollow" id="cancel-comment-reply-link" href="/manage-linux-filenames-with-special-characters/#respond" style="display:none;">Cancel reply</a></small></h3><form action="https://www.tecmint.com/wp-comments-post.php" method="post" id="commentform" class="comment-form"><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p><p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required"></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" required='required' /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="text" value="" size="30" maxlength="100" aria-describedby="email-notes" required='required' /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="text" value="" size="30" maxlength="200" /></p>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes" /> <label for="wp-comment-cookies-consent">Save my name, email, and website in this browser for the next time I comment.</label></p>
+<!-- Subscribe to Comments Reloaded version 200205 --><!-- Subscribe to comments Reloaded MP: '/comment-subscriptions/' --><!-- BEGIN: subscribe to comments reloaded --><p class='comment-form-subscriptions'><label for='subscribe-reloaded'><input style='width:30px' type='checkbox' name='subscribe-reloaded' id='subscribe-reloaded' value='yes' /> Notify me of followup comments via e-mail. You can also <a href='https://www.tecmint.com/comment-subscriptions/?srp=13997&amp;srk=0b81c0e99cc43eb9ade2ba1b6ab240b4&amp;sra=s&amp;srsrc=f'>subscribe</a> without commenting.</label></p><!-- END: subscribe to comments reloaded --><p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='13997' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="dc4b6ed86d" /></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="60"/></p></form>	</div><!-- #respond -->
+<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</section><!--/#comments-->		
+</div><!--/.pad-->
+</section><!--/.content-->
+<div class="sidebar s1">
+<a class="sidebar-toggle" title="Expand Sidebar"><i class="fa icon-sidebar-toggle"></i></a>
+<div class="sidebar-content">
+<div class="sidebar-top group">
+<span style="color:#002873; font-weight:600; font-size:20px;">I <i class="fa fa-heart col-love-l"></i> TecMint :</span>
+<ul class="social-links"><li><a rel="nofollow" class="social-tooltip" title="twitter" href="https://twitter.com/tecmint" target="Array"><i class="fa fa-twitter" style="color: #33ccff;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="facebook" href="https://www.facebook.com/TecMint" target="Array"><i class="fa fa-facebook" style="color: #3b5998;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Linkedin" href="https://www.linkedin.com/company/tecmint" target="Array"><i class="fa fa-linkedin" style="color: #1e73be;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Feedly" href="https://feedly.com/i/subscription/feed/https://www.tecmint.com/feed/" target="Array"><i class="fa fa-rss" style="color: #87c040;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Youtube" href="https://www.youtube.com/channel/UCkiRkzdLvoGBtW_YArytJlQ" target="Array"><i class="fa fa fa-youtube-square" style="color: #c4302b;"></i></a></li></ul>			</div>
+<div id="text-23" class="widget widget_text">			<div class="textwidget">  <div  style="background:#db4455;" class="message">
+<center><a href="https://www.tecmint.com/free-online-linux-learning-guide-for-beginners/" target="_blank" rel="noopener noreferrer"><span style="font-weight:bold;font-size:18px;"><i class="fa fa-linux"></i> BEGINNER'S GUIDE FOR LINUX <i class="fa fa-linux"></i></span> <span style="font-weight:bold;font-size:16px;">Start learning Linux in minutes</span> <i class="fa fa-arrow-right"></i></a>
+</center>
+</div></div>
+</div><div id="text-21" class="widget widget_text">			<div class="textwidget"><center>
+<!-- Sidebar Top Ad 300x250 -->
+<ins class="adsbygoogle"
+style="display:inline-block;width:300px;height:250px"
+data-ad-client="ca-pub-2601749019656699"
+data-ad-slot="7270921771"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</center></div>
+</div><div id="text-25" class="widget widget_text">			<div class="textwidget"><div class="message"><center><a href="https://www.tecmint.com/vi-editor-usage/" target="_blank" rel="noopener noreferrer"><span style="font-weight:bold;font-size:17px;"><i class="fa fa-linux"></i> Vi/Vim Editor BEGINNER'S GUIDE <i class="fa fa-linux"></i></span> <span style="font-weight:bold;font-size:16px;">Learn vi/vim as a Full Text Editor</span> <i class="fa fa-file-text"></i>
+</a></center></div></div>
+</div><div id="text-24" class="widget widget_text">			<div class="textwidget"><!-- TecMint Sidebar Second Ad 300x250 -->
+<ins class="adsbygoogle"
+style="display:inline-block;width:300px;height:250px"
+data-ad-client="ca-pub-2601749019656699"
+data-ad-slot="8362602806"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+</div><div id="text-26" class="widget widget_text">			<div class="textwidget"><div class="message" style="background-color: #ab0619;"><center><span style="font-weight:bold;font-size:17px;"><i class="fa fa-linux"></i> Linux Foundation Certification <i class="fa fa-linux"></i></span> <span style="font-weight:bold;font-size:16px;">Exam Study Guide to <a style="text-decoration:underline;" target="_blank" href="https://www.tecmint.com/linux-foundation-lfcs-lfce-certification-exam-book/" rel="noopener noreferrer">LFCS and LFCE</a></span></center></div></div>
+</div><div id="alxtabs-3" class="widget widget_alx_tabs">
+<ul class="alx-tabs-nav group tab-count-2"><li class="alx-tab tab-popular"><a href="#tab-popular" title="Popular Posts"><i class="fa fa-star"></i><span>Popular Posts</span></a></li><li class="alx-tab tab-comments"><a href="#tab-comments" title="Recent Comments"><i class="fa fa-comments-o"></i><span>Recent Comments</span></a></li></ul>
+<div class="alx-tabs-container">
+<ul id="tab-popular" class="alx-tab group ">
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="https://www.tecmint.com/how-to-add-linux-host-to-nagios-monitoring-server/" rel="bookmark" title="How to Add Linux Host to Nagios Monitoring Server Using NRPE Plugin">How to Add Linux Host to Nagios Monitoring Server Using NRPE Plugin</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="https://www.tecmint.com/install-nagios-in-linux/" rel="bookmark" title="How to Install Nagios 4.4.5 on RHEL/CentOS 8/7 and Fedora 30">How to Install Nagios 4.4.5 on RHEL/CentOS 8/7 and Fedora 30</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="https://www.tecmint.com/install-cacti-network-monitoring-on-rhel-centos-fedora/" rel="bookmark" title="Install Cacti (Network Monitoring) on RHEL/CentOS 8/7 and Fedora 30">Install Cacti (Network Monitoring) on RHEL/CentOS 8/7 and Fedora 30</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="https://www.tecmint.com/install-google-chrome-on-redhat-centos-fedora-linux/" rel="bookmark" title="How to Install Google Chrome 75 On RHEL/CentOS 7 and Fedora 30">How to Install Google Chrome 75 On RHEL/CentOS 7 and Fedora 30</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="https://www.tecmint.com/install-ubuntu-alongside-with-windows-dual-boot/" rel="bookmark" title="How to Install Ubuntu Alongside With Windows 10 or 8 in Dual-Boot">How to Install Ubuntu Alongside With Windows 10 or 8 in Dual-Boot</a></p>
+</div>
+</li>
+</ul><!--/.alx-tab-->
+<ul id="tab-comments" class="alx-tab group avatars-enabled">
+<li>
+<div class="tab-item-avatar">
+<a href="https://www.tecmint.com/linux-server-health-monitoring-script/comment-page-10/#comment-1328162">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">Ravi Saive says:</div>
+<div class="tab-item-comment"><a href="https://www.tecmint.com/linux-server-health-monitoring-script/comment-page-10/#comment-1328162">@Anoop, Just remove the downloaded script...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="https://www.tecmint.com/setup-rsyslog-client-to-send-logs-to-rsyslog-server-in-centos-7/comment-page-1/#comment-1328161">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/a6f9871554c0cc6f1a3ddf46650cb348?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/a6f9871554c0cc6f1a3ddf46650cb348?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/a6f9871554c0cc6f1a3ddf46650cb348?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/a6f9871554c0cc6f1a3ddf46650cb348?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">eagle33 says:</div>
+<div class="tab-item-comment"><a href="https://www.tecmint.com/setup-rsyslog-client-to-send-logs-to-rsyslog-server-in-centos-7/comment-page-1/#comment-1328161">How to forward different path in the log to different ports...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="https://www.tecmint.com/create-an-iso-from-a-bootable-usb-in-linux/comment-page-1/#comment-1328159">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/4e444ab611c7b8c7bcb76e58d2e82ae0?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/4e444ab611c7b8c7bcb76e58d2e82ae0?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/4e444ab611c7b8c7bcb76e58d2e82ae0?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/4e444ab611c7b8c7bcb76e58d2e82ae0?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">Aaron Kili says:</div>
+<div class="tab-item-comment"><a href="https://www.tecmint.com/create-an-iso-from-a-bootable-usb-in-linux/comment-page-1/#comment-1328159">@Kohn We do understand, many users are only familiar with creating...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="https://www.tecmint.com/install-seafile-on-centos-7/comment-page-1/#comment-1328158">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/4e444ab611c7b8c7bcb76e58d2e82ae0?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/4e444ab611c7b8c7bcb76e58d2e82ae0?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/4e444ab611c7b8c7bcb76e58d2e82ae0?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/4e444ab611c7b8c7bcb76e58d2e82ae0?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">Aaron Kili says:</div>
+<div class="tab-item-comment"><a href="https://www.tecmint.com/install-seafile-on-centos-7/comment-page-1/#comment-1328158">@Rizal Read this guide on how to enable networking between VMs...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="https://www.tecmint.com/install-and-configure-vnc-server-on-ubuntu/comment-page-1/#comment-1328157">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/4e444ab611c7b8c7bcb76e58d2e82ae0?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/4e444ab611c7b8c7bcb76e58d2e82ae0?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/4e444ab611c7b8c7bcb76e58d2e82ae0?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/4e444ab611c7b8c7bcb76e58d2e82ae0?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>							</a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">Aaron Kili says:</div>
+<div class="tab-item-comment"><a href="https://www.tecmint.com/install-and-configure-vnc-server-on-ubuntu/comment-page-1/#comment-1328157">@Marcelo I guess the problem is the lack of a desktop...</a></div>
+</div>
+</li>
+</ul><!--/.alx-tab-->
+</div>
+</div>
+<div id="text-27" class="widget widget_text">			<div class="textwidget"><center>
+<a target="_blank" href="https://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/" rel="noopener noreferrer"><img alt="RedHat RHCSA and RHCE Certification Exam Study Ebook" src="https://www.tecmint.com/wp-content/uploads/2015/01/RedHat-RHCSA-RHCE-Exam-eBook.png"/></a>
+</center></div>
+</div><div id="text-28" class="widget widget_text">			<div class="textwidget"><div class="message" style="background-color: #0d7c39;"><center><p style="font-weight:bold;font-size:18px;">Linux System Administrator Bundle with 7-Courses (96% off)</p> 
+<p style="background-color: #03441d;margin:6px 35px;padding:10px;"><a rel="nofollow noopener noreferrer" target="_blank" href="https://deals.tecmint.com/sales/complete-linux-crash-course-includes-topics-on-red-hat-unix-kali-python-and-opensuse?utm_source=tecmint.com&amp;utm_medium=referral&amp;utm_campaign=complete-linux-crash-course-includes-topics-on-red-hat-unix-kali-python-and-opensu&amp;_ga=1.95416024.550662903.1451974395" style="font-size:25px;font-weight:bold;">Add to Cart - $69</a></p>
+<p style="font-size:14px;font-weight:bold;"><i aria-hidden="true" class="fa fa-clock-o"></i> Ending In: 3 days
+</p></center></div>
+<div style="background-color: #f4403b;" class="message"><center><p style="font-weight:bold;font-size:18px;">Computer Hacker Professional Certification Course (96% Off)</p> 
+<p style="background-color: #9d1815;margin:6px 35px;padding:10px;"><a style="font-size:25px;font-weight:bold;" href="https://deals.tecmint.com/sales/computer-hacker-professional-certification-package-2" target="_blank" rel="nofollow noopener noreferrer">Add to Cart - $59</a></p>
+<p style="font-size:14px;font-weight:bold;"><i class="fa fa-clock-o" aria-hidden="true"></i> Ending In: 4 days
+</p></center></div></div>
+</div><div id="text-4" class="widget widget_text"><h3>Linux eBooks</h3>			<div class="textwidget"><ol class="custom-counter">
+<li><a onclick="ga('send','event','Learn Linux in One Week','TecMint')" href="https://www.tecmint.com/learn-linux-in-one-week/" target="_blank" rel="noopener noreferrer">Introducing Learn Linux In One Week and Go from Zero to Hero</a></li>
+<li><a onclick="ga('send','event','RedHat RHCE/RHCSA Guide','TecMint')" href="https://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/" target="_blank" rel="noopener noreferrer">RedHat RHCE/RHCSA Certification Preparation Guide</a></li>
+<li><a onclick="ga('send','event','Linux Foundation LFCS/LFCE Guide','TecMint')" href="https://www.tecmint.com/linux-foundation-lfcs-lfce-certification-exam-book/" target="_blank" rel="noopener noreferrer">Linux Foundations LFCS/LFCE Certification Guide</a></li>
+<li><a onclick="ga('send','event','Postfix Mail Server Setup','TecMint')" href="https://www.tecmint.com/postfix-mail-server-setup-linux-book/" target="_blank" rel="noopener noreferrer">Postfix Mail Server Setup Guide for Linux</a></li>
+<li><a onclick="ga('send','event','Ansible Setup Guide','TecMint')" href="https://www.tecmint.com/ansible-book-guide-for-linux/" target="_blank" rel="noopener noreferrer">Ansible Setup Guide for Linux</a></li>
+<li><a onclick="ga('send','event','Django Setup Guide','TecMint')" href="https://www.tecmint.com/django-web-framework-book/" target="_blank" rel="noopener noreferrer">Django Setup Guide for Linux</a></li>
+<li><a onclick="ga('send','event','Awk Guide for Beginners','TecMint')" href="https://www.tecmint.com/linux-awk-command-book-for-beginners/" target="_blank" rel="noopener noreferrer">Awk Getting Started Guide for Beginners</a></li>
+<li><a onclick="ga('send','event','Citrix XenServer Setup Guide','TecMint')" href="https://www.tecmint.com/citrix-xenserver-book-for-linux/" target="_blank" rel="noopener noreferrer">Citrix XenServer Setup Guide for Linux</a></li>
+</ol></div>
+</div><div id="text-29" class="widget widget_text">			<div class="textwidget"><div style="background-color: rgb(25, 67, 87); color: rgb(255, 255, 255); border-radius: 5px; text-align: center; padding: 10px;">
+<div class="follow-subscribe-social">
+<ul>
+<li><a href="https://twitter.com/tecmint" target="_blank" rel="noopener noreferrer"><i class="fa fa-twitter"></i></a></li>
+<li><a href="https://www.facebook.com/TecMint" target="_blank" rel="noopener noreferrer"><i class="fa fa-facebook"></i></a></li>
+<li><a href="https://www.instagram.com/tecmint/" target="_blank" rel="noopener noreferrer"><i class="fa fa-instagram"></i></a></li>
+<li><a href="https://www.youtube.com/channel/UCkiRkzdLvoGBtW_YArytJlQ" target="_blank" rel="noopener noreferrer"><i class="fa fa-youtube"></i></a></li>
+<li><a href="https://www.linkedin.com/company/tecmint" target="_blank" rel="noopener noreferrer"><i class="fa fa-linkedin"></i></a></li>
+</ul>
+</div>
+<p style="font-weight: bold; font-size: 20px; margin-bottom: 10px; margin-top: 10px;">Never Miss Any Linux Tutorials, Guides, Tips and Free eBooks</p> 
+<p>Join Our Community Of <strong style="color:#fff;font-weight:bold;">150,000+ Linux Lovers</strong> and get a weekly newsletter in your inbox</p>
+<p style="background-color: rgb(0, 0, 0); border-radius: 5px; padding: 6px;"><a style="font-size:20px;font-weight:bold;color:#fff;" href="https://subscribe.tecmint.com/newsletter" target="_blank" rel="nofollow noopener noreferrer">YES! SIGN ME UP</a></p></div></div>
+</div><div id="text-32" class="widget widget_text">			<div class="textwidget"><p><!-- TecMint Sidebar3 Ad --><br />
+<ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-2601749019656699" data-ad-slot="9838765188"></ins><br />
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+</div>
+</div>			
+</div><!--/.sidebar-content-->
+</div><!--/.sidebar-->
+				</div><!--/.main-inner-->
+</div><!--/.main-->			
+</div><!--/.container-inner-->
+</div><!--/.container-->
+<footer id="footer">
+<section class="container" id="footer-ads">
+<div class="container-inner">
+<div id="text-30" class="widget widget_text">			<div class="textwidget"><p><center><script type="text/javascript">
+var total_images = 2;
+var random_number = Math.floor((Math.random()*total_images));
+var random_img = new Array();
+random_img[0] = '<a target="_blank" rel="nofollow" href="https://shareasale.com/r.cfm?b=1226423&#038;u=1260899&#038;m=59485&#038;urllink=&#038;afftrack="><img src="https://www.fossmint.com/wp-content/themes/fossmint/backupads/Linux-Foundation-LFCS-Certification.png"/></a>';
+random_img[1] = '<a target="_blank" rel="nofollow" href="https://shareasale.com/r.cfm?b=1226424&#038;u=1260899&#038;m=59485&#038;urllink=&#038;afftrack="><img src="https://www.fossmint.com/wp-content/themes/fossmint/backupads/Linux-Foundation-LFCE-Certification.png"/></a>';
+document.write(random_img[random_number]);
+</script></center></p>
+</div>
+</div>			</div><!--/.container-inner-->
+</section><!--/.container-->
+<section class="container" id="footer-widgets">
+<div class="container-inner">
+<div class="pad group">
+<div class="footer-widget-1 grid one-third ">
+<div id="alxposts-3" class="widget widget_alx_posts">
+<h3>Linux Monitoring Tools</h3>
+<ul class="alx-posts group ">
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/pydash-a-web-based-linux-performance-monitoring-tool/" rel="bookmark" title="pyDash &#8211; A Web Based Linux Performance Monitoring Tool">pyDash &#8211; A Web Based Linux Performance Monitoring Tool</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/monitor-linux-commands-executed-by-system-users-in-real-time/" rel="bookmark" title="How to Monitor Linux Commands Executed by System Users in Real-time">How to Monitor Linux Commands Executed by System Users in Real-time</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/how-to-install-and-setup-monit-linux-process-and-services-monitoring-program/" rel="bookmark" title="How to Install and Setup Monit (Linux Process and Services Monitoring) Program">How to Install and Setup Monit (Linux Process and Services Monitoring) Program</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/command-line-tools-to-monitor-linux-performance/" rel="bookmark" title="20 Command Line Tools to Monitor Linux Performance">20 Command Line Tools to Monitor Linux Performance</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/dstat-monitor-linux-server-performance-process-memory-network/" rel="bookmark" title="Dstat &#8211; A  Resourceful Tool to Monitor Linux Server Performance in Real-Time">Dstat &#8211; A  Resourceful Tool to Monitor Linux Server Performance in Real-Time</a></p>
+</div>
+</li>
+</ul><!--/.alx-posts-->
+</div>
+</div>
+<div class="footer-widget-2 grid one-third ">
+<div id="alxposts-4" class="widget widget_alx_posts">
+<h3>Linux Interview Questions</h3>
+<ul class="alx-posts group ">
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/interview-questions-on-shell-scripting/" rel="bookmark" title="10 Useful &#8216;Interview Questions and Answers&#8217; on Linux Shell Scripting">10 Useful &#8216;Interview Questions and Answers&#8217; on Linux Shell Scripting</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/ssh-interview-questions/" rel="bookmark" title="10 Useful SSH (Secure Shell) Interview Questions and Answers">10 Useful SSH (Secure Shell) Interview Questions and Answers</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/10-advance-vsftp-interview-questions-and-answers-part-ii/" rel="bookmark" title="10 Advance VsFTP Interview Questions and Answers &#8211; Part II">10 Advance VsFTP Interview Questions and Answers &#8211; Part II</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/core-linux-interview-questions-and-answers/" rel="bookmark" title="10 Core Linux Interview Questions and Answers">10 Core Linux Interview Questions and Answers</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/linux-firewall-iptables-interview-questions-and-answers/" rel="bookmark" title="Nishita Agarwal Shares Her Interview Experience on Linux &#8216;iptables&#8217; Firewall">Nishita Agarwal Shares Her Interview Experience on Linux &#8216;iptables&#8217; Firewall</a></p>
+</div>
+</li>
+</ul><!--/.alx-posts-->
+</div>
+</div>
+<div class="footer-widget-3 grid one-third last">
+<div id="alxposts-5" class="widget widget_alx_posts">
+<h3>Open Source Tools</h3>
+<ul class="alx-posts group ">
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/free-open-source-cloud-storage-tools-for-linux/" rel="bookmark" title="16 Open Source Cloud Storage Software for Linux in 2020">16 Open Source Cloud Storage Software for Linux in 2020</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/microsoft-office-alternatives-for-linux/" rel="bookmark" title="16 Most Used Microsoft Office Alternatives for Linux">16 Most Used Microsoft Office Alternatives for Linux</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/free-music-creation-or-audio-editing-softwares-for-linux/" rel="bookmark" title="16 Best Open Source Music Making Software for Linux">16 Best Open Source Music Making Software for Linux</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/best-linux-screen-recorders-for-desktop-screen-recording/" rel="bookmark" title="8 Best Screen Recorders for Desktop Screen Recording in Linux">8 Best Screen Recorders for Desktop Screen Recording in Linux</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/best-linux-file-diff-tools-comparison/" rel="bookmark" title="9 Best File Comparison and Difference (Diff) Tools for Linux">9 Best File Comparison and Difference (Diff) Tools for Linux</a></p>
+</div>
+</li>
+</ul><!--/.alx-posts-->
+</div>
+</div>
+</div><!--/.pad-->
+</div><!--/.container-inner-->
+</section><!--/.container-->	
+<nav class="nav-container group" id="nav-footer">
+<div class="nav-toggle"><i class="fa fa-bars"></i></div>
+<div class="nav-text"><!-- put your mobile menu text here --></div>
+<div class="nav-wrap"><ul id="menu-footer" class="nav container group"><li id="menu-item-18572" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18572"><a href="https://www.tecmint.com/donate-to-tecmint/">Donate to TecMint</a></li>
+<li id="menu-item-10437" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10437"><a href="https://www.tecmint.com/contact-us/">Contact Us</a></li>
+<li id="menu-item-10442" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10442"><a href="https://www.tecmint.com/advertise/">Advertise on TecMint</a></li>
+<li id="menu-item-10441" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10441"><a href="https://www.tecmint.com/services/">Linux Services</a></li>
+<li id="menu-item-10435" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10435"><a href="https://www.tecmint.com/copyright-policy/">Copyright Policy</a></li>
+<li id="menu-item-10436" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10436"><a href="https://www.tecmint.com/privacy-policy/">Privacy Policy</a></li>
+<li id="menu-item-13339" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13339"><a href="https://www.tecmint.com/career/">Career</a></li>
+<li id="menu-item-24288" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-24288"><a href="https://www.tecmint.com/sponsored-post-guidelines-tecmint/">Sponsored Post</a></li>
+</ul></div>
+</nav><!--/#nav-footer-->
+<section class="container" id="footer-bottom">
+<div class="container-inner">
+<a id="back-to-top" href="#"><i class="fa fa-angle-up"></i></a>
+<div class="pad group">
+<div class="grid one-half">
+<div id="copyright">
+<p>Tecmint: Linux Howtos, Tutorials &amp; Guides &copy; 2020. All Rights Reserved.</p>
+<p>The material in this site cannot be republished either online or offline, without our permission.</p>
+<p>Hosting Sponsored by : <a style="font-weight:bold;color:yellow;" href="https://www.linode.com/?r=64ebb9f723fed8b32fda84b6594006df08ad24b6" target="_blank" rel="nofollow">Linode Cloud Hosting</a></p>
+</div><!--/#copyright-->
+</div>
+<div class="grid one-half last">	
+<ul class="social-links"><li><a rel="nofollow" class="social-tooltip" title="twitter" href="https://twitter.com/tecmint" target="Array"><i class="fa fa-twitter" style="color: #33ccff;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="facebook" href="https://www.facebook.com/TecMint" target="Array"><i class="fa fa-facebook" style="color: #3b5998;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Linkedin" href="https://www.linkedin.com/company/tecmint" target="Array"><i class="fa fa-linkedin" style="color: #1e73be;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Feedly" href="https://feedly.com/i/subscription/feed/https://www.tecmint.com/feed/" target="Array"><i class="fa fa-rss" style="color: #87c040;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Youtube" href="https://www.youtube.com/channel/UCkiRkzdLvoGBtW_YArytJlQ" target="Array"><i class="fa fa fa-youtube-square" style="color: #c4302b;"></i></a></li></ul>					</div>
+</div><!--/.pad-->
+</div><!--/.container-inner-->
+</section><!--/.container-->
+</footer><!--/#footer-->
+</div><!--/#wrapper-->
+<script type='text/javascript' src='https://www.tecmint.com/wp-content/plugins/light/js/jquery.fancybox.pack.js'></script>
+<script type='text/javascript' src='https://www.tecmint.com/wp-content/plugins/light/js/light.js'></script>
+<script type='text/javascript' src='https://www.tecmint.com/wp-content/themes/tecmint/js/scripts.js'></script>
+<script type='text/javascript' src='https://www.tecmint.com/wp-content/themes/tecmint/js/jquery.sharrre.min.js'></script>
+<script type='text/javascript' src='https://www.tecmint.com/wp-includes/js/comment-reply.min.js'></script>
+<script type='text/javascript' src='https://www.tecmint.com/wp-content/plugins/lazy-load/js/jquery.sonar.min.js'></script>
+<script type='text/javascript' src='https://www.tecmint.com/wp-content/plugins/lazy-load/js/lazy-load.js'></script>
+<script type='text/javascript' src='https://www.tecmint.com/wp-content/plugins/wp-social-sharing/static/socialshare.js'></script>
+<script async="async" type='text/javascript' src='https://www.tecmint.com/wp-content/plugins/akismet/_inc/form.js'></script>
+<!--[if lt IE 9]>
+<script src="https://www.tecmint.com/wp-content/themes/tecmint/js/ie/respond.js"></script>
+<![endif]-->
+<div class="fixedBar">
+<div class="boxfloat">
+<ul id="tips">
+<li><a href="https://www.tecmint.com/51-useful-lesser-known-commands-for-linux-users/">51 Useful Lesser Known Commands for Linux Users</a></li>
+<li><a href="https://www.tecmint.com/linux-server-hardening-security-tips/">25 Hardening Security Tips for Linux Servers</a></li>
+<li><a href="https://www.tecmint.com/60-commands-of-linux-a-guide-from-newbies-to-system-administrator/">60 Commands of Linux : A Guide from Newbies to System Administrator</a></li>
+<li><a href="https://www.tecmint.com/command-line-tools-to-monitor-linux-performance/">20 Command Line Tools to Monitor Linux Performance</a></li>
+<li><a href="https://www.tecmint.com/18-tar-command-examples-in-linux/">18 Tar Command Examples in Linux</a></li>
+<li><a href="https://www.tecmint.com/20-linux-yum-yellowdog-updater-modified-commands-for-package-mangement/">20 Linux YUM (Yellowdog Updater, Modified) Commands</a></li>
+<li><a href="https://www.tecmint.com/useful-basic-commands-of-apt-get-and-apt-cache-for-package-management/">25 Useful Basic Commands of APT-GET and APT-CACHE</a></li>
+<li><a href="https://www.tecmint.com/20-funny-commands-of-linux-or-linux-is-fun-in-terminal/">20 Funny Commands of Linux or Linux is Fun in Terminal</a></li>
+<li><a href="https://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/">Ebook: Introducing the RHCSA and RHCE Exam Preparation Guide</a></li>
+<li><a href="https://www.tecmint.com/sed-command-to-create-edit-and-manipulate-files-in-linux/">Preparation for the LFCS (Linux Foundation Certified SysAdmin) Exam</a></li>
+<li><a href="https://www.tecmint.com/installing-network-services-and-configuring-services-at-system-boot/">Preparation for the LFCE (Linux Foundation Certified Engineer) Exam</a></li>
+<li><a href="https://www.tecmint.com/10-useful-free-linux-ebooks-for-newbies-and-administrators/">10 Useful Free Linux eBooks for Newbies and Administrators</a></li>
+<li><a href="https://www.tecmint.com/free-linux-shell-scripting-books/">4 Free Shell Scripting eBooks for Newbies and Administrators</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html><!-- WP Fastest Cache file was created in 0.32550716400146 seconds, on 18-04-20 11:17:24 -->
