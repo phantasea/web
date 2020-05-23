@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+            <meta name="HandheldFriendly" content="true" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+        <!-- For Chrome Mobile -->
+        <meta name="theme-color" content="#dfd1c6" />
+        <meta charset="utf-8" />
+        <title>How to Live Well on the Linux Console - Cat on a Keyboard</title>
+        <link href="http://blog.startaylor.net/feed/all.atom.xml" type="application/atom+xml" rel="alternate" title="Cat on a Keyboard Full Atom Feed" />
+        <link href="http://blog.startaylor.net/feed/linux.atom.xml" type="application/atom+xml" rel="alternate" title="Cat on a Keyboard Categories Atom Feed" />
+
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link href='http://fonts.googleapis.com/css?family=The+Girl+Next+Door|Goudy+Bookletter+1911' rel='stylesheet' type='text/css' />
+        <link rel="stylesheet" href="http://blog.startaylor.net/theme/css/style.css" />
+        <link rel="stylesheet" href="http://blog.startaylor.net/theme/css/typogrify.css" />
+
+            <link rel="stylesheet" href="http://blog.startaylor.net/theme/css/pygments/trac.css" title="Trac" />
+            <link rel="alternate stylesheet" href="http://blog.startaylor.net/theme/css/pygments/perldoc.css" title="Perldoc" />
+            <link rel="alternate stylesheet" href="http://blog.startaylor.net/theme/css/pygments/emacs.css" title="Emacs" />
+            <link rel="alternate stylesheet" href="http://blog.startaylor.net/theme/css/pygments/vs.css" title="Vs" />
+            <link rel="alternate stylesheet" href="http://blog.startaylor.net/theme/css/pygments/xcode.css" title="Xcode" />
+            <link rel="alternate stylesheet" href="http://blog.startaylor.net/theme/css/pygments/fruity.css" title="Fruity" />
+            <link rel="alternate stylesheet" href="http://blog.startaylor.net/theme/css/pygments/monokai.css" title="Monokai" />
+            <link rel="alternate stylesheet" href="http://blog.startaylor.net/theme/css/pygments/native.css" title="Native" />
+            <link rel="alternate stylesheet" href="http://blog.startaylor.net/theme/css/pygments/default.css" title="Default" />
+            <link rel="alternate stylesheet" href="http://blog.startaylor.net/theme/css/pygments/bw.css" title="Bw" />
+        <script src="http://blog.startaylor.net/theme/ss.js"></script>
+
+
+
+        <!-- Markdown source for this article is available at 'index.md', if you're interested. -->
+
+
+
+        <meta name="tags" content="linux" />
+        <meta name="tags" content="text mode" />
+        <meta name="tags" content="framebuffer" />
+        <meta name="tags" content="console" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="http://blog.startaylor.net/">Cat on a Keyboard</a></h1>
+        </header><!-- /#banner -->
+        <nav id="menu"><ul>
+            <li><a href="/">Blog</a></li>
+            <li><a href="/archives/">Archives</a></li>
+            <li><a href="/category/">Categories</a></li>
+            <li><a href="/tag/">Tags</a></li>
+        </ul></nav><!-- /#menu -->
+        <div id="main">
+        <section id="content">
+    <article class="hentry">
+        <header>
+            <h1 class="entry-title">
+                <a href="http://blog.startaylor.net/2016/05/30/howto-console/" rel="bookmark"
+                    title="Permalink to How to Live Well on the Linux Console">How to Live Well on the Linux&nbsp;Console</a>
+            </h1>
+            <ul class="article-stats">
+                <li><time datetime="2016-05-30T12:19:14-04:00" pubdate="pubdate">Mon 30 May 2016</time></li>
+                <li title="3064 words">13 minute read</li>
+            </ul>
+            
+        </header>
+        <div class="entry-content">
+            <p><img alt="You can get a lot done in text mode." src="http://blog.startaylor.net/2016/05/30/howto-console/console.png"></p>
+<p>I do much of my programming on a laptop without a graphical environment
+installed, and rarely ever type <code>startx</code> on my desktop system. My console setup
+is quite nice, and while it&#8217;s not for everyone, if you often find yourself
+opening xterm windows to do most of your work, you might be interested in
+dropping all that excess baggage and slimming down your system. There&#8217;s plenty
+you can do in a terminal, so saddle up and get ready to give a big screw-you to
+the overweight <span class="caps">GPU</span>-sucking graphical environments of the 21st century and take
+a trip slightly back in time to back when things were&nbsp;text.</p>
+<p>Many people, myself included, misuse the word <em>terminal</em> (and sometimes also
+<em>console</em>) to refer to terminal emulators rather than a straight-up text mode.
+This confusion of terms is usually not that big a deal, but to clarify, I&#8217;m
+expressly discussing how to get along with a system where X11 isn&#8217;t installed
+<em>at all</em> &#8212; and how to make yourself comfortable in such an&nbsp;environment.</p>
+
+
+<h2 id="configuration">Configuration</h2>
+<h3 id="framebuffer">Framebuffer</h3>
+<p>Assuming you&#8217;re using a reasonably recent Linux distribution, your text mode
+might already be using a framebuffer, and chances are, it might even be decent.
+Getting things configured is system-dependent and beyond the scope of this
+post, but there are plenty of resources on getting a reasonably performing
+framebuffer regardless of your particular setup. Check for
+<code>/sys/class/graphics/fb0/name</code>, though; if that file exists, then
+congratulations: you have a framebuffer, and it even has a&nbsp;name!</p>
+<p>If you&#8217;re using the standard <span class="caps">VESA</span> <span class="caps">VGA</span> driver, you might find that scrolling
+output, like paging through a man page, is hideously slow. In that case, your
+framebuffer sucks. Chances are good it&#8217;s just not optimized by default; try
+adding <code>video=vesa:mtrr=3,ywrap</code> to your boot line and see if that changes
+anything. Regardless, you might be better off looking into an accelerated
+framebuffer driver that&#8217;s actually designed for your&nbsp;card.</p>
+<p>You might want to investigate <code>fbset</code>. Some drivers allow you to change the
+resolution on the fly, among other settings. Others (like <span class="caps">VESA</span>) aren&#8217;t so&nbsp;snazzy.</p>
+<p>You will (probably) also need to add your user to the &#8220;video&#8221; group for
+framebuffer-based applications to function, and probably also&nbsp;&#8220;input&#8221;.</p>
+<h3 id="fonts">Fonts</h3>
+<p>Getting away from that <span class="caps">VGA</span> <span class="caps">BIOS</span> look just takes a quick <code>setfont</code>, and can help
+a lot in making your system not look like you just fished it out of the trunk
+of an &#8216;85 DeLorean. Many Linux systems already use somewhat nice-looking
+defaults; in particular, Ubuntu has a very nice console&nbsp;font.</p>
+<p>Most of the fonts in the <code>kbd</code> package are kind of same-ish, but there are a
+few interesting ones (and by &#8220;interesting&#8221; I don&#8217;t necessarily mean&nbsp;&#8220;readable&#8221;):</p>
+<ul>
+<li><code>972.cp</code></li>
+<li><code>iso01-12x22</code></li>
+<li><code>cybercafe</code></li>
+<li><code>gr737b-9x16-medieval</code></li>
+<li><code>t</code></li>
+</ul>
+<p>Alexandre de Verteuil has assembled <a href="https://alexandre.deverteuil.net/pages/consolefonts/">a nice gallery of the <code>kbd</code>
+fonts</a>.</p>
+<p>There&#8217;s also a variant of Terminus in there, but if you enjoy that font,
+chances are you&#8217;ll find the whole package far more appealing since it offers
+many more sizes, variations, and character sets. At least on Arch, the X11 and
+console fonts are bundled together, so installing it yanks in a ton of extra
+dependencies, which is kind of annoying, but you can always extract the <code>.psf</code>
+files out by&nbsp;hand.</p>
+<p>Depending on your distro, you might also be able to find some good fonts by
+searching your package manager for &#8220;console font&#8221; or similar. I grew up with
+Slackware, which had
+<a href="http://slackware.cs.utah.edu/pub/slackware/slackware-13.0/source/a/kbd/sources/extraf.tgz">a heap of extra fonts</a>
+that I got attached to; you might like some of them&nbsp;too.</p>
+<p>You could also install my font tool
+<a href="https://bitbucket.org/Storlek/gnacc">gnacc</a> and edit a font to your liking, or
+even try your hand at making your own. It&#8217;s a bit rough around the edges, but
+it works fairly&nbsp;well.</p>
+<p>I&#8217;m just going to gloss over character sets, as Linux distros tend to default
+the console to Unicode mode nowadays and unless you have some reason to edit
+stuff in some other encoding, you probably won&#8217;t need to change that. However,
+if you handle a lot of different languages, you&#8217;re still quite likely to come
+across missing glyphs. It&#8217;s just a matter of fact; on the console, you have <em>at
+most</em> 512 characters to work with, and that just doesn&#8217;t cut the mustard in
+this day and age. Historically, with <span class="caps">VGA</span> hardware you even had to choose
+between more characters and more colors, because the 9th bit of the foreground
+color doubled as a &#8220;switch character set&#8221; bit. This meant that if you had a
+512-character font, you could only really use 8 foreground colors! Thankfully,
+framebuffer modes eliminate this problem as they are fully capable of
+supporting bigger fonts without a loss of color precision. There aren&#8217;t a whole
+lot of 512-char fonts,&nbsp;though.</p>
+<h3 id="side-quest-fbterm">Side quest:&nbsp;fbterm</h3>
+<p>At this point, you might be thinking, &#8220;ew! This sucks!&#8221; Why yes it does. Since
+you&#8217;re restricted to &#8220;just&#8221; a couple hundred characters, you&#8217;re out of luck if
+you want even remotely decent Unicode support. There&#8217;s no TrueType fonts, no
+antialiasing, ugh gosh this is just terrible&nbsp;right?</p>
+<p>You guessed it, there&#8217;s an answer: <a href="http://code.google.com/p/fbterm/">Fbterm</a>.
+Install that, get a couple nice monospace TTFs, spend a few moments reflecting
+on the manual page and tap out an <code>.fbtermrc</code>:</p>
+<div class="hl"><pre><span></span><span class="na">font-names</span><span class="o">=</span><span class="s">Inconsolata,Symbola</span>
+<span class="na">font-size</span><span class="o">=</span><span class="s">16</span>
+</pre></div>
+
+
+<p>Fbterm supports 256 colors, too, but you have to <code>export TERM=fbterm</code> after
+you start it, which is a bit wonky. You can hack around that with some
+cleverness, and after you get it working, it&#8217;s great, and you get just
+as solid glyph coverage as you would in X11 since it uses&nbsp;fontconfig.</p>
+<p>It&#8217;s not for everyone, though. I spent quite a bit of time stuffing all sorts
+of odd glyphs into my custom console font, so I rarely need more glyphs than it
+provides, and none of my usual programs make use of the larger palette. I keep
+Fbterm for viewing Asian text, or if I come across some odd Unicode that isn&#8217;t
+rendering&nbsp;properly.</p>
+<h3 id="color-schemes">Color&nbsp;schemes</h3>
+<p>There are a few different ways to change the terminal colors. On the console,
+the &#8220;best&#8221; way is by using <code>setvtrgb</code>, because that way, even if you do a full
+console reset, your color scheme sticks. (This also can be annoying if you&#8217;re
+not expecting it, but it&#8217;s easy enough to undo with <code>setvtrgb vga</code>.) It wants
+its input in a really weird format, plus practically everyone makes their color
+schemes for xterm and family, so you&#8217;ll probably want a&nbsp;converter.</p>
+<p>Enter <a href="https://bitbucket.org/Storlek/palette">my palette tool</a>, mostly because
+I&#8217;m not aware of anything else that does quite what it does: it can read colors
+from a variety of different file formats, and it works with <code>setvtrgb</code> as well
+as terminfo-style control codes to set the palette in the best way available.
+Plus, it has a handful of color schemes available out of the&nbsp;box.</p>
+<p>If you&#8217;d like to generate your own color scheme,
+<a href="https://ciembor.github.io/4bit/">4bit</a> might be a good starting point. Just
+export as an .Xresources file, save it into <code>~/.config/palettes/mytheme</code>, and
+run <code>palette mytheme</code>.&nbsp;Presto.</p>
+<h3 id="spiff-up-the-cursor">Spiff up the&nbsp;cursor</h3>
+<p><em>(Note that fbterm doesn&#8217;t support this at all, which is kind of a&nbsp;bummer.)</em></p>
+<p>I&#8217;ve had a colorful cursor for some time, and have gotten quite used to it. It&#8217;s
+not quite as distracting as a blinking underline, and a bit easier to see &#8212; well,
+in my opinion; of course, this is entirely&nbsp;subjective.</p>
+<p>Primary reading:
+<a href="https://www.kernel.org/doc/Documentation/VGA-softcursor.txt"><span class="caps">VGA</span>-softcursor.txt</a>.</p>
+<p>I just played with the numbers until I found something I liked. It seems to be
+a bit wonky in plain text mode, but it&#8217;s a solid, colorful block in a&nbsp;framebuffer.</p>
+<p>If you just echo the softcursor control string, you&#8217;ll see the changes, but the
+moment a program tries to set the cursor size, your nice software cursor will
+disappear. To fix that, change the termcap settings to add your control string
+to <code>cnorm</code>:</p>
+<div class="hl"><pre><span></span>$ infocmp linux &gt; foo
+<span class="c1"># edit foo and adjust the cnorm definition:</span>
+<span class="c1">#   clear=\E[H\E[J, cnorm=\E[?25h\E[?113;0;220c, cr=^M,</span>
+<span class="c1">#                                    ^^^^^^^^^</span>
+$ tic foo <span class="o">&amp;&amp;</span> rm foo
+<span class="c1"># then log out and back in</span>
+</pre></div>
+
+
+<p>My profile script also has a <code>tput cnorm</code> to set the cursor up when I log&nbsp;in.</p>
+<h3 id="set-up-the-mouse">Set up the&nbsp;mouse</h3>
+<p>By default, you might not have any mouse support. If you&#8217;re used to xterm,
+you&#8217;re probably missing mouse paste, and even if not, some programs do use the
+mouse in text mode, so let&#8217;s get it&nbsp;running:</p>
+<div class="hl"><pre><span></span>$ sudo gpm -m /dev/input/mice -t imps2
+</pre></div>
+
+
+<p>This ought to work well enough for typical cases. By default, though, gpm maps
+right-click to paste, and if you&#8217;re <em>really</em> used to middle-click, you can
+switch it with the <code>-3</code> option. I don&#8217;t bother, because my laptop only has two
+buttons&nbsp;anyway.</p>
+<p>(If you&#8217;re using systemd, of course, you can use that&nbsp;too.)</p>
+<h3 id="keyboard-customizations">Keyboard&nbsp;customizations</h3>
+<p>If your biggest complaint is that left and right alt are different, try
+<code>loadkeys linux-with-two-alt-keys.inc</code>. I&#8217;d also suggest loading <code>compose.inc</code>,
+which turns print screen into a compose key, <code>unicode.map</code> to enter Unicode
+character U+<span class="caps">NNNN</span> with Ctrl-Shift-<span class="caps">NNNN</span>. Have a look through
+<code>/usr/share/kbd/keymaps</code> for others; there are many choices, including a wealth
+of alternate keyboard layouts. <code>man loadkeys</code> has a rundown of the file format,
+and <code>showkey</code> can clue you in on the keycode&nbsp;numbers.</p>
+<p>My own keymap does plenty, including getting rid of caps lock, reassigning the
+Windows keys to something better, adding Unicode hex input, and adding some
+additional character sequences. Here&#8217;s the bit from my config to get alt-arrow
+keys working as&nbsp;expected:</p>
+<div class="hl"><pre><span></span>string F103 = &quot;\33\33[A&quot;
+string F105 = &quot;\33\33[D&quot;
+string F106 = &quot;\33\33[C&quot;
+string F108 = &quot;\33\33[B&quot;
+alt keycode 103 = F103
+alt keycode 105 = F105
+alt keycode 106 = F106
+alt keycode 108 = F108
+</pre></div>
+
+
+<p>I only bothered with the key sequences I tend to use, but with some work, it
+would probably be possible to add everything X11&nbsp;supports.</p>
+<h3 id="tmux">tmux</h3>
+<p>Lastly: in case you don&#8217;t already have it, I <em>highly</em> recommend installing
+<a href="https://tmux.github.io/"><code>tmux</code></a> and making yourself at home with it. In fact,
+I&#8217;d suggest that even when you&#8217;re in X11, or if you&#8217;re working over ssh, or
+pretty much all the time. It&#8217;s a godsend. It permits you to do more than one
+thing at a time, flip between tasks with tabs, and even split your screen into
+windows like a (tiling) graphical <span class="caps">WM</span> would. It also has a ton of configuration
+options, so I&#8217;d suggest spending a rainy afternoon fiddling with the&nbsp;settings.</p>
+<h2 id="actually-doing-stuff">Actually doing&nbsp;stuff</h2>
+<p>Okay, enough setup. Let&#8217;s actually get something&nbsp;done.</p>
+<h3 id="video">Video</h3>
+<p>You can set the volume with <code>alsamixer</code> (or <code>amixer</code> if you like that better).
+Simple enough, and you probably knew&nbsp;that.</p>
+<p>For playing stuff, I typically use <a href="http://mplayerhq.hu/">MPlayer</a>. It&#8217;s
+straightforward, displays subtitles, reads DVDs, handles streaming, has a nice
+on-screen display, and plays damn near everything I&#8217;ve ever thrown at&nbsp;it.</p>
+<p>Add this to your <code>~/.mplayer/config</code>:</p>
+<div class="hl"><pre><span></span><span class="c1"># Output to the framebuffer</span>
+<span class="na">vo</span> <span class="o">=</span> <span class="s">fbdev2</span>
+<span class="c1"># Options particular to the fbdev2 video driver follow.</span>
+<span class="c1"># Don&#39;t put general options after here.</span>
+<span class="k">[vo.fbdev2]</span>
+<span class="c1"># Without this, the constant status line updates will</span>
+<span class="c1"># trample all over the video, causing flicker.</span>
+<span class="na">quiet</span> <span class="o">=</span> <span class="s">1</span>
+<span class="c1"># Make it fill the screen, scaling up or down as needed.</span>
+<span class="c1"># Adjust to your framebuffer&#39;s width; it&#39;ll scale the height.</span>
+<span class="na">zoom</span> <span class="o">=</span> <span class="s">1</span>
+<span class="na">xy</span> <span class="o">=</span> <span class="s">1024</span>
+</pre></div>
+
+
+<p>I&#8217;m not sure that the combination of <code>-zoom</code> and <code>-xy</code> is the best way to scale
+videos, but I don&#8217;t know of a better way. (Dunno why it doesn&#8217;t just size them
+automatically, though; it knows how big the framebuffer&nbsp;is!)</p>
+<p>If MPlayer isn&#8217;t your cup of tea, <a href="http://www.videolan.org/vlc/"><span class="caps">VLC</span></a> also
+works in the console, also plays a lot of file formats, and has a nice
+command-line interface, but it&#8217;s a bit fiddly as you kind of have to blindly
+type commands over top of the video as it&#8217;s playing, and it stretches videos to
+the full size of the screen by default, which isn&#8217;t so great if what you&#8217;re
+playing doesn&#8217;t match your display&#8217;s aspect ratio. I might have overlooked a
+setting or six,&nbsp;though.</p>
+<p>If you want to browse YouTube, check out
+<a href="https://github.com/trizen/youtube-viewer"><code>youtube-viewer</code></a>. It has a
+surprising number of features, and it uses MPlayer for playback (with a
+setting for using <span class="caps">VLC</span>&nbsp;instead).</p>
+<h3 id="audio">Audio</h3>
+<p>I actually use MPlayer for audio, too. (Yes, it even plays tracker music, using
+libmodplug.) As with video, <span class="caps">VLC</span> is another good choice; try them both and stick
+with what you&nbsp;like.</p>
+<p>If you want something more audio-focused with a nice interface, try
+<a href="http://www.cubic.org/player/">Open Cubic Player</a>, or perhaps
+<a href="https://moc.daper.net/"><code>moc</code></a>.</p>
+<p>For writing music, I&#8217;d be remiss not to point out that my own
+<a href="http://schismtracker.org/">Schism Tracker</a> works nearly as well
+in a framebuffer as it does in X11.&nbsp;:)</p>
+<h3 id="images">Images</h3>
+<p><a href="http://www.kraxel.org/blog/linux/fbida/"><code>fbida</code></a> gives you <code>fbi</code> and <code>fbgs</code>,
+an image and <span class="caps">PDF</span> viewer, respectively. It also has <code>exiftran</code>, a neat tool for
+manipulating JPEGs, and <code>ida</code>, a basic image editor (which, alas, needs&nbsp;X11).</p>
+<p>There&#8217;s also <a href="http://s-tech.elsat.net.pl/fbv/"><code>fbv</code></a>, but I have had weird
+issues with it, like not drawing parts of images. (Workaround: <code>fbv -cik</code>,
+which instead leaves junk on the screen.) On the other hand, <code>fbv</code> happily runs
+from within tmux, whereas <code>fbi</code> complains if it&#8217;s not directly on a&nbsp;tty.</p>
+<p>If you&#8217;d rather do things the hard way, you could also do something like this
+to view your&nbsp;images:</p>
+<div class="hl"><pre><span></span>$ mplayer -really-quiet -idle mf://somefile.jpg
+</pre></div>
+
+
+<p>See, I told you MPlayer can do everything! You can even configure it to show
+images in a slideshow; how to do this is left as an exercise to the reader.&nbsp;;)</p>
+<p>I don&#8217;t do much image editing on the console, but for simple cropping and
+resizing, ImageMagick&#8217;s <code>convert</code> gets me about 90% there. I&#8217;m not sure what
+framebuffer-based drawing or editing apps there are, if any. For text art,
+though, definitely check out <a href="http://aewan.sourceforge.net/">Aewan</a>. All I&#8217;m
+going to say: layers. It has layers. It&#8217;s like Photoshop for&nbsp;text.</p>
+<p>Taking a screenshot is simple enough: <code>cp /dev/fb0 screen.dump</code>. If you want to
+do it all proper-like, though, try <a href="http://fbgrab.monells.se/"><code>fbgrab</code></a>. I
+have a keybinding in tmux to fire off a script that snaps a screenshot and
+tosses it in my &#8220;screenshots&#8221; folder with a&nbsp;description.</p>
+<h3 id="office-stuff">Office&nbsp;stuff</h3>
+<p>As far as I know, there&#8217;s no PowerPoint-ish application that runs on a
+framebuffer, but you could just as easily make &#8220;slides&#8221; out of a pile of images,
+and simply toss them at an image&nbsp;viewer.</p>
+<p>Word processing software is looking somewhat dismal too. You might have luck
+with <a href="http://cowlark.com/wordgrinder/">WordGrinder</a>, but from what I
+understand, it&#8217;s in a very alpha state, so be ready for it to crash
+spontaneously. Alternately, you could just write Markdown; many editors provide
+reasonable syntax highlighting. (In fact, that&#8217;s exactly how I wrote this&nbsp;post!)</p>
+<p>If your only interest is beating a Microsoft Word document into something
+kinda-sorta readable, there&#8217;s the blast-from-the-past converter,
+<a href="http://winfield.demon.nl/">Antiword</a>.</p>
+<p>Spreadsheets are about the only thing that <em>really</em> has good console support,
+and that&#8217;s with good ol&#8217; <code>sc</code>, or the more feature-filled <code>sc-im</code>. It has been
+around since the dark ages and is worth another post in&nbsp;itself.</p>
+<p>I still haven&#8217;t found a calendar application that really does everything I
+want. <a href="http://calcurse.org/"><code>calcurse</code></a>, which might be more than enough for
+you. It doesn&#8217;t seem to support syncing with remote sources or managing
+multiple calendars, though, and I use the heck out of Google Calendar. If those
+things aren&#8217;t that important to you, it might be just right. (I started
+<a href="https://bitbucket.org/Storlek/tical">writing my own</a>, but quickly got
+frustrated with all the intricacies of the iCal format. Perhaps one day I&#8217;ll
+pick it up&nbsp;again.)</p>
+<h3 id="internet">Internet</h3>
+<p>You&#8217;ve probably heard of Lynx, but there&#8217;s more to offer. My personal favorite
+text-mode browser is <a href="http://w3m.sourceforge.net/"><code>w3m</code></a>, which supports
+drawing images on the console and has many nice features. (If it isn&#8217;t showing
+you images, make sure <code>w3m -V</code> contains <code>image</code>, and also check to see if you
+have <code>imlib2</code> installed. Some distros do weird&nbsp;things.)</p>
+<p>A lot of people seem to prefer <a href="http://elinks.or.cz/"><code>elinks</code></a>, which
+supposedly supports JavaScript, <span class="caps">CSS</span>, and images, but I could never get it to
+work&nbsp;right.</p>
+<p>If you&#8217;re a Gmail user, you might be pleased to find that the &#8220;basic <span class="caps">HTML</span> view&#8221;
+is actually surprisingly usable in w3m. As far as native clients go, though,
+the best choice is probably <a href="http://www.mutt.org/">Mutt</a>, but you&#8217;ll have to
+spend some time getting familiar with&nbsp;it.</p>
+<p>If you&#8217;re an <span class="caps">IRC</span> user, you&#8217;ve surely already heard of
+<a href="http://irssi.org/">Irssi</a>.</p>
+<p>I understand that there&#8217;s <em>supposedly</em> some decent console-based Twitter
+clients, but save for the command-line examples in <a href="http://mike.verdone.ca/twitter/">Python Twitter
+Tools</a>, none of them have felt right and
+worked properly for me. I tend to use Twitter&#8217;s mobile web interface in <code>w3m</code>
+most of the&nbsp;time.</p>
+<h3 id="games">Games</h3>
+<p>Whoever said Linux has no games?&nbsp;;)</p>
+<p>You probably know <a href="http://www.nethack.org/">Nethack</a> already. It&#8217;s been around
+for a long time and is quite popular. I&#8217;ve played it, but could never really
+get into it. Just not my style, I&nbsp;guess.</p>
+<p>There&#8217;s a ton of little historical (as in 1970s!) gems in the <span class="caps">BSD</span> games
+package; on Arch it&#8217;s named <code>bsd-games</code>. Of note, there&#8217;s a few text
+adventures, including the classic <a href="http://rickadams.org/adventure/">Colossal Cave
+Adventure</a>, <a href="http://www.atariarchives.org/bcc1/showpage.php?page=247">Hunt the
+Wumpus</a>, and a
+lesser-known game, Battlestar; some more action-oriented titles, like <code>snake</code>
+(which is probably <em>not</em> the snake game you&#8217;re thinking of), <code>worm</code> (this <em>is</em>
+the one you were thinking of), <code>robots</code>, and of course, Tetris; board games
+like backgammon and cribbage; and a few other brain-engagers, like <code>boggle</code> and
+<code>quiz</code>. These are all black-and-white, <span class="caps">ASCII</span>-based games, and are definitely
+showing their age, but they&#8217;re still&nbsp;fun.</p>
+<p>If you like arcade games, you might want to check out
+<a href="http://ninvaders.sourceforge.net/">nInvaders</a>, or the technically impressive
+<a href="http://raffi.at/view/code/aop">Ambassador of Pain</a>, written in a whole 64
+lines of code (!). I also made <a href="https://bitbucket.org/Storlek/tetris">my own Tetris
+clone</a> which offers more niceties than
+the <span class="caps">BSD</span>&nbsp;version.</p>
+<p><a href="http://www.chiark.greenend.org.uk/~sgtatham/enigma/">Enigma</a> is a charming,
+deceptively challenging puzzle game. I&#8217;m not sure I have ever finished it, but
+it hasn&#8217;t stopped being fun. From what I understand,
+<a href="http://www.level7.org.uk/chroma/">Chroma</a> is a sort of continuation of this
+game, but I couldn&#8217;t get it to&nbsp;build.</p>
+<p>For a game to &#8220;show off&#8221; to gamer weenies, check out
+<a href="https://github.com/cymonsgames/ASCIIpOrtal">Ascii Portal</a>. By default, it uses
+PDcurses wrapped in an <span class="caps">SDL</span> layer, which does work in a framebuffer, but
+that&#8217;s kind of convoluted and ridiculous. Fortunately it also happily builds
+against ncurses (just <code>make nosdl</code>, or <code>make nosdl32</code>). The wealth of bundled
+maps should last you quite a&nbsp;while.</p>
+<p>Speaking of <span class="caps">SDL</span>, though, it&#8217;s quite popular in game development, which means in
+theory you should be able to run plenty of games in a framebuffer, as long as
+they aren&#8217;t doing weird and sneaky things with X11. I haven&#8217;t investigated
+this, though, so you&#8217;re on your own to explore the&nbsp;possibilities.</p>
+<h2 id="final-thoughts">Final&nbsp;thoughts</h2>
+<p>X11 is overrated. Text-mode programs are cool. Framebuffer-based programs are
+super cool. That is&nbsp;all.</p>
+        </div><!-- /.entry-content -->
+
+        <footer><ul class="article-meta">
+
+            <li>Category: <a href="http://blog.startaylor.net/category/linux/">Linux</a>.</li>
+
+            <li><a href="http://blog.startaylor.net/2016/05/30/howto-console/" rel="bookmark">Permalink</a>.</li>
+
+                <li><ul class="tags">
+                    <li><a href="http://blog.startaylor.net/tag/linux/">linux</a></li>
+                    <li><a href="http://blog.startaylor.net/tag/text-mode/">text mode</a></li>
+                    <li><a href="http://blog.startaylor.net/tag/framebuffer/">framebuffer</a></li>
+                    <li><a href="http://blog.startaylor.net/tag/console/">console</a></li>
+                </ul></li>
+        </ul></footer>
+    </article>
+
+
+    <section id="patreon">
+        <div>
+            <a href="https://www.patreon.com/Storlek?ty=h"><img
+                src="/theme/icons/patreon.png" height="16" width="16"  alt="">
+            If you liked this, consider backing my Patreon!</a>
+        </div>
+    </section>
+
+    <section id="comments">
+        <h1>Comments</h1>
+        <div id="disqus_thread">
+            <noscript>
+                <p>
+                    I hate to say this, but you'll need to use JavaScript for the comments.
+                </p>
+            </noscript>
+        </div>
+        <script type="text/javascript">
+            var disqus_shortname = 'catonakeyboard';
+            var disqus_identifier = '2016/05/30/howto-console/';
+            var disqus_url = 'http://blog.startaylor.net/2016/05/30/howto-console/';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//catonakeyboard.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+    </section>
+        </section>
+        <section id="sidebar">
+                    <section id="social">
+                        <h1>Social</h1>
+                        <ul>
+                                <li><a href="http://blog.startaylor.net/feed/all.atom.xml"
+                                    type="application/atom+xml" rel="alternate">Atom feed</a></li>
+                                <li><a href="https://twitter.com/0x5742/">Twitter</a></li>
+                                <li><a href="https://github.com/Storlek">GitHub</a></li>
+                                <li><a href="https://bitbucket.org/Storlek">Bitbucket</a></li>
+                                <li><a href="http://storlek.bandcamp.com/">Bandcamp</a></li>
+                                <li><a href="https://www.patreon.com/Storlek?ty=h">Patreon</a></li>
+                        </ul>
+                    </section>
+                    <section id="links">
+                        <h1>Blogroll</h1>
+                        <ul>
+                                <li><a href="https://marcan.st/">Abort, Retry, Hack?</a></li>
+                                <li><a href="https://medium.com/@keisisqrl">Amy</a></li>
+                                <li><a href="https://achemicalgirl.wordpress.com/">Chemical Girl</a></li>
+                                <li><a href="http://daifukkat.su/blog/">Daifukkkat.su</a></li>
+                                <li><a href="http://ohdeargodbees.tumblr.com/">Dispatches From The&nbsp;Quinnspiracy</a></li>
+                                <li><a href="http://blog.duangle.com/">duangle</a></li>
+                                <li><a href="http://www.futilitycloset.com/">Futility Closet</a></li>
+                                <li><a href="http://eev.ee/blog/">fuzzy notepad</a></li>
+                                <li><a href="https://hackerbots.net/">Hackerbots</a></li>
+                                <li><a href="http://roartindon.blogspot.sg/">Jeffrey Lim</a></li>
+                                <li><a href="http://kpulv.com/blog/">Kyle Pulver</a></li>
+                                <li><a href="https://melbournelibrarian.wordpress.com/">melbrarian</a></li>
+                                <li><a href="http://mikitzune.com/">Mikitzune</a></li>
+                                <li><a href="http://mike.verdone.ca/blog3/">mverdone</a></li>
+                                <li><a href="http://blog.sqisland.com/">Square Island</a></li>
+                                <li><a href="http://z303.org/">Z303</a></li>
+                                <li><a href="https://freethoughtblogs.com/zinniajones/">Zinnia Jones</a></li>
+                        </ul>
+                    </section>
+        </section>
+        </div>
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
+                which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+        </footer><!-- /#contentinfo -->
+
+    <script id="dsq-count-scr" src="//catonakeyboard.disqus.com/count.js" async"></script>
+</body>
+</html>

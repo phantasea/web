@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>Editing ~/.mailcap</title>
+<meta name="GENERATOR" content=
+"Modular DocBook HTML Stylesheet Version 1.79" />
+<link rel="HOME" title="Getting Started with GNU/Linux" href=
+"book1.htm" />
+<link rel="UP" title=
+"Advanced: Customizing file associations with ~/.mailcap" href=
+"a2016.htm" />
+<link rel="PREVIOUS" title="Helper scripts" href="x2031.htm" />
+<link rel="NEXT" title="Other resources" href="x2112.htm" />
+<style type="text/css">
+/*<![CDATA[*/
+ body {
+  background-color: #FFFFFF;
+  color: #000000;
+ }
+ :link { color: #0000FF }
+ :visited { color: #840084 }
+ :active { color: #0000FF }
+ hr.c70 {text-align: left}
+/*]]>*/
+</style>
+<link rel="stylesheet" href="xsl/docbook.css" type="text/css" />
+</head>
+<body class="sect1">
+<div class="NAVHEADER">
+<table summary="Header navigation table" width="100%" border="0"
+cellpadding="0" cellspacing="0">
+<tr>
+<th colspan="3" align="center">Getting Started with GNU/Linux</th>
+</tr>
+<tr>
+<td width="10%" align="left" valign="bottom"><a href="x2031.htm"
+accesskey="P">Prev</a></td>
+<td width="80%" align="center" valign="bottom">Appendix A. Advanced:
+Customizing file associations with <tt class=
+"filename">~/.mailcap</tt></td>
+<td width="10%" align="right" valign="bottom"><a href="x2112.htm"
+accesskey="N">Next</a></td>
+</tr>
+</table>
+<hr class="c70" width="100%" /></div>
+<div class="sect1">
+<h1 class="sect1"><a name="editingmailcap" id="editingmailcap">Editing
+<tt class="filename">~/.mailcap</tt></a></h1>
+<div class="sect2">
+<h2 class="sect2"><a name="pdffiles" id="pdffiles">Lesson 1 - PDF
+files</a></h2>
+<p>To use these scripts with your favorite mail client, web browser, etc.
+you must edit your <tt class="filename">~/.mailcap</tt> file. The
+<tt class="filename">~/.mailcap</tt> file contains lines that describe how
+to handle different content-types with helper applications. For example,
+from my <tt class="filename">~/.mailcap</tt> file come these lines:</p>
+<pre class="screen">
+&#13;application/pdf;gv '%s'; test=test -n "$DISPLAY"
+application/pdf;pdfcat '%s'; copiousoutput
+</pre>
+<p>The first line says that to view a document of type application/pdf (a
+PDF attachment) you should use the <b class="command">gv</b> program. The
+%s is a place-marker that contains the name of the pdf-file to view
+(generally this is some kind of temporary file). The last part of the line
+gives a test to indicate when this rule applies: if the DISPLAY variable
+is non-empty (i.e. when working under X11). In plain English, this line
+means that in graphical environments, <b class="command">gv</b> will open
+PDF files.</p>
+<p>If the DISPLAY variable happens to be empty, the first rule fails, and
+the second rule is tried. The second rule indicates that the file should
+be processed by <b class="command">pdfcat</b>. The final term on the line,
+copiousoutput, indicates that the output of pdfcat may be a large amount
+of text and may need to be "paged". For example, when reading a PDF in
+mutt, this tells mutt to use its built-in pager to view the text.</p>
+</div>
+<div class="sect2">
+<h2 class="sect2"><a name="htmlfiles" id="htmlfiles">Lesson 2 - HTML
+files</a></h2>
+<p>The rules for html attachments that I use are:</p>
+<pre class="screen">
+&#13;text/html; mozilla '%s'; edit=gvim -f '%s'; test=test -n "$DISPLAY"
+text/html; w3m -T text/html '%s' ; needsterminal
+text/html; w3m -T text/html -dump '%s' ; copiousoutput
+</pre>
+<p>According to the first line, HTML attachments will be displayed using
+Mozilla when working in graphical environments. Failing that, the second
+line invokes the text web browser w3m to view the attachment. Notice the
+term needsterminal. This indicates that the program requires a console
+window, xterm, or similar to function (this is typically the case that
+applies when working over the phone).</p>
+<p>The third rule has a special relationship to mutt. The <code class=
+"option">-dump</code> mode of w3m works like a filter to dump the text of
+a web page to the console (as opposed to browsing it interactively). In
+this mode, copiousoutput is appropriate. But more importantly, in your
+<tt class="filename">~/.muttrc</tt> you can add a line to automatically
+view HTML attachments. This is particularly convenient for interacting
+with those who send HTML emails. When auto-viewing, mutt will always
+choose a copiousoutput rule, even when it is placed later in the
+<tt class="filename">~/.mailcap</tt> file. To enable this, add to your
+<tt class="filename">~/.muttrc</tt>:</p>
+<pre class="screen">
+&#13;auto_view text/html
+</pre>
+<p>As always in mutt, you have the option of pressing <b class=
+"keycap">v</b> to view the attachments and selecting an HTML attachment
+for interactive viewing (according to the first or second rule as
+appropriate). The effect is that you get automatic text rendering of the
+HTML in your mail (which can be quoted when replying, etc.) and the
+ability to have a more interactive or graphical rendering if you
+desire.</p>
+<p>If you wish, you can set any mime-types to be auto-viewed. For example,
+if you turn it on for application/pdf, then the rule above will ensure
+that the text of PDF attachments is automatically extracted in the mails
+you read (and you can choose to view them specifically by pressing
+<b class="keycap">v</b> and selecting the appropriate attachment).</p>
+</div>
+<div class="sect2">
+<h2 class="sect2"><a name="finishingup" id="finishingup">Finishing
+up</a></h2>
+<p>To round out the <tt class="filename">~/.mailcap</tt> file, I include a
+few Microsoft Word rules, and a few generic rules:</p>
+<pre class="screen">
+&#13;application/msword; abiword '%s'; test=test -n "$DISPLAY"
+application/msword; wordcat '%s'; copiousoutput
+
+text/*; gview -Mf '%s' ; edit=gvim -f '%s'; compose=gvim -f '%s'; test=test -n "$DISPLAY"
+text/*; view -Mf '%s' ; edit=vim -f '%s'; compose=vim -f '%s'; needsterminal
+</pre>
+<p>The first two should require no further comment. The last are generic
+rules that match any text mime-type that doesn't match a more specific
+rule. The first line specifies that in graphical environments gview/gvim
+(a graphical Vi program) is used to view/edit/compose as appropriate.
+Otherwise, text versions of Vi are used.</p>
+</div>
+</div>
+<div class="NAVFOOTER">
+<hr class="c70" width="100%" />
+<table summary="Footer navigation table" width="100%" border="0"
+cellpadding="0" cellspacing="0">
+<tr>
+<td width="33%" align="left" valign="top"><a href="x2031.htm" accesskey=
+"P">Prev</a></td>
+<td width="34%" align="center" valign="top"><a href="book1.htm" accesskey=
+"H">Home</a></td>
+<td width="33%" align="right" valign="top"><a href="x2112.htm" accesskey=
+"N">Next</a></td>
+</tr>
+<tr>
+<td width="33%" align="left" valign="top">Helper scripts</td>
+<td width="34%" align="center" valign="top"><a href="a2016.htm" accesskey=
+"U">Up</a></td>
+<td width="33%" align="right" valign="top">Other resources</td>
+</tr>
+</table>
+</div>
+</body>
+</html>
