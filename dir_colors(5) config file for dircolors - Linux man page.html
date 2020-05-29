@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>dir_colors(5): config file for dircolors - Linux man page</title>
+<base href="https://linux.die.net/man/5/dir_colors">
+<link rel="canonical" href="https://linux.die.net/man/5/dir_colors">
+<link rel="stylesheet" type="text/css" href="/style/white.css">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link href="/style/search.xml" rel="search" title="Search the die.net site" type="application/opensearchdescription+xml">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="The program ls(1) uses the environment variable LS_COLORS to determine the colors in which the filenames are to be displayed. This environment variable">
+<script type="text/javascript">
+<!--
+var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-50820-6']);_gaq.push(['_trackPageview']);
+window.google_analytics_uacct = 'UA-50820-6';
+// -->
+</script>
+</head>
+
+<body>
+<div id=bg>
+<div id=logo>
+<a href="https://www.die.net/"><img
+src="/style/logo.svg" alt="die.net" width=120 height=120
+onerror="this.onerror=null; this.src='/style/logo.png'"></a>
+</div>
+<div id=content>
+
+<!-- google_ad_section_start -->
+<h1>dir_colors(5) - Linux man page</h1>
+
+<h2>Name</h2>
+dir_colors - configuration file for <i><b><a href="/man/1/dircolors">dircolors</a></b>(1)</i>
+<h2>Description</h2>
+<div id=adright>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-5823754184406795"
+     data-ad-slot="7130739364"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+The program <i><b><a href="/man/1/ls">ls</a></b>(1)</i> uses the environment variable <b>LS_COLORS</b> to determine the
+colors in which the filenames are to be displayed. This environment variable
+<p>is usually set by a command like
+<blockquote>eval 'dircolors some_path/dir_colors'</blockquote>
+<p>found in a system default shell initialization file, like <i>/etc/profile</i> or <i>/etc/csh.cshrc</i>. (See also <i><b><a href="/man/1/dircolors" rel="nofollow">dircolors</a></b>(1)</i>.) Usually, the
+file used here is <i>/etc/DIR_COLORS</i> and can be overridden by a <i>.dir_colors</i> file in one's home directory.
+<p>This configuration file consists of several statements, one per line. Anything right of a hash mark (#) is treated as a comment, if the hash mark is at the
+beginning of a line or is preceded by at least one whitespace. Blank lines are ignored.
+<p>The <i>global</i> section of the file consists of any statement before the first <b>TERM</b> statement. Any statement in the global section of the file is
+considered valid for all terminal types. Following the global section is one or more <i>terminal-specific</i> sections, preceded by one or more <b>TERM</b>
+statements which specify the terminal types (as given by the <b>TERM</b> environment variable) the following declarations apply to. It is always possible to
+override a global declaration by a subsequent terminal-specific one.
+<p>The following statements are recognized; case is insignificant:
+<dl compact>
+<dt><b>TERM <i>terminal-type</i></b>
+<dd>Starts a terminal-specific section and specifies which terminal it applies to. Multiple <b>TERM</b> statements can be used to create a section which
+applies for several terminal types.
+<dt><b>COLOR yes|all|no|none|tty</b>
+<dd>(Slackware only; ignored by GNU <i><b><a href="/man/1/dircolors" rel="nofollow">dircolors</a></b>(1)</i>.) Specifies that colorization should always be enabled (<i>yes</i> or <i>all</i>), never enabled
+(<i>no</i> or <i>none</i>), or enabled only if the output is a terminal (<i>tty</i>). The default is <i>no</i>.
+<dt><b>EIGHTBIT yes|no</b>
+<dd>(Slackware only; ignored by GNU <i><b><a href="/man/1/dircolors" rel="nofollow">dircolors</a></b>(1)</i>.) Specifies that eight-bit ISO 8859 characters should be enabled by default. For compatibility
+reasons, this can also be specified as 1 for <i>yes</i> or 0 for <i>no</i>. The default is <i>no</i>.
+<dt><b>OPTIONS <i>options</i></b>
+<dd>(Slackware only; ignored by GNU <i><b><a href="/man/1/dircolors" rel="nofollow">dircolors</a></b>(1)</i>.) Adds command-line options to the default <b>ls</b> command line. The options can be any valid
+<b>ls</b> command-line options, and should include the leading minus sign. Note that <b>dircolors</b> does not verify the validity of these options.
+<dt><b>NORMAL <i>color-sequence</i></b>
+<dd>Specifies the color used for normal (nonfilename) text.
+<dt><b>FILE <i>color-sequence</i></b>
+<dd>Specifies the color used for a regular file.
+<dt><b>DIR <i>color-sequence</i></b>
+<dd>Specifies the color used for directories.
+<dt><b>LINK <i>color-sequence</i></b>
+<dd>Specifies the color used for a symbolic link.
+<dt><b>ORPHAN <i>color-sequence</i></b>
+<dd>Specifies the color used for an orphaned symbolic link (one which points to a nonexistent file). If this is unspecified, <b>ls</b> will use the <b>LINK</b>
+color instead.
+<dt><b>MISSING <i>color-sequence</i></b>
+<dd>Specifies the color used for a missing file (a nonexistent file which nevertheless has a symbolic link pointing to it). If this is unspecified, <b>ls</b>
+will use the <b>FILE</b> color instead.
+<dt><b>FIFO <i>color-sequence</i></b>
+<dd>Specifies the color used for a FIFO (named pipe).
+<dt><b>SOCK <i>color-sequence</i></b>
+<dd>Specifies the color used for a socket.
+<dt><b>DOOR <i>color-sequence</i></b>
+<dd>(Supported since fileutils 4.1) Specifies the color used for a door (Solaris 2.5 and later).
+<dt><b>BLK <i>color-sequence</i></b>
+<dd>Specifies the color used for a block device special file.
+<dt><b>CHR <i>color-sequence</i></b>
+<dd>Specifies the color used for a character device special file.
+<dt><b>EXEC <i>color-sequence</i></b>
+<dd>Specifies the color used for a file with the executable attribute set.
+<dt><b>LEFTCODE <i>color-sequence</i></b>
+<dd>Specifies the <i>left code</i> for non-ISO 6429 terminals (see below).
+<dt><b>RIGHTCODE <i>color-sequence</i></b>
+<dd>Specifies the <i>right code</i> for non-ISO 6429 terminals (see below).
+<dt><b>ENDCODE <i>color-sequence</i></b>
+<dd>Specifies the <i>end code</i> for non-ISO 6429 terminals (see below).
+<dt><b>*<i>extension</i></b> <i>color-sequence</i>
+<dd>Specifies the color used for any file that ends in <i>extension</i>.
+<dt><b>.<i>extension</i></b> <i>color-sequence</i>
+<dd>Same as <b>*</b>.<i>extension</i>. Specifies the color used for any file that ends in .<i>extension</i>. Note that the period is included in the extension,
+which makes it impossible to specify an extension not starting with a period, such as <b>~</b> for <b>emacs</b> backup files. This form should be considered
+obsolete.</dl>
+<h3>ISO 6429 (ANSI) color sequences</h3>
+Most color-capable ASCII terminals today use ISO 6429 (ANSI) color
+sequences, and many common terminals without color capability, including <b>xterm</b> and the widely used and cloned DEC VT100, will recognize ISO 6429 color
+codes and harmlessly eliminate them from the output or emulate them. <b>ls</b> uses ISO 6429 codes by default, assuming colorization is enabled.
+<p>ISO 6429 color sequences are composed of sequences of numbers separated by semicolons. The most common codes are:
+<blockquote><pre class="code"> 0     to restore default color
+ 1     for brighter colors
+ 4     for underlined text
+ 5     for flashing text
+30     for black foreground
+31     for red foreground
+32     for green foreground
+33     for yellow (or brown) foreground
+34     for blue foreground
+35     for purple foreground
+36     for cyan foreground
+37     for white (or gray) foreground
+40     for black background
+41     for red background
+42     for green background
+43     for yellow (or brown) background
+44     for blue background
+45     for purple background
+46     for cyan background
+47     for white (or gray) background</pre></blockquote>
+<p>Not all commands will work on all systems or display devices.
+<p><b>ls</b> uses the following defaults:
+<blockquote><pre class="code">NORMAL   0       Normal (nonfilename) text
+FILE     0       Regular file
+DIR      32      Directory
+LINK     36      Symbolic link
+ORPHAN   undefined       Orphaned symbolic link
+MISSING  undefined       Missing file
+FIFO     31      Named pipe (FIFO)
+SOCK     33      Socket
+BLK      44;37   Block device
+CHR      44;37   Character device
+EXEC     35      Executable file</pre></blockquote>
+<p>A few terminal programs do not recognize the default properly. If all text gets colorized after you do a directory listing, change the <b>NORMAL</b> and
+<b>FILE</b> codes to the numerical codes for your normal foreground and background colors.
+<h3>Other terminal types (advanced configuration)</h3>
+If you have a color-capable (or otherwise highlighting)
+terminal (or printer!) which uses a different set of codes, you can still generate a suitable setup. To do so, you will have to use the <b>LEFTCODE</b>,
+<b>RIGHTCODE</b>, and <b>ENDCODE</b> definitions.
+<p>When writing out a filename, <b>ls</b> generates the following output sequence: <b>LEFTCODE</b> <i>typecode</i> <b>RIGHTCODE</b> <i>filename</i>
+<b>ENDCODE</b>, where the <i>typecode</i> is the color sequence that depends on the type or name of file. If the <b>ENDCODE</b> is undefined, the sequence
+<b>LEFTCODE NORMAL RIGHTCODE</b> will be used instead. The purpose of the left- and rightcodes is merely to reduce the amount of typing necessary (and to hide
+ugly escape codes away from the user). If they are not appropriate for your terminal, you can eliminate them by specifying the respective keyword on a line by
+itself.
+<p><b>NOTE:</b> If the <b>ENDCODE</b> is defined in the global section of the setup file, it <i>cannot</i> be undefined in a terminal-specific section of the
+file. This means any <b>NORMAL</b> definition will have no effect. A different <b>ENDCODE</b> can, however, be specified, which would have the same effect.
+<h3>Escape sequences</h3>
+To specify control- or blank characters in the color sequences or filename extensions,
+either C-style \-escaped notation or <b>stty</b>-style ^-notation can be used. The C-style notation includes the following characters:
+<blockquote><pre class="code">\a      Bell (ASCII 7)
+\b      Backspace (ASCII 8)
+\e      Escape (ASCII 27)
+\f      Form feed (ASCII 12)
+\n      Newline (ASCII 10)
+\r      Carriage Return (ASCII 13)
+\t      Tab (ASCII 9)
+\v      Vertical Tab (ASCII 11)
+\?      Delete (ASCII 127)
+\nnn Any character (octal notation)
+\xnnn        Any character (hexadecimal notation)
+\_      Space
+\\     Backslash (\)
+\^      Caret (^)
+\#      Hash mark (#)</pre></blockquote>
+<p>Please note that escapes are necessary to enter a space, backslash, caret, or any control character anywhere in the string, as well as a hash mark as the
+first character.
+<h2>Files</h2>
+<dl compact>
+<dt><i>/etc/DIR_COLORS</i>
+<dd>System-wide configuration file.
+<dt><i>~/.dir_colors</i>
+<dd>Per-user configuration file.</dl>
+<p>This page describes the <b>dir_colors</b> file format as used in the fileutils-4.1 package; other versions may differ slightly.
+<h2>Notes</h2>
+The default <b>LEFTCODE</b> and <b>RIGHTCODE</b> definitions, which are used by ISO 6429 terminals
+are:
+<blockquote><pre class="code">LEFTCODE  \e[
+RIGHTCODE m</pre></blockquote>
+<p>The default <b>ENDCODE</b> is undefined.
+<h2>See Also</h2>
+<i><b><a href="/man/1/dircolors" rel="nofollow">dircolors</a></b>(1)</i>, <i><b><a href="/man/1/ls" rel="nofollow">ls</a></b>(1)</i>, <i><b><a href="/man/1/stty">stty</a></b>(1)</i>, <i><b><a href="/man/1/xterm">xterm</a></b>(1)</i>
+
+<!-- google_ad_section_end -->
+<h2>Referenced By</h2>
+<b><a href="/man/1/vgd" rel="nofollow">vgd</a></b>(1),
+<b><a href="/man/1/viewglob" rel="nofollow">viewglob</a></b>(1)
+<div id=adbottom>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-5823754184406795"
+     data-ad-slot="8789940313"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+</div>
+<div id=menu>
+<dl>
+<dt>Site Search</dt>
+<dd>
+<form id="cse-search-box-menu" action="https://www.google.com/cse">
+<input name="q" type="text" size="10">
+<input type="hidden" name="sa" value="Search">
+<input type="hidden" name="ie" value="ISO-8859-1">
+<input type="hidden" name="cx" value="partner-pub-5823754184406795:54htp1rtx5u">
+<input type="hidden" name="cof" value="FORID:9">
+</form>
+<script type="text/javascript">
+<!--
+document.forms["cse-search-box-menu"].action = "https://www.die.net/search/";
+// -->
+</script>
+</dd></dl>
+
+
+
+<dl>
+<dt>Library</dt>
+<dd><a href="https://linux.die.net/">linux docs</a></dd>
+<dd><a href="https://linux.die.net/man/">linux man pages</a></dd>
+<dd><a href="https://www.die.net/musings/page_load_time/">page load time</a></dd>
+</dl>
+<dl>
+<dt>Toys</dt>
+<dd><a href="https://www.die.net/earth/">world sunlight</a></dd>
+<dd><a href="https://www.die.net/moon/">moon phase</a></dd>
+<dd><a href="http://trace.die.net/">trace explorer</a></dd>
+</dl>
+
+
+<dl>
+<dt><a href="/man/5/"><img src="/style/back.gif" alt="Back"
+width=20 height=22></a></dt><dd></dd>
+</dl>
+</div></div>
+<script type="text/javascript">
+<!--
+if (top.location != self.location) top.location = self.location;
+if (/[?&][pq]=/.test(document.referrer)) document.write(unescape("%3Cscript src='/style/highlight.js' type='text/javascript'%3E%3C/script%3E"));
+function googleTranslateElementInit() {new google.translate.TranslateElement({pageLanguage: 'en', floatPosition: google.translate.TranslateElement.FloatPosition.TOP_RIGHT, gaTrack: true, gaId: 'UA-50820-6'});}
+if (!/^en/i.test(window.navigator.userLanguage||window.navigator.language)) document.write(unescape("%3Cscript src='//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit' type='text/javascript'%3E%3C/script%3E"));
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+// -->
+</script>
+</body>
+</html>
