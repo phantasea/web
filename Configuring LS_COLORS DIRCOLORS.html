@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en-GB"><head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<base href="/skins/bigsoft_bootstrap_blog_skin/" />
+	
+<!-- Start Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P5C624M');</script>
+<!-- End Google Tag Manager -->
+	<title>Configuring LS_COLORS</title>
+		<meta name="keywords" content="configuration, fileutils, ls_colors, putty, unix" />
+	<meta property="og:title" content="Configuring LS_COLORS" />
+<meta property="og:url" content="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors" />
+<meta property="og:description" content="The directory lister under UNIX is called &#039;ls&#039;. In the deep and distant past this was a very black and white affair. GNU has changed all that by introducing an environment variable called LS_COLORS which allows you to set the colours of files based on ex&hellip;" />
+<meta property="og:site_name" content="Mr N" />
+	<meta property="twitter:creator" content="@d_newcomb" />
+<meta property="twitter:card" content="summary" />
+		<meta name="generator" content="b2evolution 6.9.7-stable" /> <!-- Please leave this for stats -->
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.bigsoft.co.uk/blog/?tempskin=_rss2" />
+	<link rel="alternate" type="application/atom+xml" title="Atom" href="http://www.bigsoft.co.uk/blog/?tempskin=_atom" />
+			<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.bigsoft.co.uk/xmlsrv/rsd.php?blog=3" />
+	
+	<!-- headlines: -->
+	<script type="text/javascript" src="/rsc/js/jquery.min.js?v=6.9.7-stable-2018-02-23"></script>
+	<link type="text/css" rel="stylesheet" href="/rsc/css/font-awesome.min.css?v=6.9.7-stable-2018-02-23" />
+	<script type="text/javascript" src="/rsc/js/bootstrap/bootstrap.min.js?v=6.9.7-stable-2018-02-23"></script>
+	<link type="text/css" rel="stylesheet" href="/rsc/css/bootstrap/bootstrap.min.css?v=6.9.7-stable-2018-02-23" />
+	<link type="text/css" rel="stylesheet" href="/rsc/build/bootstrap-b2evo_base.bmin.css?v=6.9.7-stable-2018-02-23" />
+	<link type="text/css" rel="stylesheet" href="style.css?v=bigsoft_bootstrap_blog_skin+6.9.7+6.9.7-stable-2018-02-23" />
+	<script type="text/javascript">
+	/* <![CDATA[ */
+		var b2evo_colorbox_params = {
+						maxWidth: jQuery( window ).width() > 480 ? "95%" : "100%",
+						maxHeight: jQuery( window ).height() > 480 ? "90%" : "100%",
+						slideshow: true,
+						slideshowAuto: false
+					};
+					var b2evo_colorbox_params_post = {current: "{current} / {total}",
+					previous: "Previous",
+					next: "Next",
+					close: "Close",
+					openNewWindowText: "Open in a new window",
+					slideshowStart: "Start slideshow",
+					slideshowStop: "Stop slideshow",
+					minWidth: 255};
+					b2evo_colorbox_params_post = jQuery.extend( {}, b2evo_colorbox_params, b2evo_colorbox_params_post );
+					var b2evo_colorbox_params_cmnt = {current: "{current} / {total}",
+					previous: "Previous",
+					next: "Next",
+					close: "Close",
+					openNewWindowText: "Open in a new window",
+					slideshowStart: "Start slideshow",
+					slideshowStop: "Stop slideshow",
+					minWidth: 255};
+					b2evo_colorbox_params_cmnt = jQuery.extend( {}, b2evo_colorbox_params, b2evo_colorbox_params_cmnt );
+					var b2evo_colorbox_params_user = {current: "{current} / {total}",
+					previous: "Previous",
+					next: "Next",
+					close: "Close",
+					openNewWindowText: "Open in a new window",
+					slideshowStart: "Start slideshow",
+					slideshowStop: "Stop slideshow",
+					minWidth: 255};
+					b2evo_colorbox_params_user = jQuery.extend( {}, b2evo_colorbox_params, b2evo_colorbox_params_user );
+					var b2evo_colorbox_params_other = {current: "{current} / {total}",
+					previous: "Previous",
+					next: "Next",
+					close: "Close",
+					openNewWindowText: "Open in a new window",
+					slideshowStart: "Start slideshow",
+					slideshowStop: "Stop slideshow",
+					minWidth: 255};
+					b2evo_colorbox_params = jQuery.extend( {}, b2evo_colorbox_params, b2evo_colorbox_params_other );
+	/* ]]> */
+	</script>
+	<script type="text/javascript" async src="/rsc/js/build/colorbox.bmin.js?v=6.9.7-stable-2018-02-23"></script>
+	<link type="text/css" rel="stylesheet" href="/rsc/build/colorbox-bootstrap.min.css?v=6.9.7-stable-2018-02-23" />
+	<script type="text/javascript">
+	/* <![CDATA[ */
+		jQuery( function () { jQuery( '[data-toggle="tooltip"]' ).tooltip() } )
+	/* ]]> */
+	</script>
+	<script type="text/javascript" async src="/rsc/js/build/popover.bmin.js?v=6.9.7-stable-2018-02-23"></script>
+	<script type="text/javascript" src="/rsc/js/build/textcomplete.bmin.js?v=6.9.7-stable-2018-02-23"></script>
+	<script type="text/javascript" src="/rsc/js/jquery/jquery.ui.b2evo.min.js?v=6.9.7-stable-2018-02-23"></script>
+	<script type="text/javascript" src="/rsc/js/build/bootstrap-evo_frontoffice.bmin.js?v=6.9.7-stable-2018-02-23"></script>
+	<style type="text/css">
+<!--
+#skin_wrapper { background-color: #fff }
+#skin_wrapper { color: #333 }
+a { color: #337ab7 }
+h4.evo_comment_title a, h4.panel-title a.evo_comment_type, .pagination li:not(.active) a, .pagination li:not(.active) span { color: #337ab7 !important }
+.pagination li.active a, .pagination li.active span { color: #fff; background-color: #337ab7 !important; border-color: #337ab7 }
+h4.panel-title a { color: #337ab7 }
+a:hover { color: #23527c }
+.evo_hasbgimg { color: #fff }
+.evo_hasbgimg a:not(.btn) { color: #6cb2ef }
+.evo_hasbgimg a:not(.btn):hover { color: #6cb2ef }
+ul.nav.nav-tabs li a.selected { color: #333 }
+ul.nav.nav-tabs li a.selected { background-color: #fff }
+ul.nav.nav-tabs li a.default:hover { background-color: #eee; border-top-color: #eee; border-left-color: #eee; border-right-color: #eee }
+.panel, .pagination>li>a { background-color: #ffffff }
+
+			.pagination li a, .pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover,
+			.nav-tabs,
+			.panel-default, .panel .panel-footer,
+			.panel .table, .panel .table th, .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th
+			{ border-color: #ddd }
+.panel .panel-heading { border-color: #ddd; background-color: #ddd }
+.nav-tabs>li>a:hover { border-bottom: 1px solid #ddd }
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover { border-top-color: #ddd; border-left-color: #ddd; border-right-color: #ddd }
+.panel .panel-heading, .panel .panel-footer { background-color: #f5f5f5 }
+.evo_pictured_layout { background-image: url(http://www.bigsoft.co.uk/media/blogs/home/bigsoft-eclipse-lowres.jpg?mtime=1520526375) }
+
+-->
+		</style>
+	<link type="text/css" rel="stylesheet" href="/rsc/css/sitewide_style.css?v=6.9.7-stable-2018-02-23" />
+	<!--[if IE 9 ]>
+	<link type="text/css" rel="stylesheet" href="/rsc/css/ie9.css?v=6.9.7-stable-2018-02-23" />
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="/plugins/wikitables_plugin/wikitables.css?v=6.9.7+6.9.7-stable-2018-02-23" />
+	<script type="text/javascript" src="/plugins/prism_full_plugin/js/prism.js?v=6.9.7+6.9.7-stable-2018-02-23"></script>
+	<link type="text/css" rel="stylesheet" href="/plugins/prism_full_plugin/css/prism.css?v=6.9.7+6.9.7-stable-2018-02-23" />
+	<script type="text/javascript" src="/rsc/js/flowplayer/flowplayer.min.js?v=6.9.7-stable-2018-02-23"></script>
+	<script type="text/javascript">
+	/* <![CDATA[ */
+		flowplayer.conf = { flashfit: true, embed: false }
+	/* ]]> */
+	</script>
+	<link type="text/css" rel="stylesheet" href="/plugins/flowplayer_plugin/skin/minimalist.css?v=6.9.7+6.9.7-stable-2018-02-23" />
+	<style type="text/css">
+	.flowplayer_block {
+	margin: 1em auto 0;
+	background: #000;
+}
+.flowplayer_block .flowplayer {
+	display: block;
+	margin: auto;
+}
+.flowplayer_text {
+	font-size: 84%;
+	text-align: center;
+	margin: 4px 0;
+}
+	</style>
+	<script type="text/javascript">
+	/* <![CDATA[ */
+		// Paths and vars are used by JS functions:
+		var htsrv_url = 'http://www.bigsoft.co.uk/htsrv/';
+		var restapi_url = 'http://www.bigsoft.co.uk/htsrv/rest.php?api_version=1&api_request=';
+		var b2evo_icons_type = 'fontawesome-glyphicons';
+		var blog_id = '3';
+	/* ]]> */
+	</script>
+
+		</head>
+
+<body class="pictured unknown_device page_cached coll_3 disp_single detail_single item_45 anonymous usergroup_none">
+
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P5C624M"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<link type="text/css" rel="stylesheet" href="/plugins/cookie_consent_plugin/style.css?v=6.9.7+6.9.7-stable-2018-02-23" /><script type="text/javascript" src="/rsc/js/jquery/jquery.cookie.min.js?v=6.9.7-stable-2018-02-23"></script><script type="text/javascript">
+var eu_cookie_consent = jQuery.cookie( "eu_cookie_consent" )
+if( eu_cookie_consent != "accepted" )
+{ // Print a block only if this was not accepted yet:
+	document.write( '<div id="eu_cookie_consent"><div><h3>Cookies</h3><p>This site uses cookies to offer you a better browsing experience.</p><p>By continuing to use our website without changing your settings, you are agreeing to our use of cookies.</p></div><div class="eu_cookie_consent__button"><button class="btn btn-info">Accept</button></div></div>' );
+}
+
+jQuery( document ).ready( function()
+{
+	jQuery( "#eu_cookie_consent button" ).click( function()
+	{
+		jQuery.cookie( "eu_cookie_consent", "accepted", { expires: 365, path: "/" } )
+		jQuery( "#eu_cookie_consent" ).remove();
+	} );
+} );
+</script>
+<div id="skin_wrapper" class="skin_wrapper_anonymous">
+<!-- Start of skin_wrapper -->
+
+<nav class="sitewide_header">
+
+<a href="http://www.bigsoft.co.uk/" class="swhead_sitename">BigSoft</a>
+
+<a href="http://www.bigsoft.co.uk/" class="swhead_item " title="BigSoft Limited">Home</a><a href="http://www.bigsoft.co.uk/blog/" class="swhead_item swhead_item_selected" title="Mr N">Mr N</a><a href="http://www.bigsoft.co.uk/?disp=msgform&amp;recipient_id=1&amp;redirect_to=http%3A%2F%2Fwww.bigsoft.co.uk%2Fblog%2F2008%2F04%2F11%2Fconfiguring-ls_colors%3Fdisp%3Dsingle%26title%3Dconfiguring-ls_colors%26more%3D1%26c%3D1%26tb%3D1%26pb%3D1" class="swhead_item swhead_item_nav_md ">Contact</a>
+	<div class="floatright">
+	<a href="http://www.bigsoft.co.uk/?disp=login&redirect_to=%2Fblog%2F2008%2F04%2F11%2Fconfiguring-ls_colors%3Fdisp%3Dsingle%26title%3Dconfiguring-ls_colors%26more%3D1%26c%3D1%26tb%3D1%26pb%3D1&return_to=%2Fblog%2F2008%2F04%2F11%2Fconfiguring-ls_colors%3Fdisp%3Dsingle%26title%3Dconfiguring-ls_colors%26more%3D1%26c%3D1%26tb%3D1%26pb%3D1&source=menu%20link" class="swhead_item_login swhead_item ">Log in</a>	<label for="nav-trigger"></label>
+	</div>
+	<div class="clear"></div>
+</nav>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger">
+<div class="sitewide_header_menu_wrapper">
+	<ul class="sitewide_header_menu">
+		<li class="swhead_item swhead_item_menu_sm"><a href="http://www.bigsoft.co.uk/" class="" title="BigSoft Limited">Home</a></li><li class="swhead_item swhead_item_menu_sm"><a href="http://www.bigsoft.co.uk/blog/" class="swhead_item_selected" title="Mr N">Mr N</a></li><li class="swhead_item swhead_item_menu_md"><a href="http://www.bigsoft.co.uk/?disp=msgform&amp;recipient_id=1&amp;redirect_to=http%3A%2F%2Fwww.bigsoft.co.uk%2Fblog%2F2008%2F04%2F11%2Fconfiguring-ls_colors%3Fdisp%3Dsingle%26title%3Dconfiguring-ls_colors%26more%3D1%26c%3D1%26tb%3D1%26pb%3D1" class="swhead_item">Contact</a></li><hr style="margin: 0; border-color: #696c72;">	</ul>
+</div><div class="evo_pictured_layout"><img class="evo_pictured__image" src="http://www.bigsoft.co.uk/media/blogs/home/bigsoft-eclipse-lowres.jpg?mtime=1520526375" />
+<div class="container main_page_wrapper">
+
+<header class="row">
+
+	<!-- DJN -->
+	<div class="col-xs-12">
+		<div class="evo_container evo_container__header">
+		<div class="evo_widget widget_core_coll_title"><h1><a href="http://www.bigsoft.co.uk/blog/">Mr N</a></h1></div><div class="evo_widget widget_core_coll_tagline">Everything I want to remember</div>		</div>
+	</div><!-- .col -->
+
+</header><!-- .row -->
+
+
+<nav class="row">
+
+	<div class="col-md-12">
+		<ul class="nav nav-tabs evo_container evo_container__menu">
+				</ul>
+	</div><!-- .col -->
+
+</nav><!-- .row -->
+
+
+<div class="row">
+
+	<div class="col-md-9">
+
+		<main><!-- This is were a link like "Jump to main content" would land -->
+
+		<!-- ================================= START OF MAIN AREA ================================== -->
+
+		
+		<nav><ul class="pager"><li class="previous"><a href="http://www.bigsoft.co.uk/blog/2008/04/25/dancing-girl-optical-illusion">&laquo; Dancing girl optical illusion</a></li><li class="next"><a href="http://www.bigsoft.co.uk/blog/2008/03/06/changes-to-horde-accepted">Spam filtering enhancement to Horde accepted &raquo;</a></li></ul></nav>
+		
+		
+		<div class="evo_content_block">
+<article id="item_45" class="evo_post evo_content_block evo_post__ptyp_1 evo_post__published" lang="en-GB">
+
+	<header>
+	<div class="evo_post_title"><h1>Configuring LS_COLORS</h1></div>
+		<div class="small text-muted">
+	<div class="evo_widget widget_core_item_info_line">Posted by <a href="http://www.bigsoft.co.uk/?disp=user&amp;user_ID=1" title="Show the user profile" class="login user nowrap" rel="bubbletip_user_1"><span class="identity_link_username">davidnewcomb</span></a> on 11 Apr 2008  in <a href="http://www.bigsoft.co.uk/blog/techie/" title="Browse category">Techie</a> </div>	</div>
+		</header>
+
+			<div class="evo_container evo_container__item_single">
+		<div class="evo_widget widget_core_item_content"><section class="evo_post__full"><div class="evo_post__full_text clearfix"><p>The directory lister under UNIX is called <code class="codespan">ls</code>. In the deep and distant past this was a very black and white affair. GNU has changed all that by introducing an environment variable called <code class="codespan">LS_COLORS</code> which allows you to set the colours of files based on extension, permissions and file type.</p>
+<p>As usual the instructions on how to configure it are locked away so that only a privileged few know how to configure them. When I started looking for this holy grail, I came across some poor guy who had worked it out through trial and error. I thought that there must be some documentation, somewhere on the internet. But, no! I have pieced together all the information I could find from mail list postings, support forums and when I eventually found it, the source code.</p>
+<p>I will attempt to describe what I have discovered on my journey so that others may start from here with a better understanding of how <code class="codespan">LS_COLORS</code> works.</p>
+<p>The <a href="http://www.manpages.info/freebsd/ls.1.html" class="extlink" target="_blank">BSD implementation</a> of <code class="codespan">ls</code> used in BSD, FreeBSD and MacOS is slightly different. It uses a set or unset <code class="codespan">CLICOLOR</code> environment variable or the <code class="codespan">ls</code> command line switch <code class="codespan">-G</code> to indicate whether to use the colours defined in the environment variable <code class="codespan">LSCOLORS</code>. Whereas GNU's <code class="codespan">ls</code> uses the command line switch <code class="codespan">&minus;&minus;colour</code> and the environment variable <code class="codespan">LS_COLORS</code> instead (Thanks <a href="http://unix.stackexchange.com/questions/2897/clicolor-and-ls-colors-in-bash#2904" class="extlink" target="_blank">Gilles</a>).</p>
+<p>If you do not specify a colour to use then the default will be used, which is why unsetting <code class="codespan">LS_COLORS</code> has no visible effect. The defaults can be obtained by running the <code class="codespan">dircolors</code> command</p>
+<p><pre class="line-numbers"><code class="language-bash">dircolors --print-database
+</code></pre></p>
+<p>which gives you</p>
+<!-- codeblock  line=1--><pre class="codeblock"><code>
+LS_COLORS='rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lz=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.axa=00;36:*.oga=00;36:*.spx=00;36:*.xspf=00;36:';
+export LS_COLORS
+</code></pre><!-- /codeblock -->
+<p>The database in question is a globally readable file which can be overridden depending on your terminal type. The database file is initially set to <code class="codespan">/etc/DIR_COLORS</code> then overridden with one of the following. The first being the least precedent and the last being the most.</p>
+<ul>
+<li><code class="codespan">/etc/DIR_COLORS.$TERM</code></li>
+<li><code class="codespan">/etc/DIR_COLORS.$TERM</code></li>
+<li><code class="codespan">$HOME/.dircolors</code></li>
+<li><code class="codespan">$HOME/.dircolors.$TERM</code></li>
+<li><code class="codespan">$HOME/.dir_colors</code></li>
+<li><code class="codespan">$HOME/.dir_colors.$TERM</code></li>
+</ul>
+<p>This configuration file has several options:</p>
+<ul>
+<li><code class="codespan">COLOR</code> - ether:<ul>
+<li><strong>tty</strong> (add colour to <code class="codespan">ls</code> when output is on the command line)</li>
+<li><strong>all</strong> (all colours to ls on the command line and when piping i.e. <code class="codespan">ls > file.txt</code> will have colour coding information in it)</li>
+<li><strong>none</strong> (switch off)</li>
+</ul>
+</li>
+<li><code class="codespan">OPTIONS</code> - strictly not related to <code class="codespan">LS_COLORS</code>. This allows you to add extra options to the <code class="codespan">ls</code> command.</li>
+<li><code class="codespan">TERM</code> - one line per terminal type that supports colour.</li>
+<li><code class="codespan">EIGHTBIT</code> - 1 (on) or 0 (off) to allow 8-bit output.</li>
+<li>and finally the colour definitions for file type and file extensions.</li>
+</ul>
+<p>On most systems the <code class="codespan">ls</code> command has been aliased to use the coloured option by default:
+<pre class="line-numbers"><code class="language-bash">alias "ls=ls --color=auto"
+</code></pre></p>
+<p>The <code class="codespan">LS_COLORS</code> environment variable is a colon separated list of key=colour pairs. There are 2 types of key: file types and file extensions. </p>
+<p>Below is a list of all the keys (that I know of!). Thanks to <a href="http://www.linux-sxs.org/housekeeping/lscolors.html" class="extlink" target="_blank">Bartman</a> for his starter page.</p>
+<table>
+<tr>
+<th> Key
+</th>
+<th> /etc/DIR_COLORS name
+</th>
+<th> Notes
+</th></tr>
+<tr>
+<td> no
+</td>
+<td> NORMAL, NORM
+</td>
+<td> Global default, although everything should be something
+</td></tr>
+<tr>
+<td> fi
+</td>
+<td> FILE
+</td>
+<td> Normal file
+</td></tr>
+<tr>
+<td> di
+</td>
+<td> DIR
+</td>
+<td> Directory
+</td></tr>
+<tr>
+<td> ln
+</td>
+<td> SYMLINK, LINK, LNK
+</td>
+<td> Symbolic link. If you set this to 'target' instead of a numerical value, the colour is as for the file pointed to.
+</td></tr>
+<tr>
+<td> pi
+</td>
+<td> FIFO, PIPE
+</td>
+<td> Named pipe
+</td></tr>
+<tr>
+<td> do
+</td>
+<td> DOOR
+</td>
+<td> <a href="http://en.wikipedia.org/wiki/Unix_file_types#Door" class="extlink" target="_blank">Door</a>
+</td></tr>
+<tr>
+<td> bd
+</td>
+<td> BLOCK, BLK
+</td>
+<td> Block device
+</td></tr>
+<tr>
+<td> cd
+</td>
+<td> CHAR, CHR
+</td>
+<td> Character device
+</td></tr>
+<tr>
+<td> or
+</td>
+<td> ORPHAN
+</td>
+<td> Symbolic link pointing to a non-existent file
+</td></tr>
+<tr>
+<td> so
+</td>
+<td> SOCK
+</td>
+<td> Socket
+</td></tr>
+<tr>
+<td> su
+</td>
+<td> SETUID
+</td>
+<td> File that is setuid (u+s)
+</td></tr>
+<tr>
+<td> sg
+</td>
+<td> SETGID
+</td>
+<td> File that is setgid (g+s)
+</td></tr>
+<tr>
+<td> tw
+</td>
+<td> STICKY_OTHER_WRITABLE
+</td>
+<td> Directory that is sticky and other-writable (+t,o+w)
+</td></tr>
+<tr>
+<td> ow
+</td>
+<td> OTHER_WRITABLE
+</td>
+<td> Directory that is other-writable (o+w) and not sticky
+</td></tr>
+<tr>
+<td> st
+</td>
+<td> STICKY
+</td>
+<td> Directory with the sticky bit set (+t) and not other-writable
+</td></tr>
+<tr>
+<td> ex
+</td>
+<td> EXEC
+</td>
+<td> Executable file (i.e. has 'x' set in permissions)
+</td></tr>
+<tr>
+<td> mi
+</td>
+<td> MISSING
+</td>
+<td> Non-existent file pointed to by a symbolic link (visible when you type ls -l)
+</td></tr>
+<tr>
+<td> lc
+</td>
+<td> LEFTCODE, LEFT
+</td>
+<td> Opening terminal code
+</td></tr>
+<tr>
+<td> rc
+</td>
+<td> RIGHTCODE, RIGHT
+</td>
+<td> Closing terminal code
+</td></tr>
+<tr>
+<td> ec
+</td>
+<td> ENDCODE, END
+</td>
+<td> Non-filename text
+</td></tr>
+<tr>
+<td> *.extension
+</td>
+<td> &nbsp;
+</td>
+<td> Every file using this extension e.g. *.jpg
+</td></tr></table>
+<p>The keys (above) are assigned a colour pattern which is a semi-colon separated list of colour codes.</p>
+<h2>Effects</h2>
+<table>
+<tr>
+<th> Code
+</th>
+<th> Property
+</th></tr>
+<tr>
+<td> 00
+</td>
+<td> Default colour
+</td></tr>
+<tr>
+<td> 01
+</td>
+<td> Bold
+</td></tr>
+<tr>
+<td> 04
+</td>
+<td> Underlined
+</td></tr>
+<tr>
+<td> 05
+</td>
+<td> Flashing text
+</td></tr>
+<tr>
+<td> 07
+</td>
+<td> Reversetd
+</td></tr>
+<tr>
+<td> 08
+</td>
+<td> Concealed
+</td></tr></table>
+<h2>Colours</h2>
+<table>
+<tr>
+<th> Code
+</th>
+<th> Property
+</th></tr>
+<tr>
+<td> 30
+</td>
+<td> Black
+</td></tr>
+<tr>
+<td> 31
+</td>
+<td> Red
+</td></tr>
+<tr>
+<td> 32
+</td>
+<td> Green
+</td></tr>
+<tr>
+<td> 33
+</td>
+<td> Orange
+</td></tr>
+<tr>
+<td> 34
+</td>
+<td> Blue
+</td></tr>
+<tr>
+<td> 35
+</td>
+<td> Purple
+</td></tr>
+<tr>
+<td> 36
+</td>
+<td> Cyan
+</td></tr>
+<tr>
+<td> 37
+</td>
+<td> Grey
+</td></tr></table>
+<h2>Backgrounds</h2>
+<table>
+<tr>
+<th> Code
+</th>
+<th> Property
+</th></tr>
+<tr>
+<td> 40
+</td>
+<td> Black background
+</td></tr>
+<tr>
+<td> 41
+</td>
+<td> Red background
+</td></tr>
+<tr>
+<td> 42
+</td>
+<td> Green background
+</td></tr>
+<tr>
+<td> 43
+</td>
+<td> Orange background
+</td></tr>
+<tr>
+<td> 44
+</td>
+<td> Blue background
+</td></tr>
+<tr>
+<td> 45
+</td>
+<td> Purple background
+</td></tr>
+<tr>
+<td> 46
+</td>
+<td> Cyan background
+</td></tr>
+<tr>
+<td> 47
+</td>
+<td> Grey background
+</td></tr></table>
+<h2>Extra colours</h2>
+<table>
+<tr>
+<th> Code
+</th>
+<th> Property
+</th></tr>
+<tr>
+<td> 90
+</td>
+<td> Dark grey
+</td></tr>
+<tr>
+<td> 91
+</td>
+<td> Light red
+</td></tr>
+<tr>
+<td> 92
+</td>
+<td> Light green
+</td></tr>
+<tr>
+<td> 93
+</td>
+<td> Yellow
+</td></tr>
+<tr>
+<td> 94
+</td>
+<td> Light blue
+</td></tr>
+<tr>
+<td> 95
+</td>
+<td> Light purple
+</td></tr>
+<tr>
+<td> 96
+</td>
+<td> Turquoise
+</td></tr>
+<tr>
+<td> 97
+</td>
+<td> White
+</td></tr>
+<tr>
+<td> 100
+</td>
+<td> Dark grey background
+</td></tr>
+<tr>
+<td> 101
+</td>
+<td> Light red background
+</td></tr>
+<tr>
+<td> 102
+</td>
+<td> Light green background
+</td></tr>
+<tr>
+<td> 103
+</td>
+<td> Yellow background
+</td></tr>
+<tr>
+<td> 104
+</td>
+<td> Light blue background
+</td></tr>
+<tr>
+<td> 105
+</td>
+<td> Light purple background
+</td></tr>
+<tr>
+<td> 106
+</td>
+<td> Turquoise background
+</td></tr>
+<tr>
+<td> 107
+</td>
+<td> White background
+</td></tr></table>
+<p>Most of the defaults are all right and not really worth changing. By default, executable directories show up as white on a light green background and normal directories which are blue on a black background. Both of these settings make your eyes go funny! So here is how to change just them.</p>
+<p><pre class="line-numbers"><code class="language-bash">LS_COLORS="ow=01;90:di=01;90"
+export LS_COLORS
+</code></pre></p>
+<p>The above snippet changes both directories colours to grey.</p>
+<p>Just as an aside, the easiest way to remap your colours is via the client control interface. I use <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/" class="extlink" target="_blank">PuTTY</a> which allows you to redefine the terminal colour settings, but I think I'll save that for another block entry!</p></div></section></div><div class="evo_widget widget_core_item_attachments"></div><div class="evo_widget widget_core_item_link"></div><div class="evo_widget widget_core_item_location"></div><div class="evo_widget widget_core_item_tags"><nav class="small post_tags">Tags:  <a rel="tag" href="http://www.bigsoft.co.uk/blog/tag/configuration">configuration</a>, <a rel="tag" href="http://www.bigsoft.co.uk/blog/tag/fileutils">fileutils</a>, <a rel="tag" href="http://www.bigsoft.co.uk/blog/tag/ls_colors">ls_colors</a>, <a rel="tag" href="http://www.bigsoft.co.uk/blog/tag/putty">putty</a>, <a rel="tag" href="http://www.bigsoft.co.uk/blog/tag/unix">unix</a></nav></div>		</div>
+		
+	<footer>
+
+		
+		<nav class="post_comments_link">
+				</nav>
+			</footer>
+
+	<!-- ===================== START OF FEEDBACK ===================== -->
+<section id="feedbacks"><a id="comments"></a><a id="pingbacks"></a><div class="clearfix"></div><h3 class="evo_comment__list_title">35 comments</h3><div class="clearfix"></div>
+
+<a id="c201"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c201" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <span class="user anonymous" rel="bubbletip_comment_201">MightyBigCar</span> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/e539c1e9d18416eeb910d1b321b94cac?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="MightyBigCar" title="MightyBigCar" class="bCommentAvatar" /></span><div class="evo_comment_text"><p>Well, it isn&#8217;t too secret.  Try here:</p>
+<pre class="codeblock"><code><a href="http://dailypackage.fedorabook.com/index.php?/archives/109-Wednesday-Why-Colour-ls.html" target="_blank">http://dailypackage.fedorabook.com/index.php?/archives/109-Wednesday-Why-Colour-ls.html</a></code></pre></div><footer class="evo_comment_footer clear text-muted"><small>22/11/08 @ 01:11</small></footer></div></article><a id="c202"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c202" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from: <a href="http://www.bigsoft.co.uk/?disp=user&amp;user_ID=1" title="Show the user profile" class="login user nowrap" rel="bubbletip_user_1"><span class="identity_link_username">davidnewcomb</span></a> <span class="bUser-member-tag">[Member]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/04d8ea8891106e00c746d31da92351c8?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="admin" title="admin" class="bCommentAvatar" /></span><div class="evo_comment_text"><p>I don&#8217;t think that your reference goes anywhere near describing how to do &#8220;<a href="http://www.bigsoft.co.uk/blog/index.php/2008/04/11/configuring-ls_colors">Configuring LS_COLORS</a>&#8221; but I&#8217;ll allow it in for two reasons:
+1) the fact that anyone makes a comment is nice!
+2) It&#8217;s another link to LS_COLORS which is a bit of a complicated affair, so the more links the better.</p>
+<p><i>Added</i>
+I know that I get about 400 page views (per month) of this article, but if I mention <b>affair</b>, will I get all the <b>porn</b> hunters looking here? Oh no, I&#8217;ve mentioned <b>porn</b> does that mean I&#8217;ll get even more? I&#8217;ll analyse the blog stats over the next couple of months and let you know&#8230; (in another blog!)<br /></p></div><footer class="evo_comment_footer clear text-muted"><small>22/11/08 @ 01:57</small></footer></div></article><a id="c206"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c206" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <span class="user anonymous" rel="bubbletip_comment_206">ri</span> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/a2f4d9c34f1f62a65e5e2d9a72673170?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="ri" title="ri" class="bCommentAvatar" /></span><div class="evo_comment_text">i&#8217;ve searched in vain for the answer to this: I want to remove sg colors BUT have it use the extension colors instead i.e. ignore the sticky bit.  setting sg=00 or removing it from ~/.dir_colors just makes those files black-n-white without the pretty colors by extension. 
+thanks for any help.</div><footer class="evo_comment_footer clear text-muted"><small>06/12/08 @ 02:53</small></footer></div></article><a id="c207"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c207" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from: <a href="http://www.bigsoft.co.uk/?disp=user&amp;user_ID=1" title="Show the user profile" class="login user nowrap" rel="bubbletip_user_1"><span class="identity_link_username">davidnewcomb</span></a> <span class="bUser-member-tag">[Member]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/04d8ea8891106e00c746d31da92351c8?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="admin" title="admin" class="bCommentAvatar" /></span><div class="evo_comment_text">I&#8217;m afraid Ri you are out of luck. The sticky bit takes precedence over the other file types. Once &#8220;ls&#8221; sees that the file is sticky the extension settings are never read.
+It&#8217;s an interesting request, you may want to email the GNU team and add it as a feature request or bug.
+Try here: <a href="http://savannah.gnu.org/projects/fileutils">GNU FileUtils Project</a></div><footer class="evo_comment_footer clear text-muted"><small>07/12/08 @ 23:24</small></footer></div></article><a id="c224"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c224" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <span class="user anonymous" rel="bubbletip_comment_224">Rita</span> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/2e4c971f9e4e81760bc3ad67307ef719?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="Rita" title="Rita" class="bCommentAvatar" /></span><div class="evo_comment_text">Thanks from me and from my eyes!</div><footer class="evo_comment_footer clear text-muted"><small>14/01/09 @ 09:25</small></footer></div></article><a id="c270"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c270" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <span class="user anonymous" rel="bubbletip_comment_270">myname</span> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/f87a3f9a3de4b85808c5db11fe13dffc?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="myname" title="myname" class="bCommentAvatar" /></span><div class="evo_comment_text"><p>please add:</p>
+<p>97 - White (-:</p></div><footer class="evo_comment_footer clear text-muted"><small>21/05/09 @ 14:40</small></footer></div></article><a id="c272"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c272" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <a rel="nofollow" href="http://www.oratin.com"><span class="user anonymous" rel="bubbletip_comment_272">acne</span></a> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/b6beace0ee4b1f720a3a72dfc9f3ef7e?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="acne" title="acne" class="bCommentAvatar" /></span><div class="evo_comment_text">Colours make it much easier to read .  <br /></div><footer class="evo_comment_footer clear text-muted"><small>22/05/09 @ 10:17</small></footer></div></article><a id="c298"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c298" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <span class="user anonymous" rel="bubbletip_comment_298">Wh1mpy</span> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/81d6aa4a3fb7dccd07ca625b23e5c3ff?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="Wh1mpy" title="Wh1mpy" class="bCommentAvatar" /></span><div class="evo_comment_text">This tut was very useful for me and my eyes. I almost went blind staring at blue letters. Many thanks for you&#8217;re effort..</div><footer class="evo_comment_footer clear text-muted"><small>19/07/09 @ 04:02</small></footer></div></article><a id="c300"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c300" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <span class="user anonymous" rel="bubbletip_comment_300">peter</span> <span class="bUser-anonymous-tag">[Visitor]</span> <a href="http://www.bigsoft.co.uk/?disp=msgform&amp;recipient_id=0&amp;comment_id=300&amp;post_id=45&amp;redirect_to=%2Fblog%2F2008%2F04%2F11%2Fconfiguring-ls_colors%3Fdisp%3Dsingle%26title%3Dconfiguring-ls_colors%26more%3D1%26c%3D1%26tb%3D1%26pb%3D1%26redir%3Dno" title="Send email to comment author" rel="nofollow"><span class="fa fa-envelope middle" title="Send email to comment author"></span></a> </h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/f594aaa072ec9d53feff06b4d785d62f?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="peter" title="peter" class="bCommentAvatar" /></span><div class="evo_comment_text">I see that you can choose file extensions to color, but is there a way to color hidden files for when i do &#8216;ls -a&#8217; like &#8216;.cshrc&#8217;?  It doesn&#8217;t accept &#8216;.*&#8217; as a valid entry.</div><footer class="evo_comment_footer clear text-muted"><small>22/07/09 @ 21:36</small></footer></div></article><a id="c325"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c325" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <a rel="nofollow" href="http://www.change-my-life.com"><span class="user anonymous" rel="bubbletip_comment_325">your lastname</span></a> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/a357c61897343b5bba11e9ddbeb32d34?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="your lastname" title="your lastname" class="bCommentAvatar" /></span><div class="evo_comment_text">Thanks for your great tip! It made my shell colorful!</div><footer class="evo_comment_footer clear text-muted"><small>24/10/09 @ 09:26</small></footer></div></article><a id="c328"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c328" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <a rel="nofollow" href="http://www.gentoo.org"><span class="user anonymous" rel="bubbletip_comment_328">anthony</span></a> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/ba15d33da2800e75a158ae2a6d215c10?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="anthony" title="anthony" class="bCommentAvatar" /></span><div class="evo_comment_text"><p>I&#8217;ve known and used ansi color sequences for a long time now, and this is the first reference to the &#8216;Extra colours&#8217; that I&#8217;ve ever seen.</p>
+<p>Sure enough, I tried them out and they all work! Awesome. (now I&#8217;m gonna waste a good chunk of time seeing how I can further customize all my syntax highlighting, LS_COLORS, zsh completion menu colors, etc etc&#8230;)</p>
+<p>Where did you find out about these?</p></div><footer class="evo_comment_footer clear text-muted"><small>03/11/09 @ 06:53</small></footer></div></article><a id="c348"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c348" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <a rel="nofollow" href="http://www.edigitalwholesale.com"><span class="user anonymous" rel="bubbletip_comment_348">edigitalwholesale</span></a> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/e66a2ff1b09e05178cbc77b33d13d668?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="edigitalwholesale" title="edigitalwholesale" class="bCommentAvatar" /></span><div class="evo_comment_text">Thanks for good knowledge.
+it&#8217;s very useful way to change color.</div><footer class="evo_comment_footer clear text-muted"><small>19/01/10 @ 05:15</small></footer></div></article><a id="c351"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c351" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <span class="user anonymous" rel="bubbletip_comment_351">Pete</span> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/0931d0e0f50fc478c17fd5444fca71e2?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="Pete" title="Pete" class="bCommentAvatar" /></span><div class="evo_comment_text">This was very useful. Thanks for sharing. :-)</div><footer class="evo_comment_footer clear text-muted"><small>21/01/10 @ 15:33</small></footer></div></article><a id="c364"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c364" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <span class="user anonymous" rel="bubbletip_comment_364">ed</span> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/55e1c73ea0ad2f5f7d9d744a8bbdf661?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="ed" title="ed" class="bCommentAvatar" /></span><div class="evo_comment_text"><p>Since your solution of :
+LS_COLORS="ow=01;90:di=01;90&Prime;
+export LS_COLORS
+overwrites a possible existing configuration of LS_COLORS, you can juste substitute the existing definition with sed (stream editor) as follows :</p>
+<p>LS_COLORS="<code class="codespan">echo $LS_COLORS |sed 's/di=[0-9]*;[0-9]*/di=01;34/; s/ow=[0-9]*;[0-9]*/ow=01;34/'</code>&#8221;
+export LS_COLORS</p>
+<p>Regards</p></div><footer class="evo_comment_footer clear text-muted"><small>23/02/10 @ 10:38</small></footer></div></article><a id="c371"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c371" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <span class="user anonymous" rel="bubbletip_comment_371">j tweed</span> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/8830106f7a55511994b0c62d63a84189?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="j tweed" title="j tweed" class="bCommentAvatar" /></span><div class="evo_comment_text"><p>You don&#8217;t make any mention of ~/.dir_colors or /etc/DIR_COLORS.  At least the link provided by MightyBigCar  does so, (and there is one in a comment)/ It seems to me that ~/.dir_colors is a convenient place to define colors.</p>
+<p>Otherwise, a very useful tutorial.
+thanks.</p></div><footer class="evo_comment_footer clear text-muted"><small>23/03/10 @ 01:12</small></footer></div></article><a id="c372"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c372" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from: <a href="http://www.bigsoft.co.uk/?disp=user&amp;user_ID=1" title="Show the user profile" class="login user nowrap" rel="bubbletip_user_1"><span class="identity_link_username">davidnewcomb</span></a> <span class="bUser-member-tag">[Member]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/04d8ea8891106e00c746d31da92351c8?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="admin" title="admin" class="bCommentAvatar" /></span><div class="evo_comment_text">Thanks j tweed, you are right. I have added a section describing the dir_colors file.</div><footer class="evo_comment_footer clear text-muted"><small>23/03/10 @ 10:46</small></footer></div></article><a id="c379"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c379" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <span class="user anonymous" rel="bubbletip_comment_379">Rich</span> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/ee523c0697b23397860c9c210ba4dfa3?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="Rich" title="Rich" class="bCommentAvatar" /></span><div class="evo_comment_text"><p>Seems like it boils down to this:</p>
+<ol>
+<li>dircolors &#8211;print-database > ~/.dircolors</li>
+<li>vi .dircolors</li>
+<li>update bashrc to look for ~/.dircolors (as per info page referenced in &#8220;man dircolors")</li>
+</ol>
+<p>if [ -x /usr/bin/dircolors ]; then</p>
+<pre class="codeblock"><code>   d=.dircolors
+   test -r $d &amp;&amp; eval "$(dircolors $d)" || eval "`dircolors -b`"</code></pre>
+<p>Thanks for all the info.<br /></p></div><footer class="evo_comment_footer clear text-muted"><small>21/04/10 @ 21:54</small></footer></div></article><a id="c389"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c389" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <a rel="nofollow" href="http://skyprod.net"><span class="user anonymous" rel="bubbletip_comment_389">Michael Cook</span></a> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/09b3977073dd7d4c4c5ea66ebc0048dc?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="Michael Cook" title="Michael Cook" class="bCommentAvatar" /></span><div class="evo_comment_text">This was very useful to me cos my old eyes don&#8217;t like DIR 1;034 which is the bold blue used by default for directories on my Ubuntu 8.04 Hardy set up.  I changed it to bold yellow so now I can see it.  Who chooses these things anyway?  Thank you!</div><footer class="evo_comment_footer clear text-muted"><small>25/05/10 @ 13:03</small></footer></div></article><a id="c393"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c393" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <a rel="nofollow" href="http://www.bedinabags.org"><span class="user anonymous" rel="bubbletip_comment_393">Adam J</span></a> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/03c918329d6d7776cf24eaacfadd0941?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="Adam J" title="Adam J" class="bCommentAvatar" /></span><div class="evo_comment_text">I work in an environment where a bunch of users are idiots and make everything 777 or 755.  Is there a way to make is so that  ex= does not override extensions like *.gz?</div><footer class="evo_comment_footer clear text-muted"><small>04/06/10 @ 18:23</small></footer></div></article><a id="c400"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c400" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <span class="user anonymous" rel="bubbletip_comment_400">Peter Vanderhaden</span> <span class="bUser-anonymous-tag">[Visitor]</span> <a href="http://www.bigsoft.co.uk/?disp=msgform&amp;recipient_id=0&amp;comment_id=400&amp;post_id=45&amp;redirect_to=%2Fblog%2F2008%2F04%2F11%2Fconfiguring-ls_colors%3Fdisp%3Dsingle%26title%3Dconfiguring-ls_colors%26more%3D1%26c%3D1%26tb%3D1%26pb%3D1%26redir%3Dno" title="Send email to comment author" rel="nofollow"><span class="fa fa-envelope middle" title="Send email to comment author"></span></a> </h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/ecd98c35efe675e08a67d729d68330c6?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="Peter Vanderhaden" title="Peter Vanderhaden" class="bCommentAvatar" /></span><div class="evo_comment_text">Love the article, but I do have one question.  This seems to work perfectly in OS X, but when I do the exact same thing in Kubuntu 10.04, the first line of the ls -la listing is bright in color, and all the others are colored, but dull.  Any ideas?</div><footer class="evo_comment_footer clear text-muted"><small>26/06/10 @ 19:04</small></footer></div></article><a id="c455"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c455" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <span class="user anonymous" rel="bubbletip_comment_455">Rory</span> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/3ac605315ccea1f0e13c632f7a9667d8?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="Rory" title="Rory" class="bCommentAvatar" /></span><div class="evo_comment_text"><p>You could just look at the man page!</p>
+<p>man ls</p></div><footer class="evo_comment_footer clear text-muted"><small>26/11/10 @ 09:46</small></footer></div></article><a id="c477"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c477" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <a rel="nofollow" href="http://brhefele.brainaxle.com"><span class="user anonymous" rel="bubbletip_comment_477">brian hefele</span></a> <span class="bUser-anonymous-tag">[Visitor]</span> <a href="http://www.bigsoft.co.uk/?disp=msgform&amp;recipient_id=0&amp;comment_id=477&amp;post_id=45&amp;redirect_to=%2Fblog%2F2008%2F04%2F11%2Fconfiguring-ls_colors%3Fdisp%3Dsingle%26title%3Dconfiguring-ls_colors%26more%3D1%26c%3D1%26tb%3D1%26pb%3D1%26redir%3Dno" title="Send email to comment author" rel="nofollow"><span class="fa fa-envelope middle" title="Send email to comment author"></span></a> </h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/9559c6a2ed7e5c98e61cec7afd7c9be6?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="brian hefele" title="brian hefele" class="bCommentAvatar" /></span><div class="evo_comment_text"><p>I have recently switched from BSD ls to GNU ls, and have been trying to perfect my LS_COLORS — this guide has been a godsend (one of many)…</p>
+<p>A couple of things - you are missing at least two key - mh/MULTIHARDLINK for &#8220;Regular file[s] with more than one link&#8221; and ca/CAPABILITY for &#8220;File with capability.&#8221;</p>
+<p>Also, and I haven&#8217;t seen this anywhere, if you&#8217;re feeling bold you can use the 256 colors of xterm instead of ANSI colors. You want to set the value of the key to the whole xterm escape sequence, as in \033[38;5;159. 38 there refers to foreground, 48 would be background. 159 is the color. Colors can be separated w/ the letter &#8216;m&#8217;, and ANSI escapes for underline, bold, flash, etc. can also be tacked on with an &#8216;m,&#8217; as in \033[38;5;159m\e[04 (same as above, only underlined.)</p>
+<p>I dread that the above will get eaten in the commenting process… :)</p></div><footer class="evo_comment_footer clear text-muted"><small>21/12/10 @ 07:49</small></footer></div></article><a id="c661"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c661" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <span class="user anonymous" rel="bubbletip_comment_661">mr black</span> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/46e45fad881878bb3a8189bc062a96d6?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="mr black" title="mr black" class="bCommentAvatar" /></span><div class="evo_comment_text">change Black for Block in the table
+bd    BLOCK, BLK    Black device</div><footer class="evo_comment_footer clear text-muted"><small>01/08/11 @ 22:08</small></footer></div></article><a id="c662"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c662" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from: <a href="http://www.bigsoft.co.uk/?disp=user&amp;user_ID=1" title="Show the user profile" class="login user nowrap" rel="bubbletip_user_1"><span class="identity_link_username">davidnewcomb</span></a> <span class="bUser-member-tag">[Member]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/04d8ea8891106e00c746d31da92351c8?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="admin" title="admin" class="bCommentAvatar" /></span><div class="evo_comment_text">many thanks mr black</div><footer class="evo_comment_footer clear text-muted"><small>02/08/11 @ 09:07</small></footer></div></article><a id="c686"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c686" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <a rel="nofollow" href="http://www.flood.fr"><span class="user anonymous" rel="bubbletip_comment_686">forum flood</span></a> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/b23e89e5dfd9a41bd04d69791ccabdb5?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="forum flood" title="forum flood" class="bCommentAvatar" /></span><div class="evo_comment_text">Thanks for putting that together :)</div><footer class="evo_comment_footer clear text-muted"><small>22/09/11 @ 21:51</small></footer></div></article><a id="c700"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c700" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <span class="user anonymous" rel="bubbletip_comment_700">ChrisJ</span> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/18b3fe61dd361c9e233c72b6f90bbe4b?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="ChrisJ" title="ChrisJ" class="bCommentAvatar" /></span><div class="evo_comment_text"><p>Is there a simple way to turn off colors?  (so that you see white letters on a black background and black letters on a white background).  Putty defaults to a black background and xterm defaults to a white background.  </p>
+<p>In my opinion, blue-on-black and green-on-white are both ugly.  : -)<br /></p></div><footer class="evo_comment_footer clear text-muted"><small>23/11/11 @ 17:49</small></footer></div></article><a id="c701"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c701" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <span class="user anonymous" rel="bubbletip_comment_701">ChrisJ</span> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/18b3fe61dd361c9e233c72b6f90bbe4b?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="ChrisJ" title="ChrisJ" class="bCommentAvatar" /></span><div class="evo_comment_text"><p>Ok.  I see now.  To turn off colors use the unalias command. 
+   unalias ls ;</p>
+<p>alias | egrep ls
+alias l.=&#8217;ls -d .* &#8211;color=tty&#8217;
+alias ll=&#8217;ls -l &#8211;color=tty&#8217;
+alias ls=&#8217;ls &#8211;color=tty&#8217;</p>
+<p>It is ok to create new aliases that are not spelled the same as the standard commands.  But I feel very strongly that you should never change the behaviour of an existing command such as ls.  The last thing you want is to have your script changing behaviour (breaking) based on the configuration of the user running it.</p>
+<p>This is a great guide.  Thanks for writing it.</p></div><footer class="evo_comment_footer clear text-muted"><small>23/11/11 @ 18:06</small></footer></div></article><a id="c2494"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c2494" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <span class="user anonymous" rel="bubbletip_comment_2494">Kirby Foster</span> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/9de663a5b67c9481bf41091e83825e6e?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="Kirby Foster" title="Kirby Foster" class="bCommentAvatar" /></span><div class="evo_comment_text">Thanks for the easy to read howto.</div><footer class="evo_comment_footer clear text-muted"><small>12/07/12 @ 19:59</small></footer></div></article><a id="c2692"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c2692" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <span class="user anonymous" rel="bubbletip_comment_2692">Curtis Rueden</span> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/f4ebe01b92f94dd09aea884ced8c9aff?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="Curtis Rueden" title="Curtis Rueden" class="bCommentAvatar" /></span><div class="evo_comment_text">One more color code for the list:
+30 = Black</div><footer class="evo_comment_footer clear text-muted"><small>31/10/13 @ 20:18</small></footer></div></article><a id="c2818"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c2818" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <span class="user anonymous" rel="bubbletip_comment_2818">zss</span> <span class="bUser-anonymous-tag">[Visitor]</span> <a href="http://www.bigsoft.co.uk/?disp=msgform&amp;recipient_id=0&amp;comment_id=2818&amp;post_id=45&amp;redirect_to=%2Fblog%2F2008%2F04%2F11%2Fconfiguring-ls_colors%3Fdisp%3Dsingle%26title%3Dconfiguring-ls_colors%26more%3D1%26c%3D1%26tb%3D1%26pb%3D1%26redir%3Dno" title="Send email to comment author" rel="nofollow"><span class="fa fa-envelope middle" title="Send email to comment author"></span></a> </h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/cfb3467e916b56892c562ed14af3058f?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="zss" title="zss" class="bCommentAvatar" /></span><div class="evo_comment_text">block entry ?</div><footer class="evo_comment_footer clear text-muted"><small>14/02/15 @ 12:38</small></footer></div></article><a id="c2820"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c2820" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <a rel="nofollow" href="http://sysadmini.lliseil.fr/linux"><span class="user anonymous" rel="bubbletip_comment_2820">cyrille</span></a> <span class="bUser-anonymous-tag">[Visitor]</span> <a href="http://www.bigsoft.co.uk/?disp=msgform&amp;recipient_id=0&amp;comment_id=2820&amp;post_id=45&amp;redirect_to=%2Fblog%2F2008%2F04%2F11%2Fconfiguring-ls_colors%3Fdisp%3Dsingle%26title%3Dconfiguring-ls_colors%26more%3D1%26c%3D1%26tb%3D1%26pb%3D1%26redir%3Dno" title="Send email to comment author" rel="nofollow"><span class="fa fa-envelope middle" title="Send email to comment author"></span></a> </h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/51e1967c0f6eae50f85e2889d8b4d9d4?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="cyrille" title="cyrille" class="bCommentAvatar" /></span><div class="evo_comment_text"><p>Other than color names choice (ie 33 looks like yellow and 47 like white to me eyes), this is a fu*ing well done an dcomprehensive explanation on setting up LS_COLORS :)</p>
+<h2>Here&#8217;s how I set it up in ~/.bashrc (XDG compliant if it exists):</h2>
+<pre class="codeblock"><code># Enable colors for ls, etc, prefering user's dircolors
+if type -P dircolors >/dev/null ; then
+    if [[ -f "$XDG_HOME_CONFIG/bash/dircolors" ]] ; then
+        eval $(dircolors -b "$XDG_HOME_CONFIG/bash/dircolors")
+    elif [[ -f ~/.dircolors ]] ; then
+        eval $(dircolors -b ~/.dircolors)
+        elif [[ -f /etc/DIR_COLORS ]] ;
+then                                        
+        eval $(dircolors -b /etc/DIR_COLORS)
+    fi
+fi</code></pre>
+<hr />
+<p>The following article emphasize on testing colors (nice tests) and setting usefull prompts thanks to your colors: *Bash tips: Colors and formatting* ( http://misc.flogisoft.com/bash/tip_colors_and_formatting )</p></div><footer class="evo_comment_footer clear text-muted"><small>25/03/15 @ 07:57</small></footer></div></article><a id="c2855"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c2855" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <span class="user anonymous" rel="bubbletip_comment_2855">Kevin</span> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/1ddff3023cc205b28caff4c62f19f379?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="Kevin" title="Kevin" class="bCommentAvatar" /></span><div class="evo_comment_text">In Ubuntu 15.10 (and perhaps in the Debian it is derived from), the setup is already in place.  You just have to create the desired color scheme in your home directory as ~/.dircolors.  The other locations mentioned above are not supported out of the box.  The relevant stanza in the provided .bashrc is (in part):
+
+<code>if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors &amp;&amp; eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)";
+    alias ls='ls --color=auto';
+fi</code></div><footer class="evo_comment_footer clear text-muted"><small>20/04/16 @ 15:34</small></footer></div></article><a id="c3345"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c3345" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <a rel="nofollow" href="https://askubuntu.com/questions/466198/how-do-i-change-the-color-for-directories-with-ls-in-the-cons"><span class="user anonymous" rel="bubbletip_comment_3345">Rubo77</span></a> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/039b432f6ea496fcf0bf0747c43ff5d2?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="Rubo77" title="Rubo77" class="bCommentAvatar" /></span><div class="evo_comment_text">add 107 =    white background</div><footer class="evo_comment_footer clear text-muted"><small>10/11/17 @ 00:35</small></footer></div></article><a id="c3370"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c3370" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <a rel="nofollow" href="http://www.darkmaelstrom.com/"><span class="user anonymous" rel="bubbletip_comment_3370">Arc</span></a> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/34832743c86cc92bcea2cc3b9fc5e897?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="Arc" title="Arc" class="bCommentAvatar" /></span><div class="evo_comment_text"><p>Thank you for this.</p>
+<p>I had a problem with a bright green highlight showing for the background color of directories on an NTFS drive.  Changing the line in .dir_colors from:</p>
+<p>OTHER_WRITABLE 34;42 # dir that &#8230;</p>
+<p>to:</p>
+<p>OTHER_WRITABLE 94;40 # dir  &#8230;</p>
+<p>made it more bearable.</p></div><footer class="evo_comment_footer clear text-muted"><small>22/12/17 @ 01:36</small></footer></div></article><a id="c3419"></a><article class="evo_comment panel panel-default"><div class="panel-heading"><h4 class="evo_comment_title panel-title"><a href="http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors#c3419" title="Permanent link to this comment" class="evo_comment_type" rel="nofollow">Comment</a> from:  <span class="user anonymous" rel="bubbletip_comment_3419">Pedro</span> <span class="bUser-anonymous-tag">[Visitor]</span></h4></div><div class="panel-body"><span class="evo_comment_avatar"><img src="//www.gravatar.com/avatar/a1e6d0cbe717f8eef2f155682c5dd8e7?size=64&amp;default=http%3A%2F%2Fwww.bigsoft.co.uk%2Fmedia%2Fshared%2Fglobal%2Favatars%2Fdefault_avatar_unknown.jpg%3Fmtime%3D1519437290" width="64" height="64" alt="Pedro" title="Pedro" class="bCommentAvatar" /></span><div class="evo_comment_text">Almost 11 years since you wrote this article, here I am to say thank you!</div><footer class="evo_comment_footer clear text-muted"><small>01/02/19 @ 12:28</small></footer></div></article>
+
+</section><div id="ajax_form_number_1" class="section_requires_javascript"><p class="ajax-loader"><span class="loader_img loader_ajax_form" title="Loading..."></span><br />Form is loading...</p>	<script type="text/javascript">
+		var ajax_form_offset_1 = jQuery('#ajax_form_number_1').offset().top;
+		var request_sent_1 = false;
+		var ajax_form_loading_number_1 = 0;
+
+		function get_form_1()
+		{
+			var form_id = '#ajax_form_number_1';
+			ajax_form_loading_number_1++;
+			jQuery.ajax({
+				url: 'http://www.bigsoft.co.uk/htsrv/anon_async.php',
+				type: 'POST',
+				data: {"action":"get_comment_form","p":"45","blog":"3","reply_ID":0,"disp":"single","params":{"Item":null,"disp_comments":true,"disp_comment_form":true,"disp_trackbacks":false,"disp_trackback_url":false,"disp_pingbacks":true,"disp_meta_comments":false,"disp_section_title":true,"disp_meta_comment_info":true,"disp_rating_summary":true,"before_section_title":"<div class=\"clearfix\"><\/div><h3 class=\"evo_comment__list_title\">","after_section_title":"<\/h3>","comments_title_text":"","comment_list_start":"\n\n","comment_list_end":"\n\n","comment_start":"<article class=\"evo_comment panel panel-default\">","comment_end":"<\/article>","comment_post_display":false,"comment_post_before":"<h3 class=\"evo_comment_post_title\">","comment_post_after":"<\/h3>","comment_title_before":"<div class=\"panel-heading\"><h4 class=\"evo_comment_title panel-title\">","comment_title_after":"<\/h4><\/div><div class=\"panel-body\">","comment_avatar_before":"<span class=\"evo_comment_avatar\">","comment_avatar_after":"<\/span>","comment_rating_before":"<div class=\"evo_comment_rating\">","comment_rating_after":"<\/div>","comment_text_before":"<div class=\"evo_comment_text\">","comment_text_after":"<\/div>","comment_info_before":"<footer class=\"evo_comment_footer clear text-muted\"><small>","comment_info_after":"<\/small><\/footer><\/div>","preview_start":"<article class=\"evo_comment evo_comment__preview panel panel-warning\" id=\"comment_preview\">","preview_end":"<\/article>","comment_error_start":"<article class=\"evo_comment evo_comment__error panel panel-default\" id=\"comment_error\">","comment_error_end":"<\/article>","comment_template":"_item_comment.inc.php","comment_image_size":"fit-1280x720","author_link_text":"auto","link_to":"userurl>userpage","disp_notification":true,"notification_before":"<nav class=\"evo_post_comment_notification\">","notification_text":"This is your post. You are receiving notifications when anyone comments on your posts.","notification_text2":"You will be notified by email when someone comments here.","notification_text3":"Notify me by email when someone comments here.","notification_after":"<\/nav>","feed_title":"#","disp_nav_top":true,"disp_nav_bottom":true,"nav_top_inside":false,"nav_bottom_inside":false,"nav_block_start":"<div class=\"text-center\"><ul class=\"pagination\">","nav_block_end":"<\/ul><\/div>","nav_prev_text":"<i class=\"fa fa-angle-double-left\"><\/i>","nav_next_text":"<i class=\"fa fa-angle-double-right\"><\/i>","nav_prev_class":"","nav_next_class":"","nav_page_item_before":"<li>","nav_page_item_after":"<\/li>","nav_page_current_template":"<span><b>$page_num$<\/b><\/span>","comments_per_page":null,"pagination":{"block_start":"<div class=\"center\"><ul class=\"pagination\">","block_end":"<\/ul><\/div>","page_current_template":"<span>$page_num$<\/span>","page_item_before":"<li>","page_item_after":"<\/li>","page_item_current_before":"<li class=\"active\">","page_item_current_after":"<\/li>","prev_text":"<i class=\"fa fa-angle-double-left\"><\/i>","next_text":"<i class=\"fa fa-angle-double-right\"><\/i>"},"comment_type":"comment","feature_block":false,"item_class":"evo_post evo_content_block","item_type_class":"evo_post__ptyp_","item_status_class":"evo_post__","item_style":"","disp_title":true,"item_title_line_before":"<div class=\"evo_post_title\">","item_title_before":"<h2>","item_title_after":"<\/h2>","item_title_single_before":"<h1>","item_title_single_after":"<\/h1>","item_title_line_after":"<\/div>","content_mode":"auto","image_class":"img-responsive","image_size":"fit-1280x720","profile_tabs":{"block_start":"<nav><ul class=\"nav nav-tabs profile_tabs\">","item_start":"<li>","item_end":"<\/li>","item_selected_start":"<li class=\"active\">","item_selected_end":"<\/li>","block_end":"<\/ul><\/nav>"},"skin_form_before":"<div class=\"panel panel-default skin-form\"><div class=\"panel-heading\"><h3 class=\"panel-title\">$form_title$<\/h3><\/div><div class=\"panel-body\">","skin_form_after":"<\/div><\/div>","display_form_messages":true,"form_title_login":"Log in to your account$form_links$","form_title_lostpass":"Configuring LS_COLORS$form_links$","lostpass_page_class":"evo_panel__lostpass","login_form_inskin":false,"login_page_class":"evo_panel__login","login_page_before":"<div class=\"$form_class$\">","login_page_after":"<\/div>","display_reg_link":true,"abort_link_position":"form_title","abort_link_text":"<button type=\"button\" class=\"close\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;<\/span><\/button>","register_page_before":"<div class=\"evo_panel__register\">","register_page_after":"<\/div>","register_form_title":"Register","register_links_attrs":"","register_use_placeholders":true,"register_field_width":252,"register_disabled_page_before":"<div class=\"evo_panel__register register-disabled\">","register_disabled_page_after":"<\/div>","activate_form_title":"Account activation","activate_page_before":"<div class=\"evo_panel__activation\">","activate_page_after":"<\/div>","search_input_before":"<div class=\"input-group\">","search_input_after":"","search_submit_before":"<span class=\"input-group-btn\">","search_submit_after":"<\/span><\/div>","featured_intro_before":"<div class=\"jumbotron\">","featured_intro_after":"<\/div>","msgform_form_title":"Contact"},"required_js":["\/rsc\/js\/jquery.min.js?v=6.9.7-stable-2018-02-23","\/rsc\/js\/bootstrap\/bootstrap.min.js?v=6.9.7-stable-2018-02-23","\/rsc\/js\/build\/colorbox.bmin.js?v=6.9.7-stable-2018-02-23","\/rsc\/js\/build\/popover.bmin.js?v=6.9.7-stable-2018-02-23","\/rsc\/js\/build\/textcomplete.bmin.js?v=6.9.7-stable-2018-02-23","\/rsc\/js\/jquery\/jquery.ui.b2evo.min.js?v=6.9.7-stable-2018-02-23","\/rsc\/js\/build\/bootstrap-evo_frontoffice.bmin.js?v=6.9.7-stable-2018-02-23","\/plugins\/prism_full_plugin\/js\/prism.js?v=6.9.7+6.9.7-stable-2018-02-23","\/rsc\/js\/flowplayer\/flowplayer.min.js?v=6.9.7-stable-2018-02-23","\/rsc\/js\/jquery\/jquery.cookie.min.js?v=6.9.7-stable-2018-02-23"],"b2evo_icons_type":"fontawesome-glyphicons"},
+				success: function(result)
+				{
+					jQuery( form_id ).html( ajax_debug_clear( result ) );
+				},
+				error: function( jqXHR, textStatus, errorThrown )
+				{
+					jQuery( '.loader_ajax_form', form_id ).after( '<div class="red center">' + errorThrown + ': ' + jqXHR.responseText + '</div>' );
+					if( ajax_form_loading_number_1 < 3 )
+					{	// Try to load 3 times this ajax form if error occurs:
+						setTimeout( function()
+						{	// After 1 second delaying:
+							jQuery( '.loader_ajax_form', form_id ).next().remove();
+							get_form_1();
+						}, 1000 );
+					}
+				}
+			});
+		}
+
+		function check_and_show_1()
+		{
+			var window_scrollTop = jQuery(window).scrollTop();
+			var window_height = jQuery(window).height();
+			// check if the ajax form is visible, or if it will be visible soon ( 20 pixel )
+			if( window_scrollTop >= ajax_form_offset_1 - window_height - 20 )
+			{
+				if( !request_sent_1 )
+				{
+					request_sent_1 = true;
+					// get the form
+					get_form_1();
+				}
+			}
+		}
+
+		jQuery(window).scroll(function() {
+			check_and_show_1();
+		});
+
+		jQuery(document).ready( function() {
+			check_and_show_1();
+		});
+
+		jQuery(window).resize( function() {
+			check_and_show_1();
+		});
+	</script>
+	<noscript>
+		<p>This section can only be displayed by javascript enabled browsers.</p>	</noscript>
+	</div><nav class="evo_post_feedback_feed_msg"><p class="text-center"><a href="http://www.bigsoft.co.uk/blog/?tempskin=_rss2&amp;disp=comments&amp;p=45"><span class="fa fa-rss-square" title="XML Feed" style="color:#F90"></span> Comment feed for this post</a></p></nav>
+	
+	
+	</article>
+
+</div>		</main>
+
+	</div><!-- .col -->
+
+
+		<aside class="col-md-3">
+		<!-- =================================== START OF SIDEBAR =================================== -->
+		<div class="evo_container evo_container__sidebar">
+		<div class="panel panel-default evo_widget widget_plugin_evo_Calr"><div class="panel-body"><table class="bCalendarTable" title="Monthly calendar with links to each day's posts">
+<caption><a title="View monthly archive" href="http://www.bigsoft.co.uk/blog/2020/07/" >July 2020</a></caption>
+<thead><tr class="bCalendarRow">
+<th class="bCalendarHeaderCell" scope="col" title="Monday">Mon</th>
+<th class="bCalendarHeaderCell" scope="col" title="Tuesday">Tue</th>
+<th class="bCalendarHeaderCell" scope="col" title="Wednesday">Wed</th>
+<th class="bCalendarHeaderCell" scope="col" title="Thursday">Thu</th>
+<th class="bCalendarHeaderCell" scope="col" title="Friday">Fri</th>
+<th class="bCalendarHeaderCell" scope="col" title="Saturday">Sat</th>
+<th class="bCalendarHeaderCell" scope="col" title="Sunday">Sun</th>
+</tr></thead>
+<tbody><tr class="bCalendarRow">
+<td class="bCalendarEmptyCell">&nbsp;</td>
+<td class="bCalendarEmptyCell">&nbsp;</td>
+<td class="bCalendarCell">1</td>
+<td class="bCalendarCell">2</td>
+<td class="bCalendarCell">3</td>
+<td class="bCalendarCell">4</td>
+<td class="bCalendarCell">5</td>
+</tr>
+<tr class="bCalendarRow">
+<td class="bCalendarCell">6</td>
+<td class="bCalendarCell">7</td>
+<td class="bCalendarLinkPost"><a title="1 post" href="http://www.bigsoft.co.uk/blog/2020/07/08/" >8</a></td>
+<td class="bCalendarCell">9</td>
+<td class="bCalendarCell">10</td>
+<td class="bCalendarCell">11</td>
+<td id="bCalendarToday">12</td>
+</tr>
+<tr class="bCalendarRow">
+<td class="bCalendarCell">13</td>
+<td class="bCalendarCell">14</td>
+<td class="bCalendarCell">15</td>
+<td class="bCalendarCell">16</td>
+<td class="bCalendarCell">17</td>
+<td class="bCalendarCell">18</td>
+<td class="bCalendarCell">19</td>
+</tr>
+<tr class="bCalendarRow">
+<td class="bCalendarCell">20</td>
+<td class="bCalendarCell">21</td>
+<td class="bCalendarCell">22</td>
+<td class="bCalendarCell">23</td>
+<td class="bCalendarCell">24</td>
+<td class="bCalendarCell">25</td>
+<td class="bCalendarCell">26</td>
+</tr>
+<tr class="bCalendarRow">
+<td class="bCalendarCell">27</td>
+<td class="bCalendarCell">28</td>
+<td class="bCalendarCell">29</td>
+<td class="bCalendarCell">30</td>
+<td class="bCalendarCell">31</td>
+<td class="bCalendarEmptyCell">&nbsp;</td>
+<td class="bCalendarEmptyCell">&nbsp;</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td colspan="3" id="prev">&nbsp;<a title="Previous year (2019-07)" href="http://www.bigsoft.co.uk/blog/2019/07/" >&lt;&lt;</a>&nbsp;<a title="Previous month (2020-06)" href="http://www.bigsoft.co.uk/blog/2020/06/" >&lt;</a></td>
+<td class="pad">&nbsp;</td>
+<td colspan="3" id="next"><a title="Next month (2020-08)" href="http://www.bigsoft.co.uk/blog/2020/08/" >&gt;</a>&nbsp;<a title="Next year (2021-07)" href="http://www.bigsoft.co.uk/blog/2021/07/" >&gt;&gt;</a></td>
+</tr>
+</tfoot>
+</table></div></div><div class="panel panel-default evo_widget widget_core_free_html"><div class="panel-heading"><h4 class="panel-title">Stack Overflow</h4></div><div class="panel-body"><a href="http://stackoverflow.com/users/52070/david-newcomb" target="_new">
+<img src="http://stackoverflow.com/users/flair/52070.png" width="205" height="58" alt="profile for David Newcomb at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for David Newcomb at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
+</a>
+</div></div><div class="panel panel-default evo_widget widget_core_coll_tag_cloud"><div class="panel-heading"><h4 class="panel-title">Tag cloud</h4></div><div class="panel-body"><p class="tag_cloud"><a style="font-size:8pt;" title="Display posts tagged with &quot;advice&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/advice">advice</a> <a style="font-size:9pt;" title="Display posts tagged with &quot;apache&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/apache">apache</a> <a style="font-size:9pt;" title="Display posts tagged with &quot;being-in-it&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/being-in-it">being-in-it</a> <a style="font-size:10pt;" title="Display posts tagged with &quot;blogglue&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/blogglue">blogglue</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;centos&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/centos">centos</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;clearcase&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/clearcase">clearcase</a> <a style="font-size:9pt;" title="Display posts tagged with &quot;configuration&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/configuration">configuration</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;development&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/development">development</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;dyslexia&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/dyslexia">dyslexia</a> <a style="font-size:13pt;" title="Display posts tagged with &quot;eclipse&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/eclipse">eclipse</a> <a style="font-size:9pt;" title="Display posts tagged with &quot;festival&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/festival">festival</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;find&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/find">find</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;firefox&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/firefox">firefox</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;getting-rid-of-windows&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/getting-rid-of-windows">getting-rid-of-windows</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;google&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/google">google</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;grumbles&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/grumbles">grumbles</a> <a style="font-size:9pt;" title="Display posts tagged with &quot;hibernate&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/hibernate">hibernate</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;horde&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/horde">horde</a> <a style="font-size:9pt;" title="Display posts tagged with &quot;horror&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/horror">horror</a> <a style="font-size:9pt;" title="Display posts tagged with &quot;install&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/install">install</a> <a style="font-size:9pt;" title="Display posts tagged with &quot;japan&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/japan">japan</a> <a style="font-size:9pt;" title="Display posts tagged with &quot;java&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/java">java</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;jibx&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/jibx">jibx</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;jmx&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/jmx">jmx</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;junit&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/junit">junit</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;mailman&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/mailman">mailman</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;n900&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/n900">n900</a> <a style="font-size:10pt;" title="Display posts tagged with &quot;nepal&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/nepal">nepal</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;nokia&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/nokia">nokia</a> <a style="font-size:9pt;" title="Display posts tagged with &quot;peru&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/peru">peru</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;php&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/php">php</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;plugin&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/plugin">plugin</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;powershell&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/powershell">powershell</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;python&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/python">python</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;remote&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/remote">remote</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;security&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/security">security</a> <a style="font-size:12pt;" title="Display posts tagged with &quot;spring&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/spring">spring</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;sts&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/sts">sts</a> <a style="font-size:22pt;" title="Display posts tagged with &quot;support&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/support">support</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;tokyo&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/tokyo">tokyo</a> <a style="font-size:9pt;" title="Display posts tagged with &quot;tomcat&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/tomcat">tomcat</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;tutorial&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/tutorial">tutorial</a> <a style="font-size:9pt;" title="Display posts tagged with &quot;tv&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/tv">tv</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;unix&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/unix">unix</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;upgrading&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/upgrading">upgrading</a> <a style="font-size:11pt;" title="Display posts tagged with &quot;windows&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/windows">windows</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;work&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/work">work</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;xml&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/xml">xml</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;xp&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/xp">xp</a> <a style="font-size:8pt;" title="Display posts tagged with &quot;yii2&quot;" rel="tag" href="http://www.bigsoft.co.uk/blog/tag/yii2">yii2</a></p></div></div><div class="panel panel-default evo_widget widget_core_coll_common_links"><div class="panel-body"><ul><li><strong><a href="http://www.bigsoft.co.uk/blog/">Recently</a></strong></li><li><strong><a href="http://www.bigsoft.co.uk/blog/?disp=postidx">Post index</a></strong></li><li><strong><a href="http://www.bigsoft.co.uk/blog/?disp=arcdir">Archives</a></strong></li><li><strong><a href="http://www.bigsoft.co.uk/blog/?disp=comments">Latest comments</a></strong></li><li><strong><a href="http://www.bigsoft.co.uk/?disp=user&amp;user_ID=1">Owner details</a></strong></li></ul></div></div><div class="panel panel-default evo_widget widget_core_coll_search_form"><div class="panel-heading"><h4 class="panel-title">Search</h4></div><div class="panel-body"><form action="http://www.bigsoft.co.uk/blog/" method="get" class="search"><div class="compact_search_form"><div class="input-group"><input type="text" name="s" size="25" value="" class="search_field SearchField form-control" title="Enter text to search for" /><span class="input-group-btn"><input type="submit" name="submit" class="search_submit submit btn btn-primary" value="Go" /></span></div></div><input type="hidden" name="disp" value="search" /></form></div></div><div class="panel panel-default evo_widget widget_core_coll_category_list"><div class="panel-heading"><h4 class="panel-title">Categories</h4></div><div class="panel-body"><ul><li class="evo_cat_all"><a href="http://www.bigsoft.co.uk/blog/">All</a></li><li class="evo_cat_node"><a href="http://www.bigsoft.co.uk/blog/api/">API</a></li><ul><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/api/corba/">CORBA</a></li></ul></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/advice/">Advice</a></li><li class="evo_cat_node"><a href="http://www.bigsoft.co.uk/blog/applications/">Applications</a></li><ul><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/applications/b2evolution/">B2Evolution</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/applications/chrome/">Chrome</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/applications/clearcase/">Clearcase</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/applications/eclipse/">Eclipse</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/applications/joomla/">Joomla</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/applications/mantisbt/">MantisBT</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/applications/my-software/">My Software</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/applications/mysql/">MySQL</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/applications/quantel/">Quantel</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/applications/source-control/">Source Control</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/applications/spring-framework/">Spring Framework</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/applications/virtualbox/">VirtualBox</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/applications/visual-studio/">Visual Studio</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/applications/yii-framework/">Yii Framework</a></li></ul></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/company-operations/">Company Operations</a></li><li class="evo_cat_node"><a href="http://www.bigsoft.co.uk/blog/computer-languages/">Computer Languages</a></li><ul><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/computer-languages/c-sharp/">C#</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/computer-languages/java/">Java</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/computer-languages/javascript/">Javascript</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/computer-languages/php/">PHP</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/computer-languages/powershell/">PowerShell</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/computer-languages/python/">Python</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/computer-languages/sql/">SQL</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/computer-languages/unix-shell/">Unix Shell</a></li></ul></li><li class="evo_cat_node"><a href="http://www.bigsoft.co.uk/blog/fun/">Fun</a></li><ul><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/fun/comedy/">Comedy</a></li><li class="evo_cat_node"><a href="http://www.bigsoft.co.uk/blog/fun/creative-writing/">Creative writing</a></li><ul><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/fun/creative-writing/musings/">Musings</a></li></ul></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/fun/film-reviews/">Film Reviews</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/fun/holiday/">Holiday</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/fun/illusions/">Illusions</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/fun/movies/">Movies</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/fun/quotes/">Quotes</a></li></ul></li><li class="evo_cat_node"><a href="http://www.bigsoft.co.uk/blog/operating-systems/">Operating Systems</a></li><ul><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/operating-systems/cisco/">Cisco</a></li><li class="evo_cat_node"><a href="http://www.bigsoft.co.uk/blog/operating-systems/linux/">Linux</a></li><ul><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/operating-systems/linux/raspberry-pi/">Raspberry Pi</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/operating-systems/linux/ubuntu/">Ubuntu</a></li></ul></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/operating-systems/macos/">MacOS</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/operating-systems/windows/">Windows</a></li></ul></li><li class="evo_cat_node"><a href="http://www.bigsoft.co.uk/blog/phone/">Phone</a></li><ul><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/phone/android/">Android</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/phone/nokian900/">Nokia N900</a></li></ul></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/plesk/">Plesk</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/sysadmin/">System Admin</a></li><li class="evo_cat_leaf"><a href="http://www.bigsoft.co.uk/blog/techie/">Techie</a></li></ul></div></div><div class="panel panel-default evo_widget widget_core_free_html"><div class="panel-heading"><h4 class="panel-title">Blogroll</h4></div><div class="panel-body"><ul>
+<il><a href="http://packetmangling.co.uk/">PacketMangling</a></il>
+</ul>
+</div></div><div class="panel panel-default evo_widget widget_core_coll_xml_feeds"><div class="panel-heading"><h4 class="panel-title"><span class="fa fa-rss-square" title="XML Feed" style="color:#F90"></span> XML Feeds</h4></div><div class="panel-body"><ul><li>RSS 2.0: <a href="http://www.bigsoft.co.uk/blog/?tempskin=_rss2">Posts</a>, <a href="http://www.bigsoft.co.uk/blog/?tempskin=_rss2&amp;disp=comments">Comments</a></li><li>Atom: <a href="http://www.bigsoft.co.uk/blog/?tempskin=_atom">Posts</a>, <a href="http://www.bigsoft.co.uk/blog/?tempskin=_atom&amp;disp=comments">Comments</a></li></ul><div class="notes"><a href="http://webreference.fr/2006/08/30/rss_atom_xml" target="_blank">What is RSS?</a></div></div></div><div class="panel panel-default evo_widget widget_core_free_html"><div class="panel-heading"><h4 class="panel-title">Powered by</h4></div><div class="panel-body"> <a href="http://b2evolution.net/" title="b2evolution home"><img src="../../rsc/img/b2evolution_button.png" alt="b2evolution" width="80" height="15" border="0" class="middle" /></a></div></div><div class="panel panel-default evo_widget widget_core_coll_item_list evo_layout_list evo_nogroup evo_withtitle evo_nopic evo_noexcerpt evo_noteaser"><div class="panel-heading"><h4 class="panel-title">Items</h4></div><div class="panel-body"><ul><li><a href="http://www.bigsoft.co.uk/blog/2020/07/08/these-are-two-perfectly-geometrical-circles" class="default">These are two perfectly geometrical circles</a></li><li><a href="http://www.bigsoft.co.uk/blog/2020/02/24/all-the-balls-are-the-same-colour" class="default">All the balls are the same colour</a></li><li><a href="http://www.bigsoft.co.uk/blog/2019/08/29/text-reader-for-ubuntu" class="default">Text reader for Ubuntu</a></li><li><a href="http://www.bigsoft.co.uk/blog/2019/07/29/tutorial-for-unpacking-and-cataloguing-lots-of-java-archives" class="default">Tutorial for unpacking and cataloguing lots of Java archives</a></li><li><a href="http://www.bigsoft.co.uk/blog/2019/07/27/import-samsung-passwords-into-lastpass" class="default">Import mobile Chrome passwords into Lastpass</a></li><li><a href="http://www.bigsoft.co.uk/blog/2019/06/27/import-firefox-password-manager-into-lastpass" class="default">Import Firefox Password Manager into Lastpass</a></li><li><a href="http://www.bigsoft.co.uk/blog/2019/02/06/the-moving-ball-illusion" class="default">The moving ball illusion</a></li><li><a href="http://www.bigsoft.co.uk/blog/2018/10/07/bookmarklet-to-shrink-a-page-of-images-to-100" class="default">Bookmarklet to shrink a page of images to 100%</a></li><li><a href="http://www.bigsoft.co.uk/blog/2018/09/13/switch-off-samsung-account-tap-here-to-use-your-samsung-account" class="default">Switch off Samsung account Tap here to use your Samsung account</a></li><li><a href="http://www.bigsoft.co.uk/blog/2018/09/03/installing-git-on-a-mac" class="default">Installing Git on a Mac</a></li></ul></div></div>		</div>
+
+		<div class="evo_container evo_container__sidebar2">
+				</div>
+	</aside><!-- .col -->
+	
+</div><!-- .row -->
+
+</div><!-- .container -->
+
+<div class="container">
+<footer class="row">
+
+   <!-- =================================== START OF FOOTER =================================== -->
+    <div class="col-md-12">
+
+				<div class="evo_container evo_container__footer clearfix">
+					</div><!-- .evo_container__footer -->
+
+		<p class="center">
+			&copy; 2020 <a href="http://www.bigsoft.co.uk">BigSoft Limited</a> - David Newcomb. All Rights Reserved. &bull; 
+			<a href="http://www.bigsoft.co.uk/?disp=msgform&amp;recipient_id=1&amp;redirect_to=http%3A%2F%2Fwww.bigsoft.co.uk%2Fblog%2F2008%2F04%2F11%2Fconfiguring-ls_colors%3Fdisp%3Dsingle%26title%3Dconfiguring-ls_colors%26more%3D1%26c%3D1%26tb%3D1%26pb%3D1" title="Send a message to the owner of this blog..." class="contact_link">Contact</a>
+		</p>
+
+	</div><!-- .col -->
+
+</footer><!-- .row -->
+</div>
+
+</div><!-- .evo_pictured_layout -->
+
+<!-- End of skin_wrapper -->
+</div>
+
+</body>
+</html>
