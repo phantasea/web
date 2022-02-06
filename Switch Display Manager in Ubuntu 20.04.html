@@ -1,0 +1,1271 @@
+
+<!doctype html>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
+
+	<title>Switch Display Manager in Ubuntu 20.04 - TechPiezo</title>
+
+<!-- This site is optimized with the Yoast SEO plugin v11.2.1 - https://yoast.com/wordpress/plugins/seo/ -->
+<meta name="description" content="The type of login manager would depend on our Ubuntu configuration. In this article, we would focus on how to switch Display Manager in Ubuntu 20.04."/>
+<link rel="canonical" href="https://techpiezo.com/linux/switch-display-manager-in-ubuntu-20-04/" />
+<!-- / Yoast SEO plugin. -->
+
+<style id="ct-main-styles-inline-css" type="text/css">:root {
+    --passepartoutSize: 10px;
+    --selectDropdownItemActiveColor: var(--paletteColor1);
+    --selectDropdownTextActiveColor: #ffffff;
+    --selectDropdownTextInitialColor: var(--paletteColor3);
+    --radioCheckboxInitialColor: #e8ebf0;
+    --formInputHeight: 45px;
+    --formFontSize: 15px;
+    --formTextInitialColor: var(--paletteColor3);
+    --formBorderInitialColor: rgba(232, 235, 240, 1);
+    --copyrightSpacing: 25px;
+    --copyrightText: var(--paletteColor3);
+    --footerPrimaryBackground: #eef0f4;
+    --widgetsAreaDivider: 1px dashed #dddddd;
+    --singleAuthorBoxBorder: #e8ebf0;
+    --singleAuthorBoxSpacing: 40px;
+    --singleContentBoxedSpacing: 30px;
+    --shareItemsBorder: #e0e5eb;
+    --topShareBoxSpacing: 70px;
+    --relatedPostsMetaColor: #667380;
+    --relatedPostsContainerSpacing: 15px;
+    --paginationAccentHoverColor: var(--paletteColor2);
+    --paginationFontColor: var(--paletteColor3);
+    --sidebarInnerSpacing: 15px;
+    --sidebarDividerSize: 1px;
+    --sidebarBorderSize: 0px;
+    --sidebarBackgroundColor: var(--paletteColor5);
+    --sidebarGap: 3%;
+    --sidebarWidth: 28%;
+    --narrowContainerWidth: 60%;
+    --maxSiteWidth: 1290px;
+    --buttonInitialColor: var(--paletteColor1);
+    --linkInitialColor: var(--paletteColor3);
+    --paletteColor5: #ffffff;
+    --paletteColor3: #0e0c1b;
+    --paletteColor1: #3897f0;
+    --headerTopBorder: 1px dashed rgba(44,62,80,0.2);
+    --offCanvasWidth: 280px;
+    --topBarHeight: 0px;
+    --dropDownBackground: var(--paletteColor5);
+    --dropdownMenuWidth: 150px;
+    --navSectionHeight: 60px;
+    --transparentHeaderHoverFontColor: var(--paletteColor1);
+    --headerHeight: 50px;
+    --headerLogoContainerHeight: 110px;
+    --logoMaxHeight: 30px;
+    --cardSpacing: 35px;
+    --cardBackground: #ffffff;
+    --pageTitleFontHoverColor: var(--paletteColor1);
+    --letterSpacing: 0em;
+    --fontSize: 20px;
+    --textTransform: none;
+    --fontWeight: 400;
+    --fontFamily: Helvetica;
+    --fontStyle: normal;
+    --textDecoration: none;
+    --lineHeight: 1.65;
+    --pageTitleFontInitialColor: var(--paletteColor4);
+    --cardExcerptSize: 18px;
+    --cardsGap: 35px;
+    --transparentHeaderBackground: rgba(255, 255, 255, 0.1);
+    --transparentLogoMaxHeight: 50px;
+    --headerShadow: rgba(210, 213, 218, 0.15);
+    --transparentHeaderInitialFontColor: #ffffff;
+    --dropdownTopOffset: 20px;
+    --dropDownDivider: none;
+    --topBarBackground: #29333d;
+    --mobileHeaderHeight: 70px;
+    --headerButtonRadius: 5px;
+    --headerBottomBorder: none;
+    --paletteColor2: #1da1f2;
+    --paletteColor4: #0e0c1b;
+    --fontColor: var(--paletteColor3);
+    --linkHoverColor: var(--paletteColor1);
+    --buttonHoverColor: var(--paletteColor2);
+    --contentAreaSpacing: 35px;
+    --wideOffset: 130px;
+    --sidebarWidthNoUnit: 28;
+    --sidebarOffset: 50px;
+    --sidebarBorderColor: rgba(224, 229, 235, 0.8);
+    --sidebarDividerColor: rgba(224, 229, 235, 0.8);
+    --sidebarWidgetsSpacing: 60px;
+    --paginationSpacing: 80px;
+    --paginationAccentInitialColor: var(--paletteColor1);
+    --paginationDivider: none;
+    --relatedPostsLabelColor: var(--paletteColor4);
+    --postNavSpacing: 50px;
+    --bottomShareBoxSpacing: 70px;
+    --shareItemsIcon: #ffffff;
+    --pageContentBoxedSpacing: 40px;
+    --singleAuthorBoxBackground: #ffffff;
+    --singleAuthorBoxShadow: rgba(210, 213, 218, 0.4);
+    --widgetAreaSpacing: 70px;
+    --footerPrimarySpacing: 30px;
+    --copyrightBackground: #eef0f4;
+    --formLabelColor: var(--paletteColor3);
+    --formBorderFocusColor: var(--paletteColor1);
+    --formTextFocusColor: var(--paletteColor3);
+    --formBorderSize: 1px;
+    --formTextAreaHeight: 170px;
+    --radioCheckboxAccentColor: var(--paletteColor1);
+    --selectDropdownTextHoverColor: var(--paletteColor3);
+    --selectDropdownItemHoverColor: rgba(232, 235, 240, 0.4);
+    --selectDropdownBackground: #ffffff;
+    --passepartoutColor: var(--paletteColor1);
+}
+
+h1 {
+    --letterSpacing: 0em;
+    --fontSize: 44px;
+    --textTransform: none;
+    --fontWeight: 700;
+    --fontStyle: normal;
+    --textDecoration: none;
+    --lineHeight: 1.5;
+    --fontColor: var(--paletteColor4);
+}
+
+h2 {
+    --letterSpacing: 0em;
+    --fontSize: 39px;
+    --textTransform: none;
+    --fontWeight: 700;
+    --fontStyle: normal;
+    --textDecoration: none;
+    --lineHeight: 1.5;
+    --fontColor: var(--paletteColor4);
+}
+
+h3 {
+    --letterSpacing: 0em;
+    --fontSize: 34px;
+    --textTransform: none;
+    --fontWeight: 700;
+    --fontStyle: normal;
+    --textDecoration: none;
+    --lineHeight: 1.5;
+    --fontColor: var(--paletteColor4);
+}
+
+h4 {
+    --letterSpacing: 0em;
+    --fontSize: 29px;
+    --textTransform: none;
+    --fontWeight: 700;
+    --fontStyle: normal;
+    --textDecoration: none;
+    --lineHeight: 1.5;
+    --fontColor: var(--paletteColor4);
+}
+
+h5 {
+    --letterSpacing: 0em;
+    --fontSize: 24px;
+    --textTransform: none;
+    --fontWeight: 700;
+    --fontStyle: normal;
+    --textDecoration: none;
+    --lineHeight: 1.5;
+    --fontColor: var(--paletteColor4);
+}
+
+h6 {
+    --letterSpacing: 0em;
+    --fontSize: 20px;
+    --textTransform: none;
+    --fontWeight: 700;
+    --fontStyle: normal;
+    --textDecoration: none;
+    --lineHeight: 1.5;
+    --fontColor: var(--paletteColor4);
+}
+
+.entry-content blockquote p, .ct-quote-widget blockquote p {
+    --lineHeight: 1.65;
+    --textDecoration: none;
+    --fontStyle: normal;
+    --fontFamily: Georgia;
+    --fontWeight: 600;
+    --textTransform: none;
+    --fontSize: 29px;
+    --letterSpacing: 0em;
+}
+
+code, kbd, samp, pre {
+    --lineHeight: 1.65;
+    --textDecoration: none;
+    --fontFamily: monospace;
+    --textTransform: none;
+    --fontSize: 18px;
+    --letterSpacing: 0em;
+}
+
+.site-title {
+    --linkInitialColor: #2c3e50;
+    --lineHeight: 1.65;
+    --textDecoration: none;
+    --fontStyle: normal;
+    --fontWeight: 700;
+    --textTransform: none;
+    --fontSize: 32px;
+    --letterSpacing: 0em;
+    --linkHoverColor: var(--paletteColor1);
+}
+
+.primary-menu > li {
+    --lineHeight: 1.3;
+    --textDecoration: none;
+    --fontStyle: normal;
+    --fontWeight: 700;
+    --textTransform: capitalize;
+    --fontSize: 18px;
+    --letterSpacing: 0em;
+}
+
+.primary-menu .sub-menu li {
+    --lineHeight: 1.3;
+    --textDecoration: none;
+    --fontStyle: normal;
+    --fontWeight: 700;
+    --textTransform: capitalize;
+    --fontSize: 16px;
+    --letterSpacing: 0em;
+}
+
+#mobile-menu .mobile-menu {
+    --lineHeight: 1.65;
+    --textDecoration: none;
+    --fontStyle: normal;
+    --fontWeight: 700;
+    --textTransform: capitalize;
+    --fontSize: 30px;
+    --letterSpacing: 0em;
+}
+
+.ct-sidebar .widget-title {
+    --lineHeight: 1.65;
+    --textDecoration: none;
+    --textTransform: none;
+    --fontSize: 18px;
+    --letterSpacing: 0em;
+}
+
+.ct-sidebar .ct-post-title {
+    --lineHeight: 1.4;
+    --textDecoration: none;
+    --fontStyle: normal;
+    --fontWeight: 500;
+    --textTransform: none;
+    --fontSize: 15px;
+    --letterSpacing: 0em;
+}
+
+.product_title {
+    --lineHeight: 1.65;
+    --textDecoration: none;
+    --textTransform: none;
+    --fontSize: 30px;
+    --letterSpacing: 0em;
+}
+
+.woocommerce-loop-product__title {
+    --lineHeight: 1.65;
+    --textDecoration: none;
+    --fontStyle: normal;
+    --fontWeight: 500;
+    --textTransform: none;
+    --fontSize: 17px;
+    --letterSpacing: 0em;
+}
+
+.site-description {
+    --letterSpacing: 0em;
+    --fontSize: 13px;
+    --textTransform: none;
+    --fontWeight: 500;
+    --fontStyle: normal;
+    --textDecoration: none;
+    --lineHeight: 1.65;
+    --fontColor: var(--paletteColor3);
+}
+
+.site-main {
+    --backgroundImage: none;
+    --backgroundColor: #f8f8f8;
+}
+
+.header-desktop {
+    --backgroundColor: #ffffff;
+    --backgroundImage: none;
+    --menuItemsSpacing: 25px;
+}
+
+.ct-related-posts {
+    --linkInitialColor: var(--paletteColor3);
+    --backgroundImage: none;
+    --backgroundColor: #eff1f5;
+    --linkHoverColor: var(--paletteColor1);
+}
+
+.footer-widgets-area {
+    --backgroundImage: none;
+    --backgroundColor: #f4f5f8;
+}
+
+.entry-header .page-title {
+    --lineHeight: 1.5;
+    --textDecoration: none;
+    --fontStyle: normal;
+    --fontWeight: 700;
+    --textTransform: none;
+    --fontSize: 34px;
+    --letterSpacing: 0em;
+}
+
+.entry-card .entry-title {
+    --lineHeight: 1.3;
+    --textDecoration: none;
+    --fontStyle: normal;
+    --fontWeight: 700;
+    --textTransform: none;
+    --fontSize: 28px;
+    --letterSpacing: 0em;
+}
+
+.entry-title {
+    --linkInitialColor: var(--paletteColor4);
+    --linkHoverColor: var(--paletteColor1);
+}
+
+.entry-excerpt {
+    --cardExcerptColor: var(--fontColor);
+}
+
+.entry-card {
+    --metaFontSize: 16px;
+}
+
+.entry-meta {
+    --linkInitialColor: var(--fontColor);
+    --linkHoverColor: var(--paletteColor1);
+}
+
+.entry-button {
+    --linkInitialColor: #ffffff;
+    --linkHoverColor: #ffffff;
+}
+
+.site-header {
+    --menuActiveColor: #ffffff;
+    --menuInitialColor: var(--paletteColor3);
+    --menuHoverColor: var(--paletteColor1);
+}
+
+.primary-menu .sub-menu {
+    --menuInitialColor: var(--paletteColor4);
+    --menuHoverColor: var(--paletteColor1);
+}
+
+.header-top-bar {
+    --linkInitialColor: rgba(255, 255, 255, 0.8);
+    --linkHoverColor: var(--paletteColor1);
+}
+
+#mobile-menu {
+    --menuHoverColor: var(--paletteColor1);
+    --menuInitialColor: var(--paletteColor4);
+    --modalBackground: #ffffff;
+}
+
+#mobile-menu .custom-logo {
+    --logoMaxHeight: 50px;
+}
+
+#search-modal {
+    --linkInitialColor: var(--paletteColor5);
+    --modalBackground: rgba(18, 21, 25, 0.98);
+    --linkHoverColor: var(--paletteColor1);
+}
+
+.ct-header-cart {
+    --cartBadgeBackground: var(--paletteColor1);
+    --cartBadgeText: #ffffff;
+}
+
+.ct-cart-content {
+    --linkHoverColor: var(--paletteColor1);
+    --linkInitialColor: #ffffff;
+    --cartDropDownBackground: #29333C;
+}
+
+.ct-header-button {
+    --buttonInitialColor: var(--paletteColor1);
+    --linkInitialColor: #ffffff;
+    --linkHoverColor: #ffffff;
+    --buttonHoverColor: var(--paletteColor2);
+}
+
+.share-box[data-type="type-1"] {
+    --shareItemsIconInitial: var(--paletteColor3);
+    --shareItemsIconHover: var(--paletteColor1);
+}
+
+.share-box[data-type="type-2"] {
+    --shareBoxBackgroundInitial: var(--paletteColor1);
+    --shareBoxBackgroundHover: var(--paletteColor2);
+}
+
+.ct-back-to-top {
+    --buttonInitialColor: var(--paletteColor3);
+    --linkInitialColor: #ffffff;
+    --linkHoverColor: #ffffff;
+    --buttonHoverColor: var(--paletteColor4);
+}
+
+.header-mobile,
+.post[data-content="boxed"],
+.page[data-content="boxed"] {
+    --backgroundImage: none;
+    --backgroundColor: #ffffff;
+}
+
+.single .ct-comments-container,
+.page .ct-comments-container {
+    --backgroundImage: none;
+    --backgroundColor: #f8f9fb;
+}
+
+.header-top-bar-menu,
+.footer-menu {
+    --menuItemsSpacing: 20px;
+}
+
+.mobile-menu-toggle,
+.search-button,
+.ct-cart-icon,
+.footer-primary-area {
+    --linkInitialColor: var(--paletteColor3);
+    --linkHoverColor: var(--paletteColor1);
+}
+
+.ct-sidebar,
+.footer-widgets {
+    --linkInitialColor: var(--paletteColor3);
+    --widgetsTitleColor: var(--paletteColor4);
+    --widgetsFontColor: var(--paletteColor3);
+    --linkHoverColor: var(--paletteColor1);
+}</style>
+<style id="ct-main-styles-tablet-inline-css" type="text/css" media="(max-width: 1000px) and (min-width: 690px)">:root {
+    --copyrightSpacing: 25px;
+    --widgetAreaSpacing: 50px;
+    --pageContentBoxedSpacing: 40px;
+    --bottomShareBoxSpacing: 50px;
+    --postNavSpacing: 60px;
+    --paginationSpacing: 60px;
+    --sidebarWidgetsSpacing: 40px;
+    --offCanvasWidth: 280px;
+    --topBarHeight: 0px;
+    --headerHeight: 35px;
+    --transparentLogoMaxHeight: 50px;
+    --cardSpacing: 35px;
+    --cardExcerptSize: 18px;
+    --lineHeight: 1.65;
+    --fontSize: 20px;
+    --letterSpacing: 0em;
+    --cardsGap: 35px;
+    --logoMaxHeight: 30px;
+    --headerLogoContainerHeight: 35px;
+    --navSectionHeight: 15px;
+    --mobileHeaderHeight: 40px;
+    --contentAreaSpacing: 25px;
+    --sidebarInnerSpacing: 15px;
+    --relatedPostsContainerSpacing: 50px;
+    --topShareBoxSpacing: 50px;
+    --singleContentBoxedSpacing: 30px;
+    --singleAuthorBoxSpacing: 40px;
+    --footerPrimarySpacing: 30px;
+    --passepartoutSize: 10px;
+}
+
+h1 {
+    --lineHeight: 1.5;
+    --fontSize: 44px;
+    --letterSpacing: 0em;
+}
+
+h2 {
+    --lineHeight: 1.5;
+    --fontSize: 39px;
+    --letterSpacing: 0em;
+}
+
+h3 {
+    --lineHeight: 1.5;
+    --fontSize: 34px;
+    --letterSpacing: 0em;
+}
+
+h4 {
+    --lineHeight: 1.5;
+    --fontSize: 29px;
+    --letterSpacing: 0em;
+}
+
+h5 {
+    --lineHeight: 1.5;
+    --fontSize: 24px;
+    --letterSpacing: 0em;
+}
+
+h6 {
+    --lineHeight: 1.5;
+    --fontSize: 20px;
+    --letterSpacing: 0em;
+}
+
+.entry-content blockquote p, .ct-quote-widget blockquote p {
+    --lineHeight: 1.65;
+    --fontSize: 29px;
+    --letterSpacing: 0em;
+}
+
+.site-title {
+    --lineHeight: 1.65;
+    --fontSize: 32px;
+    --letterSpacing: 0em;
+}
+
+.primary-menu > li {
+    --lineHeight: 1.3;
+    --fontSize: 18px;
+    --letterSpacing: 0em;
+}
+
+.primary-menu .sub-menu li {
+    --lineHeight: 1.3;
+    --fontSize: 16px;
+    --letterSpacing: 0em;
+}
+
+.ct-sidebar .ct-post-title {
+    --lineHeight: 1.4;
+    --fontSize: 15px;
+    --letterSpacing: 0em;
+}
+
+.woocommerce-loop-product__title {
+    --lineHeight: 1.65;
+    --fontSize: 17px;
+    --letterSpacing: 0em;
+}
+
+.site-description {
+    --lineHeight: 1.65;
+    --fontSize: 13px;
+    --letterSpacing: 0em;
+}
+
+.entry-header .page-title {
+    --lineHeight: 1.5;
+    --fontSize: 30px;
+    --letterSpacing: 0em;
+}
+
+.entry-card .entry-title {
+    --lineHeight: 1.3;
+    --fontSize: 26px;
+    --letterSpacing: 0em;
+}
+
+.entry-card {
+    --metaFontSize: 16px;
+}
+
+code, kbd, samp, pre,
+.ct-sidebar .widget-title {
+    --lineHeight: 1.65;
+    --fontSize: 18px;
+    --letterSpacing: 0em;
+}
+
+#mobile-menu .mobile-menu,
+.product_title {
+    --lineHeight: 1.65;
+    --fontSize: 30px;
+    --letterSpacing: 0em;
+}
+
+.header-top-bar-menu,
+.footer-menu {
+    --menuItemsSpacing: 20px;
+}</style>
+<style id="ct-main-styles-mobile-inline-css" type="text/css" media="(max-width: 690px)">:root {
+    --copyrightSpacing: 15px;
+    --widgetAreaSpacing: 40px;
+    --pageContentBoxedSpacing: 40px;
+    --bottomShareBoxSpacing: 30px;
+    --postNavSpacing: 40px;
+    --paginationSpacing: 50px;
+    --sidebarWidgetsSpacing: 30px;
+    --offCanvasWidth: 200px;
+    --topBarHeight: 0px;
+    --headerHeight: 35px;
+    --transparentLogoMaxHeight: 50px;
+    --cardSpacing: 25px;
+    --cardExcerptSize: 18px;
+    --lineHeight: 1.65;
+    --fontSize: 20px;
+    --letterSpacing: 0em;
+    --cardsGap: 35px;
+    --logoMaxHeight: 30px;
+    --headerLogoContainerHeight: 35px;
+    --navSectionHeight: 15px;
+    --mobileHeaderHeight: 50px;
+    --contentAreaSpacing: 20px;
+    --sidebarInnerSpacing: 15px;
+    --relatedPostsContainerSpacing: 30px;
+    --topShareBoxSpacing: 30px;
+    --singleContentBoxedSpacing: 30px;
+    --singleAuthorBoxSpacing: 40px;
+    --footerPrimarySpacing: 30px;
+    --passepartoutSize: 0px;
+}
+
+h1 {
+    --lineHeight: 1.5;
+    --fontSize: 44px;
+    --letterSpacing: 0em;
+}
+
+h2 {
+    --lineHeight: 1.5;
+    --fontSize: 39px;
+    --letterSpacing: 0em;
+}
+
+h3 {
+    --lineHeight: 1.5;
+    --fontSize: 34px;
+    --letterSpacing: 0em;
+}
+
+h4 {
+    --lineHeight: 1.5;
+    --fontSize: 29px;
+    --letterSpacing: 0em;
+}
+
+h5 {
+    --lineHeight: 1.5;
+    --fontSize: 24px;
+    --letterSpacing: 0em;
+}
+
+h6 {
+    --lineHeight: 1.5;
+    --fontSize: 20px;
+    --letterSpacing: 0em;
+}
+
+.entry-content blockquote p, .ct-quote-widget blockquote p {
+    --lineHeight: 1.65;
+    --fontSize: 29px;
+    --letterSpacing: 0em;
+}
+
+.site-title {
+    --lineHeight: 1.65;
+    --fontSize: 32px;
+    --letterSpacing: 0em;
+}
+
+.primary-menu > li {
+    --lineHeight: 1.3;
+    --fontSize: 18px;
+    --letterSpacing: 0em;
+}
+
+.primary-menu .sub-menu li {
+    --lineHeight: 1.3;
+    --fontSize: 16px;
+    --letterSpacing: 0em;
+}
+
+#mobile-menu .mobile-menu {
+    --lineHeight: 1.65;
+    --fontSize: 21px;
+    --letterSpacing: 0em;
+}
+
+.ct-sidebar .ct-post-title {
+    --lineHeight: 1.4;
+    --fontSize: 15px;
+    --letterSpacing: 0em;
+}
+
+.product_title {
+    --lineHeight: 1.65;
+    --fontSize: 30px;
+    --letterSpacing: 0em;
+}
+
+.woocommerce-loop-product__title {
+    --lineHeight: 1.65;
+    --fontSize: 17px;
+    --letterSpacing: 0em;
+}
+
+.site-description {
+    --lineHeight: 1.65;
+    --fontSize: 13px;
+    --letterSpacing: 0em;
+}
+
+.entry-header .page-title {
+    --lineHeight: 1.5;
+    --fontSize: 25px;
+    --letterSpacing: 0em;
+}
+
+.entry-card .entry-title {
+    --lineHeight: 1.3;
+    --fontSize: 24px;
+    --letterSpacing: 0em;
+}
+
+.entry-card {
+    --metaFontSize: 16px;
+}
+
+code, kbd, samp, pre,
+.ct-sidebar .widget-title {
+    --lineHeight: 1.65;
+    --fontSize: 18px;
+    --letterSpacing: 0em;
+}
+
+.header-top-bar-menu,
+.footer-menu {
+    --menuItemsSpacing: 20px;
+}</style>
+<link rel='stylesheet' id='wp-block-library-css'  href='https://techpiezo.com/wp-includes/css/dist/block-library/style.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='ct-style-css'  href='https://techpiezo.com/wp-content/themes/blocksy/style.css' type='text/css' media='all' />
+<link rel='stylesheet' id='ct-main-styles-css'  href='https://techpiezo.com/wp-content/themes/blocksy/static/bundle/main.css' type='text/css' media='all' />
+
+<link rel="amphtml" href="https://techpiezo.com/linux/switch-display-manager-in-ubuntu-20-04/amp/"><link rel="icon" href="https://techpiezo.com/wp-content/uploads/2019/08/favicon.ico" sizes="32x32" />
+<link rel="icon" href="https://techpiezo.com/wp-content/uploads/2019/08/favicon.ico" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://techpiezo.com/wp-content/uploads/2019/08/favicon.ico" />
+<meta name="msapplication-TileImage" content="https://techpiezo.com/wp-content/uploads/2019/08/favicon.ico" />
+		<style type="text/css" id="wp-custom-css">
+			.archive-description, .archive.category .page-title,
+.archive.category .page-description, .archive.category .taxonomy-description, .cart-search, .ct-meta-author{
+    display: none !important;
+}
+.post{    
+	  padding-left: 20px;
+	padding-right: 20px;
+}
+.ct-last-page-text{
+	color: black;
+}
+
+		</style>
+		
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-135581354-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-135581354-3', { 'anonymize_ip': true });
+</script>
+
+</head>
+
+<body class="post-template-default single single-post postid-3734 single-format-standard wp-custom-logo ct-loading ct-no-js ct-has-sidebar ct-modern-forms ct-offcanvas header-type-1" >
+<div id="main-container">
+
+	<header
+		class="site-header"
+						>
+		
+		
+<div class="header-desktop" data-type="type-1">
+	<div class="ct-container-fluid" data-menu-alignment="right">
+
+		
+	<div
+		class="site-branding"
+				>
+
+		<h1 class="site-title">
+							<a href="https://techpiezo.com/" class="custom-logo-link" rel="home"><img src="https://techpiezo.com/wp-content/uploads/2019/08/logo.svg" class="custom-logo ct-default-logo" alt="TechPiezo" /></a>					</h1>
+
+		<h2 class="site-description ct-hidden-sm ct-hidden-md ct-hidden-lg">
+			Future is here!		</h2>
+	</div>
+
+	
+		
+	<nav
+		id="site-navigation"
+		class="main-navigation"
+		data-menu-type="type-1"
+		data-dropdown-animation="type-3"
+				>
+
+		<ul id="primary-menu" class="primary-menu menu"><li id="menu-item-70" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-70"><a href="https://techpiezo.com">Home</a></li>
+<li id="menu-item-41" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children menu-item-41"><a href="https://techpiezo.com/linux/">Linux<span class="menu-arrow"><svg width="8" height="8" viewBox="0 0 15 15"><path d="M2.1,3.2l5.4,5.4l5.4-5.4L15,4.3l-7.5,7.5L0,4.3L2.1,3.2z"/></svg></span></a>
+<ul class="sub-menu">
+	<li id="menu-item-350" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-350"><a href="https://techpiezo.com/linux/linux-quick-fix/">Quick Fix</a></li>
+	<li id="menu-item-349" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-349"><a href="https://techpiezo.com/linux/linux-recent/">What&#8217;s New</a></li>
+</ul>
+</li>
+<li id="menu-item-1838" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-1838"><a href="https://techpiezo.com/programming/">Programming<span class="menu-arrow"><svg width="8" height="8" viewBox="0 0 15 15"><path d="M2.1,3.2l5.4,5.4l5.4-5.4L15,4.3l-7.5,7.5L0,4.3L2.1,3.2z"/></svg></span></a>
+<ul class="sub-menu">
+	<li id="menu-item-3290" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3290"><a href="https://techpiezo.com/c/">C</a></li>
+	<li id="menu-item-4792" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4792"><a href="https://techpiezo.com/go/">Go</a></li>
+	<li id="menu-item-1824" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1824"><a href="https://techpiezo.com/java/">Java</a></li>
+	<li id="menu-item-348" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-348"><a href="https://techpiezo.com/kotlin/">Kotlin</a></li>
+	<li id="menu-item-2743" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2743"><a href="https://techpiezo.com/python/">Python</a></li>
+	<li id="menu-item-4793" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4793"><a href="https://techpiezo.com/rust/">Rust</a></li>
+</ul>
+</li>
+<li id="menu-item-43" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-43"><a href="https://techpiezo.com/android/">Android<span class="menu-arrow"><svg width="8" height="8" viewBox="0 0 15 15"><path d="M2.1,3.2l5.4,5.4l5.4-5.4L15,4.3l-7.5,7.5L0,4.3L2.1,3.2z"/></svg></span></a>
+<ul class="sub-menu">
+	<li id="menu-item-347" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-347"><a href="https://techpiezo.com/android/android-recent/">What&#8217;s New</a></li>
+</ul>
+</li>
+<li id="menu-item-39" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-39"><a href="https://techpiezo.com/tech-insights/">Insights</a></li>
+<li id="menu-item-1846" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1846"><a href="#">More<span class="menu-arrow"><svg width="8" height="8" viewBox="0 0 15 15"><path d="M2.1,3.2l5.4,5.4l5.4-5.4L15,4.3l-7.5,7.5L0,4.3L2.1,3.2z"/></svg></span></a>
+<ul class="sub-menu">
+	<li id="menu-item-3376" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3376"><a href="https://techpiezo.com/nodejs/">Node.js</a></li>
+	<li id="menu-item-40" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-40"><a href="https://techpiezo.com/seo/">SEO</a></li>
+	<li id="menu-item-42" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-42"><a href="https://techpiezo.com/wordpress/">WordPress</a></li>
+</ul>
+</li>
+</ul>
+	</nav>
+
+	
+		<div class="header-group">
+			<a href="#search-modal" class="search-button ct-hidden-sm ct-hidden-md ct-hidden-lg">
+				<svg width="12" height="12" viewBox="0 0 50 50">
+					<path d="M48.6,48.6c-1.8,1.8-4.8,1.8-6.6,0l-8.3-8.3c-3.4,2.2-7.4,3.5-11.8,3.5C9.8,43.8,0,34,0,21.9S9.8,0,21.9,0
+					C34,0,43.8,9.8,43.8,21.9c0,4.3-1.3,8.4-3.5,11.8l8.3,8.3C50.5,43.8,50.5,46.8,48.6,48.6z M21.9,6.3c-8.6,0-15.7,7-15.7,15.7
+					s7,15.7,15.7,15.7c8.6,0,15.7-7,15.7-15.7C37.6,13.3,30.6,6.3,21.9,6.3z"/>
+				</svg>
+			</a>
+
+			<a class="ct-header-button ct-hidden-sm ct-hidden-md ct-hidden-lg" data-type="type-1" data-size="medium" >Download</a>		</div>
+	</div>
+</div>
+		
+<div class="header-mobile" data-type="type-1">
+	<div class="ct-container">
+		
+	<div
+		class="site-branding"
+				>
+
+		<h1 class="site-title">
+							<a href="https://techpiezo.com/" class="custom-logo-link" rel="home"><img src="https://techpiezo.com/wp-content/uploads/2019/08/logo.svg" class="custom-logo ct-default-logo" alt="TechPiezo" /></a>					</h1>
+
+		<h2 class="site-description ct-hidden-sm ct-hidden-md ct-hidden-lg">
+			Future is here!		</h2>
+	</div>
+
+	
+		<div class="header-group">
+			<a href="#search-modal" class="search-button ct-hidden-sm ct-hidden-md ct-hidden-lg">
+				<svg width="12" height="12" viewBox="0 0 50 50">
+					<path d="M48.6,48.6c-1.8,1.8-4.8,1.8-6.6,0l-8.3-8.3c-3.4,2.2-7.4,3.5-11.8,3.5C9.8,43.8,0,34,0,21.9S9.8,0,21.9,0
+					C34,0,43.8,9.8,43.8,21.9c0,4.3-1.3,8.4-3.5,11.8l8.3,8.3C50.5,43.8,50.5,46.8,48.6,48.6z M21.9,6.3c-8.6,0-15.7,7-15.7,15.7
+					s7,15.7,15.7,15.7c8.6,0,15.7-7,15.7-15.7C37.6,13.3,30.6,6.3,21.9,6.3z"/>
+				</svg>
+			</a>
+
+			<a class="ct-header-button ct-hidden-sm ct-hidden-md ct-hidden-lg" data-type="type-1" data-size="medium" >Download</a>		</div>
+
+			<nav id="site-navigation" class="main-navigation">
+		<a href="#mobile-menu" class="mobile-menu-toggle">
+			<span
+				data-type="type-1"
+				class="lines-button"></span>
+		</a>
+	</nav>
+
+		</div>
+</div>
+	</header>
+
+	<main id="main" class="site-main">
+
+		
+
+	
+	<div id="primary" class="content-area">
+
+		<div class="ct-container" data-sidebar="right">
+
+			<section>
+				
+	<article
+		id="post-3734"
+		class="post-3734 post type-post status-publish format-standard has-post-thumbnail hentry category-linux category-linux-quick-fix"		data-content="boxed"				>
+
+		
+		<section class="hero-section" data-type="type-1" data-alignment="left">
+			<header class="entry-header">
+				<h1 class="page-title">Switch Display Manager in Ubuntu 20.04</h1>
+				<div class="entry-meta has-avatar" data-label data-type="simple">
+		
+
+			<ul >
+				
+							<li class="ct-meta-author" >
+
+					
+											<span class="ct-meta-label">
+							By						</span>
+					
+					<span class="ct-meta-element" >
+						<a href="https://techpiezo.com/author/editorialteam/" title="Posts by Editorial Team" rel="author">Editorial Team</a>					</span>
+				</li>
+			
+							<li
+					class="ct-meta-date"
+					>
+
+					
+											<span class="ct-meta-label">
+							On						</span>
+					
+					<span
+						class="ct-meta-element"
+						>
+						Dec 2, 2019					</span>
+				</li>
+			
+			
+			<li class="ct-meta-categories" data-type="simple"><span class="ct-meta-label">In </span><span class="ct-meta-element"><a href="https://techpiezo.com/linux/" rel="tag">Linux</a> </span><span class="ct-meta-element"><a href="https://techpiezo.com/linux/linux-quick-fix/" rel="tag">Quick Fix</a></span></li>					</ul>
+				</div>
+		
+					</header>
+		</section>
+
+		<figure class="ct-featured-image ct-hidden-sm" ><div class="ct-image-container ct-lazy" ><img class="attachment-full size-full" alt="Switch Display Manager in Ubuntu 20.04" data-lazy="https://techpiezo.com/wp-content/uploads/2019/12/Switch-Display-Manager-in-Ubuntu-20-04.svg" data-object-fit="~" /><noscript><img src="https://techpiezo.com/wp-content/uploads/2019/12/Switch-Display-Manager-in-Ubuntu-20-04.svg" class="attachment-full size-full" alt="Switch Display Manager in Ubuntu 20.04" /></noscript><div class="ct-ratio" style="padding-bottom: 56.3%"></div></div></figure>
+		
+		<div class="entry-content">
+			<p style="text-align: justify;">Once the boot process gets completed, we get a prompt to enter user and password to login. The type of login manager would depend on our Ubuntu configuration. If we intend to use CLI (Command-line interface), then we would get a default shell to login. Or else, <strong>a Display Manager in case of GUI (Graphical User Interface)</strong>. In this article, we would focus on how to <strong>switch between different Display Manager</strong> in Ubuntu 20.04 release.</p>
+<p style="text-align: justify;">Although there are numerous Display Manager (both GUI and CLI) available, but we would focus on three prominent ones &#8211; <strong>GDM</strong>, <strong>LightDM</strong> and <strong>SDDM</strong>. In Ubuntu, GDM has been the default Display Manager in Ubuntu 16.10 and later. Many Ubuntu flavors still prefer to choose LightDM as default display manager.</p>
+<p style="text-align: justify;"><strong>Note</strong>: Following operations would require you to have superuser privileges. In case you don&#8217;t have one, then contact your System Administrator for assistance.</p>
+<p style="text-align: justify;">First, we will discuss how to install each Display Manager mentioned above.</p>
+<h5 style="text-align: center;">Install GDM in Ubuntu</h5>
+<p style="text-align: justify;">To install GDM (GNOME Display Manager), open a terminal and issue the following &#8211;</p>
+<pre>sudo apt install gdm3</pre>
+<h5 style="text-align: center;">Install LightDM in Ubuntu</h5>
+<p style="text-align: justify;">To install LightDM, open a terminal and issue the following &#8211;</p>
+<pre>sudo apt install lightdm</pre>
+<h5 style="text-align: center;">Install SDDM in Ubuntu</h5>
+<p style="text-align: justify;">To install SDDM (Simple Desktop Display Manager), open a terminal and issue the following &#8211;</p>
+<pre>sudo apt install sddm</pre>
+<h5 style="text-align: center;">Switch Display Manager in Ubuntu 20.04</h5>
+<p style="text-align: justify;">Its not necessary to install all of the above mentioned Display Manager. Any two will suffice. First, we need to identify our default display manager. Therefore, issue the following in terminal &#8211;</p>
+<pre>cat /etc/X11/default-display-manager</pre>
+<p style="text-align: justify;">This would return</p>
+<p style="text-align: justify;">for <strong>GDM3</strong> &#8211;</p>
+<pre>/usr/sbin/gdm3</pre>
+<p style="text-align: justify;">for <strong>LightDM</strong> &#8211;</p>
+<pre>/usr/sbin/lightdm</pre>
+<p style="text-align: justify;">and <strong>SDDM</strong> &#8211;</p>
+<pre>/usr/sbin/sddm</pre>
+<p style="text-align: justify;">Or, you can simply issue to get the status of active Display Manager &#8211;</p>
+<pre>systemctl status display-manager</pre>
+<p style="text-align: justify;">Now, to switch between them &#8211; run the following command with active (or default) Display Manager &#8211;</p>
+<pre>sudo dpkg-reconfigure &lt;Default_Display_Manager&gt;</pre>
+<p style="text-align: justify;">for instance (opt any one of three as per your System&#8217;s configuration),</p>
+<pre>sudo dpkg-reconfigure gdm3
+sudo dpkg-reconfigure lightdm
+sudo dpkg-reconfigure sddm</pre>
+<p style="text-align: justify;">And, press <strong>OK</strong>. Next, you will be asked to select your default Display Manager (gdm3, lightdm or sddm).</p>
+<p style="text-align: justify;">On running &#8211; <strong>sudo dpkg-reconfigure gdm3</strong>, you may get following error &#8211;</p>
+<pre>gdm.service is not active, cannot reload.
+invoke-rc.d: initscript gdm3, action "reload" failed.</pre>
+<p style="text-align: justify;">In our case, we just needed to reboot our System. And, everything worked as it should.</p>
+<p style="text-align: justify;"><strong>In conclusion</strong>, we have discussed how to switch Display Manager in Ubuntu 20.04 release.</p>
+		</div>
+
+		
+		
+		
+	</article>
+
+				</section>
+
+			
+<aside
+	    data-type="type-2"
+	>
+
+    <div
+		class="ct-sidebar" 		data-widgets="separated">
+				<div class="ct-widget widget_recent_entries">		<h2 class="widget-title">Recent Posts</h2>		<ul>
+											<li>
+					<a href="https://techpiezo.com/c/relational-operators-in-c/">Relational Operators in C</a>
+									</li>
+											<li>
+					<a href="https://techpiezo.com/c/enumeration-in-c/">Enumeration in C</a>
+									</li>
+											<li>
+					<a href="https://techpiezo.com/c/getchar-and-putchar-in-c/">getchar() and putchar() in C</a>
+									</li>
+											<li>
+					<a href="https://techpiezo.com/linux/convert-woff2-to-ttf-or-ttf-to-woff2-in-ubuntu/">Convert WOFF2 to TTF or TTF to WOFF2 in Ubuntu</a>
+									</li>
+											<li>
+					<a href="https://techpiezo.com/c/convert-fahrenheit-to-celsius-through-a-c-program/">Convert Fahrenheit to Celsius through a C program</a>
+									</li>
+					</ul>
+		</div>	</div>
+</aside>
+
+
+		</div>
+
+	</div>
+
+	
+		<div class="ct-related-posts ct-hidden-sm">
+			<div class="ct-container">
+				<h4 class="ct-related-posts-label">
+					Related Posts				</h4>
+
+				<ul data-columns="3">
+											
+						<li>
+							<a class="ct-image-container ct-lazy" href="https://techpiezo.com/linux/convert-woff2-to-ttf-or-ttf-to-woff2-in-ubuntu/"><img width="1" height="1" class="attachment-large size-large" alt="Convert WOFF2/TTF to TTF/WOFF2 in Ubuntu" data-lazy="https://techpiezo.com/wp-content/uploads/2021/07/Convert-woff2-ttf-to-ttf-woff2-in-Ubuntu.svg" data-object-fit="~" /><noscript><img width="1" height="1" src="https://techpiezo.com/wp-content/uploads/2021/07/Convert-woff2-ttf-to-ttf-woff2-in-Ubuntu.svg" class="attachment-large size-large" alt="Convert WOFF2/TTF to TTF/WOFF2 in Ubuntu" /></noscript><div class="ct-ratio" style="padding-bottom: 75%"></div></a>
+							<h3 class="related-entry-title">
+								<a href="https://techpiezo.com/linux/convert-woff2-to-ttf-or-ttf-to-woff2-in-ubuntu/">Convert WOFF2 to TTF or TTF to WOFF2 in Ubuntu</a>
+							</h3>
+
+							<div class="related-entry-meta">
+								<span>
+									Jul 10, 2021								</span>
+
+															</div>
+						</li>
+											
+						<li>
+							<a class="ct-image-container ct-lazy" href="https://techpiezo.com/linux/install-notepad-in-ubuntu-20-04-lts/"><img width="1" height="1" class="attachment-large size-large" alt="Install Notepad++ in Ubuntu 20.04 LTS release" data-lazy="https://techpiezo.com/wp-content/uploads/2021/02/Install-Notepad-plus-plus-in-Ubuntu-20-04.svg" data-object-fit="~" /><noscript><img width="1" height="1" src="https://techpiezo.com/wp-content/uploads/2021/02/Install-Notepad-plus-plus-in-Ubuntu-20-04.svg" class="attachment-large size-large" alt="Install Notepad++ in Ubuntu 20.04 LTS release" /></noscript><div class="ct-ratio" style="padding-bottom: 75%"></div></a>
+							<h3 class="related-entry-title">
+								<a href="https://techpiezo.com/linux/install-notepad-in-ubuntu-20-04-lts/">Install Notepad++ in Ubuntu 20.04 LTS</a>
+							</h3>
+
+							<div class="related-entry-meta">
+								<span>
+									Feb 2, 2021								</span>
+
+															</div>
+						</li>
+											
+						<li>
+							<a class="ct-image-container ct-lazy" href="https://techpiezo.com/linux/install-pidgin-in-ubuntu-20-04-lts/"><img width="1" height="1" class="attachment-large size-large" alt="Install Pidgin in Ubuntu 20.04 LTS" data-lazy="https://techpiezo.com/wp-content/uploads/2020/11/Install-Pidgin-in-Ubuntu-20-04-LTS.svg" data-object-fit="~" /><noscript><img width="1" height="1" src="https://techpiezo.com/wp-content/uploads/2020/11/Install-Pidgin-in-Ubuntu-20-04-LTS.svg" class="attachment-large size-large" alt="Install Pidgin in Ubuntu 20.04 LTS" /></noscript><div class="ct-ratio" style="padding-bottom: 75%"></div></a>
+							<h3 class="related-entry-title">
+								<a href="https://techpiezo.com/linux/install-pidgin-in-ubuntu-20-04-lts/">Install Pidgin in Ubuntu 20.04 LTS</a>
+							</h3>
+
+							<div class="related-entry-meta">
+								<span>
+									Nov 17, 2020								</span>
+
+															</div>
+						</li>
+											
+						<li>
+							<a class="ct-image-container ct-lazy" href="https://techpiezo.com/linux/install-chromium-in-ubuntu-20-04-lts/"><img width="1" height="1" class="attachment-large size-large" alt="Install Chromium in Ubuntu 20.04 LTS" data-lazy="https://techpiezo.com/wp-content/uploads/2020/11/Install-Chromium-in-Ubuntu-20-04-LTS.svg" data-object-fit="~" /><noscript><img width="1" height="1" src="https://techpiezo.com/wp-content/uploads/2020/11/Install-Chromium-in-Ubuntu-20-04-LTS.svg" class="attachment-large size-large" alt="Install Chromium in Ubuntu 20.04 LTS" /></noscript><div class="ct-ratio" style="padding-bottom: 75%"></div></a>
+							<h3 class="related-entry-title">
+								<a href="https://techpiezo.com/linux/install-chromium-in-ubuntu-20-04-lts/">Install Chromium in Ubuntu 20.04 LTS</a>
+							</h3>
+
+							<div class="related-entry-meta">
+								<span>
+									Nov 17, 2020								</span>
+
+															</div>
+						</li>
+											
+						<li>
+							<a class="ct-image-container ct-lazy" href="https://techpiezo.com/linux/install-atom-text-editor-in-ubuntu-20-04-lts/"><img width="1" height="1" class="attachment-large size-large" alt="Install Atom text editor in Ubuntu 20.04 LTS" data-lazy="https://techpiezo.com/wp-content/uploads/2020/11/Install-Atom-text-editor-in-Ubuntu-20-04-lts.svg" data-object-fit="~" /><noscript><img width="1" height="1" src="https://techpiezo.com/wp-content/uploads/2020/11/Install-Atom-text-editor-in-Ubuntu-20-04-lts.svg" class="attachment-large size-large" alt="Install Atom text editor in Ubuntu 20.04 LTS" /></noscript><div class="ct-ratio" style="padding-bottom: 75%"></div></a>
+							<h3 class="related-entry-title">
+								<a href="https://techpiezo.com/linux/install-atom-text-editor-in-ubuntu-20-04-lts/">Install Atom text editor in Ubuntu 20.04 LTS</a>
+							</h3>
+
+							<div class="related-entry-meta">
+								<span>
+									Nov 16, 2020								</span>
+
+															</div>
+						</li>
+											
+						<li>
+							<a class="ct-image-container ct-lazy" href="https://techpiezo.com/linux/install-google-chrome-in-ubuntu-20-04-lts/"><img width="1" height="1" class="attachment-large size-large" alt="Install Google Chrome in Ubuntu 20.04 LTS" data-lazy="https://techpiezo.com/wp-content/uploads/2020/11/Install-Google-Chrome-in-Ubuntu-20-04-LTS.svg" data-object-fit="~" /><noscript><img width="1" height="1" src="https://techpiezo.com/wp-content/uploads/2020/11/Install-Google-Chrome-in-Ubuntu-20-04-LTS.svg" class="attachment-large size-large" alt="Install Google Chrome in Ubuntu 20.04 LTS" /></noscript><div class="ct-ratio" style="padding-bottom: 75%"></div></a>
+							<h3 class="related-entry-title">
+								<a href="https://techpiezo.com/linux/install-google-chrome-in-ubuntu-20-04-lts/">Install Google Chrome in Ubuntu 20.04 LTS</a>
+							</h3>
+
+							<div class="related-entry-meta">
+								<span>
+									Nov 16, 2020								</span>
+
+															</div>
+						</li>
+									</ul>
+			</div>
+		</div>
+
+		
+
+
+	</main>
+
+	<footer
+		class="site-footer"
+				>
+
+		<div
+			class="footer-inner"
+			data-type="type-1">
+
+			
+			
+			<section class="footer-primary-area ">
+				<div class="ct-container-fluid">
+					<div
+						class="grid-columns"
+						data-columns="1"						data-stack="mobile:tablet">
+						<section><nav data-menu-type="type-1"><ul id="footer-menu" class="footer-menu menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-56"><a href="https://techpiezo.com/terms/">Terms</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-57"><a href="https://techpiezo.com/privacy-policy/">Privacy Policy</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-55"><a href="https://techpiezo.com/about-us/">About Us</a></li>
+</ul></nav></section>					</div>
+				</div>
+			</section>
+
+			
+			
+					</div>
+	</footer>
+
+</div>
+
+
+	<a href="#" class="ct-back-to-top "
+		data-shape="circle"
+		data-alignment="right"
+		title="Go to top">
+
+		<svg width="12" height="12" viewBox="0 0 20 20"><path d="M10,0L9.4,0.6L0.8,9.1l1.2,1.2l7.1-7.1V20h1.7V3.3l7.1,7.1l1.2-1.2l-8.5-8.5L10,0z"/></svg>
+		
+	</a>
+
+	
+<div id="search-modal" class="ct-modal" >
+	<div class="ct-bag-container">
+		<div class="ct-bag-actions">
+			<div class="ct-bag-close">
+				<span class="lines-button close"></span>
+			</div>
+		</div>
+
+		<div class="ct-bag-content" data-align="middle">
+			
+<form role="search" method="get" class="search-form" action="https://techpiezo.com/">
+	<div class="ct-search-input">
+		<input type="search" class="search-field" placeholder="Search" value="" name="s" autocomplete="off" />
+
+		<button class="search-submit">
+			<i>
+				<svg
+					width="12px"
+					height="12px"
+					viewBox="0 0 24 24">
+
+					<path d="M23.3,23.3c-0.9,0.9-2.3,0.9-3.2,0l-4-4c-1.6,1-3.6,1.7-5.7,1.7C4.7,21,0,16.3,0,10.5S4.7,0,10.5,0C16.3,0,21,4.7,21,10.5
+					c0,2.1-0.6,4-1.7,5.7l4,4C24.2,21,24.2,22.5,23.3,23.3z M10.5,3C6.4,3,3,6.4,3,10.5S6.4,18,10.5,18c4.1,0,7.5-3.4,7.5-7.5
+					C18,6.4,14.7,3,10.5,3z"/>
+				</svg>
+			</i>
+
+			<span data-loader="circles"><span></span><span></span><span></span></span>
+		</button>
+	</div>
+</form>
+
+
+		</div>
+	</div>
+</div>
+
+
+
+	<div id="mobile-menu" class="ct-offcanvas-menu">
+		
+		<div class="ct-bag-container contains-sub-menus">
+			<div class="ct-bag-actions">
+				<div class="ct-bag-close">
+					<span class="lines-button close"></span>
+				</div>
+			</div>
+
+			<div class="ct-bag-content" >
+				
+				<ul id="primary-menu" class="mobile-menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-70"><a href="https://techpiezo.com">Home</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children menu-item-41"><a href="https://techpiezo.com/linux/">Linux<span class="menu-arrow"><svg width="8" height="8" viewBox="0 0 15 15"><path d="M2.1,3.2l5.4,5.4l5.4-5.4L15,4.3l-7.5,7.5L0,4.3L2.1,3.2z"/></svg></span></a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-350"><a href="https://techpiezo.com/linux/linux-quick-fix/">Quick Fix</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-349"><a href="https://techpiezo.com/linux/linux-recent/">What&#8217;s New</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-1838"><a href="https://techpiezo.com/programming/">Programming<span class="menu-arrow"><svg width="8" height="8" viewBox="0 0 15 15"><path d="M2.1,3.2l5.4,5.4l5.4-5.4L15,4.3l-7.5,7.5L0,4.3L2.1,3.2z"/></svg></span></a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3290"><a href="https://techpiezo.com/c/">C</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4792"><a href="https://techpiezo.com/go/">Go</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1824"><a href="https://techpiezo.com/java/">Java</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-348"><a href="https://techpiezo.com/kotlin/">Kotlin</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2743"><a href="https://techpiezo.com/python/">Python</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4793"><a href="https://techpiezo.com/rust/">Rust</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-43"><a href="https://techpiezo.com/android/">Android<span class="menu-arrow"><svg width="8" height="8" viewBox="0 0 15 15"><path d="M2.1,3.2l5.4,5.4l5.4-5.4L15,4.3l-7.5,7.5L0,4.3L2.1,3.2z"/></svg></span></a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-347"><a href="https://techpiezo.com/android/android-recent/">What&#8217;s New</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-39"><a href="https://techpiezo.com/tech-insights/">Insights</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1846"><a href="#">More<span class="menu-arrow"><svg width="8" height="8" viewBox="0 0 15 15"><path d="M2.1,3.2l5.4,5.4l5.4-5.4L15,4.3l-7.5,7.5L0,4.3L2.1,3.2z"/></svg></span></a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3376"><a href="https://techpiezo.com/nodejs/">Node.js</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-40"><a href="https://techpiezo.com/seo/">SEO</a></li>
+	<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-42"><a href="https://techpiezo.com/wordpress/">WordPress</a></li>
+</ul>
+</li>
+</ul>			</div>
+		</div>
+	</div>
+
+	
+<script type='text/javascript'>
+/* <![CDATA[ */
+var ct_localizations = {"public_url":"https:\/\/techpiezo.com\/wp-content\/themes\/blocksy\/static\/bundle\/","show_more_text":"Show more"};
+/* ]]> */
+</script>
+<script async type='text/javascript' src='https://techpiezo.com/wp-content/themes/blocksy/static/bundle/main.js'></script>
+<script type='text/javascript' src='https://techpiezo.com/wp-includes/js/wp-embed.min.js'></script>
+</body>
+</html>
