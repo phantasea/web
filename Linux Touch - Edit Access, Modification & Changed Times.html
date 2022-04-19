@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+
+
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+
+
+
+<script>
+(function(w, d) {
+	w.adthrive = w.adthrive || {};
+	w.adthrive.cmd = w.adthrive.cmd || [];
+	w.adthrive.plugin = 'adthrive-ads-1.1.4';
+	w.adthrive.host = 'ads.adthrive.com';
+	w.adthrive.integration = 'plugin';
+
+	var commitParam = (w.adthriveCLS && w.adthriveCLS.bucket !== 'prod' && w.adthriveCLS.branch) ? '&commit=' + w.adthriveCLS.branch : '';
+
+	var s = d.createElement('script');
+	s.async = true;
+	s.referrerpolicy='no-referrer-when-downgrade';
+	s.src = 'https://' + w.adthrive.host + '/sites/60c215541c88dcb2e4b6b5f1/ads.min.js?referrer=' + w.encodeURIComponent(w.location.href) + commitParam + '&cb=' + (Math.floor(Math.random() * 100) + 1);
+	var n = d.getElementsByTagName('script')[0];
+	n.parentNode.insertBefore(s, n);
+})(window, document);
+</script>
+
+
+<title>Linux Touch - Edit Access, Modification &amp; Changed Times</title>
+<meta name="description" content="Touch command - Full tutorial how to change the Access Time, Modified Time and Created Time and Dates on a File in Linux using the Touch command!"/>
+<meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large"/>
+<link rel="canonical" href="https://www.webservertalk.com/linux-touch-command" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Linux Touch - Edit Access, Modification &amp; Changed Times" />
+<meta property="og:description" content="Touch command - Full tutorial how to change the Access Time, Modified Time and Created Time and Dates on a File in Linux using the Touch command!" />
+<meta property="og:url" content="https://www.webservertalk.com/linux-touch-command" />
+<meta property="og:site_name" content="WebServerTalk.com" />
+<meta property="article:section" content="Linux" />
+<meta property="og:updated_time" content="2020-10-29T22:07:26+00:00" />
+<meta property="og:image" content="https://cdn.webservertalk.com/wp-content/uploads/touch-command.jpg" />
+<meta property="og:image:secure_url" content="https://cdn.webservertalk.com/wp-content/uploads/touch-command.jpg" />
+<meta property="og:image:width" content="656" />
+<meta property="og:image:height" content="410" />
+<meta property="og:image:alt" content="touch command - full tutorial how to modify access time, modified time and created time on a file in linux" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Linux Touch - Edit Access, Modification &amp; Changed Times" />
+<meta name="twitter:description" content="Touch command - Full tutorial how to change the Access Time, Modified Time and Created Time and Dates on a File in Linux using the Touch command!" />
+<meta name="twitter:image" content="https://cdn.webservertalk.com/wp-content/uploads/touch-command.jpg" />
+<meta name="twitter:label1" content="Written by" />
+<meta name="twitter:data1" content="Hitesh J" />
+<meta name="twitter:label2" content="Time to read" />
+<meta name="twitter:data2" content="5 minutes" />
+
+
+
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+</style>
+<link data-minify="1" rel='stylesheet' id='dashicons-css'  href='https://cdn.webservertalk.com/wp-content/cache/min/1/wp-includes/css/dashicons.css?ver=1649749015' type='text/css' media='all' />
+<link data-minify="1" rel='stylesheet' id='ppress-frontend-css'  href='https://cdn.webservertalk.com/wp-content/cache/min/1/wp-content/plugins/wp-user-avatar/assets/css/frontend.css?ver=1649749015' type='text/css' media='all' />
+<link rel='stylesheet' id='ppress-flatpickr-css'  href='https://cdn.webservertalk.com/wp-content/plugins/wp-user-avatar/assets/flatpickr/flatpickr.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='ppress-select2-css'  href='https://cdn.webservertalk.com/wp-content/plugins/wp-user-avatar/assets/select2/select2.min.css' type='text/css' media='all' />
+<link data-minify="1" rel='stylesheet' id='best-styles-css'  href='https://cdn.webservertalk.com/wp-content/cache/min/1/wp-content/themes/wstalk/style.css?ver=1649749015' type='text/css' media='all' />
+<script type='text/javascript'>window.presslabs = {"home_url":"https:\/\/www.webservertalk.com"}</script><script type='text/javascript'>
+	(function () {
+		var pl_beacon = document.createElement('script');
+		pl_beacon.type = 'text/javascript';
+		pl_beacon.async = true;
+		var host = 'https://www.webservertalk.com';
+		if ('https:' == document.location.protocol) {
+			host = host.replace('http://', 'https://');
+		}
+		pl_beacon.src = host + '/' + '9WpYDBVzGyby' + '.js?ts=' + Math.floor((Math.random() * 100000) + 1);
+		var first_script_tag = document.getElementsByTagName('script')[0];
+		first_script_tag.parentNode.insertBefore(pl_beacon, first_script_tag);
+	})();
+</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"article","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.webservertalk.com/linux-touch-command"},"headline":"Linux Touch Command - Tutorial & Examples !","image":{"@type":"ImageObject","url":"https://cdn.webservertalk.com/wp-content/uploads/touch-command.jpg","width":656,"height":410},"datePublished":"2020-10-20T17:51:24+0000","dateModified":"2020-10-29T22:07:26+0000","author":{"@type":"Person","name":"Hitesh J"},"publisher":{"@type":"Organization","name":"WebServerTalk.com","logo":{"@type":"ImageObject","url":"https://cdn.webservertalk.com/wp-content/uploads/logo-box-webservertalk.png"}},"description":"How to Use the Touch Command with several examples, including how to change Access, Modified and Created times"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Hitesh J","image":{"@type":"ImageObject","url":"https://cdn.webservertalk.com/wp-content/uploads/hitesh.jpeg","width":96,"height":96}}</script><script type="application/ld+json">{"@context":"https:\/\/schema.org","@graph":[{"@context":"https:\/\/schema.org","@type":"SiteNavigationElement","id":"site-navigation","name":"Guides","url":"https:\/\/www.webservertalk.com\/guides"},{"@context":"https:\/\/schema.org","@type":"SiteNavigationElement","id":"site-navigation","name":"Linux","url":"https:\/\/www.webservertalk.com\/guides\/linux\/"},{"@context":"https:\/\/schema.org","@type":"SiteNavigationElement","id":"site-navigation","name":"Windows","url":"https:\/\/www.webservertalk.com\/guides\/windows\/"},{"@context":"https:\/\/schema.org","@type":"SiteNavigationElement","id":"site-navigation","name":"Reviews","url":"https:\/\/www.webservertalk.com\/reviews\/"},{"@context":"https:\/\/schema.org","@type":"SiteNavigationElement","id":"site-navigation","name":"Comparisons","url":"https:\/\/www.webservertalk.com\/comparisons\/"},{"@context":"https:\/\/schema.org","@type":"SiteNavigationElement","id":"site-navigation","name":"Other","url":"#"},{"@context":"https:\/\/schema.org","@type":"SiteNavigationElement","id":"site-navigation","name":"Archives","url":"https:\/\/www.webservertalk.com\/archives\/"},{"@context":"https:\/\/schema.org","@type":"SiteNavigationElement","id":"site-navigation","name":"About Us","url":"https:\/\/www.webservertalk.com\/about\/"},{"@context":"https:\/\/schema.org","@type":"SiteNavigationElement","id":"site-navigation","name":"Contact","url":"https:\/\/www.webservertalk.com\/contact\/"}]}</script>			<style id="wpsp-style-frontend"></style>
+			        <script type="text/javascript">
+            function addScript(src) {
+                var s = document.createElement('script');
+                s.setAttribute('src', src);
+                s.setAttribute('async', true);
+                document.head.appendChild(s);
+            }
+
+
+            addScript("https://www.googletagmanager.com/gtag/js?id=UA-187471862-1");
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+
+
+            gtag('config', 'UA-187471862-1');
+
+
+            window.btbTestTracking = {};
+            btbTestTracking.running = {};
+            btbTestTracking.completed = {};
+
+
+            btbTestTracking.classifyLink = function(lnk) {
+                var linkEl = jQuery(lnk)[0];
+                var linktype = "unknown";
+                console.log('classify ', linkEl.href);
+                if (linkEl.href) {
+                    linktype = 'unknown - ' + linkEl.href;
+                }
+
+                return linktype;
+            }
+
+            btbTestTracking.trackLink = function(node) {
+
+                if (node.href) {
+                    console.log('Tracking new link', node.href);
+                    // Add GA tracking
+                    node.onmousedown = function() {
+                        if (btbTestTracking && typeof(btbTestTracking.trackOutBoundLink == "function")) {
+                            btbTestTracking.trackOutboundLink(this)
+                        }
+                    };
+                    // console.log('=====================');
+                }
+            }
+
+            btbTestTracking.trackOutboundLink = function(lnk) {
+                try {
+
+
+                    var url = lnk.href;
+                    var vpn = "unknown";
+                    url = url.toLowerCase();
+                    var reg = /^.*\/go\/([A-Za-z\-]*)\/.*$/;
+                    var regRes = url.match(reg);
+                    if (regRes !== null) {
+                        vpn = regRes[1];
+                    }
+
+                    var vpn = 'SolarWinds';
+
+                    if (lnk.href.indexOf('manage') > -1 && lnk.href.indexOf('engine') > -1) {
+                        vpn = 'ManageEngine';
+                    }
+
+                    var linktype = "unknown";
+                    linktype = btbTestTracking.classifyLink(lnk);
+
+                    console.log('tracking', vpn, url, linktype);
+                } catch (err) {
+                    console.log('Error tracking:', err.message);
+                }
+                // Track
+                ga('gtag_UA_187471862_1.send', {
+                    hitType: 'event',
+                    eventCategory: 'Clickout',
+                    eventAction: vpn,
+                    eventLabel: linktype
+                });
+            }
+
+            btbTestTracking.isOutbound = function(href) {
+                return (
+                    href.indexOf('CMP=BIZ-TAD') != -1 ||
+                    href.indexOf('/outbound/') != -1 ||
+                    href.indexOf('/go/') != -1
+                );
+            }
+
+
+
+            // Observer
+            btbTestTracking.observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    // console.log('mutation.type = ' + mutation.type);
+                    for (var i = 0; i < mutation.addedNodes.length; i++) {
+                        // console.log('muation happened',mutation.addedNodes[i].nodeName);
+                        if (mutation.addedNodes[i].nodeName == "A") {
+                            //  console.log('new link found');
+                            if (mutation.addedNodes[i].href && btbTestTracking.isOutbound(mutation.addedNodes[i].href)) {
+                                // console.log('New go link detected');
+                                btbTestTracking.trackLink(mutation.addedNodes[i]);
+                            }
+                        }
+                        // Process links within
+                        if (mutation.addedNodes[i].nodeType == 1) {
+                            // console.log(mutation.addedNodes[i]);
+                            var aElements = mutation.addedNodes[i].getElementsByTagName('a');
+                            for (var j = 0; j < aElements.length; j++) {
+                                // console.log('Sub a found',aElements[j]);
+                                if (aElements[j].href && btbTestTracking.isOutbound(aElements[j].href)) {
+                                    // console.log('New go link detected');
+                                    btbTestTracking.trackLink(aElements[j]);
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+
+
+            btbTestTracking.initialise = function() {
+                // Get all links in document
+                console.log('initial link tracking');
+                var links = document.getElementsByTagName('a');
+                for (var i = 0; i < links.length; i++) {
+                    // Check its a /go/ link
+                    if (links[i].href && btbTestTracking.isOutbound(links[i].href)) {
+                        // Add appropriate tracking
+                        btbTestTracking.trackLink(links[i]);
+                    }
+                }
+
+                // Add observer for later changes
+                if (btbTestTracking && typeof(btbTestTracking.observer == "function")) {
+                    btbTestTracking.observer.observe(document.body, {
+                        childList: true,
+                        subtree: true
+                    });
+                }
+            }
+
+
+            if (
+                document.readyState === "complete" ||
+                (document.readyState !== "loading" && !document.documentElement.doScroll)
+            ) {
+                btbTestTracking.initialise();
+            } else {
+                document.addEventListener("DOMContentLoaded", btbTestTracking.initialise);
+            }
+        </script>
+<noscript><style id="rocket-lazyload-nojs-css">.rll-youtube-player, [data-lazy-src]{display:none !important;}</style></noscript></head>
+<body class="post-template-default single single-post postid-3157 single-format-standard wp-schema-pro-2.7.2">
+<div id="wrapper">
+<div id="best_header">
+<div class="best-head">
+<span class="menuopen" id="menuopen" onclick="openNav()">&#9776;</span>
+<a href="javascript:void(0)" id="closebtn" class="closebtn" onclick="closeNav()" data-wpel-link="internal">&times;</a>
+<header class="best-logo">
+<h1 class='best-site-title'><a href="https://www.webservertalk.com/" data-wpel-link="internal"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="https://www.webservertalk.com/logo-white.svg"><noscript><img src="https://www.webservertalk.com/logo-white.svg"></noscript></a>
+</h1>
+</header> 
+<div id="headersearch" class="best-search">
+<form role="search" method="get" class="search-form" action="https://www.webservertalk.com/">
+	<input type="search" class="search-field" name="s" placeholder="Enter search keyword" value="" />
+	<button type="submit" value=""></button>
+	<div class="best-clear"></div>
+</form>
+</div> 
+<div id="myNav" class="overlay">
+<div class="best-search2">
+<form role="search" method="get" class="search-form" action="https://www.webservertalk.com/">
+	<input type="search" class="search-field" name="s" placeholder="Enter search keyword" value="" />
+	<button type="submit" value=""></button>
+	<div class="best-clear"></div>
+</form>
+</div>
+<nav class="best-nav best-main-navigation">
+<div class="overlay-content">
+<div class="best-assistive-text skip-link">
+<a href="#content" title="Skip to content">Skip to content</a>
+</div>
+<div class="menu-menu-1-container"><ul id="menu-menu-1" class="menu"><li id="menu-item-81" class="menutitle menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor menu-item-has-children menu-item-81"><a href="https://www.webservertalk.com/guides" data-wpel-link="internal">Guides</a>
+<ul class="sub-menu">
+	<li id="menu-item-870" class="guides-linux menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-870"><a href="https://www.webservertalk.com/guides/linux/" data-wpel-link="internal">Linux</a></li>
+	<li id="menu-item-2508" class="guides-windows menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2508"><a href="https://www.webservertalk.com/guides/windows/" data-wpel-link="internal">Windows</a></li>
+</ul>
+</li>
+<li id="menu-item-10" class="menutitle menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10"><a href="https://www.webservertalk.com/reviews/" data-wpel-link="internal">Reviews</a></li>
+<li id="menu-item-845" class="menutitle menu-item menu-item-type-taxonomy menu-item-object-category menu-item-845"><a href="https://www.webservertalk.com/comparisons/" data-wpel-link="internal">Comparisons</a></li>
+<li id="menu-item-846" class="menutitle menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-846"><a href="#">Other</a>
+<ul class="sub-menu">
+	<li id="menu-item-86" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-86"><a href="https://www.webservertalk.com/archives/" data-wpel-link="internal">Archives</a></li>
+</ul>
+</li>
+<li id="menu-item-844" class="menutitle menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-844"><a href="http://@" data-wpel-link="external" rel="nofollow">About Us</a>
+<ul class="sub-menu">
+	<li id="menu-item-16" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16"><a href="https://www.webservertalk.com/about/" data-wpel-link="internal">About Us</a></li>
+	<li id="menu-item-79" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-79"><a href="https://www.webservertalk.com/contact/" data-wpel-link="internal">Contact</a></li>
+</ul>
+</li>
+</ul></div>	
+</div>
+</nav> 
+<div class="fullscreen-nav-bottom">
+		<div class="fullscreen-nav-bottom-left">
+			<ul>
+				<li><a href="https://www.webservertalk.com/about/" data-wpel-link="internal">About Us</a></li>
+				<li><a href="https://www.webservertalk.com/privacy-policy/" data-wpel-link="internal">Privacy Policy</a></li>
+				<li><a href="https://www.webservertalk.com/terms-of-use-service/" data-wpel-link="internal">Terms & Conditions</a></li>
+				<li><a href="https://www.webservertalk.com/disclaimer" data-wpel-link="internal">Disclaimer</a></li>
+				<li><a href="https://www.webservertalk.com/contact/" data-wpel-link="internal">Contact</a></li>
+			</ul>
+		</div>
+		<div class="fullscreen-nav-bottom-right">
+		</div>
+	</div>
+	<style>.fullscreen-nav-bottom {
+    max-width: 1188px;
+    margin: 0 auto;
+}
+.fullscreen-nav-bottom li a {
+    color: white;
+    font-size: 15px !important;
+}
+.fullscreen-nav-bottom-left ul {
+
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+
+}
+.fullscreen-nav-bottom-left {
+
+    position: absolute;
+    bottom: 39px;
+width: 55%;
+border-top: 1px dotted white;	
+}
+.fullscreen-nav-bottom img {
+    width: 86px;
+    position: absolute;
+    bottom: 188px;
+    margin: 0 auto;
+    left: 46%;
+}
+</style>
+</div>
+<div class="best-clear"></div>
+</div> 
+<script>
+function openNav() {
+document.getElementById("myNav").style.height = "100%";
+document.getElementById("menuopen").style.display = "none";    
+document.getElementById("headersearch").style.opacity = "0";
+document.getElementById("headersearch").style.pointerEvents = "none";
+document.getElementById("closebtn").style.display = "block";
+}
+
+function closeNav() {
+document.getElementById("myNav").style.height = "0%";
+document.getElementById("menuopen").style.display = "block";
+document.getElementById("closebtn").style.display = "none"; 
+document.getElementById("headersearch").style.opacity = "1";
+document.getElementById("headersearch").style.pointerEvents = "initial";
+}
+</script>
+</div> 
+
+<div id="home">
+
+	<div class="tophd">
+	 
+		</div>
+	<section class="best-contents">
+					<section id="best-post-3157" class="best-post post-3157 post type-post status-publish format-standard has-post-thumbnail hentry category-linux">
+				<header class="page-header">
+					<h1 class="best-title">Linux Touch Command &#8211; Tutorial &#038; Examples !</h1>
+										<p class="best-p-post-data">
+						<span class="post-data">Last Updated:  </span>
+						October 29th, 2020						<span class="post-data"> by </span>
+						<a class="homeauthor" href="https://www.webservertalk.com/author/hitesh/" data-wpel-link="internal"><img data-del="avatar" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2048%2048'%3E%3C/svg%3E" class='avatar pp-user-avatar avatar-48 photo ' height='48' width='48' data-lazy-src="https://cdn.webservertalk.com/wp-content/uploads/hitesh-150x150.jpeg"/><noscript><img data-del="avatar" src='https://cdn.webservertalk.com/wp-content/uploads/hitesh-150x150.jpeg' class='avatar pp-user-avatar avatar-48 photo ' height='48' width='48'/></noscript></a><span itemprop="author" itemscope="" itemtype="https://schema.org/Person"><span itemprop="name"><a href="https://www.webservertalk.com/author/hitesh/" title="Posts by Hitesh J" rel="author" data-wpel-link="internal">Hitesh J</a></span></span>
+													<span class="post-data"> in </span>
+							<a href="https://www.webservertalk.com/guides/linux/" rel="category tag" data-wpel-link="internal">Linux</a>					</p>
+				</header> 
+									<div class="best-content-image">
+						<img width="656" height="410" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20656%20410'%3E%3C/svg%3E" class="attachment-best_image_content_size size-best_image_content_size wp-post-image" alt="touch command - full tutorial how to modify access time, modified time and created time on a file in linux" data-lazy-srcset="https://cdn.webservertalk.com/wp-content/uploads/touch-command.jpg 656w, https://cdn.webservertalk.com/wp-content/uploads/touch-command-610x381.jpg 610w, https://cdn.webservertalk.com/wp-content/uploads/touch-command-150x94.jpg 150w, https://cdn.webservertalk.com/wp-content/uploads/touch-command-200x125.jpg 200w" data-lazy-sizes="(max-width: 656px) 100vw, 656px" data-lazy-src="https://cdn.webservertalk.com/wp-content/uploads/touch-command.jpg" /><noscript><img width="656" height="410" src="https://cdn.webservertalk.com/wp-content/uploads/touch-command.jpg" class="attachment-best_image_content_size size-best_image_content_size wp-post-image" alt="touch command - full tutorial how to modify access time, modified time and created time on a file in linux" srcset="https://cdn.webservertalk.com/wp-content/uploads/touch-command.jpg 656w, https://cdn.webservertalk.com/wp-content/uploads/touch-command-610x381.jpg 610w, https://cdn.webservertalk.com/wp-content/uploads/touch-command-150x94.jpg 150w, https://cdn.webservertalk.com/wp-content/uploads/touch-command-200x125.jpg 200w" sizes="(max-width: 656px) 100vw, 656px" /></noscript>					</div> 
+								<article class="best-content">
+					<p>The touch command is a Linux command-line tool that can be used to create an empty file and modify the timestamps of files.</p>
+<p>Timestamps stores the information of each file and folder including, access time, modify time and change time.</p>
+<p>Whenever you create or change an existing file, the timestamps value will be updated automatically.</p>
+<p><strong>There are three types of timestamps :</strong></p>
+<ul>
+<li><strong>Access time</strong><br />
+The last time the file was accessed by some application.</li>
+<li><strong>Modification time<br />
+</strong>The last time the file contents were modified.</li>
+<li><strong>Changed time<br />
+</strong>The last time the file&#8217;s metadata, attribute or content was changed.</li>
+</ul>
+<p>In this tutorial, we will learn how to use Touch command with practical examples.</p>
+<h2>Basic Syntax for Linux Touch Command</h2>
+<p>The basic syntax of Touch command is shown below:</p>
+<p><code>touch [OPTION] FILENAME</code></p>
+<p>A brief explanation of each option is specified below:</p>
+<ul>
+<li><strong>-a<br />
+</strong>Used to change only the access time.</li>
+<li><strong>-m<br />
+</strong>Used to change only the modification time.</li>
+<li><strong>-d<br />
+</strong>Used to update the access and modification times.</li>
+<li><strong>-c<br />
+</strong>Do not create a new file, if the does not exist.</li>
+<li><strong>-r<br />
+</strong>Used to use the access and modification times of another file.</li>
+<li><strong>-t<br />
+</strong>Used to create a file with a specified time.</li>
+</ul>
+<h2>Create a Single File with Touch</h2>
+<p>You can create a single empty file by running the following command:</p>
+<p><code>touch file1</code></p>
+<p>You can now verify your file with the following command:</p>
+<p><code>ls -l file1</code></p>
+<p>You should see the following output:</p>
+<p><code>-rw-rw-r-- 1 vyom vyom 0 Mar 29 10:44 file1<br />
+</code></p>
+<p>you can avoid creating new files if a file doesn’t exists, use the touch command with -c option as shown below:<br />
+<code>touch -c file1</code></p>
+<p>Once you are finished, you can proceed to the next example.</p>
+<h2>Create a Multiple Files with Touch</h2>
+<p>To create multiple files named file2, file3, file4 and file5, run the following command:</p>
+<p><code>touch file2 file3 file4 file5</code></p>
+<p>You can now verify all the files with the following command:</p>
+<p><code>ls -l file*</code></p>
+<p>You should see the following output:</p>
+<p><code>-rw-rw-r-- 1 vyom vyom 0 Mar 29 10:44 file1<br />
+-rw-rw-r-- 1 vyom vyom 0 Mar 29 10:49 file2<br />
+-rw-rw-r-- 1 vyom vyom 0 Mar 29 10:49 file3<br />
+-rw-rw-r-- 1 vyom vyom 0 Mar 29 10:49 file4<br />
+-rw-rw-r-- 1 vyom vyom 0 Mar 29 10:49 file5<br />
+</code></p>
+<p><strong>Example:</strong></p>
+<p><a href="https://cdn.webservertalk.com/wp-content/uploads/p1-25.png" data-wpel-link="internal"><img class="aligncenter size-medium wp-image-3158" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20610%2088'%3E%3C/svg%3E" alt="" width="610" height="88" data-lazy-srcset="https://cdn.webservertalk.com/wp-content/uploads/p1-25-610x88.png 610w, https://cdn.webservertalk.com/wp-content/uploads/p1-25-150x22.png 150w, https://cdn.webservertalk.com/wp-content/uploads/p1-25-768x111.png 768w, https://cdn.webservertalk.com/wp-content/uploads/p1-25-656x95.png 656w, https://cdn.webservertalk.com/wp-content/uploads/p1-25-200x29.png 200w, https://cdn.webservertalk.com/wp-content/uploads/p1-25-400x58.png 400w, https://cdn.webservertalk.com/wp-content/uploads/p1-25.png 926w" data-lazy-sizes="(max-width: 610px) 100vw, 610px" data-lazy-src="https://cdn.webservertalk.com/wp-content/uploads/p1-25-610x88.png" /><noscript><img class="aligncenter size-medium wp-image-3158" src="https://cdn.webservertalk.com/wp-content/uploads/p1-25-610x88.png" alt="" width="610" height="88" srcset="https://cdn.webservertalk.com/wp-content/uploads/p1-25-610x88.png 610w, https://cdn.webservertalk.com/wp-content/uploads/p1-25-150x22.png 150w, https://cdn.webservertalk.com/wp-content/uploads/p1-25-768x111.png 768w, https://cdn.webservertalk.com/wp-content/uploads/p1-25-656x95.png 656w, https://cdn.webservertalk.com/wp-content/uploads/p1-25-200x29.png 200w, https://cdn.webservertalk.com/wp-content/uploads/p1-25-400x58.png 400w, https://cdn.webservertalk.com/wp-content/uploads/p1-25.png 926w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></a></p>
+<h2>Change Access Time of File with Touch</h2>
+<p>If you want to change/update the access time of an existing file, you can use <strong>-a</strong> option file touch command.</p>
+<p>For example, to change the access time of a file named file1 to the current time, run the following command:</p>
+<p><code>touch -a file1</code></p>
+<p>Next, verify whether the access time of a file has been changed or not using the following command:</p>
+<p><code>stat file1</code></p>
+<p>You should see the following output:</p>
+<p><code><br />
+File: ‘file1’<br />
+Size: 0         	Blocks: 0          IO Block: 4096   regular empty file<br />
+Device: 801h/2049d	Inode: 15467544    Links: 1<br />
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/    vyom)   Gid: ( 1000/    vyom)<br />
+Access: 2020-03-29 10:50:14.503381528 +0530<br />
+Modify: 2020-03-29 10:44:37.155374736 +0530<br />
+Change: 2020-03-29 10:50:14.503381528 +0530<br />
+Birth: -<br />
+</code></p>
+<p><strong>Example:</strong></p>
+<p><a href="https://cdn.webservertalk.com/wp-content/uploads/p2-22.png" data-wpel-link="internal"><img class="aligncenter size-medium wp-image-3161" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20610%20120'%3E%3C/svg%3E" alt="" width="610" height="120" data-lazy-srcset="https://cdn.webservertalk.com/wp-content/uploads/p2-22-610x120.png 610w, https://cdn.webservertalk.com/wp-content/uploads/p2-22-150x30.png 150w, https://cdn.webservertalk.com/wp-content/uploads/p2-22-768x151.png 768w, https://cdn.webservertalk.com/wp-content/uploads/p2-22-656x129.png 656w, https://cdn.webservertalk.com/wp-content/uploads/p2-22-200x39.png 200w, https://cdn.webservertalk.com/wp-content/uploads/p2-22-400x79.png 400w, https://cdn.webservertalk.com/wp-content/uploads/p2-22.png 970w" data-lazy-sizes="(max-width: 610px) 100vw, 610px" data-lazy-src="https://cdn.webservertalk.com/wp-content/uploads/p2-22-610x120.png" /><noscript><img class="aligncenter size-medium wp-image-3161" src="https://cdn.webservertalk.com/wp-content/uploads/p2-22-610x120.png" alt="" width="610" height="120" srcset="https://cdn.webservertalk.com/wp-content/uploads/p2-22-610x120.png 610w, https://cdn.webservertalk.com/wp-content/uploads/p2-22-150x30.png 150w, https://cdn.webservertalk.com/wp-content/uploads/p2-22-768x151.png 768w, https://cdn.webservertalk.com/wp-content/uploads/p2-22-656x129.png 656w, https://cdn.webservertalk.com/wp-content/uploads/p2-22-200x39.png 200w, https://cdn.webservertalk.com/wp-content/uploads/p2-22-400x79.png 400w, https://cdn.webservertalk.com/wp-content/uploads/p2-22.png 970w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></a></p>
+<h2>Change Modification Time of File with Touch</h2>
+<p>You can change the modification time of a file using <strong>-m</strong> option.</p>
+<p>For example, to change the modification time of a file named file2, run the following command:</p>
+<p><code>touch -m file2</code></p>
+<p>Next, verify the modification time of a file with the following command:</p>
+<p><code>stat file2</code></p>
+<p>You should see the following output:</p>
+<p><code>File: ‘file2’<br />
+Size: 0         	Blocks: 0          IO Block: 4096   regular empty file<br />
+Device: 801h/2049d	Inode: 15467546    Links: 1<br />
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/    vyom)   Gid: ( 1000/    vyom)<br />
+Access: 2020-03-29 10:49:18.007380390 +0530<br />
+Modify: 2020-03-29 10:54:23.735386545 +0530<br />
+Change: 2020-03-29 10:54:23.735386545 +0530<br />
+Birth: -<br />
+</code></p>
+<p><strong>Example:</strong></p>
+<p><a href="https://cdn.webservertalk.com/wp-content/uploads/p3-18.png" data-wpel-link="internal"><img class="aligncenter size-medium wp-image-3162" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20610%20128'%3E%3C/svg%3E" alt="" width="610" height="128" data-lazy-srcset="https://cdn.webservertalk.com/wp-content/uploads/p3-18-610x128.png 610w, https://cdn.webservertalk.com/wp-content/uploads/p3-18-150x31.png 150w, https://cdn.webservertalk.com/wp-content/uploads/p3-18-768x161.png 768w, https://cdn.webservertalk.com/wp-content/uploads/p3-18-656x138.png 656w, https://cdn.webservertalk.com/wp-content/uploads/p3-18-200x42.png 200w, https://cdn.webservertalk.com/wp-content/uploads/p3-18-400x84.png 400w, https://cdn.webservertalk.com/wp-content/uploads/p3-18.png 901w" data-lazy-sizes="(max-width: 610px) 100vw, 610px" data-lazy-src="https://cdn.webservertalk.com/wp-content/uploads/p3-18-610x128.png" /><noscript><img class="aligncenter size-medium wp-image-3162" src="https://cdn.webservertalk.com/wp-content/uploads/p3-18-610x128.png" alt="" width="610" height="128" srcset="https://cdn.webservertalk.com/wp-content/uploads/p3-18-610x128.png 610w, https://cdn.webservertalk.com/wp-content/uploads/p3-18-150x31.png 150w, https://cdn.webservertalk.com/wp-content/uploads/p3-18-768x161.png 768w, https://cdn.webservertalk.com/wp-content/uploads/p3-18-656x138.png 656w, https://cdn.webservertalk.com/wp-content/uploads/p3-18-200x42.png 200w, https://cdn.webservertalk.com/wp-content/uploads/p3-18-400x84.png 400w, https://cdn.webservertalk.com/wp-content/uploads/p3-18.png 901w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></a></p>
+<h2>Change Access and Modification Time of File with Touch</h2>
+<p>You can change both access and modification time of a file using the option <strong>-a</strong> and <strong>-m</strong> together.</p>
+<p>For example, change the access and modification time of a file named file3 to the current time using the following command:</p>
+<p><code>touch -am file3</code></p>
+<p>You can now verify the access and modification time of a file with the following command:</p>
+<p><code>stat file3</code></p>
+<p>You should see the following output:</p>
+<p><code>File: ‘file3’<br />
+Size: 0         	Blocks: 0          IO Block: 4096   regular empty file<br />
+Device: 801h/2049d	Inode: 15467615    Links: 1<br />
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/    vyom)   Gid: ( 1000/    vyom)<br />
+Access: 2020-03-29 10:58:23.347391370 +0530<br />
+Modify: 2020-03-29 10:58:23.347391370 +0530<br />
+Change: 2020-03-29 10:58:23.347391370 +0530<br />
+Birth: -<br />
+</code></p>
+<p><strong>Example:</strong></p>
+<p><a href="https://cdn.webservertalk.com/wp-content/uploads/file4.png" data-wpel-link="internal"><img class="aligncenter size-medium wp-image-3164" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20610%20124'%3E%3C/svg%3E" alt="" width="610" height="124" data-lazy-srcset="https://cdn.webservertalk.com/wp-content/uploads/file4-610x124.png 610w, https://cdn.webservertalk.com/wp-content/uploads/file4-150x31.png 150w, https://cdn.webservertalk.com/wp-content/uploads/file4-768x157.png 768w, https://cdn.webservertalk.com/wp-content/uploads/file4-656x134.png 656w, https://cdn.webservertalk.com/wp-content/uploads/file4-200x41.png 200w, https://cdn.webservertalk.com/wp-content/uploads/file4-400x82.png 400w, https://cdn.webservertalk.com/wp-content/uploads/file4.png 937w" data-lazy-sizes="(max-width: 610px) 100vw, 610px" data-lazy-src="https://cdn.webservertalk.com/wp-content/uploads/file4-610x124.png" /><noscript><img class="aligncenter size-medium wp-image-3164" src="https://cdn.webservertalk.com/wp-content/uploads/file4-610x124.png" alt="" width="610" height="124" srcset="https://cdn.webservertalk.com/wp-content/uploads/file4-610x124.png 610w, https://cdn.webservertalk.com/wp-content/uploads/file4-150x31.png 150w, https://cdn.webservertalk.com/wp-content/uploads/file4-768x157.png 768w, https://cdn.webservertalk.com/wp-content/uploads/file4-656x134.png 656w, https://cdn.webservertalk.com/wp-content/uploads/file4-200x41.png 200w, https://cdn.webservertalk.com/wp-content/uploads/file4-400x82.png 400w, https://cdn.webservertalk.com/wp-content/uploads/file4.png 937w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></a></p>
+<h2>Set Specific Access and Modification Time of a File with Touch</h2>
+<p>You can also set specific access and modification time of a file using the following syntax:</p>
+<p><code>touch -c -t YYYYMMDDhhmm FILENAME</code></p>
+<p><strong>Where:</strong></p>
+<ul>
+<li><strong>YYYY</strong> : Specify the four digits of the year.</li>
+<li><strong>MM</strong> : Specify the month of the year.</li>
+<li><strong>DD</strong> : Specify the day of the month.</li>
+<li><strong>hh</strong> : specify the hour of the day.</li>
+<li><strong>mm</strong> : Specify the minutes of the hour.</li>
+</ul>
+<p>For example, set the access and modification time of a file named file4 to 11:25 AM Jan 10 of the year 2020, run the following command:</p>
+<p><code>touch -c -t 202001101125 file4</code></p>
+<p>You can verify the access and modification time of a file with the following command:</p>
+<p><code>stat file4</code></p>
+<p>You should see the following output:</p>
+<p><code>File: ‘file4’<br />
+Size: 0         	Blocks: 0          IO Block: 4096   regular empty file<br />
+Device: 801h/2049d	Inode: 15467620    Links: 1<br />
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/    vyom)   Gid: ( 1000/    vyom)<br />
+Access: 2020-01-10 11:25:00.000000000 +0530<br />
+Modify: 2020-01-10 11:25:00.000000000 +0530<br />
+Change: 2020-03-29 11:06:33.535401239 +0530<br />
+Birth: -<br />
+</code></p>
+<p><strong>Example:</strong></p>
+<p><a href="https://cdn.webservertalk.com/wp-content/uploads/p6-12.png" data-wpel-link="internal"><img class="aligncenter size-medium wp-image-3165" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20610%20154'%3E%3C/svg%3E" alt="" width="610" height="154" data-lazy-srcset="https://cdn.webservertalk.com/wp-content/uploads/p6-12-610x154.png 610w, https://cdn.webservertalk.com/wp-content/uploads/p6-12-150x38.png 150w, https://cdn.webservertalk.com/wp-content/uploads/p6-12-768x194.png 768w, https://cdn.webservertalk.com/wp-content/uploads/p6-12-656x165.png 656w, https://cdn.webservertalk.com/wp-content/uploads/p6-12-200x50.png 200w, https://cdn.webservertalk.com/wp-content/uploads/p6-12-400x101.png 400w, https://cdn.webservertalk.com/wp-content/uploads/p6-12.png 900w" data-lazy-sizes="(max-width: 610px) 100vw, 610px" data-lazy-src="https://cdn.webservertalk.com/wp-content/uploads/p6-12-610x154.png" /><noscript><img class="aligncenter size-medium wp-image-3165" src="https://cdn.webservertalk.com/wp-content/uploads/p6-12-610x154.png" alt="" width="610" height="154" srcset="https://cdn.webservertalk.com/wp-content/uploads/p6-12-610x154.png 610w, https://cdn.webservertalk.com/wp-content/uploads/p6-12-150x38.png 150w, https://cdn.webservertalk.com/wp-content/uploads/p6-12-768x194.png 768w, https://cdn.webservertalk.com/wp-content/uploads/p6-12-656x165.png 656w, https://cdn.webservertalk.com/wp-content/uploads/p6-12-200x50.png 200w, https://cdn.webservertalk.com/wp-content/uploads/p6-12-400x101.png 400w, https://cdn.webservertalk.com/wp-content/uploads/p6-12.png 900w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></a></p>
+<p>You can also set specific date and time in human readable format by using the <strong>-d</strong> option.</p>
+<p>For example, set the date of a file named file4 to 15 Feb run the following command:</p>
+<p><code>touch -d '15 Feb' file4</code></p>
+<p>This command will set the date of a file4 to 15 Feb and the time is automatically set to 00:00.</p>
+<p>You can verify it with the following command:</p>
+<p><code>stat file4</code></p>
+<p>You should see the following output:</p>
+<p><code>File: ‘file4’<br />
+Size: 0         	Blocks: 0          IO Block: 4096   regular empty file<br />
+Device: 801h/2049d	Inode: 15467620    Links: 1<br />
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/    vyom)   Gid: ( 1000/    vyom)<br />
+Access: 2020-02-15 00:00:00.000000000 +0530<br />
+Modify: 2020-02-15 00:00:00.000000000 +0530<br />
+Change: 2020-03-29 11:27:00.983425951 +0530<br />
+Birth: -<br />
+</code></p>
+<p><strong>Example:</strong></p>
+<p><a href="https://cdn.webservertalk.com/wp-content/uploads/p8-6.png" data-wpel-link="internal"><img class="aligncenter size-medium wp-image-3166" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20610%20131'%3E%3C/svg%3E" alt="" width="610" height="131" data-lazy-srcset="https://cdn.webservertalk.com/wp-content/uploads/p8-6-610x131.png 610w, https://cdn.webservertalk.com/wp-content/uploads/p8-6-150x32.png 150w, https://cdn.webservertalk.com/wp-content/uploads/p8-6-768x165.png 768w, https://cdn.webservertalk.com/wp-content/uploads/p8-6-656x141.png 656w, https://cdn.webservertalk.com/wp-content/uploads/p8-6-200x43.png 200w, https://cdn.webservertalk.com/wp-content/uploads/p8-6-400x86.png 400w, https://cdn.webservertalk.com/wp-content/uploads/p8-6.png 912w" data-lazy-sizes="(max-width: 610px) 100vw, 610px" data-lazy-src="https://cdn.webservertalk.com/wp-content/uploads/p8-6-610x131.png" /><noscript><img class="aligncenter size-medium wp-image-3166" src="https://cdn.webservertalk.com/wp-content/uploads/p8-6-610x131.png" alt="" width="610" height="131" srcset="https://cdn.webservertalk.com/wp-content/uploads/p8-6-610x131.png 610w, https://cdn.webservertalk.com/wp-content/uploads/p8-6-150x32.png 150w, https://cdn.webservertalk.com/wp-content/uploads/p8-6-768x165.png 768w, https://cdn.webservertalk.com/wp-content/uploads/p8-6-656x141.png 656w, https://cdn.webservertalk.com/wp-content/uploads/p8-6-200x43.png 200w, https://cdn.webservertalk.com/wp-content/uploads/p8-6-400x86.png 400w, https://cdn.webservertalk.com/wp-content/uploads/p8-6.png 912w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></a></p>
+<h2>Set the Timestamp of Another File</h2>
+<p>You can also take a timestamp from another file and use it to set the time for other files using the <strong>-r</strong> option.</p>
+<p>For example, set the timestamp of a file named file5 using the timestamp value of file1 using the following command:</p>
+<p><code>touch file5 -r file1</code></p>
+<p>You can now verify the timestamp value of file5 with the following command:</p>
+<p><code>stat file5</code></p>
+<p>You should see the following output:</p>
+<p><code>File: ‘file5’<br />
+Size: 0         	Blocks: 0          IO Block: 4096   regular empty file<br />
+Device: 801h/2049d	Inode: 15467630    Links: 1<br />
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/    vyom)   Gid: ( 1000/    vyom)<br />
+Access: 2020-03-29 10:50:14.503381528 +0530<br />
+Modify: 2020-03-29 10:44:37.155374736 +0530<br />
+Change: 2020-03-29 11:17:05.391413960 +0530<br />
+Birth: -<br />
+</code></p>
+<p><strong>Example:</strong></p>
+<p><a href="https://cdn.webservertalk.com/wp-content/uploads/p7-8.png" data-wpel-link="internal"><img class="aligncenter size-medium wp-image-3167" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20610%20114'%3E%3C/svg%3E" alt="" width="610" height="114" data-lazy-srcset="https://cdn.webservertalk.com/wp-content/uploads/p7-8-610x114.png 610w, https://cdn.webservertalk.com/wp-content/uploads/p7-8-150x28.png 150w, https://cdn.webservertalk.com/wp-content/uploads/p7-8-768x143.png 768w, https://cdn.webservertalk.com/wp-content/uploads/p7-8-656x122.png 656w, https://cdn.webservertalk.com/wp-content/uploads/p7-8-200x37.png 200w, https://cdn.webservertalk.com/wp-content/uploads/p7-8-400x74.png 400w, https://cdn.webservertalk.com/wp-content/uploads/p7-8.png 876w" data-lazy-sizes="(max-width: 610px) 100vw, 610px" data-lazy-src="https://cdn.webservertalk.com/wp-content/uploads/p7-8-610x114.png" /><noscript><img class="aligncenter size-medium wp-image-3167" src="https://cdn.webservertalk.com/wp-content/uploads/p7-8-610x114.png" alt="" width="610" height="114" srcset="https://cdn.webservertalk.com/wp-content/uploads/p7-8-610x114.png 610w, https://cdn.webservertalk.com/wp-content/uploads/p7-8-150x28.png 150w, https://cdn.webservertalk.com/wp-content/uploads/p7-8-768x143.png 768w, https://cdn.webservertalk.com/wp-content/uploads/p7-8-656x122.png 656w, https://cdn.webservertalk.com/wp-content/uploads/p7-8-200x37.png 200w, https://cdn.webservertalk.com/wp-content/uploads/p7-8-400x74.png 400w, https://cdn.webservertalk.com/wp-content/uploads/p7-8.png 876w" sizes="(max-width: 610px) 100vw, 610px" /></noscript></a></p>
+<h2>Conclusion</h2>
+<p>In the above guide, we&#8217;ve learned How to Use the <strong>Touch Command</strong> with several examples, including how to change Access, Modified and Created times.</p>
+<p>We hope you can now use the touch command to change the access and modification time of file and create files as well.</p>
+<p>Feel free to ask any questions below and post your comments!</p>
+					<footer class="best-tags">
+											</footer> 
+				</article> 
+			</section> 
+			<nav class="best-link">
+				<div class="best-previous-posts-link">
+					<a href="https://www.webservertalk.com/what-is-the-arp-command-how-to-use-it-tutorial/" rel="prev" data-wpel-link="internal">Older post</a>				</div> 
+				<div class="best-next-posts-link">
+					<a href="https://www.webservertalk.com/dhcp-tutorial" rel="next" data-wpel-link="internal">Newer post</a>				</div> 
+			</nav> 
+			<div class="best-clear"></div>
+			<div class="comments">
+				<article id="comments" class="comments-area">
+	</article>
+			</div> 
+			</section> 
+<aside class="best-sidebar">
+	<section class="widget_text best-witget-right-sidebar" id="custom_html-10"><div class="textwidget custom-html-widget"></div></section><section class="best-witget-right-sidebar" id="categories-3"><h2 class="best-widget-title">Latest Articles</h2>
+			<ul>
+					<li class="cat-item cat-item-14"><a href="https://www.webservertalk.com/alternatives/" data-wpel-link="internal">Alternatives</a>
+</li>
+	<li class="cat-item cat-item-6"><a href="https://www.webservertalk.com/archives/" data-wpel-link="internal">Archived Pages from WebServerTalk Forums</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://www.webservertalk.com/comparisons/" title="Comparisons &amp; Differences of Major Software &amp; Providers
+Below you&#039;ll find an array of comparisons for popular software, Saas, Hosting Providers and much more.
+
+Have a look at each individual section and find what your looking for in terms of comparisons between certain vendors and companies.
+
+If you don&#039;t see a comparison article that your looking for, please feel free to submit a request on our contact page and we&#039;ll get our experts to start working on the topic your looking for more information on.
+
+" data-wpel-link="internal">Comparisons</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://www.webservertalk.com/guides" data-wpel-link="internal">Guides</a>
+</li>
+	<li class="cat-item cat-item-16"><a href="https://www.webservertalk.com/hosting/" title="Web Hosting &amp; Servers
+This category will show all the Hosting related Articles, Guides and Tutorials that we&#039;ve published.
+
+We&#039;ve compiled lots of topics over the years and have found many of these to still be useful to date.
+
+Many of these are Updated monthly to reflect any recent pricing changes and feature updates or upgrades.
+
+Check back regularly to find updates on any articles that you have bookmarked and feel free to contact us with any updates that we might have missed recently." data-wpel-link="internal">Hosting</a>
+</li>
+	<li class="cat-item cat-item-20"><a href="https://www.webservertalk.com/kb/" data-wpel-link="internal">Knowledge Base</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="https://www.webservertalk.com/guides/linux/" title="Linux Tutorials, Guides &amp; How-To&#039;s!
+This is our Repository of Linux guides, Tutorials and How-to&#039;s. Many of what you will read in this category is based on issues and projects we&#039;ve dealt with ourselves and needed a place to document our process to refer back to eventually.
+
+If there are any topics that you would like us to cover, send us a message on our Contact Us page and we&#039;ll happily get it in the queue immediately!" data-wpel-link="internal">Linux</a>
+</li>
+	<li class="cat-item cat-item-22"><a href="https://www.webservertalk.com/monitoring/" data-wpel-link="internal">monitoring</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="https://www.webservertalk.com/alternatives/networking/" data-wpel-link="internal">Networking</a>
+</li>
+	<li class="cat-item cat-item-15"><a href="https://www.webservertalk.com/news/" data-wpel-link="internal">News</a>
+</li>
+	<li class="cat-item cat-item-2"><a href="https://www.webservertalk.com/reviews/" data-wpel-link="internal">Reviews</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="https://www.webservertalk.com/security/" data-wpel-link="internal">Security</a>
+</li>
+	<li class="cat-item cat-item-21"><a href="https://www.webservertalk.com/software/" data-wpel-link="internal">Software</a>
+</li>
+	<li class="cat-item cat-item-19"><a href="https://www.webservertalk.com/guides/windows/" title="Windows, Powershell &amp; Active Directory Tutorials, Guides &amp; HowTo’s!
+This is our Repository of Windows, Powershell, Active Directory and Server Administration guides, Tutorials and How-to’s.
+
+Much of what you will read in this category is based on issues, troubleshooting and in-house guides that we’ve used ourselves in our years of experience of Windows Server Administration.
+
+If there are any Guides or Tutorials that you would like us to cover, send us a message on our Contact Us page and we’ll happily get it in the queue immediately!" data-wpel-link="internal">Windows</a>
+</li>
+			</ul>
+
+			</section><section class="widget_text best-witget-right-sidebar" id="custom_html-7"><h2 class="best-widget-title">All Categories</h2><div class="textwidget custom-html-widget"><span class="buttonimg"></span>
+<a href="https://www.webservertalk.com/news/" data-wpel-link="internal"><span class="sbtitle1">Latest tech and cybersecurity news</span>
+</a>
+<span class="buttonimg"></span>
+<style>.sbtitle1 {
+position: relative;
+text-align: center;
+display: inline-block;
+padding: 10px;
+-moz-box-shadow: -5px -5px #c6c6c6;
+-webkit-box-shadow: -5px -5px #c6c6c6;
+box-shadow: -5px -5px #c6c6c6;
+top: 38px;
+color:black;
+width: 100%;
+}
+.buttonimg {
+    box-shadow: 5px 5px #c6c6c6;
+    content: ' ';
+    padding: 21px;
+    width: 100%;
+    display: inline-block;
+    position: relative;
+    bottom: 76px;
+}
+</style></div></section><section class="widget_text best-witget-right-sidebar" id="custom_html-11"><div class="textwidget custom-html-widget"></div></section>	<div class="best-clear"></div>
+</aside> 
+<div class="best-clear"></div>
+</div> 
+<div id="best_footer">
+		<aside id="best_footer_sidebar">
+		<div class="best-footer-sidebar-content">
+			<section class="widget_text best-witget-footer-sidebar" id="custom_html-2"><div class="textwidget custom-html-widget"><a href="/" data-wpel-link="internal"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="https://cdn.webservertalk.com/wp-content/themes/wstalk/images/web_server_talk_logo.svg"><noscript><img src="https://cdn.webservertalk.com/wp-content/themes/wstalk/images/web_server_talk_logo.svg"></noscript></a></div></section><section class="widget_text best-witget-footer-sidebar" id="custom_html-4"><h2 class="best-widget-title">Online DNS Tools</h2><div class="textwidget custom-html-widget"><ul>
+ 	<li><a href="https://tools.webservertalk.com/" data-wpel-link="external" rel="nofollow">Reverse IP Lookup</a></li>
+ 	<li><a href="https://tools.webservertalk.com/" data-wpel-link="external" rel="nofollow">Whois Lookup</a></li>
+ 	<li><a href="https://tools.webservertalk.com/" data-wpel-link="external" rel="nofollow">IP Address History Lookup</a></li>
+ 	<li><a href="https://tools.webservertalk.com/" data-wpel-link="external" rel="nofollow">IP Address Location</a></li>
+ 	<li><a href="https://tools.webservertalk.com/" data-wpel-link="external" rel="nofollow">HTTP Headers</a></li>
+ 	<li><a href="https://tools.webservertalk.com/" data-wpel-link="external" rel="nofollow">Traceroute</a></li>
+ 	<li><a href="https://tools.webservertalk.com" data-wpel-link="external" rel="nofollow">Free Email Lookup</a></li>
+ 	<li><a href="https://tools.webservertalk.com/" data-wpel-link="external" rel="nofollow">Reverse DNS Lookup</a></li>
+ 	<li><a href="https://tools.webservertalk.com/" data-wpel-link="external" rel="nofollow">Reverse Whois Lookup</a></li>
+ 	<li><a href="https://tools.webservertalk.com/" data-wpel-link="external" rel="nofollow">Reverse MX Lookup</a></li>
+
+</ul></div></section><section class="widget_text best-witget-footer-sidebar" id="custom_html-6"><h2 class="best-widget-title">Contact &#038; Legal</h2><div class="textwidget custom-html-widget"><ul>
+		<li><a href="https://www.webservertalk.com/our-team/" data-wpel-link="internal">Meet The Team</a></li>
+	<li><a href="https://www.webservertalk.com/about/" data-wpel-link="internal">About Us</a></li>
+		<li><a href="https://www.webservertalk.com/privacy-policy/" data-wpel-link="internal">Privacy Policy</a></li>
+		<li><a href="https://www.webservertalk.com/terms-of-use-service/" data-wpel-link="internal">Terms of Use & Service</a></li>
+		<li><a href="https://www.webservertalk.com/disclaimer/" data-wpel-link="internal">Disclaimer</a></li>
+			<li><a href="https://www.webservertalk.com/contact/" data-wpel-link="internal">Contact Us</a></li>
+</ul></div></section>			<div class="best-clear"></div>
+		</div> 
+	</aside> 
+		<div class="disclaimerfooter">
+		<span>
+			 WebServerTalk participates in many types affiliate marketing and lead generation programs, which means we may get paid commissions on editorially chosen products purchased through our links. This is not change the outcome of any reviews or product recommedations.
+			 </span></div>
+	<div class="best-footer-logo">
+		<div class="best-footer-logo-content">
+			<div class="best-footer-logo-content-home">
+				<div class="social Twitter">
+				<a href="https://twitter.com/WebServerTalk" data-wpel-link="external" rel="nofollow">
+					<svg height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+						 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+					<style type="text/css">
+						.st0{fill:#FFFFFF;}
+					</style>
+					<path class="st0" d="M512,103c-32.2,1.5-31.5,1.4-35.1,1.7l19.1-54.5c0,0-59.5,21.9-74.6,25.8c-39.6-35.6-98.6-37.2-140.7-11.3
+						c-34.5,21.2-53,57.6-46.8,100.2c-67.1-9.3-123.7-41.1-168.4-94.8l-14.1-17L40.7,72.5C27.4,97,23,125,28.3,151.3
+						c2.2,10.8,5.9,21.1,11,30.8l-12.1-4.7l-1.4,20.2c-1.5,20.6,5.4,44.6,18.3,64.2c3.6,5.5,8.3,11.6,14.3,17.6l-6.3-1l7.6,23.2
+						c10,30.5,30.9,54.1,58,67.2c-27,11.5-48.9,18.8-84.8,30.6L0,410.3l30.3,16.6c11.6,6.3,52.4,27.4,92.8,33.8
+						C212.9,474.7,314,463.3,382,402c57.3-51.6,76.1-125,72.2-201.4c-0.6-11.6,2.6-22.6,8.9-31.1C475.9,152.5,511.9,103.1,512,103z
+						 M439.2,151.5c-10.5,14.1-15.8,32-14.9,50.6c3.9,77.1-17,136.8-62.3,177.6c-52.9,47.7-138.3,66.4-234.2,51.3
+						c-17.4-2.7-35.3-8.8-50.2-14.9c30.1-10.4,53.3-19.6,90.9-37.4l52.4-24.8l-57.9-3.7c-27.7-1.8-50.8-15.2-65-37
+						c7.5-0.4,14.8-1.7,22-3.7l55.2-15.4l-55.6-13.6c-27-6.6-42.4-22.8-50.6-35.2c-5.4-8.2-8.9-16.5-11-24.2c5.6,1.5,12.1,2.6,22.6,3.6
+						l51.5,5.1l-40.8-31.8c-29.4-22.9-41.2-57.4-32.5-90.5c91.8,95.2,199.5,88,210.3,90.5c-2.4-23.2-2.4-23.2-3.1-25.4
+						c-13.9-49.1,16.5-74,30.3-82.5C325,72.6,370.5,69.9,402,99c6.8,6.3,16,8.7,24.6,6.6c7.7-1.9,14.1-4,20.3-6.2L434,136.3l16.5,0
+						C447.4,140.5,443.7,145.5,439.2,151.5z"/>
+					</svg>
+				</a>
+				</div>
+				
+				<div class="social Facebook">
+				<a href="https://www.facebook.com/webservertalk/" data-wpel-link="external" rel="nofollow">					
+					<svg height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+						 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+					<style type="text/css">
+						.st0{fill:#FFFFFF;}
+					</style>
+					<path class="st0" d="M75,512h167V330h-60v-60h60v-75c0-41.4,33.6-75,75-75h75v60h-60c-16.5,0-30,13.5-30,30v60h87.3l-10,60H302v182
+						h135c41.4,0,75-33.6,75-75V75c0-41.4-33.6-75-75-75H75C33.6,0,0,33.6,0,75v362C0,478.4,33.6,512,75,512z M30,75
+						c0-24.8,20.2-45,45-45h362c24.8,0,45,20.2,45,45v362c0,24.8-20.2,45-45,45H332V360h72.7l20-120H332v-30h90V90H317
+						c-57.9,0-105,47.1-105,105v45h-60v120h60v122H75c-24.8,0-45-20.2-45-45V75z"/>
+					</svg>
+
+				</a>
+				</div>
+				<div class="social LinkedIN">
+				<a href="https://www.linkedin.com/in/webservertalk-llc-b896761b6/" data-wpel-link="external" rel="nofollow">
+					<svg height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+						 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+					<style type="text/css">
+						.st0{fill:#FFFFFF;}
+					</style>
+					<path class="st0" d="M160,423H90V197h70V423z M167,125c0-22.6-18.4-41-41-41c-22.7,0-41,18.4-41,41c0,22.6,18.3,41,41,41
+						C148.6,166,167,147.6,167,125z M422,298.7C422,238,409.2,193,338.3,193c-34.1,0-56.9,17-66.2,34.7H272V197h-68v226h68V310.8
+						c0-29.4,7.5-57.9,43.9-57.9c35.9,0,37.1,33.6,37.1,59.7V423h69V298.7z M512,452V60c0-33.1-26.9-60-60-60H60C26.9,0,0,26.9,0,60v392
+						c0,33.1,26.9,60,60,60h392C485.1,512,512,485.1,512,452z M452,40c11,0,20,9,20,20v392c0,11-9,20-20,20H60c-11,0-20-9-20-20V60
+						c0-11,9-20,20-20H452z"/>
+					</svg>
+
+				</a>
+				</div>
+				
+			</div> 
+			
+			<footer class="best-footer-logo-content-by">
+				<p>Designed with <img style="height: 19px; top: 5px; position: relative; width: auto;" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="data:image/png;base64,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"><noscript><img style="height: 19px; top: 5px; position: relative; width: auto;" src="data:image/png;base64,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"></noscript> by
+					<a href="https://www.webservertalk.com/" target="_blank" data-wpel-link="internal">WebServerTalk.com</a>&nbsp;&copy;&nbsp;2022				</p>
+			</footer> 
+		</div> 
+		<div class="best-clear"></div>
+	</div> 
+</div> 
+</div> 
+<script type="text/javascript">
+function downloadJSAtOnload() {
+var element = document.createElement("script");
+element.src = "https://cdn.webservertalk.com/wp-includes/js/comment-reply.min.js";
+document.body.appendChild(element);
+}
+if (window.addEventListener)
+window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
+</script>
+<script type='text/javascript' id='q2w3_fixed_widget-js-extra'>
+/* <![CDATA[ */
+var q2w3_sidebar_options = [{"sidebar":"best_right_sidebar","use_sticky_position":false,"margin_top":0,"margin_bottom":0,"stop_elements_selectors":"","screen_max_width":0,"screen_max_height":0,"widgets":["#custom_html-11"]}];
+/* ]]> */
+</script>
+<script data-minify="1"   type='text/javascript' src='https://cdn.webservertalk.com/wp-content/cache/min/1/wp-content/plugins/q2w3-fixed-widget/js/frontend.min.js?ver=1649749016' id='q2w3_fixed_widget-js'></script>
+			<script type="text/javascript" id="wpsp-script-frontend"></script>
+			<script>!function(){"use strict";!function(e){if(-1===e.cookie.indexOf("__adblocker")){e.cookie="__adblocker=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";var t=new XMLHttpRequest;t.open("GET","https://www.npttech.com/advertising.js",!0),t.onreadystatechange=function(){if(XMLHttpRequest.DONE===t.readyState)if(200===t.status){var n=e.createElement("script");n.innerHTML=t.responseText,e.getElementsByTagName("head")[0].appendChild(n)}else{var a=new Date;a.setTime(a.getTime()+3e5),e.cookie="__adblocker=true; expires="+a.toUTCString()+"; path=/"}},t.send()}}(document)}();
+</script><script>!function(){"use strict";var e;e=document,function(){var t,n;function r(){var t=e.createElement("script");t.src="https://cafemedia-com.videoplayerhub.com/galleryplayer.js",e.head.appendChild(t)}function a(){var t=e.cookie.match("(^|[^;]+)\\s*__adblocker\\s*=\\s*([^;]+)");return t&&t.pop()}function c(){clearInterval(n)}return{init:function(){var e;"true"===(t=a())?r():(e=0,n=setInterval((function(){100!==e&&"false"!==t||c(),"true"===t&&(r(),c()),t=a(),e++}),50))}}}().init()}();
+</script><script>window.lazyLoadOptions = {
+                elements_selector: "img[data-lazy-src],.rocket-lazyload",
+                data_src: "lazy-src",
+                data_srcset: "lazy-srcset",
+                data_sizes: "lazy-sizes",
+                class_loading: "lazyloading",
+                class_loaded: "lazyloaded",
+                threshold: 300,
+                callback_loaded: function(element) {
+                    if ( element.tagName === "IFRAME" && element.dataset.rocketLazyload == "fitvidscompatible" ) {
+                        if (element.classList.contains("lazyloaded") ) {
+                            if (typeof window.jQuery != "undefined") {
+                                if (jQuery.fn.fitVids) {
+                                    jQuery(element).parent().fitVids();
+                                }
+                            }
+                        }
+                    }
+                }};
+        window.addEventListener('LazyLoad::Initialized', function (e) {
+            var lazyLoadInstance = e.detail.instance;
+
+            if (window.MutationObserver) {
+                var observer = new MutationObserver(function(mutations) {
+                    var image_count = 0;
+                    var iframe_count = 0;
+                    var rocketlazy_count = 0;
+
+                    mutations.forEach(function(mutation) {
+                        for (var i = 0; i < mutation.addedNodes.length; i++) {
+                            if (typeof mutation.addedNodes[i].getElementsByTagName !== 'function') {
+                                continue;
+                            }
+
+                           if (typeof mutation.addedNodes[i].getElementsByClassName !== 'function') {
+                                continue;
+                            }
+
+                            images = mutation.addedNodes[i].getElementsByTagName('img');
+                            is_image = mutation.addedNodes[i].tagName == "IMG";
+                            iframes = mutation.addedNodes[i].getElementsByTagName('iframe');
+                            is_iframe = mutation.addedNodes[i].tagName == "IFRAME";
+                            rocket_lazy = mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');
+
+                            image_count += images.length;
+			                iframe_count += iframes.length;
+			                rocketlazy_count += rocket_lazy.length;
+
+                            if(is_image){
+                                image_count += 1;
+                            }
+
+                            if(is_iframe){
+                                iframe_count += 1;
+                            }
+                        }
+                    } );
+
+                    if(image_count > 0 || iframe_count > 0 || rocketlazy_count > 0){
+                        lazyLoadInstance.update();
+                    }
+                } );
+
+                var b      = document.getElementsByTagName("body")[0];
+                var config = { childList: true, subtree: true };
+
+                observer.observe(b, config);
+            }
+        }, false);</script><script data-no-minify="1" async src="https://cdn.webservertalk.com/wp-content/plugins/wp-rocket/assets/js/lazyload/17.5/lazyload.js"></script><script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101156641);</script>
+<script async src="//static.getclicky.com/js"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153091163-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-153091163-1');
+</script>
+
+</body>
+</html>
+
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me -->
