@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Gautam Iyer">
+    <title>
+      Disabling the Ctrl-W shortcut on Firefox
+    </title><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"><link rel="stylesheet"
+	href="/~gautam/sj/share/css/pygments-theme.css">
+      <link rel="stylesheet" href="/~gautam/sj/share/css/local.css"></head>
+  <body data-scroll-toc='1'>
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <div class='container'>
+      <a class="navbar-brand" href="https://www.math.cmu.edu/~gautam/sj">Gautam Iyer</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse"
+	data-target="#navbar">
+	<span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse small" id="navbar">
+	<ul class="navbar-nav mr-auto">
+	    <li class='nav-item'>
+		<a class='nav-link text-secondary'
+		    href="https://www.math.cmu.edu/~gautam/sj/index.html">Research</a>
+	      </li>
+	    <li class='nav-item'>
+		<a class='nav-link text-secondary'
+		    href="https://www.math.cmu.edu/~gautam/sj/teaching">Teaching</a>
+	      </li>
+	    <li class='nav-item'>
+		<a class='nav-link pr-0 text-secondary'
+		    href="https://www.math.cmu.edu/~gautam/sj/contact.html">CV/Contact</a>
+	      </li>
+	    </ul><ul class="navbar-nav ">
+	    <li class='nav-item disabled'>
+		<a class='nav-link disabled'
+		    href="#">Code</a>
+	      </li>
+	    <li class='nav-item active'>
+		<a class='nav-link pr-0 active'
+		    href="https://www.math.cmu.edu/~gautam/sj/blog">Blog</a>
+	      </li>
+	    </ul></div>
+    </div>
+  </nav><div class='container'>
+      <div class='row'>
+    <div class='col-md-9' id='col-main'>
+      <div class='justify'>
+    <h1>Disabling the Ctrl-W shortcut on Firefox</h1><p class='text-secondary mt-0 mb-3'>
+	  2022-03-29
+	</p>
+      <p>Many vim users use <code>ctrl-w</code> to delete a word. Unfortunately on Firefox, this closes the current tab. So if you&rsquo;re editing a text area / filling out a form you may accidentally close the tab 🙄. There&rsquo;s no option to change or disable default keyboard shortcuts (Firefox 98, 2022-03-29). So if you want to do it, you need to manually edit the file <code>/usr/lib/firefox/browser/omni.ja</code>.</p>
+<p>First unzip it to a temporary directory:</p>
+<div class="codehilite"><pre><span></span>mkdir<span class="w"> </span>/tmp/firefox-omni
+<span class="nb">cd</span><span class="w"> </span>/tmp/firefox-omni
+unzip<span class="w"> </span>/usr/lib/firefox/browser/omni.ja
+</pre></div>
+
+
+<p>Now you need to edit <code>chrome/browser/content/browser/browser.xhtml</code> to make your changes. You can change as many shortcuts as you want here. The <code>ctrl-w</code> key is called <code>close-shortcut</code>. You can either comment out the offending line, or change <code>modifiers="accel,shift"</code> to require <code>ctrl-shift-w</code> to close tabs.</p>
+<p>I personally use <a href="https://github.com/glacambre/firenvim">Firenvim</a> (which uses an embedded <a href="https://neovim.io/">neovim</a> to edit text areas). In this case all you need to do is changed <code>reserved="false"</code> in the corresponding line. This will allow Firenvim to take over the shortcut <code>ctrl-w</code> when it&rsquo;s active (in text areas), and you won&rsquo;t accidentally close tabs when trying to delete words. While I was at it, I also made <code>ctrl-t</code> / <code>ctrl-n</code> un-reserved, so that I can use these shortcuts when editing text areas with Firenvim.</p>
+<div class="codehilite"><pre><span></span><span class="gh">diff -ru firefox-omni-orig/chrome/browser/content/browser/browser.xhtml ./chrome/browser/content/browser/browser.xhtml</span>
+<span class="gd">--- firefox-omni-orig/chrome/browser/content/browser/browser.xhtml  2010-01-01 00:00:00.000000000 -0500</span>
+<span class="gi">+++ ./chrome/browser/content/browser/browser.xhtml  2022-04-05 20:26:31.880470112 -0400</span>
+<span class="gu">@@ -263,9 +263,9 @@</span>
+<span class="w"> </span>    &lt;key id=&quot;key_newNavigator&quot;
+<span class="w"> </span>         data-l10n-id=&quot;window-new-shortcut&quot;
+<span class="w"> </span>         command=&quot;cmd_newNavigator&quot;
+<span class="gd">-         modifiers=&quot;accel&quot; reserved=&quot;true&quot;/&gt;</span>
+<span class="gi">+         modifiers=&quot;accel&quot; reserved=&quot;false&quot;/&gt;</span>
+<span class="w"> </span>    &lt;key id=&quot;key_newNavigatorTab&quot; data-l10n-id=&quot;tab-new-shortcut&quot; modifiers=&quot;accel&quot;
+<span class="gd">-         command=&quot;cmd_newNavigatorTabNoEvent&quot; reserved=&quot;true&quot;/&gt;</span>
+<span class="gi">+         command=&quot;cmd_newNavigatorTabNoEvent&quot; reserved=&quot;false&quot;/&gt;</span>
+<span class="w"> </span>    &lt;key id=&quot;focusURLBar&quot; data-l10n-id=&quot;location-open-shortcut&quot; command=&quot;Browser:OpenLocation&quot;
+<span class="w"> </span>         modifiers=&quot;accel&quot;/&gt;
+<span class="w"> </span>    &lt;key id=&quot;focusURLBar2&quot; data-l10n-id=&quot;location-open-shortcut-alt&quot; command=&quot;Browser:OpenLocation&quot;
+<span class="gu">@@ -284,7 +284,7 @@</span>
+<span class="w"> </span>    &lt;key id=&quot;openFileKb&quot; data-l10n-id=&quot;file-open-shortcut&quot; command=&quot;Browser:OpenFile&quot;  modifiers=&quot;accel&quot;/&gt;
+<span class="w"> </span>    &lt;key id=&quot;key_savePage&quot; data-l10n-id=&quot;save-page-shortcut&quot; command=&quot;Browser:SavePage&quot; modifiers=&quot;accel&quot;/&gt;
+<span class="w"> </span>    &lt;key id=&quot;printKb&quot; data-l10n-id=&quot;print-shortcut&quot; command=&quot;cmd_print&quot;  modifiers=&quot;accel&quot;/&gt;
+<span class="gd">-    &lt;key id=&quot;key_close&quot; data-l10n-id=&quot;close-shortcut&quot; command=&quot;cmd_close&quot; modifiers=&quot;accel&quot; reserved=&quot;true&quot;/&gt;</span>
+<span class="gi">+    &lt;key id=&quot;key_close&quot; data-l10n-id=&quot;close-shortcut&quot; command=&quot;cmd_close&quot; modifiers=&quot;accel&quot; reserved=&quot;false&quot;/&gt;</span>
+<span class="w"> </span>    &lt;key id=&quot;key_closeWindow&quot; data-l10n-id=&quot;close-shortcut&quot; command=&quot;cmd_closeWindow&quot; modifiers=&quot;accel,shift&quot; reserved=&quot;true&quot;/&gt;
+<span class="w"> </span>    &lt;key id=&quot;key_toggleMute&quot; data-l10n-id=&quot;mute-toggle-shortcut&quot; command=&quot;cmd_toggleMute&quot; modifiers=&quot;control&quot;/&gt;
+<span class="w"> </span>    &lt;key id=&quot;key_undo&quot;
+</pre></div>
+
+
+<p>If you save the above (or your custom changes) to a patch, then you can apply it by:</p>
+<div class="codehilite"><pre><span></span>patch<span class="w"> </span>/tmp/firefox-omni/chrome/browser/content/browser/browser.xhtml<span class="w"> </span>firefox-omni.patch
+</pre></div>
+
+
+<p>Now switch to root, and install your changes:</p>
+<div class="codehilite"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/tmp/firefox-omni
+zip<span class="w"> </span>-0DXqr<span class="w"> </span>/tmp/omni.ja<span class="w"> </span>*
+<span class="nb">cd</span>
+cp<span class="w"> </span>/usr/lib/firefox/browser/omni.ja<span class="w"> </span>/usr/lib/firefox/browser/omni.ja.orig
+cp<span class="w"> </span>/tmp/omni.ja<span class="w"> </span>/usr/lib/firefox/browser/omni.ja
+rm<span class="w"> </span>-rf<span class="w"> </span>/tmp/omni.ja<span class="w"> </span>/tmp/firefox-omni
+</pre></div>
+
+
+<p>Now as a normal user, clear your startup cache.</p>
+<div class="codehilite"><pre><span></span>rm<span class="w"> </span>-rf<span class="w"> </span>~/.cache/mozilla/firefox/*/startupCache
+</pre></div>
+
+
+<p>Restart firefox, and it should work.</p>
+<p><strong>Note:</strong> You will have to do this every time you reinstall firefox. I automated the above into a script. First save <a class="wikilink" href="https://www.math.cmu.edu/~gautam/sj/blog/20220329-firefox-disable-ctrl-w/firefox-omni.patch">firefox-omni.patch</a> as <code>~/local/src/firefox-omni.patch</code>, and then download and run <a class="wikilink" href="https://www.math.cmu.edu/~gautam/sj/blog/20220329-firefox-disable-ctrl-w/patch-firefox-omni.zsh">this script</a>  as a normal users (that has sudo privileges). </p>
+    
+	<h3 class='my-3'>
+	  🗫 Comments
+	</h3>
+
+	<ul class='list-unstyled comments mb-3'>
+      
+	<li class='mt-2'>
+	  <div class='media small'>
+	    <img class='mr-3 rounded d-none d-sm-block'
+		src='https://cdn.libravatar.org/avatar/99daad327e93a79b9b1a785c70649146'
+		alt='Anonymous'>
+	    <div class='media-body'>
+	      <h5 class='mt-0 mb-1'>
+		Ctrl-W still bothers
+	      </h5>
+	      <p class='small mb-2'>Anonymous (2022-06-17 09:34:22 EDT)</p>
+
+	      <p>this does not work, no effect</p>
+	    </div>
+	  </div>
+	</li>
+      
+    
+	<li class='mt-2'>
+	  <div class='media small'>
+	    <img class='mr-3 rounded d-none d-sm-block'
+		src='https://cdn.libravatar.org/avatar/0ec534a31b72b69338d0897211ec9925'
+		alt='Gautam Iyer'>
+	    <div class='media-body'>
+	      <h5 class='mt-0 mb-1'>
+		Re:  Ctrl-W still bothers
+	      </h5>
+	      <p class='small mb-2'>Gautam Iyer (2022-06-20 14:34:30 EDT)</p>
+
+	      <p>It works (at least for me as of 2022-06-20), as I use it every day.</p>
+<p>Note, the above instructions only make <code>Ctrl-W</code> an <strong>unreserved</strong> shortcut. This means extensions can now remap it. If you don&rsquo;t have any extensions that remap it then <code>Ctrl-W</code> will still close your current window.</p>
+<p>If you&rsquo;d like to simply disable <code>Ctrl-W</code>, then just comment out the above shortcut definitions entirely (instead of only changing <code>reserved="true"</code> to <code>reserved="false"</code> as I suggest above).</p>
+<p>GI</p>
+	    </div>
+	  </div>
+	</li>
+      
+    
+	<li class='mt-2'>
+	  <div class='media small'>
+	    <img class='mr-3 rounded d-none d-sm-block'
+		src='https://cdn.libravatar.org/avatar/99daad327e93a79b9b1a785c70649146'
+		alt='Anonymous'>
+	    <div class='media-body'>
+	      <h5 class='mt-0 mb-1'>
+		Thanks
+	      </h5>
+	      <p class='small mb-2'>Anonymous (2022-10-05 20:13:15 EDT)</p>
+
+	      <p>Thanks for this, works for me.</p>
+	    </div>
+	  </div>
+	</li>
+      
+    
+	<li class='mt-2'>
+	  <div class='media small'>
+	    <img class='mr-3 rounded d-none d-sm-block'
+		src='https://cdn.libravatar.org/avatar/de8043de04e6b5d77ecb6686afd9c782'
+		alt='Vinny'>
+	    <div class='media-body'>
+	      <h5 class='mt-0 mb-1'>
+		Can't follow instructions on Ubuntu Mate
+	      </h5>
+	      <p class='small mb-2'>Vinny (2022-12-22 13:04:18 EST)</p>
+
+	      <p>Firefox 108 assigned Shift + ESC to invoke the Process Manager, but it is also a shortcut for Discord to mark a server as read. Found this page via Google and tried to follow the instructions on my Ubuntu Mate machine, but unfortunately the directory /usr/lib/firefox/browser doesn&rsquo;t exists. Even using find I can&rsquo;t find the omni.ja file. Maybe it&rsquo;s because Ubuntu handle Firefox via snap instead of apt-get? I don&rsquo;t know, need to research more.</p>
+	    </div>
+	  </div>
+	</li>
+      
+    
+	<li class='mt-2'>
+	  <div class='media small'>
+	    <img class='mr-3 rounded d-none d-sm-block'
+		src='https://cdn.libravatar.org/avatar/0ec534a31b72b69338d0897211ec9925'
+		alt='Gautam Iyer'>
+	    <div class='media-body'>
+	      <h5 class='mt-0 mb-1'>
+		Re: Can't follow instructions on Ubuntu Mate
+	      </h5>
+	      <p class='small mb-2'>Gautam Iyer (2022-12-22 20:38:07 EST)</p>
+
+	      <blockquote>
+<p>Maybe it’s because Ubuntu handle Firefox via snap instead of apt-get? I don’t know, need to research more.</p>
+</blockquote>
+<p>Yeah; the snap files may not be in the standard location. Try searching the filesystem via <code>find</code> or <code>locate</code>.</p>
+	    </div>
+	  </div>
+	</li>
+      
+	</ul>
+      
+    <h4>
+      📮 Leave a comment
+      <small class='text-danger small-1'>
+	(Spammers beware: All comments are moderated)
+      </small>
+    </h4>
+    <div id='comment-failed' class='alert alert-danger d-none'>
+      Sorry. There was an error submitting your comment. Please try again, or contact me if the problem persists.
+    </div>
+    <form id='comment-form' role='form' method='post'
+	action='javascript:submit_comment()'>
+      <input type='hidden' name='page' value='20220329-firefox-disable-ctrl-w.md'>
+      <input type='hidden' name='comment-number' value='6'>
+      <div class='form-row'>
+	<div class="col-md-6 my-1">
+	  <label class="sr-only" for="name">Name</label>
+	  <input type="text" class="form-control" name="name"
+	    placeholder="Name (optional)">
+	</div>
+	<div class="col-md-6 my-1">
+	  <label class="sr-only" for="email">Email address</label>
+	  <input type="email" class="form-control" name="email"
+	    placeholder="Email (optional, to generate an avatar; will not be published)"
+	    title="Your email is only used to generate an avatar. It will not be published or used to contact you. Promise!">
+	</div>
+      </div>
+      <label class="sr-only" for="subject">Subject</label>
+      <input type="text" class="form-control my-1" name="subject"
+	placeholder="Subject (REQUIRED)" REQUIRED>
+
+      <label class="sr-only" for="comment">Comment</label>
+      <textarea class="form-control my-1" name="comment"
+	placeholder="Comment. (REQUIRED. Write your comment in Markdown)"
+	rows='4' REQUIRED></textarea>
+      
+
+      <div class="text-right my-1">
+	<button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+    <div id='comment-sending' class='alert alert-info d-none'>
+      Sending comment; please wait.
+    </div>
+    <div id='comment-success' class='alert alert-success d-none'>
+      Thanks. Your comment was successfully submitted.
+      It will appear here shortly if it isn't spam.
+    </div>
+  </div>
+</div>
+    <div class='col-md-3' id='col-right'>
+      <div style='position: sticky; top: .5rem; overflow-x: hidden;'>
+    
+
+  <br>
+  <h4>📢 Recent posts</h4>
+  <ol class='list-unstyled small'>
+    <li class='hide-xoverflow'>
+	<a href='https://www.math.cmu.edu/~gautam/sj/blog/20221217-pdfa-conversion.html'>Converting PDF files to PDF-A</a>
+	(2022-12-17)
+      </li>
+    <li class='hide-xoverflow'>
+	<a href='https://www.math.cmu.edu/~gautam/sj/blog/20220329-firefox-disable-ctrl-w.html'>Disabling the Ctrl-W shortcut on Firefox</a>
+	(2022-03-29)
+      </li>
+    <li class='hide-xoverflow'>
+	<a href='https://www.math.cmu.edu/~gautam/sj/blog/20220326-zoom-wayland.html'>Sharing your screen with Zoom under Wayland</a>
+	(2022-03-26)
+      </li>
+    <li class='hide-xoverflow'>
+	<a href='https://www.math.cmu.edu/~gautam/sj/blog/20211025-eduroam-iwd.html'>Connecting to eduroam on Linux (at Carnegie Mellon)</a>
+	(2021-10-25)
+      </li>
+    <li class='hide-xoverflow'>
+	<a href='https://www.math.cmu.edu/~gautam/sj/blog/20200406-tplink-wol.html'>Remotely waking computers behind newer TP Link routers</a>
+	(2020-04-06)
+      </li>
+    </ol>
+
+  </div>
+</div>
+  </div>
+</div>
+
+    <footer>
+    <div class='container small'>
+      <hr>
+      <div class='media'>
+	<div class='media-body pt-0'>
+	  <span class='text-nowrap'>&copy; Gautam Iyer 2015&ndash;2022.</span>
+	  This site is licensed under the <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons BY-NC-SA 4.0 License</a>.
+	  <br>
+	  <span class='text-nowrap' title='Email'>
+    📧
+    gautam@math.cmu.edu.</span>
+	  &emsp;
+	  <span class='text-nowrap' title='Office'>💼 <a title='Wean Hall' href='https://www.google.com/maps/place/Wean+Hall,+Carnegie+Mellon+University,+Pittsburgh,+PA+15213'>WEH</a> 6121.
+  </span>
+	</div>
+	<a rel="license" class='mr-auto'
+	  href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+	  <img alt="Creative Commons License" class='media-object'
+	    style="border-width:0"
+	    src="/~gautam/sj/share/licence/cc-by-nc-sa-88x31.png">
+	</a>
+      </div>
+    </div>
+  </footer><script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script><script src='/~gautam/sj/share/js/local.js'></script></body>
+</html>

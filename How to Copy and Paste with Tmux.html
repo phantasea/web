@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset="UTF-8">
+<title>How to Copy and Paste with Tmux on Ubuntu (Example)</title>
+<meta name="description" content="A protip by akalyaev about tmux and ubuntu.">
+<meta name="keywords" content="tmux, ubuntu">
+<link rel="canonical" href="https://coderwall.com/p/4b0d0a/how-to-copy-and-paste-with-tmux-on-ubuntu">
+<meta property="og:title" content="How to Copy and Paste with Tmux on Ubuntu (Example)">
+<meta property="og:url" content="https://coderwall.com/p/4b0d0a/how-to-copy-and-paste-with-tmux-on-ubuntu">
+<meta property="og:site_name" content="Coderwall">
+<meta property="og:description" content="A protip by akalyaev about tmux and ubuntu.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://coderwall-assets-0.s3.amazonaws.com/uploads/user/avatar/23944/d83b63db79b42978fe35e120550ca180.png">
+<meta name="twitter:title" content="How to Copy and Paste with Tmux on Ubuntu (Example)">
+<meta name="twitter:url" content="https://coderwall.com/p/4b0d0a/how-to-copy-and-paste-with-tmux-on-ubuntu">
+<meta name="twitter:site_name" content="Coderwall">
+<meta name="twitter:site" content="@coderwall">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator:id" content="351051761">
+<meta name="twitter:image" content="https://coderwall-assets-0.s3.amazonaws.com/uploads/user/avatar/23944/d83b63db79b42978fe35e120550ca180.png">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="author" content="https://coderwall.com/akalyaev">
+<link rel="stylesheet" media="all" href="https://dj1symwmxvldi.cloudfront.net/assets/application-bd9ada29a0c6bd198f370044bb607a12632ac402d6021c2d54d025cecb42d45c.css" />
+<script src="https://dj1symwmxvldi.cloudfront.net/assets/application-bc7a77d521dc8cec56106a5f612fec3e45116b5b0f783d0b81b28d4a31c1c5fe.js"></script>
+<script src="https://content.jwplatform.com/libraries/pEaCoeG7.js"></script>
+<script src="https://dj1symwmxvldi.cloudfront.net/packs/application-2ea76e7a47b328cbbe71.js"></script>
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="DeGMKhFhPK40L7hhBOk1k0loS8mt+9QMy9pc3gqOci5zTAK+RkbkFJ36vsns2pQbcU3TVh/ynPnutsug55qzTg==" />
+<!-- Google Tag Manager -->
+<!--script>
+  dataLayer = [{
+    'user_email': '',
+    'user_created_at': ''
+  }];
+</script-->
+
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KXGFN96');</script>
+<!-- End Google Tag Manager -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-797907-8', 'auto', {'cookieExpires': 0});
+    ga('set', 'anonymizeIp', true);
+  </script>
+
+<script>
+  document.addEventListener('turbolinks:load', function() {
+    _native.init("CVADL5QU", {
+      targetClass: 'native-js'
+    });
+  });
+</script>
+
+
+
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KXGFN96"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class='clearfix'>
+<header class='border-bottom'>
+<nav class='clearfix py2'>
+<div class='col col-4 sm-col-3 md-col-2'>
+<div class='sm-ml1'>
+<a class='btn logo relative' href='https://coderwall.com/'>
+<div class='absolute' style='top: 2px'>
+<svg version="1.1" viewBox="0 0 20 20" width="30" height="30" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="5" cy="5" r="1.4142" fill="#A26FF9"/>
+  <circle cx="10" cy="5" r="1.4142" fill="#A26FF9"/>
+  <circle cx="15" cy="5" r="1.4142" fill="#A26FF9"/>
+  <circle cx="10" cy="10" r="1.4142" fill="#A26FF9"/>
+  <circle cx="15" cy="10" r="1.4142" fill="#A26FF9"/>
+  <circle cx="15" cy="15" r="1.4142" fill="#A26FF9"/>
+</svg>
+
+</div>
+<div class='left font-x-lg' style='padding-left: 35px;'>
+Coderwall
+</div>
+</a>
+</div>
+</div>
+<div class='col col-3 sm-col-6 md-col-7 h6'>
+<a class='btn muted-until-hover xs-hide sm-mr1' href='/t/ruby/popular'>Ruby</a>
+<a class='btn muted-until-hover xs-hide' href='/t/python/popular'>Python</a>
+<a class='btn muted-until-hover xs-hide' href='/t/javascript/popular'>JavaScript</a>
+<a class='btn muted-until-hover xs-hide sm-only-hide' href='/t/web/popular'>Front-End</a>
+<a class='btn muted-until-hover xs-hide sm-only-hide' href='/t/tools/popular'>Tools</a>
+<a class='btn muted-until-hover xs-hide sm-only-hide' href='/t/ios/popular'>iOS</a>
+<div class='btn dropdown' style='margin-top: -3px;'>
+<span class='h3 muted-until-hover'>
+<i class="fa fa-sort-down relative xs-hide" style="top: -2px; margin-right: 2px;"></i>
+</span>
+<span class='muted-until-hover xs-ml3'>
+<span class='xs-hide'>More</span>
+Tips
+</span>
+<div class='dropdown-content bg-white mt1 py1 border z4' style='left:0'>
+<a class='btn py1 muted-until-hover sm-hide' href='/t/ruby/popular'>Ruby</a>
+<a class='btn py1 muted-until-hover sm-hide' href='/t/python/popular'>Python</a>
+<a class='btn py1 muted-until-hover sm-hide' href='/t/javascript/popular'>JavaScript</a>
+<a class='btn py1 muted-until-hover md-hide nowrap' href='/t/web/popular'>Front-End</a>
+<a class='btn py1 muted-until-hover md-hide' href='/t/tools/popular'>Tools</a>
+<a class='btn py1 muted-until-hover md-hide' href='/t/ios/popular'>iOS</a>
+<a class='btn py1 muted-until-hover' href='/t/php/popular'>PHP</a>
+<a class='btn py1 muted-until-hover' href='/t/android/popular'>Android</a>
+<a class='btn py1 muted-until-hover' href='/t/dot-net/popular'>.NET</a>
+<a class='btn py1 muted-until-hover' href='/t/java/popular'>Java</a>
+<a class='btn py1 green md-hide' href='/jobs'>Jobs</a>
+</div>
+</div>
+<a class='btn border-left xs-hide sm-only-hide' href='/jobs'>
+<div class='green'>Jobs</div>
+</a>
+</div>
+<div class='col col-5 sm-col-3 md-col-3'>
+<div class='right pr2'>
+<a class='btn btn-primary bg-purple white ml1' href='/signin'>Sign In or Up</a>
+</div>
+</div>
+</nav>
+</header>
+
+
+<div class='mt1 px3'>
+
+</div>
+<main>
+<div class='py2 px3'><script type='application/ld+json'>
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "@id": "how-to-copy-and-paste-with-tmux-on-ubuntu",
+  "author": {
+    "@type": "Person",
+    "name": "Anton Kalyaev"
+  },
+  "dateModified": "2016-02-25 18:53:12 UTC",
+  "datePublished": "2016-02-25 18:53:12 UTC",
+  "headline": "How to Copy and Paste with Tmux on Ubuntu (Example)",
+  "url": "/p/4b0d0a/how-to-copy-and-paste-with-tmux-on-ubuntu",
+  "commentCount": 2,
+  "keywords": "tmux, ubuntu",
+
+"articleBody": "##1. Install xclip\r\n\r\n    $ sudo apt-get install xclip\r\n\r\n##2. Configure Tmux\r\n\r\nOpen up your Tmux configuration (typically at ~/.tmux.conf) and append:\r\n\r\n### tmux version \u003e= 1.8\r\n\r\n    bind -t vi-copy y copy-pipe \"xclip -sel clip -i\"\r\n\r\nNow when you copy some text, it will automatically be copied to OS clipboard.\r\n\r\n### tmux version \u003c 1.8\r\n\r\n    # copy \u0026 paste between tmux and x clipboard\r\n    bind C-p run-shell \"tmux set-buffer \\\"$(xclip -o)\\\"; tmux paste-buffer\"\r\n    bind C-y run-shell \"tmux show-buffer | xclip -sel clip -i\"\r\n\r\nNow, when you press `\u003cControl\u003e Ctrl-p`, it will put the content of x clipboard into Tmux buffer and paste it.\r\n\r\n`\u003cControl\u003e Ctrl-y` will put Tmux top buffer content into x clipboard. Thus, a typical workflow will be as follows:\r\n\r\n1. Enter copy mode\r\n2. Select text\r\n3. Yank it\r\n4. Send it to x clipboard if needed \r\n\r\n\r\nP.S. Don't forget to restart your tmux server.",
+  "description": "A protip by akalyaev about tmux and ubuntu.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Coderwall",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/logo.png"
+    },
+    "url": "https://coderwall.com/"
+  },
+  "image": "/logo.png"
+}
+
+
+</script>
+<div class='container'>
+<div class='clearfix'>
+<div class='sm-col sm-col sm-col-12 md-col-8'>
+<div class='clearfix mt0 mb1'>
+<div class='sm-right'>
+<div class='diminish inline mr1'>Last Updated: February 25, 2016</div>
+<span class='xs-hide'>
+&middot;
+<div class='diminish inline mx1'>
+<i class="fa fa-eye"></i>
+26.19K
+</div>
+</span>
+&middot;
+<span class='mx1'><a href="/akalyaev">akalyaev</a></span>
+<div class='avatar' style='background-color: #f0ef1d;'><img src="https://coderwall-assets-0.s3.amazonaws.com/uploads/user/avatar/23944/d83b63db79b42978fe35e120550ca180.png" /></div>
+</div>
+</div>
+<div class='card p1' style='border-top:solid 5px #f0ef1d'>
+<h1 class='mb2 center'>How to Copy and Paste with Tmux on Ubuntu</h1>
+<div class='flex'>
+<div class='mx-auto'>
+<a class='pt02 pr1 pb02 pl1 bg-body-color border-box tag-rounded border mb1 ml1 left no-hover' href='/t/tmux/popular'>
+<div class='font-lg tag-blue'>#tmux</div>
+</a>
+<a class='pt02 pr1 pb02 pl1 bg-body-color border-box tag-rounded border mb1 ml1 left no-hover' href='/t/ubuntu/popular'>
+<div class='font-lg tag-blue'>#ubuntu</div>
+</a>
+</div>
+</div>
+<div class='content p3'><h2>1. Install xclip</h2>&#x000A;&#x000A;<pre><code class="prettyprint">$ sudo apt-get install xclip</code></pre>&#x000A;&#x000A;<h2>2. Configure Tmux</h2>&#x000A;&#x000A;<p>Open up your Tmux configuration (typically at ~/.tmux.conf) and append:</p>&#x000A;&#x000A;<h3>tmux version &gt;= 1.8</h3>&#x000A;&#x000A;<pre><code class="prettyprint">bind -t vi-copy y copy-pipe "xclip -sel clip -i"</code></pre>&#x000A;&#x000A;<p>Now when you copy some text, it will automatically be copied to OS clipboard.</p>&#x000A;&#x000A;<h3>tmux version &lt; 1.8</h3>&#x000A;&#x000A;<pre><code class="prettyprint"># copy &amp; paste between tmux and x clipboard&#x000A;bind C-p run-shell "tmux set-buffer \"$(xclip -o)\"; tmux paste-buffer"&#x000A;bind C-y run-shell "tmux show-buffer | xclip -sel clip -i"</code></pre>&#x000A;&#x000A;<p>Now, when you press <code class="prettyprint">&lt;Control&gt; Ctrl-p</code>, it will put the content of x clipboard into Tmux buffer and paste it.</p>&#x000A;&#x000A;<p><code class="prettyprint">&lt;Control&gt; Ctrl-y</code> will put Tmux top buffer content into x clipboard. Thus, a typical workflow will be as follows:</p>&#x000A;&#x000A;<ol>&#x000A;<li>Enter copy mode</li>&#x000A;<li>Select text</li>&#x000A;<li>Yank it</li>&#x000A;<li>Send it to x clipboard if needed </li>&#x000A;</ol>&#x000A;&#x000A;<p>P.S. Don't forget to restart your tmux server.</p></div>
+<div class='flex'>
+<div class='mx-auto'>
+<a class='pt02 pr1 pb02 pl1 bg-body-color border-box tag-rounded border mb1 ml1 left no-hover' href='/t/tmux/popular'>
+<div class='font-lg tag-blue'>#tmux</div>
+</a>
+<a class='pt02 pr1 pb02 pl1 bg-body-color border-box tag-rounded border mb1 ml1 left no-hover' href='/t/ubuntu/popular'>
+<div class='font-lg tag-blue'>#ubuntu</div>
+</a>
+</div>
+</div>
+<div class='clearfix mt1 mb0 mx2 py2'>
+<div class='clearfix border-bottom'>
+<h4>
+Written by
+<a class='bold' href='/akalyaev'>
+<span class='blue'>Anton Kalyaev</span>
+</a>
+</h4>
+</div>
+<div class='clearfix mt1'>
+<div class='btn btn-small pl0 mr1 mb1 xs-block'>
+<div data='{&quot;heartableId&quot;:&quot;protip_94043&quot;,&quot;href&quot;:&quot;/p/4b0d0a/likes&quot;,&quot;labels&quot;:[&quot;Recommend&quot;,&quot;Recommended&quot;]}' id='react-heart-button-protip_94043'></div>
+</div>
+<a class='btn btn-small pl0 mb1 mr1 xs-block' href='http://twitter.com/home?status=How+to+Copy+and+Paste+with+Tmux+on+Ubuntu+by+%40%0A%0Ahttps%3A%2F%2Fcoderwall.com%2Fp%2F4b0d0a' target='twitter'>
+<span class='fixed-space-4'><i class="fa fa-twitter aqua h4"></i></span>
+<span>Say Thanks</span>
+</a>
+<div class='btn btn-small pl0 mb1 mr1 xs-block'>
+<div id='react-protip-subscribe-button'></div>
+</div>
+<a class='btn btn-small pl0 mb1 mr1 xs-block' href='/signup'>
+<span class='fixed-space-4'><i class="fa fa-comment-o black h4"></i></span>
+Respond
+</a>
+</div>
+</div>
+<div class='mt0 mb0 pt1 pb1 px2 bg-body-color'>
+<h4 class='font-x-lg bold'>Related protips</h4>
+<div class='border-bottom'></div>
+<div class='protip clearfix py2'>
+<h3 class='mt1 mb1'>
+<a href='/p/_g2vpq/workflow-in-tmux' style='color: #5AA3E8;'>
+Workflow in Tmux
+</a>
+</h3>
+<div class='diminish inline mr2'>
+<i class="fa fa-eye"></i>
+93.76K
+</div>
+<div class='diminish inline'>
+<i class="fa fa-comment"></i>
+14
+</div>
+</div>
+<div class='clearfix border-bottom'></div>
+
+<div class='protip clearfix py2'>
+<h3 class='mt1 mb1'>
+<a href='/p/mxzdrg/keyboard-shortcuts-i-use-every-day-in-tmux' style='color: #5AA3E8;'>
+Keyboard shortcuts I use every day in tmux
+</a>
+</h3>
+<div class='diminish inline mr2'>
+<i class="fa fa-eye"></i>
+36.64K
+</div>
+<div class='diminish inline'>
+<i class="fa fa-comment"></i>
+8
+</div>
+</div>
+<div class='clearfix border-bottom'></div>
+
+<div class='protip clearfix py2'>
+<h3 class='mt1 mb1'>
+<a href='/p/ca5cuw/customize-your-tmux' style='color: #5AA3E8;'>
+Customize your Tmux
+</a>
+</h3>
+<div class='diminish inline mr2'>
+<i class="fa fa-eye"></i>
+26.43K
+</div>
+<div class='diminish inline'>
+<i class="fa fa-comment"></i>
+2
+</div>
+</div>
+
+</div>
+<div class='clearfix'>
+<div class='clearfix mt3 px2'>
+<h4>
+2 Responses
+<div class='right hide'>
+<div class='btn btn-small green'>Add your response</div>
+</div>
+</h4>
+<script type='application/ld+json'>
+{
+  "@context": "http://schema.org",
+  "@type": "Comment",
+  "datePublished": "2013-08-12 07:14:21 UTC",
+
+"text": "Nice. The most irritating thing in tmux solved!  Thx",
+  "upvoteCount": 1,
+  "author": {
+    "@type": "Person",
+    "name": "Max Małecki"
+  },
+  "about": {
+    "@type": "Article",
+    "@id": "how-to-copy-and-paste-with-tmux-on-ubuntu"
+  }
+}
+
+
+</script>
+<div class='border-top inline-block mb1 py1' style='width: 100%'>
+<div class='left mt1 mr2 avatar small' style='background-color: #a6d252;'>
+<img src="https://coderwall-assets-0.s3.amazonaws.com/uploads/user/avatar/24934/736212_10200976756252420_836055407_o.jpg" />
+</div>
+<div class='overflow-hidden py0 mt0'>
+<div class='clearfix'>
+<div class='author'>
+<a class='bold black no-hover' href='/emgiezet'>
+emgiezet
+</a>
+</div>
+<div class='content small'><p>Nice. The most irritating thing in tmux solved!  Thx</p></div>
+<div class='diminish mt1'>
+over 1 year ago
+&middot;
+<div data='{&quot;heartableId&quot;:&quot;comment_8520&quot;,&quot;href&quot;:&quot;/comments/8520/likes&quot;,&quot;labels&quot;:[&quot;&quot;,&quot;&quot;]}' id='react-heart-button-comment_8520' style='display:inline-block'></div>
+</div>
+</div>
+</div>
+</div>
+<script type='application/ld+json'>
+{
+  "@context": "http://schema.org",
+  "@type": "Comment",
+  "datePublished": "2014-06-10 20:13:08 UTC",
+
+"text": "This didn't quite work for me. It was waiting for an EOF in the command and never completed. I eventually used:\r\n\r\nbind -t vi-copy y copy-pipe \"xclip\"\r\n\r\nSource: http://unix.stackexchange.com/questions/15715/getting-tmux-to-copy-a-buffer-to-the-clipboard/16405",
+  "upvoteCount": 1,
+  "author": {
+    "@type": "Person",
+    "name": "Brian Clements"
+  },
+  "about": {
+    "@type": "Article",
+    "@id": "how-to-copy-and-paste-with-tmux-on-ubuntu"
+  }
+}
+
+
+</script>
+<div class='border-top inline-block mb1 py1' style='width: 100%'>
+<div class='left mt1 mr2 avatar small' style='background-color: #484be4;'>
+<img src="https://coderwall-assets-0.s3.amazonaws.com/uploads/user/avatar/110339/XKxrumag_normal.jpeg" />
+</div>
+<div class='overflow-hidden py0 mt0'>
+<div class='clearfix'>
+<div class='author'>
+<a class='bold black no-hover' href='/brianclements'>
+brianclements
+</a>
+</div>
+<div class='content small'><p>This didn't quite work for me. It was waiting for an EOF in the command and never completed. I eventually used:</p>&#x000A;&#x000A;<p>bind -t vi-copy y copy-pipe "xclip"</p>&#x000A;&#x000A;<p>Source: <a href="http://unix.stackexchange.com/questions/15715/getting-tmux-to-copy-a-buffer-to-the-clipboard/16405" rel="nofollow">http://unix.stackexchange.com/questions/15715/getting-tmux-to-copy-a-buffer-to-the-clipboard/16405</a></p></div>
+<div class='diminish mt1'>
+over 1 year ago
+&middot;
+<div data='{&quot;heartableId&quot;:&quot;comment_15082&quot;,&quot;href&quot;:&quot;/comments/15082/likes&quot;,&quot;labels&quot;:[&quot;&quot;,&quot;&quot;]}' id='react-heart-button-comment_15082' style='display:inline-block'></div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+<div class='sm-col sm-col sm-col-12 md-col-4'>
+<div class='clearfix sm-ml3 p1'>
+<div class='clearfix bg-white rounded p2 border center'>
+<h4 class='mb2'>Have a fresh tip? Share with Coderwall community!</h4>
+<a class='btn rounded bg-purple white' href='/p/new'>
+<div class='md-hide'>Post</div>
+<div class='inline md-show'>Post a tip</div>
+</a>
+</div>
+</div>
+<div class='clearfix sm-ml3 mt3 p1'>
+<div class='clearfix ml1 mb2'>
+<div class='mt0 mb1 font-x-lg bold'>
+<i class="fa fa-users mr1"></i>
+Best
+<a class='no-hover' href='/t/tmux/popular'>
+ #Tmux 
+</a>
+Authors
+</div>
+<div class='border-bottom'></div>
+</div>
+<div class='clearfix ml1 mb2'>
+<div class='clearfix mb1 ml1'>
+<div class='col col-1'>
+<div class='mt-third'>
+<div class='avatar medium' style='background-color: #2332b2;'>
+<img src="https://coderwall-assets-0.s3.amazonaws.com/uploads/user/avatar/1203/13968b06fb57efd24a152b89ed3caef5.jpeg" />
+</div>
+</div>
+</div>
+<div class='col col-11 overflow-hidden pl2'>
+<div class='clearfix'>
+<a href="/evantravers">evantravers</a>
+<div class='diminish inline mx1'>
+<i class="fa fa-star mr0"></i>
+93.45K
+</div>
+</div>
+<div class='clearfix'>
+<a class='diminish no-hover' href='/t/tmux/popular'>
+<div class='inline'>#tmux</div>
+</a>
+<a class='diminish no-hover' href='/t/Ruby/popular'>
+<div class='inline ml1'>#Ruby</div>
+</a>
+<a class='diminish no-hover' href='/t/C/popular'>
+<div class='inline ml1'>#C</div>
+</a>
+</div>
+</div>
+</div>
+<div class='clearfix mb1 ml1'>
+<div class='col col-1'>
+<div class='mt-third'>
+<div class='avatar medium' style='background-color: #1d320e;'>
+<img src="https://coderwall-assets-0.s3.amazonaws.com/uploads/user/avatar/29760/DSC00087.jpg" />
+</div>
+</div>
+</div>
+<div class='col col-11 overflow-hidden pl2'>
+<div class='clearfix'>
+<a href="/kerrick">kerrick</a>
+<div class='diminish inline mx1'>
+<i class="fa fa-star mr0"></i>
+36.57K
+</div>
+</div>
+<div class='clearfix'>
+<a class='diminish no-hover' href='/t/tmux/popular'>
+<div class='inline'>#tmux</div>
+</a>
+<a class='diminish no-hover' href='/t/JavaScript/popular'>
+<div class='inline ml1'>#JavaScript</div>
+</a>
+<a class='diminish no-hover' href='/t/Ruby/popular'>
+<div class='inline ml1'>#Ruby</div>
+</a>
+</div>
+</div>
+</div>
+<div class='clearfix mb1 ml1'>
+<div class='col col-1'>
+<div class='mt-third'>
+<div class='avatar medium' style='background-color: #565606;'>
+<img src="https://coderwall-assets-0.s3.amazonaws.com/uploads/user/avatar/121244/none.jpg" />
+</div>
+</div>
+</div>
+<div class='col col-11 overflow-hidden pl2'>
+<div class='clearfix'>
+<a href="/ndyag">ndyag</a>
+<div class='diminish inline mx1'>
+<i class="fa fa-star mr0"></i>
+26.38K
+</div>
+</div>
+<div class='clearfix'>
+<a class='diminish no-hover' href='/t/tmux/popular'>
+<div class='inline'>#tmux</div>
+</a>
+</div>
+</div>
+</div>
+<div class='clearfix mb1 ml1'>
+<div class='col col-1'>
+<div class='mt-third'>
+<div class='avatar medium' style='background-color: #f0ef1d;'>
+<img src="https://coderwall-assets-0.s3.amazonaws.com/uploads/user/avatar/23944/d83b63db79b42978fe35e120550ca180.png" />
+</div>
+</div>
+</div>
+<div class='col col-11 overflow-hidden pl2'>
+<div class='clearfix'>
+<a href="/akalyaev">akalyaev</a>
+<div class='diminish inline mx1'>
+<i class="fa fa-star mr0"></i>
+26.04K
+</div>
+</div>
+<div class='clearfix'>
+<a class='diminish no-hover' href='/t/tmux/popular'>
+<div class='inline'>#tmux</div>
+</a>
+<a class='diminish no-hover' href='/t/Erlang/popular'>
+<div class='inline ml1'>#Erlang</div>
+</a>
+<a class='diminish no-hover' href='/t/OTP/popular'>
+<div class='inline ml1'>#OTP</div>
+</a>
+</div>
+</div>
+</div>
+<div class='clearfix mb1 ml1'>
+<div class='col col-1'>
+<div class='mt-third'>
+<div class='avatar medium' style='background-color: #4fab0b;'>
+<img src="https://coderwall-assets-0.s3.amazonaws.com/uploads/user/avatar/6129/da617f047141876ec60e646e60196faa.jpeg" />
+</div>
+</div>
+</div>
+<div class='col col-11 overflow-hidden pl2'>
+<div class='clearfix'>
+<a href="/cloud8421">cloud8421</a>
+<div class='diminish inline mx1'>
+<i class="fa fa-star mr0"></i>
+24.16K
+</div>
+</div>
+<div class='clearfix'>
+<a class='diminish no-hover' href='/t/tmux/popular'>
+<div class='inline'>#tmux</div>
+</a>
+<a class='diminish no-hover' href='/t/Ruby/popular'>
+<div class='inline ml1'>#Ruby</div>
+</a>
+<a class='diminish no-hover' href='/t/JavaScript/popular'>
+<div class='inline ml1'>#JavaScript</div>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='clearfix sm-ml3 mt3 p1'>
+<div class='clearfix ml1 mb2'>
+<div class='mt0 mb1 font-x-lg bold'>
+<i class="fa fa-tags mr1"></i>
+Related Tags
+</div>
+<div class='border-bottom'></div>
+</div>
+<a class='pt02 pr1 pb02 pl1 card border-box tag-rounded border mb1 ml1 left center no-hover' href='/t/tmux/popular'>
+<div class='font-lg tag-blue'>#tmux</div>
+</a>
+<a class='pt02 pr1 pb02 pl1 card border-box tag-rounded border mb1 ml1 left center no-hover' href='/t/ubuntu/popular'>
+<div class='font-lg tag-blue'>#ubuntu</div>
+</a>
+</div>
+<div class='native-js clearfix ml3 md-show _300x250'>
+<style>
+  .#native_index# {
+    background-color: #native_bg_color#;
+    margin-bottom: 40px;
+  }
+  
+  .#native_index# .native-main {
+    color: #native_color# !important;
+  }
+  
+  .#native_index# .native-cta {
+    color: #native_cta_color#;
+    background-color: #native_cta_bg_color#;
+  }
+</style>
+<div class='#native_index# native-flex'>
+<a class='native-main' href='#native_link#'>
+<div class='native-sponsor'>Sponsored by</div>
+<div class='native-title'>#native_company#</div>
+<div class='native-desc'>#native_desc#</div>
+<div class='native-footer'>
+<div class='native-cta'>#native_cta#</div>
+<img class='native-img' native_src='#native_logo#'>
+</div>
+</a>
+</div>
+</div>
+
+<div class='clearfix sm-ml3 mt3 p1'>
+<div class='mt0 mb1 font-x-lg bold'>
+<i class="fa fa-folder-o mr1"></i>
+Filed Under
+</div>
+<hr>
+<div class='topic clearfix py1'>
+<a href='/t/tools/popular'>
+<div class='bold'><span class="translation_missing" title="translation missing: en.categories.long.tools">Tools</span></div>
+</a>
+</div>
+</div>
+<div class='clearfix sm-ml3 mt3 p1'>
+<div class='clearfix'>
+<div class='col col-7'>
+<div class='mt0 font-x-lg bold'>
+<i class="fa fa-diamond mr1"></i>
+Awesome Job
+</div>
+</div>
+<div class='col col-5'>
+<div class='right font-sm bold'>
+<a class='block' href='/jobs'>
+See All Jobs
+<i class="fa fa-arrow-right"></i>
+</a>
+</div>
+</div>
+</div>
+<hr>
+<div class='mt2 font-sm'>
+<a class='border--green green bold' href='https://coderwall.com/jobs/new'>
+Post a job for only
+$299
+</a>
+</div>
+</div>
+<div class='clearfix ml3 mt4'>
+<a target="_blank" class="link no-hover" rel="nofollow" href="/r/78/click"><img class="mt-third" alt="Thanks to our sponsor" src="https://dj1symwmxvldi.cloudfront.net/r/78" />
+</a>
+</div>
+<div class='clearfix ml3 mt4' ga-location='Protip Sidebar'>
+<div class='bsarocks bsap_74f50e679004d8f4d62fec4b0f74ccf1' id='bsap_1305410'></div>
+</div>
+<div class='native-js _native_ribbon'>
+<div class='native-sponsor'>Sponsored by #native_company# — Learn More</div>
+<a class='native-flex' href='#native_link#'>
+<style>
+  ._native_ribbon.native-js {
+    background: linear-gradient(-30deg, #native_bg_color#E5, #native_bg_color#E5 45%, #native_bg_color# 45%) #fff;
+  }
+  
+   ._native_ribbon .native-details,
+   ._native_ribbon .native-sponsor,
+   ._native_ribbon .native-bsa {
+    color: #native_color# !important;
+  }
+  
+   ._native_ribbon .native-details:hover {
+    color: #native_color_hover# !important;
+  }
+  
+   ._native_ribbon .native-cta {
+    color: #native_cta_color#;
+    background-color: #native_cta_bg_color#;
+  }
+  
+   ._native_ribbon .native-cta:hover {
+    color: #native_cta_color_hover;
+    background-color: #native_cta_bg_color_hover#;
+  }
+</style>
+<div class='native-main'>
+<img class='native-img' native_src='#native_logo#'>
+<div class='native-details'>
+<span class='native-company'>#native_title#</span>
+<span class='native-desc'>#native_desc#</span>
+</div>
+</div>
+<span class='native-cta'>#native_cta#</span>
+</a>
+</div>
+
+</div>
+</div>
+</div>
+<script src='https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js'></script>
+</div>
+</main>
+<footer class='border-top'>
+<nav class='clearfix'>
+<div class='col col-4 pt1 mt1'>
+<a class='btn' href='https://twitter.com/coderwall' rel='nofollow' target='_blank'>
+@coderwall
+<i class="fa fa-twitter fa-1x ml1"></i>
+</a>
+</div>
+<div class='col col-8 pt2 mt1'>
+<div class='right'>
+<a class='inline-block ml1' href='https://github.com/coderwall/coderwall-next' rel='nofollow'>
+<i class="fa fa-github-alt"></i>
+</a>
+<a class='inline-block ml1' href='/t/hackerdesk/popular'>
+<div class='sm-show'><i class="fa fa-gift"></i></div>
+</a>
+<a class="inline-block mx1" href="/categories/application-performance-monitoring">APM product comparisons
+</a><a class='inline-block mr1' href='mailto:support@coderwall.com'>
+Contact
+</a>
+<a class='inline-block mr1' href='/privacy_policy'>Privacy</a>
+<a class='inline-block mr1' href='/tos'>Terms</a>
+<p class='inline-block diminish inline mr1'>Copyright 2023</p>
+</div>
+</div>
+<div class='col col-12 pb1'>
+<div class='font-tiny diminish'>
+This site is protected by reCAPTCHA and the Google
+<a href='https://policies.google.com/privacy' rel='nofollow'>
+Privacy Policy
+</a>
+and
+<a href='https://policies.google.com/terms' rel='nofollow'>
+Terms of Service
+</a>
+apply.
+</div>
+<script src="https://www.recaptcha.net/recaptcha/api.js?render=6LdAu8MbAAAAAD2E6ZpEnU6ZiX8yrmnUpLstpZ_L"   ></script>
+        <script>
+          // Define function so that we can call it again later if we need to reset it
+          // This executes reCAPTCHA and then calls our callback.
+          function executeRecaptchaForOverall() {
+            grecaptcha.ready(function() {
+              grecaptcha.execute('6LdAu8MbAAAAAD2E6ZpEnU6ZiX8yrmnUpLstpZ_L', {action: 'overall'}).then(function(token) {
+                setInputWithRecaptchaResponseTokenForOverall('g-recaptcha-response-data-overall', token)
+              });
+            });
+          };
+          // Invoke immediately
+          executeRecaptchaForOverall()
+
+          // Async variant so you can await this function from another async function (no need for
+          // an explicit callback function then!)
+          // Returns a Promise that resolves with the response token.
+          async function executeRecaptchaForOverallAsync() {
+            return new Promise((resolve, reject) => {
+             grecaptcha.ready(async function() {
+                resolve(await grecaptcha.execute('6LdAu8MbAAAAAD2E6ZpEnU6ZiX8yrmnUpLstpZ_L', {action: 'overall'}))
+              });
+            })
+          };
+
+                    var setInputWithRecaptchaResponseTokenForOverall = function(id, token) {
+            var element = document.getElementById(id);
+            element.value = token;
+          }
+
+        </script>
+<input type="hidden" name="g-recaptcha-response-data[overall]" id="g-recaptcha-response-data-overall" data-sitekey="6LdAu8MbAAAAAD2E6ZpEnU6ZiX8yrmnUpLstpZ_L" class="g-recaptcha g-recaptcha-response "/>
+
+
+</div>
+</nav>
+</footer>
+</div>
+<div data='{&quot;currentUser&quot;:{&quot;item&quot;:null},&quot;currentProtip&quot;:{&quot;item&quot;:{&quot;id&quot;:94043,&quot;body&quot;:&quot;##1. Install xclip\r\n\r\n    $ sudo apt-get install xclip\r\n\r\n##2. Configure Tmux\r\n\r\nOpen up your Tmux configuration (typically at ~/.tmux.conf) and append:\r\n\r\n### tmux version \u0026gt;= 1.8\r\n\r\n    bind -t vi-copy y copy-pipe \&quot;xclip -sel clip -i\&quot;\r\n\r\nNow when you copy some text, it will automatically be copied to OS clipboard.\r\n\r\n### tmux version \u0026lt; 1.8\r\n\r\n    # copy \u0026amp; paste between tmux and x clipboard\r\n    bind C-p run-shell \&quot;tmux set-buffer \\\&quot;$(xclip -o)\\\&quot;; tmux paste-buffer\&quot;\r\n    bind C-y run-shell \&quot;tmux show-buffer | xclip -sel clip -i\&quot;\r\n\r\nNow, when you press ` Ctrl-p`, it will put the content of x clipboard into Tmux buffer and paste it.\r\n\r\n` Ctrl-y` will put Tmux top buffer content into x clipboard. Thus, a typical workflow will be as follows:\r\n\r\n1. Enter copy mode\r\n2. Select text\r\n3. Yank it\r\n4. Send it to x clipboard if needed \r\n\r\n\r\nP.S. Don&#39;t forget to restart your tmux server.&quot;,&quot;created_at&quot;:&quot;2013-08-11T18:46:08.697Z&quot;,&quot;heartableId&quot;:&quot;protip_94043&quot;,&quot;hearts&quot;:14,&quot;html&quot;:&quot;\u003ch2\u003e1. Install xclip\u003c/h2\u003e\n\n\u003cpre\u003e\u003ccode class=\&quot;prettyprint\&quot;\u003e$ sudo apt-get install xclip\u003c/code\u003e\u003c/pre\u003e\n\n\u003ch2\u003e2. Configure Tmux\u003c/h2\u003e\n\n\u003cp\u003eOpen up your Tmux configuration (typically at ~/.tmux.conf) and append:\u003c/p\u003e\n\n\u003ch3\u003etmux version \u0026gt;= 1.8\u003c/h3\u003e\n\n\u003cpre\u003e\u003ccode class=\&quot;prettyprint\&quot;\u003ebind -t vi-copy y copy-pipe \&quot;xclip -sel clip -i\&quot;\u003c/code\u003e\u003c/pre\u003e\n\n\u003cp\u003eNow when you copy some text, it will automatically be copied to OS clipboard.\u003c/p\u003e\n\n\u003ch3\u003etmux version \u0026lt; 1.8\u003c/h3\u003e\n\n\u003cpre\u003e\u003ccode class=\&quot;prettyprint\&quot;\u003e# copy \u0026amp; paste between tmux and x clipboard\nbind C-p run-shell \&quot;tmux set-buffer \\\&quot;$(xclip -o)\\\&quot;; tmux paste-buffer\&quot;\nbind C-y run-shell \&quot;tmux show-buffer | xclip -sel clip -i\&quot;\u003c/code\u003e\u003c/pre\u003e\n\n\u003cp\u003eNow, when you press \u003ccode class=\&quot;prettyprint\&quot;\u003e\u0026lt;Control\u0026gt; Ctrl-p\u003c/code\u003e, it will put the content of x clipboard into Tmux buffer and paste it.\u003c/p\u003e\n\n\u003cp\u003e\u003ccode class=\&quot;prettyprint\&quot;\u003e\u0026lt;Control\u0026gt; Ctrl-y\u003c/code\u003e will put Tmux top buffer content into x clipboard. Thus, a typical workflow will be as follows:\u003c/p\u003e\n\n\u003col\u003e\n\u003cli\u003eEnter copy mode\u003c/li\u003e\n\u003cli\u003eSelect text\u003c/li\u003e\n\u003cli\u003eYank it\u003c/li\u003e\n\u003cli\u003eSend it to x clipboard if needed \u003c/li\u003e\n\u003c/ol\u003e\n\n\u003cp\u003eP.S. Don&#39;t forget to restart your tmux server.\u003c/p\u003e\n&quot;,&quot;public_id&quot;:&quot;4b0d0a&quot;,&quot;subscribed&quot;:false,&quot;tags&quot;:[&quot;tmux&quot;,&quot;ubuntu&quot;],&quot;title&quot;:&quot;How to Copy and Paste with Tmux on Ubuntu&quot;,&quot;upvotes&quot;:14}},&quot;comments&quot;:{&quot;items&quot;:[{&quot;id&quot;:8520,&quot;hearts&quot;:1,&quot;heartableId&quot;:&quot;comment_8520&quot;},{&quot;id&quot;:15082,&quot;hearts&quot;:1,&quot;heartableId&quot;:&quot;comment_15082&quot;}]}}' id='initial-redux-store'></div>
+</body>
+</html>
