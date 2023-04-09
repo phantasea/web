@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+    <script>
+      try {
+           if (document.referrer) {
+           const ref = new URL(document.referrer);
+           if (ref.host === 'news.ycombinator.com') {
+           window.location.href = 'https://news.ycombinator.com/';
+            }
+           }
+           if (document.referrer) {
+           const ref = new URL(document.referrer);
+           if (ref.host === 'hn.algolia.com') {
+           window.location.href = 'https://hn.algolia.com/';
+            }
+           }
+           if (document.referrer) {
+           const ref = new URL(document.referrer);
+           if (ref.host === 'www.reddit.com') {
+           window.location.href = 'https://reddit.com/';
+            }
+           }
+          } catch (e) { }
+  </script>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="monetization" content="$ilp.uphold.com/PnzAfi76YMDP">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>A Quick and Dirty Guide to Creating an EPUB with Pandoc</title>
+      <link rel="icon" href="../../../../images/favicon.ico" />
+      <link rel="stylesheet" href="../../../../css/mvp.css" />
+      <meta charset="utf-8" />
+      <meta name="The Plain Text Project" content="Musings and advice on working and living in plain text" />
+</head>
+<body>
+<header>
+      <nav>
+            <a class="site-title" href="../../../../index.html">The Plain Text Project</a>
+            <ul>
+                <li><a class="nav" href="../../../../articles.html">Articles</a></li>
+                <li>Resources
+                  <ul>
+                    <li><a class="nav" href="../../../../links.html">Links</a></li>
+                    <li><a class="nav" href="../../../../tools.html">Tools</a></li>
+                    <li><a class="nav" href="../../../../templates.html">Templates</a></li>
+                  </ul>
+                </li> 
+                <li>About
+                  <ul>
+                    <li><a class="nav" href="../../../../about.html">About the Plain Text Project</a></li>
+                    <li><a class="nav" href="../../../../where.html">Where (Else) to Find Me on the Web</a></li>
+                    <li><a class="nav" href="../../../../contact.html">Contact Me</a></li>
+                    <li><a class="nav" href="https://plaintextproject.online/feed.xml">RSS Feed</a></li>
+                  </ul>
+                </li>  
+               <li><a class="nav" href="../../../../support.html">Support the Plain Text Project</a></li>
+            </ul>
+        </nav>
+</header>
+<main>
+<header id="title-block-header">
+<h1 class="title">A Quick and Dirty Guide to Creating an EPUB with Pandoc</h1>
+<p class="byline">by: Scott Nesbitt | 07 September 2021</p>
+</header>
+<p>(<strong>Note:</strong> This article was first published, in a slightly different form, at <a href="https://opensourcemusings.com/a-quick-and-dirty-guide-to-creating-an-epub-with-pandoc" target="_blank">Open Source Musings</a> and appears here via a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">Creative Commons BY-NC-SA 4.0</a> license.)</p>
+<p>As you may or may not know, I publish an email letter called <a href="https://weeklymusings.net" target="_blank">Weekly Musings</a>. To celebrate the letter’s first and second years, I decided to collect the first 104 essays into <a href="https://gum.co/weeklymusings" target="_blank">a pair</a> of <a href="https://gum.co/weeklymusings2" target="_blank">ebooks</a>.</p>
+<p>With the last few ebooks I’ve published (at least ones in EPUB format), I’ve written them in a desktop editor called <a href="https://sigil-ebook.com/" target="_blank">Sigil</a>. With the Weekly Musings collections, though, things were a bit different.</p>
+<p>The essays that I collected in the books were individual files formatted with <a href="https://scottnesbitt.gumroad.com/l/learnmarkdown" target="_blank">Markdown</a>. Converting them to <a href="https://scottnesbitt.gumroad.com/l/learnhtml" target="_blank">HTML</a> (which is file format in which Sigil stores chapter files) and importing them into Sigil would have been a bit of a chore. Instead, I turned to <a href="https://pandoc.org" target="_blank">Pandoc</a> to quickly do create the ebook.</p>
+<p>Pandoc, if you’re not familiar with it, is something of a Swiss Army Knife for converting between markup languages. Pandoc can also create EPUB files.</p>
+<p>Let’s look at how I did it.</p>
+<h2 id="what-youll-need">What You’ll Need</h2>
+<p>Before you can create the ebook, you’ll need to <a href="https://pandoc.org/installing.html" target="_blank">install Pandoc</a> on your computer.</p>
+<p>You’ll also need:</p>
+<ul>
+<li>A file that makes up your book. That file can be in any format that Pandoc supports. As I mentioned earlier, my book was a Markdown file.</li>
+<li>A CSS file to format your book. <a href="https://scottnesbitt.net/docs/book.css" target="_blank">Here’s the file</a> I used with my books.</li>
+<li>A metadata file, which contains information about the book (like title, author, copyright). Here’s an <a href="https://scottnesbitt.net/docs/metadata.yaml" target="_blank">empty metadata file</a> that you can use as a template.</li>
+<li>An image for your book’s cover. that can be a JPEG or PNG file.</li>
+</ul>
+<p>As I mentioned at the beginning of this article, each book is a set of 52 separate files. To both of them, I also added an introduction, an author bio, and a <a href="https://en.wikipedia.org/wiki/Colophon_(publishing)" target="_blank">colophon</a>. I had to combine all those files into one. I’ll explain how to do that in a future article.</p>
+<h2 id="doing-the-conversion">Doing the Conversion</h2>
+<p>Now that you have everything you need, use this command to create the EPUB:</p>
+<p><code>pandoc --toc --toc-depth=1 --epub-metadata=metadata.yaml --epub-cover-image=cover.png --css=book.css -o myebook.epub</code></p>
+<p>Let’s break the command down:</p>
+<ul>
+<li><code>--toc</code> tells Pandoc to generate a table of contents for the book.</li>
+<li><code>--toc-depth=1</code> creates the table of contents using only the first heading in a chapter. You can change that if you want to.</li>
+<li><code>--epub-metadata=metadata.yaml</code> points to the file containing the information about your book.</li>
+<li><code>--epub-cover-image=cover.png</code> points to the image that becomes your book’s cover.</li>
+<li><code>--css=book.css</code> points to the CSS file that formats your book.</li>
+<li><code>-o mybook.epub</code> tells Pandoc to save your book with the name <em>mybook.epub</em>. You’ll want to change that …</li>
+</ul>
+<p>If everything goes well, you’ll have an EPUB file within a few seconds.</p>
+<p>To test your book, open it in <a href="https://opensourcemusings.com/three-ebook-readers-for-the-linux-desktop" target="_blank">an ebook reader</a>. You should also run it through <a href="https://opensource.com/life/14/9/open-source-tools-prepare-your-ebooks-publication" target="_blank">an EPUB validator</a> to make sure there are no problems with the file.</p>
+<p>This definitely wasn’t the most elegant way to create an ebook. While quick and dirty, the job got done and I had <a href="https://gum.co/weeklymusings" target="_blank">a couple</a> of <a href="https://gumroad.com/l/weeklymusings2" target="_blank">ebooks</a> ready for download by a wider audience.</p>
+</main>
+    <footer>
+        <hr />
+       <small>
+      The Plain Text Project is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a>. <img src="../../../../images/by-nc-nd.png" alt="CC BY-NC-ND 4.0" align="middle" />
+    </small>
+    </footer>
+</body>
+</html>
