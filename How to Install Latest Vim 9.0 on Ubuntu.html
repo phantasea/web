@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en" data-color-scheme="system">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>How to Install Latest Vim 9.0 on Ubuntu Based Linux Distributions</title>
+<meta name="HandheldFriendly" content="True">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#00B6BA">
+<link rel="preload" href="/assets/dist/app.min.js?v=51955b6365" as="script">
+<link rel="preload" href="/assets/dist/app.min.css?v=51955b6365" as="style">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" crossorigin>
+<style>body { --font-body: 'Figtree', sans-serif; --font-headings: 'Figtree', sans-serif; }</style>
+<script async defer src="/assets/dist/app.min.js?v=51955b6365"></script>
+<link rel="stylesheet" type="text/css" href="/assets/dist/app.min.css?v=51955b6365">
+<link rel="preconnect" href="https://a.pub.network/" crossorigin />
+<link rel="preconnect" href="https://b.pub.network/" crossorigin />
+<link rel="preconnect" href="https://c.pub.network/" crossorigin />
+<link rel="preconnect" href="https://d.pub.network/" crossorigin />
+<link rel="preconnect" href="https://c.amazon-adsystem.com" crossorigin />
+<link rel="preconnect" href="https://s.amazon-adsystem.com" crossorigin />
+<link rel="preconnect" href="https://btloader.com/" crossorigin />
+<link rel="preconnect" href="https://api.btloader.com/" crossorigin />
+<link rel="preconnect" href="https://confiant-integrations.global.ssl.fastly.net" crossorigin />
+<link rel="stylesheet" href="https://a.pub.network/core/pubfig/cls.css">
+<script data-cfasync="false" type="text/javascript">
+      var freestar = freestar || {};
+      freestar.queue = freestar.queue || [];
+      freestar.config = freestar.config || {};
+      freestar.config.enabled_slots = [];
+      freestar.initCallback = function () { (freestar.config.enabled_slots.length === 0) ? freestar.initCallbackCalled = false : freestar.newAdSlots(freestar.config.enabled_slots) }
+    </script>
+<script src="https://a.pub.network/itsfoss/pubfig.min.js" data-cfasync="false" async></script>
+<style>
+  :root {
+    --global-max-width: 1320px; /* site max width */
+    --global-content-width: 680px; /* post-content-width */
+    --global-wide-width: 960px; /* site max width */
+    --global-post-hero-content-max-width: 768px;
+    --global-radius: 5px; /* default radius */
+    --global-gallery-gap: 1em; /* Image gallery distance between images */
+    --global-hyphens: none; /* none/auto */
+    --global-header-height: 72px;
+    --global-theme-notifications: visible; /* visible/hidden */
+    --global-progress-bar: visible; /* visible/hidden */
+    --global-content-preview-fading: 0%; /* 50%-100% for fading effect */
+    --global-hero-img-filter: ;
+    --global-scroll-behavior: auto;
+  }
+</style>
+<script>
+  let preferredTheme = localStorage.getItem('PREFERRED_COLOR_SCHEME') || `system`;
+  document.documentElement.setAttribute('data-color-scheme', preferredTheme);
+  
+  // Global values needed
+  const themeGlobal = {
+    currentPage: parseInt(''),
+    nextPage: parseInt(''),
+    nextPageLink: '',
+    maxPages: parseInt(''), 
+    lastPage: `` === `` ? true : false,
+    postsPerPage: parseInt('24'),
+    scrollPos: 0,
+    imageLightbox: `true` === `true` ? true : false
+  }
+
+  // Calculate contrast & HSL value;
+  function getBrandColorInfo(hexcolor) {
+    // get contrast
+    if (hexcolor.slice(0, 1) === '#') { hexcolor = hexcolor.slice(1); }
+    if (hexcolor.length === 3) { hexcolor = hexcolor.split('').map(function (hex) { return hex + hex;}).join(''); }
+    let r = parseInt(hexcolor.substr(0,2),16), g = parseInt(hexcolor.substr(2,2),16), b = parseInt(hexcolor.substr(4,2),16);
+    let yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    const colorContrast = (yiq >= 128) ? '#000' : '#fff';
+
+    //get HSL
+    r /= 255, g /= 255, b /= 255;
+    const max = Math.max(r, g, b), min = Math.min(r, g, b);
+    let h, s, l = (max + min)  /  2;  
+    if ( max == min ) { h = s = 0; } else {
+      let d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      switch(max){
+        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+        case g: h = (b - r) / d + 2; break;
+        case b: h = (r - g) / d + 4; break;
+      }
+      h /= 6;
+    }
+    const colorHSL = [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
+
+    // return
+    return { colorContrast, colorHSL }
+  };
+
+  const brandColor = getBrandColorInfo("#00B6BA");
+  let style = document.createElement('style');
+  style.innerHTML = `:root { 
+    --color-brand-contrast: ${brandColor.colorContrast}; 
+    --color-brand-h: ${brandColor.colorHSL[0]};
+    --color-brand-s: ${brandColor.colorHSL[1]}%;
+    --color-brand-l: ${brandColor.colorHSL[2]}%;
+    --color-brand-hsl: ${brandColor.colorHSL[0]} ${brandColor.colorHSL[1]}% ${brandColor.colorHSL[2]}%;
+  }`
+  document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+<link rel="icon" href="https://itsfoss.com/content/images/size/w256h256/2022/12/android-chrome-192x192.png" type="image/png">
+<link rel="canonical" href="https://itsfoss.com/install-latest-vim-ubuntu/">
+<meta name="referrer" content="no-referrer-when-downgrade">
+<meta property="og:site_name" content="It&#x27;s FOSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Install Latest Vim 9.0 on Ubuntu Based Linux Distributions">
+<meta property="og:description" content="Brief: This quick tutorial shows the steps for installing the latest version of Vim on Ubuntu Linux.
+
+
+
+
+
+Vim is one of the most popular terminal-based text editors. However, it is not installed by default on Ubuntu.
+
+
+
+
+
+Ubuntu uses Nano as the default terminal editor. Nano is also an excellent tool">
+<meta property="og:url" content="https://itsfoss.com/install-latest-vim-ubuntu/">
+<meta property="og:image" content="https://itsfoss.com/content/images/wordpress/2022/06/install-vim-ubuntu.png">
+<meta property="article:published_time" content="2022-07-30T20:55:00.000Z">
+<meta property="article:modified_time" content="2023-01-11T09:56:49.000Z">
+<meta property="article:publisher" content="https://www.facebook.com/itsfoss">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to Install Latest Vim 9.0 on Ubuntu Based Linux Distributions">
+<meta name="twitter:description" content="Brief: This quick tutorial shows the steps for installing the latest version of Vim on Ubuntu Linux.
+
+
+
+
+
+Vim is one of the most popular terminal-based text editors. However, it is not installed by default on Ubuntu.
+
+
+
+
+
+Ubuntu uses Nano as the default terminal editor. Nano is also an excellent tool">
+<meta name="twitter:url" content="https://itsfoss.com/install-latest-vim-ubuntu/">
+<meta name="twitter:image" content="https://itsfoss.com/content/images/wordpress/2022/06/install-vim-ubuntu.png">
+<meta name="twitter:label1" content="Written by">
+<meta name="twitter:data1" content="Abhishek Prakash">
+<meta name="twitter:label2" content="Filed under">
+<meta name="twitter:data2" content="">
+<meta name="twitter:site" content="@itsfoss2">
+<meta name="twitter:creator" content="@abhishek_foss">
+<meta property="og:image:width" content="800">
+<meta property="og:image:height" content="450">
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "It&#x27;s FOSS",
+        "url": "https://itsfoss.com/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://itsfoss.com/content/images/2023/01/itsfoss-logo.png"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Abhishek Prakash",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://www.gravatar.com/avatar/84de387e32f72af3e12bf434a82ea8e8?s=250&r=x&d=mp",
+            "width": 250,
+            "height": 250
+        },
+        "url": "https://itsfoss.com/author/abhishek/",
+        "sameAs": [
+            "https://twitter.com/abhishek_foss"
+        ]
+    },
+    "headline": "How to Install Latest Vim 9.0 on Ubuntu Based Linux Distributions",
+    "url": "https://itsfoss.com/install-latest-vim-ubuntu/",
+    "datePublished": "2022-07-30T20:55:00.000Z",
+    "dateModified": "2023-01-11T09:56:49.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://itsfoss.com/content/images/wordpress/2022/06/install-vim-ubuntu.png",
+        "width": 800,
+        "height": 450
+    },
+    "description": "\n\n\nBrief: This quick tutorial shows the steps for installing the latest version of Vim on Ubuntu Linux.\n\n\n\n\n\nVim is one of the most popular terminal-based text editors. However, it is not installed by default on Ubuntu.\n\n\n\n\n\nUbuntu uses Nano as the default terminal editor. Nano is also an excellent tool and I am not going into Nano vs Vim debate.\n\n\n\n\n\nIf you have already spent some time mastering the Vim shortcuts, you don’t have to forget them and start using a new editor.\n\n\n\n\n\nYou can install ",
+    "mainEntityOfPage": "https://itsfoss.com/install-latest-vim-ubuntu/"
+}
+    </script>
+<meta name="generator" content="Ghost 5.49">
+<link rel="alternate" type="application/rss+xml" title="It&#x27;s FOSS" href="https://itsfoss.com/rss/">
+<script defer src="https://cdn.jsdelivr.net/ghost/portal@~2.32/umd/portal.min.js" data-i18n="false" data-ghost="https://itsfoss.com/" data-key="121ee4fb8f9bf181b8f07c52f6" data-api="https://itsfoss.com/ghost/api/content/" crossorigin="anonymous"></script><style id="gh-members-styles">.gh-post-upgrade-cta-content,
+.gh-post-upgrade-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: center;
+    width: 100%;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.gh-post-upgrade-cta-content {
+    border-radius: 8px;
+    padding: 40px 4vw;
+}
+
+.gh-post-upgrade-cta h2 {
+    color: #ffffff;
+    font-size: 28px;
+    letter-spacing: -0.2px;
+    margin: 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta p {
+    margin: 20px 0 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta small {
+    font-size: 16px;
+    letter-spacing: -0.2px;
+}
+
+.gh-post-upgrade-cta a {
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 500;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a:hover {
+    color: #ffffff;
+    opacity: 0.8;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a.gh-btn {
+    display: block;
+    background: #ffffff;
+    text-decoration: none;
+    margin: 28px 0 0;
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.gh-post-upgrade-cta a.gh-btn:hover {
+    opacity: 0.92;
+}</style><script async src="https://js.stripe.com/v3/"></script>
+<script defer src="https://cdn.jsdelivr.net/ghost/sodo-search@~1.1/umd/sodo-search.min.js" data-key="121ee4fb8f9bf181b8f07c52f6" data-styles="https://cdn.jsdelivr.net/ghost/sodo-search@~1.1/umd/main.css" data-sodo-search="https://itsfoss.com/" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/ghost/announcement-bar@~1.1/umd/announcement-bar.min.js" data-announcement-bar="https://itsfoss.com/" data-api-url="https://itsfoss.com/members/api/announcement/" crossorigin="anonymous"></script>
+<link href="https://itsfoss.com/webmentions/receive/" rel="webmention">
+<script defer src="/public/cards.min.js?v=51955b6365"></script>
+<link rel="stylesheet" type="text/css" href="/public/cards.min.css?v=51955b6365">
+<script defer src="/public/member-attribution.min.js?v=51955b6365"></script>
+<style>
+  body {
+    --global-max-width: 1500px;
+	--global-content-width: 70rem;
+  }
+</style>
+<style>    
+ @media only screen and (max-width: 600px) {
+ .hide-mobile 
+ {display:none;}
+}  
+</style>
+
+<script type="text/javascript" async=true>
+(function() {
+  var host = window.location.hostname;
+  var element = document.createElement('script');
+  var firstScript = document.getElementsByTagName('script')[0];
+  var url = 'https://quantcast.mgr.consensu.org'
+    .concat('/choice/', '5LuPvKtMyuU2V', '/', host, '/choice.js')
+  var uspTries = 0;
+  var uspTriesLimit = 3;
+  element.async = true;
+  element.type = 'text/javascript';
+  element.src = url;
+
+  firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = '__tcfapiLocator';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement('iframe');
+
+          iframe.style.cssText = 'display:none';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === 'setGdprApplies') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === 'boolean'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === 'function') {
+            args[2]('set', true);
+          }
+        }
+      } else if (args[0] === 'ping') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: 'stub'
+        };
+
+        if (typeof args[2] === 'function') {
+          args[2](retr);
+        }
+      } else {
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === 'string';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            if (event && event.source && event.source.postMessage) {
+              event.source.postMessage(returnMsg, '*');
+            }
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener('message', postMessageEventHandler, false);
+    }
+  };
+
+  makeStub();
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== 'undefined') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn('USP is not accessible');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === 'undefined') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
+})();
+</script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-24863836-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-24863836-4');
+</script>
+
+<script>(function(d,u,ac){var s=d.createElement('script');s.type='text/javascript';s.src='https://a.omappapi.com/app/js/api.min.js';s.async=true;s.dataset.user=u;s.dataset.account=ac;d.getElementsByTagName('head')[0].appendChild(s);})(document,447,1947);</script>
+
+<script type="text/javascript" async src="//l.getsitecontrol.com/3w093n5w.js"></script>
+
+<script type="text/javascript" src="https://static.apester.com/js/sdk/latest/apester-sdk.js" async></script>
+
+<script type="module" src="https://sdk.apester.com/web-sdk.core.min.js"> </script><script nomodule src="https://sdk.apester.com/web-sdk.core.legacy.min.js" async></script>
+
+<script src="https://t.ghostboard.io/min.js" async defer data-gbid="645db0b861af0907179234e9"></script><noscript><img src="https://api.ghostboard.io/noscript/645db0b861af0907179234e9/pixel.gif" alt="Ghostboard pixel" /></noscript><style>:root {--ghost-accent-color: #00B6BA;}</style>
+</head>
+<body class="post-template tag-hash-import-2022-12-26-08-27" data-hero-image="">
+<div class="progress-bar"></div>
+<header class="header js-header" data-header="normal">
+<div class="container wrapper flex is-rel header__inner">
+<a class="header__brand" href="https://itsfoss.com"> <picture class="">
+<source srcset="/content/images/size/w300/format/webp/2023/01/itsfoss-logo.png 300w," data-sizes="auto" type="image/webp">
+<img class="header__logo" data-srcset="/content/images/size/w300/2023/01/itsfoss-logo.png 300w," srcset="/content/images/size/w30/2023/01/itsfoss-logo.png" data-sizes="auto" data-src="/content/images/size/w100/2023/01/itsfoss-logo.png" src="/content/images/size/w30/2023/01/itsfoss-logo.png" alt="It&#x27;s FOSS" loading="eager">
+</picture></a>
+<nav class="header__menu items-center">
+<ul class="nav">
+<li class="nav-news-portal" data-label="News Portal" data-length="11">
+<a href="https://news.itsfoss.com/">
+<span>News Portal</span>
+</a>
+</li>
+<li class="nav-community-forum" data-label="Community Forum" data-length="15">
+<a href="https://itsfoss.community/">
+<span>Community Forum</span>
+</a>
+</li>
+<li class="nav-newsletter" data-label="Newsletter" data-length="10">
+<a href="https://itsfoss.com/newsletter/">
+<span>Newsletter</span>
+</a>
+</li>
+<li class="nav-about" data-label="About" data-length="5">
+<a href="https://itsfoss.com/about/">
+<span>About</span>
+</a>
+</li>
+<li class="nav-contact is-subitem" data-label="-Contact" data-length="8">
+<a href="https://itsfoss.com/contact-us/">
+<span>-Contact</span>
+</a>
+</li>
+<li class="nav-policies is-subitem" data-label="-Policies" data-length="9">
+<a href="https://itsfoss.com/policies/">
+<span>-Policies</span>
+</a>
+</li>
+</ul>
+<div class="header__menu--sub items-center">
+<button class="header__menu--more is-mainitem" aria-label="Menu"><i class="icon icon-dots">
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+<circle cx="5" cy="12" r="1"></circle>
+<circle cx="12" cy="12" r="1"></circle>
+<circle cx="19" cy="12" r="1"></circle>
+</svg>
+</i></button>
+<ul class="nav secondary submenu">
+<li class="nav-linux-server-side" data-label="Linux Server Side" data-length="17">
+<a href="https://linuxhandbook.com/">
+<span>Linux Server Side</span>
+</a>
+</li>
+<li class="nav-en-espanol" data-label="En Español" data-length="10">
+<a href="https://itsfoss.com/es/">
+<span>En Español</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<span class="header--spacer"></span>
+<button class="btn-toggle header-search__toggle" data-ghost-search title="Search" aria-label="Search">
+<i class="icon icon-search">
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+<circle cx="10" cy="10" r="7" />
+<line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+</i> </button>
+<a href="/signup/" class="btn signup-link btn--brand radius" data-portal="signup">Subscribe</a>
+<div class="member-menu js-member-menu">
+<a href="/signup/" data-portal="signup" class="signup-link">
+<i class="icon icon-arrow-up-right icon--sm">
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-up-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+<line x1="17" y1="7" x2="7" y2="17" />
+<polyline points="8 7 17 7 17 16" />
+</svg>
+</i>Sign up
+</a>
+<a href="/signin/" data-portal="signin" class="signin-link">
+<i class="icon icon-login icon--sm">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-in">
+<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+<polyline points="10 17 15 12 10 7"></polyline>
+<line x1="15" y1="12" x2="3" y2="12"></line>
+</svg>
+</i>Sign in
+</a>
+</div>
+<button class="btn-toggle menu__toggle js-menu-open" type="button" title="Menu" aria-label="Menu">
+<span></span>
+<span></span>
+</button>
+</div>
+</header>
+<div class="menu js-menu">
+<div class="menu__header flex content-end">
+<button class="btn-toggle menu__toggle is-active js-menu-close" type="button" title="Menu" aria-label="Menu">
+<span></span>
+<span></span>
+</button>
+</div>
+<nav class="menu__navigation">
+<ul class="nav">
+<li class="nav-news-portal" data-label="News Portal" data-length="11">
+<a href="https://news.itsfoss.com/">
+<span>News Portal</span>
+</a>
+</li>
+<li class="nav-community-forum" data-label="Community Forum" data-length="15">
+<a href="https://itsfoss.community/">
+<span>Community Forum</span>
+</a>
+</li>
+<li class="nav-newsletter" data-label="Newsletter" data-length="10">
+<a href="https://itsfoss.com/newsletter/">
+<span>Newsletter</span>
+</a>
+</li>
+<li class="nav-about" data-label="About" data-length="5">
+<a href="https://itsfoss.com/about/">
+<span>About</span>
+</a>
+</li>
+<li class="nav-contact is-subitem" data-label="-Contact" data-length="8">
+<a href="https://itsfoss.com/contact-us/">
+<span>-Contact</span>
+</a>
+</li>
+<li class="nav-policies is-subitem" data-label="-Policies" data-length="9">
+<a href="https://itsfoss.com/policies/">
+<span>-Policies</span>
+</a>
+</li>
+</ul>
+<ul class="nav secondary submenu">
+<li class="nav-linux-server-side" data-label="Linux Server Side" data-length="17">
+<a href="https://linuxhandbook.com/">
+<span>Linux Server Side</span>
+ </a>
+</li>
+<li class="nav-en-espanol" data-label="En Español" data-length="10">
+<a href="https://itsfoss.com/es/">
+<span>En Español</span>
+</a>
+</li>
+</ul>
+</nav>
+<div class="menu__actions flex w-100">
+<a href="/signin/" data-portal="signin" class="btn signin-link btn--bordered radius m-r">
+Log in
+</a>
+<a href="/signup/" data-portal="signup" class="btn signup-link btn--brand radius">
+Subscribe
+</a>
+</div>
+</div>
+<main class="main">
+<div class="container wrapper">
+<div class="post-hero is-post" data-feature-image="true" data-image-style="hidden">
+<div class="post-hero__content flex flex-col">
+<h1 class="post-hero__title">How to Install Latest Vim 9.0 on Ubuntu Based Linux Distributions</h1>
+<div class="post-info text-acc m-t">
+<ul class="post-info__avatars">
+<li class="author-avatar has-image">
+<a href="/author/abhishek/" title="Abhishek Prakash" aria-label="Abhishek Prakash">
+<picture class="">
+<source data-srcset="https://www.gravatar.com/avatar/84de387e32f72af3e12bf434a82ea8e8?s&#x3D;250&amp;r&#x3D;x&amp;d&#x3D;mp 30w,https://www.gravatar.com/avatar/84de387e32f72af3e12bf434a82ea8e8?s&#x3D;250&amp;r&#x3D;x&amp;d&#x3D;mp 100w," data-sizes="auto" type="image/webp">
+<img class="lazyload" data-srcset="https://www.gravatar.com/avatar/84de387e32f72af3e12bf434a82ea8e8?s&#x3D;250&amp;r&#x3D;x&amp;d&#x3D;mp 30w,https://www.gravatar.com/avatar/84de387e32f72af3e12bf434a82ea8e8?s&#x3D;250&amp;r&#x3D;x&amp;d&#x3D;mp 100w," srcset="https://www.gravatar.com/avatar/84de387e32f72af3e12bf434a82ea8e8?s&#x3D;250&amp;r&#x3D;x&amp;d&#x3D;mp" data-sizes="auto" data-src="https://www.gravatar.com/avatar/84de387e32f72af3e12bf434a82ea8e8?s&#x3D;250&amp;r&#x3D;x&amp;d&#x3D;mp" src="https://www.gravatar.com/avatar/84de387e32f72af3e12bf434a82ea8e8?s&#x3D;250&amp;r&#x3D;x&amp;d&#x3D;mp" alt="Abhishek Prakash">
+</picture> </a>
+</li>
+</ul>
+<div class="post-info__detail">
+<span class="post-info__author"><a href="/author/abhishek/">Abhishek Prakash</a></span>
+<div class="post-info__dr">
+<time datetime="2022-07-30">11 Jan 2023</time>
+<span class="post-info__readtime">2 min read</span>
+<span class="post-info__readtime"><hyvor-talk-comment-count page-id="12084"></hyvor-talk-comment-count></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row m-b-lg">
+<div class="col-xs-12 col-lg-8">
+<article class="post tag-hash-import-2022-12-26-08-27 content post-access-public no-overflow">
+<div align="center" data-freestar-ad="__300x250 __728x90" id="itsfoss_728x90_320x50_ATF">
+<script data-cfasync="false" type="text/javascript">
+              freestar.config.enabled_slots.push({ placementName: "itsfoss_728x90_320x50_ATF", slotId: "itsfoss_728x90_320x50_ATF" });
+            </script>
+</div>
+
+<p><strong><em>Brief: This quick tutorial shows the steps for installing the latest version of Vim on Ubuntu Linux.</em></strong></p>
+<p>Vim is one of the most <a rel="noopener" href="https://itsfoss.com/command-line-text-editors-linux/" data-type="post" data-id="11229" target="_blank" data-lasso-id="64917">popular terminal-based text editors</a>. However, it is not installed by default on Ubuntu.</p>
+<p>Ubuntu uses Nano as the default terminal editor. Nano is also an excellent tool and I am not going into <a href="https://itsfoss.com/vim-vs-nano/" data-type="post" data-id="95340" target="_blank" rel="noopener" data-lasso-id="64918">Nano vs Vim debate</a>. </p>
+<p>If you have already spent some time mastering the Vim shortcuts, you don&#8217;t have to forget them and start using a new editor.</p>
+<p>You can install Vim on Ubuntu using the following command in the terminal:</p>
+<pre class="wp-block-code"><code>sudo apt install vim</code></pre>
+<p>That&#8217;s quite simple, right? This approach&#8217;s major problem is that you won&#8217;t get the latest Vim version.</p>
+<p>You can check the installed Vim version with the following command:</p>
+<pre class="wp-block-code"><code>vim --version</code></pre>
+<p>And if you check the <a rel="noopener" data-lasso-id="64919" href="https://www.vim.org/?ref=itsfoss.com" data-type="URL" data-id="https://www.vim.org/" target="_blank">Vim website</a>, you&#8217;ll find that Vim has newer versions released already. </p>
+<p>At the time of writing this article, <a rel="noopener" href="https://news.itsfoss.com/vim-9-0-release/?ref=itsfoss.com" data-type="URL" data-id="https://news.itsfoss.com/vim-9-0-release/" target="_blank" data-lasso-id="64920">Vim 9.0 is released</a> but is not available in Ubuntu repositories yet.</p>
+<p>The good news is that you can install the latest Vim using an <a href="https://launchpad.net/~jonathonf/+archive/ubuntu/vim?ref=itsfoss.com" data-type="URL" data-id="https://launchpad.net/~jonathonf/+archive/ubuntu/vim" target="_blank" rel="noopener" data-lasso-id="64921">unofficial but actively maintained PPA</a>.</p>
+<h2>Install Vim 9 on Ubuntu using a PPA</h2>
+<p>If you have specific Vim configuration files, there is no harm in making a backup for them.</p>
+<p>Now, to install the latest Vim version, add the PPA repository first:</p>
+<pre class="wp-block-code"><code>sudo add-apt-repository ppa:jonathonf/vim</code></pre>
+<div class="wp-block-image">
+<figure class="aligncenter size-full"><a href="https://itsfoss.com/content/images/wordpress/2022/07/install-latest-vim-on-ubuntu-using-ppa.png" data-lasso-id="64922"><img decoding="async" loading="lazy" width="1090" height="476" src="https://itsfoss.com/content/images/wordpress/2022/07/install-latest-vim-on-ubuntu-using-ppa.png" alt="install latest Vim on ubuntu using ppa" class="wp-image-100318" srcset="https://itsfoss.com/content/images/wordpress/2022/07/install-latest-vim-on-ubuntu-using-ppa.png 1090w, https://itsfoss.com/content/images/wordpress/2022/07/install-latest-vim-on-ubuntu-using-ppa-300x131.png 300w, https://itsfoss.com/content/images/wordpress/2022/07/install-latest-vim-on-ubuntu-using-ppa-800x349.png 800w, https://itsfoss.com/content/images/wordpress/2022/07/install-latest-vim-on-ubuntu-using-ppa-768x335.png 768w" sizes="(max-width: 1090px) 100vw, 1090px"></a><figcaption>Adding the PPA to get the latest Vim version</figcaption></figure></div>
+<p>You don&#8217;t need to update the package cache on Ubuntu but other distributions like Mint may still require it:</p>
+<pre class="wp-block-code"><code>sudo apt update</code></pre>
+<p>Now, use the command below to install the latest Vim version offered by the PPA:</p>
+<pre class="wp-block-code"><code>sudo apt install vim</code></pre>
+<p>If you had already an older Vim version installed, it would be upgraded. You can check the installed Vim version using:</p>
+<pre class="wp-block-code"><code>vim --version</code></pre>
+<div class="wp-block-image">
+<figure class="aligncenter size-full"><a href="https://itsfoss.com/content/images/wordpress/2022/07/vim-9-ubuntu.png" data-lasso-id="64923"><img decoding="async" loading="lazy" width="785" height="325" src="https://itsfoss.com/content/images/wordpress/2022/07/vim-9-ubuntu.png" alt="vim 9 ubuntu" class="wp-image-100319" srcset="https://itsfoss.com/content/images/wordpress/2022/07/vim-9-ubuntu.png 785w, https://itsfoss.com/content/images/wordpress/2022/07/vim-9-ubuntu-300x124.png 300w, https://itsfoss.com/content/images/wordpress/2022/07/vim-9-ubuntu-768x318.png 768w" sizes="(max-width: 785px) 100vw, 785px"></a><figcaption>Checking installed Vim version</figcaption></figure></div>
+<p>This is a very well-maintained PPA and is available for all active Ubuntu versions.</p>
+<p>If you are new to this PPA thing, I have a detailed guide on this topic. You should read to learn more about the <a rel="noopener" data-lasso-id="64924" href="https://itsfoss.com/ppa-guide/" data-type="post" data-id="26595" target="_blank">concept of PPA in Ubuntu</a>.</p>
+<h2>Downgrade or remove it</h2>
+<p>If you want to go back to the older Vim version provided by Ubuntu, you should remove the existing version, remove the PPA and install it again.</p>
+<p>Before removing Vim, you should copy the vimrc or other such config file if you had made custom changes and plan to use Vim again.</p>
+<p>Alright. Open a terminal and use the following command:</p>
+<pre class="wp-block-code"><code>sudo apt remove vim</code></pre>
+<p>Now delete the PPA otherwise you&#8217;ll get the latest Vim again (if you try installing Vim for the older version):</p>
+<pre class="wp-block-code"><code>sudo add-apt-repository -r ppa:jonathonf/vim</code></pre>
+<p>Now, if you want the old, official Ubuntu version of Vim, just install it again <a href="https://itsfoss.com/apt-command-guide/" data-type="post" data-id="16797" target="_blank" rel="noopener" data-lasso-id="64925">using the apt command</a>.</p>
+<p>Enjoy Vim on Ubuntu.</p>
+<div class="wp-block-affiliate-plugin-lasso">[lasso ref=&#8221;mastering-vim&#8221; id=&#8221;98998&#8243; link_id=&#8221;64926&#8243;]</div>
+
+<interaction data-token="5caa056167b3b4fc52f9ace9" data-context="true" data-tags="" data-fallback="true"></interaction>
+<div id="comments"></div>
+<script async src="https://talk.hyvor.com/embed/embed.js" type="module"></script>
+<script>
+
+            const comments = document.createElement('hyvor-talk-comments');
+              comments.setAttribute('website-id', 8243);
+              comments.setAttribute('page-id', "12084");
+
+
+          document.getElementById("comments").appendChild(comments);
+
+          </script>
+</article>
+<div class="post-tags content-width">
+</div>
+<div class="social-share content-width m-b-lg">
+<a class="social-share__item twitter js-share" target="_blank" href="https://twitter.com/share?text=How%20to%20Install%20Latest%20Vim%209.0%20on%20Ubuntu%20Based%20Linux%20Distributions&amp;url=https://itsfoss.com/install-latest-vim-ubuntu/" title="Share on Twitter" aria-label="Share on Twitter">
+<i class="icon icon-twitter icon--sm">
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+<path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+</i> <span>Tweet</span>
+</a>
+<a class="social-share__item facebook js-share" target="_blank" href="https://www.facebook.com/sharer.php?u=https://itsfoss.com/install-latest-vim-ubuntu/" title="Share on Facebook" aria-label="Share on Facebook">
+<i class="icon icon-facebook icon--sm">
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-facebook" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+<path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />
+</svg>
+</i> <span>Share</span>
+</a>
+<a class="social-share__item linkedin js-share" target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=https://itsfoss.com/install-latest-vim-ubuntu/&title=How%20to%20Install%20Latest%20Vim%209.0%20on%20Ubuntu%20Based%20Linux%20Distributions&summary=How%20to%20Install%20Latest%20Vim%209.0%20on%20Ubuntu%20Based%20Linux%20Distributions" title="Share on Linkedin" aria-label="Share on Linkedin">
+<i class="icon icon-linkedin icon--sm">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-linkedin">
+<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+<rect x="2" y="9" width="4" height="12"></rect>
+<circle cx="4" cy="4" r="2"></circle>
+</svg>
+</i> <span>Share</span>
+</a>
+<a class="social-share__item mail" href="/cdn-cgi/l/email-protection#3e014d4b5c545b5d4a037651491b0c0e4a511b0c0e77504d4a5f52521b0c0e725f4a5b4d4a1b0c0e6857531b0c0e07100e1b0c0e51501b0c0e6b5c4b504a4b1b0c0e7c5f4d5b5a1b0c0e7257504b461b0c0e7a574d4a4c575c4b4a5751504d185c515a4703564a4a4e4d041111574a4d58514d4d105d51531157504d4a5f525213525f4a5b4d4a13485753134b5c4b504a4b1118505c4d4e057651491b0c0e4a511b0c0e77504d4a5f52521b0c0e725f4a5b4d4a1b0c0e6857531b0c0e07100e1b0c0e51501b0c0e6b5c4b504a4b1b0c0e7c5f4d5b5a1b0c0e7257504b461b0c0e7a574d4a4c575c4b4a5751504d" title="Share by email" aria-label="Share by email">
+<i class="icon icon-mail icon--sm">
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+<rect x="3" y="5" width="18" height="14" rx="2" />
+<polyline points="3 7 12 13 21 7" />
+</svg>
+</i> <span>Email</span>
+</a>
+<button class="copy-link copy js-copy-link" data-url="https://itsfoss.com/install-latest-vim-ubuntu/" title="Copy to clipboard" data-label="Copied!" aria-label="Copy to clipboard">
+<i class="icon icon-copy icon--sm">
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+<rect x="8" y="8" width="12" height="12" rx="2" />
+<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" />
+</svg>
+</i> <span>Copy</span>
+</button>
+</div>
+</div>
+<div class="col-xs-12 col-lg-4 sidebar__wrapper">
+<aside class="sidebar">
+<span class="section-title sm">Featured</span>
+<div class="sidebar__section">
+<a class="sidebar-story" href="https://itsfoss.com/run-multiple-commands-linux/"> <figure class="sidebar-story__media m-r">
+<picture class="">
+<source data-srcset="/content/images/size/w100/format/webp/wordpress/2020/09/run-multiple-commands-in-linux.png 100w,/content/images/size/w300/format/webp/wordpress/2020/09/run-multiple-commands-in-linux.png 300w," data-sizes="auto" type="image/webp">
+<img class="lazyload" data-srcset="/content/images/size/w100/wordpress/2020/09/run-multiple-commands-in-linux.png 100w,/content/images/size/w300/wordpress/2020/09/run-multiple-commands-in-linux.png 300w," srcset="/content/images/size/w30/wordpress/2020/09/run-multiple-commands-in-linux.png" data-sizes="auto" data-src="/content/images/size/w100/wordpress/2020/09/run-multiple-commands-in-linux.png" src="/content/images/size/w30/wordpress/2020/09/run-multiple-commands-in-linux.png" alt="Run multiple Linux commands simulatenously">
+</picture> </figure>
+<div class="sidebar-story__content">
+<h3 class="sidebar-story__title">How to Run Multiple Linux Commands at Once in Terminal</h3>
+</div>
+</a><a class="sidebar-story" href="https://itsfoss.com/best-command-line-games-linux/"> <figure class="sidebar-story__media m-r">
+<picture class="">
+<source data-srcset="/content/images/size/w100/format/webp/2023/01/best-command-line-games-for-linux.png 100w,/content/images/size/w300/format/webp/2023/01/best-command-line-games-for-linux.png 300w," data-sizes="auto" type="image/webp">
+<img class="lazyload" data-srcset="/content/images/size/w100/2023/01/best-command-line-games-for-linux.png 100w,/content/images/size/w300/2023/01/best-command-line-games-for-linux.png 300w," srcset="/content/images/size/w30/2023/01/best-command-line-games-for-linux.png" data-sizes="auto" data-src="/content/images/size/w100/2023/01/best-command-line-games-for-linux.png" src="/content/images/size/w30/2023/01/best-command-line-games-for-linux.png" alt="best command line games">
+</picture> </figure>
+<div class="sidebar-story__content">
+<h3 class="sidebar-story__title">Top 10 Command Line Games for Linux</h3>
+</div>
+</a><a class="sidebar-story" href="https://itsfoss.com/read-compressed-log-files-linux/"> <figure class="sidebar-story__media m-r">
+<picture class="">
+<source data-srcset="/content/images/size/w100/format/webp/2023/04/work-and-read-gzip-logs-compressed-files.png 100w,/content/images/size/w300/format/webp/2023/04/work-and-read-gzip-logs-compressed-files.png 300w," data-sizes="auto" type="image/webp">
+<img class="lazyload" data-srcset="/content/images/size/w100/2023/04/work-and-read-gzip-logs-compressed-files.png 100w,/content/images/size/w300/2023/04/work-and-read-gzip-logs-compressed-files.png 300w," srcset="/content/images/size/w30/2023/04/work-and-read-gzip-logs-compressed-files.png" data-sizes="auto" data-src="/content/images/size/w100/2023/04/work-and-read-gzip-logs-compressed-files.png" src="/content/images/size/w30/2023/04/work-and-read-gzip-logs-compressed-files.png" alt="read zipped files without extracting them">
+</picture> </figure>
+<div class="sidebar-story__content">
+<h3 class="sidebar-story__title">Analyze Gzip Log Files in Linux Without Extracting Them</h3>
+</div>
+</a> </div>
+<div class="sidebar__section flex flex-cc hide-mobile">
+<div align="center" data-freestar-ad="__300x250 __300x600" id="itsfoss_300x250_Sidebar1">
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" type="text/javascript">
+          freestar.config.enabled_slots.push({ placementName: "itsfoss_300x250_Sidebar1", slotId: "itsfoss_300x250_Sidebar1" });
+        </script>
+</div>
+</div>
+<span class="section-title sm">Latest</span>
+<div class="sidebar__section">
+<a class="sidebar-story" href="https://itsfoss.com/newsletter/foss-weekly-23-21/"> <figure class="sidebar-story__media m-r">
+<picture class="">
+<source data-srcset="/content/images/size/w100/format/webp/2023/05/FOSS-WEEKLY-23-21.png 100w,/content/images/size/w300/format/webp/2023/05/FOSS-WEEKLY-23-21.png 300w," data-sizes="auto" type="image/webp">
+<img class="lazyload" data-srcset="/content/images/size/w100/2023/05/FOSS-WEEKLY-23-21.png 100w,/content/images/size/w300/2023/05/FOSS-WEEKLY-23-21.png 300w," srcset="/content/images/size/w30/2023/05/FOSS-WEEKLY-23-21.png" data-sizes="auto" data-src="/content/images/size/w100/2023/05/FOSS-WEEKLY-23-21.png" src="/content/images/size/w30/2023/05/FOSS-WEEKLY-23-21.png" alt="FOSS Weekly Newsletter 23.21">
+</picture> </figure>
+<div class="sidebar-story__content">
+<h3 class="sidebar-story__title">FOSS Weekly #23.21: Pip Issue, CPU Stress Testing and More Linux Stuff</h3>
+<div class="sidebar-story__info">
+<time datetime="2023-05-25" class="sidebar-story__date">
+25 May 2023
+</time>
+</div>
+</div>
+</a><a class="sidebar-story" href="https://itsfoss.com/stress-test-cpu-linux/"> <figure class="sidebar-story__media m-r">
+<picture class="">
+<source data-srcset="/content/images/size/w100/format/webp/2023/05/cpu-stress-test.png 100w,/content/images/size/w300/format/webp/2023/05/cpu-stress-test.png 300w," data-sizes="auto" type="image/webp">
+<img class="lazyload" data-srcset="/content/images/size/w100/2023/05/cpu-stress-test.png 100w,/content/images/size/w300/2023/05/cpu-stress-test.png 300w," srcset="/content/images/size/w30/2023/05/cpu-stress-test.png" data-sizes="auto" data-src="/content/images/size/w100/2023/05/cpu-stress-test.png" src="/content/images/size/w30/2023/05/cpu-stress-test.png" alt="stress test cpu">
+</picture> </figure>
+<div class="sidebar-story__content">
+<h3 class="sidebar-story__title">How to Stress Test CPU in Linux</h3>
+<div class="sidebar-story__info">
+<time datetime="2023-05-24" class="sidebar-story__date">
+24 May 2023
+</time>
+</div>
+</div>
+</a><a class="sidebar-story" href="https://itsfoss.com/externally-managed-environment/"> <figure class="sidebar-story__media m-r">
+<picture class="">
+<source data-srcset="/content/images/size/w100/format/webp/2023/05/handling-externally-managed-env-pip.png 100w,/content/images/size/w300/format/webp/2023/05/handling-externally-managed-env-pip.png 300w," data-sizes="auto" type="image/webp">
+<img class="lazyload" data-srcset="/content/images/size/w100/2023/05/handling-externally-managed-env-pip.png 100w,/content/images/size/w300/2023/05/handling-externally-managed-env-pip.png 300w," srcset="/content/images/size/w30/2023/05/handling-externally-managed-env-pip.png" data-sizes="auto" data-src="/content/images/size/w100/2023/05/handling-externally-managed-env-pip.png" src="/content/images/size/w30/2023/05/handling-externally-managed-env-pip.png" alt="Externally Managed Environment Error With Pip">
+</picture> </figure>
+<div class="sidebar-story__content">
+<h3 class="sidebar-story__title">Handling Externally Managed Environment Error With Pip in Ubuntu 23.04</h3>
+<div class="sidebar-story__info">
+<time datetime="2023-05-23" class="sidebar-story__date">
+23 May 2023
+</time>
+</div>
+</div>
+</a> </div>
+<div class="sidebar__section hide-mobile flex flex-cc">
+<div class="sidebar__subscribe">
+<h4 class="text-acc fw-800">
+Become a Better Linux User
+</h4>
+<div class="m-b text-acc" id="sidebar-input-label">
+With the FOSS Weekly Newsletter, you learn useful Linux tips, discover applications, explore new distros and stay updated with the latest from Linux world
+</div>
+<form class="subscribe-form" data-members-form="subscribe" data-style="">
+<input data-members-email class="" type="email" autocomplete="email" placeholder="Your email address" aria-labelledby="sidebar-input-label" required>
+<button class="btn btn--brand" type="submit">
+<span>Subscribe</span>
+</button>
+<div class="msg-success">Great! Check your inbox and click the link.</div>
+<div class="msg-error">Sorry, something went wrong. Please try again.</div>
+</form> </div>
+</div>
+<div class="sidebar__section is-sticky flex flex-cc hide-mobile">
+<div align="center" data-freestar-ad="__300x250__300x600" id="itsfoss_300x250_300x600_Sidebar2">
+<script data-cfasync="false" type="text/javascript">
+          freestar.config.enabled_slots.push({ placementName: "itsfoss_300x250_300x600_Sidebar2", slotId: "itsfoss_300x250_300x600_Sidebar2" });
+        </script>
+</div>
+</div>
+</aside>
+</div>
+</div>
+<div class="flex flex-wrap gap-lg m-b-lg">
+</div>
+</div>
+</main>
+<section class="container wrapper section cta m-b-0 is-post">
+<div class="cta__inner radius-double is-rel w-100 p-t-lg p-b-lg has-img">
+<div class="cta__content flex flex-col is-rel z-index-1">
+<h2 class="cta__title">Become a Better Linux User</h2>
+<p id="cta-input-label" class="cta__description opacity-075">With the FOSS Weekly Newsletter, you learn useful Linux tips, discover applications, explore new distros and stay updated with the latest from Linux world </p>
+<form class="subscribe-form" data-members-form="signup" data-style="inline-joined">
+<input data-members-email class="" type="email" autocomplete="email" placeholder="Your email address" aria-labelledby="cta-input-label" required>
+<button class="btn btn--brand btn--gradient uppercase" type="submit">
+<span>Subscribe</span>
+</button>
+<div class="msg-success">Great! Check your inbox and click the link.</div>
+<div class="msg-error">Sorry, something went wrong. Please try again.</div>
+</form> </div>
+<figure class="cta__media">
+<picture class="">
+<source data-srcset="/content/images/size/w300/format/webp/2023/01/homepage-featured-image.png 300w,/content/images/size/w600/format/webp/2023/01/homepage-featured-image.png 600w,/content/images/size/w1000/format/webp/2023/01/homepage-featured-image.png 1000w,/content/images/size/w2000/format/webp/2023/01/homepage-featured-image.png 2000w" data-sizes="auto" type="image/webp">
+<img class="lazyload cta__img" data-srcset="/content/images/size/w300/2023/01/homepage-featured-image.png 300w,/content/images/size/w600/2023/01/homepage-featured-image.png 600w,/content/images/size/w1000/2023/01/homepage-featured-image.png 1000w,/content/images/size/w2000/2023/01/homepage-featured-image.png 2000w" srcset="/content/images/size/w30/2023/01/homepage-featured-image.png" data-sizes="auto" data-src="/content/images/size/w100/2023/01/homepage-featured-image.png" src="/content/images/size/w30/2023/01/homepage-featured-image.png" alt="It&#x27;s FOSS">
+</picture> </figure>
+</div>
+</section>
+<footer class="footer">
+<div class="container wrapper">
+<div class="row m-b">
+<div class="col-xs-12 col-md-4">
+<div class="footer__brand flex items-center">
+<picture class="">
+<source data-srcset="/content/images/size/w300/format/webp/2023/01/itsfoss-logo.png 300w," data-sizes="auto" type="image/webp">
+<img class="footer__logo m-r lazyload" data-srcset="/content/images/size/w300/2023/01/itsfoss-logo.png 300w," srcset="/content/images/size/w30/2023/01/itsfoss-logo.png" data-sizes="auto" data-src="/content/images/size/w100/2023/01/itsfoss-logo.png" src="/content/images/size/w30/2023/01/itsfoss-logo.png" alt="It&#x27;s FOSS">
+</picture> </div>
+<div class="footer__description" id="footer-input-label">
+Making You a Better Linux User
+</div>
+<form class="subscribe-form radius-rounded m-b" data-members-form="subscribe" data-style="inline-joined">
+<input data-members-email class="w-100 radius-rounded" type="email" autocomplete="email" placeholder="Your email address" aria-labelledby="footer-input-label" required>
+<button class="btn btn--primary radius-rounded" type="submit">
+<span>Subscribe</span>
+</button>
+<div class="msg-success">Great! Check your inbox and click the link.</div>
+<div class="msg-error">Sorry, something went wrong. Please try again.</div>
+</form> </div>
+<div class="col-xs-12 col-md-4 m-b footer-nav">
+<span class="fw-700 m-b-sm display-block text-acc">Navigation</span>
+<div class="grid col-2">
+<ul class="nav">
+<li class="nav-news-portal" data-label="News Portal" data-length="11">
+<a href="https://news.itsfoss.com/">
+<span>News Portal</span>
+</a>
+</li>
+<li class="nav-community-forum" data-label="Community Forum" data-length="15">
+<a href="https://itsfoss.community/">
+<span>Community Forum</span>
+</a>
+</li>
+<li class="nav-newsletter" data-label="Newsletter" data-length="10">
+<a href="https://itsfoss.com/newsletter/">
+<span>Newsletter</span>
+</a>
+</li>
+<li class="nav-about" data-label="About" data-length="5">
+<a href="https://itsfoss.com/about/">
+<span>About</span>
+</a>
+</li>
+<li class="nav-contact is-subitem" data-label="-Contact" data-length="8">
+<a href="https://itsfoss.com/contact-us/">
+<span>-Contact</span>
+</a>
+</li>
+<li class="nav-policies is-subitem" data-label="-Policies" data-length="9">
+<a href="https://itsfoss.com/policies/">
+<span>-Policies</span>
+</a>
+</li>
+</ul>
+<ul class="nav secondary submenu">
+<li class="nav-linux-server-side" data-label="Linux Server Side" data-length="17">
+<a href="https://linuxhandbook.com/">
+<span>Linux Server Side</span>
+</a>
+</li>
+<li class="nav-en-espanol" data-label="En Español" data-length="10">
+<a href="https://itsfoss.com/es/">
+<span>En Español</span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="col-xs-12 col-sm-6 col-md-2 m-b">
+<span class="fw-700 m-b-sm display-block text-acc">Resources</span>
+<ul class="nav">
+<li><a href="/tag/distro-resources/">Distro Resources</a></li>
+<li><a href="/tag/guide/">Guides</a></li>
+</ul>
+</div>
+<div class="col-xs-12 col-sm-6 col-md-2 m-b">
+<span class="fw-700 m-b-sm display-block text-acc">Social</span>
+<div class="social-links flex flex-col">
+<a href="https://www.facebook.com/itsfoss" class="facebook" aria-label="Facebook"><i class="icon icon-facebook icon--sm">
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-facebook" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+<path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />
+</svg>
+</i><span>Facebook</span></a>
+<a href="https://twitter.com/itsfoss2" class="twitter" aria-label="Twitter"><i class="icon icon-twitter icon--sm">
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+<path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+</i><span>Twitter</span></a>
+<a href="https://itsfoss.com/rss/" class="rss" aria-label="RSS"><i class="icon icon-rss icon--sm">
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+<circle cx="5" cy="19" r="1" />
+<path d="M4 4a16 16 0 0 1 16 16" />
+<path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+</i><span>RSS</span></a>
+<a href="https://www.instagram.com/itsfoss/" class="instagram" aria-label="Instagram"><i class="icon icon-instagram icon--sm">
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-instagram" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<desc>Download more icon variants from https://tabler-icons.io/i/brand-instagram</desc>
+<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+<rect x="4" y="4" width="16" height="16" rx="4" />
+<circle cx="12" cy="12" r="3" />
+<line x1="16.5" y1="7.5" x2="16.5" y2="7.501" />
+</svg>
+</i><span>Instagram</span></a>
+<a href="https://t.me/itsfoss_official" class="telegram" aria-label="Telegram"><i class="icon icon-telegram icon--sm">
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-telegram" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<desc>Download more icon variants from https://tabler-icons.io/i/brand-telegram</desc>
+<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+<path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" />
+</svg>
+</i><span>Telegram</span></a>
+<a href="https://www.youtube.com/@Itsfoss" class="youtube" aria-label="Youtube"><i class="icon icon-youtube icon--sm">
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-youtube" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<desc>Download more icon variants from https://tabler-icons.io/i/brand-youtube</desc>
+<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+<rect x="3" y="5" width="18" height="14" rx="4" />
+<path d="M10 9l5 3l-5 3z" />
+</svg>
+</i><span>Youtube</span></a>
+</div>
+</div>
+</div>
+<div class="footer__bottom">
+<div class="footer__copy">
+<span>&copy;2023&nbsp;<a href="https://itsfoss.com">It&#x27;s FOSS</a>.</span>
+<span>Published with&nbsp;<a href="https://ghost.org">Ghost</a>&nbsp;&&nbsp;<a href="https://bironthemes.com/themes/rinne-ghost/">Rinne</a>.</span>
+</div>
+<div class="color-scheme flex flex-cc radius-half">
+<div class="color-scheme-symbol">
+<span class="accent-bg"></span>
+</div>
+<select class="color-scheme-select radius-half js-color-scheme-select" aria-label="Change color scheme">
+<option value="system" selected>System</option>
+<option value="light">Light</option>
+<option value="dark">Dark</option>
+</select>
+<i class="icon icon-select">
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-select" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path d="M17 8.517L12 3 7 8.517M7 15.48l5 5.517 5-5.517"></path>
+</svg>
+</i></div> </div>
+</div>
+</footer>
+<dialog class="notification">
+<i class="icon icon-success notification-icon">
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+<circle cx="12" cy="12" r="9" />
+<path d="M9 12l2 2l4 -4" />
+</svg>
+</i> <i class="icon icon-error notification-icon">
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-alert-octagon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+<path d="M8.7 3h6.6c.3 0 .5 .1 .7 .3l4.7 4.7c.2 .2 .3 .4 .3 .7v6.6c0 .3 -.1 .5 -.3 .7l-4.7 4.7c-.2 .2 -.4 .3 -.7 .3h-6.6c-.3 0 -.5 -.1 -.7 -.3l-4.7 -4.7c-.2 -.2 -.3 -.4 -.3 -.7v-6.6c0 -.3 .1 -.5 .3 -.7l4.7 -4.7c.2 -.2 .4 -.3 .7 -.3z" />
+<line x1="12" y1="8" x2="12" y2="12" />
+<line x1="12" y1="16" x2="12.01" y2="16" />
+</svg>
+</i> <i class="icon icon-warning notification-icon">
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-alert-triangle" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+<path d="M12 9v2m0 4v.01" />
+<path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" />
+</svg>
+</i> <p class="notification-msg signup-success">Great! You’ve successfully signed up.</p>
+<p class="notification-msg signin-success">Welcome back! You&#x27;ve successfully signed in.</p>
+<p class="notification-msg subscribe-success">You&#x27;ve successfully subscribed to It&#x27;s FOSS.</p>
+<p class="notification-msg link-expired">Your link has expired.</p>
+<p class="notification-msg checkout-success">Success! Check your email for magic link to sign-in.</p>
+<p class="notification-msg billing-success">Success! Your billing info has been updated.</p>
+<p class="notification-msg billing-cancel">Your billing was not updated.</p>
+<button class="notification-close js-notification-close" aria-label="Close" onclick="closeNotification(event.currentTarget.parentNode);">
+<i class="icon icon-x">
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+<line x1="18" y1="6" x2="6" y2="18" />
+<line x1="6" y1="6" x2="18" y2="18" />
+</svg>
+</i> </button>
+</dialog>
+<script>
+    // Copy button
+    const copyBtn = document.querySelector('.js-copy-link');
+    if (copyBtn) {
+      copyBtn.onclick = function(event) {
+        copyToClipboard(event.currentTarget, event.currentTarget.getAttribute('data-url'));
+      }
+    }
+    
+    /** 
+    * Copy to clipboard
+    * @src - source element
+    * @str - string to copy
+    */ 
+    const copyToClipboard = function(src, str) {
+      const el = document.createElement('textarea');
+      el.value = str;
+      el.setAttribute('readonly', '');
+      el.style.position = 'absolute';
+      el.style.left = '-9999px';
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+
+      src.classList.add('has-tooltip');
+      src.setAttribute('data-label', 'Copied!');
+
+      src.onmouseleave = function() { 
+        src.classList.remove('has-tooltip');
+        setTimeout(function(){
+          src.setAttribute('data-label', '');
+        }, 500); 
+      }
+    };
+  </script>
+<script>
+  const navItems = document.querySelectorAll('.header .nav:not(.submenu) li')
+  const allNavItems = document.querySelectorAll('.is-subitem')
+
+  // Remove '-' signs
+  allNavItems.forEach(item => {
+    const itemName = item.querySelector('a span')
+    itemName.innerText = itemName.innerText.slice(1)
+  });
+
+  // Add subitems in place
+  let subMenu, hasItems
+  navItems.forEach((item, index) => {
+    if (item.classList.contains('is-subitem') && !navItems[index - 1].classList.contains('is-subitem')) navItems[index - 1].classList.add('is-mainitem'); 
+    subMenu = item.classList.contains('is-subitem') ? subMenu : document.createElement('ul');
+    if (item.classList.contains('is-subitem')) { 
+      subMenu.appendChild(item)
+      subMenu.classList.add('nav','submenu')
+    } else { 
+      item.appendChild(subMenu)
+    }
+  });
+</script>
+<script>
+    // Give the parameter a variable name
+    const qsParams = new URLSearchParams(window.location.search);
+    const isAction = qsParams.has('action');
+    const isStripe = qsParams.has('stripe');
+    const success = qsParams.get('success');
+    const action = qsParams.get('action');
+    const stripe = qsParams.get('stripe');
+
+    if (qsParams && isAction) {
+      if (success === "true") {
+        switch (action) {
+          case 'subscribe':
+            openNotification('subscribe-success');
+            break;
+          case 'signup': 
+            openNotification('signup-success');
+            break;
+          case 'signin':
+            openNotification('signin-success');
+            break;
+          default:
+            break;
+        }
+      } else {
+        openNotification('link-expired');
+      }
+    }
+
+    if (qsParams && isStripe) {
+      switch (stripe) {
+        case 'success':
+          openNotification('checkout-success');
+          break;
+        case 'billing-update-success':
+          openNotification('billing-success');
+          break;
+        case 'billing-update-cancel':
+          openNotification('billing-cancel');
+          break;
+        default:
+          break;
+      }
+    }
+
+    /**
+    * Handle Notifications
+    */
+    function openNotification(type) {
+      const notification = document.querySelector('dialog.notification');
+      if (notification) { 
+        notification.setAttribute('data-msg-type', type);
+        notification.show();
+        setTimeout(function(){ closeNotification(notification); }, 3000);
+      }
+    }
+    
+    /**
+    * Clean URI
+    */
+    function clearURI() {
+      window.history.replaceState({}, '', `${window.location.pathname}`);
+    }
+
+    function closeNotification(notification) {
+      notification.close();
+      clearURI();
+      setTimeout(function(){ notification.removeAttribute('data-msg-type') }, 500);
+    }
+  </script>
+<script src="https://talk.hyvor.com/embed/comment-counts.js"></script>
+<script>
+    hyvorTalkCommentCounts.load({
+      "website-id": 8243
+    })
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v52afc6f149f6479b8c77fa569edb01181681764108816" integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw==" data-cf-beacon='{"rayId":"7cddd7945d080528","token":"6d27b61e4f4d41019b514b8b73374672","version":"2023.4.0","si":100}' crossorigin="anonymous"></script>
+</body>
+</html>

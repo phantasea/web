@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floating scratch terminal in tmux</title>
+    <link href="/img/favicon.png" rel='icon' type='image/x-icon'/>
+    <meta name="Description" content="How to get a floating scratch terminal in tmux">
+    <style>html{@media (prefers-color-scheme: dark) {background-color: black;}}</style>
+    <link href='https://d33wubrfki0l68.cloudfront.net/css/c8905438041146e1d0c4f0027dd4185ed03f691e/css/index.css' rel='stylesheet'/>
+    <link rel="alternate" href="/feed.xml" type="application/atom+xml" title="meain/blog" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;1,300&family=DM+Mono:wght@300&display=swap" rel="stylesheet"> 
+  </head>
+  <body>
+    <header>
+      <h1 class="home"><a href="/">meain/blog</a></h1>
+      <ul class="nav">
+        
+        
+        <li class="nav-item"><a href="/about/">About</a></li>
+        
+      <li class="nav-item">
+        <a rel="alternate" type="application/rss+xml" href="/feed.xml">RSS</a>
+      </li>
+      </ul>
+    </header>
+
+    <main class="tmpl-post">
+      
+
+<p class="post-meta"> Sep 15, 2020 . 2 min </p>
+
+<h1 class="post-title">Floating scratch terminal in tmux</h1>
+
+<p>Hi, Just another one off blog.
+I have been using tmux for a while and one main thing I always wanted to have in tmux is a floating scratch terminal.
+I got so used to this during my time with i3 and wanted to replicate it with just tmux.</p>
+<p><img src="https://d33wubrfki0l68.cloudfront.net/fe58ce785d5aed74a660c77c9063d21234c72735/f3479/img/tmux-floating.png" alt="screenshot"></p>
+<blockquote>
+<p>Check out what I am talking about on <a href="https://youtu.be/PdL__5AydVE">Youtube</a>.<br>
+Code used here: <a href="https://github.com/meain/dotfiles/blob/64c9fcb00d0ce0ef3af96426cda84db5cd64f6e8/scripts/.local/bin/helpers/%2Cpopup-tmux">script</a> and <a href="https://github.com/meain/dotfiles/blob/master/tmux/.tmux.conf">tmux-config</a></p>
+</blockquote>
+<p>A while back, tmux actually got <a href="https://github.com/tmux/tmux/issues/1842">foating window</a> support and I am using it for a <a href="https://github.com/meain/dotfiles/blob/8523ac959e440e7d17e69507710ae85c200eea09/tmux/.tmux.conf#L216-#L231">lot of things</a>.
+I had by this time had a floating terminal setup however and so did not really think about using this initially.</p>
+<p>Today, I thought I would actually try getting this can be done in tmux. Just for the heck of it.</p>
+<blockquote>
+<p><strong>This is not yet in any released version just yet and you will have to build from master branch. It will be available in the 3.2 release.</strong></p>
+</blockquote>
+<h2 id="floating-windows-in-tmux" tabindex="-1">Floating windows in tmux <a class="direct-link" href="#floating-windows-in-tmux">#</a></h2>
+<p>Basically you can get a floating window in tmux using the following command:</p>
+<pre><code>tmux popup -R &quot;ping meain.io&quot;
+</code></pre>
+<p>This will start a ping to '<a href="http://meain.io">meain.io</a>' in a floating window. Step one complete.</p>
+<p>Now if you want to run something like a shell, you can use:</p>
+<pre><code>tmux popup -KER zsh
+</code></pre>
+<blockquote>
+<p>K &amp; R is so that you can get input in to the process in the floating window<br>
+E is so that after clean exit, we return back</p>
+</blockquote>
+<h2 id="persisting-session" tabindex="-1">Persisting session <a class="direct-link" href="#persisting-session">#</a></h2>
+<p>Now that we have a terminal, we can technically use the tool that we have been using to persist stuff to persist the session.
+When creating a popup, we can start a tmux session and attach to it on further invocations.
+To quit out of the popup, we can just detach from it.</p>
+<pre class="language-shell"><code class="language-shell">tmux popup <span class="token parameter variable">-KER</span> <span class="token string">"tmux attach -t popup || tmux new -s popup"</span></code></pre>
+<p>The above script with attach to a session called popup, or create one if it does not exist.
+We are half way there, but I don't wanna be pressing two different keys for showing and hiding the popup terminal.</p>
+<p>For starters, let us create a script called <code>popuptmux</code> and put what we have in it.</p>
+<p><strong>pouptmux</strong></p>
+<pre class="language-shell"><code class="language-shell">tmux popup <span class="token parameter variable">-KER</span> <span class="token string">"tmux attach -t popup || tmux new -s popup"</span></code></pre>
+<p>Now call this script with a tmux keybinding:</p>
+<pre><code>bind-key j run-shell 'popuptmux'
+</code></pre>
+<p>Now when you press <kbd>&lt;prefix&gt;</kbd><kbd>j</kbd> it opens the session named <code>popup</code> in a floating window.
+Now to make our script a bit more intelligent.</p>
+<p><strong>pouptmux</strong></p>
+<pre class="language-shell"><code class="language-shell"><span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token variable"><span class="token variable">$(</span>tmux display-message <span class="token parameter variable">-p</span> <span class="token parameter variable">-F</span> <span class="token string">"#{session_name}"</span><span class="token variable">)</span></span>"</span> <span class="token operator">=</span> <span class="token string">"popup"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token keyword">then</span><br>    tmux detach-client<br><span class="token keyword">else</span><br>    tmux popup <span class="token parameter variable">-KER</span> <span class="token string">"tmux attach -t popup || tmux new -s popup"</span><br><span class="token keyword">fi</span></code></pre>
+<p>With this script, when you are in a session called <code>popup</code>(which you are when you have the floating window open) we detach,
+otherwise we create a popup with a session named <code>popup</code> and attach to it.</p>
+<p>Btw, if you want a bigger floating window, you can always just ask tmux.</p>
+<p><strong>pouptmux</strong></p>
+<pre class="language-shell"><code class="language-shell"><span class="token assign-left variable">width</span><span class="token operator">=</span><span class="token variable">${2<span class="token operator">:-</span>80<span class="token operator">%</span>}</span><br><span class="token assign-left variable">height</span><span class="token operator">=</span><span class="token variable">${2<span class="token operator">:-</span>80<span class="token operator">%</span>}</span><br><span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token variable"><span class="token variable">$(</span>tmux display-message <span class="token parameter variable">-p</span> <span class="token parameter variable">-F</span> <span class="token string">"#{session_name}"</span><span class="token variable">)</span></span>"</span> <span class="token operator">=</span> <span class="token string">"popup"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token keyword">then</span><br>    tmux detach-client<br><span class="token keyword">else</span><br>    tmux popup <span class="token parameter variable">-d</span> <span class="token string">'#{pane_current_path}'</span> <span class="token parameter variable">-xC</span> <span class="token parameter variable">-yC</span> -w<span class="token variable">$width</span> -h<span class="token variable">$height</span> <span class="token parameter variable">-K</span> <span class="token parameter variable">-E</span> <span class="token parameter variable">-R</span> <span class="token string">"tmux attach -t popup || tmux new -s popup"</span><br><span class="token keyword">fi</span></code></pre>
+<blockquote>
+<p>Checkout the discussion on <a href="https://www.reddit.com/r/tmux/comments/itonec/floating_scratch_terminal_in_tmux/">reddit</a>,
+have a great workflow with floating terminals by <a href="https://www.reddit.com/user/KevinHwang91/">/u/KevinHwang91</a>
+in <a href="https://www.reddit.com/r/tmux/comments/itonec/floating_scratch_terminal_in_tmux/g5jxke4">there</a>.</p>
+</blockquote>
+<p>All good, now we can just go on hitting <kbd>&lt;prefix&gt;</kbd><kbd>j</kbd> to open and close the floating window.
+Although we do have this now, the performance ain't that good. So at the end of the day if you open and close it a lot, this might not be for you.</p>
+
+
+<p><a href="/">← Home</a></p>
+
+    </main>
+
+    <footer>
+      <small> I know you need more sleep! 😴 🙌 |  <a href="https://meain.io" title="">meain</a> </small>
+    </footer>
+
+    <!-- Current page: /2020/tmux-flating-scratch-terminal/ -->
+
+    <link href='https://d33wubrfki0l68.cloudfront.net/css/25e7ec7bffc41ea2b81e9b1e78f6db8297daeac4/css/prism-base16-monokai.dark.css' rel='stylesheet'/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script>
+    <script data-goatcounter="https://meain.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <script>
+    function addCopyButtons(clipboard) {
+      document.querySelectorAll('pre > code').forEach(function (codeBlock) {
+        let codeDiv = document.createElement('div');
+        codeDiv.setAttribute("class", "code-wrapper");
+
+        let button = document.createElement('button');
+        button.className = 'copy-code-button';
+        button.type = 'button';
+        button.innerText = 'Copy';
+
+        button.addEventListener('click', function () {
+            clipboard.writeText(codeBlock.innerText).then(function () {
+                button.blur();
+                button.innerText = 'Copied!';
+                setTimeout(function () {button.innerText = 'Copy';}, 2000);
+            }, function (error) {button.innerText = 'Error';});
+        });
+        codeDiv.appendChild(button);
+        codeBlock.parentNode.parentNode.insertBefore(codeDiv, codeBlock.parentNode);
+        codeDiv.appendChild(codeBlock.parentNode);
+      });
+    }
+    if (navigator && navigator.clipboard) {
+      addCopyButtons(navigator.clipboard);
+    } else {
+      var script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/clipboard-polyfill/2.7.0/clipboard-polyfill.promise.js';
+      script.integrity = 'sha256-waClS2re9NUbXRsryKoof+F9qc1gjjIhc2eT7ZbIv94=';
+      script.crossOrigin = 'anonymous';
+      script.onload = function() {
+          addCopyButtons(clipboard);
+      };
+      document.body.appendChild(script);
+    }
+    </script>
+    <script>
+      window.onload = () => {
+        const hoverTime = 400
+        const fetchers = {}
+        const doc = document.implementation.createHTMLDocument('prefetch')
+        function fetchPage (url, success) {
+          const xhr = new XMLHttpRequest()
+          xhr.open('GET', url)
+          xhr.setRequestHeader('VND.PREFETCH', 'true')
+          xhr.setRequestHeader('Accept', 'text/html')
+          xhr.onreadystatechange = () => {
+            if (xhr.readyState !== XMLHttpRequest.DONE) return
+            if (xhr.status !== 200) return
+            success(xhr.responseText)
+          }
+          xhr.send()
+        }
+        function prefetchTurbolink (url) {
+          fetchPage(url, responseText => {
+            doc.open()
+            doc.write(responseText)
+            doc.close()
+            const snapshot = Turbolinks.Snapshot.fromHTMLElement(doc.documentElement)
+            Turbolinks.controller.cache.put(url, snapshot)
+          })
+        }
+        function prefetch (url) {
+          if (prefetched(url)) return
+          prefetchTurbolink(url)
+        }
+        function prefetched (url) {
+          return location.href === url || Turbolinks.controller.cache.has(url)
+        }
+        function prefetching (url) {
+          return !!fetchers[url]
+        }
+        function cleanup (event) {
+          const element = event.target
+          clearTimeout(fetchers[element.href])
+          element.removeEventListener('mouseleave', cleanup)
+        }
+        document.addEventListener('mouseover', event => {
+          const url = event.target.href
+          if (!url) return
+          if (prefetched(url)) return
+          if (prefetching(url)) return
+          cleanup(event)
+          event.target.addEventListener('mouseleave', cleanup)
+          fetchers[url] = setTimeout(() => prefetch(url), hoverTime)
+        })
+      }
+    </script>
+  </body>
+</html>
