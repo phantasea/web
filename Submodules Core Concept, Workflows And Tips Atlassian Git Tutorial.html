@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+
+
+<html id="magnolia" lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="fb:pages" content="115407078489594" />
+<meta name="description" content="Submodules support some workflows well and others less optimally. This guide explores various tips for working with submodules.">
+<meta name="author" content="Atlassian">
+<link rel="canonical" href="https://www.atlassian.com/blog/git/git-submodules-workflows-tips"/>
+<title>
+Submodules: Core Concept, Workflows And Tips | Atlassian Git Tutorial
+</title>
+<style>body { display: none; }</style>
+<link href="https://wac-cdn.atlassian.com" rel="preconnect">
+<script type="text/javascript" src="https://metal.prod.atl-paas.net/1.24.0/metal-head.min.js"></script>
+<script type="text/javascript" src="https://wac-cdn.atlassian.com/static/master/4957/assets/build/js/head.js?cdnVersion=1050"></script>
+<link rel="alternate" href="https://www.atlassian.com/git/articles/core-concept-workflows-and-tips" hreflang="x-default" />
+<link rel="alternate" href="https://www.atlassian.com/git/articles/core-concept-workflows-and-tips" hreflang="en" />
+<link rel="alternate" href="https://www.atlassian.com/ja/git/articles/core-concept-workflows-and-tips" hreflang="ja" />
+<link rel="alternate" href="https://www.atlassian.com/fr/git/articles/core-concept-workflows-and-tips" hreflang="fr" />
+<link rel="alternate" href="https://www.atlassian.com/de/git/articles/core-concept-workflows-and-tips" hreflang="de" />
+<link rel="alternate" href="https://www.atlassian.com/es/git/articles/core-concept-workflows-and-tips" hreflang="es" />
+<link rel="alternate" href="https://www.atlassian.com/br/git/articles/core-concept-workflows-and-tips" hreflang="pt-BR" />
+<link rel="alternate" href="https://www.atlassian.com/zh/git/articles/core-concept-workflows-and-tips" hreflang="zh-Hans" />
+<link rel="alternate" href="https://www.atlassian.com/ko/git/articles/core-concept-workflows-and-tips" hreflang="ko" />
+<link rel="alternate" href="https://www.atlassian.com/ru/git/articles/core-concept-workflows-and-tips" hreflang="ru" />
+<link rel="alternate" href="https://www.atlassian.com/pl/git/articles/core-concept-workflows-and-tips" hreflang="pl" />
+<link rel="alternate" href="https://www.atlassian.com/it/git/articles/core-concept-workflows-and-tips" hreflang="it" />
+<link rel="alternate" href="https://www.atlassian.com/nl/git/articles/core-concept-workflows-and-tips" hreflang="nl" />
+<link rel="alternate" href="https://www.atlassian.com/hu/git/articles/core-concept-workflows-and-tips" hreflang="hu" />
+<link rel="apple-touch-icon" sizes="16x16" href="/favicon-16x16.png" />
+<link rel="apple-touch-icon" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+<meta name="theme-color" content="#205081">
+<meta property="og:title" content="Submodules: Core Concept, Workflows And Tips | Atlassian Git Tutorial" />
+<meta property="og:description" content="Submodules support some workflows well and others less optimally. This guide explores various tips for working with submodules." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.atlassian.com/blog/git/git-submodules-workflows-tips" />
+<meta property="og:site_name" content="Atlassian" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@Atlassian" />
+<script src="https://wac-cdn.atlassian.com/static/master/4957/assets/build/js/jquery.js?cdnVersion=1050"></script>
+<!-- OneTrust Cookies Consent Notice start for atlassian.com -->
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" type="text/javascript" charset="UTF-8" data-domain-script="ed42d30f-c9f0-408c-b65a-cd77205ecdf5" ></script>
+<script type="text/javascript">
+function OptanonWrapper() { }
+</script>
+<!-- OneTrust Cookies Consent Notice end for atlassian.com -->
+<script type="text/javascript">
+window.featureFlags = "loadOneTrust=true&amp;disableOptimizely=true&amp;jiraTemplateGallery=showJiraTemplateGallery&amp;aisAvailableProducts=enableAisAvailableProducts&amp;devopsGoogleSignup=enableDevopsGoogleSignup&amp;siteSelectionListBlockedGeoIP=enableSiteSelectionListBlockedGeoIP&amp;removeStatuspageOpsgenieFilter=enableRemoveStatuspageOpsgenieFilter&amp;allowBundlesExistingSites=enableAllowBundlesExistingSites&amp;jsmIncentivePricingPage=enableJsmIncentive&amp;disableOptimizely_control=false".split('&amp;')
+.reduce((flags, flagStr) => {
+const [flagKey, flagValue] = flagStr.split('=');
+return { ...flags, [flagKey]: flagValue };
+}, {})
+</script>
+<script type="text/javascript">
+window.cmsPageVariant = window.cmsPageVariant ? window.cmsPageVariant : window.featureFlags?.cmsVariant;
+</script>
+<script type="text/javascript">
+var LOCALIZED_PRICING_CONTENTFUL_SPACE = "3s3v3nq72la0";
+var LOCALIZED_PRICING_CONTENTFUL_ENVIRONMENT = "master";
+var LOCALIZED_PRICING_CONTENTFUL_ACCESS_TOKEN = "v5nSeyuO6dUxZX_Gh5OWEHOJHt3GYSKtyB7ySulLgHg";
+var LOCALIZED_CCP_PRICING_CONTENTFUL_ENVIRONMENT = "master";
+var LOCALIZED_CCP_PRICING_CONTENTFUL_ACCESS_TOKEN = "v5nSeyuO6dUxZX_Gh5OWEHOJHt3GYSKtyB7ySulLgHg";
+var LOCALIZED_PRICING_USE_GEO_CURRENCY = true;
+</script>
+</head>
+<body id="core-concept-workflows-and-tips" class="wac git articles core-concept-workflows-and-tips">
+<div id="header">
+<div class="tutorial-sidebar ">
+<div class="_bumper"></div>
+<div class="_wrap">
+<ol>
+<div class="_group">
+<a href="/git/tutorials/learn-git-with-bitbucket-cloud" class="cms-link cms-link--text group-link" >Learn Git</a>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/learn-git-with-bitbucket-cloud" class="cms-link cms-link--text tutorial-link" >Learn Git with Bitbucket Cloud</a>
+<div aria-hidden="true" class="_toc">
+<a href="/git/tutorials/learn-git-with-bitbucket-cloud#create-the-repository" class="cms-link cms-link--text section-link" >Create a Git repository</a>
+<a href="/git/tutorials/learn-git-with-bitbucket-cloud#copy-and-add-files" class="cms-link cms-link--text section-link" >Copy your Git repository and add files</a>
+<a href="/git/tutorials/learn-git-with-bitbucket-cloud#pull-changes" class="cms-link cms-link--text section-link" >Pull changes from your Git repository on Bitbucket Cloud</a>
+<a href="/git/tutorials/learn-git-with-bitbucket-cloud#git-branch-to-merge" class="cms-link cms-link--text section-link" >Use a Git branch to merge a file</a>
+</div>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/learn-about-code-review-in-bitbucket-cloud" class="cms-link cms-link--text tutorial-link" >Learn about code review in Bitbucket Cloud</a>
+<div aria-hidden="true" class="_toc">
+<a href="/git/tutorials/learn-about-code-review-in-bitbucket-cloud#create-repository" class="cms-link cms-link--text section-link" >Create a repository</a>
+<a href="/git/tutorials/learn-about-code-review-in-bitbucket-cloud#clone-branch" class="cms-link cms-link--text section-link" >Clone and make a change on a new branch</a>
+<a href="/git/tutorials/learn-about-code-review-in-bitbucket-cloud#im-using-git" class="cms-link cms-link--text section-link" >If you're using command line</a>
+<a href="/git/tutorials/learn-about-code-review-in-bitbucket-cloud#im-using-sourcetree" class="cms-link cms-link--text section-link" >If you're using Sourcetree</a>
+<a href="/git/tutorials/learn-about-code-review-in-bitbucket-cloud#create-a-pull-request-to-merge-your-change" class="cms-link cms-link--text section-link" >Create a pull request to merge your change</a>
+</div>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/learn-branching-with-bitbucket-cloud" class="cms-link cms-link--text tutorial-link" >Learn branching in Bitbucket Cloud</a>
+<div aria-hidden="true" class="_toc">
+<a href="/git/tutorials/learn-branching-with-bitbucket-cloud#create-the-repository" class="cms-link cms-link--text section-link" >Get set up</a>
+<a href="/git/tutorials/learn-branching-with-bitbucket-cloud#review-branching-workflow" class="cms-link cms-link--text section-link" >Review branching workflow</a>
+</div>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/learn-undoing-changes-with-bitbucket" class="cms-link cms-link--text tutorial-link" >Learn undoing changes with Bitbucket Cloud</a>
+<div aria-hidden="true" class="_toc">
+<a href="/git/tutorials/learn-undoing-changes-with-bitbucket#git-status" class="cms-link cms-link--text section-link" >git status</a>
+<a href="/git/tutorials/learn-undoing-changes-with-bitbucket#git-log" class="cms-link cms-link--text section-link" >git log</a>
+<a href="/git/tutorials/learn-undoing-changes-with-bitbucket#git-reset" class="cms-link cms-link--text section-link" >git reset</a>
+<a href="/git/tutorials/learn-undoing-changes-with-bitbucket#git-revert" class="cms-link cms-link--text section-link" >git revert</a>
+</div>
+</div>
+</div>
+<div class="_group">
+<a href="/git/tutorials/what-is-version-control" class="cms-link cms-link--text group-link" >Beginner</a>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/what-is-version-control" class="cms-link cms-link--text tutorial-link" >What is version control</a>
+<div aria-hidden="true" class="_toc">
+<a href="/git/tutorials/what-is-version-control#benefits-of-version-control" class="cms-link cms-link--text section-link" >Benefits of version control</a>
+</div>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/source-code-management" class="cms-link cms-link--text tutorial-link" >Source Code Management</a>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/what-is-git" class="cms-link cms-link--text tutorial-link" >What is Git</a>
+<div aria-hidden="true" class="_toc">
+<a href="/git/tutorials/what-is-git#performance" class="cms-link cms-link--text section-link" >Performance</a>
+<a href="/git/tutorials/what-is-git#security" class="cms-link cms-link--text section-link" >Security</a>
+<a href="/git/tutorials/what-is-git#flexibility" class="cms-link cms-link--text section-link" >Flexibility</a>
+<a href="/git/tutorials/what-is-git#version-control-with-git" class="cms-link cms-link--text section-link" >Version control with Git</a>
+</div>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/why-git" class="cms-link cms-link--text tutorial-link" >Why Git for your Organization</a>
+<div aria-hidden="true" class="_toc">
+<a href="/git/tutorials/why-git#git-for-developers" class="cms-link cms-link--text section-link" >Git for developers</a>
+<a href="/git/tutorials/why-git#git-for-marketing" class="cms-link cms-link--text section-link" >Git for marketing</a>
+<a href="/git/tutorials/why-git#git-for-product-management" class="cms-link cms-link--text section-link" >Git for product management</a>
+<a href="/git/tutorials/why-git#git-for-designers" class="cms-link cms-link--text section-link" >Git for designers</a>
+<a href="/git/tutorials/why-git#git-for-customer-support" class="cms-link cms-link--text section-link" >Git for customer support</a>
+<a href="/git/tutorials/why-git#git-for-human-resources" class="cms-link cms-link--text section-link" >Git for human resources</a>
+<a href="/git/tutorials/why-git#git-for-anyone-managing-budget" class="cms-link cms-link--text section-link" >Git for anyone managing a budget</a>
+</div>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/install-git" class="cms-link cms-link--text tutorial-link" >Install Git</a>
+<div aria-hidden="true" class="_toc">
+<a href="/git/tutorials/install-git#mac-os-x" class="cms-link cms-link--text section-link" >Install Git on Mac OS X</a>
+<a href="/git/tutorials/install-git#windows" class="cms-link cms-link--text section-link" >Install Git on Windows</a>
+<a href="/git/tutorials/install-git#linux" class="cms-link cms-link--text section-link" >Install Git on Linux</a>
+</div>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/git-ssh" class="cms-link cms-link--text tutorial-link" >Git SSH</a>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/export-git-archive" class="cms-link cms-link--text tutorial-link" >Git archive</a>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/gitops" class="cms-link cms-link--text tutorial-link" >GitOps</a>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/atlassian-git-cheatsheet" class="cms-link cms-link--text tutorial-link" >Git Cheatsheet</a>
+</div>
+</div>
+<div class="_group">
+<a href="/git/tutorials/setting-up-a-repository" class="cms-link cms-link--text group-link" >Getting Started</a>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/setting-up-a-repository" class="cms-link cms-link--text tutorial-link" >Setting up a repository</a>
+<div aria-hidden="true" class="_toc">
+<a href="/git/tutorials/setting-up-a-repository/git-init" class="cms-link cms-link--text section-link" >git init</a>
+<a href="/git/tutorials/setting-up-a-repository/git-clone" class="cms-link cms-link--text section-link" >git clone</a>
+<a href="/git/tutorials/setting-up-a-repository/git-config" class="cms-link cms-link--text section-link" >git config</a>
+<a href="/git/tutorials/git-alias" class="cms-link cms-link--text section-link" >git alias</a>
+</div>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/saving-changes" class="cms-link cms-link--text tutorial-link" >Saving changes</a>
+<div aria-hidden="true" class="_toc">
+<a href="/git/tutorials/saving-changes" class="cms-link cms-link--text section-link" >git add</a>
+<a href="/git/tutorials/saving-changes/git-commit" class="cms-link cms-link--text section-link" >git commit</a>
+<a href="/git/tutorials/saving-changes/git-diff" class="cms-link cms-link--text section-link" >git diff</a>
+<a href="/git/tutorials/saving-changes/git-stash" class="cms-link cms-link--text section-link" >git stash</a>
+<a href="/git/tutorials/saving-changes/gitignore" class="cms-link cms-link--text section-link" >.gitignore</a>
+</div>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/inspecting-a-repository" class="cms-link cms-link--text tutorial-link" >Inspecting a repository</a>
+<div aria-hidden="true" class="_toc">
+<a href="/git/tutorials/inspecting-a-repository" class="cms-link cms-link--text section-link" >git status</a>
+<a href="/git/tutorials/inspecting-a-repository/git-tag" class="cms-link cms-link--text section-link" >git tag</a>
+<a href="/git/tutorials/inspecting-a-repository/git-blame" class="cms-link cms-link--text section-link" >git blame</a>
+</div>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/undoing-changes" class="cms-link cms-link--text tutorial-link" >Undoing changes</a>
+<div aria-hidden="true" class="_toc">
+<a href="/git/tutorials/undoing-changes" class="cms-link cms-link--text section-link" >git checkout</a>
+<a href="/git/tutorials/undoing-changes/git-clean" class="cms-link cms-link--text section-link" >git clean</a>
+<a href="/git/tutorials/undoing-changes/git-revert" class="cms-link cms-link--text section-link" >git revert</a>
+<a href="/git/tutorials/undoing-changes/git-reset" class="cms-link cms-link--text section-link" >git reset</a>
+<a href="/git/tutorials/undoing-changes/git-rm" class="cms-link cms-link--text section-link" >git rm</a>
+</div>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/rewriting-history" class="cms-link cms-link--text tutorial-link" >Rewriting history</a>
+<div aria-hidden="true" class="_toc">
+<a href="/git/tutorials/rewriting-history#git-commit--amend" class="cms-link cms-link--text section-link" >git commit --amend</a>
+<a href="/git/tutorials/rewriting-history/git-rebase" class="cms-link cms-link--text section-link" >git rebase</a>
+<a href="/git/tutorials/rewriting-history#git-rebase-i" class="cms-link cms-link--text section-link" >git rebase -i</a>
+<a href="/git/tutorials/rewriting-history/git-reflog" class="cms-link cms-link--text section-link" >git reflog</a>
+</div>
+</div>
+</div>
+<div class="_group">
+<a href="/git/tutorials/syncing" class="cms-link cms-link--text group-link" >Collaborating</a>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/syncing" class="cms-link cms-link--text tutorial-link" >Syncing</a>
+<div aria-hidden="true" class="_toc">
+<a href="/git/tutorials/syncing" class="cms-link cms-link--text section-link" >git remote</a>
+<a href="/git/tutorials/syncing/git-fetch" class="cms-link cms-link--text section-link" >git fetch</a>
+<a href="/git/tutorials/syncing/git-push" class="cms-link cms-link--text section-link" >git push</a>
+<a href="/git/tutorials/syncing/git-pull" class="cms-link cms-link--text section-link" >git pull</a>
+</div>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/making-a-pull-request" class="cms-link cms-link--text tutorial-link" >Making a Pull Request</a>
+<div aria-hidden="true" class="_toc">
+<a href="/git/tutorials/making-a-pull-request#how-it-works" class="cms-link cms-link--text section-link" >How it works</a>
+<a href="/git/tutorials/making-a-pull-request#example" class="cms-link cms-link--text section-link" >Example</a>
+<a href="/git/tutorials/making-a-pull-request#where-to-go" class="cms-link cms-link--text section-link" >Where to go from here</a>
+</div>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/using-branches" class="cms-link cms-link--text tutorial-link" >Using branches</a>
+<div aria-hidden="true" class="_toc">
+<a href="/git/tutorials/using-branches" class="cms-link cms-link--text section-link" >git branch</a>
+<a href="/git/tutorials/using-branches/git-checkout" class="cms-link cms-link--text section-link" >git checkout</a>
+<a href="/git/tutorials/using-branches/git-merge" class="cms-link cms-link--text section-link" >git merge</a>
+<a href="/git/tutorials/using-branches/merge-conflicts" class="cms-link cms-link--text section-link" >Merge conflicts</a>
+<a href="/git/tutorials/using-branches/merge-strategy" class="cms-link cms-link--text section-link" >Merge strategies</a>
+</div>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/comparing-workflows" class="cms-link cms-link--text tutorial-link" >Comparing workflows</a>
+<div aria-hidden="true" class="_toc">
+<a href="/git/tutorials/comparing-workflows#centralized-workflow" class="cms-link cms-link--text section-link" >Centralized Workflow</a>
+<a href="/git/tutorials/comparing-workflows/feature-branch-workflow" class="cms-link cms-link--text section-link" >Feature Branch Workflow</a>
+<a href="/git/tutorials/comparing-workflows/gitflow-workflow" class="cms-link cms-link--text section-link" >Gitflow Workflow</a>
+<a href="/git/tutorials/comparing-workflows/forking-workflow" class="cms-link cms-link--text section-link" >Forking Workflow</a>
+</div>
+</div>
+</div>
+<div class="_group">
+<a href="/git/tutorials/svn-to-git-prepping-your-team-migration" class="cms-link cms-link--text group-link" >Migrating to Git</a>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/svn-to-git-prepping-your-team-migration" class="cms-link cms-link--text tutorial-link" >SVN to Git - prepping for the migration</a>
+<div aria-hidden="true" class="_toc">
+<a href="/git/tutorials/svn-to-git-prepping-your-team-migration#for-administrators" class="cms-link cms-link--text section-link" >For administrators</a>
+<a href="/git/tutorials/svn-to-git-prepping-your-team-migration#basic-git-commands" class="cms-link cms-link--text section-link" >Basic Git commands</a>
+<a href="/git/tutorials/svn-to-git-prepping-your-team-migration#git-migration-tools" class="cms-link cms-link--text section-link" >Git Migration Tools</a>
+<a href="/git/tutorials/svn-to-git-prepping-your-team-migration#for-developers" class="cms-link cms-link--text section-link" >For developers</a>
+</div>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/migrating-overview" class="cms-link cms-link--text tutorial-link" >Migrate to Git from SVN</a>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/migrating-prepare" class="cms-link cms-link--text tutorial-link" >Prepare</a>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/migrating-convert" class="cms-link cms-link--text tutorial-link" >Convert</a>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/migrating-synchronize" class="cms-link cms-link--text tutorial-link" >Synchronize</a>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/migrating-share" class="cms-link cms-link--text tutorial-link" >Share</a>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/migrating-migrate" class="cms-link cms-link--text tutorial-link" >Migrate</a>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/perforce-git" class="cms-link cms-link--text tutorial-link" >Perforce to Git - why to make the move</a>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/perforce-git-migration" class="cms-link cms-link--text tutorial-link" >Migrating from Perforce to Git</a>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/git-move-repository" class="cms-link cms-link--text tutorial-link" >How to move a Git repository with history</a>
+</div>
+</div>
+<div class="_group">
+<a href="/git/tutorials/advanced-overview" class="cms-link cms-link--text group-link" >Advanced Tips</a>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/advanced-overview" class="cms-link cms-link--text tutorial-link" >Advanced Git Tutorials</a>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/merging-vs-rebasing" class="cms-link cms-link--text tutorial-link" >Merging vs. Rebasing</a>
+<div aria-hidden="true" class="_toc">
+<a href="/git/tutorials/merging-vs-rebasing#conceptual-overview" class="cms-link cms-link--text section-link" >Conceptual Overview</a>
+<a href="/git/tutorials/merging-vs-rebasing#the-golden-rule-of-rebasing" class="cms-link cms-link--text section-link" >The Golden Rule of Rebasing</a>
+<a href="/git/tutorials/merging-vs-rebasing#workflow-walkthrough" class="cms-link cms-link--text section-link" >Workflow Walkthrough</a>
+<a href="/git/tutorials/merging-vs-rebasing#summary" class="cms-link cms-link--text section-link" >Summary</a>
+</div>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/resetting-checking-out-and-reverting" class="cms-link cms-link--text tutorial-link" >Resetting, Checking Out, and Reverting</a>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/git-log" class="cms-link cms-link--text tutorial-link" >Advanced Git log</a>
+<div aria-hidden="true" class="_toc">
+<a href="/git/tutorials/git-log#formatting-log-output" class="cms-link cms-link--text section-link" >Formatting Log Output</a>
+<a href="/git/tutorials/git-log#filtering-the-commit-history" class="cms-link cms-link--text section-link" >Filtering the Commit History</a>
+<a href="/git/tutorials/git-log#summary" class="cms-link cms-link--text section-link" >Summary</a>
+</div>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/git-hooks" class="cms-link cms-link--text tutorial-link" >Git Hooks</a>
+<div aria-hidden="true" class="_toc">
+<a href="/git/tutorials/git-hooks#conceptual-overview" class="cms-link cms-link--text section-link" >Conceptual Overview</a>
+<a href="/git/tutorials/git-hooks#local-hooks" class="cms-link cms-link--text section-link" >Local Hooks</a>
+<a href="/git/tutorials/git-hooks#server-side-hooks" class="cms-link cms-link--text section-link" >Server-side Hooks</a>
+<a href="/git/tutorials/git-hooks#summary" class="cms-link cms-link--text section-link" >Summary</a>
+</div>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/refs-and-the-reflog" class="cms-link cms-link--text tutorial-link" >Refs and the Reflog</a>
+<div aria-hidden="true" class="_toc">
+<a href="/git/tutorials/refs-and-the-reflog#hashes" class="cms-link cms-link--text section-link" >Hashes</a>
+<a href="/git/tutorials/refs-and-the-reflog#refs" class="cms-link cms-link--text section-link" >Refs</a>
+<a href="/git/tutorials/refs-and-the-reflog#packed-refs" class="cms-link cms-link--text section-link" >Packed Refs</a>
+<a href="/git/tutorials/refs-and-the-reflog#special-refs" class="cms-link cms-link--text section-link" >Special Refs</a>
+<a href="/git/tutorials/refs-and-the-reflog#refspecs" class="cms-link cms-link--text section-link" >Refspecs</a>
+<a href="/git/tutorials/refs-and-the-reflog#relative-refs" class="cms-link cms-link--text section-link" >Relative Refs</a>
+<a href="/git/tutorials/refs-and-the-reflog#the-reflog" class="cms-link cms-link--text section-link" >The Reflog</a>
+<a href="/git/tutorials/refs-and-the-reflog#summary" class="cms-link cms-link--text section-link" >Summary</a>
+</div>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/git-submodule" class="cms-link cms-link--text tutorial-link" >Git submodules</a>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/git-subtree" class="cms-link cms-link--text tutorial-link" >Git subtree</a>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/big-repositories" class="cms-link cms-link--text tutorial-link" >Large repositories in Git</a>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/git-lfs" class="cms-link cms-link--text tutorial-link" >Git LFS</a>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/git-gc" class="cms-link cms-link--text tutorial-link" >Git gc</a>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/git-prune" class="cms-link cms-link--text tutorial-link" >Git prune</a>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/git-bash" class="cms-link cms-link--text tutorial-link" >Git Bash</a>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/dotfiles" class="cms-link cms-link--text tutorial-link" >How to store dotfiles</a>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/cherry-pick" class="cms-link cms-link--text tutorial-link" >Git Cherry Pick</a>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/gitk" class="cms-link cms-link--text tutorial-link" >GitK</a>
+</div>
+<div aria-hidden="true" class="_group-wrap">
+<a href="/git/tutorials/git-show" class="cms-link cms-link--text tutorial-link" >Git-show</a>
+</div>
+</div>
+</ol>
+</div>
+</div>
+<div class="hamburger ">
+<div class="_layer -top"></div>
+<div class="_layer -mid"></div>
+<div class="_layer -bottom"></div>
+</div>
+<div class="primary-nav">
+<div class="_wrapper">
+<ul class="_nav-list">
+<div>
+<li>
+<a href="/git" class="cms-link cms-link--text _nav-item -home" >Home</a>
+</li>
+</div>
+<div>
+<li class="tutorials-nav" id="tutorials-nav-mobile">
+<h4 class="_nav-item -tutorials">Tutorials</h4>
+<div class="_sublist"></div>
+</li>
+<li>
+<a href="/git/tutorials" class="cms-link cms-link--text _nav-item -tutorials" >Tutorials</a>
+</li>
+</div>
+<div>
+<li>
+<a href="/git/articles" class="cms-link cms-link--text _nav-item -articles" >Articles</a>
+</li>
+</div>
+<div>
+<li>
+<a href="/git/glossary" class="cms-link cms-link--text _nav-item -glossary" >Glossary</a>
+</li>
+</div>
+</ul>
+</div>
+</div>
+<div class="topbar articles">
+<div class="_header -articles">
+<a href="/git/articles" class="active">Articles</a>
+</div>
+</div>
+<form class="newsletter">
+<input class="is-empty _input" type="email" placeholder="Enter Your Email For Git News">
+<button type="submit" class="_status icon-email-submit">Submit</button>
+</form>
+<a href="#footer" class="button green-hollow secondary newsletter-cta" >Sign up</a>
+<a href="/git/search" class="search-button search-open ">
+<span class="_link icon-search">Search</span>
+</a>
+<a href="/git" class="search-button search-close -in-page hidden">
+<span class="_link icon-search-close -close">Search</span>
+</a>
+</div>
+<div class="page-wrap ">
+<div id="content" class="_content">
+<div class="articles-header">
+<div class="g-column g-12-12 t-12-12 m-10-12 _header g-centered text-center">
+<h1 > Submodules: Core Concept, Workflows and Tips
+</h1>
+<img src="https://wac-cdn.atlassian.com/dam/jcr:1a355490-1c55-42a2-aa4a-30b260d0163e/nicola-paolucci.png?cdnVersion=1050" loading="lazy" alt="Nicola Paolucci" class="_avatar">
+<h6 > Nicola Paolucci
+</h6>
+</div></div>
+<div class="articles-content">
+<a href="" class="cms-link cms-link--text _back xx-active-parent-page-link" >Back to list</a>
+<div class="g-row container">
+<div class="g-column g-12-12 t-12-12 m-10-12 g-centered text-left">
+<p>Including submodules as part of your Git development allows you to include other projects in your codebase, keeping their history separate but synchronized with yours. It's a convenient way to solve the vendor library and dependency problems. As usual with everything <code>git</code>, the approach is opinionated and encourages a bit of study before it can be used proficiently. There is already <a
+data-event="clicked" data-uuid="14c0d8d6-ba0" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket" data-label="good" data-label-english="good"
+href="http://git-scm.com/book/en/Git-Tools-Submodules">good</a> and <a
+data-event="clicked" data-uuid="14c0d8d6-ba1" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket" data-label="detailed" data-label-english="detailed"
+href="http://speirs.org/blog/2009/5/11/understanding-git-submodules.html">detailed</a> information about <code>submodules</code> out and about so I won't rehash things. What I'll do here is share some interesting things that will help you make the most of this feature.</p>
+<h2 > Table Of Contents
+</h2>
+<ol> <li><a>Core Concept</a></li> <li><a>Possible Workflows</a></li> <li><a>Useful Tips Incoming</a></li> <li><a>How to swap a git submodule with your own fork</a></li> <li><a>How do I remove a submodule?</a></li> <li><a>How do I integrate a submodule back into my project?</a></li> <li><a>How to ignore changes in submodules</a></li> <li><a>Danger Zone! Pitfalls Interacting with Remotes</a></li> <li><a>Conclusions</a></li> </ol>
+<h2 > Core Concept
+</h2>
+<p>First, let me provide a brief explanation on a core concept about submodules that will make them easier to work with.</p>
+<p><strong>Submodules are tracked by the exact <em>commit</em> specified in the parent project, not a branch, a ref, or any other symbolic reference.</strong></p>
+<p>They are <em>never</em> automatically updated when the repository specified by the submodule is updated, only when the parent project itself is updated. As very clearly expressed in the <a
+data-event="clicked" data-uuid="f8bbde7f-3a0" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket" data-label="Pro Git chapter" data-label-english="Pro Git chapter"
+href="http://git-scm.com/book/en/Git-Tools-Submodules">Pro Git chapter</a> mentioned earlier:</p>
+<blockquote> <p>When you make changes and commit in that [submodule] subdirectory, the superproject notices that the HEAD there has changed and records the exact commit you’re currently working off of; that way, when others clone this project, they can re-create the environment exactly.</p> </blockquote>
+<p>Or in <a
+data-event="clicked" data-uuid="26da2fb0-1c0" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket" data-label="other words" data-label-english="other words"
+href="http://somethingsinistral.net/blog/git-submodules-are-probably-not-the-answer">other words</a> :</p>
+<blockquote> <p>[...] git submodules [...] are static. Very static. You are tracking specific commits with git submodules - not branches, not references, a single commit. If you add commits to a submodule, the parent project won't know. If you have a bunch of forks of a module, git submodules don't care. You have one remote repository, and you point to a single commit. Until you update the parent project, nothing changes.</p> </blockquote>
+<h2 > Possible Workflows
+</h2>
+<p>By remembering this core concept and reflecting on it, you can understand that <code>submodule</code> support some workflows well and less optimally others. There are at least three scenarios where submodules are a fair choice:</p>
+<ul> <li><p>When a component or subproject is changing too fast or upcoming changes will break the API, you can lock the code to a specific commit for your own safety.</p></li> <li><p>When you have a component that isn't updated very often and you want to track it as a vendor dependency. I do this for my <a
+data-event="clicked" data-uuid="b14d3fc5-220" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket" data-label="vim plugins" data-label-english="vim plugins"
+href="https://bitbucket.org/durdn/cfg/src/2a79b298a32bf161d1813da9eba16e67a6a8ab1a/.vim/bundle?at=master">vim plugins</a> for example.</p></li> <li><p>When you are delegating a piece of the project to a third party and you want to integrate their work at a specific time or release. Again this works when updates are not too frequent.</p></li> </ul>
+<p><a
+data-event="clicked" data-uuid="fbbee1a8-720" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket" data-label="Credit" data-label-english="Credit"
+href="http://somethingsinistral.net/blog/git-submodules-are-probably-not-the-answer">Credit</a> to <em>finch</em> for the well-explained scenarios.</p>
+<h2 > Useful Tips Incoming
+</h2>
+<p>The <a
+data-event="clicked" data-uuid="86d662a3-260" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket" data-label="submodule" data-label-english="submodule"
+href="http://git-scm.com/book/en/Git-Tools-Submodules">submodule</a> infrastructure is powerful and allows for useful separation and integration of codebases. There are however simple operations that do not have a streamlined procedure or strong command line user interface support.</p>
+<p>If you use git submodules in your project you either have run into these or you will. When that happens you will have to look the solution up. Again and again. Let me save you research time: <a
+data-event="clicked" data-uuid="770c98d0-970" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket" data-label="Instapaper" data-label-english="Instapaper"
+href="http://www.instapaper.com">Instapaper</a>, <a
+data-event="clicked" data-uuid="770c98d0-971" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket" data-label="Evernote" data-label-english="Evernote"
+href="http://www.evernote.com">Evernote</a> or old school <a
+data-event="clicked" data-uuid="770c98d0-972" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket" data-label="bookmark" data-label-english="bookmark"
+href="http://support.mozilla.org/en-US/kb/use-bookmarks-to-save-and-organize-websites">bookmark</a> this page (:D:D) and you will be set for a while.</p>
+<p>So, here is what I have for you:</p>
+<h2 > How to swap a git submodule with your own fork
+</h2>
+<p>This is a very common workflow: you start using someone else's project as submodule but then after a while you find the need to customize it and tweak it yourself, so you want to fork the project and replace the submodule with your own fork. How is that done?</p>
+<p>The submodules are stored in <code>.gitmodules</code>:</p>
+<pre><code>$ cat .gitmodules [submodule "ext/google-maps"] path = ext/google-maps url = git://git.naquadah.org/google-maps.git</code></pre>
+<p>You can just edit the url with a text editor and then run the following:</p>
+<pre><code>$ git submodule sync</code></pre>
+<p>This updates <code>.git/config</code> which contains a copy of this submodule list (you could also just edit the relevant <code>[submodule]</code> section of <code>.git/config</code> manually).</p>
+<p><a
+data-event="clicked" data-uuid="cbe26609-f50" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket" data-label="Stack Overflow reference" data-label-english="Stack Overflow reference"
+href="http://stackoverflow.com/questions/11637175/swap-git-submodule-with-own-fork">Stack Overflow reference</a></p>
+<h2 > How do I remove a submodule?
+</h2>
+<p>It is a fairly common need but has a slightly convoluted procedure. To remove a submodule you need to:</p>
+<ol> <li>Delete the relevant line from the <code>.gitmodules</code> file.</li> <li>Delete the relevant section from <code>.git/config</code>.</li> <li>Run <code>git rm --cached path_to_submodule</code> (no trailing slash).</li> <li><p>Commit and delete the now untracked submodule files.</p><p><a
+data-event="clicked" data-uuid="c67c0f0c-3a0" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket" data-label="Stack Overflow reference" data-label-english="Stack Overflow reference"
+href="http://stackoverflow.com/questions/1260748/how-do-i-remove-a-git-submodule">Stack Overflow reference</a></p></li> </ol>
+<h2 > How do I integrate a submodule back into my project?
+</h2>
+<p>Or, in other words, how do I un-submodule a git submodule? If all you want is to put your submodule code into the main repository, you just need to remove the submodule and re-add the files into the main repo:</p>
+<ol> <li><p>Delete the reference to the submodule from the index, but keep the files:</p><pre><code>git rm --cached submodule_path (no trailing slash)</code></pre></li> <li><p>Delete the <code>.gitmodules</code> file <strong>or</strong> if you have more than one submodules edit this file removing the submodule from the list:</p><pre><code>git rm .gitmodules</code></pre></li> <li><p>Remove the <code>.git</code> metadata folder (<strong>make sure you have backup of this</strong>):</p><pre><code>rm -rf submodule_path/.git</code></pre></li> <li><p>Add the <code>submodule</code> to the main repository index:</p><pre><code>git add submodule_path git commit -m "remove submodule"</code></pre></li> </ol>
+<p><strong>NOTE:</strong> The procedure outlined above is <em>destructive</em> for the history of the submodule, in cases where you want to retain a congruent history of your submodules you have to work through a fancy "merge". For more details I defer you to this very complete <a
+data-event="clicked" data-uuid="cdb41feb-8d0" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket" data-label="Stack Overflow reference" data-label-english="Stack Overflow reference"
+href="http://stackoverflow.com/questions/1759587/un-submodule-a-git-submodule">Stack Overflow reference</a>.</p>
+<h2 > How to ignore changes in submodules
+</h2>
+<p>Sometimes your <code>submodules</code> might become <code>dirty</code> by themselves. For example if you use git <code>submodules</code> to track your vim plugins, they might generate or modify local files like <code>helptags</code>. Unfortunately, <a
+data-event="clicked" data-uuid="73c6d257-240" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket" data-label="git status" data-label-english="git status"
+href="https://www.atlassian.com/git/tutorials/inspecting-a-repository/git-status"><code>git status</code></a> will start to annoy you about those changes, even though you are not interested in them at all, and you have no intention of committing them.</p>
+<p>The solution is very simple. Open the file <code>.gitmodules</code> at the root of your repository and for each submodule you want to ignore add <code>ignore = dirty</code>, like in this example:</p>
+<pre><code>[submodule ".vim/bundle/msanders-snipmate"] path = .vim/bundle/msanders-snipmate url = git://github.com/msanders/snipmate.vim.git ignore = dirty</code></pre>
+<p>Thanks to <a
+data-event="clicked" data-uuid="3daa829a-880" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket" data-label="Nils for the great explanation" data-label-english="Nils for the great explanation"
+href="http://www.nils-haldenwang.de/frameworks-and-tools/git/how-to-ignore-changes-in-git-submodules">Nils for the great explanation</a>.</p>
+<h2 > Danger Zone! Pitfalls Interacting with Remotes
+</h2>
+<p>As the <a
+data-event="clicked" data-uuid="3feb33e5-f80" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket" data-label="Git Submodule Tutorial" data-label-english="Git Submodule Tutorial"
+href="https://git.wiki.kernel.org/index.php/GitSubmoduleTutorial">Git Submodule Tutorial</a> on kernel.org reminds us there are a few important things to note when interacting with your remote repositories.</p>
+<p>The first is to <strong>always publish the submodule change before publishing the change to the superproject that references it</strong>. This is critical as it may hamper others from cloning the repository.</p>
+<p>The second is to always <strong>remember to commit all your changes before running <code>git submodule update</code></strong> as if there are changes they will be overwritten!</p>
+<h2 > Conclusions
+</h2>
+<p>Armed with these notes you should be able to tackle many common recurring workflows that come up when using submodules. In a future post I will write about alternatives to <code>git submodule</code>.</p>
+<p>Follow me <a
+data-event="clicked" data-uuid="c312301f-930" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket" data-label="@durdn" data-label-english="@durdn"
+href="http://twitter.com/durdn">@durdn</a> and the awesome <a
+data-event="clicked" data-uuid="c312301f-931" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket" data-label="@Bitbucket" data-label-english="@Bitbucket"
+href="https://twitter.com/Bitbucket">@Bitbucket</a> team for more DVCS rocking.</p>
+<div class="_footer">
+<div> <h6>Share this</h6> <a
+data-event="clicked" data-uuid="2b42be74-210" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket" data-label="Twitter" data-label-english="Twitter"
+href="https://twitter.com/share?url=https%3A%2F%2Fatlassian.com%2F&text=Core Concept, Workflows And Tips">Twitter</a> </div>
+</div>
+</div></div>
+</div>
+<div id="related-post-sidebar" class="related-post">
+<div class="related-post--text">
+<p>Ready to learn Git?</p> <p>Try this interactive tutorial.</p>
+</div>
+<a href="/git/tutorials/learn-git-with-bitbucket-cloud" class="button green-solid standard related-post--link" >Get started now</a>
+</div>
+</div>
+</div>
+<div id="footer" class="footer ">
+<div class="g-row _atlassian-logo">
+<div class="g-column g-12-12">
+<h5 > Powered By
+</h5>
+<a href="https://bitbucket.org" class="cms-link cms-link--image" ><img src="https://wac-cdn.atlassian.com/dam/jcr:c3392b46-dcac-4283-8855-dd8fda6918a0/Bitbucket-white.svg?cdnVersion=1050" loading="lazy" alt="Atlassian"></a>
+</div></div>
+<div class="g-row">
+<div class="g-column g-4-12 t-12-12 m-12-12 t-gutterless">
+<h6 > Recommend
+</h6>
+<a href="https://twitter.com/home?status=Switching%20to%20%23Git?%20Use%20the%20Atlassian%20Git%20tutorials%20to%20jumpstart%20your%20training%20in%20Git%20commands%20and%20workflows.%20https://www.atlassian.com/git" class="cms-link cms-link--image social-code" ><img src="https://wac-cdn.atlassian.com/dam/jcr:69b49692-9452-4dd9-aca1-df56b2bbadbd/icon-twitter.svg?cdnVersion=1050" loading="lazy" alt="Twitter"></a>
+<a href="https://www.facebook.com/sharer/sharer.php?u=https://www.atlassian.com/git" class="cms-link cms-link--image social-code" ><img src="https://wac-cdn.atlassian.com/dam/jcr:9c8da5cb-5272-4e89-9cc1-9a3f52265380/icon-facebook.svg?cdnVersion=1050" loading="lazy" alt="Facebook"></a>
+<a href="https://plus.google.com/share?url=https://www.atlassian.com/git" class="cms-link cms-link--image social-code" ><img src="https://wac-cdn.atlassian.com/dam/jcr:3b592a98-07ca-48a6-8b95-e59eae543341/icon-gplus.svg?cdnVersion=1050" loading="lazy" alt="GooglePlus"></a>
+</div><div class="g-column g-4-12 t-12-12 m-12-12 t-gutterless">
+<h6 > Want future articles?
+</h6>
+<form class="newsletter">
+<input class="is-empty _input" type="email" placeholder="Enter Your Email For Git News">
+<button type="submit" class="_status icon-email-submit">Submit</button>
+</form>
+</div><div class="g-column g-4-12 t-12-12 m-12-12 t-gutterless">
+<h6 > Site hosted by
+</h6>
+<a href="/" class="cms-link cms-link--image xx-active-parent-page-link" ><img src="https://wac-cdn.atlassian.com/dam/jcr:ffd56b30-ad4d-4cb5-94be-79c1dd68b1fb/Atlassian-horizontal-white-rgb.svg?cdnVersion=1050" loading="lazy" alt="Bitbucket" class="_bitbucket-logo"></a>
+</div></div>
+<div class="g-row">
+<div class="g-column g-12-12 t-12-12 m-12-12">
+<p class="license"><a class="icon-global-cclicense"
+data-event="clicked" data-uuid="028d468a-750" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket" data-label="creativecommons.org" data-label-english="creativecommons.org"
+href="http://creativecommons.org/licenses/by/2.5/au/" rel="nofollow">creativecommons.org</a>Except where otherwise noted, all content is licensed under a <a
+data-event="clicked" data-uuid="028d468a-751" data-event-component="linkButton" data-event-container="richText" data-schema-version="1" data-product-key="bitbucket" data-label="Creative Commons Attribution 2.5 Australia License" data-label-english="Creative Commons Attribution 2.5 Australia License"
+href="http://creativecommons.org/licenses/by/2.5/au/" rel="nofollow">Creative Commons Attribution 2.5 Australia License</a>.</p> <style type="text/css">.tutorial-sidebar ._group > a:hover { color: #ccc !important; } .tutorial-sidebar ._group-wrap > a:hover, .tutorial-sidebar ._toc > a:hover { color: #fff; } </style>
+</div></div>
+</div>
+<script type="text/x-component">
+{
+"type":"imkt.components.PageLeaveTracking",
+"params": {
+}
+}
+</script>
+<script type="text/javascript">
+var HTTP_PREFIX = "";
+var FEATURE_FLAG_USE_GDPR = true;
+</script>
+<script type="text/javascript" src="https://wac-cdn.atlassian.com/static/master/4957/assets/build/js/gitguide/git-app-lite.js?cdnVersion=1050"></script>
+<link rel="stylesheet" href="https://wac-cdn.atlassian.com/static/master/4957/assets/build/css/gitguide/site.css?cdnVersion=1050" />
+<script type="text/javascript">
+(function(){
+var imkt = window.imkt = window.imkt || {};
+imkt.isEditMode = false;
+imkt.isProduction = true;
+imkt.constants = imkt.constants || {};
+imkt.constants.rootPath = "/";
+imkt.constants.assetPath = "https://wac-cdn.atlassian.com/static/master/4957" + "/assets/";
+imkt.constants.libPath = imkt.constants.assetPath + "bower_components/";
+imkt.constants.cdnVersionQuery = "?cdnVersion=1050";
+imkt.constants.isDevUser = false;
+imkt.constants.isFreeEnabled = true;
+imkt.constants.getUserAccounts = false;
+imkt.constants.headerLoginMenu = true;
+imkt.constants.public = true;
+imkt.constants.mobileBreakpoint = 640;
+})();
+</script>
+<script type="text/x-component">
+{
+"type":"imkt.pages.WACPage",
+"params": {
+}
+}
+</script>
+<script>
+function initializeATLAnalytics() {
+var pageViewProperties = { contentSite: 'Git Microsite', contentType: 'Microsite', contentProduct: 'Bitbucket' };
+/* get url path, convert to dash format and add it to page view properties. */
+var originProduct = window.location.pathname;
+pageViewProperties.originProduct = "wac" + (originProduct === '/' ? "" : originProduct.replace(new RegExp('/', 'g'),"-"));
+if (typeof ace !== 'undefined') {
+ace.analytics.Initializer.initWithPageAnalytics('kiv6wyh2nw', pageViewProperties, null, null, window.atlGlobalLoadStart);
+}
+}
+</script>
+<script type = "text/javascript">
+/**
+* function to load external js through javascript.
+*
+* @param url - javascript url
+* @param location - location of the dom (e.g. document.head)
+*/
+var loadExternalJS = function(url, location, callback){
+var scriptTag = document.createElement('script');
+scriptTag.src = url;
+scriptTag.type = 'text/javascript';
+/* Then bind the event to the callback function.
+There are several events for cross browser compatibility. */
+scriptTag.onreadystatechange = callback;
+scriptTag.onload = callback;
+window.atlGlobalLoadStart = new Date();
+/* Fire the loading */
+location.appendChild(scriptTag);
+};
+</script>
+<script type="text/plain" class="optanon-category-2">
+loadExternalJS("https://atl-global.atlassian.com/js/atl-global.min.js", document.body, initializeATLAnalytics);
+</script>
+</body>
+<!-- LastRendered: Jun 9, 2023 7:31:27 PM -->
+</html>
