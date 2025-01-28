@@ -1,0 +1,822 @@
+Skip to content <#start-of-content>
+
+<https://gist.github.com/>
+
+All gists <https://gist.github.com/discover> Back to GitHub
+<https://github.com/> Sign in
+<https://gist.github.com/auth/github?return_to=https%3A%2F%2Fgist.github.com%2Fvancluever%2Fd34b41eb77e6d077887c> Sign up <https://gist.github.com/join?return_to=https%3A%2F%2Fgist.github.com%2Fvancluever%2Fd34b41eb77e6d077887c&source=header-gist>
+
+<https://gist.github.com/>
+Sign in
+<https://gist.github.com/auth/github?return_to=https%3A%2F%2Fgist.github.com%2Fvancluever%2Fd34b41eb77e6d077887c> Sign up <https://gist.github.com/join?return_to=https%3A%2F%2Fgist.github.com%2Fvancluever%2Fd34b41eb77e6d077887c&source=header-gist>
+You signed in with another tab or window. Reload to refresh your
+session. You signed out in another tab or window. Reload to refresh your
+session. You switched accounts on another tab or window. Reload to
+refresh your session.
+
+Dismiss alert
+{{ message }}
+
+Instantly share code, notes, and snippets.
+
+@vancluever <https://gist.github.com/vancluever>
+
+
+  vancluever
+  <https://gist.github.com/vancluever>/*gnome-tracker-disable.md
+  <https://gist.github.com/vancluever/d34b41eb77e6d077887c>*
+
+Last active November 13, 2024 18:26
+
+Show Gist options
+
+  *
+
+    Download ZIP
+    <https://gist.github.com/vancluever/d34b41eb77e6d077887c/archive/87fcac7a24ea40eb5b37ed4873dd939c104b0caa.zip>
+
+  *
+
+    Star (188) 188
+    <https://gist.github.com/login?return_to=https%3A%2F%2Fgist.github.com%2Fvancluever%2Fd34b41eb77e6d077887c>You must be signed in to star a gist
+  *
+
+    Fork (41) 41
+    <https://gist.github.com/login?return_to=https%3A%2F%2Fgist.github.com%2Fvancluever%2Fd34b41eb77e6d077887c>You must be signed in to fork a gist
+
+  *
+    Embed
+
+      o
+
+        Embed Embed this gist in your website.
+
+      o
+
+        Share Copy sharable link for this gist.
+
+      o
+
+        Clone via HTTPS Clone using the web URL.
+
+      o
+      o
+
+        Learn more about clone URLs
+        <https://docs.github.com/articles/which-remote-url-should-i-use>
+
+    Clone this repository at &lt;script
+    src=&quot;https://gist.github.com/vancluever/d34b41eb77e6d077887c.js&quot;&gt;&lt;/script&gt;
+
+  * Save vancluever/d34b41eb77e6d077887c to your computer and use it in
+    GitHub Desktop.
+
+Code <https://gist.github.com/vancluever/d34b41eb77e6d077887c>
+
+Revisions 4
+<https://gist.github.com/vancluever/d34b41eb77e6d077887c/revisions>
+
+Stars 188
+<https://gist.github.com/vancluever/d34b41eb77e6d077887c/stargazers>
+
+Forks 41 <https://gist.github.com/vancluever/d34b41eb77e6d077887c/forks>
+
+Embed
+
+  *
+
+    Embed Embed this gist in your website.
+
+  *
+
+    Share Copy sharable link for this gist.
+
+  *
+
+    Clone via HTTPS Clone using the web URL.
+
+  *
+  *
+
+    Learn more about clone URLs
+    <https://docs.github.com/articles/which-remote-url-should-i-use>
+
+Clone this repository at &lt;script
+src=&quot;https://gist.github.com/vancluever/d34b41eb77e6d077887c.js&quot;&gt;&lt;/script&gt;
+
+Save vancluever/d34b41eb77e6d077887c to your computer and use it in
+GitHub Desktop.
+Download ZIP
+<https://gist.github.com/vancluever/d34b41eb77e6d077887c/archive/87fcac7a24ea40eb5b37ed4873dd939c104b0caa.zip>
+GNOME Tracker Disable
+Raw
+<https://gist.github.com/vancluever/d34b41eb77e6d077887c/raw/87fcac7a24ea40eb5b37ed4873dd939c104b0caa/gnome-tracker-disable.md>
+*gnome-tracker-disable.md * <#file-gnome-tracker-disable-md>
+
+
+  Disabling GNOME Tracker and Other Info
+
+<#disabling-gnome-tracker-and-other-info>
+
+GNOME's tracker is a CPU and privacy hog. There's a pretty good case as
+to why it's neither useful nor necessary here:
+http://lduros.net/posts/tracker-sucks-thanks-tracker/
+<http://lduros.net/posts/tracker-sucks-thanks-tracker/>
+
+After discovering it chowing 2 cores, I decided to go about disabling it.
+
+
+    Directories
+
+<#directories>
+
+|~/.cache/tracker
+~/.local/share/tracker
+|
+
+After wiping and letting it do a fresh index on my almost new desktop,
+the total size of each of these directories was a whopping 3.9 GB!
+
+
+    Startup Files
+
+<#startup-files>
+
+On my Ubuntu GNOME setup, I found the following files:
+
+|$ ls  /etc/xdg/autostart/tracker-*
+/etc/xdg/autostart/tracker-extract.desktop
+/etc/xdg/autostart/tracker-miner-fs.desktop
+/etc/xdg/autostart/tracker-store.desktop
+/etc/xdg/autostart/tracker-miner-apps.desktop
+/etc/xdg/autostart/tracker-miner-user-guides.desktop
+|
+
+You can disable these by adding |Hidden=true| to them. It's best done in your local |.config| directory because 1) you don't need sudo and 2) you are pretty much
+guaranteed that your changes won't be blown away by an update.
+
+
+    The |tracker| Binary
+
+<#the-tracker-binary>
+
+Running |tracker| will give you a vast array of tools to check on tracker and manage its
+processes.
+
+|$ tracker
+usage: tracker [--version] [--help]
+               <command> [<args>]
+
+Available tracker commands are:
+   daemon    Start, stop, pause and list processes responsible for indexing content
+   info      Show information known about local files or items indexed
+   index     Backup, restore, import and (re)index by MIME type or file name
+   reset     Reset or remove index and revert configurations to defaults
+   search    Search for content indexed or show content by type
+   sparql    Query and update the index using SPARQL or search, list and tree the ontology
+   sql       Query the database at the lowest level using SQL
+   status    Show the indexing progress, content statistics and index state
+   tag       Create, list or delete tags for indexed content
+
+See 'tracker help <command>' to read about a specific subcommand.
+|
+
+
+    Non-Invasive Disable Cheat Sheet
+
+<#non-invasive-disable-cheat-sheet>
+
+This disables everything but |tracker-store|, which even though it has a |.desktop| file, seems tenacious and starts up anyway. However, nothing gets indexed.
+
+|tracker daemon -t
+cd ~/.config/autostart
+cp -v /etc/xdg/autostart/tracker-*.desktop ./
+for FILE in tracker-*.desktop; do echo Hidden=true >> $FILE; done
+rm -rf ~/.cache/tracker ~/.local/share/tracker
+|
+
+Note that |tracker daemon -t| is for graceful termination. If you are having issues terminating
+processes or just want to take your frustration out, |tracker daemon -k| immediately kills all processes.
+
+After this is done, |tracker-store| will still start on the next boot. However, nothing will be indexed.
+Your disk and CPU will be better for wear.
+
+|$ tracker status
+Currently indexed: 0 files, 0 folders
+Remaining space on database partition: 123 GB (78.9%)
+All data miners are idle, indexing complete
+|
+
+
+    Other References
+
+<#other-references>
+
+  * https://wiki.gnome.org/Projects/Tracker/
+    <https://wiki.gnome.org/Projects/Tracker/>
+  * https://wiki.ubuntu.com/Tracker <https://wiki.ubuntu.com/Tracker>
+  * http://standards.freedesktop.org/desktop-entry-spec/latest/ar01s05.html <http://standards.freedesktop.org/desktop-entry-spec/latest/ar01s05.html>
+
+Load earlier comments...
+
+@clumsyfingers <https://gist.github.com/clumsyfingers>
+Copy link
+
+
+      *clumsyfingers <https://gist.github.com/clumsyfingers> * commented
+      Oct 14, 2017
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=2229628#gistcomment-2229628>
+
+NB use at your own risk
+
+seems you can prevent tracker-store from starting by deleting (or
+backing up) /usr/lib64/systemd/user/tracker*.service
+might be located elsewhere on your system
+the files are called tracker-extract.service, tracker-store.service etc
+at least tracker-store hasnt started since i killed those files. not
+seen any ill effects including searcing in nautilus
+
+Sorry, something went wrong.
+
+@maysam-h <https://gist.github.com/maysam-h>
+Copy link
+
+
+      *maysam-h <https://gist.github.com/maysam-h> * commented Dec 22,
+      2017
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=2302266#gistcomment-2302266>
+
+this is a good tutorial but unfortunately this does not work for me. I
+made a simple script to kill the trackers process. It will surely kill
+the process before it exits. Here is the link: https://goo.gl/7A23fK
+<https://goo.gl/7A23fK>
+
+Sorry, something went wrong.
+
+@vancluever <https://gist.github.com/vancluever>
+Copy link
+
+Author
+
+
+      *vancluever <https://gist.github.com/vancluever> * commented Jan
+      5, 2018
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=2311865#gistcomment-2311865>
+
+WOW I never noticed this had so much traffic! I hope that everyone found
+it (somewhat) useful - I personally didn't intend it to be anything else
+other than personal notes. But yeah all these comments withstanding this
+is probably pretty out of date information. I actually switched to Arch
+and i3 for a long time a few months after writing this and haven't
+really bothered to touch it on my Fedora installs (I don't think I've
+noticed anywhere close to the same performance hit that I think led me
+to it in the first place).
+
+Sorry, something went wrong.
+
+Copy link
+
+
+      *ghost <https://gist.github.com/ghost> * commented Feb 3, 2018
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=2340698#gistcomment-2340698>
+
+You can use /Gnome Settings -> Search/ to disable or restrict tracker.
+When you start that GUI it shows which applications not which file
+system locations.
+Click on the gear icon to access the controls for enabling/disabling
+file system locations.
+Unfortunately, when I use an sshfs mount inside my home directory
+tracker access to it cannot be controlled via that GUI.
+
+Sorry, something went wrong.
+
+@grigio <https://gist.github.com/grigio>
+Copy link
+
+
+      *grigio <https://gist.github.com/grigio> * commented Mar 6, 2018
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=2371851#gistcomment-2371851>
+
+Thanks
+
+Sorry, something went wrong.
+
+@scruss <https://gist.github.com/scruss>
+Copy link
+
+
+      *scruss <https://gist.github.com/scruss> * commented May 14, 2018
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=2588817#gistcomment-2588817>
+
+Can't live without tracker. With an SSD, if it takes more than momentary
+time to index, there's something wrong. If it's chewing CPU, there's a
+chance it's found a file that's breaking the indexer. You can find and
+triage the offending file with this process:
+https://askubuntu.com/a/914602/68093 <https://askubuntu.com/a/914602/68093>
+
+Sorry, something went wrong.
+
+@soerensen3 <https://gist.github.com/soerensen3>
+Copy link
+
+
+      *soerensen3 <https://gist.github.com/soerensen3> * commented Aug
+      8, 2018
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=2673660#gistcomment-2673660>
+
+Thanks!
+
+Sorry, something went wrong.
+
+@Mark-Booth <https://gist.github.com/Mark-Booth>
+Copy link
+
+
+      *Mark-Booth <https://gist.github.com/Mark-Booth> * commented Aug
+      14, 2018
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=2678503#gistcomment-2678503>
+
+Thanks for this gist, it was really useful, but please update it to use |tracker-*.desktop;| rather than |ls| since not everyone reads through all of the comments to find the
+corrections. I've just had to manually remove the lines added to all of
+my other |autostart| files.
+
+Sorry, something went wrong.
+
+@maage <https://gist.github.com/maage>
+Copy link
+
+
+      *maage <https://gist.github.com/maage> * commented Sep 30, 2018
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=2720132#gistcomment-2720132>
+
+Thanks.
+It seems I can't access:
+http://lduros.net/posts/tracker-sucks-thanks-tracker/
+<http://lduros.net/posts/tracker-sucks-thanks-tracker/>
+
+Sorry, something went wrong.
+
+@tyagiakhilesh <https://gist.github.com/tyagiakhilesh>
+Copy link
+
+
+      *tyagiakhilesh <https://gist.github.com/tyagiakhilesh> * commented
+      Feb 4, 2019
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=2827646#gistcomment-2827646>
+
+Thanks, found what I was looking for.
+
+Sorry, something went wrong.
+
+@nilands55s <https://gist.github.com/nilands55s>
+Copy link
+
+
+      *nilands55s <https://gist.github.com/nilands55s> * commented Apr
+      23, 2019
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=2896061#gistcomment-2896061>
+
+The easy solution is to open /usr/lib/tracker/ and find the files
+"tracker-miner-fs" and "tracker-store" select properties and under the
+Permissions tab un-select the "Execute: [] Allow Executing file as a
+Program". With out this property the programs will not load.Problem
+solved. This could also be done in a command line. "chmod -x
+/usr/lib/tracker/tracker-store" and "chmod -x
+/usr/lib/tracker/tracker-miner-fs" and could be made not to change these
+attributes with the "chattr +i" to add immutable. There are two other
+files in this directory I did this to but I am not sure of the necessity
+of changing them
+
+Sorry, something went wrong.
+
+@v-marinkov <https://gist.github.com/v-marinkov>
+Copy link
+
+
+      *v-marinkov <https://gist.github.com/v-marinkov> * commented May
+      7, 2019
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=2911249#gistcomment-2911249>
+
+@nilands55s <https://github.com/nilands55s> your solution and in
+particular "tracker-store" causes Files to not be able to launch on Pop
+OS 19.04. I went with the original solution and even added more
+services. Thanks to all!
+
+Sorry, something went wrong.
+
+@byroniac <https://gist.github.com/byroniac>
+Copy link
+
+
+      *byroniac <https://gist.github.com/byroniac> * commented May 15,
+      2019
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=2918389#gistcomment-2918389>
+
+    Another option: in Ubuntu, one can use this GUI
+    <http://askubuntu.com/a/499777/18682>. If it's not installed
+    already, just do |sudo apt-get install tracker-gui|.
+
+For whatever reason, this package is not (yet?) available in Ubuntu
+19.04, where I'm having this problem.
+
+Sorry, something went wrong.
+
+@skuhl <https://gist.github.com/skuhl>
+Copy link
+
+
+      *skuhl <https://gist.github.com/skuhl> * commented Jun 6, 2019
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=2936962#gistcomment-2936962> •
+      edited
+
+      Loading
+
+|for FILE in `ls`; do echo Hidden=true >> $FILE; done|
+
+Should be changed to the following to prevent it from adding
+"Hidden=true" to the end of any files already existing in
+~/.config/autostart :
+
+|for FILE in tracker-*.desktop; do echo Hidden=true >> $FILE; done|
+
+I really wish tracker would skip indexing files can't be indexed with
+minimal cpu or memory. I understand that the goal is to index
+everything, but I'd rather it skip some file that requires even just
+512MB of memory or more than a second of 100% cpu usage (even if it
+legitimately those resources to index the file). Worse, there isn't any
+obvious user-facing feedback that tracker is the cause (short of top or
+system monitor) and/or which file is causing the problem. I think
+tracker would be nice if they sorted out these issues.
+
+Sorry, something went wrong.
+
+@vancluever <https://gist.github.com/vancluever>
+Copy link
+
+Author
+
+
+      *vancluever <https://gist.github.com/vancluever> * commented Jun
+      6, 2019
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=2937020#gistcomment-2937020>
+
+I can't believe that this is still being used! I've updated it with the
+oft mentioned fix to the pretty obvious oversight with the blind |ls|.
+
+Again, I haven't touched or used this in years, and never messed with it
+on my most recent Fedora installs. YMMV.
+
+Sorry, something went wrong.
+
+@skuhl <https://gist.github.com/skuhl>
+Copy link
+
+
+      *skuhl <https://gist.github.com/skuhl> * commented Jun 6, 2019
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=2937032#gistcomment-2937032>
+
+I think Ubuntu 19.04 was the first Ubuntu distribution to include
+tracker. This probably increased the number of tracker users in recent
+months and caused some of the interest in this. For me, there is(are)
+some file(s) that tracker occasionally touches that makes my machine
+crawl until the OOM killer decides to kill tracker. I don't know the
+tracker details, but it seems to regularly occur when I run a script
+which touches a lot of the files in my home directory.
+
+Sorry, something went wrong.
+
+@byroniac <https://gist.github.com/byroniac>
+Copy link
+
+
+      *byroniac <https://gist.github.com/byroniac> * commented Jun 6,
+      2019
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=2937039#gistcomment-2937039>
+
+I've always been a GNOME guy, but I'm beginning to dislike GNOME in
+certain specifics if not in general, because of unnecessary (to me)
+tools like this (to be fair, these tools are appreciated and desired by
+some, apparently). I'm very thankful that this has been provided.
+
+Sorry, something went wrong.
+
+@zeus86 <https://gist.github.com/zeus86>
+Copy link
+
+
+      *zeus86 <https://gist.github.com/zeus86> * commented Jun 21, 2019
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=2949999#gistcomment-2949999>
+
+Thank you very much, this helped me out alot and saved me at least an
+hour of searching for this issue.
+
+Sorry, something went wrong.
+
+@zdyxry <https://gist.github.com/zdyxry>
+Copy link
+
+
+      *zdyxry <https://gist.github.com/zdyxry> * commented Jul 5, 2019
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=2962324#gistcomment-2962324>
+
+Thanks.
+
+Sorry, something went wrong.
+
+@rohanshukla94 <https://gist.github.com/rohanshukla94>
+Copy link
+
+
+      *rohanshukla94 <https://gist.github.com/rohanshukla94> * commented
+      Jul 18, 2019
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=2973636#gistcomment-2973636> •
+      edited
+
+      Loading
+
+Thanks mate this worked perfectly for me on Pop OS.
+https://gist.github.com/vancluever/d34b41eb77e6d077887c#non-invasive-disable-cheat-sheet <https://gist.github.com/vancluever/d34b41eb77e6d077887c#non-invasive-disable-cheat-sheet>
+
+Sorry, something went wrong.
+
+@Joshfindit <https://gist.github.com/Joshfindit>
+Copy link
+
+
+      *Joshfindit <https://gist.github.com/Joshfindit> * commented Oct
+      22, 2019
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=3062822#gistcomment-3062822>
+
+Interesting (possible new) quirk on a fresh install of Pop!_OS 19.10:
+I have an |sshfs| automount (through |fstab|) drive with ~80000 files, and even if I let it finish (15-30min,
+resulting in |Currently indexed: 108823 files, 28495 folders|), it will completely drop all that metadata on the next reboot
+(resulting in |Currently indexed: 149 files...|)
+Currently watching all the logs as well as |/tmp/tracker-extract-files.1000/|, but preliminary results are not promising.
+
+Sorry, something went wrong.
+
+@logix2 <https://gist.github.com/logix2>
+Copy link
+
+
+      *logix2 <https://gist.github.com/logix2> * commented May 1, 2020
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=3279444#gistcomment-3279444>
+
+Nowadays you can disable Tracker easier, by masking its systemd
+services, see here
+<https://www.linuxuprising.com/2019/07/how-to-completely-disable-tracker.html>
+
+Sorry, something went wrong.
+
+@gaellafond <https://gist.github.com/gaellafond>
+Copy link
+
+
+      *gaellafond <https://gist.github.com/gaellafond> * commented Jun
+      18, 2020
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=3346224#gistcomment-3346224> •
+      edited
+
+      Loading
+
+Ubuntu 20.04 user here. I tried all of these and still, the damn tracker
+was using 100% of a CPU core none stop. I look for over an hour, trying
+all the answers I could find. At the end, I had enough. I deleted the
+autostart files and rebooted the computer:
+|$ sudo rm /etc/xdg/autostart/tracker*|
+Still, the damn tracker process was sucking up my CPU. I can't uninstall
+the sucker since that would uninstall Ubuntu desktop binaries, so I
+deleted the tracker binaries and rebooted:
+|$ sudo rm /usr/libexec/tracker*|
+That did the trick. It's a radical solution, I know. I would not
+recommend anyone to do this, but it does work.
+
+Sorry, something went wrong.
+
+@alex4buba <https://gist.github.com/alex4buba>
+Copy link
+
+
+      *alex4buba <https://gist.github.com/alex4buba> * commented Sep 13,
+      2020
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=3451946#gistcomment-3451946>
+
+I am new to Linux, just moved here after 30+ years in Windows... Am
+afraid to follow things, maybe I will damage something...
+Using KDE Plasma over Ubuntu 20.04 and am getting this error:
+
+A start job for unit fwupd-refresh.service has finished with a failure.
+The job identifier is 2337 and the job result is failed.
+
+What should I do?
+Thanks
+
+Sorry, something went wrong.
+
+@wachin <https://gist.github.com/wachin>
+Copy link
+
+
+      *wachin <https://gist.github.com/wachin> * commented Nov 5, 2021
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=3952341#gistcomment-3952341>
+
+Thanks
+
+Sorry, something went wrong.
+
+@eevmanu <https://gist.github.com/eevmanu>
+Copy link
+
+
+      *eevmanu <https://gist.github.com/eevmanu> * commented Mar 2, 2022
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=4082790#gistcomment-4082790>
+
+    Nowadays you can disable Tracker easier, by masking its systemd
+    services, see here
+    <https://www.linuxuprising.com/2019/07/how-to-completely-disable-tracker.html>
+
+👍 , thx @logix2 <https://github.com/logix2>
+
+Testing with the directories and it works (stop increasing the disk usage):
+
+|$ du -shc .cache/tracker/
+380K	.cache/tracker/
+380K	total
+
+$ du -shc .local/share/tracker/
+84K	.local/share/tracker/
+84K	total
+|
+
+also, if you're confortable with terminal, I strongly recommend:
+
+  * |fzf| <https://github.com/junegunn/fzf> to search patterns on filenames
+  * |ripgrep| <https://github.com/BurntSushi/ripgrep> to search patterns over
+    files content
+
+Sorry, something went wrong.
+
+@TadoTheMiner <https://gist.github.com/TadoTheMiner>
+Copy link
+
+
+      *TadoTheMiner <https://gist.github.com/TadoTheMiner> * commented
+      Jun 11, 2023
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=4596129#gistcomment-4596129>
+
+thanks for the files. Im on fedora and tracker command was not found. so
+I only deleted the .desktop files in xdg autostart
+
+Sorry, something went wrong.
+
+@cfgnunes <https://gist.github.com/cfgnunes>
+Copy link
+
+
+      *cfgnunes <https://gist.github.com/cfgnunes> * commented Jun 18,
+      2023
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=4603009#gistcomment-4603009>
+
+
+      Ubuntu 22.04 (workaround to disable Tracker3)
+
+To disable Tracker3 on Ubuntu 22.04 and avoid updates:
+
+sudo apt-mark hold tracker
+sudo apt-mark hold tracker-extract
+sudo apt-mark hold tracker-miner-fs
+
+sudo chmod -x /usr/libexec/tracker-extract-3
+sudo chmod -x /usr/libexec/tracker-miner-fs-3
+
+tracker3 reset --filesystem --rss # Clean all database
+tracker3 daemon --terminate
+
+To undo:
+
+sudo apt-mark unhold tracker
+sudo apt-mark unhold tracker-extract
+sudo apt-mark unhold tracker-miner-fs
+
+sudo chmod +x /usr/libexec/tracker-extract-3
+sudo chmod +x /usr/libexec/tracker-miner-fs-3
+
+tracker3 daemon --start
+
+This solution is a workaround. But it works.
+
+If you want to check all settings of Tracker3 for the current user, run
+the command:
+
+gsettings list-recursively | grep Tracker3
+
+In this settings it is possible to enable or disable the Tracker3 for
+specific directories.
+
+Sorry, something went wrong.
+
+@fir3-1ce <https://gist.github.com/fir3-1ce>
+Copy link
+
+
+      *fir3-1ce <https://gist.github.com/fir3-1ce> * commented Dec 17,
+      2023
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=4796238#gistcomment-4796238>
+
+
+          Ubuntu 22.04 (workaround to disable Tracker3)
+
+    To disable Tracker3 on Ubuntu 22.04 and avoid updates:
+
+    sudo apt-mark hold tracker
+    sudo apt-mark hold tracker-extract
+    sudo apt-mark hold tracker-miner-fs
+
+    sudo chmod -x /usr/libexec/tracker-extract-3
+    sudo chmod -x /usr/libexec/tracker-miner-fs-3
+
+    tracker3 reset --filesystem --rss # Clean all database
+    tracker3 daemon --terminate
+
+    To undo:
+
+    sudo apt-mark unhold tracker
+    sudo apt-mark unhold tracker-extract
+    sudo apt-mark unhold tracker-miner-fs
+
+    sudo chmod +x /usr/libexec/tracker-extract-3
+    sudo chmod +x /usr/libexec/tracker-miner-fs-3
+
+    tracker3 daemon --start
+
+    This solution is a workaround. But it works.
+
+    If you want to check all settings of Tracker3 for the current user,
+    run the command:
+
+    gsettings list-recursively | grep Tracker3
+
+    In this settings it is possible to enable or disable the Tracker3
+    for specific directories.
+
+This makes it so that Nautilus crashes if you attempt to search
+anything. Beware
+
+Sorry, something went wrong.
+
+@cfgnunes <https://gist.github.com/cfgnunes>
+Copy link
+
+
+      *cfgnunes <https://gist.github.com/cfgnunes> * commented May 2,
+      2024
+      <https://gist.github.com/vancluever/d34b41eb77e6d077887c?permalink_comment_id=5044088#gistcomment-5044088>
+
+Hi, @fir3-1ce <https://github.com/fir3-1ce> ! In fact... But I find
+another solution:
+
+*Step 1*
+
+systemctl --user mask tracker-extract-3.service tracker-miner-fs-3.service tracker-miner-rss-3.service tracker-writeback-3.service tracker-xdg-portal-3.service tracker-miner-fs-control-3.service
+
+*Step 2*
+
+tracker3 reset --filesystem --rss
+
+*Step 3*
+Reboot the system
+
+References: https://ubuntuforums.org/showthread.php?t=2488303
+<https://ubuntuforums.org/showthread.php?t=2488303>
+
+Sorry, something went wrong.
+
+Sign up for free <https://gist.github.com/join?source=comment-gist> *to
+join this conversation on GitHub*. Already have an account? Sign in to
+comment
+<https://gist.github.com/login?return_to=https%3A%2F%2Fgist.github.com%2Fvancluever%2Fd34b41eb77e6d077887c>
+
+
+    Footer
+
+<https://github.com/> © 2025 GitHub, Inc.
+
+
+      Footer navigation
+
+  * Terms
+    <https://docs.github.com/site-policy/github-terms/github-terms-of-service>
+  * Privacy
+    <https://docs.github.com/site-policy/privacy-policies/github-privacy-statement>
+  * Security <https://github.com/security>
+  * Status <https://www.githubstatus.com/>
+  * Docs <https://docs.github.com/>
+  * Contact <https://support.github.com/?tags=dotcom-footer>
+  *
+    Manage cookies
+
+  *
+    Do not share my personal information
+
+You can’t perform that action at this time.
+normal
